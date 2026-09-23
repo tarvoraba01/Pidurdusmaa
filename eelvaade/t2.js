@@ -1,0 +1,32 @@
+const { chromium } = require('/home/claude/web/node_modules/playwright');
+(async () => {
+  const b = await chromium.launch({executablePath: '/opt/pw-browsers/chromium'});
+  const p = await (await b.newContext({viewport:{width:1366,height:800}})).newPage();
+  const errs=[]; p.on('pageerror',e=>errs.push(e.message)); p.on('console',m=>{if(m.type()==='error')errs.push(m.text())});
+  const log=async (lbl)=>{ await p.waitForTimeout(500); console.log(lbl.padEnd(28), (await p.title()).slice(0,60), '|', (await p.$eval('#sisu', m=>m.textContent.replace(/\s+/g,' ').trim().slice(0,70)))); };
+  await p.goto('file:///tmp/prev/t.html'); await p.waitForTimeout(1500); console.log('  enne vajutust peidus:', await p.$eval('#tulemus', e=>e.hidden)); await p.click('[data-go]'); await p.click('[data-go-default]'); await p.waitForTimeout(400); await log('avaleht');
+  console.log('  tulemus:', await p.textContent('[data-r-big]'));
+  await p.click('.nav > a[href$="/testid/"]'); await log('Testid');
+  await p.click('#sisu a[href*="testid/adac25"]'); await log('ADAC25');
+  await p.click('#sisu table a >> nth=0'); await log('rehvileht (testist)');
+  console.log('  widget:', (await p.textContent('[data-tw-out]')).replace(/\s+/g,' ').slice(0,60));
+  const vs = await p.$('#sisu a[href*="-vs-"]'); if (vs) { await vs.click(); await log('vs-leht'); }
+  await p.click('.nav > a[href$="/rehvid/"]'); await log('Rehvid');
+  await p.click('#sisu .sizes-list a >> nth=0'); await log('mõõdu leht');
+  await p.click('#sisu table a >> nth=3'); await log('EPREL rehvileht');
+  await p.click('text=Võrdle seda rehvi'); await log('võrdle (rehvilehelt)');
+  await p.click('.nav > a[href$="/teadmine/"]'); await log('Teadmine');
+  await p.click('#sisu a >> text=Kuidas pidurdusmaa arvutatakse'); await log('metoodika');
+  await p.click('.ft-b a'); await log('tingimused');
+  await p.goBack(); await log('tagasi');
+  await p.click('.dd-btn'); await p.click('.dd-menu >> text=Vali rehv enda tingimustele'); await log('rehvi valimine');
+  await p.click('[data-ct=main][data-v=quiet]'); await p.waitForTimeout(400);
+  console.log('  kaarte:', await p.$$eval('.rcard', x=>x.length));
+  await p.click('.logo'); await log('logo -> avaleht');
+  await p.click('[data-go]'); await p.click('[data-go-default]'); await p.waitForTimeout(400); await p.click('[data-r-valik]'); await log('riba -> valik-vaheleht'); console.log('  valik nähtav:', !(await p.$eval('[data-home=valik]', e=>e.hidden)));
+  await p.goto('file:///tmp/prev/t.html?p=/olematu/'); await p.waitForTimeout(1500); await log('404');
+  await p.click('.burger'); await p.waitForTimeout(200); console.log('  paneel nähtav:', await p.isVisible('#pm-panel'));
+  await p.click('#pm-panel >> text=Võrdle rehve kõrvuti'); await log('paneel -> võrdle');
+  console.log('JS vead:', JSON.stringify(errs));
+  await b.close();
+})();

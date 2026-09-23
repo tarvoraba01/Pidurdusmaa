@@ -1,0 +1,41 @@
+====================================================================================================
+ETAPP 2 — ADAC 2025 (31 rehvi x 5 pinda) + rehvirõhu kõver
+====================================================================================================
+
+1) Tuletan iga rehvi G märja asfaldi katsest (31 rehvi)
+   G vahemik 0.93 … 1.42, mediaan 1.28
+   -> need G-d on nüüd AINUS rehvipõhine sisend. Kõik ülejäänud
+      neli pinda ennustatakse nendest + globaalsetest konstantidest.
+
+2) Sobitan globaalsed konstandid (üks parameeter pinna kohta)
+   kuiv asfalt    = 0.889   n=31, keskmine viga 2.1 %, halvim 6.7 %
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/claude/pidurdus/calibrate_adac.py", line 326, in <module>
+    main()
+  File "/home/claude/pidurdus/calibrate_adac.py", line 192, in main
+    cal, _ = optimise_fn(cal, params, subset, fn, grid=True)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/claude/pidurdus/calibrate_adac.py", line 305, in optimise_fn
+    c = cost(cal)
+        ^^^^^^^^^
+  File "/home/claude/pidurdus/calibrate_adac.py", line 298, in cost
+    return statistics.mean(abs(e) for _, _, e in errors(m, anchors, tyre_fn))
+                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/claude/pidurdus/calibrate.py", line 57, in errors
+    p = predict(model, a, ty)
+        ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/claude/pidurdus/calibrate.py", line 50, in predict
+    return model.distance_between(ty, veh, cond, a.v_from_kmh, a.v_to_kmh)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/claude/pidurdus/model.py", line 653, in distance_between
+    return self.stopping_distance(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/claude/pidurdus/model.py", line 543, in stopping_distance
+    mu = self.mu_at_speed(tyre, veh, cond, v)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/claude/pidurdus/model.py", line 393, in mu_at_speed
+    mu *= cal.concrete_factor[tyre.category]
+          ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+TypeError: 'float' object is not subscriptable

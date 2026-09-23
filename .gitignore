@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+.DS_Store
+node_modules/
+*.log
+
+# ÄRA KUNAGI: võtmed ja paroolid
+*key*.txt
+*.pem
+.env

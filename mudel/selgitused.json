@@ -1,0 +1,245 @@
+{
+ "_meta": {
+  "kirjeldus": "Infomullikeste sisu pidurdusmaa kalkulaatori kõigile sisendväljadele. Iga kirje: 'pealkiri' (mullikese päis), 'abi' (kuidas valida), 'tapsus' (kui hästi mudel seda teab), 'usaldus' (korge/keskmine/madal/puudub). Fail on tahtlikult JSON, et sama sisu saaks kasutada nii Pythoni mootor kui ka hilisem veebiliides.",
+  "pohimote": "Mullike selgitab SISENDIT. Tulemuse enda veapiir ja usaldus tuleb mootorist (Result.sigma_rel, Result.confidence, Result.warnings) ja muutub iga arvutusega. Ära dubleeri neid.",
+  "valideerimise_alus": "351 mõõdetud pidurdusmaad viiest testiseansist, pluss 85 mõõdetud akvaplaneerimise ujumiskiirust neljast testist ja kaks järjestuskontrolli. Vt anchors*.py.",
+  "versioon": "2026-09-17a"
+ },
+ "pinnas": {
+  "_valja_abi": "Vali teekate, millel pidurdad. See on kõige suurema mõjuga valik kogu kalkulaatoris — kuiva asfaldi ja jää vahe on kuni viiekordne pidurdusmaa.",
+  "ASPHALT": {
+   "pealkiri": "Asfalt",
+   "abi": "Tavaline sõidutee. Kui tee on märg, määra veekile paksus eraldi allpool — see muudab tulemust rohkem kui miski muu.",
+   "tapsus": "Mudeli parim pind. Kuival 93 mõõtmist, viga 2,9 %; märjal 85 mõõtmist, viga 4,3 %. Igal rehvil on siin oma mõõdetud arv, mitte kategooria keskmine.",
+   "usaldus": "korge",
+   "taust": "KUIVA KOHTA ÜKS LEVINUD ARUSAAMATUS. Kuiva pidurdust ei ole EL-i rehvimärgisel — ja sellest jääb vahel mulje, et mudelil pole kuiva kohta andmeid. On küll, ja rohkem kui ühelgi teisel pinnal.\n\nMis PUUDUB, on ametlik iga rehvi kohta olemasolev number nii, nagu märja kohta on indeks G. Kontrollitud kogu maailmas: USA UTQG \"traction\" hinne on MÄRG, Jaapani ja Hiina märgised katavad ainult veeretakistust, märghaaret ja müra.\n\nPraktiline vahe: märjal saab mudel numbri iga Euroopas müüdava rehvi kohta, ka selle kohta, mida keegi pole testinud. Kuival ainult nende rehvide kohta, mida testijad on päriselt mõõtnud.\n\nAUTO kohta on kuiv pidurdus reguleeritud: UN R13-H nõuab igalt sõiduautolt kuival vähemalt 0,656 g. See on põrand — päris autod annavad 1,0–1,2 g."
+  },
+  "CONCRETE": {
+   "pealkiri": "Betoon",
+   "abi": "Sillad, tunnelid, mõned tööstusalad ja parklad. Käitub asfaldile lähedaselt, aga on tüüpiliselt veidi siledam — eriti vana, poleeritud betoon.",
+   "tapsus": "65 mõõtmist kolmes testis, viga 5,4 %. Märg betoon on asfaldist libedam ja vahe on ühtlane kõigi rehvikategooriate vahel.",
+   "usaldus": "korge"
+  },
+  "SNOW_PACKED": {
+   "pealkiri": "Tallatud lumi",
+   "abi": "Kõva, sõidetud lumekiht tee peal. Kui lumi on värske ja pehme ning rehv vajub sisse, vali 'lahtine lumi'.",
+   "tapsus": "Kontrollitud 47 mõõtmise vastu, keskmine viga 3,2 %. Kõige nõrgem koht on 0 °C lähedal. Põhjamaade ja naastrehvi taga on ainult üks test kummalgi, seega neil on veapiir laiem.",
+   "usaldus": "keskmine",
+   "taust": "MIS ON MÕÕDETUD. Lamell- ja Kesk-Euroopa talverehvid tulevad kahest ADAC-i testist, kokku 47 mõõtmisest 30 → 0 km/h. Üllatus sealt: head lamellrehvid on 30 km/h lumepidurduses talverehvidega praktiliselt võrdsed. Suuremal kiirusel ja kurvis vahe kasvab, aga seda kalkulaator ei arvuta.\n\nPÕHJAMAADE JA NAASTREHVID said oma esimesed lumemõõtmised alles hiljuti: naelutu UTAC-i katsest (viis rehvi, −8 °C), naast Za Rulemi omast (neli rehvi). Üks test kummalgi vs 47 mõõtmist teistel — sama pinnanimi, kümme korda erinev tõendus.\n\n0 °C LÄHEDAL ei määra haaret termomeeter, vaid see, kas lumes on vaba vett. Kuiv tallatud lumi −1 °C juures ja sama lumi päikese käes sulamas erinevad rohkem kui kogu temperatuurikõver. Virginia Techi mõõtmistes seletab lume kõvadus haarde varieeruvusest 85–95 %, temperatuur 0,7–2,2 %.\n\nMIKS KÜLMA POOL ON TASANE: lennunduse tabelid ütlevad, et alla −15 °C on tallatud lumi 25 % haardevam, aga see on komiteehinnang. Päris sõidukikatse (−29 °C vs 0 °C) ütles, et talverehviga vahet ei olnud. Kui kaks allikat on vastuolus ja üks on mõõtmine, võidab mõõtmine."
+  },
+  "SNOW_LOOSE": {
+   "pealkiri": "Lahtine lumi",
+   "abi": "Värske, tallamata lumi.\n\nVarem oli siin kirjas, et rehvi ette tekkiv lumevall aitab pidurdada. See oli minu oletus ja andmed ütlevad vastupidist: lahtisel lumel on haare tallatud lumest VÄIKSEM, mitte suurem.",
+   "tapsus": "Suurusjärk, mitte number. Otseseid mõõtmisi lahtisel lumel ei ole avaldatud — rehviajakirjad mõõdavad ainult tallatud lund, sest katsemeetod nõuab kokkupressitud pinda. Mudeli laiem veapiir.",
+   "usaldus": "madal",
+   "taust": "Kordaja tallatud lume suhtes tuleb kahest kaudsest allikast: lennunduse tabel annab kuiva lahtise ja tallatud lume suhteks 0,80–1,00, üks uuring uue ja vana lume suhteks 0,83.\n\nLumekihi paksust kalkulaator ei küsi. Lörtsil käitub asi hoopis teisiti — seal tekib kiirusest sõltuv tõstejõud nagu akvaplaneerimisel — ja lörtsi mudel ei kata üldse."
+  },
+  "ICE": {
+   "pealkiri": "Jää",
+   "abi": "Paljas sile jää KOGU pidurdusteel — jäätunud parkla, mitte talvine tee, kus on jäälaike. Temperatuur on siin kõige tugevam tegur: jää on kõige libedam 0 °C lähedal.",
+   "tapsus": "61 mõõtmist, viga 5,0 %. EL-i märgis ei kata jäähaaret numbriliselt, ainult linnukesega. Ühes testis oli naastrehvide vahel jääl 65 % vahe — mudel ütleb klassi tüüpilise, mitte sinu rehvi.",
+   "usaldus": "madal",
+   "taust": "Paljas sile jää KOGU pidurdusteel — jäätunud parkla, mitte talvine tee, kus on jäälaike. Päris teel on jäine lõik enamasti lühike.\n\nTEMPERATUUR on jääl tugevam tegur kui kiirus. Jää on kõige libedam 0 °C lähedal, kus pinnal on õhuke veekiht.\n\nKUS ON PÄRIS ANDMEID. Jäämärgise määrab ISO 19447 ja see lubab katsetada ainult jääl −15…−5 °C. Iga sertifitseeritud jäähaarde number maailmas on sellest aknast. Mudeli kõver ulatub kaugemale ja on seal ekstrapolatsioon.\n\nSama standard katab ainult sõiduautorehve. Kaubikurehvil ei saagi jäämärgist olla, isegi kui ta on jääl hea.\n\nJa pea meeles: sama haare, mis piirab pidurdamist, piirab ka kiirendamist. Kui paned siia 90 km/h, arvutab mudel ausalt selle pidurdusmaa — aga sellel pinnal poleks sa sinna kiiruseni jõudnud."
+  },
+  "GRAVEL": {
+   "pealkiri": "Kruus",
+   "abi": "Kuiv kokkusõidetud kruusatee. Kruus käitub teistmoodi kui kõik muu: lukus ratas kaevub ja pidurdab paremini kui ABS.",
+   "tapsus": "18 mõõtmist, keskmine viga 3,1 %. Kruusal EI saa mudel rehvimudeleid järjestada — ja see on mõõdetud tulemus, mitte andmete puudumine. Märga ja külmunud kruusa ei kata üldse.",
+   "usaldus": "keskmine",
+   "taust": "MIKS REHVE EI JÄRJESTATA. Üks test mõõtis 17 rehvi sama autoga nii kruusal kui asfaldil. Kruusal oli parima ja halvima vahe 10 %, asfaldil 16 % — aga JÄRJESTUS oli peaaegu vastupidine. Asfaldil kõige halvem rehv oli kruusal teine parim. Rehvi asfaldinumbritest ei saa kruusa tulemust tuletada, ja mudelil muud sisendit ei ole.\n\nMIS KRUUSAL LOEB. Kaks asja, mõlemad mõõdetud ja mõlemad suuremad kui rehvivalik:\n\nABS. Kruus on ainus pind, kus ABS pidurdusmaad PIKENDAB — kahes sõltumatus testis 24–30 %. Lukus ratas kaevub kruusa ja lükkab enda ette valli, mis ise pidurdab; ABS hoiab ratta veerlemas ja valli ei teki.\n\nMUSTRISÜGAVUS, ja see sõltub ABS-ist. ABS-iga läheb kadu mustri kulumisega järjest suuremaks; lukus rattaga küllastub — vallile on ükskõik, mis muster rehvil on.\n\nMIDA EI OLE: märg kruus, külmunud kruus, talverehv kruusal. Otsitud kuues keeles, avaldatud mõõtmisi ei ole."
+  }
+ },
+ "vesi": {
+  "_valja_abi": "Veekile paksus tee ja rehvi vahel. NB: see EI OLE sama mis vihma hulk. 20 mm/h vihma uuel dreeniva pinnaga asfaldil võib jätta õhema veekihi kui 5 mm/h vihma roopalisel vanal teel. Kui sa ei tea, vali oma silmade järgi.",
+  "pealkiri": "Kui märg on tee?",
+  "abi": "Kuiv (0 mm) — täiesti kuiv.\nNiiske (0,2 mm) — tee on tume, aga vett peal ei näe. Just kuivama hakanud või kerge udu.\nMärg (1 mm) — tavaline vihmasadu, rehvid teevad pritsmeid.\nVäga märg (3 mm) — tugev sadu, tee peal on nähtav veekiht.\nSeisev vesi (5 mm+) — lombid, roopad täis vett, akvaplaneerimise oht.",
+  "tapsus": "Veekihi paksus on mudelis sama nähtuse osa mis kiirus, muster ja rõhk — kõik neli määravad, millal rehv vee peale tõuseb. Ankrutes on ainult üks veekile paksus (1 mm), seega paksem vesi on ekstrapolatsioon.",
+  "usaldus": "keskmine",
+  "hoiatus_akvaplaneering": "Kui kiirus läheneb akvaplaneerimise lävele, ei ole pidurdusmaa enam usaldusväärselt ennustatav — akvaplaneerimine on järsk nähtus, mitte sujuv. Mudel märgib sellised tulemused ise madala usaldusega."
+ },
+ "tekstuur": {
+  "_valja_abi": "Teekatte karedus. Mõju on MÄRJAL ja see sõltub KIIRUSEST: suurel kiirusel on kare kate selgelt parem, linnakiirusel vastupidi. Kuival mõjutab ainult poleeritus.",
+  "COARSE_NEW": {
+   "pealkiri": "Uus / kare kate",
+   "abi": "Hiljuti pandud asfalt, selgelt krobeline pind, rehvimüra on kõrge. Vesi pääseb pinna tekstuuri ära.",
+   "tapsus": "Katte karedus mõjutab MÄRJAL ja mõju sõltub KIIRUSEST: suurel kiirusel on kare kate parem, linnakiirusel vastupidi. Ükski mudeli ankur ei varieeri tekstuuri, seega siin on veapiir laiem.",
+   "usaldus": "keskmine",
+   "taust": "MIKS KIIRUSEST SÕLTUV. Katte karedus on veeärajuhtimine, ja vett on vaja ära juhtida seda rohkem, mida kiiremini sõidad. Teedeuuringud sõnastavad selle nii: mikrotekstuur määrab haarde SUURUSE, makrotekstuur haarde ja KIIRUSE seose.\n\nMõõdetud näide: kareda ja sileda katte haarde suhe oli 48 km/h juures 1,03, 64 km/h juures 1,25 ja 80 km/h juures 1,44. Üks kordaja ei kata seda vahemikku.\n\nPraktikas: 90 km/h juures on kare kate märjal umbes sama hea kui tavaline, 120 km/h juures 11 % parem — aga 30 km/h juures 18 % HALVEM. Madalal kiirusel ei ole vett vaja ära juhtida ja karedal pinnal on tegelik kontaktpind väiksem.\n\nAUS PIIRANG: tasemenimede vastendus tekstuurisügavusele on oletus. Kuju on tõendatud, vastendus mitte."
+  },
+  "NORMAL": {
+   "pealkiri": "Tavaline kate",
+   "abi": "Enamik teid. Kui sa ei tea, vali see — mudel on täpselt selle peale kalibreeritud.",
+   "tapsus": "Mudeli võrdlusalus. Kõik valideerimisnumbrid kehtivad täpselt siin ja tavaline kate annab kordajaks täpselt 1,000 igal kiirusel.",
+   "usaldus": "korge"
+  },
+  "WORN_SMOOTH": {
+   "pealkiri": "Kulunud / sile / roopad",
+   "abi": "Vana kate, mis on liiklusest siledaks kulunud. Roopad on eriti halvad, sest neisse koguneb vesi.",
+   "tapsus": "Kulunud kate on märjal suurel kiirusel halvem ja väikesel kiirusel pisut parem kui tavaline. Roopaid mudel ei arvuta — need on vee, mitte tekstuuri küsimus.",
+   "usaldus": "keskmine",
+   "taust": "Sama kiirusest sõltuv pöördumine, mis on kirjeldatud kareda katte mullikeses.\n\nROOBAS ei ole tekstuuri küsimus vaid vee kogunemise oma, ja see käib mudelis akvaplaneerimise kaudu. Kui tead, et roopas seisab vesi, tõsta pigem veekihi paksust.\n\nÜks piirang, mis tasub teada: tekstuuri mõju on SILEDA rehviga suur ja hea mustriga rehviga väike — muster teeb sama tööd mis katte karedus. Mudelis on mustril oma eraldi liige, seega need kaks kattuvad osaliselt."
+  },
+  "POLISHED": {
+   "pealkiri": "Poleeritud",
+   "abi": "Läikima kulunud pind: vana betoon, teekattemärgistus, ristmike keskosad, mustrikivi. Ainus tekstuur, mis mõjutab ka KUIVA teed, sest kadu on kivi pinna peensuses, mitte vee äravoolus.",
+   "tapsus": "Ainus tekstuur, mis mõjutab ka KUIVA teed, sest kadu on kivi pinna peensuses, mitte vee äravoolus. Mõõdetud kadu on 9 %, mitte nii suur, kui libe pind tunduda võib.",
+   "usaldus": "madal",
+   "taust": "Poleerimine hävitab MIKROtekstuuri — kivi pinna peensuse —, aga katte karedus jääb alles. Üks katse mõõtis seda otse: haare enne 0,431, pärast 90 000 poleerimiskäiku 0,393. Ja kui mikrotekstuur liivapritsiga tagasi tehti, tõusis haare 0,679-ni — mis tõestab, et kadu oligi mikrotekstuuris.\n\nKUIVAL ei mõjuta katte karedus mudelis midagi. Ühtegi mõõdetud kuiva hõõrde ja karedust siduvat seost ei leitud: kõik haardemõõteseadmed nõuavad standardi järgi veekilet, kuiva lihtsalt ei mõõdeta.\n\nPäris poleeritud pinnad — vana betoon, teekattemärgistus, ristmike keskosad — võivad olla halvemad, kui mudel ütleb, sest seal tuleb sageli juurde ka määrdumine."
+  }
+ },
+ "temperatuur": {
+  "pealkiri": "Teepinna temperatuur",
+  "abi": "NB: teepinna, mitte õhu temperatuur. Päikesepaistel on asfalt õhust soojem, öösel ja varjus jahedam. Kui sa ei tea, kasuta õhutemperatuuri — viga on väike.\n\nSuverehv kaotab alla +7 °C haaret kiiresti. Talverehv seevastu on külmaga oma parimas vormis ja kaotab soojaga.",
+  "tapsus": "Kõverad on kummisegude tüüpiline käitumine kirjandusest, mitte selle mudeli mõõtmised. Ankrutest on 215 tükki 369-st täpselt +10 °C juures, seega temperatuuri nad praktiliselt ei kitsenda.",
+  "usaldus": "keskmine",
+  "taust": "NB: teepinna, mitte õhu temperatuur.\n\nÜKS KONTROLL ON OLEMAS. Test Worldi tunnelikatses peatub +2 °C märjal lamellrehv lühemalt kui nii suverehv kui Kesk-Euroopa talverehv. Mudel ei läbinud seda algselt — kirjandusest võetud kõver andis talverehvile külmas liiga suure võidu. Talverehvi külmavõitu vähendati, kuni järjestus klappis.\n\nJÄÄ KÕVER on kõige tugevam vahemikus −15…−5 °C, sest jäähaarde standard (ISO 19447) lubabki katsetada ainult seal. Väljaspool seda on ta kirjandusest ehitatud ekstrapolatsioon — ja 0 °C lähedal, mis on Eestis kõige tavalisem jääolukord, on ta kõige nõrgem.\n\nKaks asja, mis kõvera kuju määrasid: kõik leitud kummi-jää mõõtmised −38…−2 °C näitavad monotoonset kasvu külma poole (levinud väide tipust −10…−30 °C juures tuleb uisu- ja suusakirjandusest ega kandu rehvile üle); ja kalle on võetud sõiduki, mitte laboriproovi skaalalt, sest päris pidurduskontaktis tekib hõõrdesoojus."
+ },
+ "rohk": {
+  "pealkiri": "Rehvirõhk",
+  "abi": "Võrdle auto soovitusliku rõhuga (tavaliselt kütuseluugi või juhiukse sildil).\n\nOluline ja üllatav: kuival ja tavalisel märjal teel muudab rõhk vähem, kui enamik arvab — ±0,3 bar on praktiliselt mürataseme sees. Rõhk hakkab tõsiselt lugema seisvas vees, kus ta määrab akvaplaneerimise läve, ja ABS-ita autol.",
+  "tapsus": "Rõhukõver on sobitatud 30 mõõdetud suhtarvu vastu, viga 1,3 %. ABS-ita autol on rõhu mõju palju suurem — see tugineb ühele allikale ja on mudeli kõige julgem üksikarv.",
+  "usaldus": "keskmine"
+ },
+ "muster": {
+  "pealkiri": "Mustrisügavus",
+  "abi": "Uue suverehvi muster on 7–8 mm, talverehvil 8–9 mm.\n\nSEISUNDI NUPUD liigutavad korraga mustrit ja vanust:\n• Uus — 8 mm, 1 a. Nii tuleb rehv poest, ja see on õige võrdlusalus, kui valid, MIDA OSTA.\n• Eesti keskm. — 4,5 mm, 6 a. Tüüpiline kasutuses olev rehv Eesti teel.\n• Piiril — seaduslik miinimum, 10 a. NB: piir sõltub rehvitüübist — suverehvil 1,6 mm, talve- ja lamellrehvil talvel 3,0 mm. Nupp näitab, kumb parajasti kehtib.",
+  "tapsus": "Siin on mõõtmisi rohkem kui vanuse kohta. DEKRA mõõtis 100 km/h märjal, 1 mm vett: 2–3 mm muster annab uuest 16–18 % pikema pidurdusmaa. Mudel annab samas punktis 14,5 % — samas suurusjärgus, veidi tagasihoidlikum.",
+  "usaldus": "korge",
+  "taust": "EESTI PIIRID: suverehvil 1,6 mm, talverehvil talvel 3,0 mm. Transpordiamet soovitab vahetada juba alla 2 mm.\n\nMIS SEE PRAKTIKAS TÄHENDAB. DEKRA katses jõudis kulunud rehviga auto sinna, kus uue rehviga auto oli juba seisma jäänud, kiirusega umbes 30 km/h. Vahe ei ole mõni meeter lõpus, vaid kokkupõrge või mitte.\n\nMIKS ÜHTE ARVU EI OLE. Euroopa Komisjoni ülevaade ütleb, et 1,6 mm juures on pidurdusmaa 30–65 % pikem. See on vahemik, mitte üks arv, sest mustri mõju sõltub täielikult sellest, kui palju vett teel on ja kui kiiresti sõidad. Mudel käitub samamoodi: sama rehv annab 1 mm vee ja 50 km/h juures +7 %, 1 mm vee ja 100 km/h juures +19 %, ja 2,5 mm vee ja 100 km/h juures juba üle 150 %, sest seal läheb kulunud rehv akvaplaneerimisse ja uus mitte.\n\nKuival ei muuda muster peaaegu midagi. Kogu mõju on vees — muster on ainus asi, mis vett rehvi alt ära juhib. Seepärast käib see mudelis peamiselt akvaplaneerimise kaudu, mitte eraldi kordajana."
+ },
+ "vanus": {
+  "pealkiri": "Rehvi vanus",
+  "abi": "Kumm kõveneb ajaga ka siis, kui muster on alles. Tootmiskuupäev on rehvi küljel DOT-koodi neljas viimases numbris: nädal + aasta.",
+  "tapsus": "Mudelis EI OLE ühtegi vanuseankrut — kõik 369 mõõtmist on tehtud uute rehvidega. Mõju on siin teadlikult väike, sest vananenud aga kulumata rehvi haardekadu ei ole kusagil meetrites avaldatud.",
+  "usaldus": "madal",
+  "taust": "EESTIS EI OLE REHVI VANUSEPIIRANGUT. Varem oli 10 aasta piir, aga see kaotati 2005. aastal. 2017. aastal tehti ettepanek 6–7 aasta piiri kehtestada; ministeerium keeldus, viidates Euroopa Komisjoni uuringule ja põhjendusega, et rehvi omaduste halvenemine ei sõltu ainult vanusest.\n\nNB: mõnel Eesti rehvilehel seisab siiani, et üle 10 aasta vanuseid rehve ei tohi kasutada. See viitab 2001. aasta määrusele, mis on tühistatud. See ei kehti.\n\nMIKS SEE EESTIS OLULINE ON. Kui aastas sõidetakse keskmiselt 15 000 km ja auto all on kaks komplekti, saab iga komplekt umbes 7500 km aastas. Mõõdetud kulumiskiirusega tähendab see, et 8 mm mustri kulutamiseks seadusliku piirini kulub umbes 8–12 aastat. Ehk paljudel autodel saab rehv VANAKS enne, kui ta kulub — ja midagi ei sunni teda välja vahetama. (Arvutuskäik on tuletatud kahest avaldatud numbrist, mitte eraldi Eesti uuring.)\n\nMIDA TOOTJAD SOOVITAVAD: kontrolli 5 aasta pärast, vaheta 10 aastaga. ADAC soovitab talverehvil mitte üle 8 aasta. Need on soovitused, mitte mõõtmised — ja seda, kui palju vana aga kulumata rehv haaret kaotab, ei ole avalikult meetrites avaldatud."
+ },
+ "abs": {
+  "_valja_abi": "Auto mõjutab pidurdusmaad peamiselt ÜHE asja kaudu: kui suure osa rehvi tipphaardest pidurisüsteem reaalselt kätte saab. Mass taandub füüsikas peaaegu välja.",
+  "NONE": {
+   "pealkiri": "ABS puudub",
+   "abi": "Enne 1990. aastat ehitatud autod ja osa 90ndate algusest. Lukustunud ratas libiseb ja libisemishõõre on tipphaardest oluliselt madalam — lisaks kaob rooli juhitavus.",
+   "tapsus": "Ilma ABS-ita on pidurdusmaa asfaldil oluliselt pikem ja auto kaotab roolitavuse. KRUUSAL on vastupidi: lukus ratas kaevub ja pidurdab paremini kui ABS.",
+   "usaldus": "madal"
+  },
+  "EARLY": {
+   "pealkiri": "Varane ABS (u 1990–2003)",
+   "abi": "Esimeste põlvkondade ABS. Töötab, aga reguleerib jämedamalt ja kaotab tipphaardest rohkem kui tänapäevane süsteem.",
+   "tapsus": "Kordaja kirjandusest, ankruid ei ole — mõlemad valideerimistestid on tehtud uute autodega.",
+   "usaldus": "keskmine"
+  },
+  "MODERN": {
+   "pealkiri": "Kaasaegne ABS + EBD (u 2004–2014)",
+   "abi": "Elektroonilise pidurdusjõu jaotusega süsteem. Suurem osa Eesti sõidukipargist on täpselt siin — 2004-2014 on kõige levinum vanusevahemik.",
+   "tapsus": "Kordaja kirjandusest, otseseid ankruid ei ole.",
+   "usaldus": "keskmine"
+  },
+  "LATEST": {
+   "pealkiri": "Kaasaegne ABS + pidurdusabi (2015+)",
+   "abi": "Tänapäevane süsteem, mis tunneb hädapidurduse ära ja rakendab täisjõu ka siis, kui juht ei vajuta piisavalt tugevalt. ESC on kõigil uutel autodel kohustuslik alates 1.11.2014.",
+   "tapsus": "Mõlemad valideerimistestid on tehtud selle klassi autodega (VW Golf 8, Audi A3), nii et kõik valideerimisnumbrid kehtivad täpselt siin.",
+   "usaldus": "korge"
+  },
+  "taust": "MIKS MASS EI LOE. Pidurdusaeglustus on a = μg — auto mass on mõlemal pool võrdust ja taandub välja. Ta tuleb sisse ainult kaudselt, rehvi koormustundlikkuse ja õhutakistuse kaudu, ja õhutakistus annab 130 km/h juures 1–2 %. Seega kui mõni tühimass on siin 50 kg mööda, ei muuda see praktiliselt midagi — aga vale ABS-i põlvkond muudaks palju.\n\nABS-I PÕLVKONNA PIIRID tulevad EL-i tähtaegadest: ABS kohustuslik uutel sõiduautodel alates 2004, ESC uutel tüüpidel 1.11.2011 ja kõigil uutel 1.11.2014. Seega: kuni 2003 varane, 2004–2014 kaasaegne, 2015+ uusim.\n\nAUTODE VALIK on tehtud Eesti kasutatud turu ja registri järgi, mitte uute autode müügi järgi. Registris on 674 747 sõiduautot ja pargi keskmine vanus on vaieldav — 17 aastat koos peatatud registreeringutega, 13 aastat tegelikult liikuvatel.\n\nMassid, mõõdud, teljevahed, rõhud ja OEM-mõõdud on tootja andmed sinna, kuhu need leiti; ülejäänud on märgitud hinnanguks ja seda näed selle auto rea juures."
+ },
+ "koormus": {
+  "pealkiri": "Koormus",
+  "abi": "Juht, kaassõitjad ja pagas. Mõju on väiksem, kui enamik arvab.",
+  "tapsus": "Füüsikas mass taandub välja (a = μg), nii et raskem auto ei peatu automaatselt kaugemal. Mass tuleb sisse ainult kaudselt: rehvi koormustundlikkuse kaudu (μ langeb veidi, kui rehvi koormus kasvab) ja õhutakistuse/massi suhte kaudu. Täiskoormus lisab tüüpiliselt 1–3 % pidurdusmaad, mitte 20 %.",
+  "usaldus": "korge"
+ },
+ "kiirus": {
+  "pealkiri": "Algkiirus",
+  "abi": "Kiirus, millelt pidurdad. Pidurdusmaa kasvab kiiruse RUUDUS — kaks korda kiiremini tähendab neli korda pikemat pidurdusmaad.\n\nKiirus peab pinnaga kokku sobima. Jääl ja lumel annab suur kiirus matemaatiliselt õige, aga elus võimatu numbri: sellisele libedale ei kiirenda ükski auto sellise kiiruseni. Kui nii juhtub, näitab kalkulaator tulemuse juures 'füüsika äärmus' ja arvutab välja, kui kaua ja kui pikalt sellel pinnal üldse kiirendada saaks.",
+  "tapsus": "Asfaldil on mudel valideeritud 80–100 km/h juures, lumel ja jääl 20–50 km/h. Väljaspool seda kasvab veapiir automaatselt ja leht ütleb seda ka välja.",
+  "usaldus": "keskmine"
+ },
+ "kalle": {
+  "pealkiri": "Tee kalle",
+  "abi": "Allamäge pikendab pidurdusmaad, ülesmäge lühendab. 10 % kalle on juba päris järsk tee.",
+  "tapsus": "Puhas füüsika (raskusjõu komponent), ei vaja valideerimist. Mudel ei arvesta seda, et järsul laskumisel võivad pidurid kuumeneda.",
+  "usaldus": "korge"
+ },
+ "pidurite_seisukord": {
+  "_valja_abi": "SEDA EI PEA PUUTUMA. Vaikimisi arvutab kalkulaator terve autoga, kus piirajaks on rehv, mitte pidur. Nii käivad ka kõik ametlikud pidurdustestid.",
+  "KORRAS": {
+   "pealkiri": "Korras (100 %)",
+   "abi": "Kõik töötab, sealhulgas normaalselt kulunud klotsidega. Vali see, kui pidur ei vibreeri, ei kisu autot kõrvale ega vaju põrandasse.",
+   "tapsus": "Terve tänapäevase auto pidurid suudavad rohkem, kui rehv üldse teele edasi anda jõuab — umbes 1,3 g vs rehvi 1,15 g kuival ja 0,75 g märjal. Ehk piirajaks on rehv ja seda mudel arvutabki. Sellepärast ei muuda pidurite seisukord siin midagi, ja see ongi õige vastus.",
+   "usaldus": "korge"
+  },
+  "NORGENENUD": {
+   "pealkiri": "Nõrgenenud (~85 %)",
+   "abi": "Vana pidurivedelik, mis on niiskust tõmmanud; klaasistunud või õliga saastunud klotsid; kergelt kinni jääv pidurisadul. Auto peatub, aga pedaal tundub 'pehme' või pidurdusjõud ebaühtlane.",
+   "tapsus": "Pidurite seisukord piirab tulemust ainult siis, kui ta jääb rehvi haardest allapoole. Kuival asfaldil juhtub see kiiresti, lumel ja jääl peaaegu mitte kunagi.",
+   "usaldus": "madal"
+  },
+  "VIGANE": {
+   "pealkiri": "Selgelt vigane (~65 %)",
+   "abi": "Kinnikiilunud pidurisadul, tõsiselt saastunud klotsid, üks pidurikontuur ei tööta. Auto peaks olema remondis, mitte teel.",
+   "tapsus": "Mudelil ei ole selle kohta ankruid. Arvutus ise on korrektne — pidurdusjõu lagi lihtsalt langeb allapoole rehvi võimekust —, aga see, kas konkreetne rike vastab just 65 %-le, on oletus.",
+   "usaldus": "madal"
+  },
+  "KRIITILINE": {
+   "pealkiri": "Kriitiline (~45 %)",
+   "abi": "Lõhkenud pidurivoolik ehk kadunud pidurikontuur, või mäest alla korduvast pidurdamisest üle kuumenenud pidurid (fade). Selles seisus autoga ei tohi sõita.",
+   "tapsus": "Siin piiravad pidurid, mitte rehv. Kui su pidurid on päriselt sellises seisus, ei ole see kalkulaatori küsimus vaid töökoja oma.",
+   "usaldus": "madal"
+  },
+  "_mittelineaarsus": "Mõju EI OLE lineaarne ja see on oluline. Kuni pidurid suudavad rohkem kui rehv, ei muuda nende nõrgenemine mitte midagi — ja siis, kui nad langevad rehvi võimekusest allapoole, hakkab pidurdusmaa järsult kasvama. Kuival algab see u 90 % juures, märjal alles u 65 % juures. Ehk osaliselt vigased pidurid annavad end esimesena üles KUIVAL, mitte vihmaga — vastupidi sellele, mida enamik eeldab.",
+  "_tulemuses": "Kui pidurid langevad rehvi võimekusest allapoole, näitab mootor tulemuses 'piiraja: pidurid' ja lisab hoiatuse, et parem rehv siin ei aitaks. See on kasutajale kasulikum info kui number ise.",
+  "taust": "See valik on siin ainult selleks, kui tahad NÄHA, mida katkised pidurid teevad. See EI OLE klotside kulumine — normaalselt kulunud, aga korras klotsid annavad endiselt 'korras'. Alla selle tähendab tegelikku riket või ülekuumenemist.\n\nMõnel autol jääb piirajaks pidur ka siis, kui pidurid on korras — näiteks vanal Ladal kuival asfaldil. See ei ole sinu valik vaid auto omadus, ja tulemuse juures ütleb 'piiraja' seda ise.\n\nPidurivõimekusel on ka regulatiivne põrand: UN R13-H nõuab igalt sõiduautolt kuival vähemalt 0,656 g."
+ },
+ "tulemus": {
+  "pealkiri": "Kuidas tulemust lugeda",
+  "abi": "Number on hinnang koos veapiiriga, mitte mõõtmine. Veapiir näitab, kus tulemus umbes 2 korral 3-st tegelikult on.\n\nVõrdlus on usaldusväärsem kui üksik number. Kui mudelil on süstemaatiline nihe — kate karedam kui eeldatud, pidurid paremad — siis see nihe mõjub kõigile rehvidele ühtemoodi ja taandub võrdluses välja. Ehk 'see rehv peatub 8 m varem kui too' on kindlam väide kui 'sa peatud 34,7 meetriga'.",
+  "hoiatus": "Ära kasuta neid numbreid pikivahe valikuks. Kalkulaator on mõeldud rehvide võrdlemiseks ja selle mõistmiseks, kuidas kiirus, ilm ja rehviseisund pidurdusmaad mõjutavad.",
+  "usaldus": "korge"
+ },
+ "rehvituup": {
+  "_valja_abi": "Vali kõigepealt rehvi tüüp — siis pakub kalkulaator ainult selle tüübi rehve. Tüüp määrab kummisegu temperatuurikäitumise ja selle, mida rehv lumel ja jääl üldse suudab. Sulgudes on rehvide arv.",
+  "SUMMER_UHP": {
+   "pealkiri": "Suverehv · sport (UHP)",
+   "abi": "Kõrge kiiruseindeksiga jõudlusrehv. Parim haare soojal kuival asfaldil, aga kummisegu kõveneb külmas kõige kiiremini kogu valikust. Alla +7 °C on ta halvem kui tavaline suverehv.",
+   "tapsus": "Enam mitte nõrk koht: 18 rehvi × 3 pinda ADAC-i 2025 suvetestist. Kuivbaas on nüüd selgelt eristunud tavalisest suverehvist (1,32 vs 1,21), mida varem ühe ankruga eristada ei saanud.",
+   "usaldus": "korge"
+  },
+  "SUMMER_TOURING": {
+   "pealkiri": "Suverehv",
+   "abi": "Tavaline suverehv. Eestis mõistlik umbes aprillist oktoobrini. Talvel keelatud ja ka ohtlik — kummisegu on külmas kõva nagu plastik.",
+   "tapsus": "Hästi kaetud: 9 kuiva ja 4 märga ankrut UTAC-i testist, pluss märghaardumine tuleb otse EL-märgiselt. Temperatuurikõver on kirjandusest, aga üks ankrutest on tehtud keskmisena +2…+17 °C vahemikus, mis kinnitab kõvera kuju.",
+   "usaldus": "keskmine"
+  },
+  "ALL_SEASON": {
+   "pealkiri": "Lamellrehv (all-season)",
+   "abi": "Aastaringne kompromiss 3PMSF-märgisega. Eesti oludes kevad ja sügis on tema tugevus: külmal märjal teel lööb ta suverehvi selgelt. Päris talvel jääb talverehvile alla, suvel kuumal asfaldil suverehvile.",
+   "tapsus": "16 rehvi viiel pinnal. Lumel üllatavalt lähedal talverehvile 30 km/h pidurduses; jääl ja suurel kiirusel vahe kasvab.",
+   "usaldus": "korge"
+  },
+  "WINTER_CENTRAL": {
+   "pealkiri": "Talverehv · Kesk-Euroopa",
+   "abi": "Naelutu talverehv, mis on tehtud pigem lume ja märja külma asfaldi kui paljas jää jaoks. Käitub asfaldil paremini kui Põhjamaade rehv, jääl kehvemini.",
+   "tapsus": "Mudeli kõige paremini kaetud talvekategooria: 31 rehvi viiel pinnal. Lumel ja jääl on see ainus kategooria, kus võrdlus töötab rehvimudeli kaupa.",
+   "usaldus": "korge"
+  },
+  "WINTER_NORDIC": {
+   "pealkiri": "Talverehv · Põhjamaade naelutu",
+   "abi": "Põhjamaade naelutu talverehv (Hakkapeliitta R, VikingContact, X-Ice Snow). Jääl parim naelutu valik; kuival asfaldil pehme ja pikema pidurdusmaaga.",
+   "tapsus": "Jääl kõige tugevam naelutu valik. Lumel on tal mudelis ainult ÜKS mõõdetud test taga (viis rehvi), seega veapiir on laiem kui Kesk-Euroopa talverehvil.",
+   "usaldus": "keskmine"
+  },
+  "WINTER_STUDDED": {
+   "pealkiri": "Naastrehv",
+   "abi": "Naelrehv. Jääl ületamatu, lumel naelutuga võrdne, paljal asfaldil kehvem ja lärmakam. Eestis lubatud 15. oktoobrist 31. märtsini (kuupäevi kontrolli alati ise — seda kalkulaator ei jälgi).\n\nSama hoiatus mis Põhjamaade naelutul: naastrehvid akvaplaneerivad u 19 % varem kui Kesk-Euroopa talverehvid, hoolimata sügavamast mustrist.",
+   "tapsus": "Jääl parim, mis olemas. Lumel on tal mudelis üks test taga (neli rehvi) ja kuival asfaldil jääb ta talverehvile alla. Eestis lubatud 1. oktoobrist 30. aprillini.",
+   "usaldus": "keskmine"
+  }
+ },
+ "rehv": {
+  "pealkiri": "Rehv ja täht selle järel",
+  "abi": "Vali rehv nimekirjast või kirjuta nimi otsingusse. Täht riba ees on mudeli tuletatud märghaardumise klass.",
+  "tapsus": "Sisend on EL-i märghaardumise indeks G — ainus haardenumber, mis on iga Euroopas müüdava rehvi kohta ametlikult mõõdetud. Siinsed G-d on tuletatud päris testide pidurdusmaadest, seega täht ei pruugi kokku langeda rehvi küljel oleva märgisega.",
+  "usaldus": "keskmine",
+  "taust": "MIS SEE TÄHT ON. UNECE R117 mõõdab kandidaatrehvi pidurdusvõimet standardse referentsrehvi vastu, samal kattel, 1 mm vee peal. See on ainus ametlik haardenumber, mis igal rehvil olemas on.\n\nMIKS SIINNE TÄHT VÕIB ERINEDA. Need G-d ei ole märgiselt loetud, vaid tagurpidi arvutatud päris testide pidurdusmaadest. See annab ühe rehvi kohta täpsema arvu, aga tulemuseks olev TÄHT võib olla teine. Kontrollitud näide: Continental PremiumContact 7 on päris märgisel klass A, mudel näitab B-d.\n\nJA MÄRGIS ISE ON MÕÕDUPÕHINE. Sama rehvimudel võib olla ühes mõõdus A ja teises B, nii et üks täht ühe rehvimudeli kohta on igal juhul ligikaudne.\n\nKUI PALJU TÄHT ÜTLEB: märjal on ta hea järjestaja. Lumel ja jääl ei ütle ta peaaegu mitte midagi. Üks test näitas rehvi, mis oli märghaardumiselt 31 seast viimane ja SAMAL AJAL nii lumel kui jääl kogu testi parim."
+ }
+}

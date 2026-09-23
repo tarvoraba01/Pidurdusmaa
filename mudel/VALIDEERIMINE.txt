@@ -1,0 +1,53 @@
+====================================================================================================
+PIDURDUSMAA MUDEL — kalibreerimine ja valideerimine
+====================================================================================================
+
+1) Märghaardumine: sobitan k_G (mu_märg = k_G · G)
+   NB: märja kiirusesõltuvus (wet_lift_b) ja akvaplaneerimise
+   lävi (hp_*) EI OLE siin sobitatavad — ankrutes on ainult üks
+   märja katse alguskiirus (80 km/h) ja üks veekile paksus.
+   Need tulevad kirjandusest ja vajavad eraldi valideerimist
+   (vt README, 'Teadaolevad puudujäägid').
+   k_G = 0.6513   (ehk A-klassi rehv, G=1.60 -> mu_ref = 1.042 asfaldil 20 °C, 1 mm vett, 80 km/h)
+   hüdrodünaamiline tegur wet_lift_b = 1.15 [kirjandusest, fikseeritud]
+
+2) Kuivhaardumine: sobitan kategooriapõhise baasi
+   lamellrehv / all-season                mu_kuiv = 1.039
+   suverehv (touring)                     mu_kuiv = 1.208
+   suverehv (UHP / sport)                 mu_kuiv = 1.314
+   talverehv (Kesk-Euroopa)               mu_kuiv = 0.889
+   talverehv (Põhjamaade, naelutu)        mu_kuiv = 0.801
+   naastrehv                              mu_kuiv = 0.782
+
+3) Jää: sobitan kategooriapõhise baasi (-5 °C)
+   lamellrehv / all-season                mu_jää  = 0.098
+   talverehv (Kesk-Euroopa)               mu_jää  = 0.089
+   talverehv (Põhjamaade, naelutu)        mu_jää  = 0.203
+   naastrehv                              mu_jää  = 0.270
+
+----------------------------------------------------------------------------------------------------
+REŽIIM A — mudel teab ainult EPREL-i infot (kategooria + G-klass)
+----------------------------------------------------------------------------------------------------
+  kuiv asfalt                        n=93  keskmine viga   2.9 %   nihe  +0.2 %   90% kvantiil   6.5 %   halvim  10.2 %   ±10% sees  99 %   ±15% sees 100 %
+  märg asfalt                        n=85  keskmine viga   4.2 %   nihe  +0.2 %   90% kvantiil   7.2 %   halvim  14.9 %   ±10% sees  93 %   ±15% sees 100 %
+  jää                                n=61  keskmine viga   5.0 %   nihe  -1.1 %   90% kvantiil  12.0 %   halvim  20.4 %   ±10% sees  80 %   ±15% sees  95 %
+  KÕIK                               n=351 keskmine viga   4.0 %   nihe  -0.9 %   90% kvantiil   8.7 %   halvim  25.5 %   ±10% sees  92 %   ±15% sees  98 %
+
+----------------------------------------------------------------------------------------------------
+VALIDEERIMINE 1 — ristkontroll kahe sõltumatu testi vahel
+  k_G sobitatakse AINULT talvetestile (TM25, VW Golf, 205/55 R16)
+  ja seda kasutatakse ennustamaks suvetesti (UT25, Audi A3,
+  225/45 R17) — teine labor, teine auto, teine rehvitüüp.
+----------------------------------------------------------------------------------------------------
+   ainult TM25 pealt sobitatud k_G = 0.6718 (kõigi andmete peal 0.6513)
+  TM25 (sobitatud, in-sample)        n=14  keskmine viga   3.2 %   nihe  +0.3 %   90% kvantiil   5.8 %   halvim   9.5 %   ±10% sees 100 %   ±15% sees 100 %
+  UT25 (ENNUSTUS, out-of-sample)     n=6   keskmine viga   6.3 %   nihe  -6.3 %   90% kvantiil   6.4 %   halvim   8.0 %   ±10% sees 100 %   ±15% sees 100 %
+   ainult UT25 pealt sobitatud k_G = 0.6273
+  UT25 (sobitatud, in-sample)        n=6   keskmine viga   0.6 %   nihe  -0.2 %   90% kvantiil   1.0 %   halvim   2.0 %   ±10% sees 100 %   ±15% sees 100 %
+  TM25 (ENNUSTUS, out-of-sample)     n=14  keskmine viga   7.2 %   nihe  +6.9 %   90% kvantiil  11.2 %   halvim  16.7 %   ±10% sees  71 %   ±15% sees  93 %
+
+----------------------------------------------------------------------------------------------------
+VALIDEERIMINE 2 — leave-one-out: iga rehv jäetakse sobitusest välja
+  ja seejärel ennustatakse. Näitab, kui palju veast tuleb sellest,
+  et märgise klass ei erista ühe klassi sees olevaid rehve.
+----------------------------------------------------------------------------------------------------
