@@ -48,11 +48,11 @@
 		<div class="box">
 			<h2>Margi järgi</h2>
 			{#each data.brandList as [b, list] (b)}
-				<details style="border-top:1px solid var(--paper-3);padding:10px 0">
+				<details style="border-top:1px solid var(--paper-3);padding:var(--sp-3) 0">
 					<summary style="cursor:pointer;font-weight:600"
 						>{b} <span class="note">· {list.length} mudelit</span></summary
 					>
-					<div class="sizes-list" style="margin-top:10px">
+					<div class="sizes-list" style="margin-top:var(--sp-3)">
 						{#each list as m, mi (m[0] + '#' + mi)}<a href="/rehvid/{m[0]}/">{m[1]}</a>{/each}
 					</div>
 				</details>

@@ -59,7 +59,7 @@
 			<label class="fl" for="k-sonum">Sõnum</label>
 			<textarea class="lin" id="k-sonum" name="sonum" rows="7" required maxlength="5000"></textarea>
 
-			<p class="note" style="margin:12px 0 0">
+			<p class="note" style="margin:var(--sp-3) 0 0">
 				Kasutame sinu andmeid ainult sellele kirjale vastamiseks. Me ei lisa sind ühelegi listile.
 			</p>
 			<div class="form-msg" data-contact-msg role="status" aria-live="polite" hidden></div>

@@ -133,7 +133,7 @@
 		right: 0;
 		bottom: 0;
 		z-index: 80;
-		padding: 12px 16px calc(12px + env(safe-area-inset-bottom, 0px));
+		padding: var(--sp-3) var(--sp-4) calc(var(--sp-3) + env(safe-area-inset-bottom, 0px));
 		pointer-events: none;
 	}
 	.kps-in {
@@ -141,13 +141,13 @@
 		max-width: 880px;
 		margin: 0 auto;
 		display: flex;
-		gap: 16px;
+		gap: var(--sp-4);
 		align-items: center;
 		background: #fff;
 		color: #171a1f;
 		border: 1px solid #e3e5e8;
 		border-radius: 14px;
-		padding: 14px 16px;
+		padding: var(--sp-4) var(--sp-4);
 		box-shadow: 0 10px 30px rgba(10, 12, 16, 0.18);
 	}
 	.kps p {
@@ -162,7 +162,7 @@
 	}
 	.kps-b {
 		display: flex;
-		gap: 8px;
+		gap: var(--sp-2);
 		flex-shrink: 0;
 	}
 	/* mõlemad nupud on sama suurusega — keeldumine ei tohi olla raskem */

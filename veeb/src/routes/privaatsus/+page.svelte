@@ -56,7 +56,7 @@
 />
 
 {#if GA4_ID}
-	<div class="wrap" style="padding-bottom:48px">
+	<div class="wrap" style="padding-bottom:var(--sp-12)">
 		<button type="button" class="btn" onclick={() => window.PM_KUPSISED?.()}>Muuda küpsiste valikut</button>
 	</div>
 {/if}

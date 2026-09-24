@@ -34,7 +34,7 @@
 	<div class="wrap">
 		<div id="vordlus" data-cmp-table></div>
 
-		<div class="box" style="margin-top:28px">
+		<div class="box" style="margin-top:var(--sp-8)">
 			<h2>Lisa rehve</h2>
 			<div class="add-bar">
 				<select class="lsel" data-f="make" aria-label="Mark"><option value="">Mark</option></select>
@@ -50,7 +50,7 @@
 				<select class="lsel" data-brand aria-label="Mark"><option value="">Kõik margid</option></select>
 				<input class="lsel" type="search" data-q placeholder="Otsi marki või mudelit" aria-label="Otsi rehvi" style="background-image:none" />
 			</div>
-			<p class="note" data-cmp-head style="margin:12px 0"></p>
+			<p class="note" data-cmp-head style="margin:var(--sp-3) 0"></p>
 			<div class="res-list" data-cmp-list><p class="note">Laen…</p></div>
 		</div>
 	</div>

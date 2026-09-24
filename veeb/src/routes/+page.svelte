@@ -109,7 +109,7 @@
 					{/each}
 					<p class="src">
 						Märg asfalt, veekiht 1 mm, +10 °C. Ilma reaktsiooniajata.
-						<span class="pill calc" style="margin-left:6px">Arvutatud</span>
+						<span class="pill calc" style="margin-left:var(--sp-2)">Arvutatud</span>
 					</p>
 				</div>
 			</div>
@@ -211,19 +211,19 @@
 							<h3 style="margin:0">Täpsusta kaalusid</h3>
 							<button type="button" class="btn sm" data-prio-reset hidden>Tühjenda</button>
 						</div>
-						<p class="note" style="margin:6px 0 12px">
+						<p class="note" style="margin:var(--sp-2) 0 var(--sp-3)">
 							Valikuline. Sinu vastused täidavad selle ise — siin näed ja muudad, kui palju iga
 							omadus loeb (1–3).
 						</p>
 						<div class="prio" data-prio></div>
 					</div>
 					<div class="box">
-						<h3 style="margin:0 0 8px">Kuidas järjestatakse</h3>
+						<h3 style="margin:0 0 var(--sp-2)">Kuidas järjestatakse</h3>
 						<p class="note" style="margin:0">
 							„Sobivus“ on ainult selle nimekirja sisene võrdlus sinu valitud omaduste järgi — mitte
 							rehvi üldhinne. Hinnad ei mõjuta järjestust.
 						</p>
-						<p class="note" style="margin:10px 0 0">
+						<p class="note" style="margin:var(--sp-3) 0 0">
 							See on andmete kõrvutus, mitte ostunõuanne.
 							<a href="/kasutustingimused/">Tingimused</a>
 						</p>

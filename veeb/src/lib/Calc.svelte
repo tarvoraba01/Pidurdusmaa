@@ -29,7 +29,7 @@
 	</div>
 
 	<div class="cc" style="padding-bottom:0">
-		<div class="cc-grid" style="margin-bottom:10px">
+		<div class="cc-grid" style="margin-bottom:var(--sp-3)">
 			<div>
 				<p class="lbl">1. Sinu auto <span class="aside" data-veh-hint></span></p>
 				<div class="car3">

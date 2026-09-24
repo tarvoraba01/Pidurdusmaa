@@ -22,17 +22,17 @@
 </section>
 <div class="body-sec">
 	<div class="wrap">
-		<div class="grid-cards" style="grid-template-columns:repeat(auto-fill,minmax(340px,1fr))">
+		<div class="grid-cards" style="grid-template-columns:repeat(auto-fill,minmax(min(340px,100%),1fr))">
 			{#each data.sources as s (s.slug)}
-				<a class="tcard" href="/testid/{s.slug}/" style="padding:20px">
+				<a class="tcard" href="/testid/{s.slug}/" style="padding:var(--sp-5)">
 					<span class="b">{s.tegija} · {s.aasta}</span>
 					<h3 style="font-size:20px">{s.nimi}</h3>
 					<span class="meta">{s.rehve} rehvi · {s.moot} · {s.auto}</span>
-					<p class="note" style="margin:10px 0 0">{s.protokoll}</p>
+					<p class="note" style="margin:var(--sp-3) 0 0">{s.protokoll}</p>
 				</a>
 			{/each}
 		</div>
-		<div class="box" style="margin-top:24px">
+		<div class="box" style="margin-top:var(--sp-6)">
 			<h2>Kuidas teste kasutatakse</h2>
 			<ul>
 				<li>Testi mõõdetud märja pidurduse järgi tuletatakse rehvi märghaardumise indeks — see on täpsem kui märgise klass.</li>

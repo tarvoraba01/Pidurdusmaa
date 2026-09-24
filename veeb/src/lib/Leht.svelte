@@ -20,7 +20,7 @@
 	<div class="wrap">
 		<article class="entry prose entry-content">{@html sisu}</article>
 		{#if lapsed.length}
-			<div class="grid-cards" style="margin-top:32px;max-width:760px">
+			<div class="grid-cards" style="margin-top:var(--sp-8);max-width:760px">
 				{#each lapsed as k (k[1])}
 					<a class="tcard" href={k[1]}><span class="b">Teadmine</span><h3>{k[0]}</h3></a>
 				{/each}

@@ -285,6 +285,10 @@
         var open = dd.classList.toggle('open');
         btn.setAttribute('aria-expanded', open ? 'true' : 'false');
       });
+      /* klaviatuur: kui fookus lahkub menüüst, sulgeme selle */
+      dd.addEventListener('focusout', function (e) {
+        if (!dd.contains(e.relatedTarget)) { dd.classList.remove('open'); btn.setAttribute('aria-expanded', 'false'); }
+      });
     });
     document.addEventListener('click', function (e) {
       $$('[data-dd].open').forEach(function (dd) { if (!dd.contains(e.target)) { dd.classList.remove('open'); $('.dd-btn', dd).setAttribute('aria-expanded', 'false'); } });
@@ -748,7 +752,7 @@
         if (S.showOther) notes.push('Näidatakse ka testitud rehve, mida sinu mõõdus andmebaasis ei ole — neid ei pruugi sinu autole saada.');
         (r.warnings || []).slice(0, 2).forEach(function (w) { if (!/mõõdust .* tehasemõõt/.test(w)) notes.push(w); });
         $('[data-r-note]', detail).innerHTML = (notes.length ? '<div class="note-box">' + notes.map(esc).join('<br>') + '</div>' : '') +
-          (out.hiddenOther || S.showOther ? '<button type="button" class="btn sm" style="margin-top:12px" data-r-other>' +
+          (out.hiddenOther || S.showOther ? '<button type="button" class="btn sm" style="margin-top:var(--sp-3)" data-r-other>' +
             (S.showOther ? 'Näita ainult sinu mõõdus saadaolevaid' : 'Näita ka ' + out.hiddenOther + ' testitud rehvi teistest mõõtudest') + '</button>' : '');
         var ob = $('[data-r-other]', detail);
         if (ob) ob.onclick = function () { S.showOther = !S.showOther; render(); };
@@ -1016,7 +1020,7 @@
       var miss = Object.keys(w).filter(function (k) { return w[k] > 0 && PROP[k] && !PROP[k].ok; });
       var box = $('[data-ct-out]', root);
       if (box) box.innerHTML = (used.length ? '<p class="note" style="margin:0">Arvestan: ' + used.map(function (k) { return '<b>' + esc(PROP[k].n.toLowerCase()) + '</b>' + (w[k] > 1 ? ' ×' + w[k] : ''); }).join(', ') + '</p>' : '<p class="note" style="margin:0">Vali ülal, mis sulle oluline on — järjestus muutub kohe.</p>') +
-        (miss.length ? '<div class="note-box" style="margin-top:10px">' + miss.map(function (k) { return PROP[k].n; }).join(', ') + ': usaldusväärsed andmed puuduvad — seda ei saa arvestada, ja me ei hakka seda arvama.</div>' : '');
+        (miss.length ? '<div class="note-box" style="margin-top:var(--sp-3)">' + miss.map(function (k) { return PROP[k].n; }).join(', ') + ': usaldusväärsed andmed puuduvad — seda ei saa arvestada, ja me ei hakka seda arvama.</div>' : '');
       if (reset) reset.hidden = !used.length && !miss.length;
     }
     paintQ();
@@ -1151,7 +1155,7 @@
       return '<article class="rcard' + (on ? ' on' : '') + '"><div>' +
         '<div class="b">' + (why ? '<span class="rank">' + (i + 1) + '</span>' : '') + (r.tested ? '<span style="color:var(--tested)">Sõltumatult testitud</span>' : '<span style="color:var(--muted)">EL-i märgis</span>') + '</div>' +
         '<h3><a href="' + CFG.home + 'rehvid/' + esc(r.slug) + '/"><span class="mk">' + esc(r.mark) + '</span> ' + esc(r.name) + '</a></h3></div>' +
-        '<div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:flex-end">' + (x.fit != null ? '<span class="fit" title="Sinu valitud omaduste põhjal selles nimekirjas — mitte üldine hinne">Sobivus sinu valikute põhjal ' + x.fit + ' %</span>' : '') +
+        '<div style="display:flex;gap:var(--sp-2);align-items:center;flex-wrap:wrap;justify-content:flex-end">' + (x.fit != null ? '<span class="fit" title="Sinu valitud omaduste põhjal selles nimekirjas — mitte üldine hinne">Sobivus sinu valikute põhjal ' + x.fit + ' %</span>' : '') +
         '<button type="button" class="add-btn" data-add="' + esc(id) + '" data-n="' + esc(r.mark + ' ' + r.name) + '" aria-pressed="' + on + '">' + (on ? '✓ Võrdluses' : '+ Võrdle') + '</button></div>' +
         (why && why.length ? '<ul class="why-list">' + why.map(function (t) { return '<li>' + t + '</li>'; }).join('') + '</ul>' : '') +
         '<div class="props">' +
@@ -1271,7 +1275,7 @@
       var cat = tyre.category, m = z ? z.m : norm(veh.oemSize);
       var a = calc(classTyre('A', cat, m), veh, cond).distanceM, e = calc(classTyre('E', cat, m), veh, cond).distanceM;
       var knows = ck === 'wet' || (ck === 'dry' && t && t.muDry != null) || (ck === 'snow' && t && t.muSnow != null) || (ck === 'ice' && t && t.muIce != null);
-      out.innerHTML = '<p class="res-big" style="font-size:72px;margin:6px 0">' + (knows ? '' : '<span class="est" tabindex="0" style="font-size:20px;height:30px;min-width:30px;vertical-align:14px" data-tip="' + EST_T + '">≈</span>') + '<span class="hl">' + fmt(r.distanceM) + '</span><small>m</small></p>' +
+      out.innerHTML = '<p class="res-big" style="font-size:72px;margin:var(--sp-2) 0">' + (knows ? '' : '<span class="est" tabindex="0" style="font-size:20px;height:30px;min-width:30px;vertical-align:14px" data-tip="' + EST_T + '">≈</span>') + '<span class="hl">' + fmt(r.distanceM) + '</span><small>m</small></p>' +
         '<p class="res-band">' + speed + ' → 0 km/h, ' + COND[ck].label + ' · vahemik <b>' + fmt(r.lowM) + '–' + fmt(r.highM) + ' m</b> · ilma reaktsiooniajata</p>' +
         (ck === 'wet' ? '<p class="note">Võrdluseks sama mõõdu märgise klassid: A ' + fmt(a) + ' m, E ' + fmt(e) + ' m.' +
           (t ? ' Selle rehvi haare tuleb testi mõõtmisest (' + esc(t.size) + '), mitte klassist — seepärast võib ta klassi tüüpilisest erineda.' : '') + '</p>' : '') +
@@ -1337,8 +1341,25 @@
     Track('leht', (sek ? sek.trim() + ': ' : '') + nimi.slice(0, 70));
   }
 
+  /* laiad tabelid: kerimisala peab olema klaviatuuriga kättesaadav */
+  function tablesA11y() {
+    $$('.tbl-wrap').forEach(function (t) {
+      if (t.scrollWidth > t.clientWidth + 1 && !t.hasAttribute('tabindex')) {
+        var h = t.closest('.box, .cmp-table'); h = h && $('h2', h);
+        t.setAttribute('tabindex', '0'); t.setAttribute('role', 'region');
+        t.setAttribute('aria-label', (h ? h.textContent.trim() + ' — ' : '') + 'tabel, keri külgsuunas');
+      }
+    });
+  }
+  document.addEventListener('pm:cmp', function () { setTimeout(tablesA11y, 50); });
+
   function initPage() {
     trackPage();
+    /* päis jääb lehevahetusel alles — sulgeme lahtise menüü */
+    var pm = $('#pm-panel'), bg = $('[data-burger]');
+    if (pm && !pm.hidden) { pm.hidden = true; if (bg) bg.setAttribute('aria-expanded', 'false'); }
+    $$('[data-dd].open').forEach(function (dd) { dd.classList.remove('open'); $('.dd-btn', dd).setAttribute('aria-expanded', 'false'); });
+    tablesA11y();
     var needs = $('[data-calc]') || $('[data-cmp-page]') || $('[data-tw]');
     cmp.paint();
     var kf = $('[data-contact]'); if (kf) initContact(kf);
@@ -1348,9 +1369,10 @@
       var h = $('[data-valik-home]'); if (c && h) initTyres(document.getElementById('sisu') || document.body, c.pmBus);
       var p = $('[data-cmp-page]'); if (p) initTyres(p);
       var w = $('[data-tw]'); if (w) initTyreWidget(w);
+      setTimeout(tablesA11y, 300);
     }).catch(function (e) {
       $$('[data-calc],[data-cmp-page],[data-tw]').forEach(function (x) {
-        x.insertAdjacentHTML('afterbegin', '<p class="note-box" style="margin:16px">Andmete laadimine ebaõnnestus. Proovi lehte värskendada.</p>');
+        x.insertAdjacentHTML('afterbegin', '<p class="note-box" style="margin:var(--sp-4)">Andmete laadimine ebaõnnestus. Proovi lehte värskendada.</p>');
       });
       if (window.console) console.error(e);
     });
@@ -1405,8 +1427,15 @@
 
   window.PM = { initPage: initPage, lugu: lugu, track: Track };
 
-  document.addEventListener('DOMContentLoaded', function () {
+  /* SvelteKit laeb selle faili onMount'is, st PÄRAST DOMContentLoaded'i —
+     siis see sündmus enam ei tule ja päis (burger, rippmenüü), infodialoog
+     ja infomullid jääksid käivitamata. Käivitame kohe, kui DOM on valmis. */
+  var booted = false;
+  function boot() {
+    if (booted) return; booted = true;
     initHeader(); initHow(); initTips();
     if (!window.PM_DEFER) initPage();
-  });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+  else boot();
 })();

@@ -77,16 +77,16 @@
 					<h2 style="font-size:22px">Pidurdusmaa selles mõõdus</h2>
 					<p class="note">Arvuta, kui palju muudab märghaardumise klass sinu auto pidurdusmaad.</p>
 					<a class="btn yel" style="width:100%" href="/?moot={data.size.m}">Arvuta selle mõõduga →</a>
-					<a class="btn" style="width:100%;margin-top:8px" href="/vordle-rehve/?moot={data.size.m}"
+					<a class="btn" style="width:100%;margin-top:var(--sp-2)" href="/vordle-rehve/?moot={data.size.m}"
 						>Võrdle selle mõõdu rehve</a
 					>
 					{#if data.cars.length}
 						<h3
-							style="font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:22px 0 8px"
+							style="font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:var(--sp-6) 0 var(--sp-2)"
 						>
 							Tehase mõõt näiteks
 						</h3>
-						<ul class="note" style="margin:0;padding-left:18px">
+						<ul class="note" style="margin:0;padding-left:var(--sp-5)">
 							{#each data.cars as c}<li>{c}</li>{/each}
 						</ul>
 					{/if}
@@ -158,7 +158,7 @@
 				>
 					<h2>Pidurdusmaa sinu autoga</h2>
 					<p class="sub">Auto: <span data-tw-veh>…</span></p>
-					<div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+					<div style="display:flex;gap:var(--sp-3);flex-wrap:wrap;align-items:center">
 						<div class="fld">
 							<select class="lsel" data-tw-size aria-label="Rehvimõõt" style="min-width:220px"></select>
 						</div>
@@ -278,11 +278,11 @@
 					<div class="tyre-img" role="img" aria-label="Rehvi illustratsioon"><TyreArt /></div>
 					<p class="srcline" style="text-align:center">Illustratsioon. Tootja pilte ei kasutata.</p>
 					{#if data.sizes.length}
-						<button type="button" class="btn yel" style="width:100%;margin-top:14px" data-tw-add
+						<button type="button" class="btn yel" style="width:100%;margin-top:var(--sp-4)" data-tw-add
 							>Võrdle seda rehvi →</button
 						>
 						<h3
-							style="font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:22px 0 8px"
+							style="font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:var(--sp-6) 0 var(--sp-2)"
 						>
 							Mõõdud andmebaasis
 						</h3>
