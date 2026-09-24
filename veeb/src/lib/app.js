@@ -145,11 +145,53 @@
        vt Nousolek.svelte). Otsing läheb GA4 soovitatud nimega "search", siis
        ilmub ta GA4 aruannetesse ise; ülejäänud on oma nimedega.
        "leht" jäetakse välja — lehevaatamise saadab GA ise (page_view). */
+    /* Iga sündmuse väärtus läheb GA-sse ka OMA NIMEGA parameetrina (auto,
+       moot, kiirus, teeolu …), et GA-s saaks igaühe jaoks eraldi
+       dimensiooni teha. `vaartus` jääb lisaks kõigile alles.
+       GA4 piirang: parameetri väärtus kuni 100 märki. */
+    var GA_SILDID = {
+      drive: { city: 'Linnas', road: 'Maanteel', hwy: 'Kiirteel', mix: 'Linn + maantee' },
+      km: { lo: 'alla 10 000 km', mid: '10–20 000 km', hi: '20–30 000 km', vhi: 'üle 30 000 km' },
+      main: { safe: 'Ohutus märjal', brake: 'Lühike pidurdusmaa', quiet: 'Vaikne sõit', fuel: 'Väike kütusekulu', winter: 'Talvised omadused' }
+    };
+    var GA_KRIT = { drive: 'soidukoht', km: 'labisoit', main: 'tahtsaim' };
+    function gaParam(r) {
+      var v = String(r.v || ''), p = {};
+      switch (r.e) {
+        case 'auto': p.auto = v; break;
+        case 'moot':
+          p.moot = v.replace(/ \(.*\)$/, '');
+          if (/\(tehase\)/.test(v)) p.tehasemoot = 'jah';
+          else if (/\(EI OLE tehase\)/.test(v)) p.tehasemoot = 'ei';
+          break;
+        case 'arvuta': {
+          var o = v.split(' · ');            // auto · mõõt · 90 km/h · teeolu
+          p.auto = o[0] || ''; p.moot = o[1] || '';
+          p.kiirus = String(parseInt(o[2], 10) || ''); p.teeolu = o[3] || '';
+          break;
+        }
+        case 'pind': p.teeolu = v; break;
+        case 'hooaeg': p.hooaeg = v; break;
+        case 'kriteerium': {
+          var g = v.split('=')[0], val = v.slice(g.length + 1);
+          var sildid = GA_SILDID[g] || {};
+          var tekst = val ? val.split('+').map(function (x) { return sildid[x] || x; }).join(' + ') : '(tühi)';
+          if (GA_KRIT[g]) p[GA_KRIT[g]] = tekst;
+          break;
+        }
+        case 'margifilter': p.mark = v; break;
+        case 'vordlusse': case 'vordlusest_ara': p.rehv = v; break;
+        case 'vaheleht': p.vaheleht = v; break;
+      }
+      if (v) p.vaartus = v;
+      for (var k in p) p[k] = String(p[k]).slice(0, 100);
+      return p;
+    }
     function ga4(r) {
       if (typeof window.PM_GA !== 'function' || r.e === 'leht') return;
       try {
         if (r.e === 'otsing') window.PM_GA('search', { search_term: String(r.v || '').split(' → ')[0].slice(0, 100) });
-        else window.PM_GA(r.e.slice(0, 40), r.v ? { vaartus: r.v.slice(0, 100) } : {});
+        else window.PM_GA(r.e.slice(0, 40), gaParam(r));
       } catch (e) { /* statistika ei tohi lehte katki teha */ }
     }
     t.log = function () { return log.slice(); };

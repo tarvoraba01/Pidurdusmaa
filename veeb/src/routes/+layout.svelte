@@ -2,6 +2,7 @@
 	import { onMount } from 'svelte';
 	import { page } from '$app/state';
 	import { afterNavigate } from '$app/navigation';
+	import { version } from '$app/environment';
 	import Icon from '$lib/Icon.svelte';
 	import Nousolek from '$lib/Nousolek.svelte';
 	import { GA4_ID, GSC_VERIFY } from '$lib/seaded.js';
@@ -25,7 +26,10 @@
 		window.PM_DEFER = true;
 		window.PM_CFG = {
 			data: '/data/',
-			ver: window.PM_DATA_VER || '',
+			/* Andmefailide aadressi lõppu pannakse ehituse versioon
+			   (core.json?v=…). Nii laeb brauser pärast igat deploy'd
+			   uued andmed, mitte ei näita vahemälust vana autode nimekirja. */
+			ver: version,
 			home: '/',
 			prices: '',
 			contact: '/api/kontakt',
