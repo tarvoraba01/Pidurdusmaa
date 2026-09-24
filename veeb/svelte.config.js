@@ -1,14 +1,15 @@
-import adapter from '@sveltejs/adapter-static';
+import adapter from '@sveltejs/adapter-node';
 
-/** Staatiline sait: iga aadress eelrenderdatakse päris HTML-failiks.
- *  See on kogu mõte — Google peab nägema 5948 lehte, mitte üht. */
+/* Node-server. Lehed on endiselt EELRENDERDATUD (prerender = true
+   +layout.js-is): server annab need valmis HTML-failidena välja, aga
+   nüüd on olemas ka päris server — kontaktivormi ja kasutusloo jaoks
+   saab teha API-otspunkti, mida staatilisel saidil teha ei saanud. */
 export default {
   kit: {
-    adapter: adapter({ fallback: '404.html', precompress: false }),
+    adapter: adapter({ out: 'build', precompress: false }),
     prerender: {
       handleHttpError: 'fail',
       entries: ['*']
-    },
-    paths: { relative: false }
+    }
   }
 };

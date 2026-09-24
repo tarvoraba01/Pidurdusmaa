@@ -1238,7 +1238,9 @@
   /* ------------------------------------------------------------ käivitus */
   /* Lehe interaktiivsed osad. Eraldi funktsioonina, et sama sisu saaks
      käivitada ka pärast sisu vahetust (window.PM.initPage). */
-  /* ---- KONTAKTIVORM. WordPressis saadab server (CFG.contact); eelvaates,
+  /* ---- KONTAKTIVORM. Saadetakse JSON-ina, mitte vormina: SvelteKit
+     blokeerib turvakaalutlustel teiselt saidilt tulevad vormipostitused
+     ja JSON-päring on sellest reeglist väljas. Eelvaates,
      kus serverit pole, avatakse valmis kiri kasutaja e-posti programmis. */
   function initContact(form) {
     var msg = $('[data-contact-msg]', form), go = $('[data-contact-go]', form);
@@ -1257,7 +1259,7 @@
         return;
       }
       go.disabled = true; go.textContent = 'Saadan…';
-      fetch(CFG.contact, { method: 'POST', credentials: 'same-origin', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: new URLSearchParams(f).toString() })
+      fetch(CFG.contact, { method: 'POST', credentials: 'same-origin', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(Object.fromEntries(f)) })
         .then(function (r) { return r.json().catch(function () { return { ok: false }; }); })
         .then(function (d) {
           if (d && d.ok) { form.reset(); say('Aitäh! Kiri on saadetud — vastame e-postile.', true); }

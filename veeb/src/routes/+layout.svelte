@@ -26,9 +26,9 @@
 			ver: window.PM_DATA_VER || '',
 			home: '/',
 			prices: '',
-			contact: '',
+			contact: '/api/kontakt',
 			contactMail: 'rabarvo@hotmail.com',
-			track: ''
+			track: '/api/logi'
 		};
 		await import('$lib/engine.js');
 		await import('$lib/app.js');
