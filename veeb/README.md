@@ -76,6 +76,7 @@ faili (e-kirja ei saadeta) ja statistika otspunkt on kinni.
 | `SMTP_PASS` | Gmaili **rakenduse parool** (app password) — **ainult Coolify seadetes, mitte koodis** |
 | `MAIL_TO` | kuhu kirjad lähevad (vaikimisi `tarvo.raba01@gmail.com`) |
 | `TEADE_URL` | valikuline lisateade (Discord/Slack webhook, n8n vms) |
+| `TURNSTILE_SECRET` | Cloudflare Turnstile'i salajane võti (kontaktivormi robotikaitse). Avalik võti on `src/lib/seaded.js` → `TURNSTILE_SITEKEY`; mõlemad korraga |
 | `STATS_KEY` | võti `/api/kokkuvote` jaoks; seadmata = otspunkt on välja lülitatud |
 | `IP_SALT` | sool IP-räside jaoks (seadmata = juhuslik iga käivitusega) |
 | `ORIGIN` | avalik aadress, nt `https://pidurdusmaa.ee` — vaja pöördproksi taga |

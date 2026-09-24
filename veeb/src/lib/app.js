@@ -1309,6 +1309,9 @@
       if (!v('nimi')) { say('Palun kirjuta oma nimi.'); form.nimi.focus(); return; }
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v('email'))) { say('Palun kontrolli e-posti aadressi — sellele vastame.'); form.email.focus(); return; }
       if (v('sonum').length < 5) { say('Palun kirjuta sõnum.'); form.sonum.focus(); return; }
+      /* robotikontroll: kui vidin on lehel, peab luba olemas olema */
+      var tsId = form.getAttribute('data-ts-id');
+      if ($('.ts', form) && !v('cf-turnstile-response')) { say('Oota hetk — robotikontroll pole veel valmis. Kui vormi all on kast, märgi see.'); return; }
       var topic = form.teema.options[form.teema.selectedIndex].text;
       if (!CFG.contact) {
         var body = 'Teema: ' + topic + '\nNimi: ' + v('nimi') + '\nE-post: ' + v('email') + (v('firma') ? '\nEttevõte: ' + v('firma') : '') + '\n\n' + v('sonum');
@@ -1324,7 +1327,11 @@
           else say((d && d.msg) || 'Saatmine ebaõnnestus. Proovi hiljem uuesti.');
         })
         .catch(function () { say('Ühendus katkes. Proovi uuesti.'); })
-        .then(function () { go.disabled = false; go.textContent = 'Saada kiri →'; });
+        .then(function () {
+          go.disabled = false; go.textContent = 'Saada kiri →';
+          /* luba kehtib ühe saatmise — järgmise jaoks uus */
+          if (tsId !== null && window.turnstile) try { window.turnstile.reset(tsId); } catch (e) {}
+        });
     });
   }
 

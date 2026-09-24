@@ -20,3 +20,11 @@ export const GA4_ID = 'G-4P203ND0VV';
  * jäta tühjaks.
  */
 export const GSC_VERIFY = '';
+
+/**
+ * Cloudflare Turnstile — kontaktivormi robotikaitse, AVALIK võti (site key).
+ * Leiad: dash.cloudflare.com → Turnstile → sinu vidin → Site key.
+ * Salajane võti (Secret key) läheb AINULT serverisse: Coolify →
+ * Environment Variables → TURNSTILE_SECRET. Tühi = kaitse väljas.
+ */
+export const TURNSTILE_SITEKEY = '0x4AAAAAAFCcchOaK4rnMWhJ';

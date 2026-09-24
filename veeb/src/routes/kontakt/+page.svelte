@@ -3,6 +3,7 @@
 	   Staatilisel saidil ei ole serverit, kes kirja saadaks — vorm avab
 	   valmis kirja kasutaja e-posti programmis (app.js, CFG.contact tühi). */
 	import Meta from '$lib/Meta.svelte';
+	import Turnstile from '$lib/Turnstile.svelte';
 	const TEEMAD = {
 		hinnad: 'Rehvimüüja — hinnad lehele',
 		koostoo: 'Koostöö või reklaam',
@@ -62,6 +63,7 @@
 			<p class="note" style="margin:var(--sp-3) 0 0">
 				Kasutame sinu andmeid ainult sellele kirjale vastamiseks. Me ei lisa sind ühelegi listile.
 			</p>
+			<Turnstile />
 			<div class="form-msg" data-contact-msg role="status" aria-live="polite" hidden></div>
 			<button class="btn yel" type="submit" data-contact-go>Saada kiri →</button>
 		</form>

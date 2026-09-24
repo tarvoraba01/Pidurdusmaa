@@ -1,6 +1,7 @@
 import { json } from '@sveltejs/kit';
 import { lisaRida, ipHash, kasLubatud } from '$lib/server/logi.js';
 import { saadaKiri } from '$lib/server/post.js';
+import { kontrolliTurnstile } from '$lib/server/turnstile.js';
 
 export const prerender = false;
 
@@ -16,7 +17,8 @@ const TEEMAD = {
    igal juhul kirjutatakse kiri ka faili, et ükski sõnum ei kaoks, kui
    postiserver parajasti ei tööta. */
 export async function POST({ request, getClientAddress }) {
-	const ip = ipHash(getClientAddress());
+	const paljasIp = getClientAddress();
+	const ip = ipHash(paljasIp);
 	if (!kasLubatud('kontakt:' + ip, 5, 3600)) {
 		return json({ ok: false, msg: 'Liiga palju kirju ühest kohast. Proovi tunni pärast.' }, { status: 429 });
 	}
@@ -41,6 +43,15 @@ export async function POST({ request, getClientAddress }) {
 		return json({ ok: false, msg: 'Palun kontrolli e-posti aadressi.' }, { status: 400 });
 	if (v('sonum').length < 5)
 		return json({ ok: false, msg: 'Palun kirjuta sõnum.' }, { status: 400 });
+
+	/* Robotikontroll (Cloudflare Turnstile), kui see on sisse lülitatud */
+	const tk = await kontrolliTurnstile(v('cf-turnstile-response'), paljasIp);
+	if (!tk.ok) {
+		return json(
+			{ ok: false, msg: 'Robotikontroll ei läinud läbi. Oota, kuni vormi all on linnuke, ja proovi uuesti.' },
+			{ status: 400 }
+		);
+	}
 
 	const teema = TEEMAD[v('teema')] || TEEMAD.muu;
 	const kiri = {
