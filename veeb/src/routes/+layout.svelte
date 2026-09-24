@@ -3,6 +3,8 @@
 	import { page } from '$app/state';
 	import { afterNavigate } from '$app/navigation';
 	import Icon from '$lib/Icon.svelte';
+	import Nousolek from '$lib/Nousolek.svelte';
+	import { GA4_ID, GSC_VERIFY } from '$lib/seaded.js';
 	import '$lib/main.css';
 
 	let { children } = $props();
@@ -35,11 +37,19 @@
 		window.PM?.initPage();
 	});
 
-	/* SPA-navigeerimisel ei tule DOMContentLoaded'i — käivitame ise. */
-	afterNavigate(() => {
-		if (typeof window !== 'undefined') window.PM?.initPage();
+	/* SPA-navigeerimisel ei tule DOMContentLoaded'i — käivitame ise.
+	   Esimese laadimise ('enter') lehevaate saadab Nousolek ise, siin
+	   ainult järgmised, muidu loeks GA esimest lehte kaks korda. */
+	afterNavigate(({ type }) => {
+		if (typeof window === 'undefined') return;
+		window.PM?.initPage();
+		if (type !== 'enter') window.PM_LEHEVAADE?.();
 	});
 </script>
+
+<svelte:head>
+	{#if GSC_VERIFY}<meta name="google-site-verification" content={GSC_VERIFY} />{/if}
+</svelte:head>
 
 <a class="skip" href="#sisu">Liigu sisu juurde</a>
 
@@ -153,8 +163,15 @@
 			<span>© {new Date().getFullYear()} Rabarvo OÜ · Pidurdusmaa.ee</span>
 			<span
 				>Tulemused on arvutatud hinnangud — mitte mõõtmised ega garantii.
-				<a href="/kasutustingimused/">Kasutustingimused ja vastutus</a></span
+				<a href="/kasutustingimused/">Kasutustingimused ja vastutus</a> ·
+				<a href="/privaatsus/">Privaatsus</a>{#if GA4_ID}
+					·
+					<button type="button" class="linkbtn" onclick={() => window.PM_KUPSISED?.()}
+						>Küpsiste seaded</button
+					>{/if}</span
 			>
 		</div>
 	</div>
 </footer>
+
+<Nousolek />

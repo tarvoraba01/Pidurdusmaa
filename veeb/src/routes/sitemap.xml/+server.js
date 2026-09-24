@@ -25,7 +25,8 @@ export function GET() {
 		['/teadmine/kuidas-pidurdusmaa-arvutatakse/', '0.6'],
 		['/teadmine/rehvimargis/', '0.6'],
 		['/kontakt/', '0.4'],
-		['/kasutustingimused/', '0.3']
+		['/kasutustingimused/', '0.3'],
+		['/privaatsus/', '0.3']
 	];
 
 	for (const s of core().sizes) {

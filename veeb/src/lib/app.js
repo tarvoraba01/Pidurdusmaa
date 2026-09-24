@@ -111,14 +111,13 @@
        - päris saidil: kui PM_CFG.track on seatud, saadetakse sündmused
          sellele aadressile kogumiks (sendBeacon), muidu mitte. */
   var Track = (function () {
-    var KEY = 'pm_log', MAX = 400, log = [], t0 = Date.now(), jarjekord = [], ajastus = null;
-    try {
-      var old = JSON.parse(localStorage.getItem(KEY) || 'null');
-      if (old && old.t0 && Date.now() - old.t0 < 14 * 864e5) { log = old.e || []; t0 = old.t0; }
-    } catch (e) { /* privaatrežiim — jääb mällu */ }
-    function salvesta() {
-      try { localStorage.setItem(KEY, JSON.stringify({ t0: t0, e: log })); } catch (e) { /* ei loe */ }
-    }
+    /* Logi on AINULT mälus. Brauserisse (localStorage) seda ei kirjutata:
+       see oleks seadmesse salvestamine, mis EL-i reeglite järgi vajaks
+       nõusolekut, ja siin ei ole selleks vajadust — serverisse läheb
+       sündmus niikuinii kohe. Vana eelvaate-versiooni kirje koristatakse. */
+    var MAX = 400, log = [], t0 = Date.now(), jarjekord = [], ajastus = null;
+    try { localStorage.removeItem('pm_log'); } catch (e) { /* ei loe */ }
+    function salvesta() { /* ainult mälus, vt ülal */ }
     function saada() {
       ajastus = null;
       if (!CFG.track || !jarjekord.length) { jarjekord = []; return; }
@@ -139,6 +138,19 @@
       salvesta();
       jarjekord.push(rida);
       if (CFG.track && !ajastus) ajastus = setTimeout(saada, 4000);
+      ga4(rida);
+    }
+    /* Sama sündmus ka Google Analyticsisse — AINULT siis, kui külastaja on
+       küpsistega nõustunud (window.PM_GA on olemas ainult pärast nõusolekut,
+       vt Nousolek.svelte). Otsing läheb GA4 soovitatud nimega "search", siis
+       ilmub ta GA4 aruannetesse ise; ülejäänud on oma nimedega.
+       "leht" jäetakse välja — lehevaatamise saadab GA ise (page_view). */
+    function ga4(r) {
+      if (typeof window.PM_GA !== 'function' || r.e === 'leht') return;
+      try {
+        if (r.e === 'otsing') window.PM_GA('search', { search_term: String(r.v || '').split(' → ')[0].slice(0, 100) });
+        else window.PM_GA(r.e.slice(0, 40), r.v ? { vaartus: r.v.slice(0, 100) } : {});
+      } catch (e) { /* statistika ei tohi lehte katki teha */ }
     }
     t.log = function () { return log.slice(); };
     t.t0 = function () { return t0; };

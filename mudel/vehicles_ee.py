@@ -723,6 +723,11 @@ EE_VEHICLES += [
     ("byd_atto3",      "BYD Atto 3 (2022+)",                  1750, 0.29, 1.875, 1.615, 2.720, 2.5, "215/55 R18", A.LATEST, 1.24, _L),
     ("tesla_model_s",  "Tesla Model S (2012-2021)",           2100, 0.24, 1.964, 1.445, 2.960, 2.9, "245/45 R19", A.LATEST, 1.30, _L),
     ("tesla_model_3_sr","Tesla Model 3 SR+ (2019-2023)",      1650, 0.23, 1.849, 1.443, 2.875, 2.9, "235/45 R18", A.LATEST, 1.30, _L),
+    # 2026-09-24. Suur Ameerika sedaan: Eestis vähe, aga imporditud ja
+    # otsitud. Mass, Cd ja mõõdud tootja andmetest (2012 Chrysler 300
+    # ametlik spetsifikatsioonileht; ultimatespecs 300C 5.7).
+    ("chrysler_300c_lx","Chrysler 300C LX (2004-2010)",       1915, 0.34, 1.881, 1.483, 3.048, 2.4, "225/60 R18", A.MODERN, 1.22, "rõhk hinnang"),
+    ("chrysler_300c_ld","Chrysler 300C LD (2011-2023)",       1962, 0.32, 1.902, 1.492, 3.052, 2.4, "225/60 R18", A.MODERN, 1.26, "rõhk hinnang"),
 ]
 
 # ÜLDISED AUTOD neile, kes oma autot nimekirjast ei leia. Kerekuju järgi

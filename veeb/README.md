@@ -78,6 +78,34 @@ faili ja statistika otspunkt on kinni.
 Isikuandmeid ei salvestata: IP-st hoitakse ainult soolatud räsi ja sedagi
 ainult sagedusepiiri jaoks.
 
+## Analüütika ja Search Console
+
+Seaded on failis `src/lib/seaded.js` (avalikud väärtused, mitte saladused).
+
+**Google Analytics 4** — pane `GA4_ID = 'G-XXXXXXXXXX'`. Siis:
+
+- lehe allservas on küpsiste riba („Nõustun" / „Ainult vajalikud", võrdselt
+  nähtavad); **enne nõusolekut ei tehta Google'isse ühtegi päringut**;
+- nõusolekul saadetakse lehevaatamised (ka SPA-navigeerimisel) ja samad
+  sündmused, mis `/api/logi`-sse: `auto`, `moot`, `arvuta`, `pind`,
+  `hooaeg`, `kriteerium`, `margifilter`, `vordlusse`, `tulemusi_null`…
+  Väärtus on parameetris `vaartus` — GA4-s tuleb see registreerida
+  (Admin → Custom definitions → Create custom dimension → Event parameter
+  `vaartus`), muidu aruannetes seda ei näe. Otsing läheb GA4 omanimelise
+  sündmusena `search` / `search_term`;
+- reklaamiküpsised on alati keelatud (Consent Mode v2, `ad_*` = denied);
+- jaluses „Küpsiste seaded" võtab nõusoleku tagasi ja kustutab `_ga` küpsised.
+
+Tühi `GA4_ID` = GA-d ei laeta ja riba ei näidata.
+
+**Search Console** — kinnita domeen soovitatavalt DNS-i TXT-kirjega
+(domeeni atribuut katab korraga `pidurdusmaa.ee` ja `www`). HTML-sildi
+meetodi jaoks pane kood `GSC_VERIFY` sisse. Siis lisa sitemap:
+`https://pidurdusmaa.ee/sitemap.xml`.
+
+Privaatsusteade on `/privaatsus/` — kui lisandub uus andmeid kasutav
+teenus, tuleb see enne avaldamist üle vaadata.
+
 ## Docker / Coolify
 
 ```
