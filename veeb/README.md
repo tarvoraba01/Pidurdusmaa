@@ -54,7 +54,7 @@ sest mõne rehvi nimes ENDAS on „vs" (`maxxis-vs-ev`).
 
 | Aadress | Mida teeb |
 |---|---|
-| `POST /api/kontakt` | kontaktivorm → `data/kontakt.jsonl` (+ teade, kui `TEADE_URL` on seatud) |
+| `POST /api/kontakt` | kontaktivorm → `data/kontakt.jsonl` + e-kiri (kui SMTP on seatud) |
 | `POST /api/logi` | anonüümne kasutuslugu → `data/logi.jsonl` |
 | `GET /api/kokkuvote?key=…&paevi=7` | koondstatistika: mida kõige rohkem tehti |
 
@@ -64,13 +64,18 @@ teiselt saidilt tulevad vormipostitused ja JSON on sellest reeglist väljas.
 ## Keskkonnamuutujad
 
 Kõik on **valikulised** — ilma nendeta sait töötab, ainult kirjad jäävad
-faili ja statistika otspunkt on kinni.
+faili (e-kirja ei saadeta) ja statistika otspunkt on kinni.
 
 | Muutuja | Mille jaoks |
 |---|---|
 | `PORT` | vaikimisi 3000 |
 | `LOG_DIR` | kuhu kirjutatakse kirjad ja logi (vaikimisi `./data`) |
-| `TEADE_URL` | aadress, kuhu POSTitatakse teade uuest kirjast (Discord/Slack webhook, n8n vms) |
+| `SMTP_HOST` | kontaktivormi kirjade saatmiseks: `smtp.gmail.com` |
+| `SMTP_PORT` | `465` (SSL, vaikimisi) või `587` (STARTTLS) |
+| `SMTP_USER` | Gmaili aadress |
+| `SMTP_PASS` | Gmaili **rakenduse parool** (app password) — **ainult Coolify seadetes, mitte koodis** |
+| `MAIL_TO` | kuhu kirjad lähevad (vaikimisi `tarvo.raba01@gmail.com`) |
+| `TEADE_URL` | valikuline lisateade (Discord/Slack webhook, n8n vms) |
 | `STATS_KEY` | võti `/api/kokkuvote` jaoks; seadmata = otspunkt on välja lülitatud |
 | `IP_SALT` | sool IP-räside jaoks (seadmata = juhuslik iga käivitusega) |
 | `ORIGIN` | avalik aadress, nt `https://pidurdusmaa.ee` — vaja pöördproksi taga |
@@ -123,6 +128,4 @@ docker run -p 3000:3000 -v pidurdusmaa-data:/app/data pidurdusmaa
 
 ## Mida veel teha
 
-- **E-kiri**. Praegu jõuab kiri faili ja valikulisse `TEADE_URL`-i.
-  Otse e-postile saatmiseks lisa nodemailer ja asenda `src/lib/server/post.js`.
 - **Hinnad** (`PM_CFG.prices`) — rehvimüüjate API, praegu ühendamata.

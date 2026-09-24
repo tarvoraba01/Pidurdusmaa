@@ -30,7 +30,7 @@
 </ul>
 
 <h2>3. Kontaktivorm</h2>
-<p>Kui kirjutad meile, saame sinu nime, e-posti, soovi korral ettevõtte nime ja sõnumi. Kasutame neid ainult sulle vastamiseks ega lisa sind ühelegi listile. Kiri hoitakse kuni 12 kuud pärast suhtluse lõppu.</p>
+<p>Kui kirjutad meile, saame sinu nime, e-posti, soovi korral ettevõtte nime ja sõnumi. Kasutame neid ainult sulle vastamiseks ega lisa sind ühelegi listile. Kiri jõuab meieni e-postiga (Google Gmail). Kiri hoitakse kuni 12 kuud pärast suhtluse lõppu.</p>
 
 <h2>4. Mida su brauser meelde jätab</h2>
 <ul>
