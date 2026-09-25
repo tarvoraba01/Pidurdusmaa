@@ -44,7 +44,7 @@
   var GMID = GNOM;
   var EKAT = ['SUMMER_TOURING', 'ALL_SEASON', 'WINTER_CENTRAL', 'WINTER_NORDIC'];
   var CATNAME = {
-    SUMMER_UHP: 'Suverehv (sportlik)', SUMMER_TOURING: 'Suverehv', ALL_SEASON: 'Lamellrehv',
+    SUMMER_UHP: 'Suverehv (sportlik)', SUMMER_TOURING: 'Suverehv', ALL_SEASON: 'Aastaringne rehv',
     WINTER_CENTRAL: 'Talverehv (Kesk-Euroopa)', WINTER_NORDIC: 'Talverehv (Põhjamaade)', WINTER_STUDDED: 'Naastrehv'
   };
   /* NB: sama tabel on functions.php-s (PM_CONDS) ja metoodika tekstis. */
@@ -55,9 +55,9 @@
     ice:  { surface: 'ICE', waterMm: 0.0, tempC: -5, label: 'jää', short: 'Jää' }
   };
   var SEASON = {
-    summer: { label: 'Suvi', long: 'suverehvid', tested: ['SUMMER_TOURING', 'SUMMER_UHP'], eprel: [0] },
-    all:    { label: 'Lamell', long: 'lamellrehvid', tested: ['ALL_SEASON'], eprel: [1] },
-    winter: { label: 'Talv', long: 'talverehvid', tested: ['WINTER_CENTRAL', 'WINTER_NORDIC', 'WINTER_STUDDED'], eprel: [2, 3] }
+    summer: { label: 'Suvi', long: 'suverehvid', yks: 'suverehv', osa: 'suverehvi', tested: ['SUMMER_TOURING', 'SUMMER_UHP'], eprel: [0] },
+    all:    { label: 'Aastaringne', long: 'aastaringsed rehvid', yks: 'aastaringne rehv', osa: 'aastaringset rehvi', tested: ['ALL_SEASON'], eprel: [1] },
+    winter: { label: 'Talv', long: 'talverehvid', yks: 'talverehv', osa: 'talverehvi', tested: ['WINTER_CENTRAL', 'WINTER_NORDIC', 'WINTER_STUDDED'], eprel: [2, 3] }
   };
   var DEFAULT_VEH = 'vw_golf_8';
   var FLAG = { GUESS: 1, CONFLICT: 2, SNOW: 4, ICE: 8 };
@@ -778,7 +778,7 @@
         if (cmpA) cmpA.href = cmpUrl(null, { auto: S.veh, moot: S.size, hooaeg: S.resSeason });
         var notes = [];
         if (!S._eprel.length) notes.push('Mõõdu ' + pretty(S.size) + ' märgiseandmeid pole veel andmebaasis — näidatakse ainult testitud rehve.');
-        if (!out.nSeason && S._eprel.length) notes.push('Selles mõõdus ei ole andmebaasis ühtegi ' + sea.long + ' märgisega rehvi.');
+        if (!out.nSeason && S._eprel.length) notes.push('Selles mõõdus ei ole andmebaasis ühtegi märgisega ' + sea.osa + '.');
         if (rows.some(function (x) { return x.sizeNote && !x.other; })) notes.push('Testitud rehvid on mõõdetud testi mõõdus; märk nime ees on sama mudeli ametlik klass SINU mõõdus. Need võivad erineda — see on veapiiris sees.');
         if (S.showOther) notes.push('Näidatakse ka testitud rehve, mida sinu mõõdus andmebaasis ei ole — neid ei pruugi sinu autole saada.');
         (r.warnings || []).slice(0, 2).forEach(function (w) { if (!/mõõdust .* tehasemõõt/.test(w)) notes.push(w); });
@@ -1151,11 +1151,11 @@
           list.sort(function (a, b) { return (FG[b.r.g] || 0) - (FG[a.r.g] || 0) || (!!b.r.tested - !!a.r.tested) || ((a.r.db || 99) - (b.r.db || 99)); });
         }
         viimaneN = list.length;
-        if (head) head.innerHTML = '<b>' + list.length + '</b> ' + SEASON[S.season].long + ' mõõdus <b>' + esc(pretty(S.size)) + '</b>' +
+        if (head) head.innerHTML = '<b>' + list.length + '</b> ' + (list.length === 1 ? SEASON[S.season].yks : SEASON[S.season].osa) + ' mõõdus <b>' + esc(pretty(S.size)) + '</b>' +
           (ws.length ? ' · järjestatud sinu valikute järgi' : ' · järjestatud märghaardumise klassi järgi');
         if (!list.length) {
           Track('tulemusi_null', pretty(S.size) + ' · ' + SEASON[S.season].long + (brandVal ? ' · ' + brandVal : '') + (qq ? ' · otsing "' + q.value.trim() + '"' : ''));
-          listEl.innerHTML = '<div class="box"><p style="margin:0">' + (rows.length ? 'Selles mõõdus ei ole andmebaasis ' + SEASON[S.season].long + (brandVal ? ' margilt ' + esc(brandVal) : '') + (qq ? ' selle otsinguga' : '') + '.' :
+          listEl.innerHTML = '<div class="box"><p style="margin:0">' + (rows.length ? 'Selles mõõdus ei ole andmebaasis ühtegi ' + SEASON[S.season].osa + (brandVal ? ' margilt ' + esc(brandVal) : '') + (qq ? ' selle otsinguga' : '') + '.' :
             'Mõõdu ' + esc(pretty(S.size)) + ' märgiseandmed pole veel andmebaasis. Hetkel on korjatud ' + core.eprelSizes.length + ' mõõtu.') + '</p></div>';
           drawTable(); return;
         }

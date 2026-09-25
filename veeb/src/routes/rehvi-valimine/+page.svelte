@@ -42,7 +42,7 @@
 				<p class="qlab">Hooaeg</p>
 				<div class="lseg" role="group" aria-label="Hooaeg">
 					<button type="button" data-season="summer">Suverehv</button>
-					<button type="button" data-season="all">Lamellrehv</button>
+					<button type="button" data-season="all">Aastaringne</button>
 					<button type="button" data-season="winter">Talverehv</button>
 				</div>
 			</div>

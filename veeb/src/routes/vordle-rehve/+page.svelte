@@ -46,7 +46,7 @@
 				<select class="lsel" data-f="size" aria-label="Rehvimõõt"><option value="20555R16">205/55 R16</option></select>
 				<div class="lseg" role="group" aria-label="Hooaeg">
 					<button type="button" data-season="summer">Suvi</button>
-					<button type="button" data-season="all">Lamell</button>
+					<button type="button" data-season="all">Aastaringne</button>
 					<button type="button" data-season="winter">Talv</button>
 				</div>
 				<select class="lsel" data-brand aria-label="Mark"><option value="">Kõik margid</option></select>

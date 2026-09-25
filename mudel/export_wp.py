@@ -70,7 +70,7 @@ SOURCES = {
         "protokoll": "kuiv 100→0, märg asfalt 80→0, märg betoon 80→0 km/h, "
                      "akvaplaneerimise kiirus"},
     "ADACA25": {
-        "nimi": "ADAC lamellrehvitest 2025", "aasta": 2025,
+        "nimi": "ADAC aastaringsete rehvide test 2025", "aasta": 2025,
         "moot": "225/45 R17", "auto": "VW Golf 8", "rehve": 16,
         "tegija": "ADAC (Saksamaa)",
         "kajastus": "https://www.tyrereviews.com/Tyre-Tests/2025-ADAC-All-Season-Tyre-Test.htm",
@@ -83,7 +83,7 @@ SOURCES = {
         "kajastus": "https://www.tyrereviews.com/Tyre-Tests/2025-Friction-and-Studded-Winter-Tyre-Test.htm",
         "protokoll": "kuiv 80→0, märg 80→0, jää 50→0 km/h"},
     "UT25": {
-        "nimi": "UTAC / Aftonbladet suve- ja lamellrehvitest 2025", "aasta": 2025,
+        "nimi": "UTAC / Aftonbladet suve- ja aastaringsete rehvide test 2025", "aasta": 2025,
         "moot": "225/45 R17", "auto": "Audi A3", "rehve": 14,
         "tegija": "UTAC / Aftonbladet (Rootsi)",
         "kajastus": "https://www.tyrereviews.com/Tyre-Tests/2025-Summer-and-All-Season-Combined-Tyre-Test.htm",

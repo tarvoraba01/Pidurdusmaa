@@ -6,7 +6,7 @@
 	import { KAT_NIMI, CONDS, num, pretty, testLabel } from '$lib/util.js';
 
 	let { data } = $props();
-	const KAT = { 0: 'Suverehvid', 1: 'Lamellrehvid', 2: 'Talverehvid (Kesk-Euroopa)', 3: 'Talverehvid (Põhjamaade)' };
+	const KAT = { 0: 'Suverehvid', 1: 'Aastaringsed rehvid', 2: 'Talverehvid (Kesk-Euroopa)', 3: 'Talverehvid (Põhjamaade)' };
 
 	function pctVahe(d, x, y) {
 		const p = (100 * d) / Math.min(x, y);
@@ -129,7 +129,7 @@
 			<p>
 				{KAT_NIMI[t.cat] ?? ''}
 				{#if t.oletus}
-					· <span title="Märgisel on lumemärk, aga nimi ei ütle, kas talve- või lamellrehv"
+					· <span title="Märgisel on lumemärk, aga nimi ei ütle, kas talverehv või aastaringne rehv"
 						>tüüp tuletatud</span
 					>
 				{/if}

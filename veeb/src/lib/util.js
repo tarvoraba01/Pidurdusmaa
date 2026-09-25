@@ -5,7 +5,7 @@
 export const KAT_NIMI = {
 	SUMMER_UHP: 'Suverehv (sportlik)',
 	SUMMER_TOURING: 'Suverehv',
-	ALL_SEASON: 'Lamellrehv (aastaringne)',
+	ALL_SEASON: 'Aastaringne rehv',
 	WINTER_CENTRAL: 'Talverehv (Kesk-Euroopa)',
 	WINTER_NORDIC: 'Talverehv (Põhjamaade, naelutu)',
 	WINTER_STUDDED: 'Naastrehv'
@@ -13,7 +13,7 @@ export const KAT_NIMI = {
 export const KAT_LYHI = {
 	SUMMER_UHP: 'Suvi',
 	SUMMER_TOURING: 'Suvi',
-	ALL_SEASON: 'Lamell',
+	ALL_SEASON: 'Aastaringne',
 	WINTER_CENTRAL: 'Talv',
 	WINTER_NORDIC: 'Talv (Põhjamaa)',
 	WINTER_STUDDED: 'Naast'

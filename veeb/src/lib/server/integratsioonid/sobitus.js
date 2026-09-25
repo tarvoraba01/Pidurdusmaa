@@ -40,7 +40,7 @@ export function normMoot(s) {
 
 /* mudelinimest ära: mõõt, indeksid ja lisamärgid, mis ei muuda mudelit */
 const MYRA = new Set(
-	'xl rf rft runflat ssr zp extra load reinf reinforced fr mfs tl tubeless 3pmsf pmsf studded naast naastrehv suverehv talverehv lamellrehv summer winter allseason all season'.split(
+	'xl rf rft runflat ssr zp extra load reinf reinforced fr mfs tl tubeless 3pmsf pmsf studded naast naastrehv suverehv talverehv lamellrehv aastaringne summer winter allseason all season'.split(
 		' '
 	)
 );

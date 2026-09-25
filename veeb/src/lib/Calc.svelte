@@ -120,7 +120,7 @@
 				<p class="lbl">3. Hooaeg</p>
 				<div class="seg" role="group" aria-label="Hooaeg">
 					<button type="button" data-season="summer" aria-pressed="true">Suvi</button>
-					<button type="button" data-season="all" aria-pressed="false">Lamell</button>
+					<button type="button" data-season="all" aria-pressed="false">Aastaringne</button>
 					<button type="button" data-season="winter" aria-pressed="false">Talv</button>
 				</div>
 			</div>
