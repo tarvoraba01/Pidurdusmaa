@@ -361,10 +361,11 @@
       onChange(sel.variant.value || null);
     }
     sel.make.addEventListener('change', function () { fill('make'); });
+    vehSearch(sel, V, function (key) { api.set(key); });
     sel.model.addEventListener('change', function () { fill('model'); });
     sel.year.addEventListener('change', function () { fill('year'); });
     sel.variant.addEventListener('change', function () { onChange(sel.variant.value || null); });
-    return {
+    var api = {
       set: function (key) {
         var v = core.vehByKey[key]; if (!v) return;
         sel.make.value = v.make; fill('make');
@@ -373,6 +374,99 @@
         sel.variant.value = v.key; onChange(v.key);
       }
     };
+    return api;
+  }
+
+  /* ------------------------------------------------------------ auto otsing
+   * Kirjuta „golf 4“, „passat 2005“, „mersu w124“, „žiguli“ — pakub autosid.
+   * Valik täidab mark/mudel/aasta/variant valikud (need jäävad alles). */
+  function lihtne(t) {
+    return String(t || '').normalize('NFKD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9+]+/g, ' ').trim();
+  }
+  var ROOMA = { i: 1, ii: 2, iii: 3, iv: 4, v: 5, vi: 6, vii: 7, viii: 8, ix: 9, x: 10 };
+  var ROOMA_T = ['', 'i', 'ii', 'iii', 'iv', 'v', 'vi', 'vii', 'viii', 'ix', 'x'];
+  var AUTO_SYN = {
+    vw: 'volkswagen', folks: 'volkswagen', mersu: 'mercedes', merc: 'mercedes', mb: 'mercedes', benz: 'mercedes',
+    bemm: 'bmw', ziguli: 'lada', zhiguli: 'lada', zigul: 'lada', vaz: 'lada', moskvich: 'moskvits', moskvitch: 'moskvits',
+    shkoda: 'skoda', citroen: 'citroen', alfa: 'alfa', chevy: 'chevrolet', landrover: 'land rover'
+  };
+  function vehSearch(sel, V, onPick) {
+    var dark = sel.make.classList.contains('sel');
+    var host = sel.make.parentNode;
+    var wrap = document.createElement('div');
+    wrap.className = 'vs' + (dark ? ' vs-dark' : '');
+    var lid = 'vs' + Math.random().toString(36).slice(2, 7);
+    wrap.innerHTML = '<input type="search" class="' + esc(sel.make.className) + ' vs-in" placeholder="Otsi autot, nt Golf 4 või Passat 2005" ' +
+      'autocomplete="off" spellcheck="false" role="combobox" aria-expanded="false" aria-autocomplete="list" aria-controls="' + lid + '" aria-label="Otsi autot">' +
+      '<ul class="vs-list" id="' + lid + '" role="listbox" hidden></ul>';
+    host.parentNode.insertBefore(wrap, host);
+    var inp = $('input', wrap), list = $('ul', wrap), hits = [], act = -1;
+
+    var idx = V.filter(function (v) { return v.make !== 'Ei leia oma autot'; }).map(function (v) {
+      var g = lihtne(v.gen), extra = '';
+      if (ROOMA[g]) extra = ' ' + ROOMA[g];
+      else if (/^\d+$/.test(g) && ROOMA_T[+g]) extra = ' ' + ROOMA_T[+g];
+      var y = /^(\d{4})(?:\s*[-–]\s*(\d{4}))?(\+)?/.exec(String(v.years || ''));
+      return {
+        v: v,
+        hay: ' ' + lihtne([v.make, v.model, v.gen, v.variant, v.name, v.body].join(' ')) + extra + ' ',
+        y0: y ? +y[1] : 0, y1: y ? (y[2] ? +y[2] : (y[3] ? 2030 : +y[1])) : 0
+      };
+    });
+
+    function otsi(q) {
+      var toks = lihtne(q).split(' ').filter(Boolean).map(function (t) { return AUTO_SYN[t] || t; });
+      if (!toks.length) return [];
+      var out = [];
+      idx.forEach(function (x) {
+        var score = 0;
+        for (var i = 0; i < toks.length; i++) {
+          var t = toks[i];
+          if (/^(19|20)\d\d$/.test(t)) {
+            var yy = +t;
+            if (x.y0 && yy >= x.y0 - 1 && yy <= x.y1 + 1) { score += 2; continue; }
+            return;
+          }
+          var at = x.hay.indexOf(' ' + t);
+          if (at < 0) { if (x.hay.indexOf(t) < 0) return; score += 1; }
+          else score += (x.hay.indexOf(' ' + t + ' ') >= 0 ? 4 : 3);
+        }
+        out.push({ x: x, s: score });
+      });
+      out.sort(function (a, b) { return b.s - a.s || (b.x.y0 - a.x.y0) || a.x.v.name.localeCompare(b.x.v.name, 'et'); });
+      return out.slice(0, 8).map(function (o) { return o.x.v; });
+    }
+    function show() {
+      list.innerHTML = hits.length ? hits.map(function (v, i) {
+        return '<li role="option" id="' + lid + '-' + i + '" data-i="' + i + '" aria-selected="' + (i === act) + '">' +
+          '<b>' + esc(v.make + ' ' + v.model) + '</b> ' + esc((v.yearLabel || '') + (v.variant && v.variant !== '—' ? ' · ' + v.variant : '')) +
+          ' <span class="vs-m">' + esc(v.oemSize || '') + '</span></li>';
+      }).join('') : (inp.value.trim().length > 1 ? '<li class="vs-none" role="presentation">Ei leidnud. Proovi ainult marki või mudelit, või vali allpool.</li>' : '');
+      var open = !!list.innerHTML;
+      list.hidden = !open;
+      inp.setAttribute('aria-expanded', open ? 'true' : 'false');
+      if (act >= 0) inp.setAttribute('aria-activedescendant', lid + '-' + act); else inp.removeAttribute('aria-activedescendant');
+    }
+    function vali(i) {
+      var v = hits[i]; if (!v) return;
+      onPick(v.key);
+      inp.value = v.make + ' ' + v.model + ' ' + (v.yearLabel || '');
+      hits = []; act = -1; show(); list.hidden = true; inp.setAttribute('aria-expanded', 'false');
+      Track('auto_otsing', v.make + ' ' + v.model);
+    }
+    inp.addEventListener('input', function () { hits = otsi(inp.value); act = hits.length ? 0 : -1; show(); });
+    inp.addEventListener('focus', function () { if (inp.value) { hits = otsi(inp.value); act = hits.length ? 0 : -1; show(); } });
+    inp.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowDown' && hits.length) { act = (act + 1) % hits.length; show(); e.preventDefault(); }
+      else if (e.key === 'ArrowUp' && hits.length) { act = (act - 1 + hits.length) % hits.length; show(); e.preventDefault(); }
+      else if (e.key === 'Enter' && act >= 0) { vali(act); e.preventDefault(); }
+      else if (e.key === 'Escape') { list.hidden = true; inp.setAttribute('aria-expanded', 'false'); }
+    });
+    /* käsitsi valitud mark/mudel → otsingu tekst ei vasta enam, tühjenda */
+    ['make', 'model', 'year', 'variant'].forEach(function (k) { sel[k].addEventListener('change', function () { inp.value = ''; }); });
+    list.addEventListener('mousedown', function (e) { e.preventDefault(); });
+    list.addEventListener('click', function (e) { var li = e.target.closest('[data-i]'); if (li) vali(+li.dataset.i); });
+    inp.addEventListener('blur', function () { setTimeout(function () { list.hidden = true; inp.setAttribute('aria-expanded', 'false'); }, 120); });
   }
 
   function sizeOptions(el, veh, current) {
@@ -395,7 +489,127 @@
     }).join('') + '</optgroup>';
     el.innerHTML = h;
     el.value = current && $('option[value="' + current + '"]', el) ? current : (oem || '20555R16');
+    sizePicker(el);
     return el.value;
+  }
+
+  /* ------------------------------------------------------------ mõõdu valik
+   * Pika mõõdunimekirja asemel kolm väikest valikut nagu rehvi küljel:
+   * laius / kõrgus / velg (205 / 55 R16). Iga järgmine näitab ainult neid
+   * väärtusi, mis eelmistega koos andmebaasis olemas on.
+   * Päris <select data-f="size"> jääb alles (peidetuna) — kogu ülejäänud
+   * kood loeb ja kuulab endiselt seda; siin ainult seatakse selle väärtus
+   * ja saadetakse 'change'. Auto tehasemõõdud on nuppudena kohe näha. */
+  var SP_RE = /^(\d{3})(\d{2})R(\d{2}C?)$/;
+  function sizePicker(el) {
+    var opts = $$('option', el).map(function (o) {
+      var m = SP_RE.exec(o.value);
+      var g = o.parentNode && o.parentNode.tagName === 'OPTGROUP' ? o.parentNode : null;
+      return m ? { v: o.value, w: m[1], p: m[2], r: m[3], oem: !!(g && /tehasemõõdud/.test(g.label)), levinuim: / levinuim/.test(o.textContent) } : null;
+    }).filter(Boolean);
+    var nOf = {};
+    (core && core.sizes || []).forEach(function (x) { nOf[x.m] = x.n; });
+
+    var box = el._sp;
+    if (!box) {
+      box = document.createElement('div');
+      box.className = 'sp';
+      var id = el.id || ('sp' + Math.random().toString(36).slice(2, 7));
+      var cls = el.className;
+      box.innerHTML =
+        '<div class="sp-chips" data-sp-chips hidden></div>' +
+        '<div class="sp-kiri"><input type="text" class="' + esc(cls) + ' vs-in" data-sp-kiri inputmode="text" autocomplete="off" spellcheck="false" ' +
+        'placeholder="Kirjuta mõõt, nt 205/55 R16" aria-label="Kirjuta rehvimõõt"><p class="sp-msg" data-sp-msg aria-live="polite"></p></div>' +
+        '<div class="sp-row">' +
+        ['w:Laius', 'p:Kõrgus', 'r:Velg'].map(function (x, i) {
+          var k = x.split(':')[0], t = x.split(':')[1];
+          return '<label class="sp-f"><span class="sp-l">' + t + '</span><select class="' + esc(cls) + '" id="' + esc(id + (i ? '-' + k : '')) + '" data-sp="' + k + '"></select></label>' +
+            (i < 2 ? '<span class="sp-sep" aria-hidden="true">' + (i ? 'R' : '/') + '</span>' : '');
+        }).join('') + '</div>';
+      /* vana silt (for="f-size") osutab nüüd laiuse valikule */
+      if (el.id) el.id = el.id + '-kogu';
+      el.hidden = true;
+      el.setAttribute('aria-hidden', 'true');
+      el.tabIndex = -1;
+      el.parentNode.insertBefore(box, el.nextSibling);
+      el._sp = box;
+      var set = function (v) {
+        if (!v || v === el.value) { draw(); return; }
+        el.value = v;
+        el.dispatchEvent(new Event('change', { bubbles: true }));
+        draw();
+      };
+      /* valik muutus → parim sobiv kombinatsioon (levinuim mõõt selle väärtusega) */
+      var pick = function (k) {
+        var cur = SP_RE.exec(el.value) || [];
+        var want = { w: $('[data-sp=w]', box).value, p: $('[data-sp=p]', box).value, r: $('[data-sp=r]', box).value };
+        var fit = function (o) {
+          return o.w === want.w && (k === 'w' || o.p === want.p) && (k !== 'r' || o.r === want.r);
+        };
+        var cand = box._opts.filter(fit);
+        /* hoia alles see, mis juba sobis (nt laiuse vahetusel sama velg) */
+        cand.sort(function (a, b) {
+          var sa = (a.p === cur[2] ? 2 : 0) + (a.r === cur[3] ? 1 : 0), sb = (b.p === cur[2] ? 2 : 0) + (b.r === cur[3] ? 1 : 0);
+          return (sb - sa) || ((b.oem ? 1 : 0) - (a.oem ? 1 : 0)) || ((nOf[b.v] || 0) - (nOf[a.v] || 0));
+        });
+        if (cand.length) set(cand[0].v);
+      };
+      $$('[data-sp]', box).forEach(function (s) { s.addEventListener('change', function () { pick(s.dataset.sp); }); });
+      box.addEventListener('click', function (e) {
+        var b = e.target.closest('[data-sp-v]');
+        if (b) set(b.dataset.spV);
+      });
+      /* kirjutatud mõõt: „205/55 R16“, „205 55 16“, „2055516“, „225/45ZR17“, „215/65 R16C“ */
+      var kiri = $('[data-sp-kiri]', box), msg = $('[data-sp-msg]', box);
+      var loe = function (lopp) {
+        var t = kiri.value.toUpperCase().replace(/[^0-9A-Z]/g, '');
+        msg.textContent = '';
+        if (!t) return;
+        var m = /^(\d{3})(\d{2})Z?R?F?(\d{2})(C?)$/.exec(t);
+        if (!m) { if (lopp) msg.textContent = 'Kirjuta kujul laius/kõrgus velg, nt 205/55 R16.'; return; }
+        var v = m[1] + m[2] + 'R' + m[3] + m[4];
+        if (!$('option[value="' + v + '"]', el)) {
+          if (!core || core.eprelSizes.indexOf(v) < 0) { msg.textContent = 'Mõõdu ' + pretty(v) + ' märgiseandmeid andmebaasis veel pole.'; return; }
+          /* harvem mõõt: lisame valikusse */
+          var g = $$('optgroup', el).pop() || el;
+          var o = document.createElement('option'); o.value = v; o.textContent = pretty(v);
+          g.appendChild(o);
+          box._opts.push({ v: v, w: m[1], p: m[2], r: m[3] + m[4], oem: false, levinuim: false });
+        }
+        set(v);
+        msg.textContent = '✓ ' + pretty(v);
+      };
+      kiri.addEventListener('input', function () { loe(false); });
+      kiri.addEventListener('change', function () { loe(true); });
+      kiri.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); loe(true); } });
+      box._draw = draw;
+    }
+    box._opts = opts;
+    box._draw();
+
+    function draw() {
+      var o = box._opts, cur = SP_RE.exec(el.value) || [];
+      var uniq = function (arr) { return arr.filter(function (x, i) { return arr.indexOf(x) === i; }); };
+      var num = function (a, b) { return parseInt(a, 10) - parseInt(b, 10) || a.localeCompare(b); };
+      var fill = function (k, vals, val, lbl) {
+        var s = $('[data-sp=' + k + ']', box);
+        s.innerHTML = vals.map(function (v) { return '<option value="' + esc(v) + '">' + esc(lbl(v)) + '</option>'; }).join('');
+        s.value = vals.indexOf(val) >= 0 ? val : vals[0];
+      };
+      fill('w', uniq(o.map(function (x) { return x.w; })).sort(num), cur[1], function (v) { return v; });
+      fill('p', uniq(o.filter(function (x) { return x.w === cur[1]; }).map(function (x) { return x.p; })).sort(num), cur[2], function (v) { return v; });
+      fill('r', uniq(o.filter(function (x) { return x.w === cur[1] && x.p === cur[2]; }).map(function (x) { return x.r; })).sort(num), cur[3], function (v) {
+        var n = nOf[cur[1] + cur[2] + 'R' + v];
+        return 'R' + v + (n ? ' · ' + n + ' rehvi' : '');
+      });
+      var chips = $('[data-sp-chips]', box), oem = o.filter(function (x) { return x.oem; });
+      chips.hidden = !oem.length;
+      chips.innerHTML = oem.length ? '<span class="sp-l">Selle auto tehasemõõdud</span>' + oem.map(function (x) {
+        var on = x.v === el.value;
+        return '<button type="button" class="sp-chip' + (on ? ' on' : '') + '" aria-pressed="' + on + '" data-sp-v="' + esc(x.v) + '">' +
+          esc(pretty(x.v)) + (x.levinuim ? ' <small>levinuim</small>' : '') + '</button>';
+      }).join('') : '';
+    }
   }
 
   /* ------------------------------------------------------------ kalkulaator */
