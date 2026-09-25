@@ -388,6 +388,7 @@ _MAKE_BY_PREFIX = {
     "ssangyong_": "SsangYong", "jaguar_": "Jaguar",
     "polestar_": "Polestar", "mg4_": "MG", "mg_": "MG",
     "cupra_": "Cupra", "isuzu_": "Isuzu", "yld_": "Ei leia oma autot",
+    "moskvich_": "Moskvitš", "gaz_": "GAZ", "zaz_": "ZAZ", "uaz_": "UAZ",
     "vw": "Volkswagen", "passat": "Volkswagen", "audi": "Audi",
     "skoda": "Škoda", "toyota": "Toyota", "bmw": "BMW",
     "mb": "Mercedes-Benz", "nissan": "Nissan", "volvo": "Volvo",
@@ -420,6 +421,9 @@ _BODY_SMALL = {
     "mitsu_spacestar", "suzuki_swift_4", "suzuki_ignis_3", "seat_ibiza_5",
     "fiat_panda_3", "fiat_punto_3", "mini_f56", "chevrolet_aveo_t300",
     "chevrolet_spark_m300", "lada_granta", "bmw_i3",
+    # 2026-09-25 vanemad autod
+    "vw_polo_3", "vw_polo_3_abs", "opel_corsa_b", "opel_corsa_c", "ford_fiesta_4",
+    "nissan_micra_k11", "zaz_tavria", "skoda_favorit", "skoda_felicia", "seat_ibiza_2",
 }
 
 _BODY_SUV = {
@@ -427,6 +431,7 @@ _BODY_SUV = {
     "nissan_qashqai_j11", "volvo_xc60_1", "volvo_xc60", "kia_sportage_3",
     "honda_crv_3", "mitsubishi_outlander_3", "subaru_forester_sj",
     "bmw_x5_e53", "bmw_x5_e70", "bmw_x3_e83", "bmw_x3_f25", "volvo_xc90_1",
+    "uaz_469",
     "skoda_kodiaq_1", "skoda_kamiq", "vw_troc", "renault_captur_2",
     "dacia_duster_2", "mazda_cx5_ke", "toyota_yariscross", "toyota_chr_1",
     "toyota_lc120", "toyota_bz4x", "nissan_qashqai_j10", "honda_crv_4",

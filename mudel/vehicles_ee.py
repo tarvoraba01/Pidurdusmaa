@@ -730,6 +730,136 @@ EE_VEHICLES += [
     ("chrysler_300c_ld","Chrysler 300C LD (2011-2023)",       1962, 0.32, 1.902, 1.492, 3.052, 2.4, "225/60 R18", A.MODERN, 1.26, "rõhk hinnang"),
 ]
 
+# =====================================================================
+# 2026-09-25 LISATUD: 1985-2005 autod, mis on Eestis päriselt kasutuses
+# (Golf II-IV, Passat B3-B5, Audi 80/100, W124/W201, E30/E34, Opel, Volvo,
+# Žigulid, Samara, Moskvitš, Volga jne). Andmed kogutud veebist allikatega:
+# auto-data.net, ultimatespecs, ADAC autokataloog, cars-data.com,
+# tpressure.com, tyre-pressures.com (HaynesPro), club.autodoc, Vikipeedia
+# (de/en/ru), autoopt.ru ja catalog-vaz.ru (Nõukogude autod).
+#
+# ABS ON SIIN KÕIGE TÄHTSAM VÄLI. Selle ajastu autodel oli ABS sageli
+# LISAVARUSTUS. Kus see oli levinud mudelil tõsiselt kahel moel (nt Golf III,
+# W124, Astra F), on KAKS rida: "ABS-iga" ja "ilma ABS-ita" -- kasutaja
+# teab oma autot (armatuuril põleb käivitamisel ABS-tuli). Kus ABS oli
+# harvaesinev lisavarustus, on üks rida ABS.NONE ja märkus ütleb seda.
+#
+# Pidurite võimekus (viimane arv) on HINNANG klassi järgi, nagu kõigil
+# ridadel: ABS-ita lääne autod 1,05-1,12 g, Nõukogude autod 0,75-0,90 g
+# (trummelpidurid, nõrgem võimendus). ABS-ita autol piirab pidurdust
+# enamasti rehv (abs_eff 0,74), mitte pidurid, seega see väärtus
+# tulemust tavaliselt ei muuda.
+# Mass on tootja tühimass (DIN, ilma juhita), kui märkuses ei öelda teisiti.
+_ABS2 = "ABS oli lisavarustus: vali 'ABS-iga', kui armatuuril süttib käivitamisel ABS-tuli"
+_ABS1 = "ABS oli harva esinev lisavarustus; kui sinu autol on ABS, on pidurdusmaa lühem"
+EE_VEHICLES += [
+    # --- Volkswagen -------------------------------------------------------
+    ("vw_golf_2",       "VW Golf II 1.6 (1983-1992)",              880, 0.34, 1.665, 1.415, 2.475, 2.0, "175/70 R13", A.NONE,  1.08, _ABS1 + " (alates 1987, peamiselt GTI-l)"),
+    ("vw_golf_3",       "VW Golf III 1.8 ilma ABS-ita (1991-1997)",1030, 0.30, 1.695, 1.425, 2.475, 2.0, "175/70 R13", A.NONE,  1.10, _ABS2 + "; standardis alates 1996"),
+    ("vw_golf_3_abs",   "VW Golf III 1.8 ABS-iga (1991-1997)",    1030, 0.30, 1.695, 1.425, 2.475, 2.0, "175/70 R13", A.EARLY, 1.18, "ABS standardis GTI 16V/VR6-l ja kõigil alates 1996"),
+    ("vw_jetta_2",      "VW Jetta II 1.6 (1984-1992)",             920, 0.36, 1.665, 1.415, 2.475, 1.9, "175/70 R13", A.NONE,  1.08, _ABS1),
+    ("vw_vento",        "VW Vento 1.8 (1991-1998)",               1071, 0.32, 1.695, 1.425, 2.475, 2.3, "185/60 R14", A.NONE,  1.10, _ABS1 + "; ABS-i kohta eraldi allikat ei leitud, eeldatud nagu Golf III-l"),
+    ("vw_passat_b3",    "VW Passat B3 1.8 ilma ABS-ita (1988-1993)",1155,0.29, 1.705, 1.430, 2.625, 2.2, "185/65 R14", A.NONE,  1.10, _ABS2),
+    ("vw_passat_b3_abs","VW Passat B3 1.8 ABS-iga (1988-1993)",   1155, 0.29, 1.705, 1.430, 2.625, 2.2, "185/65 R14", A.EARLY, 1.18, "ABS oli B3-l lisavarustus"),
+    ("vw_passat_b4",    "VW Passat B4 1.9 TDI (1993-1997)",       1246, 0.31, 1.720, 1.430, 2.625, 2.1, "185/65 R14", A.EARLY, 1.20, "Cd hinnang (B3 kere edasiarendus); ABS standardis"),
+    ("vw_polo_3",       "VW Polo III 1.4 ilma ABS-ita (1994-2001)", 985,0.34, 1.655, 1.420, 2.400, 2.0, "175/65 R13", A.NONE,  1.08, _ABS2 + "; Saksamaal standardis alates 1996 lõpust; Cd hinnang"),
+    ("vw_polo_3_abs",   "VW Polo III 1.4 ABS-iga (1994-2001)",     985, 0.34, 1.655, 1.420, 2.400, 2.0, "175/65 R13", A.EARLY, 1.16, "Cd hinnang"),
+
+    # --- Audi -------------------------------------------------------------
+    ("audi_80_b3",      "Audi 80 B3 1.8 (1986-1991)",             1020, 0.29, 1.695, 1.397, 2.546, 1.9, "175/70 R14", A.NONE,  1.10, _ABS1 + " (allikaga kinnitamata)"),
+    ("audi_80_b4",      "Audi 80 B4 2.0 ilma ABS-ita (1991-1996)",1190, 0.30, 1.695, 1.406, 2.612, 2.0, "195/65 R15", A.NONE,  1.12, _ABS2 + "; enamikul standardis alates 01/1993"),
+    ("audi_80_b4_abs",  "Audi 80 B4 2.0 ABS-iga (1991-1996)",     1190, 0.30, 1.695, 1.406, 2.612, 2.0, "195/65 R15", A.EARLY, 1.20, "ABS enamikul standardis alates 01/1993"),
+    ("audi_100_c3",     "Audi 100 C3 1.8 (1982-1991)",            1080, 0.30, 1.814, 1.422, 2.687, 2.0, "185/70 R14", A.NONE,  1.10, _ABS1 + "; rõhk hinnang"),
+    ("audi_100_c4",     "Audi 100 C4 2.0 ilma ABS-ita (1990-1994)",1430,0.32, 1.777, 1.437, 2.692, 2.2, "195/65 R15", A.NONE,  1.12, _ABS2 + " (4-silindrilistel ja TDI-l); rõhk hinnang; mass võib sisaldada juhti"),
+    ("audi_100_c4_abs", "Audi 100 C4 2.0 ABS-iga (1990-1994)",    1430, 0.32, 1.777, 1.437, 2.692, 2.2, "195/65 R15", A.EARLY, 1.20, "ABS standardis 6-silindrilistel; rõhk hinnang; mass võib sisaldada juhti"),
+    ("audi_a3_8l",      "Audi A3 8L 1.6 (1996-2003)",             1015, 0.31, 1.735, 1.427, 2.513, 2.2, "195/65 R15", A.EARLY, 1.22, "ABS standardis (allikaga kinnitamata)"),
+
+    # --- Mercedes-Benz ------------------------------------------------------
+    ("mb_190_w201",     "Mercedes 190E W201 2.0 ilma ABS-ita (1982-1993)",1180,0.33,1.690,1.375,2.665,2.0,"185/65 R15", A.NONE,  1.12, _ABS2 + "; standardis alates 1991 kevadest"),
+    ("mb_190_w201_abs", "Mercedes 190E W201 2.0 ABS-iga (1982-1993)",1180, 0.33, 1.690, 1.375, 2.665, 2.0, "185/65 R15", A.EARLY, 1.20, "ABS standardis alates 1991 kevadest (1.8 alates 10/1992)"),
+    ("mb_e230_w124",    "Mercedes E230 W124 ilma ABS-ita (1984-1988)",1360,0.29,1.740,1.428,2.800,2.0,"195/65 R15", A.NONE,  1.12, _ABS2 + "; alates 09/1988 kõigil standardis"),
+    ("mb_e230_w124_abs","Mercedes E230 W124 ABS-iga (1984-1996)", 1360, 0.29, 1.740, 1.428, 2.800, 2.0, "195/65 R15", A.EARLY, 1.22, "ABS standardis kõigil alates 09/1988"),
+    ("mb_s320_w140",    "Mercedes S320 W140 (1991-1998)",         1890, 0.30, 1.886, 1.486, 3.040, 2.0, "235/60 R16", A.EARLY, 1.22, "rõhk S 280 järgi (S 320 lehel puudus)"),
+    ("mb_a140_w168",    "Mercedes A140 W168 (1997-2004)",         1020, 0.31, 1.719, 1.590, 2.423, 1.8, "195/50 R15", A.EARLY, 1.20, "ESP + pidurdusabi standardis alates 02/1998"),
+
+    # --- BMW -----------------------------------------------------------------
+    ("bmw_318i_e30",    "BMW 318i E30 ilma ABS-ita (1982-1994)",  1065, 0.36, 1.645, 1.380, 2.570, 1.8, "175/70 R14", A.NONE,  1.12, _ABS2 + "; Cd nõrk allikas (foorum); mass EL-i tühimass; baasmõõt 175/70 R14 (195/65 R14 kohta märgise andmeid ei ole)"),
+    ("bmw_318i_e30_abs","BMW 318i E30 ABS-iga (1982-1994)",       1065, 0.36, 1.645, 1.380, 2.570, 1.8, "175/70 R14", A.EARLY, 1.20, "ABS standardis 325i-l ja M3-l; Cd nõrk allikas; mass EL-i tühimass; baasmõõt 175/70 R14 (195/65 R14 kohta märgise andmeid ei ole)"),
+    ("bmw_520i_e34",    "BMW 520i E34 ilma ABS-ita (1988-1992)",  1445, 0.30, 1.751, 1.412, 2.761, 2.0, "195/65 R15", A.NONE,  1.12, _ABS2 + "; alates 05/1992 kõigil standardis; mass EL-i tühimass"),
+    ("bmw_520i_e34_abs","BMW 520i E34 ABS-iga (1988-1996)",       1445, 0.30, 1.751, 1.412, 2.761, 2.0, "195/65 R15", A.EARLY, 1.22, "ABS standardis 525i-l ja suurematel, kõigil alates 05/1992; mass EL-i tühimass"),
+
+    # --- Opel -----------------------------------------------------------------
+    ("opel_kadett_e",   "Opel Kadett E 1.6 (1984-1991)",           890, 0.32, 1.663, 1.400, 2.520, 1.8, "175/70 R13", A.NONE,  1.08, _ABS1 + " (standardis ainult GSi-l); mass EL-i tühimass"),
+    ("opel_astra_f",    "Opel Astra F 1.6 ilma ABS-ita (1991-1998)",940, 0.32, 1.688, 1.410, 2.517, 1.9, "175/70 R13", A.NONE,  1.10, _ABS2 + "; standardis alates mudeliaastast 1996; mass EL-i tühimass"),
+    ("opel_astra_f_abs","Opel Astra F 1.6 ABS-iga (1991-1998)",    940, 0.32, 1.688, 1.410, 2.517, 1.9, "175/70 R13", A.EARLY, 1.18, "ABS standardis alates mudeliaastast 1996; mass EL-i tühimass"),
+    ("opel_vectra_a",   "Opel Vectra A 1.6 ilma ABS-ita (1988-1992)",1110,0.29, 1.700, 1.400, 2.600, 1.8, "175/70 R14", A.NONE,  1.10, _ABS2 + "; kõigil standardis alates 09/1992; mass EL-i tühimass"),
+    ("opel_vectra_a_abs","Opel Vectra A 1.6 ABS-iga (1988-1995)", 1110, 0.29, 1.700, 1.400, 2.600, 1.8, "175/70 R14", A.EARLY, 1.18, "ABS kõigil standardis alates 09/1992; mass EL-i tühimass"),
+    ("opel_omega_a",    "Opel Omega A 2.0 ilma ABS-ita (1986-1990)",1300,0.28, 1.772, 1.447, 2.730, 2.0, "185/70 R14", A.NONE,  1.12, _ABS2 + "; standardis alates 08/1990; mass EL-i tühimass"),
+    ("opel_omega_a_abs","Opel Omega A 2.0 ABS-iga (1986-1994)",   1300, 0.28, 1.772, 1.447, 2.730, 2.0, "185/70 R14", A.EARLY, 1.20, "ABS standardis alates 08/1990; mass EL-i tühimass"),
+    ("opel_omega_b",    "Opel Omega B 2.0 (1994-2003)",           1410, 0.28, 1.786, 1.455, 2.730, 2.0, "195/65 R15", A.EARLY, 1.22, "Cd hinnang (Omega A järgi); mass EL-i tühimass"),
+    ("opel_corsa_b",    "Opel Corsa B 1.4 (1993-2000)",            900, 0.35, 1.608, 1.420, 2.443, 2.0, "165/70 R13", A.NONE,  1.05, _ABS1 + "; mass, Cd ja mõõdud ligikaudsed"),
+    ("opel_corsa_c",    "Opel Corsa C 1.2 (2000-2006)",           1000, 0.32, 1.646, 1.440, 2.491, 1.9, "175/65 R14", A.EARLY, 1.18, "mass, Cd ja mõõdud ligikaudsed; ABS eeldatud standardiks (kinnitamata)"),
+
+    # --- Ford -----------------------------------------------------------------
+    ("ford_sierra",     "Ford Sierra 2.0 (1982-1993)",            1140, 0.34, 1.690, 1.367, 2.609, 1.8, "185/65 R14", A.NONE,  1.10, _ABS1 + " (4x4 ja Cosworth); 185/70 R13 kohta märgise andmeid ei ole, arvutus 185/65 R14-ga"),
+    ("ford_escort_7",   "Ford Escort 1.6 (1990-2000)",            1080, 0.35, 1.700, 1.346, 2.523, 2.0, "175/70 R13", A.NONE,  1.08, _ABS1),
+    ("ford_mondeo_1",   "Ford Mondeo I 1.8 (1993-2000)",          1248, 0.32, 1.747, 1.372, 2.704, 2.1, "185/65 R14", A.EARLY, 1.20, "Cd hinnang; ABS Saksamaa turul standardis alates 09/1993 (UK-s ainult GLX-st)"),
+    ("ford_fiesta_4",   "Ford Fiesta Mk4 1.25 (1995-2002)",        980, 0.36, 1.634, 1.334, 2.446, 2.1, "165/70 R13", A.NONE,  1.05, _ABS1 + "; mass ja Cd hinnang"),
+
+    # --- Toyota ---------------------------------------------------------------
+    ("toyota_corolla_e90","Toyota Corolla E90 1.3 (1987-1992)",    935, 0.34, 1.655, 1.365, 2.430, 1.9, "175/70 R13", A.NONE,  1.05, "Cd ja rõhk hinnang; ABS-i allikat ei leitud, tavalisel 1.3-l seda ei olnud"),
+    ("toyota_corolla_e100","Toyota Corolla E100 1.3 (1991-1997)",  995, 0.33, 1.685, 1.383, 2.465, 2.3, "175/65 R14", A.NONE,  1.08, _ABS1 + " (standardis ainult 1.8 GXi-l)"),
+    ("toyota_carina_e", "Toyota Carina E 1.6 ilma ABS-ita (1992-1996)",1099,0.30,1.695,1.410,2.580,2.2,"185/65 R14", A.NONE,  1.10, _ABS2 + "; 1996. aasta uuendusest alates kõigil standardis"),
+    ("toyota_carina_e_abs","Toyota Carina E 1.6 ABS-iga (1992-1997)",1099,0.30,1.695,1.410,2.580,2.2,"185/65 R14", A.EARLY, 1.20, "ABS kõigil standardis alates 1996"),
+
+    # --- Volvo ja Saab ------------------------------------------------------------
+    ("volvo_240",       "Volvo 240 2.3 (1974-1993)",              1243, 0.45, 1.710, 1.430, 2.640, 1.9, "185/70 R14", A.NONE,  1.10, "Cd hinnang (kandiline kere); ABS ainult viimastel mudeliaastatel 1991-1993"),
+    ("volvo_940",       "Volvo 940 2.3 (1990-1998)",              1445, 0.35, 1.750, 1.410, 2.770, 1.9, "185/65 R15", A.EARLY, 1.20, "ABS standardis GLE/16V/Turbo-l, baas-GL-il alguses lisavarustus; 740 on peaaegu sama (Cd 0,41)"),
+    ("volvo_850",       "Volvo 850 2.5 (1991-1997)",              1375, 0.32, 1.760, 1.415, 2.664, 2.2, "195/60 R15", A.EARLY, 1.22, "ABS kõigil turgudel standardis alates 1994"),
+    ("volvo_s40_1",     "Volvo S40 I 1.8 (1995-2004)",            1286, 0.32, 1.717, 1.411, 2.550, 2.2, "195/55 R15", A.EARLY, 1.22, "Cd V40 järgi"),
+    ("volvo_v70_1",     "Volvo V70 I 2.5 (1996-2000)",            1470, 0.32, 1.760, 1.430, 2.660, 2.2, "195/60 R15", A.EARLY, 1.22, ""),
+    ("volvo_s80_1",     "Volvo S80 I 2.4 (1998-2006)",            1489, 0.28, 1.832, 1.452, 2.791, 2.0, "205/65 R15", A.EARLY, 1.24, "ABS + EBD standardis"),
+    ("saab_900_2",      "Saab 900 II 2.0 (1993-1998)",            1290, 0.34, 1.711, 1.436, 2.600, 2.2, "195/60 R15", A.EARLY, 1.20, ""),
+
+    # --- Nissan, Mazda, Honda, Mitsubishi ----------------------------------------
+    ("nissan_sunny_n14","Nissan Sunny N14 1.4 (1990-1995)",       1040, 0.33, 1.670, 1.395, 2.430, 2.0, "175/70 R13", A.NONE,  1.08, "Cd hinnang; ABS-i tavalistel versioonidel ei pakutud"),
+    ("nissan_primera_p10","Nissan Primera P10 1.6 ilma ABS-ita (1990-1996)",1075,0.30,1.700,1.390,2.550,2.1,"175/70 R14", A.NONE, 1.10, _ABS2 + "; Cd hinnang"),
+    ("nissan_primera_p10_abs","Nissan Primera P10 1.6 ABS-iga (1990-1996)",1075,0.30,1.700,1.390,2.550,2.1,"175/70 R14", A.EARLY,1.20, "Cd hinnang; ABS standardis GT-l, UK-s kõigil alates 1993"),
+    ("nissan_primera_p11","Nissan Primera P11 1.6 (1996-2002)",   1185, 0.30, 1.715, 1.410, 2.600, 2.2, "175/70 R14", A.EARLY, 1.20, "Cd hinnang; ABS kõigil standardis"),
+    ("nissan_almera_n15","Nissan Almera N15 1.4 ilma ABS-ita (1995-1998)",1065,0.33,1.690,1.395,2.535,2.1,"175/65 R14", A.NONE, 1.08, "Cd hinnang; tavalistel versioonidel ABS-i ei pakutud enne 1998. aasta uuendust"),
+    ("nissan_almera_n15_abs","Nissan Almera N15 1.4 ABS-iga (1998-2000)",1065,0.33,1.690,1.395,2.535,2.1,"175/65 R14", A.EARLY,1.18, "Cd hinnang; 1998. aasta uuendusest ABS standardis"),
+    ("nissan_micra_k11","Nissan Micra K11 1.0 (1992-2002)",        780, 0.34, 1.585, 1.430, 2.360, 2.0, "155/70 R13", A.NONE,  1.05, "Cd hinnang; " + _ABS1 + " (ainult 1998+ mudelitel)"),
+    ("mazda_323_bj",    "Mazda 323 BJ 1.5 (1998-2003)",           1110, 0.32, 1.705, 1.410, 2.610, 2.1, "175/65 R14", A.NONE,  1.10, "mass, Cd ja mõõdud ligikaudsed; ABS oli baasversioonil lisavarustus (kinnitamata)"),
+    ("mazda_626_gf",    "Mazda 626 GF 1.8 (1997-2002)",           1145, 0.31, 1.710, 1.430, 2.610, 2.0, "185/65 R14", A.NONE,  1.10, "Cd hinnang; " + _ABS1),
+    ("honda_civic_6",   "Honda Civic VI 1.4 (1995-2001)",          940, 0.32, 1.695, 1.375, 2.620, 2.1, "175/70 R13", A.NONE,  1.08, "Cd hinnang; " + _ABS1),
+    ("honda_accord_6",  "Honda Accord VI 1.8 (1998-2002)",        1305, 0.31, 1.750, 1.430, 2.675, 2.3, "195/60 R15", A.EARLY, 1.22, "Cd hinnang; ABS standardis"),
+    ("mitsu_carisma",   "Mitsubishi Carisma 1.6 (1995-2004)",     1080, 0.30, 1.695, 1.405, 2.550, 2.2, "185/65 R14", A.NONE,  1.10, "Cd hinnang; ABS-i 1995-99 1.6-l ei pakutud, hiljem lisavarustus"),
+    ("mitsu_galant_8",  "Mitsubishi Galant VIII 2.0 (1996-2003)", 1235, 0.30, 1.740, 1.420, 2.640, 2.1, "195/60 R15", A.EARLY, 1.22, "Cd hinnang; ABS eeldatud standardiks Euroopa 2.0-l (kinnitamata)"),
+
+    # --- Prantsuse ------------------------------------------------------------------
+    ("renault_megane_1","Renault Mégane I 1.6 (1995-2003)",       1070, 0.33, 1.698, 1.420, 2.580, 2.3, "175/65 R14", A.NONE,  1.08, "mass, Cd ja mõõdud ligikaudsed; " + _ABS1),
+    ("peugeot_306",     "Peugeot 306 1.6 (1993-2002)",            1040, 0.33, 1.689, 1.380, 2.580, 2.0, "185/65 R14", A.NONE,  1.08, "mass, Cd ja mõõdud ligikaudsed; " + _ABS1),
+    ("citroen_xantia",  "Citroën Xantia 1.8 (1993-2001)",         1210, 0.31, 1.755, 1.380, 2.740, 2.2, "185/65 R14", A.NONE,  1.10, "mass, Cd ja mõõdud ligikaudsed; ABS oli baasversioonil lisavarustus, VSX-il ja Actival standardis"),
+
+    # --- Škoda ja SEAT ----------------------------------------------------------------
+    ("skoda_favorit",   "Škoda Favorit 1.3 (1987-1995)",           840, 0.35, 1.620, 1.415, 2.450, 1.8, "165/70 R13", A.NONE,  1.00, "Cd ja rõhk hinnang; ABS-i ei olnud"),
+    ("skoda_felicia",   "Škoda Felicia 1.3 (1994-2001)",           935, 0.34, 1.635, 1.415, 2.450, 2.0, "165/70 R13", A.NONE,  1.05, _ABS1),
+    ("seat_ibiza_2",    "SEAT Ibiza II 1.4 (1993-2002)",           955, 0.33, 1.640, 1.422, 2.443, 2.1, "175/70 R13", A.NONE,  1.08, _ABS1),
+    ("seat_toledo_1",   "SEAT Toledo I 1.6 (1991-1999)",           985, 0.31, 1.662, 1.424, 2.471, 2.1, "175/70 R13", A.NONE,  1.08, "rõhk hinnang; ABS lisavarustus, enamikul standardis alates 1997"),
+
+    # --- Nõukogude ja Ida-Euroopa ----------------------------------------------------
+    # Rõhk tehase juhendist kgf/cm² -> bar (x 0,981), esitelg.
+    ("lada_2101",       "VAZ 2101 Žiguli 1.2 (1970-1988)",         955, 0.52, 1.611, 1.440, 2.424, 1.7, "165/80 R13", A.NONE,  0.88, "Cd Venemaa koondtabelist (mitte tehase ametlik); 2103 on sarnane, u 1030 kg"),
+    ("lada_2106",       "VAZ 2106 1.6 (1976-2006)",               1035, 0.53, 1.611, 1.440, 2.424, 1.7, "175/70 R13", A.NONE,  0.88, "Cd hinnang (2101 ja 2107 vahel)"),
+    ("lada_samara",     "Lada Samara 2108/2109 (1984-2004)",       915, 0.46, 1.650, 1.402, 2.460, 2.0, "165/70 R13", A.NONE,  0.90, "Cd Venemaa koondtabelist (2108/2109 0,463)"),
+    ("moskvich_2140",   "Moskvitš 2140/412 1.5 (1967-1988)",      1080, 0.50, 1.550, 1.480, 2.400, 1.7, "165/80 R13", A.NONE,  0.85, "Cd hinnang; tehases diagonaalrehv 6.45-13"),
+    ("moskvich_2141",   "Moskvitš 2141 Aleko 1.5 (1986-1998)",    1070, 0.38, 1.690, 1.400, 2.580, 1.9, "175/70 R14", A.NONE,  0.90, "Cd vaidlustatud (tehas 0,35, mõõdetud 0,38); tehasemõõt 165/80 R14, mida enam ei müüda; arvutus levinud asendusmõõduga 175/70 R14"),
+    ("gaz_24",          "GAZ Volga 24 2.4 (1970-1985)",           1420, 0.47, 1.800, 1.490, 2.800, 1.7, "185/70 R14", A.NONE,  0.80, "Cd ja rõhk hinnang; trummelpidurid kõigil ratastel; tehases diagonaalrehv 7.35-14; tehasemõõt 7.35-14 / 205/70 R14, mille kohta märgise andmeid praktiliselt ei ole; arvutus lähima levinud mõõduga 185/70 R14"),
+    ("gaz_31029",       "GAZ Volga 31029/3110 2.4 (1992-2004)",   1400, 0.46, 1.800, 1.476, 2.800, 2.0, "185/70 R14", A.NONE,  0.85, "Cd GAZ-3110 järgi; tehasemõõt 205/70 R14, mille kohta märgise andmeid ei ole; arvutus lähima levinud mõõduga 185/70 R14"),
+    ("zaz_tavria",      "ZAZ Tavria 1102 1.1 (1987-2007)",         727, 0.40, 1.554, 1.410, 2.320, 2.0, "155/70 R13", A.NONE,  0.88, "Cd hinnang"),
+    ("uaz_469",         "UAZ 469/3151 2.4 (1972-2003)",           1540, 0.60, 1.785, 2.015, 2.380, 1.8, "225/75 R16C", A.NONE,  0.75, "Cd hinnang (kandiline maastur); trummelpidurid; tehases diagonaalrehv 8.40-15, siin hilisem 3151 mõõt; arvutus C-rehviga 225/75 R16C, mida UAZ-il sageli kasutatakse"),
+]
+
 # ÜLDISED AUTOD neile, kes oma autot nimekirjast ei leia. Kerekuju järgi
 # tüüpilised väärtused, ABS-i põlvkond pargi keskmise järgi (2005-2014).
 # Mõõtu saab valikust muuta — rehvimõõt on kirjas rehvi küljel.
