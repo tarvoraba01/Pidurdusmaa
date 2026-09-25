@@ -140,6 +140,21 @@ docker run -p 3000:3000 -v pidurdusmaa-data:/app/data pidurdusmaa
 - Võrku on vaja ainult ehituse ajal (npm)
 - Kui ehitus katkeb veaga `EMFILE: too many open files`, anna ehitusele
   rohkem faile: `docker build --ulimit nofile=65535 …`
+- Käivitus: **`node build/server.js`** (Dockerfile teeb seda ise). See
+  lisab kõigile vastustele turvapäised (HSTS, CSP, X-Frame-Options jm) ja
+  teeb suunamised ühe 301-sammuga: `www.` → ilma www-ta, `/rehvid` →
+  `/rehvid/`. Uus väline teenus (nt uus analüütika) tuleb lisada
+  `server.js` CSP nimekirja, muidu brauser blokeerib selle.
+
+### Coolify seaded (üks kord)
+
+1. **Domains:** `https://pidurdusmaa.ee,https://www.pidurdusmaa.ee`
+2. **Direction:** *Allow www & non-www* — www-suunamise teeb rakendus
+   ise püsiva 301-ga (Coolify enda suunamine on ajutine 302).
+3. **Start Command:** tühi (kasutatakse Dockerfile'i). Kui seal on
+   `node build`, muuda `node build/server.js`.
+4. Redeploy. Kontroll: `curl -I https://www.pidurdusmaa.ee/rehvid` →
+   `301` ja `location: https://pidurdusmaa.ee/rehvid/`.
 
 ## Mida veel teha
 
