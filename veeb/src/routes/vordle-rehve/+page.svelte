@@ -2,6 +2,7 @@
 	/* /vordle-rehve/ — valitud 2–4 rehvi kõrvuti. Valimise loogika on
 	   /rehvi-valimine/ lehel; siin ainult võrdlus ja otsing lisamiseks. */
 	import Meta from '$lib/Meta.svelte';
+	import { tooriist, graph } from '$lib/skeem.js';
 	import How from '$lib/How.svelte';
 </script>
 
@@ -10,6 +11,7 @@
 	desc="Võrdle rehvimudeleid sinu auto mõõdus päris andmete järgi: EL-i rehvimärgis, sõltumatud testid ja arvutatud pidurdusmaa. Ilma väljamõeldud koondhindeta."
 	path="vordle-rehve/"
 	crumbs={[['Avaleht', '/'], ['Rehvi valimine', '/rehvi-valimine/'], ['Võrdle', '/vordle-rehve/']]}
+	jsonld={graph(tooriist('Rehvide võrdlus', '/vordle-rehve/', 'Võrdleb 2–4 rehvimudelit sinu auto mõõdus: märghaare, müra, veeretakistus ja arvutatud pidurdusmaa.'))}
 />
 
 <section class="page-hero">

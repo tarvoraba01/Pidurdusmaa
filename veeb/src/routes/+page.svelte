@@ -8,20 +8,29 @@
 	import Result from '$lib/Result.svelte';
 	import How from '$lib/How.svelte';
 	import { num, pct } from '$lib/util.js';
+	import Meta from '$lib/Meta.svelte';
+	import { ORG, WEBSITE, tooriist, graph } from '$lib/skeem.js';
 
 	let { data } = $props();
 	const d = data.demo;
 	const max = d ? Math.max(...d.wet) : 1;
 </script>
 
-<svelte:head>
-	<title>Pidurdusmaa.ee — kui kiiresti sinu auto peatub?</title>
-	<meta
-		name="description"
-		content="Arvuta oma auto pidurdusmaa erinevatel kiirustel ja teeoludel. Päris rehviandmed EL-i märgiselt ja sõltumatutest testidest."
-	/>
-	<link rel="canonical" href="https://pidurdusmaa.ee/" />
-</svelte:head>
+<Meta
+	fullTitle="Pidurdusmaa.ee — kui kiiresti sinu auto peatub?"
+	title="Kui kiiresti sinu auto peatub?"
+	desc="Arvuta oma auto pidurdusmaa erinevatel kiirustel ja teeoludel. Päris rehviandmed EL-i märgiselt ja sõltumatutest testidest."
+	path=""
+	jsonld={graph(
+		ORG,
+		WEBSITE,
+		tooriist(
+			'Pidurdusmaa kalkulaator',
+			'/',
+			'Arvutab auto pidurdusmaa valitud kiirusel ja teeoludel päris rehviandmete järgi: EL-i rehvimärgis ja sõltumatud rehvitestid.'
+		)
+	)}
+/>
 
 <section class="hero" aria-labelledby="hero-h">
 	<div class="wrap">

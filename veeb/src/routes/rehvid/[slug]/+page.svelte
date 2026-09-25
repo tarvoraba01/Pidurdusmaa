@@ -19,6 +19,7 @@
 		title="Rehvid {data.size.label} — {data.n} rehvimudelit märgise andmetega"
 		desc="Kõik {data.size.label} mõõdus rehvid EL-i rehvimärgise järgi: märghaardumise klass, veeretakistus ja müra. Võrdle ja vaata, kui palju muutub pidurdusmaa."
 		path="rehvid/{data.size.slug}/"
+		image={data.noindex ? undefined : `/og/m/${data.size.slug}.png`}
 		noindex={data.noindex}
 		crumbs={[['Avaleht', '/'], ['Rehvid', '/rehvid/'], [data.size.label, '/rehvid/' + data.size.slug + '/']]}
 	/>
@@ -101,6 +102,7 @@
 		desc={data.desc}
 		path="rehvid/{t.slug}/"
 		canonical={data.canonical}
+		image={data.ogPilt ? `/og/r/${t.slug}.png` : undefined}
 		noindex={data.noindex}
 		crumbs={[['Avaleht', '/'], ['Rehvid', '/rehvid/'], [t.name, '/rehvid/' + t.slug + '/']]}
 		jsonld={{
@@ -302,6 +304,7 @@
 		desc="Kaks rehvi samas sõltumatus testis, sama auto ja sama päev: {data.a.name} ja {data.b
 			.name}. Pidurdusmaad märjal, kuival ja muudel pindadel."
 		path="rehvid/{data.a.slug}-vs-{data.b.slug}/"
+		image="/og/vs/{data.a.slug}-vs-{data.b.slug}.png"
 		crumbs={[
 			['Avaleht', '/'],
 			['Rehvid', '/rehvid/'],

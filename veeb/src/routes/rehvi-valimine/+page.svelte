@@ -2,6 +2,7 @@
 	/* /rehvi-valimine/ — kõik ühel ekraanil, iga klõps muudab järjestust
 	   kohe ja lehel on kirjas, MIDA ta arvestas. Nimekirja täidab app.js. */
 	import Meta from '$lib/Meta.svelte';
+	import { tooriist, graph } from '$lib/skeem.js';
 	import How from '$lib/How.svelte';
 	import { VALIK_Q } from '$lib/util.js';
 </script>
@@ -11,6 +12,7 @@
 	desc="Ütle, kus ja kui palju sõidad ning mis sulle rehvi juures oluline on. Näitame sinu auto mõõdus sobivaid rehve ja põhjuse, miks — päris andmete järgi."
 	path="rehvi-valimine/"
 	crumbs={[['Avaleht', '/'], ['Rehvi valimine', '/rehvi-valimine/']]}
+	jsonld={graph(tooriist('Rehvi valimine', '/rehvi-valimine/', 'Näitab sinu auto mõõdus sobivaid rehve selle järgi, kus ja kui palju sõidad ning mis on rehvi juures tähtis.'))}
 />
 
 <section class="page-hero">

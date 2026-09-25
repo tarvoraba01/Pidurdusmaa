@@ -173,7 +173,8 @@ function rehvLeht(t) {
 		/* Indekseerimise reegel on andmed.js-is (rehviIndeks) */
 		noindex: !(tests.length || sizes.length) || !ix.index,
 		canonical: ix.canonical ? 'rehvid/' + ix.canonical + '/' : null,
-		desc: kirjeldus(t, sizes, tests)
+		desc: kirjeldus(t, sizes, tests),
+		ogPilt: ix.sitemap
 	};
 }
 
