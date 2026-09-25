@@ -494,21 +494,20 @@
   }
 
   /* ------------------------------------------------------------ mõõdu valik
-   * Pika mõõdunimekirja asemel kolm väikest valikut nagu rehvi küljel:
-   * laius / kõrgus / velg (205 / 55 R16). Iga järgmine näitab ainult neid
-   * väärtusi, mis eelmistega koos andmebaasis olemas on.
-   * Päris <select data-f="size"> jääb alles (peidetuna) — kogu ülejäänud
-   * kood loeb ja kuulab endiselt seda; siin ainult seatakse selle väärtus
-   * ja saadetakse 'change'. Auto tehasemõõdud on nuppudena kohe näha. */
+   * Kolm väikest lahtrit nagu rehvi küljel: laius / kõrgus R velg
+   * (205 / 55 R 16). Saab kirjutada või valida pakutud väärtustest;
+   * pakutakse ainult neid, mis eelmiste lahtritega koos olemas on.
+   * Päris <select data-f="size"> jääb alles (peidetuna) — ülejäänud kood
+   * loeb ja kuulab seda; siin seatakse selle väärtus ja saadetakse 'change'. */
   var SP_RE = /^(\d{3})(\d{2})R(\d{2}C?)$/;
   function sizePicker(el) {
-    var opts = $$('option', el).map(function (o) {
-      var m = SP_RE.exec(o.value);
-      var g = o.parentNode && o.parentNode.tagName === 'OPTGROUP' ? o.parentNode : null;
-      return m ? { v: o.value, w: m[1], p: m[2], r: m[3], oem: !!(g && /tehasemõõdud/.test(g.label)), levinuim: / levinuim/.test(o.textContent) } : null;
-    }).filter(Boolean);
     var nOf = {};
     (core && core.sizes || []).forEach(function (x) { nOf[x.m] = x.n; });
+    /* kõik mõõdud, mille kohta on märgiseandmed (ka harvad) + valikus olevad */
+    var koik = {};
+    $$('option', el).forEach(function (o) { if (SP_RE.test(o.value)) koik[o.value] = 1; });
+    (core && core.eprelSizes || []).forEach(function (m) { if (SP_RE.test(m)) koik[m] = 1; });
+    var opts = Object.keys(koik).map(function (v) { var m = SP_RE.exec(v); return { v: v, w: m[1], p: m[2], r: m[3] }; });
 
     var box = el._sp;
     if (!box) {
@@ -516,100 +515,92 @@
       box.className = 'sp';
       var id = el.id || ('sp' + Math.random().toString(36).slice(2, 7));
       var cls = el.className;
-      box.innerHTML =
-        '<div class="sp-chips" data-sp-chips hidden></div>' +
-        '<div class="sp-kiri"><input type="text" class="' + esc(cls) + ' vs-in" data-sp-kiri inputmode="text" autocomplete="off" spellcheck="false" ' +
-        'placeholder="Kirjuta mõõt, nt 205/55 R16" aria-label="Kirjuta rehvimõõt"><p class="sp-msg" data-sp-msg aria-live="polite"></p></div>' +
-        '<div class="sp-row">' +
-        ['w:Laius', 'p:Kõrgus', 'r:Velg'].map(function (x, i) {
-          var k = x.split(':')[0], t = x.split(':')[1];
-          return '<label class="sp-f"><span class="sp-l">' + t + '</span><select class="' + esc(cls) + '" id="' + esc(id + (i ? '-' + k : '')) + '" data-sp="' + k + '"></select></label>' +
-            (i < 2 ? '<span class="sp-sep" aria-hidden="true">' + (i ? 'R' : '/') + '</span>' : '');
-        }).join('') + '</div>';
-      /* vana silt (for="f-size") osutab nüüd laiuse valikule */
+      var f = function (k, t, ml, i) {
+        return '<label class="sp-f"><span class="sp-l">' + t + '</span><input class="' + esc(cls) + ' sp-in" id="' + esc(id + (i ? '-' + k : '')) +
+          '" data-sp="' + k + '" list="' + esc(id + '-dl-' + k) + '" inputmode="' + (k === 'r' ? 'text' : 'numeric') + '" maxlength="' + ml +
+          '" autocomplete="off" spellcheck="false"><datalist id="' + esc(id + '-dl-' + k) + '"></datalist></label>';
+      };
+      box.innerHTML = '<div class="sp-row">' + f('w', 'Laius', 3, 0) + '<span class="sp-sep" aria-hidden="true">/</span>' +
+        f('p', 'Kõrgus', 2, 1) + '<span class="sp-sep" aria-hidden="true">R</span>' + f('r', 'Velg', 3, 2) + '</div>' +
+        '<p class="sp-msg" data-sp-msg aria-live="polite"></p>';
+      /* vana silt (for="f-size") osutab nüüd laiuse lahtrile */
       if (el.id) el.id = el.id + '-kogu';
       el.hidden = true;
       el.setAttribute('aria-hidden', 'true');
       el.tabIndex = -1;
       el.parentNode.insertBefore(box, el.nextSibling);
       el._sp = box;
-      var set = function (v) {
-        if (!v || v === el.value) { draw(); return; }
-        el.value = v;
-        el.dispatchEvent(new Event('change', { bubbles: true }));
-        draw();
+
+      var inp = { w: $('[data-sp=w]', box), p: $('[data-sp=p]', box), r: $('[data-sp=r]', box) };
+      var msg = $('[data-sp-msg]', box);
+      var puhas = function (k) {
+        var v = inp[k].value.toUpperCase().replace(k === 'r' ? /[^0-9C]/g : /[^0-9]/g, '');
+        if (k === 'r') v = v.replace(/^R/, '');
+        if (v !== inp[k].value) inp[k].value = v;
+        return v;
       };
-      /* valik muutus → parim sobiv kombinatsioon (levinuim mõõt selle väärtusega) */
-      var pick = function (k) {
-        var cur = SP_RE.exec(el.value) || [];
-        var want = { w: $('[data-sp=w]', box).value, p: $('[data-sp=p]', box).value, r: $('[data-sp=r]', box).value };
-        var fit = function (o) {
-          return o.w === want.w && (k === 'w' || o.p === want.p) && (k !== 'r' || o.r === want.r);
-        };
-        var cand = box._opts.filter(fit);
-        /* hoia alles see, mis juba sobis (nt laiuse vahetusel sama velg) */
-        cand.sort(function (a, b) {
-          var sa = (a.p === cur[2] ? 2 : 0) + (a.r === cur[3] ? 1 : 0), sb = (b.p === cur[2] ? 2 : 0) + (b.r === cur[3] ? 1 : 0);
-          return (sb - sa) || ((b.oem ? 1 : 0) - (a.oem ? 1 : 0)) || ((nOf[b.v] || 0) - (nOf[a.v] || 0));
-        });
-        if (cand.length) set(cand[0].v);
-      };
-      $$('[data-sp]', box).forEach(function (s) { s.addEventListener('change', function () { pick(s.dataset.sp); }); });
-      box.addEventListener('click', function (e) {
-        var b = e.target.closest('[data-sp-v]');
-        if (b) set(b.dataset.spV);
-      });
-      /* kirjutatud mõõt: „205/55 R16“, „205 55 16“, „2055516“, „225/45ZR17“, „215/65 R16C“ */
-      var kiri = $('[data-sp-kiri]', box), msg = $('[data-sp-msg]', box);
-      var loe = function (lopp) {
-        var t = kiri.value.toUpperCase().replace(/[^0-9A-Z]/g, '');
+      var proovi = function (lopp) {
+        var w = puhas('w'), p = puhas('p'), r = puhas('r');
         msg.textContent = '';
-        if (!t) return;
-        var m = /^(\d{3})(\d{2})Z?R?F?(\d{2})(C?)$/.exec(t);
-        if (!m) { if (lopp) msg.textContent = 'Kirjuta kujul laius/kõrgus velg, nt 205/55 R16.'; return; }
-        var v = m[1] + m[2] + 'R' + m[3] + m[4];
+        lists();
+        if (w.length < 3 || p.length < 2 || r.length < 2) {
+          if (lopp && (w || p || r)) msg.textContent = 'Kirjuta kõik kolm: nt 205 / 55 R 16.';
+          return;
+        }
+        var v = w + p + 'R' + r;
+        if (!box._koik[v]) { msg.textContent = 'Mõõtu ' + w + '/' + p + ' R' + r + ' andmebaasis veel pole.'; return; }
         if (!$('option[value="' + v + '"]', el)) {
-          if (!core || core.eprelSizes.indexOf(v) < 0) { msg.textContent = 'Mõõdu ' + pretty(v) + ' märgiseandmeid andmebaasis veel pole.'; return; }
-          /* harvem mõõt: lisame valikusse */
           var g = $$('optgroup', el).pop() || el;
           var o = document.createElement('option'); o.value = v; o.textContent = pretty(v);
           g.appendChild(o);
-          box._opts.push({ v: v, w: m[1], p: m[2], r: m[3] + m[4], oem: false, levinuim: false });
         }
-        set(v);
-        msg.textContent = '✓ ' + pretty(v);
+        if (v !== el.value) {
+          el.value = v;
+          el.dispatchEvent(new Event('change', { bubbles: true }));
+        }
       };
-      kiri.addEventListener('input', function () { loe(false); });
-      kiri.addEventListener('change', function () { loe(true); });
-      kiri.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); loe(true); } });
-      box._draw = draw;
+      ['w', 'p', 'r'].forEach(function (k, i) {
+        inp[k].addEventListener('input', function () {
+          var v = puhas(k);
+          /* täis → järgmisse lahtrisse */
+          if (k === 'w' && v.length === 3) inp.p.focus();
+          if (k === 'p' && v.length === 2) inp.r.focus();
+          proovi(false);
+        });
+        /* lahtrisse minnes on sisu valitud: kirjutamine asendab selle */
+        var vaarske = false;
+        inp[k].addEventListener('focus', function () { inp[k].select(); vaarske = true; });
+        inp[k].addEventListener('mouseup', function (e) { if (vaarske) { e.preventDefault(); vaarske = false; } });
+        inp[k].addEventListener('keydown', function (e) {
+          if (e.key === 'Backspace' && !inp[k].value && i) { e.preventDefault(); inp[['w', 'p', 'r'][i - 1]].focus(); }
+          if (e.key === 'Enter') { e.preventDefault(); proovi(true); }
+        });
+      });
+      box.addEventListener('focusout', function (e) {
+        if (box.contains(e.relatedTarget)) return;
+        proovi(true);
+        /* pooleli jäänud lahtrid tagasi kehtivale mõõdule */
+        if (msg.textContent) setTimeout(function () { box._sync(); }, 2500);
+      });
+      /* pakutud väärtused: ainult need, mis eelmiste lahtritega kokku sobivad */
+      var lists = function () {
+        var w = inp.w.value, p = inp.p.value, o = box._opts;
+        var uniq = function (a) { return a.filter(function (x, i) { return a.indexOf(x) === i; }).sort(function (a, b) { return parseInt(a, 10) - parseInt(b, 10) || a.localeCompare(b); }); };
+        var dl = function (k, vals) { $('#' + CSS.escape(inp[k].getAttribute('list')), box).innerHTML = vals.map(function (v) { return '<option value="' + esc(v) + '">'; }).join(''); };
+        dl('w', uniq(o.map(function (x) { return x.w; })));
+        dl('p', uniq(o.filter(function (x) { return x.w === w; }).map(function (x) { return x.p; })));
+        dl('r', uniq(o.filter(function (x) { return x.w === w && x.p === p; }).map(function (x) { return x.r; })));
+      };
+      box._sync = function () {
+        var m = SP_RE.exec(el.value) || [];
+        inp.w.value = m[1] || ''; inp.p.value = m[2] || ''; inp.r.value = m[3] || '';
+        msg.textContent = '';
+        lists();
+      };
     }
     box._opts = opts;
-    box._draw();
-
-    function draw() {
-      var o = box._opts, cur = SP_RE.exec(el.value) || [];
-      var uniq = function (arr) { return arr.filter(function (x, i) { return arr.indexOf(x) === i; }); };
-      var num = function (a, b) { return parseInt(a, 10) - parseInt(b, 10) || a.localeCompare(b); };
-      var fill = function (k, vals, val, lbl) {
-        var s = $('[data-sp=' + k + ']', box);
-        s.innerHTML = vals.map(function (v) { return '<option value="' + esc(v) + '">' + esc(lbl(v)) + '</option>'; }).join('');
-        s.value = vals.indexOf(val) >= 0 ? val : vals[0];
-      };
-      fill('w', uniq(o.map(function (x) { return x.w; })).sort(num), cur[1], function (v) { return v; });
-      fill('p', uniq(o.filter(function (x) { return x.w === cur[1]; }).map(function (x) { return x.p; })).sort(num), cur[2], function (v) { return v; });
-      fill('r', uniq(o.filter(function (x) { return x.w === cur[1] && x.p === cur[2]; }).map(function (x) { return x.r; })).sort(num), cur[3], function (v) {
-        var n = nOf[cur[1] + cur[2] + 'R' + v];
-        return 'R' + v + (n ? ' · ' + n + ' rehvi' : '');
-      });
-      var chips = $('[data-sp-chips]', box), oem = o.filter(function (x) { return x.oem; });
-      chips.hidden = !oem.length;
-      chips.innerHTML = oem.length ? '<span class="sp-l">Selle auto tehasemõõdud</span>' + oem.map(function (x) {
-        var on = x.v === el.value;
-        return '<button type="button" class="sp-chip' + (on ? ' on' : '') + '" aria-pressed="' + on + '" data-sp-v="' + esc(x.v) + '">' +
-          esc(pretty(x.v)) + (x.levinuim ? ' <small>levinuim</small>' : '') + '</button>';
-      }).join('') : '';
-    }
+    box._koik = koik;
+    box._sync();
   }
 
   /* ------------------------------------------------------------ kalkulaator */
