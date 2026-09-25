@@ -68,6 +68,7 @@
 	title="Pidurdusteekond ja peatumisteekond — valem ja näited"
 	desc="Mis on reageerimisteekond, pidurdusteekond ja peatumisteekond, kuidas neid arvutada ja kui pikad need on eri kiirustel kuival ja märjal teel. Koos kalkulaatoriga."
 	path="teadmine/pidurdusteekond-ja-peatumisteekond/"
+	ogType="article"
 	crumbs={[
 		['Avaleht', '/'],
 		['Teadmine', '/teadmine/'],
