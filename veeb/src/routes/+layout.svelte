@@ -31,7 +31,9 @@
 			   uued andmed, mitte ei näita vahemälust vana autode nimekirja. */
 			ver: version,
 			home: '/',
-			prices: '',
+			/* hinnad tulevad meie serverist (src/lib/server/integratsioonid) —
+			   kui ühtki pakkujat pole sisse lülitatud, vastab see „pole saadaval“ */
+			prices: '/api/hinnad',
 			contact: '/api/kontakt',
 			contactMail: 'rabarvo@hotmail.com',
 			track: '/api/logi'

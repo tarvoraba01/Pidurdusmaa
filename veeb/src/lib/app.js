@@ -1391,6 +1391,34 @@
   }
   document.addEventListener('pm:cmp', function () { setTimeout(tablesA11y, 50); });
 
+  /* Rehvi pilt pakkujalt (kui mõni pakkuja on sisse lülitatud). Pilt tuleb
+     meie serveri kaudu (/api/pilt/…), pakkuja aadressi brauser ei näe.
+     Kui pilti pole, jääb illustratsioon. */
+  function rehviPilt() {
+    var box = $('[data-rehv-pilt]');
+    if (!box || box._pilt) return;
+    box._pilt = true;
+    var slug = box.getAttribute('data-rehv-pilt');
+    fetch(CFG.home + 'api/rehv/' + encodeURIComponent(slug) + '/', { credentials: 'omit' })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (d) {
+        if (!d || !d.pilt) return;
+        var img = new Image();
+        img.alt = 'Rehvi pilt';
+        img.decoding = 'async';
+        img.onload = function () {
+          box.innerHTML = '';
+          box.classList.add('has-photo');
+          box.setAttribute('aria-label', 'Rehvi pilt');
+          box.appendChild(img);
+          var cap = $('[data-rehv-pilt-allkiri]');
+          if (cap) cap.textContent = 'Pilt: rehvimüüja';
+        };
+        img.src = d.pilt;
+      })
+      .catch(function () {});
+  }
+
   function initPage() {
     trackPage();
     /* päis jääb lehevahetusel alles — sulgeme lahtise menüü */
@@ -1398,6 +1426,7 @@
     if (pm && !pm.hidden) { pm.hidden = true; if (bg) bg.setAttribute('aria-expanded', 'false'); }
     $$('[data-dd].open').forEach(function (dd) { dd.classList.remove('open'); $('.dd-btn', dd).setAttribute('aria-expanded', 'false'); });
     tablesA11y();
+    rehviPilt();
     var needs = $('[data-calc]') || $('[data-cmp-page]') || $('[data-tw]');
     cmp.paint();
     var kf = $('[data-contact]'); if (kf) initContact(kf);

@@ -107,16 +107,15 @@
 		crumbs={[['Avaleht', '/'], ['Rehvid', '/rehvid/'], [t.name, '/rehvid/' + t.slug + '/']]}
 		jsonld={{
 			'@context': 'https://schema.org',
-			'@type': 'Product',
-			name: t.name,
-			brand: { '@type': 'Brand', name: t.brand },
-			category: KAT_NIMI[t.cat] ?? 'Rehv',
+			/* NB: mitte 'Product' — Google nõuab Productil hinda (offers), arvustust
+			   või hinnangut, meil neid lehel pole (Search Console'i kriitiline viga).
+			   Kui kunagi on lehel päris hinnad, võib Producti + offers tagasi panna. */
+			'@type': 'WebPage',
+			name: t.name + ' — pidurdusmaa, märgis ja testid',
+			description: data.desc,
 			url: 'https://pidurdusmaa.ee/rehvid/' + t.slug + '/',
-			additionalProperty: data.sizes.slice(0, 20).map((z) => ({
-				'@type': 'PropertyValue',
-				name: 'EL rehvimärgis ' + z.label,
-				value: 'märghaardumine ' + z.g + ', veeretakistus ' + z.f + ', müra ' + z.db + ' dB'
-			}))
+			inLanguage: 'et',
+			about: { '@type': 'Brand', name: t.brand }
 		}}
 	/>
 
@@ -273,8 +272,10 @@
 
 			<aside class="side">
 				<div class="box">
-					<div class="tyre-img" role="img" aria-label="Rehvi illustratsioon"><TyreArt /></div>
-					<p class="srcline" style="text-align:center">Illustratsioon. Tootja pilte ei kasutata.</p>
+					<div class="tyre-img" role="img" aria-label="Rehvi illustratsioon" data-rehv-pilt={t.slug}>
+						<TyreArt />
+					</div>
+					<p class="srcline" style="text-align:center" data-rehv-pilt-allkiri>Illustratsioon.</p>
 					{#if data.sizes.length}
 						<button type="button" class="btn yel" style="width:100%;margin-top:var(--sp-4)" data-tw-add
 							>Võrdle seda rehvi →</button

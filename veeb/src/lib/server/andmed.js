@@ -5,7 +5,7 @@
  * Siin ainult loetakse. Ehituse (prerender) ajal loeme failisüsteemist,
  * sest siis ei ole serverit, kellelt küsida.
  */
-import { readFileSync } from 'node:fs';
+import { readFileSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
 
 /* Ehituse ajal loetakse andmed projekti static/data kaustast. NB: tee
@@ -13,7 +13,11 @@ import { join } from 'node:path';
    satub see fail kokkupakitud kausta ja suhteline tee ei viiks enam
    andmeteni. Vaikselt tühja tagastada ei tohi: siis ehitaks leht end
    ilma sisuta. */
-const DATA = join(process.cwd(), 'static/data');
+/* Ehituse ajal: static/data. Töötavas serveris (Docker) static-kausta ei
+   ole — sama sisu on build/client/data all; seda kasutavad API-d. */
+const DATA = [join(process.cwd(), 'static/data'), join(process.cwd(), 'build/client/data')].find((d) =>
+	existsSync(join(d, 'core.json'))
+) || join(process.cwd(), 'static/data');
 const _mem = new Map();
 
 function json(rel) {

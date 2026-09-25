@@ -40,16 +40,18 @@ export function ipHash(ip) {
 	return createHash('sha256').update(SOOL + '|' + String(ip)).digest('hex').slice(0, 16);
 }
 
-/* Sagedusepiir mälus: lihtne ja piisav ühe protsessi kohta. */
+/* Sagedusepiir mälus: lihtne ja piisav ühe protsessi kohta. Piiratud
+   suurusega: kui kirjeid on liiga palju, kukuvad VANIMAD välja (varem
+   tühjendati kogu tabel — siis sai piirangu paljude IP-dega nullida). */
 const loendur = new Map();
+const MAX_KIRJEID = 20000;
 export function kasLubatud(voti, mitu, sekundit) {
 	const nyyd = Date.now();
-	const kirje = loendur.get(voti);
-	if (!kirje || nyyd - kirje.algus > sekundit * 1000) {
-		loendur.set(voti, { algus: nyyd, n: 1 });
-		return true;
-	}
+	let kirje = loendur.get(voti);
+	if (!kirje || nyyd - kirje.algus > sekundit * 1000) kirje = { algus: nyyd, n: 0 };
 	kirje.n += 1;
-	if (loendur.size > 5000) loendur.clear(); /* ei kasva lõputult */
+	loendur.delete(voti);
+	loendur.set(voti, kirje);
+	while (loendur.size > MAX_KIRJEID) loendur.delete(loendur.keys().next().value);
 	return kirje.n <= mitu;
 }

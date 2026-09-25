@@ -7,8 +7,9 @@
     "dev": "vite dev",
     "build": "vite build",
     "preview": "vite preview",
-    "postbuild": "node scripts/seo-kontroll.mjs",
-    "seo": "node scripts/seo-kontroll.mjs"
+    "postbuild": "node scripts/seo-kontroll.mjs && node scripts/turva-kontroll.mjs",
+    "seo": "node scripts/seo-kontroll.mjs",
+    "turva": "node scripts/turva-kontroll.mjs"
   },
   "devDependencies": {
     "@sveltejs/adapter-node": "^5.5.7",

@@ -3,3 +3,6 @@ build/
 .svelte-kit/
 .env
 *key*.txt
+.env.*
+!.env.example
+*.pem

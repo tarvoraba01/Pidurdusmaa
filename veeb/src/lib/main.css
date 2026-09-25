@@ -674,3 +674,7 @@ textarea.lin{resize:vertical;min-height:140px}
 .rs-split label{font-weight:600;color:var(--text)}
 .rs-split b{color:var(--text)}
 .rs-rt{width:auto;height:36px;font-size:13px;padding-right:var(--sp-8)}
+
+/* rehvi foto pakkujalt (kui on) */
+.tyre-img.has-photo{background:#fff}
+.tyre-img.has-photo img{width:100%;height:100%;object-fit:contain}

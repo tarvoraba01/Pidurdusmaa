@@ -56,7 +56,14 @@ sest mõne rehvi nimes ENDAS on „vs" (`maxxis-vs-ev`).
 |---|---|
 | `POST /api/kontakt` | kontaktivorm → `data/kontakt.jsonl` + e-kiri (kui SMTP on seatud) |
 | `POST /api/logi` | anonüümne kasutuslugu → `data/logi.jsonl` |
-| `GET /api/kokkuvote?key=…&paevi=7` | koondstatistika: mida kõige rohkem tehti |
+| `GET /api/kokkuvote?paevi=7` | koondstatistika; võti päises `Authorization: Bearer $STATS_KEY` |
+| `GET /api/hinnad?moot=22540R18` või `?ids=slug@MÕÕT,…` | rehvipakkujate hinnad (tühi, kui pakkujaid pole seadistatud) |
+| `GET /api/rehv/<slug>/` | ühe rehvi hinnad + pilt |
+| `GET /api/pilt/<slug>` | rehvi pilt pakkujalt (turvaline vahendaja, mitte otselink) |
+| `GET /api/integratsioonid/olek` | pakkujate olek; võti päises `Authorization: Bearer $ADMIN_KEY` |
+
+Rehvipakkujate API-de (hinnad, pildid) lisamise juhend:
+[`src/lib/server/integratsioonid/README.md`](src/lib/server/integratsioonid/README.md).
 
 Kontaktivorm saadab **JSON-i**, mitte vormi: SvelteKit blokeerib
 teiselt saidilt tulevad vormipostitused ja JSON on sellest reeglist väljas.
@@ -77,9 +84,16 @@ faili (e-kirja ei saadeta) ja statistika otspunkt on kinni.
 | `MAIL_TO` | kuhu kirjad lähevad (vaikimisi `tarvo.raba01@gmail.com`) |
 | `TEADE_URL` | valikuline lisateade (Discord/Slack webhook, n8n vms) |
 | `TURNSTILE_SECRET` | Cloudflare Turnstile'i salajane võti (kontaktivormi robotikaitse). Avalik võti on `src/lib/seaded.js` → `TURNSTILE_SITEKEY`; mõlemad korraga |
-| `STATS_KEY` | võti `/api/kokkuvote` jaoks; seadmata = otspunkt on välja lülitatud |
+| `STATS_KEY` | võti `/api/kokkuvote` jaoks (vähemalt 16 märki); seadmata = otspunkt on välja lülitatud |
+| `ADMIN_KEY` | võti `/api/integratsioonid/olek` jaoks (vähemalt 16 märki) |
+| `PAKKUJA_<NIMI>_URL`, `PAKKUJA_<NIMI>_VOTI` | rehvipakkuja API aadress ja võti — vt integratsioonide juhend |
 | `IP_SALT` | sool IP-räside jaoks (seadmata = juhuslik iga käivitusega) |
 | `ORIGIN` | avalik aadress, nt `https://pidurdusmaa.ee` — vaja pöördproksi taga |
+
+Näidis kõigi nimedega (ilma väärtusteta): [`.env.example`](.env.example).
+Päris väärtused lähevad **ainult Coolifysse**. Iga ehituse lõpus kontrollib
+`scripts/turva-kontroll.mjs`, et ükski saladus poleks sattunud brauserisse
+minevatesse failidesse — kui on, ehitus katkeb.
 
 Isikuandmeid ei salvestata: IP-st hoitakse ainult soolatud räsi ja sedagi
 ainult sagedusepiiri jaoks.

@@ -2,21 +2,29 @@ import { json, error } from '@sveltejs/kit';
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 
+import { votiOnOige, piirang } from '$lib/server/integratsioonid/kaitse.js';
+
 export const prerender = false;
+/* API aadressid töötavad nii kaldkriipsuga kui ilma (lehtedel on alati kaldkriips) */
+export const trailingSlash = 'ignore';
 
 const DIR = process.env.LOG_DIR || join(process.cwd(), 'data');
 
 /* Koondstatistika: mida lehel kõige rohkem tehti.
  *
- * Kaitstud võtmega (STATS_KEY). Kui võtit seatud ei ole, on otspunkt
- * välja lülitatud — muidu näeks iga möödakäija, mida külastajad teevad.
+ * Kaitstud võtmega (STATS_KEY, vähemalt 16 märki). Kui võtit seatud ei
+ * ole, on otspunkt välja lülitatud — muidu näeks iga möödakäija, mida
+ * külastajad teevad. Võti käib PÄISES, mitte aadressis (aadressid
+ * satuvad logidesse ja brauseri ajalukku):
  *
- *   GET /api/kokkuvote?key=…&paevi=7
+ *   curl -H "Authorization: Bearer $STATS_KEY" "https://pidurdusmaa.ee/api/kokkuvote?paevi=7"
  */
-export function GET({ url }) {
+export function GET(event) {
+	const { url, request } = event;
 	const key = process.env.STATS_KEY;
 	if (!key) error(404, 'Statistika ei ole sisse lülitatud');
-	if (url.searchParams.get('key') !== key) error(401, 'Vale võti');
+	if (!piirang('kokkuvote', event, 30, 60)) error(429, 'Liiga palju päringuid');
+	if (!votiOnOige(request, key)) error(401, 'Vale võti');
 
 	const paevi = Math.min(90, Math.max(1, +(url.searchParams.get('paevi') || 7)));
 	const alates = Date.now() - paevi * 864e5;

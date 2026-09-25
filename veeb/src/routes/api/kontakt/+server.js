@@ -4,6 +4,8 @@ import { saadaKiri } from '$lib/server/post.js';
 import { kontrolliTurnstile } from '$lib/server/turnstile.js';
 
 export const prerender = false;
+/* API aadressid töötavad nii kaldkriipsuga kui ilma (lehtedel on alati kaldkriips) */
+export const trailingSlash = 'ignore';
 
 const TEEMAD = {
 	hinnad: 'Rehvimüüja — hinnad lehele',

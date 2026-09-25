@@ -2,6 +2,8 @@ import { json } from '@sveltejs/kit';
 import { lisaRida, ipHash, kasLubatud } from '$lib/server/logi.js';
 
 export const prerender = false;
+/* API aadressid töötavad nii kaldkriipsuga kui ilma (lehtedel on alati kaldkriips) */
+export const trailingSlash = 'ignore';
 
 /* Anonüümne kasutuslugu: MIDA lehel tehti, mitte kes tegi.
  *
