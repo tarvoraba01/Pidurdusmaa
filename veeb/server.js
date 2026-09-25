@@ -11,10 +11,23 @@
  * Suunamised — alati ÜKS samm ja alati 301:
  *   www.pidurdusmaa.ee/rehvid   → https://pidurdusmaa.ee/rehvid/
  *   pidurdusmaa.ee/rehvid       → https://pidurdusmaa.ee/rehvid/
+ *   /rehvid/michelin-pilot-sport-4-ao → https://pidurdusmaa.ee/rehvid/michelin-pilot-sport-4/
  * (Varem: www → 302 → pidurdusmaa.ee/rehvid → 308 → /rehvid/ = kaks sammu.)
  */
 import http from 'node:http';
+import { readFileSync } from 'node:fs';
 import { handler } from './handler.js';
+
+/* Koondatud rehvimudelid (SEO samm 5): vana aadress → uus.
+ * Nt /rehvid/michelin-pilot-sport-4-ao/ → /rehvid/michelin-pilot-sport-4/
+ *    /rehvid/nankang-145-65r15-72v-as-1/ → /rehvid/nankang-as-1/
+ * Fail tehakse andmete ekspordiga (mudel/koondamine.py). */
+let REHVID = {};
+try {
+	REHVID = JSON.parse(readFileSync(new URL('./client/data/suunamised.json', import.meta.url), 'utf-8'));
+} catch {
+	/* faili pole (nt arenduses) — suunamisi pole */
+}
 
 const HOST = process.env.KANOONILINE_HOST || 'pidurdusmaa.ee';
 const PORT = Number(process.env.PORT || 3000);
@@ -84,6 +97,11 @@ function suunamine(req) {
 	if (proto === 'http') muutus = true; // http → https (kui proksi selle meile saadab)
 	if (/\/\/+/.test(tee)) {
 		tee = tee.replace(/\/\/+/g, '/');
+		muutus = true;
+	}
+	const r = /^\/rehvid\/([a-z0-9-]+)\/?$/.exec(tee);
+	if (r && Object.hasOwn(REHVID, r[1])) {
+		tee = '/rehvid/' + REHVID[r[1]] + '/';
 		muutus = true;
 	}
 	if (vajabKaldkriipsu(tee)) {

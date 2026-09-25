@@ -22,5 +22,6 @@
 	path="teadmine/kuidas-pidurdusmaa-arvutatakse/"
 	crumbs={[["Teadmine", "/teadmine/"], ["Kuidas pidurdusmaa arvutatakse", "/teadmine/kuidas-pidurdusmaa-arvutatakse/"]]}
 	lapsed={[]}
+	uuendatud="2026-09-25"
 	sisu={SISU}
 />

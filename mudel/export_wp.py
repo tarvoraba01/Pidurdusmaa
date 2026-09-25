@@ -312,6 +312,13 @@ def main():
             d["slug"] = slugify(t.name)
         tested.append(d)
 
+    # --- variandid ja mõõt-nimega "mudelid" emamudelisse (SEO samm 5)
+    from pidurdus.koondamine import koonda
+    suunamised = koonda(mud, slugify)
+    with open(os.path.join(OUT, "suunamised.json"), "w", encoding="utf-8") as f:
+        json.dump(dict(sorted(suunamised.items())), f, ensure_ascii=False,
+                  separators=(",", ":"))
+
     # --- moodud
     sizes = Counter(r["mootN"] for r in rows)
     size_list = [{"m": s, "label": pretty_size(s), "slug": size_slug(s),
@@ -322,7 +329,9 @@ def main():
     for k, m in mud.items():
         for z in m["sizes"]:
             per[z["m"]].append([
-                m["slug"], m["mark"], m["nimi"], KAT_NR.index(m["kat"]),
+                m["slug"], m["mark"],
+                m["nimi"] + (" " + z["v"] if z.get("v") else ""),
+                KAT_NR.index(m["kat"]),
                 z["g"], z["f"], z["db"], z["nk"],
                 (1 if m["katAlus"].startswith("OLETUS") else 0)
                 | (2 if len(z["gAll"]) > 1 else 0)
@@ -376,7 +385,7 @@ def main():
     linked = sum(1 for t in tested if t["slug"] in models)
     print(f"{OUT}: {len(vehicles)} autot, {len(tested)} moodetud rehvi "
           f"({linked} seotud EPREL-i mudeliga), {len(models)} EPREL-i mudelit, "
-          f"{len(per)} moodu faili")
+          f"{len(per)} moodu faili, {len(suunamised)} vana aadressi suunatud")
     return core
 
 

@@ -104,7 +104,12 @@
 		canonical={data.canonical}
 		image={data.ogPilt ? `/og/r/${t.slug}.png` : undefined}
 		noindex={data.noindex}
-		crumbs={[['Avaleht', '/'], ['Rehvid', '/rehvid/'], [t.name, '/rehvid/' + t.slug + '/']]}
+		crumbs={[
+			['Avaleht', '/'],
+			['Rehvid', '/rehvid/'],
+			...(t.brandSlug ? [[t.brand, '/margid/' + t.brandSlug + '/']] : []),
+			[t.name, '/rehvid/' + t.slug + '/']
+		]}
 		jsonld={{
 			'@context': 'https://schema.org',
 			/* NB: mitte 'Product' — Google nõuab Productil hinda (offers), arvustust
@@ -122,9 +127,13 @@
 	<section class="page-hero">
 		<div class="wrap">
 			<div class="crumbs">
-				<a href="/">Avaleht</a><span>/</span><a href="/rehvid/">Rehvid</a><span>/</span>{t.name}
+				<a href="/">Avaleht</a><span>/</span><a href="/rehvid/">Rehvid</a><span>/</span>{#if t.brandSlug}<a
+						href="/margid/{t.brandSlug}/">{t.brand}</a
+					><span>/</span>{/if}{t.name}
 			</div>
-			<p class="eyebrow" style="color:var(--muted-d)">{t.brand}</p>
+			<p class="eyebrow" style="color:var(--muted-d)">
+				{#if t.brandSlug}<a href="/margid/{t.brandSlug}/" style="color:inherit">{t.brand}</a>{:else}{t.brand}{/if}
+			</p>
 			<h1>{t.name}</h1>
 			<p>
 				{KAT_NIMI[t.cat] ?? ''}
@@ -135,7 +144,7 @@
 				{/if}
 			</p>
 			<div class="pills">
-				{#if data.sizes.length}<span class="pill off">EL-i märgis · {data.sizes.length} mõõtu</span>{/if}
+				{#if data.sizes.length}<span class="pill off">EL-i märgis · {data.mootudeArv} {data.mootudeArv === 1 ? 'mõõt' : 'mõõtu'}</span>{/if}
 				{#if data.tests.length}<span class="pill test">Sõltumatult testitud</span>{/if}
 			</div>
 		</div>
@@ -225,7 +234,10 @@
 									{#each data.sizes as z, zi (z.m + '#' + zi)}
 										<tr>
 											<td
-												>{#if z.slug}<a href="/rehvid/{z.slug}/">{z.label}</a>{:else}{z.label}{/if}</td
+												>{#if z.slug}<a href="/rehvid/{z.slug}/">{z.label}</a>{:else}{z.label}{/if}{#if z.v}
+													<span class="note" title="Tootja variant (nt autotootja märgistus AO, MO või tugevdatud XL)"
+														>{z.v}</span
+													>{/if}</td
 											>
 											<td>
 												<Grade g={z.g} />
@@ -286,7 +298,7 @@
 							Mõõdud andmebaasis
 						</h3>
 						<div class="sizes-list">
-							{#each data.sizes as z, zi (z.m + '#' + zi)}
+							{#each data.mootudUnik as z (z.m)}
 								{#if z.slug}<a href="/rehvid/{z.slug}/">{z.label}</a>{/if}
 							{/each}
 						</div>

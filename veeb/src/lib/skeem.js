@@ -46,4 +46,34 @@ export function tooriist(name, path, description) {
 	};
 }
 
+import { AUTOR_NIMI } from './seaded.js';
+
+/** Artikli autor: inimene, kui nimi on seadetes, muidu organisatsioon. */
+export const AUTOR_ID = BASE + '/meist/#autor';
+export const AUTOR = AUTOR_NIMI
+	? { '@type': 'Person', '@id': AUTOR_ID, name: AUTOR_NIMI, url: BASE + '/meist/', worksFor: { '@id': ORG_ID } }
+	: null;
+export const autorRef = () => (AUTOR ? { '@id': AUTOR_ID } : { '@id': ORG_ID });
+
+/** Artikli JSON-LD (Article + autor), ühine kõigile Teadmine-lehtedele. */
+export function artikkel({ path, title, desc, uuendatud, avaldatud }) {
+	return [
+		{
+			'@type': 'Article',
+			'@id': BASE + path + '#artikkel',
+			headline: title,
+			description: desc,
+			inLanguage: 'et',
+			datePublished: avaldatud || uuendatud,
+			dateModified: uuendatud,
+			author: autorRef(),
+			publisher: { '@id': ORG_ID },
+			mainEntityOfPage: BASE + path,
+			image: BASE + '/og/sait/avaleht.png'
+		},
+		...(AUTOR ? [AUTOR] : []),
+		ORG
+	];
+}
+
 export const graph = (...items) => ({ '@context': 'https://schema.org', '@graph': items });

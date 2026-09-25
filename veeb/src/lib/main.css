@@ -678,3 +678,6 @@ textarea.lin{resize:vertical;min-height:140px}
 /* rehvi foto pakkujalt (kui on) */
 .tyre-img.has-photo{background:#fff}
 .tyre-img.has-photo img{width:100%;height:100%;object-fit:contain}
+/* artikli autor ja kuupäev */
+.byline{font-size:13.5px;color:var(--muted);margin:0 0 var(--sp-5)}
+.byline a{color:inherit;font-weight:600}

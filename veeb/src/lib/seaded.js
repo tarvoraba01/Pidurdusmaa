@@ -28,3 +28,13 @@ export const GSC_VERIFY = '';
  * Environment Variables → TURNSTILE_SECRET. Tühi = kaitse väljas.
  */
 export const TURNSTILE_SITEKEY = '0x4AAAAAAFCcchOaK4rnMWhJ';
+
+/**
+ * Artiklite autor ja „Meist“ lehe tegija. Näidatakse artiklite all
+ * („Tarvo Raba · uuendatud …“) ja struktuurandmetes (Google'i jaoks
+ * näitab see, et sisu taga on päris inimene).
+ * Kui ei soovi nime avalikult, pane AUTOR_NIMI = '' — siis on autoriks
+ * Pidurdusmaa.ee (Rabarvo OÜ).
+ */
+export const AUTOR_NIMI = 'Tarvo Raba';
+export const ETTEVOTE = 'Rabarvo OÜ';

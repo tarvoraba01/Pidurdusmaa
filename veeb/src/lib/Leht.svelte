@@ -1,10 +1,17 @@
 <script>
-	/* Tavaleht: pealkiri, teerada ja tekst. Sama kest, mis oli page.php. */
+	/* Tavaleht: pealkiri, teerada ja tekst. Sama kest, mis oli page.php.
+	   Kui `uuendatud` on antud, on leht artikkel: autor + kuupäev nähtaval
+	   ja Article-struktuurandmetes. */
 	import Meta from '$lib/Meta.svelte';
-	let { title, desc, path, crumbs = [], sisu, lapsed = [] } = $props();
+	import Autor from '$lib/Autor.svelte';
+	import { artikkel, graph } from '$lib/skeem.js';
+	let { title, desc, path, crumbs = [], sisu, lapsed = [], uuendatud = '', avaldatud = '' } = $props();
+	const jsonld = $derived(
+		uuendatud ? graph(...artikkel({ path: '/' + path, title, desc, uuendatud, avaldatud })) : null
+	);
 </script>
 
-<Meta {title} {desc} {path} crumbs={[['Avaleht', '/'], ...crumbs]} />
+<Meta {title} {desc} {path} crumbs={[['Avaleht', '/'], ...crumbs]} ogType={uuendatud ? 'article' : undefined} {jsonld} />
 
 <section class="page-hero">
 	<div class="wrap">
@@ -18,7 +25,10 @@
 </section>
 <div class="body-sec">
 	<div class="wrap">
-		<article class="entry prose entry-content">{@html sisu}</article>
+		<article class="entry prose entry-content">
+			{#if uuendatud}<Autor {uuendatud} />{/if}
+			{@html sisu}
+		</article>
 		{#if lapsed.length}
 			<div class="grid-cards" style="margin-top:var(--sp-8);max-width:760px">
 				{#each lapsed as k (k[1])}

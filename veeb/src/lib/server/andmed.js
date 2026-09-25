@@ -201,3 +201,54 @@ export function vsPairs() {
 export function vsLinksFor(slug) {
 	return vsPairs().filter((p) => p[0] === slug || p[1] === slug);
 }
+
+/* ------------------------------------------------------------ margid
+ * /margid/<mark>/ — ühe tootja kõik mudelid. Mark tuleb EPREL-ist eri
+ * kirjapildiga ("NOKIAN", "Nokian ", "Nokian Tyres"), seetõttu võti on
+ * slug ja nimeks võetakse kõige levinum kirjapilt.
+ *   ≥ MARK_MIN_INDEKS mudelit -> indeksis
+ *   ≥ MARK_MIN_SAIDIKAART     -> ka saidikaardis
+ */
+export const MARK_MIN_INDEKS = 3;
+export const MARK_MIN_SAIDIKAART = 5;
+
+export function markSlug(mark) {
+	return String(mark || '')
+		.normalize('NFKD')
+		.replace(/[̀-ͯ]/g, '')
+		.toLowerCase()
+		.replace(/[^a-z0-9]+/g, '-')
+		.replace(/^-+|-+$/g, '');
+}
+
+let _margid = null;
+/** Map markSlug → { slug, nimi, mudelid: [slug…], testitud: [tyre…] } */
+export function margid() {
+	if (_margid) return _margid;
+	const kirjad = new Map();
+	_margid = new Map();
+	for (const [slug, m] of Object.entries(models())) {
+		const nimi = titleCase(String(m.mark || '').trim());
+		const ms = markSlug(nimi);
+		if (!ms || !/[a-z]/.test(ms)) continue;
+		if (!_margid.has(ms)) {
+			_margid.set(ms, { slug: ms, nimi, mudelid: [], testitud: [] });
+			kirjad.set(ms, new Map());
+		}
+		_margid.get(ms).mudelid.push(slug);
+		const k = kirjad.get(ms);
+		k.set(nimi, (k.get(nimi) || 0) + 1);
+	}
+	for (const [ms, k] of kirjad) {
+		_margid.get(ms).nimi = [...k.entries()].sort((a, b) => b[1] - a[1])[0][0];
+	}
+	/* testitud rehvid: EPREL-i mudeli kaudu või nime esimese sõna järgi */
+	for (const t of core().tyres) {
+		const m = t.slug ? model(t.slug) : null;
+		const ms = markSlug(m ? titleCase(String(m.mark).trim()) : String(t.name).split(' ')[0]);
+		if (_margid.has(ms)) _margid.get(ms).testitud.push(t);
+	}
+	return _margid;
+}
+
+export const mark = (slug) => margid().get(slug) || null;

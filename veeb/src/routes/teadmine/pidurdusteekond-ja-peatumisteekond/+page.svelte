@@ -5,7 +5,8 @@
 	   ainult reageerimisteekond, mis on lihtne korrutis. */
 	import Meta from '$lib/Meta.svelte';
 	import { num } from '$lib/util.js';
-	import { BASE, ORG_ID, graph } from '$lib/skeem.js';
+	import { BASE, ORG_ID, AUTOR, autorRef, graph } from '$lib/skeem.js';
+	import Autor from '$lib/Autor.svelte';
 
 	let { data } = $props();
 	const d = data.demo;
@@ -48,11 +49,12 @@
 			inLanguage: 'et',
 			datePublished: UUENDATUD,
 			dateModified: UUENDATUD,
-			author: { '@id': ORG_ID },
+			author: autorRef(),
 			publisher: { '@id': ORG_ID },
 			mainEntityOfPage: BASE + PATH,
 			image: BASE + '/og/sait/avaleht.png'
 		},
+		...(AUTOR ? [AUTOR] : []),
 		{
 			'@type': 'FAQPage',
 			mainEntity: KKK.map(([q, a]) => ({
@@ -91,9 +93,7 @@
 <div class="body-sec">
 	<div class="wrap">
 		<article class="entry prose entry-content">
-			<p class="note">
-				Pidurdusmaa.ee · uuendatud <time datetime={UUENDATUD}>25.09.2026</time>
-			</p>
+			<Autor uuendatud={UUENDATUD} />
 
 			<p>
 				<strong>Peatumisteekond = reageerimisteekond + pidurdusteekond.</strong> Pidurdusteekond (ehk

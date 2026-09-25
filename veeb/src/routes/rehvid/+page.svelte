@@ -47,16 +47,12 @@
 		</div>
 		<div class="box">
 			<h2>Margi järgi</h2>
-			{#each data.brandList as [b, list] (b)}
-				<details style="border-top:1px solid var(--paper-3);padding:var(--sp-3) 0">
-					<summary style="cursor:pointer;font-weight:600"
-						>{b} <span class="note">· {list.length} mudelit</span></summary
-					>
-					<div class="sizes-list" style="margin-top:var(--sp-3)">
-						{#each list as m, mi (m[0] + '#' + mi)}<a href="/rehvid/{m[0]}/">{m[1]}</a>{/each}
-					</div>
-				</details>
-			{/each}
+			<p class="sub">Iga margi lehel on kõik selle mudelid kategooria kaupa. <a href="/margid/">Kõik margid →</a></p>
+			<div class="sizes-list">
+				{#each data.margid as m (m.slug)}
+					<a href="/margid/{m.slug}/">{m.nimi} <span class="note">· {m.n}</span></a>
+				{/each}
+			</div>
 		</div>
 	</div>
 </div>

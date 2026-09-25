@@ -17,5 +17,6 @@
 	path="teadmine/rehvimargis/"
 	crumbs={[["Teadmine", "/teadmine/"], ["EL-i rehvimärgis: mida klassid tähendavad", "/teadmine/rehvimargis/"]]}
 	lapsed={[]}
+	uuendatud="2026-09-25"
 	sisu={SISU}
 />

@@ -153,7 +153,9 @@
 					<li><a href="/rehvid/">Rehvid</a></li>
 					<li><a href="/testid/">Sõltumatud testid</a></li>
 					<li><a href="/teadmine/kuidas-pidurdusmaa-arvutatakse/">Kuidas arvutatakse</a></li>
+					<li><a href="/margid/">Rehvimargid</a></li>
 					<li><a href="/teadmine/">Teadmine</a></li>
+					<li><a href="/meist/">Meist</a></li>
 					<li><a href="/kontakt/">Kontakt</a></li>
 				</ul>
 			</div>

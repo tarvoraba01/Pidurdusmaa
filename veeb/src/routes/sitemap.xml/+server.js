@@ -4,7 +4,9 @@ import {
 	sizeModelCount,
 	SIZE_MIN_MODELS,
 	rehviIndeks,
-	vsPairs
+	vsPairs,
+	margid,
+	MARK_MIN_SAIDIKAART
 } from '$lib/server/andmed.js';
 
 export const prerender = true;
@@ -22,10 +24,12 @@ export function GET() {
 		['/vordle-rehve/', '0.9'],
 		['/rehvid/', '0.8'],
 		['/testid/', '0.8'],
+		['/margid/', '0.7'],
 		['/teadmine/', '0.6'],
 		['/teadmine/pidurdusteekond-ja-peatumisteekond/', '0.7'],
 		['/teadmine/kuidas-pidurdusmaa-arvutatakse/', '0.6'],
 		['/teadmine/rehvimargis/', '0.6'],
+		['/meist/', '0.5'],
 		['/kontakt/', '0.4'],
 		['/kasutustingimused/', '0.3'],
 		['/privaatsus/', '0.3']
@@ -38,6 +42,9 @@ export function GET() {
 	const rehvid = new Set([...Object.keys(models()), ...core().tyres.map((t) => t.slug).filter(Boolean)]);
 	for (const slug of rehvid) {
 		if (rehviIndeks(slug).sitemap) urls.push(['/rehvid/' + slug + '/', '0.6']);
+	}
+	for (const m of margid().values()) {
+		if (m.mudelid.length >= MARK_MIN_SAIDIKAART) urls.push(['/margid/' + m.slug + '/', '0.6']);
 	}
 	for (const [a, b] of vsPairs()) urls.push(['/rehvid/' + a + '-vs-' + b + '/', '0.5']);
 	for (const code of Object.keys(core().sources)) urls.push(['/testid/' + code.toLowerCase() + '/', '0.5']);

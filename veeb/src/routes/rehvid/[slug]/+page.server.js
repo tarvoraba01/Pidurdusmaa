@@ -15,7 +15,9 @@ import {
 	titleCase,
 	pretty,
 	sizeSlug,
-	rehviIndeks
+	rehviIndeks,
+	mark,
+	markSlug
 } from '$lib/server/andmed.js';
 
 /* Kolm lehte ühe aadressimustri all — täpselt nagu PHP-s pm_ctx():
@@ -124,7 +126,8 @@ function kirjeldus(t, sizes, tests) {
 	if (g) osad.push('märjal haardumise klass ' + g);
 	const db = vahemik(sizes.map((z) => z.db), (a, b) => a - b);
 	if (db) osad.push('müra ' + db + ' dB');
-	if (sizes.length) osad.push(sizes.length + (sizes.length === 1 ? ' mõõt' : ' mõõtu'));
+	const n = new Set(sizes.map((z) => z.m)).size;
+	if (n) osad.push(n + (n === 1 ? ' mõõt' : ' mõõtu'));
 	const fraas = KAT_FRAAS[t.cat] ? ' ' + KAT_FRAAS[t.cat] : '';
 	return t.name + fraas + (osad.length ? ': ' + osad.join(', ') : '') + '. Vaata, kui pikk on pidurdusmaa sinu autoga.';
 }
@@ -161,12 +164,16 @@ function rehvLeht(t) {
 			slug: t.slug,
 			name: t.name,
 			brand: t.brand,
+			brandSlug: mark(markSlug(t.brand)) ? markSlug(t.brand) : null,
 			cat: t.cat,
 			testedKey: t.tested ? t.tested.key : '',
 			testSize: t.tested ? t.tested.size : '',
 			oletus: !!(t.model && String(t.model.katAlus || '').startsWith('OLETUS'))
 		},
 		sizes,
+		/* ühe mõõdu kohta võib olla mitu rida (koormusindeks, tootjavariant AO/MO/XL) */
+		mootudeArv: new Set(sizes.map((z) => z.m)).size,
+		mootudUnik: sizes.filter((z, i) => sizes.findIndex((y) => y.m === z.m) === i),
 		tests,
 		aqua,
 		vs,

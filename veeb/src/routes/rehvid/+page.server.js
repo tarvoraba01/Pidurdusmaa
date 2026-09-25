@@ -1,4 +1,4 @@
-import { core, models, titleCase, source, sizeModelCount, SIZE_MIN_MODELS } from '$lib/server/andmed.js';
+import { core, models, source, sizeModelCount, SIZE_MIN_MODELS, margid } from '$lib/server/andmed.js';
 
 /** /rehvid/ — mõõdud, testitud rehvid, margid. */
 export function load() {
@@ -17,14 +17,10 @@ export function load() {
 		}))
 		.sort((a, b) => a.category.localeCompare(b.category) || a.name.localeCompare(b.name, 'et'));
 
-	const brands = {};
-	for (const [slug, m] of Object.entries(models())) {
-		const b = titleCase(m.mark);
-		(brands[b] = brands[b] || []).push([slug, titleCase(m.nimi)]);
-	}
-	const brandList = Object.keys(brands)
-		.sort((a, b) => a.localeCompare(b, 'et'))
-		.map((b) => [b, brands[b].sort((x, y) => x[1].localeCompare(y[1], 'et', { numeric: true }))]);
+	/* Margid lingina margi lehele — mitte kõik 3500 mudelit siin (leht oli 440 kB) */
+	const list = [...margid().values()]
+		.map((m) => ({ slug: m.slug, nimi: m.nimi, n: m.mudelid.length }))
+		.sort((a, b) => a.nimi.localeCompare(b.nimi, 'et'));
 
-	return { sizes, tested, brandList, mudeleid: Object.keys(models()).length };
+	return { sizes, tested, margid: list, mudeleid: Object.keys(models()).length };
 }
