@@ -11,17 +11,31 @@
 		<div class="rstrip" data-result>
 			<div>
 				<p class="rs-k" id="res-h">Tulemused: <span data-r-range>90 km/h → 0 km/h</span></p>
+				<div class="cat-switch rs-mode" role="group" aria-label="Mida näidata">
+					<button type="button" data-r-mode="brake" aria-pressed="true">Pidurdusteekond</button>
+					<button type="button" data-r-mode="stop" aria-pressed="false">Peatumisteekond</button>
+				</div>
 				<p class="rs-l">
-					Sinu pidurdusmaa <span class="rs-nr">· ilma reaktsiooniajata</span>
+					<span data-r-lbl>Pidurdusteekond · pidur põhjas kuni seisuni</span>
 					<span class="tip" tabindex="0" data-tip={TIP} aria-label={TIP}>i</span>
 				</p>
 				<p class="rs-num"><Icon name="car" /><b data-r-big>—</b><small>m</small></p>
+				<p class="rs-split" data-r-split hidden>
+					<label for="r-rt">Reaktsiooniaeg</label>
+					<select id="r-rt" class="lsel rs-rt" data-r-rt>
+						<option value="0.5">0,5 s · valmis pidurdama</option>
+						<option value="1" selected>1 s · tavaline</option>
+						<option value="1.5">1,5 s · väsinud</option>
+						<option value="2">2 s · tähelepanu mujal</option>
+					</select>
+					<span data-r-splittxt></span>
+				</p>
 				<p class="rs-who" data-r-whoshort>Arvutan…</p>
 			</div>
 			<div>
 				<p class="rs-k">
 					Võrdlus teiste rehvidega
-					<span style="font-weight:500;color:var(--muted)">(samas mõõdus)</span>
+					<span style="font-weight:500;color:var(--muted)">(pidurdusteekond, samas mõõdus)</span>
 				</p>
 				<ol class="mbars" data-r-mbars></ol>
 				<div class="r-price" data-r-price></div>

@@ -104,6 +104,7 @@
 				<div>
 					<h4>Pidurdusmaa</h4>
 					<a href="/">Pidurdusmaa kalkulaator</a>
+					<a href="/teadmine/pidurdusteekond-ja-peatumisteekond/">Pidurdus- ja peatumisteekond</a>
 					<a href="/teadmine/kuidas-pidurdusmaa-arvutatakse/">Kuidas arvutatakse</a>
 				</div>
 				<div>

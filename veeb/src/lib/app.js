@@ -697,10 +697,39 @@
         return;
       }
       var r = cur.r, rows = rowsAll, best = rows[0].d, max = rows[rows.length - 1].d;
-      $('[data-r-big]', el).textContent = fmt(r.distanceM);
+      /* PIDURDUSTEEKOND vs PEATUMISTEEKOND. Peatumisteekond = reageerimis-
+         teekond (auto sõidab täiskiirusel, kuni juht jõuab pidurini) +
+         pidurdusteekond. Rehv mõjutab ainult teist osa, seega ribad all
+         jäävad pidurdusteekonnaks. */
+      var rmode = store.get('rmode', 'brake'), rt = +store.get('rt', 1) || 1;
+      var react = rmode === 'stop' ? S.speed / 3.6 * rt : 0;
+      $$('[data-r-mode]', el).forEach(function (b) { b.setAttribute('aria-pressed', String(b.dataset.rMode === rmode)); });
+      $('[data-r-lbl]', el).textContent = rmode === 'stop'
+        ? 'Peatumisteekond · märkamisest kuni seisuni'
+        : 'Pidurdusteekond · pidur põhjas kuni seisuni';
+      var spl = $('[data-r-split]', el);
+      spl.hidden = rmode !== 'stop';
+      $('[data-r-rt]', el).value = String(rt);
+      $('[data-r-splittxt]', el).innerHTML = 'Reageerimisteekond <b>' + fmt(react) + ' m</b> + pidurdusteekond <b>' + fmt(r.distanceM) + ' m</b>';
+      $('[data-r-big]', el).textContent = fmt(r.distanceM + react);
+      if (!el._rbound) {
+        el._rbound = true;
+        $$('[data-r-mode]', el).forEach(function (b) {
+          b.addEventListener('click', function () {
+            store.set('rmode', b.dataset.rMode);
+            Track('peatumine', b.dataset.rMode === 'stop' ? 'peatumisteekond' : 'pidurdusteekond');
+            render();
+          });
+        });
+        $('[data-r-rt]', el).addEventListener('change', function (e) {
+          store.set('rt', +e.target.value);
+          Track('reaktsiooniaeg', e.target.value + ' s');
+          render();
+        });
+      }
       var whoShort = cur.kind === 'class' ? 'märgise klassi ' + cur.g + ' rehviga' : cur.kind === 'cat' ? CATNAME[cur.cat].toLowerCase() + 'ga (keskmine)' : cur.name;
       $('[data-r-whoshort]', el).innerHTML = esc(whoShort) + ' · ' + esc(c.label) + '<br>' +
-        (out.vehDefault ? 'auto valimata — arvutatud VW Golf 8 järgi' : esc(out.veh.name)) + ' · vahemik ' + fmt(r.lowM) + '–' + fmt(r.highM) + ' m';
+        (out.vehDefault ? 'auto valimata — arvutatud VW Golf 8 järgi' : esc(out.veh.name)) + ' · vahemik ' + fmt(r.lowM + react) + '–' + fmt(r.highM + react) + ' m';
 
       /* kompaktsed ribad: 5 rida, valitud alati sees */
       var LIMC = 5, comp = rows.slice(0, LIMC);
@@ -709,14 +738,16 @@
       paintPrices(S.size, cur);
 
       if (detail) {
-        $('[data-r-big2]', detail).textContent = fmt(r.distanceM);
+        $('[data-r-big2]', detail).textContent = fmt(r.distanceM + react);
         $('[data-r-cats]', detail).innerHTML = Object.keys(SEASON).map(function (k) {
           return '<button type="button" data-rs="' + k + '" aria-pressed="' + (k === S.resSeason) + '">' + SEASON[k].label + '</button>';
         }).join('');
         $$('[data-rs]', detail).forEach(function (b) { b.addEventListener('click', function () { S.resSeason = b.dataset.rs; S._userSeason = true; sel = null; render(); }); });
-        var rx = $('[data-r-react]', detail), react = S.speed / 3.6;
-        if (rx) rx.innerHTML = 'Arv algab hetkest, kui pidur on põhjas. Koos 1 s reaktsiooniajaga oleks see <b>' + fmt(r.distanceM + react) + ' m</b> (+' + fmt(react) + ' m).';
-        $('[data-r-band]', detail).innerHTML = 'Tõenäoline vahemik <b>' + fmt(r.lowM) + '–' + fmt(r.highM) + ' m</b> (±' + Math.round(r.sigmaRel * 100) + ' %)';
+        var rx = $('[data-r-react]', detail), react1 = S.speed / 3.6 * rt;
+        if (rx) rx.innerHTML = rmode === 'stop'
+          ? 'Peatumisteekond = reageerimisteekond <b>' + fmt(react) + ' m</b> (' + String(rt).replace('.', ',') + ' s, auto sõidab veel täiskiirusel) + pidurdusteekond <b>' + fmt(r.distanceM) + ' m</b>.'
+          : 'See on pidurdusteekond: arv algab hetkest, kui pidur on põhjas. Koos ' + String(rt).replace('.', ',') + ' s reaktsiooniajaga oleks peatumisteekond <b>' + fmt(r.distanceM + react1) + ' m</b> (+' + fmt(react1) + ' m).';
+        $('[data-r-band]', detail).innerHTML = 'Tõenäoline vahemik <b>' + fmt(r.lowM + react) + '–' + fmt(r.highM + react) + ' m</b> (±' + Math.round(r.sigmaRel * 100) + ' %)';
         var who = '<b>' + esc(cur.name) + '</b>';
         if (cur.kind === 'test') who += '<span class="src">Haare tuleb sõltumatu testi mõõdetud tulemusest' + (cur.sizeNote ? ' (testi mõõt ' + esc(cur.sizeNote) + '; sinu mõõdus võib märgise klass erineda)' : '') + '.</span>';
         else if (cur.kind === 'class') {

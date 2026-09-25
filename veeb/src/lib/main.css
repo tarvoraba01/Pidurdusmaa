@@ -667,3 +667,10 @@ textarea.lin{resize:vertical;min-height:140px}
 /* väga kitsas ekraan (320–400px): päis peab mahtuma */
 @media (max-width:400px){.site-header>.wrap{gap:var(--sp-3)}.site-header .logo{font-size:20px}.hdr-right{gap:var(--sp-1)}}
 @media (max-width:640px){.box{padding:var(--sp-4)}}
+
+/* pidurdus- vs peatumisteekond tulemuses */
+.rs-mode{justify-content:center;margin:0 auto var(--sp-2);width:max-content;max-width:100%}
+.rs-split{margin:var(--sp-1) 0 var(--sp-2);display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:var(--sp-1) var(--sp-2);font-size:13px;color:var(--muted);text-align:center}
+.rs-split label{font-weight:600;color:var(--text)}
+.rs-split b{color:var(--text)}
+.rs-rt{width:auto;height:36px;font-size:13px;padding-right:var(--sp-8)}

@@ -17,9 +17,9 @@
 </script>
 
 <Meta
-	fullTitle="Pidurdusmaa.ee — kui kiiresti sinu auto peatub?"
+	fullTitle="Pidurdusmaa kalkulaator — pidurdus- ja peatumisteekond | Pidurdusmaa.ee"
 	title="Kui kiiresti sinu auto peatub?"
-	desc="Arvuta oma auto pidurdusmaa erinevatel kiirustel ja teeoludel. Päris rehviandmed EL-i märgiselt ja sõltumatutest testidest."
+	desc="Arvuta oma auto pidurdusteekond ja peatumisteekond eri kiirustel ja teeoludel. Päris rehviandmed: EL-i rehvimärgis ja sõltumatud testid."
 	path=""
 	jsonld={graph(
 		ORG,
@@ -27,7 +27,7 @@
 		tooriist(
 			'Pidurdusmaa kalkulaator',
 			'/',
-			'Arvutab auto pidurdusmaa valitud kiirusel ja teeoludel päris rehviandmete järgi: EL-i rehvimärgis ja sõltumatud rehvitestid.'
+			'Arvutab auto pidurdusteekonna ja peatumisteekonna (koos reaktsiooniajaga) valitud kiirusel ja teeoludel päris rehviandmete järgi: EL-i rehvimärgis ja sõltumatud rehvitestid.'
 		)
 	)}
 />
@@ -75,6 +75,19 @@
 						</p>
 					</div>
 					<div class="bullets">
+						<div>
+							<span class="ic"><Icon name="car" /></span>
+							<div>
+								<h3>Peatumisteekond = reageerimine + pidurdus</h3>
+								<p>
+									Enne kui pidur hakkab tööle, sõidab auto reaktsiooniaja jooksul täiskiirusel edasi:
+									90 km/h juures 1 sekundiga 25 m. Märjal teel on peatumisteekond seega umbes
+									{num(25 + d.wet[1])} m. <a href="/teadmine/pidurdusteekond-ja-peatumisteekond/"
+										>Valem ja näited</a
+									>
+								</p>
+							</div>
+						</div>
 						<div>
 							<span class="ic"><Icon name="speed" /></span>
 							<div>

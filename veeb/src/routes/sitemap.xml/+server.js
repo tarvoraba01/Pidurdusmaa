@@ -23,6 +23,7 @@ export function GET() {
 		['/rehvid/', '0.8'],
 		['/testid/', '0.8'],
 		['/teadmine/', '0.6'],
+		['/teadmine/pidurdusteekond-ja-peatumisteekond/', '0.7'],
 		['/teadmine/kuidas-pidurdusmaa-arvutatakse/', '0.6'],
 		['/teadmine/rehvimargis/', '0.6'],
 		['/kontakt/', '0.4'],
