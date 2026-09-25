@@ -74,6 +74,58 @@ export function testedBySlug(slug) {
 }
 export const source = (code) => core().sources[code] || null;
 
+/* ------------------------------------------------------ indekseerimine
+ * Kõik rehvilehed jäävad kasutajale alles. Google'ile pakume aga ainult
+ * neid, millel on päris sisu -- uuel domeenil näeksid 5 500 sarnast
+ * mallilehte välja nagu masinaga toodetud sisu ("scaled content").
+ *
+ *   testitud rehv                         -> indeksis + saidikaardis
+ *   "mudel", mille nimes on mõõt (SKU)    -> noindex (Nankang 205/45R17 …)
+ *   tootjavariant (AO, MO, N0, VOL, XL …),
+ *     mille emamudel on olemas            -> canonical emamudelile (mitte noindex:
+ *                                            Google ei soovita neid kokku panna)
+ *   ≤ 2 mõõtu ja testi pole               -> noindex
+ *   ülejäänud                             -> indeksis, saidikaarti partiidena
+ *
+ * Partii suurendamiseks alanda SITEMAP_MUDEL_MIN_MOOTE (nt 20 → 10 → 3),
+ * kui Search Console näitab, et eelmine partii on indekseeritud.
+ */
+export const SITEMAP_MUDEL_MIN_MOOTE = Infinity; // 1. partii: ainult testitud
+
+const SKU_RE = /\d{3}-?\d{2}-?z?r\d{2}/;
+/* ainult tootja märgistuse koodid -- mitte "suv", "plus", "4x4", mis on
+   päris eri mudelid */
+const VARIANT = new Set(
+	('a ao ao1 ao2 n0 n1 n2 n3 n4 n5 n6 mo mo1 mos moe vol j jlr lr ro1 ro2 r01 r02 ' +
+		't0 t1 t2 xl rf rft runflat ssr zp dt dt1 dt2 star seal sealinside acoustic ' +
+		'contisilent contiseal silent nf0 nd0 ng0 ne0 nh0 hl elt mfs').split(' ')
+);
+
+/** Emamudel, kui slug on tootjavariant (michelin-pilot-sport-4-a-ao → michelin-pilot-sport-4). */
+export function emamudel(slug) {
+	const m = models();
+	let toks = String(slug).split('-');
+	while (toks.length > 2 && VARIANT.has(toks[toks.length - 1])) {
+		toks = toks.slice(0, -1);
+		const p = toks.join('-');
+		if (m[p]) return p;
+	}
+	return null;
+}
+
+/** { index, sitemap, canonical } rehvilehe jaoks. */
+export function rehviIndeks(slug) {
+	const t = tyrePage(slug);
+	if (!t) return { index: false, sitemap: false, canonical: null };
+	if (t.tested) return { index: true, sitemap: true, canonical: null };
+	const n = t.model ? t.model.sizes.length : 0;
+	if (SKU_RE.test(slug)) return { index: false, sitemap: false, canonical: null };
+	const ema = emamudel(slug);
+	if (ema) return { index: true, sitemap: false, canonical: ema };
+	if (n <= 2) return { index: false, sitemap: false, canonical: null };
+	return { index: true, sitemap: n >= SITEMAP_MUDEL_MIN_MOOTE, canonical: null };
+}
+
 /** Rehvileht on olemas, kui slug on kas EPREL-i mudel või mõõdetud rehv. */
 export function tyrePage(slug) {
 	const m = model(slug);

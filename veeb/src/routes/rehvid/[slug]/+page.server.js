@@ -14,7 +14,8 @@ import {
 	models,
 	titleCase,
 	pretty,
-	sizeSlug
+	sizeSlug,
+	rehviIndeks
 } from '$lib/server/andmed.js';
 
 /* Kolm lehte ühe aadressimustri all — täpselt nagu PHP-s pm_ctx():
@@ -98,8 +99,39 @@ function mootLeht(size) {
 	};
 }
 
+
+/* Kirjeldus otsingutulemuse jaoks: konkreetsed numbrid, mitte mall.
+   „Kleber Dynaxer HP3 suverehv: märjal haardumise klass B, müra 69 dB,
+   17 mõõtu. Vaata, kui pikk on pidurdusmaa sinu autoga." */
+const KAT_FRAAS = {
+	SUMMER_UHP: 'sportlik suverehv',
+	SUMMER_TOURING: 'suverehv',
+	ALL_SEASON: 'aastaringne rehv',
+	WINTER_CENTRAL: 'Kesk-Euroopa talverehv',
+	WINTER_NORDIC: 'Põhjamaade lamell-talverehv',
+	WINTER_STUDDED: 'naastrehv'
+};
+function vahemik(arr, jarj) {
+	const u = [...new Set(arr.filter((x) => x !== null && x !== undefined && x !== ''))];
+	if (!u.length) return '';
+	u.sort(jarj);
+	return u.length === 1 ? String(u[0]) : u[0] + '–' + u[u.length - 1];
+}
+function kirjeldus(t, sizes, tests) {
+	const osad = [];
+	if (tests.length) osad.push('sõltumatu testi pidurdusmaad');
+	const g = vahemik(sizes.map((z) => z.g), (a, b) => String(a).localeCompare(String(b)));
+	if (g) osad.push('märjal haardumise klass ' + g);
+	const db = vahemik(sizes.map((z) => z.db), (a, b) => a - b);
+	if (db) osad.push('müra ' + db + ' dB');
+	if (sizes.length) osad.push(sizes.length + (sizes.length === 1 ? ' mõõt' : ' mõõtu'));
+	const fraas = KAT_FRAAS[t.cat] ? ' ' + KAT_FRAAS[t.cat] : '';
+	return t.name + fraas + (osad.length ? ': ' + osad.join(', ') : '') + '. Vaata, kui pikk on pidurdusmaa sinu autoga.';
+}
+
 /* ------------------------------------------------------------- rehvileht */
 function rehvLeht(t) {
+	const ix = rehviIndeks(t.slug);
 	const sizes = (t.model ? t.model.sizes : [])
 		.slice()
 		.sort((a, b) => String(a.m).localeCompare(String(b.m), 'et', { numeric: true }))
@@ -138,8 +170,10 @@ function rehvLeht(t) {
 		tests,
 		aqua,
 		vs,
-		/* Ainult sisuga lehed indekseeritakse: kas mõõdetud test või märgis. */
-		noindex: !(tests.length || sizes.length)
+		/* Indekseerimise reegel on andmed.js-is (rehviIndeks) */
+		noindex: !(tests.length || sizes.length) || !ix.index,
+		canonical: ix.canonical ? 'rehvid/' + ix.canonical + '/' : null,
+		desc: kirjeldus(t, sizes, tests)
 	};
 }
 

@@ -26,7 +26,7 @@
 <section class="hero" aria-labelledby="hero-h">
 	<div class="wrap">
 		<div class="hero-copy">
-			<h1 id="hero-h">Kui kiiresti <span class="up">sinu auto</span><span class="up">peatub?</span></h1>
+			<h1 id="hero-h">Kui kiiresti <span class="up">sinu auto</span> <span class="up">peatub?</span></h1>
 			<p class="lede">Arvuta pidurdusmaa erinevatel kiirustel ja teeoludel.</p>
 			<p class="tagline">
 				Lihtne. Kiire. Täpne.<svg viewBox="0 0 120 10" preserveAspectRatio="none" aria-hidden="true"

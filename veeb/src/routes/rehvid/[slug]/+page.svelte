@@ -98,13 +98,9 @@
 	{@const t = data.tyre}
 	<Meta
 		title="{t.name} — pidurdusmaa, märgis ja testid"
-		desc="{t.name} ({KAT_NIMI[t.cat] ?? ''}): {[
-			data.tests.length ? 'sõltumatu testi pidurdusmaad' : '',
-			data.sizes.length ? 'EL-i rehvimärgis ' + data.sizes.length + ' mõõdus' : ''
-		]
-			.filter(Boolean)
-			.join(', ')}. Võrdle teiste rehvidega."
+		desc={data.desc}
 		path="rehvid/{t.slug}/"
+		canonical={data.canonical}
 		noindex={data.noindex}
 		crumbs={[['Avaleht', '/'], ['Rehvid', '/rehvid/'], [t.name, '/rehvid/' + t.slug + '/']]}
 		jsonld={{

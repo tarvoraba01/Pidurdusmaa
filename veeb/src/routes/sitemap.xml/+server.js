@@ -3,7 +3,7 @@ import {
 	models,
 	sizeModelCount,
 	SIZE_MIN_MODELS,
-	tyrePage,
+	rehviIndeks,
 	vsPairs
 } from '$lib/server/andmed.js';
 
@@ -11,9 +11,10 @@ export const prerender = true;
 
 const BASE = 'https://pidurdusmaa.ee';
 
-/* Sitemap sisaldab ainult indekseeritavaid lehti: mõõdud, kus on
-   vähemalt 10 mudelit, ja rehvilehed, kus on kas märgise andmed või
-   mõõdetud test. Tühja lehte Google'ile ei paku. */
+/* Saidikaart = lehed, mida tahame Google'is näha: tööriistad, mõõdud
+   (vähemalt 10 mudelit), testitud rehvid, vs-lehed ja testid. Ülejäänud
+   rehvilehed lisatakse partiidena (andmed.js SITEMAP_MUDEL_MIN_MOOTE),
+   kui Search Console näitab, et eelmised on indekseeritud. */
 export function GET() {
 	const urls = [
 		['/', '1.0'],
@@ -32,12 +33,10 @@ export function GET() {
 	for (const s of core().sizes) {
 		if (sizeModelCount(s.m) >= SIZE_MIN_MODELS) urls.push(['/rehvid/' + s.slug + '/', '0.7']);
 	}
-	for (const slug of Object.keys(models())) {
-		const t = tyrePage(slug);
-		if (t && ((t.model && t.model.sizes.length) || t.tested)) urls.push(['/rehvid/' + slug + '/', '0.6']);
-	}
-	for (const t of core().tyres) {
-		if (t.slug && !models()[t.slug]) urls.push(['/rehvid/' + t.slug + '/', '0.6']);
+	/* Rehvilehed partiidena -- reegel ja partii suurus: andmed.js rehviIndeks */
+	const rehvid = new Set([...Object.keys(models()), ...core().tyres.map((t) => t.slug).filter(Boolean)]);
+	for (const slug of rehvid) {
+		if (rehviIndeks(slug).sitemap) urls.push(['/rehvid/' + slug + '/', '0.6']);
 	}
 	for (const [a, b] of vsPairs()) urls.push(['/rehvid/' + a + '-vs-' + b + '/', '0.5']);
 	for (const code of Object.keys(core().sources)) urls.push(['/testid/' + code.toLowerCase() + '/', '0.5']);
