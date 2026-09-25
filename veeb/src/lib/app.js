@@ -657,21 +657,23 @@
       paintSize(); save(); recalc(); emit();
     });
 
+    /* Kiirust saab valida kõigil pindadel 130 km/h-ni. Üle mõõdetud vahemiku
+       (lumel ja jääl 80 km/h) arvutab mudel valemist edasi ja veapiir
+       kasvab (engine.js: sigmaSpeedExtrap) — seda öeldakse ka välja. */
+    var SPEED_MAX = 130;
     function range() {
-      var rng = window.Pidurdus.CAL.speedRange[COND[S.cond].surface] || [20, 130];
-      return [Math.max(20, Math.ceil(rng[0] / 5) * 5), Math.floor(rng[1] / 5) * 5];
+      var rng = window.Pidurdus.CAL.speedRange[COND[S.cond].surface] || [20, SPEED_MAX];
+      return [Math.max(20, Math.ceil(rng[0] / 5) * 5), SPEED_MAX, Math.floor(rng[1] / 5) * 5];
     }
     function paintSpeed() {
-      var r = range(), lo = r[0], hi = r[1];
-      var capped = S.speed > hi || S.speed < lo;
+      var r = range(), lo = r[0], hi = r[1], moodetud = r[2];
       S.speed = Math.min(hi, Math.max(lo, S.speed));
       speedIn.min = lo; speedIn.max = hi; speedNum.min = lo; speedNum.max = hi;
       speedIn.value = S.speed; speedNum.value = S.speed;
       speedIn.style.setProperty('--p', (100 * (S.speed - lo) / (hi - lo)) + '%');
-      capNote.hidden = !capped && !(S.cond === 'snow' || S.cond === 'ice');
-      if (!capNote.hidden) capNote.textContent = (S.cond === 'snow' || S.cond === 'ice')
-        ? 'Lumel ja jääl arvutame ' + lo + '–' + hi + ' km/h — kiiremini ei ole mõõdetud andmeid.'
-        : 'Sellel pinnal arvutame ' + lo + '–' + hi + ' km/h.';
+      capNote.hidden = S.speed <= moodetud;
+      if (!capNote.hidden) capNote.textContent = (S.cond === 'snow' ? 'Lumel' : S.cond === 'ice' ? 'Jääl' : 'Sellel pinnal') +
+        ' on pidurdusmaa mõõdetud kuni ' + moodetud + ' km/h. Kiirematel arvutame valemist edasi — veapiir on suurem.';
     }
     speedIn.addEventListener('input', function () { S.speed = +speedIn.value; paintSpeed(); save(); recalc(); });
     speedNum.addEventListener('change', function () {
