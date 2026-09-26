@@ -19,10 +19,8 @@
 	<div class="wrap">
 		<div class="crumbs"><a href="/">Avaleht</a><span>/</span>Rehvi valimine</div>
 		<h1>Rehvi valimine</h1>
-		<p>
-			Ütle, kus ja kui palju sõidad ning mis sulle rehvi juures oluline on. Näitame sinu auto mõõdus
-			sobivaid rehve — ja miks just neid.
-		</p>
+		<p>Ütle, kus ja kui palju sõidad ning mis sulle rehvi juures oluline on.</p>
+		<p class="hero-lisa">Näitame rehve sinu tingimustel.</p>
 	</div>
 </section>
 
@@ -64,7 +62,7 @@
 			<aside class="filters" aria-label="Täpsemad seaded">
 				<div class="box">
 					<div style="display:flex;align-items:center;justify-content:space-between">
-						<h3 style="margin:0">Täpsusta kaalusid</h3>
+						<h3 style="margin:0">Täpsusta soove</h3>
 						<button type="button" class="btn sm" data-prio-reset hidden>Tühjenda</button>
 					</div>
 					<p class="note" style="margin:var(--sp-2) 0 var(--sp-3)">

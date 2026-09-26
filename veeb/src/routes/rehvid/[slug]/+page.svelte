@@ -364,7 +364,7 @@
 										>
 										<td class="n"
 											>{(r.d > 0 ? '+' : '') + num(r.d)} m
-											<span class="note">({pctVahe(r.d, r.x.m, r.y.m)} %)</span></td
+											<span class="note">({pctVahe(r.d, r.x.m, r.y.m)}%)</span></td
 										>
 									</tr>
 								{/each}

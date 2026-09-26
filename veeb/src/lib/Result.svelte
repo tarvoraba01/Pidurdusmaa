@@ -113,7 +113,7 @@
 		</div>
 		<div class="it">
 			<Icon name="gauge" />
-			<div><b>Kontrollitud täpsus</b><span>Mõõdetud pidurdusmaade vastu keskmiselt ~4 % viga</span></div>
+			<div><b>Kontrollitud täpsus</b><span>Mõõdetud pidurdusmaade vastu keskmiselt ~4% viga</span></div>
 		</div>
 		<div class="it">
 			<Icon name="info" />

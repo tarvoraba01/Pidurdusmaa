@@ -141,7 +141,7 @@
 			{#if d}
 				<h2>Näited eri kiirustel</h2>
 				<p>
-					Arvutatud sama mudeliga, mis kalkulaator: {d.car}. Reaktsiooniaeg 1 s. Märg asfalt: veekiht
+					Arvutatud kalkulaatori sama mudeliga: {d.car}. Reaktsiooniaeg 1 s. Märg asfalt: veekiht
 					1 mm, +10 °C. Kuiv asfalt: +15 °C.
 				</p>
 				<p>

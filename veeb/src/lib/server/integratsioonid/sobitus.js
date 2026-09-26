@@ -5,7 +5,7 @@
  *   1. mõõt peab olema TÄPSELT sama
  *   2. mark peab olema sama (aliaste kaudu: "Conti" = "Continental")
  *   3. mudelinimi: mõõt, koormus/kiirusindeks ja XL/RunFlat jms eemaldatakse,
- *      seejärel peab ülejäänu olema sama (või vähemalt 85 % samadest sõnadest)
+ *      seejärel peab ülejäänu olema sama (või vähemalt 85% samadest sõnadest)
  * Kui EAN on mõlemal olemas, võidab EAN. Kahtluse korral EI sobitata —
  * vale hind vale rehvi all on hullem kui hinnata jätmine.
  */

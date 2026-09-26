@@ -51,10 +51,10 @@ export function num(v, dec = 1) {
 		.replace(/\B(?=(\d{3})+(?!\d))/, ' ');
 }
 
-/** +48 % või +5,8 % (alla 10 % ühe komakohaga). */
+/** +48% või +5,8% (alla 10% ühe komakohaga). */
 export function pct(val, base) {
 	const v = (100 * (val - base)) / base;
-	return (v >= 0 ? '+' : '') + num(v, Math.abs(v) < 10 ? 1 : 0) + ' %';
+	return (v >= 0 ? '+' : '') + num(v, Math.abs(v) < 10 ? 1 : 0) + '%';
 }
 
 /** Mõõdetud testitulemuse inimloetav kirjeldus. */
@@ -95,7 +95,7 @@ export const VALIK_Q = {
 	rft: [
 		'Run-flat',
 		{ only: 'Ainult run-flat', no: 'Ilma run-flatita' },
-		'Run-flat (RFT) rehviga saab pärast torget või rõhu kadu edasi sõita, tavaliselt kuni 80 km kiirusega kuni 80 km/h — et jõuda remonti. Külgseinad on tugevdatud, sõit on veidi jäigem ja auto vajab rehvirõhu andurit. Levinud eriti BMW ja Mini autodel, kus varurehvi pole. Märjal ja lumel pidurdab ta sama moodi nagu tavaline sama mudeli rehv.'
+		'Run-flat (RFT) rehviga saab pärast torget või rõhu kadu edasi sõita, tavaliselt kuni 80 km, kiirusega kuni 80 km/h — et jõuda remonti. Külgseinad on tugevdatud, sõit on veidi jäigem ja auto vajab rehvirõhu andurit. Levinud eriti BMW ja Mini autodel, kus varurehvi pole. Märjal ja lumel pidurdab ta sama moodi nagu tavaline sama mudeli rehv.'
 	]
 };
 

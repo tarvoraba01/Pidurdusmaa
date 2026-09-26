@@ -65,13 +65,13 @@
 		<ul>
 			<li>
 				Testitud rehvidel tuleb haare mõõdetud tulemusest. Mõõdetud pidurdusmaade vastu on mudeli
-				viga asfaldil keskmiselt 4,4 %.
+				viga asfaldil keskmiselt 4,4%.
 			</li>
 			<li>
 				Ainult märgisega rehvidel on teada ainult klass (A–E). Klassi haare ei ole vahemiku
 				nominaalne keskpunkt, vaid <strong>sama klassi mõõdetud rehvide mediaan</strong> (nt A-klassi
 				tavaline suverehv 1,47, A-klassi sportrehv 1,64). Sama klassi rehvid on mudelis võrdsed —
-				päris elus erinevad nad ±3–4 %.
+				päris elus erinevad nad ±3–4%.
 			</li>
 			<li>
 				Kuival, lumel ja jääl ei ütle märgis midagi. Neil pindadel järjestatakse ainult testitud

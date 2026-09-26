@@ -110,7 +110,7 @@
 							<div>
 								<h3>Rehv</h3>
 								<p>
-									Sama auto, sama märg tee: märgise klass A {num(d.classA)} m, klass E {num(
+									Sama auto, sama märg tee: A-klassi märgisega rehv {num(d.classA)} m, E-klassi {num(
 										d.classE
 									)} m.
 								</p>
@@ -143,7 +143,7 @@
 					<span class="eyebrow" style="color:var(--muted)">Mis mõjutab pidurdusmaad</span>
 					<h2 id="s2">Kuus asja, mida saad mõjutada</h2>
 					<p>
-						Kõik arvud on arvutatud sama mudeliga, mis kalkulaator — sama auto, üks asi korraga
+						Kõik arvud on arvutatud kalkulaatori sama mudeliga — sama auto, üks asi korraga
 						muudetud.
 					</p>
 				</div>
@@ -230,7 +230,7 @@
 				<aside class="filters" aria-label="Täpsemad seaded">
 					<div class="box">
 						<div style="display:flex;align-items:center;justify-content:space-between">
-							<h3 style="margin:0">Täpsusta kaalusid</h3>
+							<h3 style="margin:0">Täpsusta soove</h3>
 							<button type="button" class="btn sm" data-prio-reset hidden>Tühjenda</button>
 						</div>
 						<p class="note" style="margin:var(--sp-2) 0 var(--sp-3)">

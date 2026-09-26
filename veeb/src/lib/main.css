@@ -396,6 +396,7 @@ dialog.how::backdrop{background:rgba(10,11,13,.6);backdrop-filter:blur(2px)}
 .crumbs span{margin:0 var(--sp-2);opacity:.5}
 .page-hero h1{font-family:var(--display);font-weight:700;font-size:clamp(40px,5.4vw,72px);line-height:.95;text-transform:uppercase;margin:0 0 var(--sp-3)}
 .page-hero p{color:#cfd4db;font-size:18px;max-width:720px;margin:0}
+.page-hero .hero-lisa{color:var(--on-d);font-weight:600;margin-top:var(--sp-2)}
 .page-hero .pills{display:flex;flex-wrap:wrap;gap:var(--sp-2);margin-top:var(--sp-5)}
 .page-hero .pill{background:var(--ink-3);border-color:var(--line-d);color:#dfe3e8}
 .body-sec{padding:var(--sp-12) 0 var(--sp-20)}

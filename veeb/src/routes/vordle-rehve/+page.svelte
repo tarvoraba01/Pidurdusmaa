@@ -49,6 +49,11 @@
 					<button type="button" data-season="all">Aastaringne</button>
 					<button type="button" data-season="winter">Talv</button>
 				</div>
+				<select class="lsel" data-rft aria-label="Run-flat">
+					<option value="">Run-flat: kõik</option>
+					<option value="only">Ainult run-flat</option>
+					<option value="no">Ilma run-flatita</option>
+				</select>
 				<select class="lsel" data-brand aria-label="Mark"><option value="">Kõik margid</option></select>
 				<input class="lsel" type="search" data-q placeholder="Otsi marki või mudelit" aria-label="Otsi rehvi" style="background-image:none" />
 			</div>
