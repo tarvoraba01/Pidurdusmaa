@@ -175,7 +175,7 @@ input[type=range].slider{-webkit-appearance:none;appearance:none;width:100%;heig
 .rs-num small{font-size:30px;font-weight:700;color:var(--red)}
 .rs-who{margin:0;text-align:center;font-size:12.5px;color:var(--muted);line-height:1.4}
 .mbars{list-style:none;margin:0;padding:0}
-.mbar{display:grid;grid-template-columns:minmax(0,170px) minmax(0,1fr) 56px 96px;align-items:center;gap:var(--sp-3);width:100%;border:0;background:transparent;padding:var(--sp-1) 0;cursor:pointer;text-align:left;font-size:13px}
+.mbar{display:grid;grid-template-columns:minmax(0,190px) minmax(0,1fr) 56px 96px;align-items:center;gap:var(--sp-3);width:100%;border:0;background:transparent;padding:var(--sp-1) 0;cursor:pointer;text-align:left;font-size:13px}
 .mbar .n{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:600}
 .mbar .t{height:12px;background:var(--paper-3);border-radius:2px;overflow:hidden}
 .mbar .t span{display:block;height:100%;background:#a9aeb7;border-radius:2px;transition:width .4s}
@@ -706,8 +706,10 @@ textarea.lin{resize:vertical;min-height:140px}
 .vs-dark .vs-list li[aria-selected="true"],.vs-dark .vs-list li:hover{background:#2a2f38}
 .vs-dark .vs-list .vs-m,.vs-dark .vs-list .vs-none{color:#aab1bc}
 /* tulemuses: klassi rea all päris rehvid (app.js pickPanel) */
-.mbar.mcls .n::after{content:" ▾";font-weight:400;opacity:.5}
-.mbar.mcls[aria-expanded="true"] .n::after{content:" ▴"}
+.mbar.mcls .n::before{content:"";display:inline-block;width:6px;height:6px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:translateY(-3px) rotate(45deg);margin:0 9px 0 2px;transition:transform .15s}
+.mbar.mcls[aria-expanded="true"] .n::before{transform:translateY(0) rotate(-135deg)}
+.mbar.mcls .n{color:var(--text)}
+.mbar.mcls:hover .n::before{color:var(--red)}
 .mpick{margin:var(--sp-1) 0 var(--sp-3);padding:var(--sp-3);background:var(--paper-2);border-radius:8px}
 .mp-h{margin:0 0 var(--sp-2);font-size:13px;font-weight:700}
 .mp-h small{font-weight:500;color:var(--muted)}

@@ -759,6 +759,8 @@
        Vaikimisi valitakse üks ise (soodsaim / testitud / vaikseim), et
        inimene ei peaks 12 rehvi vahel otsustama — aga saab vahetada. */
     var pick = {}, pickManual = {}, pickAll = false, hinnad = null, hinnadSize = null;
+    /* avatud = klassi rida, mille rehvide nimekiri on lahti (vaikimisi kinni) */
+    var avatud = null;
     function rowsFor(S, eprelRows, season) {
       var veh = core.vehByKey[S.veh] || core.vehByKey[DEFAULT_VEH];
       var cond = condObj(S.cond, S.speed), ck = S.cond, rows = [];
@@ -828,7 +830,7 @@
       if (!S._userSeason) S.resSeason = (S.cond === 'snow' || S.cond === 'ice') ? 'winter' : 'summer';
       state = S; state._eprel = eprelRows;
       sel = null; showAll = false;
-      pick = {}; pickManual = {}; pickAll = false;
+      pick = {}; pickManual = {}; pickAll = false; avatud = null;
       if (hinnadSize !== S.size) { hinnad = null; hinnadSize = null; }
       render();
     }
@@ -869,7 +871,7 @@
         } else if (cur.kind === 'class') {
           var top = cur.members.map(function (m) { var id = m.slug + '@' + size; return h[id] && h[id].length ? { m: m, r: h[id][0] } : null; })
             .filter(Boolean).sort(function (a, b) { return a.r.hind - b.r.hind; }).slice(0, 3);
-          box.innerHTML = '<span class="pl">Soodsaimad klassi ' + cur.g + ' rehvid</span>' + (top.length ? '<ul class="sellers">' + top.map(function (t) {
+          box.innerHTML = '<span class="pl">Soodsaimad klassi ' + cur.g + ' rehvid</span> ' + (top.length ? '<ul class="sellers">' + top.map(function (t) {
             return '<li><span><a href="' + CFG.home + 'rehvid/' + esc(t.m.slug) + '/">' + esc(t.m.mark + ' ' + t.m.name) + '</a> <small>' + esc(t.r.myyja) + '</small></span>' +
               (t.r.url ? '<a class="buy" href="' + esc(t.r.url) + '" target="_blank" rel="nofollow sponsored noopener">' + eur(t.r.hind) + '</a>' : '<b>' + eur(t.r.hind) + '</b>') + '</li>';
           }).join('') + '</ul>' : '<span class="none">Hindu selles klassis veel pole</span>');
@@ -897,6 +899,8 @@
     }
     function valitud(cur) {
       if (!cur || cur.kind !== 'class') return null;
+      /* kinnisel klassil konkreetset rehvi ei näidata — ainult klass */
+      if (avatud !== cur.id && !pickManual[cur.id]) return null;
       var L = liikmed(cur).list;
       var slug = pick[cur.id];
       var m = L.filter(function (x) { return x.slug === slug; })[0];
@@ -928,9 +932,9 @@
     function row(x, best, max, compact) {
       var dd = x.d - best;
       if (compact) {
-        var nm = x.kind === 'class' ? 'Märgise klass ' + x.g + ' (' + x.n + ' rehvi)' : x.kind === 'cat' ? (CATNAME[x.cat] + ', keskmine') : x.name;
+        var nm = x.kind === 'class' ? 'Klass ' + x.g + ' · ' + x.n + ' rehvi' : x.kind === 'cat' ? (CATNAME[x.cat] + ', keskmine') : x.name;
         return '<li><button type="button" class="mbar' + (x.kind === 'class' ? ' mcls' : '') + '" data-row="' + esc(x.id) + '" aria-pressed="' + (x.id === sel) + '"' +
-          (x.kind === 'class' ? ' aria-expanded="' + (x.id === sel) + '"' : '') + ' title="' + esc(x.sub || '') + '">' +
+          (x.kind === 'class' ? ' aria-expanded="' + (x.id === avatud) + '"' : '') + ' title="' + esc(x.kind === 'class' ? 'EL-i märgise märghaardumise klass ' + x.g + ' — vajuta, et näha selle klassi rehve' : (x.sub || '')) + '">' +
           '<span class="n">' + esc(nm) + '</span>' +
           '<span class="t" aria-hidden="true"><span style="width:' + (100 * x.d / max).toFixed(1) + '%"></span></span>' +
           '<span class="v">' + fmt(x.d) + ' m</span>' +
@@ -1011,7 +1015,7 @@
       var LIMC = 5, comp = rows.slice(0, LIMC);
       if (comp.indexOf(cur) < 0) comp = comp.slice(0, LIMC - 1).concat([cur]);
       $('[data-r-mbars]', el).innerHTML = comp.map(function (x) {
-        return row(x, best, max, true) + (x === cur && x.kind === 'class' && x.members.length ? pickPanel(x) : '');
+        return row(x, best, max, true) + (x === cur && x.id === avatud && x.kind === 'class' && x.members.length ? pickPanel(x) : '');
       }).join('');
       $$('[data-pick]', el).forEach(function (b) {
         b.addEventListener('click', function () {
@@ -1076,7 +1080,13 @@
         if (ob) ob.onclick = function () { S.showOther = !S.showOther; render(); };
       }
       $$('[data-row]').forEach(function (b) {
-        b.addEventListener('click', function () { sel = b.dataset.row; render(); });
+        b.addEventListener('click', function () {
+          var id = b.dataset.row, x = rowsAll.filter(function (r) { return r.id === id; })[0];
+          /* klassi rida: valib ja avab/sulgeb rehvide nimekirja */
+          if (x && x.kind === 'class') avatud = (avatud === id && sel === id) ? null : id;
+          else avatud = null;
+          sel = id; render();
+        });
       });
       var tg = $('[data-r-toggle]');
       if (tg && !tg._bound) {
