@@ -1400,6 +1400,26 @@
       draw();
     });
     var viimaneN = 0;
+    /* JÄRJESTUS (ainult valik): sobivus sinu valikute järgi või hind */
+    var sortBy = 'fit', sortBar = null;
+    if (head && mode === 'valik') {
+      sortBar = document.createElement('div');
+      sortBar.className = 'sortbar';
+      sortBar.setAttribute('role', 'group');
+      sortBar.setAttribute('aria-label', 'Järjesta');
+      sortBar.innerHTML = '<span>Järjesta:</span><button type="button" data-sort="fit" aria-pressed="true">Sobivus</button>' +
+        '<button type="button" data-sort="price" aria-pressed="false">Hind</button>';
+      head.parentNode.insertBefore(sortBar, head.nextSibling);
+      $$('[data-sort]', sortBar).forEach(function (b) {
+        b.addEventListener('click', function () {
+          if (b.disabled) return;
+          sortBy = b.dataset.sort;
+          $$('[data-sort]', sortBar).forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+          Track('jarjestus', sortBy === 'price' ? 'hind' : 'sobivus');
+          draw();
+        });
+      });
+    }
     /* margivalik täidetakse selle mõõdu ja hooaja ridadest, et nimekirjas
        ei oleks marke, mida selles mõõdus üldse ei müüda */
     function paintBrands(rows) {
@@ -1459,9 +1479,24 @@
         } else {
           list.sort(function (a, b) { return (FG[b.r.g] || 0) - (FG[a.r.g] || 0) || (!!b.r.tested - !!a.r.tested) || ((a.r.db || 99) - (b.r.db || 99)); });
         }
+        /* hinna järgi: soodsaim enne, hinnata rehvid lõppu (nende omavaheline järjekord jääb) */
+        if (sortBar) {
+          var hb = $('[data-sort=price]', sortBar);
+          hb.disabled = !hOn;
+          hb.title = hOn ? 'Soodsaim hind enne' : 'Poodide hindu veel ei ole';
+          if (!hOn && sortBy === 'price') { sortBy = 'fit'; $$('[data-sort]', sortBar).forEach(function (x) { x.setAttribute('aria-pressed', String(x.dataset.sort === 'fit')); }); }
+        }
+        if (sortBy === 'price' && hOn) {
+          var pos = new Map(list.map(function (x, i) { return [x, i]; }));
+          list.sort(function (a, b) {
+            var pa = a.P.price ? a.P.price.v : null, pb = b.P.price ? b.P.price.v : null;
+            if ((pa != null) !== (pb != null)) return pa != null ? -1 : 1;
+            return (pa != null && pa !== pb) ? pa - pb : pos.get(a) - pos.get(b);
+          });
+        }
         viimaneN = list.length;
         if (head) head.innerHTML = '<b>' + list.length + '</b> ' + (list.length === 1 ? SEASON[S.season].yks : SEASON[S.season].osa) + ' mõõdus <b>' + esc(pretty(S.size)) + '</b>' +
-          (ws.length ? ' · järjestatud sinu valikute järgi' : ' · järjestatud märghaardumise klassi järgi') +
+          (sortBy === 'price' && hOn ? ' · soodsaim hind enne' : ws.length ? ' · järjestatud sinu valikute järgi' : ' · järjestatud märghaardumise klassi järgi') +
           (hindPuudu ? '<br><small class="note">Poodide hindu veel ei ole — hinda järjestuses praegu ei arvestata.</small>' : '');
         if (!list.length) {
           Track('tulemusi_null', pretty(S.size) + ' · ' + SEASON[S.season].long + (brandVal ? ' · ' + brandVal : '') + (qq ? ' · otsing "' + q.value.trim() + '"' : ''));
@@ -1470,7 +1505,7 @@
           drawTable(); return;
         }
         var LIM = mode === 'valik' ? 20 : 30;
-        listEl.innerHTML = list.slice(0, LIM).map(function (x, i) { return card(x, i, mode === 'valik' ? reasons(x, stats, w) : null); }).join('') +
+        listEl.innerHTML = list.slice(0, LIM).map(function (x, i) { return card(x, i, mode === 'valik' ? reasons(x, stats, sortBy === 'price' && hOn ? Object.assign({}, w, { price: 9 }) : w) : null); }).join('') +
           (list.length > LIM ? '<p class="note">Näidatakse ' + LIM + ' esimest ' + list.length + '-st.' + (mode === 'valik' ? ' Muuda valikuid, et järjestust muuta.' : ' Täpsusta otsingut.') + '</p>' : '');
         fillPrices(listEl);
         $$('[data-add]', listEl).forEach(function (b) {

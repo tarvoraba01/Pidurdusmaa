@@ -728,3 +728,9 @@ textarea.lin{resize:vertical;min-height:140px}
 .rs-stick{position:sticky;top:84px}
 .rs-stick .r-price{margin-top:var(--sp-4);text-align:left}
 @media (max-width:900px){.rs-stick{position:static}}
+/* rehvi valimine: järjestuse valik */
+.sortbar{display:flex;flex-wrap:wrap;align-items:center;gap:var(--sp-2);margin:0 0 var(--sp-3);font-size:13px}
+.sortbar span{color:var(--muted);font-weight:600}
+.sortbar button{border:1px solid var(--line);background:#fff;border-radius:999px;padding:5px 12px;font-size:13px;font-weight:600;color:var(--muted);cursor:pointer}
+.sortbar button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+.sortbar button:disabled{opacity:.45;cursor:not-allowed}
