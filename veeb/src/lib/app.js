@@ -1145,7 +1145,7 @@
     { k: 'aqua',  n: 'Vesiliug',       d: 'Pidurdusmaa uue rehviga, kui teel on sügav vesi (roopad, lombid), 90→0 sinu autoga. Testitud rehvidel mõõdetud ujumiskiirusest, teistel tuletatud (≈).', src: 'Arvutus', ok: true },
     { k: 'noise', n: 'Müra',           d: 'Rehvimärgise müra detsibellides. Väiksem = vaiksem.', src: 'Ametlik märgis', ok: true },
     { k: 'rr',    n: 'Veeretakistus',  d: 'Mõju kütuse- või energiakulule.', src: 'Ametlik märgis', ok: true },
-    { k: 'winter',n: 'Talvised omadused', d: 'Lume- ja jäämärk; testitud rehvidel lume ja jää pidurdus.', src: 'Ametlik + test', ok: true },
+    { k: 'winter',n: 'Talvised omadused', d: 'Pidurdusmaa lumel ja jääl 50→0 sinu autoga. Testitud rehvidel mõõdetud haardest, teistel rehvitüübi järgi (≈). Juures lume- ja jäämärk märgiselt.', src: 'Arvutus + test', ok: true },
     { k: 'price', n: 'Hind',           d: 'Soodsaim hind müüjatelt sinu mõõdus. Rehv, mille hinda pole, jääb selle koha pealt arvestamata.', src: 'Müüjad', ok: true }
   ];
   /* hind rehvi omaduseks: soodsaim müüja selles mõõdus (Prices.size vastusest) */
@@ -1190,9 +1190,15 @@
     if (r.flags & FLAG.SNOW) ws.push('lumemärk');
     if (r.flags & FLAG.ICE) ws.push('jäämärk');
     var ts = t ? pick(t.tests, 'SNOW_PACKED') : null, ti = t ? pick(t.tests, 'ICE') : null;
-    P.winter = { v: ws.length, show: ws.length ? ws.join(' + ') : 'märk puudub', src: 'off',
-                 score: (r.flags & FLAG.SNOW ? 1 : 0) + (r.flags & FLAG.ICE ? 1 : 0),
-                 sub: [ts ? 'lumi ' + fmt(ts.m) + ' m' : '', ti ? 'jää ' + fmt(ti.m) + ' m' : ''].filter(Boolean).join(' · ') };
+    /* TALV = arvutatud pidurdusmaa lumel + jääl 50→0 sinu autoga (sama mudel,
+       mis kalkulaatoris). Testitud rehvil mõõdetud haardest, teistel rehvi
+       tüübi (märgise kategooria) keskmisest — see on tuletatud (≈). */
+    var sb = calc(base, veh, condObj('snow', 50)), ib = calc(base, veh, condObj('ice', 50));
+    var wEst = !(t && t.muSnow != null && t.muIce != null);
+    P.winter = { v: sb.distanceM + ib.distanceM,
+                 show: est('lumi ' + fmt(sb.distanceM) + ' m · jää ' + fmt(ib.distanceM) + ' m', wEst), src: wEst ? 'est' : 'calc',
+                 score: -(sb.distanceM + ib.distanceM),
+                 sub: [ws.length ? ws.join(' + ') : 'lume- ja jäämärk puudub', ts ? 'testis lumi ' + fmt(ts.m) + ' m' : '', ti ? 'jää ' + fmt(ti.m) + ' m' : ''].filter(Boolean).join(' · ') };
     return P;
   }
   var EST_T = 'Tuletatud meie valemist — selle rehvi kohta sõltumatut mõõtmist ei ole. Võta suunana, mitte 100 % täpse numbrina.';
@@ -1305,6 +1311,18 @@
       });
     });
 
+    /* Kui kasutaja pole midagi valinud: parimad selle hooaja teeoludes.
+       Suvi = märg + kuiv pidurdus, talv = lumi + jää, aastaringne = mõlemad. */
+    var HOOAEG_W = {
+      summer: { wetb: 3, dryb: 1 },
+      winter: { winter: 3, wetb: 1 },
+      all: { wetb: 2, winter: 2, dryb: 1 }
+    };
+    var HOOAEG_TXT = {
+      summer: 'parimad märjal ja kuival teel pidurdamisel',
+      winter: 'parimad lumel ja jääl pidurdamisel',
+      all: 'parimad märjal, lumel ja jääl pidurdamisel'
+    };
     /* ---- küsimused (ainult valik) */
     function weights() {
       if (S.w && S.wManual) return S.w;
@@ -1445,7 +1463,9 @@
           return (!brandVal || r.mark === brandVal) && (!qq || norm(r.mark + r.name).indexOf(qq) >= 0);
         })
           .map(function (r) { return lisaHind({ r: r, P: tyreProps(r, veh) }, h); });
-        var w = mode === 'valik' ? weights() : {};
+        var wUser = mode === 'valik' ? weights() : {};
+        var valis = Object.keys(wUser).some(function (k) { return wUser[k] > 0; });
+        var w = mode === 'valik' ? (valis ? wUser : HOOAEG_W[S.season] || {}) : {};
         /* hinda saab arvestada ainult siis, kui müüjate hinnad on olemas */
         var ws = Object.keys(w).filter(function (k) { return w[k] > 0 && PROP[k] && PROP[k].ok && (k !== 'price' || hOn); });
         var hindPuudu = !hOn && w.price > 0;
@@ -1476,6 +1496,8 @@
             x.fit = wsum ? Math.round(100 * s / wsum) : null; x.miss = miss;
           });
           list.sort(function (a, b) { return (b.fit == null ? -1 : b.fit) - (a.fit == null ? -1 : a.fit) || ((FG[b.r.g] || 0) - (FG[a.r.g] || 0)); });
+          /* „Sobivus %“ ainult siis, kui kasutaja ise midagi valis */
+          if (!valis) list.forEach(function (x) { x.fit = null; x.miss = null; });
         } else {
           list.sort(function (a, b) { return (FG[b.r.g] || 0) - (FG[a.r.g] || 0) || (!!b.r.tested - !!a.r.tested) || ((a.r.db || 99) - (b.r.db || 99)); });
         }
@@ -1496,7 +1518,7 @@
         }
         viimaneN = list.length;
         if (head) head.innerHTML = '<b>' + list.length + '</b> ' + (list.length === 1 ? SEASON[S.season].yks : SEASON[S.season].osa) + ' mõõdus <b>' + esc(pretty(S.size)) + '</b>' +
-          (sortBy === 'price' && hOn ? ' · soodsaim hind enne' : ws.length ? ' · järjestatud sinu valikute järgi' : ' · järjestatud märghaardumise klassi järgi') +
+          (sortBy === 'price' && hOn ? ' · soodsaim hind enne' : valis && ws.length ? ' · järjestatud sinu valikute järgi' : mode === 'valik' ? ' · ' + HOOAEG_TXT[S.season] : ' · järjestatud märghaardumise klassi järgi') +
           (hindPuudu ? '<br><small class="note">Poodide hindu veel ei ole — hinda järjestuses praegu ei arvestata.</small>' : '');
         if (!list.length) {
           Track('tulemusi_null', pretty(S.size) + ' · ' + SEASON[S.season].long + (brandVal ? ' · ' + brandVal : '') + (qq ? ' · otsing "' + q.value.trim() + '"' : ''));
