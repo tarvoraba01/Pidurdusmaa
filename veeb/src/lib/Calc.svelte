@@ -15,7 +15,7 @@
 			id="tab-calc"
 			aria-controls="p-calc"
 			aria-selected="true"
-			data-tab="calc"><Icon name="target" />Pidurdusmaa</button
+			data-tab="calc"><Icon name="target" />Arvuta pidurdusmaa</button
 		>
 		<button
 			class="tab"
@@ -24,7 +24,7 @@
 			aria-controls="p-valik"
 			aria-selected="false"
 			tabindex="-1"
-			data-tab="valik"><Icon name="check" />Vali rehv enda tingimustel</button
+			data-tab="valik"><Icon name="check" />Leia sobiv rehv</button
 		>
 	</div>
 

@@ -870,7 +870,7 @@
           box.innerHTML = '<span class="pl">' + esc(vm.mark + ' ' + vm.name) + ' — hinnad</span> ' + priceHtml(h[vid], true) +
             '<a class="more" href="' + CFG.home + 'rehvid/' + esc(vm.slug) + '/">Rehvi leht →</a>';
         } else if (cur.kind === 'class') {
-          var top = cur.members.map(function (m) { var id = m.slug + '@' + size; return h[id] && h[id].length ? { m: m, r: h[id][0] } : null; })
+          var top = cur.members.filter(function (m) { return !eriLiik(m); }).map(function (m) { var id = m.slug + '@' + size; return h[id] && h[id].length ? { m: m, r: h[id][0] } : null; })
             .filter(Boolean).sort(function (a, b) { return a.r.hind - b.r.hind; }).slice(0, 3);
           box.innerHTML = '<span class="pl">Soodsaimad klassi ' + cur.g + ' rehvid</span> ' + (top.length ? '<ul class="sellers">' + top.map(function (t) {
             return '<li><span><a href="' + CFG.home + 'rehvid/' + esc(t.m.slug) + '/">' + esc(t.m.mark + ' ' + t.m.name) + '</a> <small>' + esc(t.r.myyja) + '</small></span>' +
@@ -886,6 +886,8 @@
       var hind = function (m) { var r = h[m.slug + '@' + size]; return r && r.length ? r[0].hind : null; };
       var F = 'ABCDE';
       list.sort(function (a, b) {
+        var ea = !!eriLiik(a), eb = !!eriLiik(b);
+        if (ea !== eb) return ea ? 1 : -1;
         var pa = hind(a), pb = hind(b);
         if ((pa != null) !== (pb != null)) return pa != null ? -1 : 1;
         if (pa != null && pb != null && pa !== pb) return pa - pb;
@@ -921,7 +923,7 @@
         '<ul class="mp-list' + (pickAll ? ' all' : '') + '">' + shown.map(function (m) {
           var on = m0 && m.slug === m0.slug, p = o.hind(m);
           var tr = m.tested ? rowsAll.filter(function (x) { return x.id === 't:' + m.tested; })[0] : null;
-          var meta = [onRft(m) ? 'run-flat' : '', m.db ? m.db + ' dB' : '', m.f ? 'kütus ' + m.f : '', tr ? 'testis ' + fmt(tr.d) + ' m' : m.tested ? 'testitud' : ''].filter(Boolean).join(' · ');
+          var meta = [eriLiik(m).toLowerCase(), onRft(m) ? 'run-flat' : '', m.db ? m.db + ' dB' : '', m.f ? 'kütus ' + m.f : '', tr ? 'testis ' + fmt(tr.d) + ' m' : m.tested ? 'testitud' : ''].filter(Boolean).join(' · ');
           return '<li><button type="button" class="mp" data-pick="' + esc(m.slug) + '" aria-pressed="' + !!on + '">' +
             '<span class="mp-n">' + esc(m.mark + ' ' + m.name) + (m === L[0] ? ' <em>' + miks + '</em>' : '') + '</span>' +
             '<span class="mp-m">' + esc(meta) + '</span>' +
@@ -1154,6 +1156,20 @@
   var RFT_RE = /(^|[^a-z0-9])(rft|p-rft|run ?-?flat|runflat|ssr|zps?|rof|emt|dsst|hrs|xrp|driveguard|moe|r-f|rsc)([^a-z0-9]|$)/i;
   function onRft(r) { return RFT_RE.test(String(r.name || '')); }
   var RFT_T = 'Run-flat (RFT): pärast torget saab edasi sõita, tavaliselt kuni 80 km, kiirusega kuni 80 km/h. Tuvastatud mudeli nimest (RFT, SSR, DriveGuard, ZP, MOE jt).';
+  /* ERIREHVID: rajarehvid / poolslikid, maastiku (M/T) ja haagise rehvid.
+     Igapäevaseks sõiduks need ei sobi — vaikimisi soovitustest väljas,
+     linnukesega saab lisada. Tuvastame mudeli nimest. */
+  var ERI = [
+    ['Rajarehv', /cup\s?2|p\s?zero\s?trofeo|pzero\s?trofeo|\btrofeo\b|r888|proxes\s?(r1r|rr)\b|(^|[^a-z0-9])(ar-?1|cr-?s|ns-?2r)([^a-z0-9]|$)|advan\s?a0(48|50|52)|\ba0(48|50|52)\b|re-?71\s?rs|re-?12d|potenza\s?race|direzza\s?03g|sport\s?maxx\s?race|ventus\s?(rs-?4|td)\b|\bz2(14|21|22|32)\b|ecsta\s?v7\d0|\bv7(00|20|30)\b|\bv70a\b|595\s?rs|fz-?201|rt-?615|rt-?660|supercar\s?3r|forcecontact|\b123s\b|651\s?sport|gredge|\b07rs\b|tempesta\s?p1|semi-?slick/i],
+    ['Maastikurehv', /\bmud\b|grappler|\bm\s?\/\s?t\b|\bmt(\s?[-\/]?\s?\d+|\/r)?\b|\bstt\b|\bbaja\b|deegan/i],
+    ['Haagiserehv', /trailer|\bkargo\b/i]
+  ];
+  function eriLiik(r) {
+    var n = String(r.name || '');
+    for (var i = 0; i < ERI.length; i++) if (ERI[i][1].test(n)) return ERI[i][0];
+    return '';
+  }
+  var ERI_T = 'Rajarehvid ja poolslikid, maastiku- (M/T) ja haagiserehvid. Igapäevaseks sõiduks need ei sobi, seepärast on nad vaikimisi peidetud. Tuvastatud mudeli nimest.';
   /* hind rehvi omaduseks: soodsaim müüja selles mõõdus (Prices.size vastusest) */
   function lisaHind(x, h) {
     var rr = h && h[x.r.slug + '@' + x.r.m], v = rr && rr.length ? rr[0].hind : null;
@@ -1275,7 +1291,7 @@
   function initTyres(root, ext) {
     var mode = ext ? 'valik' : (root.dataset.mode || 'vordle');
     var qs = new URLSearchParams(location.search);
-    var S = { veh: store.get('veh', null), size: '20555R16', season: 'summer', drive: '', km: '', rft: '', main: [] };
+    var S = { veh: store.get('veh', null), size: '20555R16', season: 'summer', drive: '', km: '', rft: '', main: [], eri: false };
     if (ext) { var e0 = ext.get(); S.veh = e0.veh; S.size = e0.size; }
     /* NB: parameetrid ei tohi olla WordPressi omad (s, m, p, …) — ?s= teeks
        lehest otsingu ja ?m= kuuarhiivi. */
@@ -1419,6 +1435,13 @@
         if (v.length >= 2 && v !== viimaneQ) { viimaneQ = v; Track('otsing', v + ' → ' + viimaneN + ' vastet'); }
       }, 1200);
     });
+    /* erirehvide linnuke (päises; päis joonistatakse iga kord uuesti) */
+    if (head) head.addEventListener('change', function (e) {
+      if (!e.target.matches('[data-eri]')) return;
+      S.eri = e.target.checked;
+      Track('erirehvid', S.eri ? 'jah' : 'ei');
+      draw();
+    });
     /* run-flat filter (/vordle-rehve/ lisamise ribal; valikulehel on see küsimus) */
     var rftSel = $('[data-rft]', root);
     if (rftSel) rftSel.addEventListener('change', function () {
@@ -1529,8 +1552,9 @@
         var cats = SEASON[S.season].eprel, qq = q ? norm(q.value) : '';
         var seas = rows.filter(function (r) { return cats.indexOf(r.catNr) >= 0; });
         paintBrands(seas);
+        var eriN = seas.filter(function (r) { return eriLiik(r) && (!S.rft || (S.rft === 'only') === onRft(r)); }).length;
         var list = seas.filter(function (r) {
-          return (!brandVal || r.mark === brandVal) && (!qq || norm(r.mark + r.name).indexOf(qq) >= 0) &&
+          return (S.eri || qq || !eriLiik(r)) && (!brandVal || r.mark === brandVal) && (!qq || norm(r.mark + r.name).indexOf(qq) >= 0) &&
             (!S.rft || (S.rft === 'only') === onRft(r));
         })
           .map(function (r) { return lisaHind({ r: r, P: tyreProps(r, veh) }, h); });
@@ -1591,7 +1615,8 @@
         if (head) head.innerHTML = '<b>' + list.length + '</b> ' + (list.length === 1 ? SEASON[S.season].yks : SEASON[S.season].osa) + ' mõõdus <b>' + esc(pretty(S.size)) + '</b>' +
           (S.rft ? (S.rft === 'only' ? ' · ainult run-flat' : ' · ilma run-flatita') : '') +
           (sortBy === 'price' && hOn ? ' · soodsaim hind enne' : valis && ws.length ? ' · järjestatud sinu valikute järgi' : mode === 'valik' ? ' · ' + HOOAEG_TXT[S.season] : ' · järjestatud märghaardumise klassi järgi') +
-          (hindPuudu ? '<br><small class="note">Poodide hindu veel ei ole — hinda järjestuses praegu ei arvestata.</small>' : '');
+          (hindPuudu ? '<br><small class="note">Poodide hindu veel ei ole — hinda järjestuses praegu ei arvestata.</small>' : '') +
+          (eriN ? '<label class="eri-t"><input type="checkbox" data-eri' + (S.eri ? ' checked' : '') + '> Näita ka rajarehve ja muid erirehve (' + eriN + ') ' + tip(ERI_T) + '</label>' : '');
         if (!list.length) {
           Track('tulemusi_null', pretty(S.size) + ' · ' + SEASON[S.season].long + (brandVal ? ' · ' + brandVal : '') + (qq ? ' · otsing "' + q.value.trim() + '"' : ''));
           listEl.innerHTML = '<div class="box"><p style="margin:0">' + (rows.length ? (S.rft === 'only' && !brandVal && !qq
@@ -1628,7 +1653,8 @@
       var r = x.r, id = r.slug + '@' + r.m, on = cmp.has(id);
       return '<article class="rcard' + (on ? ' on' : '') + '"><div>' +
         '<div class="b">' + (why ? '<span class="rank">' + (i + 1) + '</span>' : '') + (r.tested ? '<span style="color:var(--tested)">Sõltumatult testitud</span>' : '<span style="color:var(--muted)">EL-i märgis</span>') +
-          (onRft(r) ? '<span class="rft-b">Run-flat ' + tip(RFT_T) + '</span>' : '') + '</div>' +
+          (onRft(r) ? '<span class="rft-b">Run-flat ' + tip(RFT_T) + '</span>' : '') +
+          (eriLiik(r) ? '<span class="rft-b eri-b">' + esc(eriLiik(r)) + ' ' + tip(ERI_T) + '</span>' : '') + '</div>' +
         '<h3><a href="' + CFG.home + 'rehvid/' + esc(r.slug) + '/"><span class="mk">' + esc(r.mark) + '</span> ' + esc(r.name) + '</a></h3></div>' +
         '<div style="display:flex;gap:var(--sp-2);align-items:center;flex-wrap:wrap;justify-content:flex-end">' + (x.fit != null ? '<span class="fit" title="Sinu valitud omaduste põhjal selles nimekirjas — mitte üldine hinne">Sobivus sinu valikute põhjal ' + x.fit + '%</span>' : '') +
         '<button type="button" class="add-btn" data-add="' + esc(id) + '" data-n="' + esc(r.mark + ' ' + r.name) + '" aria-pressed="' + on + '">' + (on ? '✓ Võrdluses' : '+ Võrdle') + '</button></div>' +
