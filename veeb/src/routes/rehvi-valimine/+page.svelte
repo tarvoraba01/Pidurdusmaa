@@ -49,7 +49,7 @@
 			<div class="qcol">
 				<h2 class="qh"><span>2</span>Mis sulle oluline on</h2>
 				{#each Object.entries(VALIK_Q) as [g, item] (g)}
-					<p class="qlab">{item[0]}</p>
+					<p class="qlab">{item[0]} {#if item[2]}<span class="tip" tabindex="0" data-tip={item[2]} aria-label={item[2]}>i</span>{/if}</p>
 					<div class="qchips" role="group" aria-label={item[0]}>
 						{#each Object.entries(item[1]) as [v, label] (v)}
 							<button type="button" class="qchip" data-ct={g} data-v={v} aria-pressed="false">{label}</button>

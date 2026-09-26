@@ -90,6 +90,12 @@ export const VALIK_Q = {
 			fuel: 'Väike kütusekulu',
 			winter: 'Talvised omadused'
 		}
+	],
+	/* kolmas element = infomulli tekst */
+	rft: [
+		'Run-flat',
+		{ only: 'Ainult run-flat', no: 'Ilma run-flatita' },
+		'Run-flat (RFT) rehviga saab pärast torget või rõhu kadu edasi sõita, tavaliselt kuni 80 km kiirusega kuni 80 km/h — et jõuda remonti. Külgseinad on tugevdatud, sõit on veidi jäigem ja auto vajab rehvirõhu andurit. Levinud eriti BMW ja Mini autodel, kus varurehvi pole. Märjal ja lumel pidurdab ta sama moodi nagu tavaline sama mudeli rehv.'
 	]
 };
 
