@@ -610,6 +610,10 @@
     S.tab = 'calc';
     var qsc = new URLSearchParams(location.search);
     if (qsc.get('moot')) S.size = qsc.get('moot');
+    /* artiklite lingid: /?olud=snow&kiirus=50#kalkulaator */
+    if (COND[qsc.get('olud')]) S.cond = qsc.get('olud');
+    var qKiirus = +qsc.get('kiirus');
+    if (qKiirus >= 20 && qKiirus <= 130) S.speed = Math.round(qKiirus / 5) * 5;
     var sizeSel = $('[data-f=size]', root), sizeTag = $('[data-size-tag]', root);
     var speedIn = $('[data-f=speed]', root), speedNum = $('[data-f=speednum]', root), capNote = $('[data-cap-note]', root);
     /* auto ja mõõt on kaardi mõlemal vahelehel ühised — avalehe rehvide

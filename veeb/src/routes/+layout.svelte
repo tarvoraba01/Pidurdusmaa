@@ -119,6 +119,7 @@
 					<a href="/rehvid/">Rehvid</a>
 					<a href="/testid/">Sõltumatud testid</a>
 					<a href="/teadmine/">Teadmine</a>
+					<a href="/teadmine/artiklid/">Artiklid</a>
 					<a href="/teadmine/rehvimargis/">EL-i rehvimärgis</a>
 					<a href="/kontakt/">Kontakt</a>
 				</div>
@@ -155,6 +156,7 @@
 					<li><a href="/teadmine/kuidas-pidurdusmaa-arvutatakse/">Kuidas arvutatakse</a></li>
 					<li><a href="/margid/">Rehvimargid</a></li>
 					<li><a href="/teadmine/">Teadmine</a></li>
+					<li><a href="/teadmine/artiklid/">Artiklid</a></li>
 					<li><a href="/meist/">Meist</a></li>
 					<li><a href="/kontakt/">Kontakt</a></li>
 				</ul>

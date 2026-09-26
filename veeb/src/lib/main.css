@@ -432,6 +432,8 @@ table.t a:hover{text-decoration:underline}
 .tcard:hover{border-color:#c5cad3;box-shadow:var(--shadow)}
 .tcard .b{font-size:12.5px;color:var(--muted);font-weight:600;letter-spacing:.04em;text-transform:uppercase}
 .tcard h3{margin:2px 0 var(--sp-2);font-size:17px}
+.art-list{max-width:900px}
+.tcard .art-d{margin:0;font-size:14.5px;color:var(--muted);line-height:1.5}
 .tcard .meta{display:flex;gap:var(--sp-2);flex-wrap:wrap;align-items:center;font-size:13px;color:var(--muted)}
 .prose{max-width:760px;font-size:17px}
 .prose h2{font-family:var(--display);font-size:34px;text-transform:uppercase;margin:var(--sp-10) 0 var(--sp-3);line-height:1}

@@ -8,6 +8,7 @@ import {
 	margid,
 	MARK_MIN_SAIDIKAART
 } from '$lib/server/andmed.js';
+import { ARTIKLID, artikliTee } from '$lib/artiklid.js';
 
 export const prerender = true;
 
@@ -26,6 +27,8 @@ export function GET() {
 		['/testid/', '0.8'],
 		['/margid/', '0.7'],
 		['/teadmine/', '0.6'],
+		['/teadmine/artiklid/', '0.7'],
+		...ARTIKLID.map((a) => [artikliTee(a), '0.8']),
 		['/teadmine/pidurdusteekond-ja-peatumisteekond/', '0.7'],
 		['/teadmine/kuidas-pidurdusmaa-arvutatakse/', '0.6'],
 		['/teadmine/rehvimargis/', '0.6'],
