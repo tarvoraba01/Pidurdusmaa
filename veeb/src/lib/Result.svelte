@@ -10,6 +10,8 @@
 	<div class="wrap">
 		<div class="rstrip" data-result>
 			<div>
+				<!-- vasak veerg püsib kerimisel nähtaval: tulemus + valitud rehvi hinnad -->
+				<div class="rs-stick">
 				<p class="rs-k" id="res-h">Tulemused: <span data-r-range>90 km/h → 0 km/h</span></p>
 				<div class="cat-switch rs-mode" role="group" aria-label="Mida näidata">
 					<button type="button" data-r-mode="brake" aria-pressed="true">Pidurdusteekond</button>
@@ -31,6 +33,8 @@
 					<span data-r-splittxt></span>
 				</p>
 				<p class="rs-who" data-r-whoshort>Arvutan…</p>
+				<div class="r-price" data-r-price></div>
+				</div>
 			</div>
 			<div>
 				<p class="rs-k">
@@ -38,7 +42,6 @@
 					<span style="font-weight:500;color:var(--muted)">(pidurdusteekond, samas mõõdus)</span>
 				</p>
 				<ol class="mbars" data-r-mbars></ol>
-				<div class="r-price" data-r-price></div>
 				<div class="rs-links">
 					<button
 						type="button"

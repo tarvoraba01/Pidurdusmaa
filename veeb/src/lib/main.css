@@ -722,3 +722,7 @@ textarea.lin{resize:vertical;min-height:140px}
 .mp-all{margin-top:var(--sp-2);font-size:13px}
 .mp-list.all{max-height:420px;overflow:auto;padding-right:2px}
 .r-price .more{display:inline-block;margin-top:var(--sp-2);font-size:13px;font-weight:600}
+/* tulemuse vasak veerg (number + hinnad) jääb kerimisel nähtavale */
+.rs-stick{position:sticky;top:84px}
+.rs-stick .r-price{margin-top:var(--sp-4);text-align:left}
+@media (max-width:900px){.rs-stick{position:static}}
