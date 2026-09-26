@@ -55,9 +55,9 @@
     ice:  { surface: 'ICE', waterMm: 0.0, tempC: -5, label: 'jää', short: 'Jää' }
   };
   var SEASON = {
-    summer: { label: 'Suvi', long: 'suverehvid', yks: 'suverehv', osa: 'suverehvi', tested: ['SUMMER_TOURING', 'SUMMER_UHP'], eprel: [0] },
-    all:    { label: 'Aastaringne', long: 'aastaringsed rehvid', yks: 'aastaringne rehv', osa: 'aastaringset rehvi', tested: ['ALL_SEASON'], eprel: [1] },
-    winter: { label: 'Talv', long: 'talverehvid', yks: 'talverehv', osa: 'talverehvi', tested: ['WINTER_CENTRAL', 'WINTER_NORDIC', 'WINTER_STUDDED'], eprel: [2, 3] }
+    summer: { label: 'Suvi', long: 'suverehvid', yks: 'suverehv', osa: 'suverehvi', pp: 'suverehve', tested: ['SUMMER_TOURING', 'SUMMER_UHP'], eprel: [0] },
+    all:    { label: 'Aastaringne', long: 'aastaringsed rehvid', yks: 'aastaringne rehv', osa: 'aastaringset rehvi', pp: 'aastaringseid rehve', tested: ['ALL_SEASON'], eprel: [1] },
+    winter: { label: 'Talv', long: 'talverehvid', yks: 'talverehv', osa: 'talverehvi', pp: 'talverehve', tested: ['WINTER_CENTRAL', 'WINTER_NORDIC', 'WINTER_STUDDED'], eprel: [2, 3] }
   };
   var DEFAULT_VEH = 'vw_golf_8';
   var FLAG = { GUESS: 1, CONFLICT: 2, SNOW: 4, ICE: 8 };
@@ -1531,8 +1531,9 @@
           (hindPuudu ? '<br><small class="note">Poodide hindu veel ei ole — hinda järjestuses praegu ei arvestata.</small>' : '');
         if (!list.length) {
           Track('tulemusi_null', pretty(S.size) + ' · ' + SEASON[S.season].long + (brandVal ? ' · ' + brandVal : '') + (qq ? ' · otsing "' + q.value.trim() + '"' : ''));
-          listEl.innerHTML = '<div class="box"><p style="margin:0">' + (rows.length ? 'Selles mõõdus ei ole andmebaasis ühtegi ' + (S.rft === 'only' && mode === 'valik' ? 'run-flat ' : '') + SEASON[S.season].osa + (brandVal ? ' margilt ' + esc(brandVal) : '') + (qq ? ' selle otsinguga' : '') + '.' +
-            (S.rft === 'only' && mode === 'valik' ? ' Run-flat rehvid tunneme ära mudeli nimest (RFT, SSR, DriveGuard, ZP, MOE jt) — mõnel run-flat rehvil pole seda nimes, siis me teda ära ei tunne.' : '') :
+          listEl.innerHTML = '<div class="box"><p style="margin:0">' + (rows.length ? (S.rft === 'only' && mode === 'valik' && !brandVal && !qq
+              ? 'Selles mõõdus meil praegu run-flat ' + SEASON[S.season].pp + ' ei ole.'
+              : 'Selles mõõdus ei ole andmebaasis ühtegi ' + (S.rft === 'only' && mode === 'valik' ? 'run-flat ' : '') + SEASON[S.season].osa + (brandVal ? ' margilt ' + esc(brandVal) : '') + (qq ? ' selle otsinguga' : '') + '.') :
             'Mõõdu ' + esc(pretty(S.size)) + ' märgiseandmed pole veel andmebaasis. Hetkel on korjatud ' + core.eprelSizes.length + ' mõõtu.') + '</p></div>';
           drawTable(); return;
         }
