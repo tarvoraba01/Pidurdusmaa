@@ -152,7 +152,7 @@
     var GA_SILDID = {
       drive: { city: 'Linnas', road: 'Maanteel', hwy: 'Kiirteel', mix: 'Linn + maantee' },
       km: { lo: 'alla 10 000 km', mid: '10–20 000 km', hi: '20–30 000 km', vhi: 'üle 30 000 km' },
-      main: { safe: 'Ohutus märjal', brake: 'Lühike pidurdusmaa', quiet: 'Vaikne sõit', fuel: 'Väike kütusekulu', winter: 'Talvised omadused' }
+      main: { safe: 'Ohutus märjal', brake: 'Lühike pidurdusmaa', price: 'Soodne hind', quiet: 'Vaikne sõit', fuel: 'Väike kütusekulu', winter: 'Talvised omadused' }
     };
     var GA_KRIT = { drive: 'soidukoht', km: 'labisoit', main: 'tahtsaim' };
     function gaParam(r) {
@@ -755,6 +755,10 @@
   /* ------------------------------------------------------------ tulemus */
   var Result = (function () {
     var el, state, rowsAll, sel, showAll = false;
+    /* Klassi rea all päris rehvid: pick[klassiRida] = valitud rehvi slug.
+       Vaikimisi valitakse üks ise (soodsaim / testitud / vaikseim), et
+       inimene ei peaks 12 rehvi vahel otsustama — aga saab vahetada. */
+    var pick = {}, pickManual = {}, pickAll = false, hinnad = null, hinnadSize = null;
     function rowsFor(S, eprelRows, season) {
       var veh = core.vehByKey[S.veh] || core.vehByKey[DEFAULT_VEH];
       var cond = condObj(S.cond, S.speed), ck = S.cond, rows = [];
@@ -824,6 +828,8 @@
       if (!S._userSeason) S.resSeason = (S.cond === 'snow' || S.cond === 'ice') ? 'winter' : 'summer';
       state = S; state._eprel = eprelRows;
       sel = null; showAll = false;
+      pick = {}; pickManual = {}; pickAll = false;
+      if (hinnadSize !== S.size) { hinnad = null; hinnadSize = null; }
       render();
     }
     /* HINNAD tulemuses: iga rea juures odavaim hind (klassi real „alates“),
@@ -839,6 +845,11 @@
       Prices.size(size).then(function (d) {
         if (state.size !== size) return;
         var h = (d && d.hinnad) || {}, avail = !!(d && d.available);
+        /* hinnad saabusid: soovitus võib muutuda soodsaimaks — joonista üks kord uuesti */
+        if (avail && hinnadSize !== size) {
+          hinnad = h; hinnadSize = size;
+          if (cur.kind === 'class' && !pickManual[cur.id]) { delete pick[cur.id]; render(); return; }
+        }
         $$('[data-rp]').forEach(function (e) {
           var x = rowsAll.filter(function (r) { return r.id === e.dataset.rp; })[0], c = x && cheapest(x.pids || [], h);
           e.textContent = c ? (x.kind === 'class' ? 'al ' : '') + Math.round(c.hind) + ' €' : '';
@@ -851,6 +862,10 @@
         if (cur.kind === 'test') {
           var id = (cur.pids || [])[0];
           box.innerHTML = '<span class="pl">' + esc(cur.name) + ' — hinnad</span>' + (id ? priceHtml(h[id], true) : '<span class="none">Seda rehvi sinu mõõdus müüjatelt ei leitud</span>');
+        } else if (cur.kind === 'class' && valitud(cur)) {
+          var vm = valitud(cur), vid = vm.slug + '@' + size;
+          box.innerHTML = '<span class="pl">' + esc(vm.mark + ' ' + vm.name) + ' — hinnad</span> ' + priceHtml(h[vid], true) +
+            '<a class="more" href="' + CFG.home + 'rehvid/' + esc(vm.slug) + '/">Rehvi leht →</a>';
         } else if (cur.kind === 'class') {
           var top = cur.members.map(function (m) { var id = m.slug + '@' + size; return h[id] && h[id].length ? { m: m, r: h[id][0] } : null; })
             .filter(Boolean).sort(function (a, b) { return a.r.hind - b.r.hind; }).slice(0, 3);
@@ -861,11 +876,61 @@
         } else box.innerHTML = '<span class="pl">Hinnad</span> <span class="none">vali rehv, et näha müüjaid</span>';
       });
     }
+    /* klassi rehvid: üks rida mudeli kohta; järjestus = mida soovitame */
+    function liikmed(cur) {
+      var seen = {}, h = hinnad || {}, size = state.size;
+      var list = cur.members.filter(function (m) { return seen[m.slug] ? false : (seen[m.slug] = 1); });
+      var hind = function (m) { var r = h[m.slug + '@' + size]; return r && r.length ? r[0].hind : null; };
+      var F = 'ABCDE';
+      list.sort(function (a, b) {
+        var pa = hind(a), pb = hind(b);
+        if ((pa != null) !== (pb != null)) return pa != null ? -1 : 1;
+        if (pa != null && pb != null && pa !== pb) return pa - pb;
+        if (!!a.tested !== !!b.tested) return a.tested ? -1 : 1;
+        var da = a.db || 99, db = b.db || 99;
+        if (da !== db) return da - db;
+        var fa = F.indexOf(a.f), fb = F.indexOf(b.f);
+        if (fa !== fb) return (fa < 0 ? 9 : fa) - (fb < 0 ? 9 : fb);
+        return (a.mark + a.name).localeCompare(b.mark + b.name, 'et');
+      });
+      return { list: list, hind: hind };
+    }
+    function valitud(cur) {
+      if (!cur || cur.kind !== 'class') return null;
+      var L = liikmed(cur).list;
+      var slug = pick[cur.id];
+      var m = L.filter(function (x) { return x.slug === slug; })[0];
+      if (!m) { m = L[0]; if (m) pick[cur.id] = m.slug; }
+      return m || null;
+    }
+    function testRida(cur) {
+      var vm = valitud(cur);
+      return vm && vm.tested ? rowsAll.filter(function (x) { return x.id === 't:' + vm.tested; })[0] || null : null;
+    }
+    function pickPanel(cur) {
+      var o = liikmed(cur), L = o.list, m0 = valitud(cur), LIM = 4;
+      var shown = pickAll ? L : L.slice(0, LIM);
+      if (m0 && shown.indexOf(m0) < 0) shown = shown.slice(0, LIM - 1).concat([m0]);
+      var miks = o.hind(L[0]) != null ? 'soodsaim' : L[0].tested ? 'testitud' : 'vaikseim';
+      return '<li class="mpick"><p class="mp-h">Klassi ' + esc(cur.g) + ' rehvid sinu mõõdus <small>— märjal pidurdavad ühtviisi, vahe on müras, kütusekulus ja hinnas</small></p>' +
+        '<ul class="mp-list' + (pickAll ? ' all' : '') + '">' + shown.map(function (m) {
+          var on = m0 && m.slug === m0.slug, p = o.hind(m);
+          var tr = m.tested ? rowsAll.filter(function (x) { return x.id === 't:' + m.tested; })[0] : null;
+          var meta = [m.db ? m.db + ' dB' : '', m.f ? 'kütus ' + m.f : '', tr ? 'testis ' + fmt(tr.d) + ' m' : m.tested ? 'testitud' : ''].filter(Boolean).join(' · ');
+          return '<li><button type="button" class="mp" data-pick="' + esc(m.slug) + '" aria-pressed="' + !!on + '">' +
+            '<span class="mp-n">' + esc(m.mark + ' ' + m.name) + (m === L[0] ? ' <em>' + miks + '</em>' : '') + '</span>' +
+            '<span class="mp-m">' + esc(meta) + '</span>' +
+            '<span class="mp-p">' + (p != null ? eur(p) : '') + '</span></button></li>';
+        }).join('') + '</ul>' +
+        (L.length > LIM ? '<button type="button" class="linkbtn mp-all" data-mp-all>' + (pickAll ? 'Näita vähem' : 'Näita kõiki ' + L.length) + '</button>' : '') +
+        '</li>';
+    }
     function row(x, best, max, compact) {
       var dd = x.d - best;
       if (compact) {
         var nm = x.kind === 'class' ? 'Märgise klass ' + x.g + ' (' + x.n + ' rehvi)' : x.kind === 'cat' ? (CATNAME[x.cat] + ', keskmine') : x.name;
-        return '<li><button type="button" class="mbar" data-row="' + esc(x.id) + '" aria-pressed="' + (x.id === sel) + '" title="' + esc(x.sub || '') + '">' +
+        return '<li><button type="button" class="mbar' + (x.kind === 'class' ? ' mcls' : '') + '" data-row="' + esc(x.id) + '" aria-pressed="' + (x.id === sel) + '"' +
+          (x.kind === 'class' ? ' aria-expanded="' + (x.id === sel) + '"' : '') + ' title="' + esc(x.sub || '') + '">' +
           '<span class="n">' + esc(nm) + '</span>' +
           '<span class="t" aria-hidden="true"><span style="width:' + (100 * x.d / max).toFixed(1) + '%"></span></span>' +
           '<span class="v">' + fmt(x.d) + ' m</span>' +
@@ -904,6 +969,9 @@
         return;
       }
       var r = cur.r, rows = rowsAll, best = rows[0].d, max = rows[rows.length - 1].d;
+      /* klassist valitud rehv on ise sõltumatult testitud → tema mõõdetud tulemus */
+      var vmT = testRida(cur);
+      if (vmT) r = vmT.r;
       /* PIDURDUSTEEKOND vs PEATUMISTEEKOND. Peatumisteekond = reageerimis-
          teekond (auto sõidab täiskiirusel, kuni juht jõuab pidurini) +
          pidurdusteekond. Rehv mõjutab ainult teist osa, seega ribad all
@@ -934,14 +1002,26 @@
           render();
         });
       }
-      var whoShort = cur.kind === 'class' ? 'märgise klassi ' + cur.g + ' rehviga' : cur.kind === 'cat' ? CATNAME[cur.cat].toLowerCase() + 'ga (keskmine)' : cur.name;
+      var vm = valitud(cur);
+      var whoShort = cur.kind === 'class' ? (vm ? vm.mark + ' ' + vm.name + (vmT ? ' (sõltumatu test)' : ' (märgise klass ' + cur.g + ')') : 'märgise klassi ' + cur.g + ' rehviga') : cur.kind === 'cat' ? CATNAME[cur.cat].toLowerCase() + 'ga (keskmine)' : cur.name;
       $('[data-r-whoshort]', el).innerHTML = esc(whoShort) + ' · ' + esc(c.label) + '<br>' +
         (out.vehDefault ? 'auto valimata — arvutatud VW Golf 8 järgi' : esc(out.veh.name)) + ' · vahemik ' + fmt(r.lowM + react) + '–' + fmt(r.highM + react) + ' m';
 
       /* kompaktsed ribad: 5 rida, valitud alati sees */
       var LIMC = 5, comp = rows.slice(0, LIMC);
       if (comp.indexOf(cur) < 0) comp = comp.slice(0, LIMC - 1).concat([cur]);
-      $('[data-r-mbars]', el).innerHTML = comp.map(function (x) { return row(x, best, max, true); }).join('');
+      $('[data-r-mbars]', el).innerHTML = comp.map(function (x) {
+        return row(x, best, max, true) + (x === cur && x.kind === 'class' && x.members.length ? pickPanel(x) : '');
+      }).join('');
+      $$('[data-pick]', el).forEach(function (b) {
+        b.addEventListener('click', function () {
+          pick[cur.id] = b.dataset.pick; pickManual[cur.id] = true;
+          Track('rehv_klassist', cur.g + ' · ' + b.textContent.trim().slice(0, 60));
+          render();
+        });
+      });
+      var mpa = $('[data-mp-all]', el);
+      if (mpa) mpa.addEventListener('click', function () { pickAll = !pickAll; render(); });
       paintPrices(S.size, cur);
 
       if (detail) {
@@ -1055,8 +1135,15 @@
     { k: 'aqua',  n: 'Vesiliug',       d: 'Pidurdusmaa uue rehviga, kui teel on sügav vesi (roopad, lombid), 90→0 sinu autoga. Testitud rehvidel mõõdetud ujumiskiirusest, teistel tuletatud (≈).', src: 'Arvutus', ok: true },
     { k: 'noise', n: 'Müra',           d: 'Rehvimärgise müra detsibellides. Väiksem = vaiksem.', src: 'Ametlik märgis', ok: true },
     { k: 'rr',    n: 'Veeretakistus',  d: 'Mõju kütuse- või energiakulule.', src: 'Ametlik märgis', ok: true },
-    { k: 'winter',n: 'Talvised omadused', d: 'Lume- ja jäämärk; testitud rehvidel lume ja jää pidurdus.', src: 'Ametlik + test', ok: true }
+    { k: 'winter',n: 'Talvised omadused', d: 'Lume- ja jäämärk; testitud rehvidel lume ja jää pidurdus.', src: 'Ametlik + test', ok: true },
+    { k: 'price', n: 'Hind',           d: 'Soodsaim hind müüjatelt sinu mõõdus. Rehv, mille hinda pole, jääb selle koha pealt arvestamata.', src: 'Müüjad', ok: true }
   ];
+  /* hind rehvi omaduseks: soodsaim müüja selles mõõdus (Prices.size vastusest) */
+  function lisaHind(x, h) {
+    var rr = h && h[x.r.slug + '@' + x.r.m], v = rr && rr.length ? rr[0].hind : null;
+    x.P.price = v != null ? { v: v, show: eur(v), src: 'shop', score: -v, sub: rr[0].myyja } : null;
+    return x;
+  }
   var PROP = {}; PROPS.forEach(function (p) { PROP[p.k] = p; });
   var FG = { A: 5, B: 4, C: 3, D: 2, E: 1 };
 
@@ -1105,7 +1192,7 @@
   /* ---- HINNAD müüjatelt. Teema hindu ei tea: küsib serverist
      (CFG.prices → /wp-json/pm/v1/hinnad), kuhu müüjate API-ühendus need
      annab. Kui ühendust pole või päring ebaõnnestub, näidatakse seda otse. */
-  var PRICE_T = 'Siia tulevad rehvimüüjate hinnad otse nende süsteemist. Ühendus müüjatega on töös. Hind ei mõjuta rehvide järjestust.';
+  var PRICE_T = 'Siia tulevad rehvimüüjate hinnad otse nende süsteemist. Ühendus müüjatega on töös. Hind mõjutab rehvide järjestust ainult siis, kui valid ise „Soodne hind“.';
   var Prices = {
     get: function (ids) {
       if (!CFG.prices || !ids.length) return Promise.resolve({ available: false });
@@ -1158,7 +1245,7 @@
   var CT = {
     drive: { city: { noise: 1 }, road: { wet: 1, rr: 1 }, hwy: { wet: 2, aqua: 1 }, mix: { wet: 1, noise: 1 } },
     km: { lo: {}, mid: { rr: 1 }, hi: { rr: 2 }, vhi: { rr: 3 } },
-    main: { safe: { wet: 3, wetb: 1 }, brake: { wetb: 2, dryb: 2 }, quiet: { noise: 3 }, fuel: { rr: 3 },
+    main: { safe: { wet: 3, wetb: 1 }, brake: { wetb: 2, dryb: 2 }, price: { price: 3 }, quiet: { noise: 3 }, fuel: { rr: 3 },
             winter: { winter: 3 } }
   };
   /* ext = avalehe kaart (auto ja mõõt tulevad sealt, oma valijaid pole) */
@@ -1279,6 +1366,7 @@
         if (k === 'rr' && r.f) out.push('Veeretakistus <b>' + r.f + '</b>' + (r.f === stats.bestF ? ' — parim klass selles mõõdus' : ''));
         if (k === 'winter') out.push(P.winter.v ? 'Talvemärgid: <b>' + P.winter.show + '</b>' : 'Lume- ja jäämärk <b>puudub</b>');
         if (k === 'aqua' && P.aqua) out.push('Pidurdusmaa sügavas vees <b>' + P.aqua.show + '</b>');
+        if (k === 'price' && P.price) out.push('Hind alates <b>' + P.price.show + '</b>' + (P.price.v <= stats.minHind + 0.005 ? ' — soodsaim selles nimekirjas' : ' (+' + eur(P.price.v - stats.minHind) + ' soodsaimast)'));
       });
       if (r.tested) out.push('Sõltumatult testitud');
       return out.slice(0, 4);
@@ -1317,7 +1405,8 @@
     function draw() {
       if (!listEl) { drawTable(); return; }
       listEl.innerHTML = '<p class="note">Laen…</p>';
-      loadSize(S.size).then(function (rows) {
+      Promise.all([loadSize(S.size), Prices.size(S.size)]).then(function (res) {
+        var rows = res[0], hd = res[1] || {}, hOn = !!hd.available, h = hd.hinnad || {};
         var veh = core.vehByKey[S.veh] || core.vehByKey[DEFAULT_VEH];
         var cats = SEASON[S.season].eprel, qq = q ? norm(q.value) : '';
         var seas = rows.filter(function (r) { return cats.indexOf(r.catNr) >= 0; });
@@ -1325,14 +1414,17 @@
         var list = seas.filter(function (r) {
           return (!brandVal || r.mark === brandVal) && (!qq || norm(r.mark + r.name).indexOf(qq) >= 0);
         })
-          .map(function (r) { return { r: r, P: tyreProps(r, veh) }; });
+          .map(function (r) { return lisaHind({ r: r, P: tyreProps(r, veh) }, h); });
         var w = mode === 'valik' ? weights() : {};
-        var ws = Object.keys(w).filter(function (k) { return w[k] > 0 && PROP[k] && PROP[k].ok; });
+        /* hinda saab arvestada ainult siis, kui müüjate hinnad on olemas */
+        var ws = Object.keys(w).filter(function (k) { return w[k] > 0 && PROP[k] && PROP[k].ok && (k !== 'price' || hOn); });
+        var hindPuudu = !hOn && w.price > 0;
         var stats = {
           bestG: list.map(function (x) { return x.r.g; }).filter(Boolean).sort()[0],
           bestF: list.map(function (x) { return x.r.f; }).filter(Boolean).sort()[0],
           bestWetb: Math.min.apply(null, list.map(function (x) { return x.P.wetb ? x.P.wetb.v : 999; })),
-          dbs: list.map(function (x) { return x.r.db; }).filter(Boolean)
+          dbs: list.map(function (x) { return x.r.db; }).filter(Boolean),
+          minHind: Math.min.apply(null, list.map(function (x) { return x.P.price ? x.P.price.v : 1e9; }))
         };
         /* SOBIVUS sinu valikute põhjal: iga kaalutud omadus normeeritakse selle
            nimekirja sees 0…1. Puuduv väärtus EI saa nulli ega keskmist — ta
@@ -1359,7 +1451,8 @@
         }
         viimaneN = list.length;
         if (head) head.innerHTML = '<b>' + list.length + '</b> ' + (list.length === 1 ? SEASON[S.season].yks : SEASON[S.season].osa) + ' mõõdus <b>' + esc(pretty(S.size)) + '</b>' +
-          (ws.length ? ' · järjestatud sinu valikute järgi' : ' · järjestatud märghaardumise klassi järgi');
+          (ws.length ? ' · järjestatud sinu valikute järgi' : ' · järjestatud märghaardumise klassi järgi') +
+          (hindPuudu ? '<br><small class="note">Poodide hindu veel ei ole — hinda järjestuses praegu ei arvestata.</small>' : '');
         if (!list.length) {
           Track('tulemusi_null', pretty(S.size) + ' · ' + SEASON[S.season].long + (brandVal ? ' · ' + brandVal : '') + (qq ? ' · otsing "' + q.value.trim() + '"' : ''));
           listEl.innerHTML = '<div class="box"><p style="margin:0">' + (rows.length ? 'Selles mõõdus ei ole andmebaasis ühtegi ' + SEASON[S.season].osa + (brandVal ? ' margilt ' + esc(brandVal) : '') + (qq ? ' selle otsinguga' : '') + '.' :

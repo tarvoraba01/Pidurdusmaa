@@ -85,6 +85,7 @@ export const VALIK_Q = {
 		{
 			safe: 'Ohutus märjal',
 			brake: 'Lühike pidurdusmaa',
+			price: 'Soodne hind',
 			quiet: 'Vaikne sõit',
 			fuel: 'Väike kütusekulu',
 			winter: 'Talvised omadused'

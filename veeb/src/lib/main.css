@@ -705,3 +705,20 @@ textarea.lin{resize:vertical;min-height:140px}
 .vs-dark .vs-list{background:#1b1e24;color:#fff;border-color:#3a3f49}
 .vs-dark .vs-list li[aria-selected="true"],.vs-dark .vs-list li:hover{background:#2a2f38}
 .vs-dark .vs-list .vs-m,.vs-dark .vs-list .vs-none{color:#aab1bc}
+/* tulemuses: klassi rea all päris rehvid (app.js pickPanel) */
+.mbar.mcls .n::after{content:" ▾";font-weight:400;opacity:.5}
+.mbar.mcls[aria-expanded="true"] .n::after{content:" ▴"}
+.mpick{margin:var(--sp-1) 0 var(--sp-3);padding:var(--sp-3);background:var(--paper-2);border-radius:8px}
+.mp-h{margin:0 0 var(--sp-2);font-size:13px;font-weight:700}
+.mp-h small{font-weight:500;color:var(--muted)}
+.mp-list{list-style:none;margin:0;padding:0;display:grid;gap:4px}
+.mp{display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"n p" "m p";column-gap:var(--sp-3);width:100%;text-align:left;border:1px solid var(--line);background:#fff;border-radius:7px;padding:7px 10px;cursor:pointer;font-size:13.5px;line-height:1.3}
+.mp:hover{border-color:#b9bec7}
+.mp[aria-pressed="true"]{border-color:var(--red);box-shadow:inset 3px 0 0 var(--red)}
+.mp-n{grid-area:n;font-weight:600;overflow-wrap:anywhere}
+.mp-n em{font-style:normal;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:#15803d;margin-left:4px}
+.mp-m{grid-area:m;font-size:12px;color:var(--muted)}
+.mp-p{grid-area:p;align-self:center;font-weight:700;color:#15803d;font-variant-numeric:tabular-nums;white-space:nowrap}
+.mp-all{margin-top:var(--sp-2);font-size:13px}
+.mp-list.all{max-height:420px;overflow:auto;padding-right:2px}
+.r-price .more{display:inline-block;margin-top:var(--sp-2);font-size:13px;font-weight:600}

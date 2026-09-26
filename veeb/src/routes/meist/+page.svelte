@@ -83,9 +83,10 @@
 
 			<h2>Sõltumatus</h2>
 			<p>
-				Leht ei müü rehve ja ükski tootja ega pood ei maksa järjestuse eest. Rehvid järjestatakse ainult
-				märgise ja mõõdetud testide järgi. Kui lehel on kunagi poodide hinnad, on need eraldi näha ega
-				muuda järjestust.
+				Leht ei müü rehve ja ükski tootja ega pood ei maksa järjestuse eest. Rehvid järjestatakse
+				märgise ja mõõdetud testide järgi. Hind mõjutab järjestust ainult siis, kui valid ise „Soodne
+				hind“ — ja sama märgiseklassi rehvidest, mis pidurdavad märjal ühtviisi, pakume esimesena
+				soodsaimat.
 			</p>
 
 			<h2>Vead ja parandused</h2>
