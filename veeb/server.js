@@ -12,6 +12,7 @@
  *   www.pidurdusmaa.ee/rehvid   → https://pidurdusmaa.ee/rehvid/
  *   pidurdusmaa.ee/rehvid       → https://pidurdusmaa.ee/rehvid/
  *   /rehvid/michelin-pilot-sport-4-ao → https://pidurdusmaa.ee/rehvid/michelin-pilot-sport-4/
+ *   pidurdusmaa.com/testid, www.pidurdusmaa.eu → https://pidurdusmaa.ee/…
  * (Varem: www → 302 → pidurdusmaa.ee/rehvid → 308 → /rehvid/ = kaks sammu.)
  */
 import http from 'node:http';
@@ -30,6 +31,14 @@ try {
 }
 
 const HOST = process.env.KANOONILINE_HOST || 'pidurdusmaa.ee';
+/* Lisadomeenid, mis suunatakse (301) põhidomeenile — koos www-ga.
+ * Lisamiseks: DNS-is A-kirje sama IP peale + domeen Coolifys rakenduse
+ * „Domains“ alla (siis tuleb ka SSL-sertifikaat). */
+const LISAD = new Set(
+	['pidurdusmaa.com', 'pidurdusmaa.eu']
+		.concat(String(process.env.LISA_DOMEENID || '').split(',').map((d) => d.trim().toLowerCase()).filter(Boolean))
+		.flatMap((d) => [d, 'www.' + d])
+);
 const PORT = Number(process.env.PORT || 3000);
 const LISTEN = process.env.HOST || '0.0.0.0';
 
@@ -89,7 +98,7 @@ function suunamine(req) {
 	const paring = q < 0 ? '' : url.slice(q);
 
 	/* ainult meie enda domeenid; localhost, 127.0.0.1 ja tervisekontroll jäävad puutumata */
-	const meie = host === HOST || host === 'www.' + HOST;
+	const meie = host === HOST || host === 'www.' + HOST || LISAD.has(host);
 	if (!meie) return null;
 
 	let muutus = false;
