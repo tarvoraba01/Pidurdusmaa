@@ -317,6 +317,9 @@ table.cmp td .pct{display:inline-block;margin-left:var(--sp-2);font-size:12px;fo
 .btn.yel{background:var(--yellow);border-color:var(--yellow);color:var(--yellow-ink)}
 .btn.yel:hover{background:var(--yellow-2)}
 .btn.sm{height:36px;padding:0 var(--sp-3);font-size:14px}
+.alt-h{margin:var(--sp-4) 0 var(--sp-2)}
+.alt-sz{display:flex;flex-wrap:wrap;gap:var(--sp-2)}
+.alt-sz span{color:var(--muted);font-weight:500}
 .note{font-size:13.5px;color:var(--muted);line-height:1.5}
 .note-box{margin-top:var(--sp-4);padding:var(--sp-3) var(--sp-4);border-left:3px solid #fbbf24;background:#fffbeb;border-radius:0 8px 8px 0;font-size:13.5px;line-height:1.5;color:#5f4a12}
 

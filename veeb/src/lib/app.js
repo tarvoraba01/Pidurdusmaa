@@ -1464,7 +1464,63 @@
         names.map(function (m) { return '<option value="' + esc(m) + '"' + (m === brandVal ? ' selected' : '') + '>' + esc(m) + ' · ' + n[m] + '</option>'; }).join('');
       brandSel.value = brandVal;
     }
+    var joonisNr = 0;
+    /* Auto tehasemõõdud: valitud variant või (kui aasta/variant valimata)
+       kõik selle margi+mudeli(+aasta) tehasemõõdud. */
+    function autoMoodud() {
+      var V = core.vehicles, v = S.veh && core.vehByKey[S.veh];
+      var mk = $('[data-f=make]', root), md = $('[data-f=model]', root), yr = $('[data-f=year]', root);
+      var hulk = v ? [v] : (mk && mk.value && md && md.value ? V.filter(function (x) {
+        return x.make === mk.value && x.model === md.value && (!yr || !yr.value || x.yearLabel === yr.value);
+      }) : []);
+      var out = [];
+      hulk.forEach(function (x) {
+        (x.oemSizes && x.oemSizes.length ? x.oemSizes : [x.oemSize]).forEach(function (m) {
+          m = norm(m); if (m && out.indexOf(m) < 0) out.push(m);
+        });
+      });
+      return { nimi: v ? v.make + ' ' + v.model : (hulk[0] ? hulk[0].make + ' ' + hulk[0].model : ''), m: out };
+    }
+    /* Tühja tulemuse korral: millistes selle auto mõõtudes on sobivaid rehve */
+    function altSizes(box, cats, nr) {
+      if (!box) return;
+      var a = autoMoodud(), sel = $('[data-f=size]', root);
+      var mood = a.m.filter(function (m) { return m !== S.size && core.eprelSizes.indexOf(m) >= 0; });
+      if (!a.m.length) {
+        if (S.rft === 'only' && sel) box.innerHTML = '<p class="note alt-h">Vali auto — näitame, millistes selle tehasemõõtudes run-flat rehve on.</p>';
+        return;
+      }
+      if (!mood.length) return;
+      box.innerHTML = '<p class="note alt-h">Otsin ' + esc(a.nimi) + ' teistest tehasemõõtudest…</p>';
+      Promise.all(mood.map(loadSize)).then(function (res) {
+        if (nr !== joonisNr) return;
+        var leitud = mood.map(function (m, i) {
+          return { m: m, n: res[i].filter(function (r) { return cats.indexOf(r.catNr) >= 0 && (!S.rft || (S.rft === 'only') === onRft(r)); }).length };
+        }).filter(function (x) { return x.n; }).sort(function (x, y) { return y.n - x.n; });
+        if (!leitud.length) {
+          box.innerHTML = '<p class="note alt-h">Ka ' + esc(a.nimi) + ' teistes tehasemõõtudes ' + (S.rft === 'only' ? 'run-flat ' : '') + SEASON[S.season].pp + ' meil praegu ei ole.</p>';
+          return;
+        }
+        box.innerHTML = '<p class="alt-h"><b>' + esc(a.nimi) + '</b> tehasemõõdud, kus on ' + (S.rft === 'only' ? 'run-flat ' : '') + SEASON[S.season].pp + ':</p>' +
+          '<div class="alt-sz">' + leitud.map(function (x) {
+            return '<button type="button" class="btn sm" data-alt="' + esc(x.m) + '">' + esc(pretty(x.m)) + ' <span>' + x.n + (x.n === 1 ? ' rehv' : ' rehvi') + '</span></button>';
+          }).join('') + '</div>';
+        $$('[data-alt]', box).forEach(function (b) {
+          b.addEventListener('click', function () {
+            var m = b.dataset.alt;
+            Track('alt_moot', m);
+            if (sel) {
+              if (!$('option[value="' + m + '"]', sel)) { var o = document.createElement('option'); o.value = m; o.textContent = pretty(m); sel.appendChild(o); }
+              sel.value = m;
+              if (sel._sp && sel._sp._sync) sel._sp._sync();
+              sel.dispatchEvent(new Event('change', { bubbles: true }));
+            } else { S.size = m; draw(); }
+          });
+        });
+      });
+    }
     function draw() {
+      var joonis = ++joonisNr;
       if (!listEl) { drawTable(); return; }
       listEl.innerHTML = '<p class="note">Laen…</p>';
       Promise.all([loadSize(S.size), Prices.size(S.size)]).then(function (res) {
@@ -1541,7 +1597,9 @@
           listEl.innerHTML = '<div class="box"><p style="margin:0">' + (rows.length ? (S.rft === 'only' && !brandVal && !qq
               ? 'Selles mõõdus meil praegu run-flat ' + SEASON[S.season].pp + ' ei ole.'
               : 'Selles mõõdus ei ole andmebaasis ühtegi ' + (S.rft === 'only' ? 'run-flat ' : '') + SEASON[S.season].osa + (brandVal ? ' margilt ' + esc(brandVal) : '') + (qq ? ' selle otsinguga' : '') + '.') :
-            'Mõõdu ' + esc(pretty(S.size)) + ' märgiseandmed pole veel andmebaasis. Hetkel on korjatud ' + core.eprelSizes.length + ' mõõtu.') + '</p></div>';
+            'Mõõdu ' + esc(pretty(S.size)) + ' märgiseandmed pole veel andmebaasis. Hetkel on korjatud ' + core.eprelSizes.length + ' mõõtu.') + '</p>' +
+            (!brandVal && !qq ? '<div data-alt-sizes></div>' : '') + '</div>';
+          if (!brandVal && !qq) altSizes($('[data-alt-sizes]', listEl), cats, joonis);
           drawTable(); return;
         }
         var LIM = mode === 'valik' ? 20 : 30;
