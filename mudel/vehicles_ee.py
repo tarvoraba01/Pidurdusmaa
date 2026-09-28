@@ -945,3 +945,8 @@ EE_VEHICLES += [
     ("citroen_c1_2", "Citroën C1 II 1.0 (2014-2022)", 840, 0.31, 1.615, 1.460, 2.340, 2.3, "165/65 R14", A.MODERN, 1.24, _L4 + "; Cd hinnang"),
     ("renault_arkana", "Renault Arkana 1.3 TCe (2021+)", 1336, 0.31, 1.820, 1.576, 2.720, 2.4, "215/60 R17", A.LATEST, 1.28, _L4 + "; Cd hinnang"),
 ]
+
+# 2026-09-28: kasutajate teated puuduvatest autodest
+EE_VEHICLES += [
+    ("bmw_535d_e61", "BMW 535d E61 Touring (2004-2010)", 1835, 0.29, 1.846, 1.491, 2.886, 2.4, "245/45 R17", A.MODERN, 1.28, _L4 + "; rõhk hinnang"),
+]

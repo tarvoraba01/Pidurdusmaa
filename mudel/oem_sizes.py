@@ -595,4 +595,5 @@ OEM_SIZES = {
     'peugeot_108': ('165/65 R14', ['165/65 R14', '165/60 R15'], 'kinnitatud', 'https://club.autodoc.co.uk/tyres/peugeot/108/108', ''),
     'citroen_c1_2': ('165/65 R14', ['165/65 R14', '165/60 R15'], 'kinnitatud', 'https://club.autodoc.co.uk/tyres/citroen/c1/c1-ii', 'Teljevahe Peugeot 108 järgi (sama platvorm).'),
     'renault_arkana': ('215/60 R17', ['215/60 R17', '215/55 R18'], 'kinnitatud', 'https://www.auto-data.net/en/renault-arkana-1.3-tce-140hp-edc-42467', 'Euroopa Arkana (CMF-B), mitte 2019 Venemaa mudel.'),
+    'bmw_535d_e61': ('245/45 R17', ['225/50 R17', '245/45 R17', '245/40 R18', '245/35 R19'], 'osaline', 'https://club.autodoc.co.uk/tyres/bmw/5-series/5-touring-e61', '535d-l autodoc: 225/50 R17, 245/45 R17, 245/40 R18; E61 platvorm kuni 245/35 R19. Segakomplekte (275 taga) E61 535d kohta ei kinnitatud; ultimatespecs: 225/50 R17.'),
 }
