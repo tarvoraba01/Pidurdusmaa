@@ -64,7 +64,10 @@ python3 -m mudel.export_web
 
 # 2) kontrollid
 python3 -m mudel.audit      # peab ütlema: AUDIT LÄBITUD
-python3 -m mudel.parity     # JS ja Python peavad kokku langema
+python3 -m mudel.parity_core          # paarsusfikstuur core.json-i pealt (iga mudelimuudatuse järel)
+python3 -m unittest mudel.test_mudel  # Pythoni mootori testid
+(cd veeb && npm test)                 # JS-mootor: paarsus Pythoniga, andmed, kõik autod (~18 min)
+# NB: vana `mudel.parity` loeb vananenud web/data.js-i ega tööta enam
 
 # 3) eelvaatefail (kohalik WP peab jooksma pordil 8080)
 python3 eelvaade/crawl_bfs.py

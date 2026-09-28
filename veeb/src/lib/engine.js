@@ -140,7 +140,9 @@
     }
 
     if (ASPHALTISH[surf]) {
-      mu *= interp(CAL.tempCurves[tyre.category], cond.tempC);
+      /* Kõver hoitakse otspunktides, ei ekstrapoleerita (vt model.py). */
+      var tc = CAL.tempCurves[tyre.category], tLo = tc[0][0], tHi = tc[tc.length - 1][0];
+      mu *= interp(tc, clamp(cond.tempC, Math.min(tLo, tHi), Math.max(tLo, tHi)));
       /* Tekstuur: KAKS mehhanismi, mitte üks kordaja.
          MAKRO (vee äravool) -> kiiruse gradient, ainult märjal, PIARC
          IFI kujul. MIKRO (poleeritus) -> tasemekadu, märjal ja kuival.
@@ -213,6 +215,11 @@
         var t = clamp((vk - 0.72 * vhpK) / (0.28 * vhpK), 0, 1), blend = t * t;
         mu = mu * (1.0 - blend) + CAL.muHydroplane * blend;
       }
+      /* Märg ei ole haardevam kui kuiv: lagi on SAMA rehvi täielik kuiv
+         haare samas kohas, temperatuuril, kiirusel, rõhul ja kulumisel
+         (vt model.py). */
+      var muD = muAtSpeed(tyre, veh, Object.assign({}, cond, { waterMm: 0 }), vMs);
+      if (muD < mu) mu = muD;
     }
     return Math.max(0.03, mu);
   }
@@ -225,7 +232,7 @@
     var dt = 0.004, v = 0, s = 0, t = 0;
     while (v < vTarget && t < 300) {
       var mu = muAtSpeed(tyre, veh, cond, Math.max(v, 1.0));
-      var a = Math.max(0.02, mu * G);
+      var a = Math.max(0.02, mu * G * Math.cos(Math.atan((cond.gradientPct || 0) / 100.0)));
       v += a * dt;
       s += v * dt;
       t += dt;
@@ -233,28 +240,78 @@
     return { t: t, s: s, ok: v >= vTarget - 1e-6 };
   }
 
+  /* Sisendi kontroll (vt model.py validate_inputs). Parem viga kui
+     eksitav number: NaN kiirus andis varem 0 m, negatiivne lisamass NaN. */
+  var CATS = { SUMMER_UHP: 1, SUMMER_TOURING: 1, ALL_SEASON: 1, WINTER_CENTRAL: 1, WINTER_NORDIC: 1, WINTER_STUDDED: 1 };
+  var SURFS = { ASPHALT: 1, CONCRETE: 1, GRAVEL: 1, SNOW_PACKED: 1, SNOW_LOOSE: 1, ICE: 1 };
+  var TEXS = { COARSE_NEW: 1, NORMAL: 1, WORN_SMOOTH: 1, POLISHED: 1 };
+  var ABSS = { NONE: 1, EARLY: 1, MODERN: 1, LATEST: 1 };
+  function num(name, x, lo, hi, allowNull) {
+    if (allowNull && (x === null || x === undefined)) return;
+    if (typeof x !== 'number' || !isFinite(x)) throw new Error(name + ': ei ole lõplik arv (' + x + ')');
+    if (x < lo || x > hi) throw new Error(name + ' = ' + x + ' on väljaspool lubatud vahemikku ' + lo + '...' + hi);
+  }
+  function validate(tyre, veh, cond) {
+    if (!tyre || !veh || !cond) throw new Error('puudub rehv, auto või olud');
+    if (!CATS[tyre.category]) throw new Error('tundmatu rehvikategooria ' + tyre.category);
+    if (!ABSS[veh.absClass]) throw new Error('tundmatu ABS-klass ' + veh.absClass);
+    if (!SURFS[cond.surface]) throw new Error('tundmatu teekate ' + cond.surface);
+    if (!TEXS[cond.texture]) throw new Error('tundmatu tekstuur ' + cond.texture);
+    num('kiirus km/h', cond.speedKmh, 0, 300);
+    num('veekile mm', cond.waterMm, 0, 20);
+    num('temperatuur °C', cond.tempC, -50, 60);
+    num('lisamass kg', cond.payloadKg, 0, 5000);
+    num('kalle %', cond.gradientPct, -50, 50);
+    num('reaktsiooniaeg s', cond.reactionTimeS, 0, 5);
+    num('pidurite seisukord', cond.brakeCondition, 0.05, 1.5, true);
+    num('auto tühimass kg', veh.kerbMassKg, 200, 40000);
+    num('CdA m²', veh.cdaM2, 0, 10);
+    num('soovituslik rõhk bar', veh.recommendedPressureBar, 0.8, 8);
+    num('pidurite võimekus g', veh.brakeCapacityG, 0.2, 2.5);
+    num('märghaardumise indeks G', tyre.wetGripIndex, 0.5, 2.5);
+    num('mustrisügavus mm', tyre.treadDepthMm, 0, 25);
+    num('uue rehvi mustrisügavus mm', tyre.treadDepthNewMm, 1.5, 25, true);
+    num('rehvirõhk bar', tyre.pressureBar, 0.5, 8, true);
+    num('rehvi kandevõime kg', tyre.loadCapacityKg, 50, 10000, true);
+    num('rehvi vanus a', tyre.ageYears, 0, 40, true);
+    num('ujumistegur', tyre.hpFactor, 0.3, 3, true);
+    num('mu_dry', tyre.muDry, 0.01, 2.5, true);
+    num('mu_snow', tyre.muSnow, 0.01, 2.5, true);
+    num('mu_ice', tyre.muIce, 0.01, 2.5, true);
+    [['rehvi mõõt', tyre.size], ['G mõõt', tyre.gSize], ['tehasemõõt', veh.oemSize]].forEach(function (x) {
+      var sz = x[1], p = parseSize(sz);
+      if (sz && !p && /\d{3}\s*\/\s*\d/.test(sz)) throw new Error(x[0] + ' ' + sz + ': ei saa aru');
+      if (p && !(p[0] >= 100 && p[0] <= 400 && p[1] >= 20 && p[1] <= 95 && p[2] >= 10 && p[2] <= 24))
+        throw new Error(x[0] + ' ' + sz + ' ei ole võimalik sõiduauto rehv');
+    });
+  }
+
   function stoppingDistance(tyre, veh, cond) {
     var warnings = [];
     var v0 = cond.speedKmh / 3.6;
     var mass = veh.kerbMassKg + cond.payloadKg;
-    var slopeA = G * Math.sin(Math.atan(cond.gradientPct / 100.0));
+    validate(tyre, veh, cond);
+    var theta = Math.atan(cond.gradientPct / 100.0);
+    var slopeA = G * Math.sin(theta), cosN = Math.cos(theta);
     // Kruusal on ABS-i mõju vastupidine, vt absEffGravel.
     var eta = (cond.surface === 'GRAVEL' ? CAL.absEffGravel : CAL.absEff)[veh.absClass];
     var tBuild = CAL.brakeBuildup[veh.absClass];
     var brakeCond = cond.brakeCondition != null ? cond.brakeCondition : 1.0;
 
     var dt = 0.004, v = v0, s = 0, t = 0, peakA = 0, muSum = 0, muN = 0, brakeLimited = 0;
-    var trace = [];
-    while (v > 0.05 && t < 60) {
+    var trace = [], stopped = true, tMax = 900;
+    /* Ei põrandat ega vaikset ajapiiri (vt model.py): kui pidurid on täies
+       jõus ja aeglustus ikka <= 0, auto ei peatu -- öeldakse välja. */
+    while (v > 0.05) {
       var mu = muAtSpeed(tyre, veh, cond, v);
       muSum += mu; muN++;
       var ramp = tBuild > 0 ? clamp(t / tBuild, 0, 1) : 1;
-      var aTyre = mu * G * eta;
+      var aTyre = mu * G * eta * cosN;
       var aBrakeMax = veh.brakeCapacityG * brakeCond * G;
       if (aBrakeMax < aTyre) brakeLimited++;
       aTyre = Math.min(aTyre, aBrakeMax);
-      var a = aTyre * ramp + 0.5 * RHO * veh.cdaM2 * v * v / mass + CAL.crr * G + slopeA;
-      a = Math.max(0.05, a);
+      var a = aTyre * ramp + 0.5 * RHO * veh.cdaM2 * v * v / mass + CAL.crr * G * cosN + slopeA;
+      if ((ramp >= 1 && a <= 1e-6) || t > tMax) { stopped = false; break; }
       if (a > peakA) peakA = a;
       if (muN % 25 === 1) trace.push([s, v * 3.6]);
       v -= a * dt;
@@ -265,6 +322,12 @@
 
     var muEff = muSum / Math.max(1, muN);
     var sReact = v0 * cond.reactionTimeS;
+    if (!stopped) {
+      s = Infinity;
+      warnings.push('Auto ei peatu: pidurid on täies jõus, aga kallak on järsem, kui rehvi ' +
+        'haare suudab kinni hoida (või pidurdus kestaks üle ' + tMax + ' s). Pidurdusmaad ei ' +
+        'ole olemas -- see ei ole arvutusviga, vaid füüsika.');
+    }
 
     var sigma = CAL.sigmaBase[cond.surface];
     if (ASPHALTISH[cond.surface] && cond.waterMm > 0.02) sigma = Math.hypot(sigma, CAL.sigmaWetExtra);
@@ -295,11 +358,14 @@
         'päikese käes sulamas erinevad rohkem kui kogu see temperatuurikõver.');
     }
 
-    var gap = sizeGapInch(tyre.size, veh.oemSize);
+    /* Mõõt, millest G pärineb (gSize), võib erineda autol olevast (size).
+       Füüsika (laius) käib size järgi, ülekande veapiir gSize järgi. */
+    var gSize = tyre.gSize || tyre.size;
+    var gap = sizeGapInch(gSize, veh.oemSize);
     if (gap > 0) {
       sigma = Math.hypot(sigma, Math.min(CAL.sigmaSizeRimInch * gap, CAL.sigmaSizeMax));
       if (gap >= CAL.sizeWarnInch) {
-        warnings.push('Rehvi andmed on mõõdust ' + tyre.size + ', auto tehasemõõt on ' +
+        warnings.push('Rehvi andmed on mõõdust ' + gSize + ', auto tehasemõõt on ' +
           veh.oemSize + ' — ' + gap.toFixed(0) + ' tolli vahet. Märghaardumise klass on ' +
           'mõõdupõhine, nii et see on ülekanne teiselt mõõdult, mitte selle mõõdu ' +
           'mõõtmine. Kontrolli ka, kas see rehv sellele autole üldse sobib.');
@@ -347,7 +413,7 @@
     if (tyre.treadDepthMm < 1.6) warnings.push('Mustrisügavus alla seadusliku 1,6 mm.');
     var acc = accelToSpeed(tyre, veh, cond);
     var extreme = (s > 150.0) || (!acc.ok) || (acc.s > 400.0);
-    if (s > 150.0) {
+    if (s > 150.0 && stopped) {
       warnings.push('Füüsika äärmus: ' + Math.round(s) + ' m on pikem kui nähtavus ' +
         'enamikul teedel. Number on matemaatiliselt õige — pidurdusmaa kasvab kiiruse ' +
         'ruudus — aga see kirjeldab pigem suletud ala või jäärada kui tavalist liiklust.');
@@ -370,7 +436,7 @@
     } else if (brakeFrac > 0.05) { limiter = 'rehv (osaliselt pidurid)'; }
     else { limiter = 'rehv'; }
 
-    var conf = sigma <= 0.10 ? 'kõrge' : (sigma <= 0.16 ? 'keskmine' : 'madal');
+    var conf = !stopped ? 'madal' : sigma <= 0.10 ? 'kõrge' : (sigma <= 0.16 ? 'keskmine' : 'madal');
 
     /* USALDUSE LAGI: ülekanne ei ole mõõtmine. Kui rehvi haardenumber
        tuleb teisest mõõdust kui auto tehasemõõt, ei tohi leht öelda
@@ -401,6 +467,7 @@
       accelDistM: acc.s,
       accelReachable: acc.ok,
       extreme: extreme,
+      stopped: stopped,
       trace: trace
     };
   }
@@ -409,6 +476,7 @@
     CAL: CAL,
     muAtSpeed: muAtSpeed,
     hydroplaneSpeedKmh: hydroplaneSpeedKmh,
-    stoppingDistance: stoppingDistance
+    stoppingDistance: stoppingDistance,
+    validate: validate
   };
 })(typeof globalThis !== 'undefined' ? globalThis : this);

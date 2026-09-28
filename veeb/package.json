@@ -10,7 +10,8 @@
     "postbuild": "node -e \"require('fs').copyFileSync('server.js','build/server.js')\" && node scripts/seo-kontroll.mjs && node scripts/turva-kontroll.mjs",
     "seo": "node scripts/seo-kontroll.mjs",
     "turva": "node scripts/turva-kontroll.mjs",
-    "start": "node build/server.js"
+    "start": "node build/server.js",
+    "test": "node --test tests/engine.test.mjs"
   },
   "devDependencies": {
     "@sveltejs/adapter-node": "^5.5.7",

@@ -262,7 +262,9 @@ VEHICLES = {
         oem_size="235/60 R18", brake_capacity_g=1.3),
     "vw_transporter": Vehicle(
         name="VW Transporter T6.1 (2020)", kerb_mass_kg=2050,
-        abs_class=AbsClass.MODERN, cda_m2=1.25, cog_height_m=0.85,
+        # QA 2026-09-28: oli MODERN. T6.1 on 2019+ (ESC + pidurdusabi
+        # standardis) ja sama loogika järgi on T6 (2015-2019) juba LATEST.
+        abs_class=AbsClass.LATEST, cda_m2=1.25, cog_height_m=0.85,
         wheelbase_m=3.0, recommended_pressure_bar=3.0,
         oem_size="215/65 R16", brake_capacity_g=1.1),
     "vw_golf_4": Vehicle(

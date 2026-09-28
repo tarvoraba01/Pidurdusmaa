@@ -28,6 +28,7 @@ from enum import Enum
 from typing import Optional, Sequence
 
 G_ACC = 9.80665          # raskuskiirendus, m/s^2
+WET_LE_DRY = True        # füüsikaline lagi: märg haare <= sama rehvi kuiv (vt mu_at_speed)
 RHO_AIR = 1.225          # õhutihedus 15 °C, kg/m^3
 
 
@@ -116,6 +117,14 @@ class Tyre:
     #             sama klassi rehvi võivad päriselt erineda kuni 10 %
     #             pidurdusmaas -- see lisatakse veapiirile.
     g_source: str = "label"
+    # MÕÕT, MILLEST G PÄRINEB (testi- või märgisemõõt). `size` on mõõt, mis
+    # on PÄRISELT autol -- sellest sõltub akvaplaneerimise laius. Kui G on
+    # mõõdetud teises mõõdus, kirjuta see siia: siis läheb mõõdu-ülekande
+    # veapiir selle mõõdu järgi, aga füüsika jääb autol oleva rehvi järgi.
+    # QA 2026-09-28: varem kandis üks väli mõlemat rolli ja testitud rehv
+    # sai tulemuste lehel testimõõdu laiuse (kuni 3,9 % pikem märjal kui
+    # sama rehv võrdluslehel).
+    g_size: str = ""
 
     @property
     def wet_grip_class(self) -> str:
@@ -665,6 +674,63 @@ def parse_size(size: str) -> Optional[tuple]:
     return int(m.group(1)), int(m.group(2)), int(m.group(3))
 
 
+class InputError(ValueError):
+    """Sisend, millest ei saa ausat pidurdusmaad arvutada. Parem viga kui
+    eksitav number (QA 2026-09-28: NaN kiirus andis 0 m, negatiivne
+    lisamass kompleksarvu, 0 kg auto nulliga jagamise)."""
+
+
+def _num(name, x, lo, hi, allow_none=False):
+    if x is None and allow_none:
+        return
+    if isinstance(x, bool) or not isinstance(x, (int, float)) or not math.isfinite(x):
+        raise InputError(f"{name}: ei ole lõplik arv ({x!r})")
+    if not (lo <= x <= hi):
+        raise InputError(f"{name} = {x} on väljaspool lubatud vahemikku {lo}...{hi}")
+
+
+def validate_inputs(tyre: "Tyre", veh: "Vehicle", cond: "Conditions") -> None:
+    """Kontrollib, et sisend on füüsikaliselt mõtestatud. Vahemikud on
+    teadlikult laiad -- need ei ütle, mis on "tavaline", vaid mis on
+    VÕIMALIK. Kitsamad (valideeritud) vahemikud annavad hoiatuse ja
+    laiema veapiiri, mitte vea."""
+    if not isinstance(tyre.category, TyreCategory):
+        raise InputError(f"tundmatu rehvikategooria {tyre.category!r}")
+    if not isinstance(veh.abs_class, AbsClass):
+        raise InputError(f"tundmatu ABS-klass {veh.abs_class!r}")
+    if not isinstance(cond.surface, Surface):
+        raise InputError(f"tundmatu teekate {cond.surface!r}")
+    if not isinstance(cond.texture, Texture):
+        raise InputError(f"tundmatu tekstuur {cond.texture!r}")
+    _num("kiirus km/h", cond.speed_kmh, 0.0, 300.0)
+    _num("veekile mm", cond.water_mm, 0.0, 20.0)
+    _num("temperatuur °C", cond.temp_c, -50.0, 60.0)
+    _num("lisamass kg", cond.payload_kg, 0.0, 5000.0)
+    _num("kalle %", cond.gradient_pct, -50.0, 50.0)
+    _num("reaktsiooniaeg s", cond.reaction_time_s, 0.0, 5.0)
+    _num("pidurite seisukord", cond.brake_condition, 0.05, 1.5)
+    _num("auto tühimass kg", veh.kerb_mass_kg, 200.0, 40000.0)
+    _num("CdA m²", veh.cda_m2, 0.0, 10.0)
+    _num("soovituslik rõhk bar", veh.recommended_pressure_bar, 0.8, 8.0)
+    _num("pidurite võimekus g", veh.brake_capacity_g, 0.2, 2.5)
+    _num("märghaardumise indeks G", tyre.wet_grip_index, 0.5, 2.5)
+    _num("mustrisügavus mm", tyre.tread_depth_mm, 0.0, 25.0)
+    _num("uue rehvi mustrisügavus mm", tyre.tread_depth_new_mm, 1.5, 25.0)
+    _num("rehvirõhk bar", tyre.pressure_bar, 0.5, 8.0, allow_none=True)
+    _num("rehvi kandevõime kg", tyre.load_capacity_kg, 50.0, 10000.0, allow_none=True)
+    _num("rehvi vanus a", tyre.age_years, 0.0, 40.0)
+    _num("ujumistegur", tyre.hp_factor, 0.3, 3.0)
+    for nm, x in (("mu_dry", tyre.mu_dry_override), ("mu_snow", tyre.mu_snow_override),
+                  ("mu_ice", tyre.mu_ice_override)):
+        _num(nm, x, 0.01, 2.5, allow_none=True)
+    for nm, sz in (("rehvi mõõt", tyre.size), ("G mõõt", tyre.g_size), ("tehasemõõt", veh.oem_size)):
+        p = parse_size(sz)
+        if sz and p is None and re.search(r"\d{3}\s*/\s*\d", sz or ""):
+            raise InputError(f"{nm} {sz!r}: ei saa aru")
+        if p and not (100 <= p[0] <= 400 and 20 <= p[1] <= 95 and 10 <= p[2] <= 24):
+            raise InputError(f"{nm} {sz!r} ei ole võimalik sõiduauto rehv")
+
+
 def size_gap_inch(tyre_size: str, oem_size: str) -> float:
     """Kui kaugel on rehvi testimõõt auto tehasemõõdust, tollides.
     0.0 tähendab kas kokkulangevust või seda, et üht neist ei tea."""
@@ -799,7 +865,14 @@ class BrakingModel:
 
         # --- temperatuur (asfaldil; lumel/jääl on see juba sees) --------
         if surf in (Surface.ASPHALT, Surface.CONCRETE):
-            mu *= _interp(cal.temp_curves[tyre.category], cond.temp_c)
+            # Kõver hoitakse otspunktides (ei ekstrapoleerita). QA 2026-09-28:
+            # lineaarne jätk andis suverehvile -40 °C kuival asfaldil mu 0,12
+            # ja -60 °C juures põrandaväärtuse 0,03 -- väljaspool mõõdetud
+            # ala ei ole ühtegi alust. Väljaspool -25...+45 °C lisandub
+            # niikuinii sigma_extrapolation ja hoiatus.
+            pts = cal.temp_curves[tyre.category]
+            lo_t, hi_t = min(x for x, _ in pts), max(x for x, _ in pts)
+            mu *= _interp(pts, _clamp(cond.temp_c, lo_t, hi_t))
 
         # --- katte tekstuur --------------------------------------------
         # Kaks ERI mehhanismi, mitte üks kordaja. Vt Calibration.
@@ -911,6 +984,20 @@ class BrakingModel:
                 blend = t * t                      # ruutkõver, mitte lineaarne
                 mu = mu * (1.0 - blend) + cal.mu_hydroplane * blend
 
+        # --- MÄRG EI OLE HAARDEVAM KUI KUIV ------------------------------
+        # Veekile saab hõõret ainult vähendada. Märg ja kuiv haare tulevad
+        # mudelis eri allikatest (märg = märgise G, kuiv = kategooria või
+        # testi mu) ja nende kõverad erinevad: märja tõstejõu liige kaob
+        # madalal kiirusel, rõhu optimum ja mustri kadu on märjal ja kuival
+        # eri kujuga. QA 2026-09-28: 729 000 arvutuse maatriksis oli märg
+        # asfalt talverehvil 20-60 km/h juures kuni 11 % LÜHEM kui kuiv --
+        # füüsikaliselt võimatu. Lagi on SAMA rehvi TÄIELIK kuiv haare
+        # samas kohas, samal temperatuuril, kiirusel, rõhul ja kulumisel
+        # (esimene versioon piiras enne rõhu- ja mustriliiget ning jättis
+        # naastrehvile 0,1 % vahe -- sellepärast nüüd lõpus).
+        if wet and WET_LE_DRY:
+            mu = min(mu, self.mu_at_speed(tyre, veh, replace(cond, water_mm=0.0), v_ms))
+
         return max(0.03, mu)
 
     # -- akvaplaneerimiskiirus -------------------------------------------
@@ -941,11 +1028,17 @@ class BrakingModel:
 
     def stopping_distance(self, tyre: Tyre, veh: Vehicle,
                           cond: Conditions) -> Result:
+        validate_inputs(tyre, veh, cond)
         cal = self.cal
         warnings: list = []
         v0 = cond.speed_kmh / 3.6
         mass = veh.kerb_mass_kg + cond.payload_kg
-        slope_a = G_ACC * math.sin(math.atan(cond.gradient_pct / 100.0))
+        theta = math.atan(cond.gradient_pct / 100.0)
+        slope_a = G_ACC * math.sin(theta)
+        # Kaldel surub auto teed jõuga m·g·cos(θ), mitte m·g -- hõõrdejõud on
+        # sellega võrdeline. QA 2026-09-28: varem puudus (10 % kallakul 0,5 %,
+        # 30 % kallakul 4 % liiga palju haaret).
+        cos_n = math.cos(theta)
 
         # Kruusal on ABS-i mõju vastupidine (vt abs_eff_gravel).
         eta = (cal.abs_eff_gravel if cond.surface is Surface.GRAVEL
@@ -961,7 +1054,16 @@ class BrakingModel:
         mu_n = 0
         brake_limited_steps = 0
 
-        while v > 0.05 and t < 60.0:
+        # QA 2026-09-28: varem oli siin "a = max(0.05, a)" ja ajapiir 60 s.
+        # Kumbki ei olnud füüsika: kui auto allamäge või jääl EI SAA peatuda,
+        # andis põrand ikka lõpliku numbri, ja üle 60 s pidurdus lõigati
+        # vaikselt pooleli (suverehv jääl 200 km/h: 1488 m, t = 60,0 s).
+        # Nüüd: pidurite ülesehituse ajal tohib auto kallakul kiireneda;
+        # kui pidurid on täies jõus ja aeglustus ikka <= 0, ei peatu auto
+        # üldse -- see öeldakse välja, mitte ei peideta numbrisse.
+        stopped = True
+        t_max = 900.0
+        while v > 0.05:
             mu = self.mu_at_speed(tyre, veh, cond, v)
             mu_sum += mu
             mu_n += 1
@@ -969,7 +1071,7 @@ class BrakingModel:
             # pidurite ülesehitusaeg: aeglustus kasvab lineaarselt
             ramp = _clamp(t / t_build, 0.0, 1.0) if t_build > 0 else 1.0
 
-            a_tyre = mu * G_ACC * eta
+            a_tyre = mu * G_ACC * eta * cos_n
             # pidurite lagi -- kui see jääb rehvi omast allapoole, siis
             # ei piira pidurdusmaad enam rehv, vaid pidur
             a_brake_max = veh.brake_capacity_g * cond.brake_condition * G_ACC
@@ -977,9 +1079,14 @@ class BrakingModel:
                 brake_limited_steps += 1
             a_tyre = min(a_tyre, a_brake_max)
             a_aero = 0.5 * RHO_AIR * veh.cda_m2 * v * v / mass
-            a_roll = cal.crr * G_ACC
+            a_roll = cal.crr * G_ACC * cos_n
             a = a_tyre * ramp + a_aero + a_roll + slope_a
-            a = max(0.05, a)
+            if ramp >= 1.0 and a <= 1e-6:
+                stopped = False
+                break
+            if t > t_max:
+                stopped = False
+                break
             peak_a = max(peak_a, a)
 
             v -= a * dt
@@ -988,6 +1095,13 @@ class BrakingModel:
 
         mu_eff = mu_sum / max(1, mu_n)
         s_react = v0 * cond.reaction_time_s
+        if not stopped:
+            s = math.inf
+            warnings.append(
+                "Auto ei peatu: pidurid on täies jõus, aga kallak on järsem, "
+                "kui rehvi haare suudab kinni hoida (või pidurdus kestaks üle "
+                f"{t_max:.0f} s). Pidurdusmaad ei ole olemas -- see ei ole "
+                "arvutusviga, vaid füüsika.")
 
         # --- ebamäärasus ---------------------------------------------------
         sigma = cal.sigma_base[cond.surface]
@@ -1026,13 +1140,14 @@ class BrakingModel:
                 "rohkem kui kogu see temperatuurikõver.")
 
         # Rehvi mõõt vs auto tehasemõõt
-        gap = size_gap_inch(tyre.size, veh.oem_size)
+        g_size = tyre.g_size or tyre.size
+        gap = size_gap_inch(g_size, veh.oem_size)
         if gap > 0.0:
             sigma = math.hypot(sigma, min(cal.sigma_size_rim_inch * gap,
                                           cal.sigma_size_max))
             if gap >= cal.size_warn_inch:
                 warnings.append(
-                    f"Rehvi andmed on mõõdust {tyre.size}, auto tehasemõõt on "
+                    f"Rehvi andmed on mõõdust {g_size}, auto tehasemõõt on "
                     f"{veh.oem_size} — {gap:.0f} tolli vahet. Märghaardumise "
                     "klass on mõõdupõhine, nii et see on ülekanne teiselt "
                     "mõõdult, mitte selle mõõdu mõõtmine. Kontrolli ka, kas "
@@ -1089,7 +1204,7 @@ class BrakingModel:
         # Sama haare, mis piirab pidurdamist, piirab ka kiirendamist.
         acc_t, acc_s, acc_ok = self.accel_to_speed(tyre, veh, cond)
         extreme = (s > 150.0) or (not acc_ok) or (acc_s > 400.0)
-        if s > 150.0:
+        if s > 150.0 and stopped:
             warnings.append(
                 f"Füüsika äärmus: {s:.0f} m on pikem kui nähtavus enamikul teedel. "
                 "Number on matemaatiliselt õige — pidurdusmaa kasvab kiiruse "
@@ -1118,7 +1233,9 @@ class BrakingModel:
         else:
             limiter = "rehv"
 
-        if sigma <= 0.10:
+        if not stopped:
+            conf = "madal"
+        elif sigma <= 0.10:
             conf = "kõrge"
         elif sigma <= 0.16:
             conf = "keskmine"
@@ -1188,7 +1305,7 @@ class BrakingModel:
         t = 0.0
         while v < v_target and t < 300.0:
             mu = self.mu_at_speed(tyre, veh, cond, max(v, 1.0))
-            a = max(0.02, mu * G_ACC)
+            a = max(0.02, mu * G_ACC * math.cos(math.atan(cond.gradient_pct / 100.0)))
             v += a * dt
             s += v * dt
             t += dt

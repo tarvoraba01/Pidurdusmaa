@@ -254,6 +254,11 @@
              payloadKg: 75, gradientPct: 0, reactionTimeS: 0, brakeCondition: 1 };
   }
   function calc(tyre, veh, cond) { return window.Pidurdus.stoppingDistance(tyre, veh, cond); }
+  /* Testitud rehv autol: füüsika (laius -> akvaplaneerimine) käib autol oleva
+     mõõdu järgi, mõõdu-ülekande veapiir testimõõdu (gSize) järgi.
+     QA 2026-09-28: varem arvutati tulemuste lehel testimõõduga ja
+     võrdluslehel autol oleva mõõduga -- sama rehv, kaks eri numbrit. */
+  function onCar(t, m) { return m ? Object.assign({}, t, { size: pretty(m), gSize: t.gSize || t.size }) : t; }
 
   /* ------------------------------------------------------------ võrdluskorv */
   var cmp = {
@@ -875,7 +880,7 @@
       var M = minuLeia(S.minu, eprelRows), minuT = M && M.t ? M.t.key : null;
       if (M && !M.puudu) {
         var mt = M.t, measuredM = mt && (ck === 'wet' || (ck === 'dry' ? mt.muDry != null : ck === 'snow' ? mt.muSnow != null : mt.muIce != null));
-        var baseM = measuredM ? mt : (M.r ? eprelTyre(M.r) : Object.assign({}, mt, { muDry: null, muSnow: null, muIce: null }));
+        var baseM = measuredM ? onCar(mt, S.size) : (M.r ? eprelTyre(M.r) : Object.assign({}, mt, { muDry: null, muSnow: null, muIce: null }));
         var rm = calc(baseM, veh, cond);
         rows.push({ id: 'o', kind: 'own', name: M.nimi, d: rm.distanceM, r: rm, own: true, hooaeg: M.hooaeg,
           pids: M.r ? [M.r.slug + '@' + S.size] : [], label: M.r ? M.r.g : null, t: measuredM ? mt : null,
@@ -892,7 +897,7 @@
         if (!avail && !S.showOther) { hiddenOther++; return; }
         var measured = ck === 'wet' ? true : ck === 'dry' ? t.muDry != null : ck === 'snow' ? t.muSnow != null : t.muIce != null;
         if (!measured) { collapsed[t.category] = t; return; }
-        var r = calc(t, veh, cond);
+        var r = calc(onCar(t, S.size), veh, cond);
         var srcs = uniqSrc(t.tests), er = eprelByTest[t.key];
         rows.push({ id: 't:' + t.key, kind: 'test', name: t.name, d: r.distanceM, r: r, t: t, pids: er ? [er.slug + '@' + S.size] : [],
           sub: 'Sõltumatu test' + (srcs.length ? ' · ' + srcs.map(srcName).join(', ') : ''),
@@ -1328,9 +1333,10 @@
     var key = (t ? 't:' + t.key : 'e:' + r.cat + '|' + r.g) + '|' + r.m + '|' + (veh.key || veh.name);
     var c = simCache[key];
     if (c) return c;
-    var base = t ? Object.assign({}, t, { size: pretty(r.m) }) : eprelTyre(r), aq = base;
+    var base = t ? onCar(t, r.m) : eprelTyre(r), aq = base;
     if (t && t.aqua) {
-      var hpM = window.Pidurdus.hydroplaneSpeedKmh(base, veh, { surface: 'ASPHALT', waterMm: 7.8 });
+      /* mõõdetud ujumiskiirus on TESTIMÕÕDUS -> tegur mudeli sama mõõdu vastu */
+      var hpM = window.Pidurdus.hydroplaneSpeedKmh(t, veh, { surface: 'ASPHALT', waterMm: 7.8 });
       if (hpM) aq = Object.assign({}, base, { hpFactor: t.aqua.kmh / hpM });
     }
     c = {
@@ -1941,7 +1947,8 @@
     function go() {
       var z = sizes.filter(function (x) { return x.m === sSel.value; })[0];
       var t = tested ? Object.assign({}, core.tyreByKey[tested]) : null;
-      var tyre = t || (z ? { key: 'w', name: 'x', category: root.dataset.cat, wetGripIndex: gmid(z.g, root.dataset.cat), treadDepthMm: 8, treadDepthNewMm: 8, pressureBar: null, loadCapacityKg: null, ageYears: 1, studded: false, size: pretty(z.m), gSource: 'label' } : null);
+      var mSel = z ? z.m : norm(veh.oemSize);
+      var tyre = t ? onCar(t, mSel) : (z ? { key: 'w', name: 'x', category: root.dataset.cat, wetGripIndex: gmid(z.g, root.dataset.cat), treadDepthMm: 8, treadDepthNewMm: 8, pressureBar: null, loadCapacityKg: null, ageYears: 1, studded: false, size: pretty(z.m), gSource: 'label' } : null);
       if (!tyre) { out.innerHTML = '<p class="note">Andmed puuduvad.</p>'; return; }
       var cond = condObj(ck, speed), r = calc(tyre, veh, cond);
       var cat = tyre.category, m = z ? z.m : norm(veh.oemSize);
