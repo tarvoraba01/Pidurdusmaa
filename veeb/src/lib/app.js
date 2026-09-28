@@ -633,6 +633,67 @@
       if (shown) { goLabel('Arvuta uuesti'); goBtn.classList.add('stale'); }
     }
 
+    /* ---- 5. Sinu praegune rehv (valikuline) */
+    S.minu = null;
+    (function () {
+      var inp = $('[data-own-in]', root), list = $('[data-own-list]', root), hint = $('[data-own-hint]', root);
+      if (!inp || !list) return;
+      var hits = [], act = -1, valitudNimi = '', HINT = hint ? hint.textContent : '';
+      function otsi(q, rows) {
+        var toks = lihtne(q).split(' ').filter(Boolean);
+        if (!toks.length) return [];
+        var sobib = function (hay) { hay = ' ' + lihtne(hay) + ' '; return toks.every(function (t) { return hay.indexOf(t) >= 0; }); };
+        var out = [], seen = {}, tested = {};
+        rows.forEach(function (r) {
+          if (seen[r.slug] || !sobib(r.mark + ' ' + r.name)) return;
+          seen[r.slug] = 1; if (r.tested) tested[r.tested] = 1;
+          out.push({ e: r.slug, n: r.mark + ' ' + r.name, s: KAT_SILT[r.catNr] || '', g: r.g });
+        });
+        /* testitud rehvid, mida sinu mõõdus EPREL-is ei ole (nt naastrehvid) */
+        core.tyres.forEach(function (t) {
+          if (tested[t.key] || !sobib(t.name)) return;
+          out.push({ t: t.key, n: t.name, s: tyypSilt(t.category) + ' · test mõõdus ' + t.size });
+        });
+        return out.slice(0, 8);
+      }
+      function naita() {
+        list.innerHTML = hits.length ? hits.map(function (h, i) {
+          return '<li role="option" id="own-o' + i + '" data-i="' + i + '" aria-selected="' + (i === act) + '"><b>' + esc(h.n) + '</b>' +
+            (h.g ? ' ' + grade(h.g) : '') + ' <span class="own-t">' + esc(h.s) + '</span></li>';
+        }).join('') : (inp.value.trim().length > 1 ? '<li class="vs-none" role="presentation">Mõõdus ' + esc(pretty(S.size)) + ' sellist rehvi ei leidnud. Kontrolli mõõtu või kirjuta ainult mudeli nimi.</li>' : '');
+        var open = !!list.innerHTML;
+        list.hidden = !open; inp.setAttribute('aria-expanded', open ? 'true' : 'false');
+        if (act >= 0) inp.setAttribute('aria-activedescendant', 'own-o' + act); else inp.removeAttribute('aria-activedescendant');
+      }
+      function vali(i) {
+        var h = hits[i]; if (!h) return;
+        S.minu = h.e ? { e: h.e, n: h.n } : { t: h.t, n: h.n };
+        valitudNimi = inp.value = h.n;
+        hits = []; act = -1; naita(); list.hidden = true;
+        if (hint) hint.textContent = h.s ? 'Valitud: ' + h.s + '. Võrdluses on sama hooaja rehvid.' : HINT;
+        Track('oma_rehv', h.n);
+        recalc();
+      }
+      function otsiNyyd() {
+        var q = inp.value;
+        loadSize(S.size).then(function (rows) { if (inp.value !== q) return; hits = otsi(q, rows); act = hits.length ? 0 : -1; naita(); });
+      }
+      inp.addEventListener('input', function () {
+        if (S.minu && inp.value !== valitudNimi) { S.minu = null; if (hint) hint.textContent = HINT; recalc(); }
+        otsiNyyd();
+      });
+      inp.addEventListener('focus', function () { if (inp.value && !S.minu) otsiNyyd(); });
+      inp.addEventListener('keydown', function (e) {
+        if (e.key === 'ArrowDown' && hits.length) { act = (act + 1) % hits.length; naita(); e.preventDefault(); }
+        else if (e.key === 'ArrowUp' && hits.length) { act = (act - 1 + hits.length) % hits.length; naita(); e.preventDefault(); }
+        else if (e.key === 'Enter' && act >= 0) { vali(act); e.preventDefault(); }
+        else if (e.key === 'Escape') { list.hidden = true; inp.setAttribute('aria-expanded', 'false'); }
+      });
+      list.addEventListener('mousedown', function (e) { e.preventDefault(); });
+      list.addEventListener('click', function (e) { var li = e.target.closest('[data-i]'); if (li) vali(+li.dataset.i); });
+      inp.addEventListener('blur', function () { setTimeout(function () { list.hidden = true; inp.setAttribute('aria-expanded', 'false'); }, 120); });
+    })();
+
     var picker = VehPicker(root, function (key) {
       /* mark → mudel → aasta: vahepealsed sammud (auto veel valimata) ei muuda midagi */
       if (!key && !S.veh) return;
@@ -764,6 +825,29 @@
   }
 
   /* ------------------------------------------------------------ tulemus */
+  /* ---- SINU REHV (valikuline): EPREL-i rida sinu mõõdus või testitud rehv */
+  var KAT_HOOAEG = { 0: 'summer', 1: 'all', 2: 'winter', 3: 'winter' };
+  var KAT_SILT = { 0: 'suverehv', 1: 'aastaringne', 2: 'Kesk-Euroopa talverehv', 3: 'Põhjamaade talverehv' };
+  function tyypHooaeg(cat) { return /^SUMMER/.test(cat) ? 'summer' : cat === 'ALL_SEASON' ? 'all' : 'winter'; }
+  function tyypSilt(cat) {
+    return { SUMMER_UHP: 'sportlik suverehv', SUMMER_TOURING: 'suverehv', ALL_SEASON: 'aastaringne', WINTER_CENTRAL: 'Kesk-Euroopa talverehv',
+             WINTER_NORDIC: 'Põhjamaade talverehv', WINTER_STUDDED: 'naastrehv' }[cat] || '';
+  }
+  /* minu = { e: slug } (märgisega rehv sinu mõõdus) või { t: key } (testitud rehv) */
+  function minuLeia(minu, eprelRows) {
+    if (!minu) return null;
+    if (minu.e) {
+      var r = eprelRows.filter(function (x) { return x.slug === minu.e; })[0];
+      if (!r) return { puudu: true, nimi: minu.n };
+      var t = r.tested ? core.tyreByKey[r.tested] : null;
+      return { r: r, t: t, nimi: r.mark + ' ' + r.name, hooaeg: KAT_HOOAEG[r.catNr] || 'summer', silt: KAT_SILT[r.catNr] || '' };
+    }
+    var tt = core.tyreByKey[minu.t];
+    if (!tt) return null;
+    var er = eprelRows.filter(function (x) { return x.tested === tt.key; })[0] || null;
+    return { r: er, t: tt, nimi: tt.name, hooaeg: tyypHooaeg(tt.category), silt: tyypSilt(tt.category) };
+  }
+
   var Result = (function () {
     var el, state, rowsAll, sel, showAll = false;
     /* Klassi rea all päris rehvid: pick[klassiRida] = valitud rehvi slug.
@@ -781,7 +865,18 @@
       eprelRows.forEach(function (r) { if (r.tested) eprelByTest[r.tested] = r; });
       var collapsed = {};
       var hiddenOther = 0;
+      var M = minuLeia(S.minu, eprelRows), minuT = M && M.t ? M.t.key : null;
+      if (M && !M.puudu) {
+        var mt = M.t, measuredM = mt && (ck === 'wet' || (ck === 'dry' ? mt.muDry != null : ck === 'snow' ? mt.muSnow != null : mt.muIce != null));
+        var baseM = measuredM ? mt : (M.r ? eprelTyre(M.r) : Object.assign({}, mt, { muDry: null, muSnow: null, muIce: null }));
+        var rm = calc(baseM, veh, cond);
+        rows.push({ id: 'o', kind: 'own', name: M.nimi, d: rm.distanceM, r: rm, own: true, hooaeg: M.hooaeg,
+          pids: M.r ? [M.r.slug + '@' + S.size] : [], label: M.r ? M.r.g : null, t: measuredM ? mt : null,
+          est: !measuredM && ck !== 'wet',
+          sub: 'Sinu rehv · ' + M.silt + (measuredM ? ' · haare sõltumatust testist' : ck === 'wet' && M.r ? ' · märgise klass ' + M.r.g : ' · rehvitüübi keskmine (märgis ei ütle ' + COND[ck].label + ' kohta midagi)') });
+      }
       core.tyres.forEach(function (t) {
+        if (t.key === minuT) return;
         if (sea.tested.indexOf(t.category) < 0) return;
         /* Testitud rehv on SINU autole asjakohane ainult siis, kui seda mudelit
            müüakse sinu mõõdus (EPREL-is on rida) või test oligi selles mõõdus.
@@ -823,11 +918,12 @@
         });
       }
       rows.sort(function (a, b) { return a.d - b.d; });
-      return { rows: rows, veh: veh, cond: cond, vehDefault: !core.vehByKey[S.veh], nSeason: inSeason.length, hiddenOther: hiddenOther };
+      return { rows: rows, veh: veh, cond: cond, vehDefault: !core.vehByKey[S.veh], nSeason: inSeason.length, hiddenOther: hiddenOther, minu: M };
     }
     function uniqSrc(tests) { var s = []; (tests || []).forEach(function (x) { if (s.indexOf(x.src) < 0) s.push(x.src); }); return s; }
     function srcName(c) { var s = core.sources[c]; return s ? s.tegija.replace(/ \(.*\)/, '') + ' ' + s.aasta : c; }
     function defaultSel(rows) {
+      if (rows.some(function (r) { return r.kind === 'own'; })) return 'o';
       var cls = rows.filter(function (r) { return r.kind === 'class'; });
       if (cls.length) return cls.slice().sort(function (a, b) { return b.n - a.n; })[0].id;
       var cat = rows.filter(function (r) { return r.kind === 'cat'; });
@@ -839,6 +935,9 @@
       if (!el) return;
       /* hooaeg järgib teeolusid (lumi/jää -> talv), kuni kasutaja pole ise valinud */
       if (!S._userSeason) S.resSeason = (S.cond === 'snow' || S.cond === 'ice') ? 'winter' : 'summer';
+      /* sinu rehv määrab hooaja: võrdluses on sama hooaja rehvid */
+      var M0 = minuLeia(S.minu, eprelRows);
+      if (M0 && !M0.puudu && !S._userSeason) S.resSeason = M0.hooaeg;
       state = S; state._eprel = eprelRows;
       sel = null; showAll = false;
       pick = {}; pickManual = {}; pickAll = false; avatud = null;
@@ -872,7 +971,7 @@
         if (mb) mb.classList.toggle('has-prices', !!$('.mbar .p:not(:empty)', mb));
         if (!box) return;
         if (!avail) { box.innerHTML = '<span class="pl">Hinnad müüjatelt</span> <span class="none">pole hetkel saadaval</span> ' + tip(PRICE_T); return; }
-        if (cur.kind === 'test') {
+        if (cur.kind === 'test' || cur.kind === 'own') {
           var id = (cur.pids || [])[0];
           box.innerHTML = '<span class="pl">' + esc(cur.name) + ' — hinnad</span>' + (id ? priceHtml(h[id], true) : '<span class="none">Seda rehvi sinu mõõdus müüjatelt ei leitud</span>');
         } else if (cur.kind === 'class' && valitud(cur)) {
@@ -946,7 +1045,7 @@
       var dd = x.d - best;
       if (compact) {
         var nm = x.kind === 'class' ? 'Klass ' + x.g + ' · ' + x.n + ' rehvi' : x.kind === 'cat' ? (CATNAME[x.cat] + ', keskmine') : x.name;
-        return '<li><button type="button" class="mbar' + (x.kind === 'class' ? ' mcls' : '') + '" data-row="' + esc(x.id) + '" aria-pressed="' + (x.id === sel) + '"' +
+        return '<li><button type="button" class="mbar' + (x.kind === 'class' ? ' mcls' : '') + (x.kind === 'own' ? ' own' : '') + '" data-row="' + esc(x.id) + '" aria-pressed="' + (x.id === sel) + '"' +
           (x.kind === 'class' ? ' aria-expanded="' + (x.id === avatud) + '"' : '') + ' title="' + esc(x.kind === 'class' ? 'EL-i märgise märghaardumise klass ' + x.g + ' — vajuta, et näha selle klassi rehve' : (x.sub || '')) + '">' +
           '<span class="n">' + esc(nm) + '</span>' +
           '<span class="t" aria-hidden="true"><span style="width:' + (100 * x.d / max).toFixed(1) + '%"></span></span>' +
@@ -962,6 +1061,26 @@
         '<span class="bx' + (dd < 0.05 ? ' zero' : '') + '">' + (dd < 0.05 ? 'parim' : '+' + fmt(dd) + ' m<small>' + pct(dd, best) + '</small>') + '</span>' +
         '<span class="tr" aria-hidden="true"><span class="' + (x.kind === 'test' ? '' : 'band') + '" style="width:' + (100 * x.d / max).toFixed(1) + '%"></span></span>' +
         '</button></li>';
+    }
+    /* sinu rehv vs parim sama hooaja valik (+ suverehv lumel/jääl) */
+    function minuVordlus(cur, rows, out, S, react) {
+      if (out.minu && out.minu.puudu) return '<span class="own-cmp">Rehvi ' + esc(out.minu.nimi || '') + ' mõõdus ' + esc(pretty(S.size)) + ' ei ole — näitame tüüpilist rehvi.</span>';
+      if (!cur || cur.kind !== 'own') return '';
+      var muud = rows.filter(function (x) { return x.kind !== 'own'; });
+      var h = '';
+      if (muud.length) {
+        var b = muud[0], vahe = cur.d - b.d;
+        var bn = b.kind === 'class' ? b.g + '-klassi märgisega rehv' : b.kind === 'cat' ? CATNAME[b.cat].toLowerCase() + ' (keskmine)' : b.name;
+        /* alla 5% vahe on mudeli veapiiri sees — ära soovita vahetust */
+        h = vahe < 0.5 ? '<span class="own-cmp">Sinu rehv on selles võrdluses parim.</span>'
+          : vahe / cur.d < 0.05 ? '<span class="own-cmp">Sinu rehv on parimate hulgas: vahe parimaga (' + esc(bn) + ') on ' + fmt(vahe) + ' m, see on veapiiri sees.</span>'
+          : '<span class="own-cmp">Parim valik: <b>' + esc(bn) + '</b> — peatub <b>' + fmt(vahe) + ' m</b> varem.</span>';
+      }
+      if (cur.hooaeg === 'summer' && (S.cond === 'snow' || S.cond === 'ice')) {
+        var w = calc(classTyre('C', 'WINTER_NORDIC', S.size), out.veh, out.cond).distanceM;
+        h += '<span class="own-cmp">Suverehv ' + (S.cond === 'snow' ? 'lumel' : 'jääl') + ': Põhjamaade talverehviga oleks umbes <b>' + fmt(w + react) + ' m</b>.</span>';
+      }
+      return h;
     }
     function render() {
       var S = state, out = rowsFor(S, S._eprel, S.resSeason);
@@ -1020,9 +1139,10 @@
         });
       }
       var vm = valitud(cur);
-      var whoShort = cur.kind === 'class' ? (vm ? vm.mark + ' ' + vm.name + (vmT ? ' (sõltumatu test)' : ' (' + cur.g + '-klassi märgis)') : cur.g + '-klassi märgise rehviga') : cur.kind === 'cat' ? CATNAME[cur.cat].toLowerCase() + 'ga (keskmine)' : cur.name;
+      var whoShort = cur.kind === 'own' ? cur.name + ' (sinu rehv)' : cur.kind === 'class' ? (vm ? vm.mark + ' ' + vm.name + (vmT ? ' (sõltumatu test)' : ' (' + cur.g + '-klassi märgis)') : cur.g + '-klassi märgise rehviga') : cur.kind === 'cat' ? CATNAME[cur.cat] + ' — keskmine' : cur.name;
       $('[data-r-whoshort]', el).innerHTML = esc(whoShort) + ' · ' + esc(c.label) + '<br>' +
-        (out.vehDefault ? 'auto valimata — arvutatud VW Golf 8 järgi' : esc(out.veh.name)) + ' · vahemik ' + fmt(r.lowM + react) + '–' + fmt(r.highM + react) + ' m';
+        (out.vehDefault ? 'auto valimata — arvutatud VW Golf 8 järgi' : esc(out.veh.name)) + ' · vahemik ' + fmt(r.lowM + react) + '–' + fmt(r.highM + react) + ' m' +
+        minuVordlus(cur, rows, out, S, react);
 
       /* kompaktsed ribad: 5 rida, valitud alati sees */
       var LIMC = 5, comp = rows.slice(0, LIMC);
@@ -1053,7 +1173,8 @@
           : 'See on pidurdusteekond: arv algab hetkest, kui pidur on põhjas. Koos ' + String(rt).replace('.', ',') + ' s reaktsiooniajaga oleks peatumisteekond <b>' + fmt(r.distanceM + react1) + ' m</b> (+' + fmt(react1) + ' m).';
         $('[data-r-band]', detail).innerHTML = 'Tõenäoline vahemik <b>' + fmt(r.lowM + react) + '–' + fmt(r.highM + react) + ' m</b> (±' + Math.round(r.sigmaRel * 100) + '%)';
         var who = '<b>' + esc(cur.name) + '</b>';
-        if (cur.kind === 'test') who += '<span class="src">Haare tuleb sõltumatu testi mõõdetud tulemusest' + (cur.sizeNote ? ' (testi mõõt ' + esc(cur.sizeNote) + '; sinu mõõdus võib märgise klass erineda)' : '') + '.</span>';
+        if (cur.kind === 'own') who += '<span class="src">Sinu rehv. ' + esc(cur.sub.replace(/^Sinu rehv · /, '')) + '.</span>';
+        else if (cur.kind === 'test') who += '<span class="src">Haare tuleb sõltumatu testi mõõdetud tulemusest' + (cur.sizeNote ? ' (testi mõõt ' + esc(cur.sizeNote) + '; sinu mõõdus võib märgise klass erineda)' : '') + '.</span>';
         else if (cur.kind === 'class') {
           var gn = gmidN(cur.g, cur.cat);
           who += '<span class="src">Märgise klass ' + cur.g + ' · ' + cur.n + ' rehvimudelit sinu mõõdus. Haare on ' +
@@ -1065,7 +1186,8 @@
         var meta = '<span class="pill calc">Arvutatud hinnang</span>';
         meta += out.vehDefault ? '<span class="pill warn">Auto valimata: VW Golf 8</span>' : '<span class="pill">' + esc(out.veh.name) + '</span>';
         meta += '<span class="pill">' + esc(pretty(S.size)) + '</span>';
-        if (cur.kind === 'test') meta += '<span class="pill test">Sõltumatu test</span>';
+        if (cur.kind === 'own') meta += '<span class="pill">Sinu rehv</span>';
+        if (cur.kind === 'test' || (cur.kind === 'own' && cur.t)) meta += '<span class="pill test">Sõltumatu test</span>';
         if (cur.kind === 'class') meta += '<span class="pill off">Ametlik märgis</span>';
         $('[data-r-meta]', detail).innerHTML = meta;
         var sea = SEASON[S.resSeason], LIM = 10, shown = showAll ? rows : rows.slice(0, LIM);

@@ -752,3 +752,14 @@ textarea.lin{resize:vertical;min-height:140px}
 @supports (-webkit-touch-callout: none) {
   input, select, textarea, .sel, .lsel, .lin, .vs-in, .sp .sp-in { font-size: 16px !important; }
 }
+
+/* „Sinu praegune rehv“ (valikuline) */
+.own{margin:var(--sp-4) 0 var(--sp-2)}
+.own .lbl{display:flex;align-items:center;gap:var(--sp-2)}
+.own .opt{font-size:11.5px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:#8b929e;border:1px solid #3a3f49;border-radius:999px;padding:1px 8px}
+.own-vs{margin-bottom:0}
+.own-vs .vs-in::placeholder{opacity:.45}
+.vs-list .own-t{display:inline-block;margin-left:6px;font-size:11.5px;font-weight:600;color:#aab1bc}
+.mbar.own .n{font-weight:800}
+.mbar.own .n::before{content:"Sinu rehv · ";color:var(--yellow)}
+.own-cmp{display:block;margin-top:var(--sp-2);font-size:14px}

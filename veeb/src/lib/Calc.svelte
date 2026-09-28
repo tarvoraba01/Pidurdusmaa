@@ -103,6 +103,31 @@
 				</div>
 			</div>
 		</div>
+		<div class="own">
+			<p class="lbl">
+				<label for="f-own">5. Sinu praegune rehv</label> <span class="opt">valikuline</span>
+			</p>
+			<div class="vs vs-dark own-vs">
+				<input
+					id="f-own"
+					class="sel vs-in"
+					type="search"
+					placeholder="Nt Nokian Hakkapeliitta R5 — pole kohustuslik"
+					autocomplete="off"
+					spellcheck="false"
+					role="combobox"
+					aria-expanded="false"
+					aria-autocomplete="list"
+					aria-controls="own-list"
+					aria-describedby="own-hint"
+					data-own-in
+				/>
+				<ul class="vs-list" id="own-list" role="listbox" hidden data-own-list></ul>
+			</div>
+			<p class="size-hint" id="own-hint" data-own-hint>
+				Kui kirjutad oma rehvi nime, näitame just selle pidurdusmaad ja kõrval, kas mõni teine rehv peatuks varem.
+			</p>
+		</div>
 		<button class="cta" type="button" data-go
 			>Arvuta pidurdusmaa <span class="arr" aria-hidden="true">→</span></button
 		>
