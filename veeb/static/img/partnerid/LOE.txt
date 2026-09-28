@@ -1,0 +1,3 @@
+Partnerite logod. Faili nimi = partnerid.js real olev "logo" (nt reifendirekt.svg).
+Kasuta ainult logo, mille partner ise annab (Awini programmi lehel "Creative"
+või poe meediafailid). SVG või PNG, soovitavalt läbipaistva taustaga.

@@ -2055,8 +2055,17 @@
       .catch(function () {});
   }
 
+  /* partneri kaardi klikk statistikasse (üks kuular kogu saidile) */
+  var partnerKuular = false;
   function initPage() {
     trackPage();
+    if (!partnerKuular) {
+      partnerKuular = true;
+      document.addEventListener('click', function (e) {
+        var a = e.target instanceof Element ? e.target.closest('a[data-partner]') : null;
+        if (a) Track('partner_klikk', a.dataset.partner);
+      });
+    }
     /* päis jääb lehevahetusel alles — sulgeme lahtise menüü */
     var pm = $('#pm-panel'), bg = $('[data-burger]');
     if (pm && !pm.hidden) { pm.hidden = true; if (bg) bg.setAttribute('aria-expanded', 'false'); }
