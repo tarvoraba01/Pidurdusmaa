@@ -426,6 +426,10 @@ _BODY_SMALL = {
     "nissan_micra_k11", "zaz_tavria", "skoda_favorit", "skoda_felicia", "seat_ibiza_2",
     # 2026-09-28 neljas ring
     "peugeot_108", "citroen_c1_2",
+    # 2026-09-28 viies ring
+    "honda_jazz_3", "hyundai_i20_3", "mazda_2_de", "nissan_micra_k13", "nissan_note_e12", "renault_clio_2", "suzuki_swift_5", "toyota_aygo_x", "toyota_yaris_xp10",
+    # 2026-09-28 viies ring, teine osa
+    "ford_fiesta_5",
 }
 
 _BODY_SUV = {
@@ -473,6 +477,10 @@ _BODY_SUV = {
     "ssangyong_korando_3", "isuzu_dmax_2", "mg_zs_ev", "byd_atto3",
     # 2026-09-28 neljas ring
     "bmw_x4_f26", "bmw_x4_g02", "bmw_x6_e71", "bmw_x6_f16", "bmw_x6_g06", "bmw_x7_g07", "bmw_ix", "audi_q2", "audi_q8", "mb_gl_x164", "mb_gls_x166", "mb_gls_x167", "mb_glb_x247", "vw_amarok_1", "vw_taigo", "vw_touareg_3", "porsche_cayenne_9pa", "porsche_cayenne_9y0", "toyota_corolla_cross", "toyota_highlander_4", "toyota_lc_100", "toyota_lc_200", "kia_stonic", "hyundai_bayon", "lr_rr_l322", "lr_rr_l405", "lr_rrs_l494", "lr_defender_l663", "tesla_modelx", "mitsu_eclipse_cross", "ford_mach_e", "renault_arkana",
+    # 2026-09-28 viies ring
+    "bmw_x1_u11", "bmw_x3_g45", "hyundai_santafe_dm", "kia_niro_2", "kia_sorento_4", "kia_sportage_2", "mazda_cx7", "mb_eqa", "mb_glc_x254", "mb_ml_w163", "nissan_juke_f16", "renault_captur_1", "skoda_elroq", "skoda_kodiaq_2", "subaru_forester_sk", "toyota_lc_250",
+    # 2026-09-28 viies ring, teine osa
+    "audi_q4_etron", "dacia_duster_3", "honda_crv_2", "hyundai_kona_2", "kia_ev3", "lexus_rx_xu30", "mg_hs", "nissan_xtrail_t33", "opel_crossland", "opel_mokka_b", "peugeot_3008_3", "renault_austral", "toyota_rav4_2", "volvo_ex30",
 }
 _BODY_VAN = {
     "vw_transporter", "vw_caddy_3", "vw_t5", "ford_transit_custom",
@@ -497,6 +505,8 @@ _BODY_VAN = {
     "kia_venga",
     # 2026-09-28 neljas ring
     "mb_v_w447",
+    # 2026-09-28 viies ring, teine osa
+    "citroen_c4_picasso_1", "citroen_jumper_3", "ford_smax_2", "ford_transit_8", "ford_transit_connect_2", "mb_citan_w415", "opel_meriva_a", "opel_vivaro_b", "opel_vivaro_c", "peugeot_5008_1", "peugeot_expert_3", "renault_kangoo_3", "renault_trafic_3", "vw_transporter_t6",
 }
 
 

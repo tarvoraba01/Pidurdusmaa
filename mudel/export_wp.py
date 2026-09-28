@@ -169,8 +169,9 @@ def parse_vehicle(v):
     elif make == "Mercedes-Benz" and re.match(r"^[A-Z]{1,3}\d{3}", model):
         tail = [model] + tail
         model = re.match(r"^([A-Z]{1,3})", model).group(1) + "-klass"
-    elif model in ("Grand", "Range", "Model", "Land", "Santa", "Space",
-                   "Grande", "Atto", "Ioniq") and tail:
+    elif (model in ("Grand", "Range", "Model", "Land", "Santa", "Space",
+                    "Grande", "Atto") and tail) or (
+            model == "Ioniq" and tail and tail[0] in ("5", "6", "9")):
         model, tail = model + " " + tail[0], tail[1:]
     elif model in ("C4", "C5") and tail and tail[0] in ("Picasso", "Aircross"):
         model, tail = model + " " + tail[0], tail[1:]
