@@ -436,6 +436,8 @@ _BODY_SMALL = {
     "ford_fiesta_5",
     # 2026-09-28 kuues ring
     "audi_a1_gb", "citroen_c1_1", "hyundai_i20_1",
+    # 2026-09-28 seitsmes ring
+    "dacia_logan_1", "dacia_spring", "fiat_500e", "fiat_punto_2", "honda_jazz_4", "hyundai_getz", "hyundai_i10_3", "kia_picanto_3", "mg3_hybrid", "mini_cooper_j01", "mini_cooper_r50", "nissan_micra_k14", "peugeot_107", "renault_twingo_3", "seat_ibiza_3", "seat_mii", "smart_fortwo_453", "suzuki_swift_6",
 }
 
 _BODY_SUV = {
@@ -489,6 +491,8 @@ _BODY_SUV = {
     "audi_q4_etron", "dacia_duster_3", "honda_crv_2", "hyundai_kona_2", "kia_ev3", "lexus_rx_xu30", "mg_hs", "nissan_xtrail_t33", "opel_crossland", "opel_mokka_b", "peugeot_3008_3", "renault_austral", "toyota_rav4_2", "volvo_ex30",
     # 2026-09-28 kuues ring
     "audi_q8_etron", "bmw_ix1", "bmw_ix3", "bmw_x2_f39", "mb_eqb", "mb_eqc", "mb_g_w463", "mb_gla_h247", "mitsu_l200_4", "toyota_lc_90", "toyota_rav4_1", "volvo_c40", "volvo_ex90", "volvo_xc40_p8", "vw_id5", "vw_tiguan_allspace", "bmw_x5_45e_g05", "bmw_x3_30d_g01", "skoda_kodiaq_1_15", "audi_q5_8r_30", "toyota_rav4_4_hyb", "toyota_rav4_5_phev", "volvo_xc60_1_d5", "volvo_xc60_2_t8", "volvo_xc90_2_t8", "nissan_qashqai_j11_16", "kia_sportage_4_16", "hyundai_tucson_nx4_phev",
+    # 2026-09-28 seitsmes ring
+    "alfa_stelvio", "alfa_tonale", "byd_atto2", "byd_seal_u", "citroen_c3_aircross", "cupra_tavascan", "cupra_terramar", "dacia_bigster", "fiat_500x", "ford_ecosport", "ford_edge_2", "ford_explorer_ev", "ford_ranger_p703", "honda_crv_6", "honda_hrv_3", "honda_zrv", "hyundai_santafe_mx5", "isuzu_dmax_3", "jaecoo_7", "jaguar_epace", "jaguar_fpace", "jaguar_ipace", "jeep_avenger", "jeep_compass_mk", "jeep_gc_wk", "jeep_gc_wl", "jeep_wrangler_jl", "kia_ev9", "kia_sorento_1", "leapmotor_c10", "lexus_nx_az20", "lexus_rx_al30", "lr_defender_110", "lr_discovery_5", "lr_evoque_2", "lr_freelander_1", "lr_rr_l460", "lr_rrs_l461", "lr_velar", "lynk_01", "mazda_cx80", "mazda_mx30", "mg_zs_2", "mini_countryman_f60", "mini_countryman_u25", "mitsu_asx_2", "mitsu_outlander_4", "mitsu_pajero_3", "nissan_ariya", "nissan_murano_z51", "nissan_navara_d23", "nissan_xtrail_t30", "omoda_5", "opel_frontera_2024", "opel_grandland_2", "polestar_3", "porsche_macan_ev", "ram_1500_dt", "renault_koleos_2", "smart_1", "ssangyong_kyron", "ssangyong_rexton_2", "ssangyong_tivoli", "subaru_crosstrek", "subaru_forester_sg", "subaru_xv_2", "suzuki_jimny_3", "suzuki_scross_2", "tesla_modely_juniper", "xpeng_g6", "xpeng_g9", "zeekr_x",
 }
 _BODY_VAN = {
     "vw_transporter", "vw_caddy_3", "vw_t5", "ford_transit_custom",
@@ -517,6 +521,8 @@ _BODY_VAN = {
     "citroen_c4_picasso_1", "citroen_jumper_3", "ford_smax_2", "ford_transit_8", "ford_transit_connect_2", "mb_citan_w415", "opel_meriva_a", "opel_vivaro_b", "opel_vivaro_c", "peugeot_5008_1", "peugeot_expert_3", "renault_kangoo_3", "renault_trafic_3", "vw_transporter_t6",
     # 2026-09-28 kuues ring
     "bmw_218i_at_u06", "citroen_c3_picasso", "ford_galaxy_3", "mb_citan_w420", "toyota_corolla_verso", "toyota_prius_plus", "toyota_proace_city", "vw_golf_sportsvan", "vw_id_buzz", "vw_multivan_t7",
+    # 2026-09-28 seitsmes ring
+    "chevrolet_orlando", "dacia_dokker", "dacia_lodgy", "fiat_500l", "kia_carens_4", "opel_combo_e", "opel_movano_b", "peugeot_807", "peugeot_expert_2", "peugeot_partner_3", "renault_espace_5", "renault_scenic_4", "seat_altea",
 }
 
 
