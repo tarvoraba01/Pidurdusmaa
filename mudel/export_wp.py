@@ -174,6 +174,9 @@ def parse_vehicle(v):
         model, tail = model + " " + tail[0], tail[1:]
     elif model in ("C4", "C5") and tail and tail[0] in ("Picasso", "Aircross"):
         model, tail = model + " " + tail[0], tail[1:]
+    elif tail and tail[0] in ("Cross", "S-Cross", "Mach-E"):
+        # Yaris Cross, Corolla Cross, Eclipse Cross, SX4 S-Cross, Mustang Mach-E
+        model, tail = model + " " + tail[0], tail[1:]
     # polvkonnakood (roomlane, taht, W212, B8, E46...) voib olla KUS TAHES
     # sabas -- ta laheb aasta juurde, mootor jaab variandiks.
     pinned = []

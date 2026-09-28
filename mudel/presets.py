@@ -424,6 +424,8 @@ _BODY_SMALL = {
     # 2026-09-25 vanemad autod
     "vw_polo_3", "vw_polo_3_abs", "opel_corsa_b", "opel_corsa_c", "ford_fiesta_4",
     "nissan_micra_k11", "zaz_tavria", "skoda_favorit", "skoda_felicia", "seat_ibiza_2",
+    # 2026-09-28 neljas ring
+    "peugeot_108", "citroen_c1_2",
 }
 
 _BODY_SUV = {
@@ -469,6 +471,8 @@ _BODY_SUV = {
     "volvo_xc90_2", "seat_arona", "seat_tarraco", "cupra_formentor",
     "jeep_renegade", "jeep_cherokee_kl", "lr_disco_4", "lr_evoque_1",
     "ssangyong_korando_3", "isuzu_dmax_2", "mg_zs_ev", "byd_atto3",
+    # 2026-09-28 neljas ring
+    "bmw_x4_f26", "bmw_x4_g02", "bmw_x6_e71", "bmw_x6_f16", "bmw_x6_g06", "bmw_x7_g07", "bmw_ix", "audi_q2", "audi_q8", "mb_gl_x164", "mb_gls_x166", "mb_gls_x167", "mb_glb_x247", "vw_amarok_1", "vw_taigo", "vw_touareg_3", "porsche_cayenne_9pa", "porsche_cayenne_9y0", "toyota_corolla_cross", "toyota_highlander_4", "toyota_lc_100", "toyota_lc_200", "kia_stonic", "hyundai_bayon", "lr_rr_l322", "lr_rr_l405", "lr_rrs_l494", "lr_defender_l663", "tesla_modelx", "mitsu_eclipse_cross", "ford_mach_e", "renault_arkana",
 }
 _BODY_VAN = {
     "vw_transporter", "vw_caddy_3", "vw_t5", "ford_transit_custom",
@@ -491,6 +495,8 @@ _BODY_VAN = {
     "opel_zafira_c", "opel_combo_d", "peugeot_rifter", "citroen_c4_picasso_2",
     "citroen_berlingo_3", "renault_scenic_3", "dacia_jogger", "hyundai_ix20",
     "kia_venga",
+    # 2026-09-28 neljas ring
+    "mb_v_w447",
 }
 
 
