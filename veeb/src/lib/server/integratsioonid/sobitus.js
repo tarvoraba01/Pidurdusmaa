@@ -14,7 +14,9 @@ const MARK_ALIAS = {
 	'bf goodrich': 'bfgoodrich',
 	'b f goodrich': 'bfgoodrich',
 	vredestein: 'vredestein',
-	'goodyear dunlop': 'goodyear'
+	'goodyear dunlop': 'goodyear',
+	'nokian tyres': 'nokian',
+	'nokian renkaat': 'nokian'
 };
 
 export function norm(s) {
@@ -40,7 +42,7 @@ export function normMoot(s) {
 
 /* mudelinimest ära: mõõt, indeksid ja lisamärgid, mis ei muuda mudelit */
 const MYRA = new Set(
-	'xl rf rft runflat ssr zp extra load reinf reinforced fr mfs tl tubeless 3pmsf pmsf studded naast naastrehv suverehv talverehv lamellrehv aastaringne summer winter allseason all season'.split(
+	'xl rf rft runflat ssr zp extra load reinf reinforced fr mfs tl tubeless 3pmsf pmsf fsl bsw studded naast naastrehv suverehv talverehv lamellrehv aastaringne summer winter allseason all season'.split(
 		' '
 	)
 );
@@ -49,10 +51,11 @@ export function mudeliSonad(mudel, mark) {
 	s = s.replace(/\d{3}\s*[/ ]?\s*\d{2}\s*Z?R\s*F?\s*\d{2}\s*C?/gi, ' '); // mõõt
 	s = s.replace(/\b\d{2,3}(\/\d{2,3})?\s?[A-Z]\b/g, ' '); // 92Y, 104/102T
 	s = s.replace(/\bM\s*[+&/]\s*S\b/gi, ' '); // M+S (mitte „S“ üksi — Pilot Sport 4 S on eri rehv)
-	const markN = norm(mark);
+	/* margi sõnad välja ("Nokian Tyres Hakkapeliitta R5" → "hakkapeliitta r5") */
+	const markW = new Set(norm(mark).split(' '));
 	return norm(s)
 		.split(' ')
-		.filter((w) => w && !MYRA.has(w) && w !== markN);
+		.filter((w) => w && !MYRA.has(w) && !markW.has(w));
 }
 
 function sarnasus(a, b) {

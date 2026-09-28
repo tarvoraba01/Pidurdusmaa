@@ -183,6 +183,8 @@
         case 'margifilter': p.mark = v; break;
         case 'vordlusse': case 'vordlusest_ara': p.rehv = v; break;
         case 'vaheleht': p.vaheleht = v; break;
+        case 'partner_klikk': p.partner = v; break;
+        case 'poe_klikk': p.pood = v.split(' · ')[0]; if (v.indexOf(' · ') > 0) p.rehv = v.split(' · ').slice(1).join(' · '); break;
       }
       if (v) p.vaartus = v;
       for (var k in p) p[k] = String(p[k]).slice(0, 100);
@@ -985,7 +987,7 @@
             .filter(Boolean).sort(function (a, b) { return a.r.hind - b.r.hind; }).slice(0, 3);
           box.innerHTML = '<span class="pl">Soodsaimad klassi ' + cur.g + ' rehvid</span> ' + (top.length ? '<ul class="sellers">' + top.map(function (t) {
             return '<li><span><a href="' + CFG.home + 'rehvid/' + esc(t.m.slug) + '/">' + esc(t.m.mark + ' ' + t.m.name) + '</a> <small>' + esc(t.r.myyja) + '</small></span>' +
-              (t.r.url ? '<a class="buy" href="' + esc(t.r.url) + '" target="_blank" rel="nofollow sponsored noopener">' + eur(t.r.hind) + '</a>' : '<b>' + eur(t.r.hind) + '</b>') + '</li>';
+              (t.r.url ? '<a class="buy" href="' + esc(t.r.url) + '" target="_blank" rel="nofollow sponsored noopener" data-pood="' + esc(t.r.myyja) + '" data-rehv="' + esc(t.m.mark + ' ' + t.m.name) + '">' + eur(t.r.hind) + '</a>' : '<b>' + eur(t.r.hind) + '</b>') + '</li>';
           }).join('') + '</ul>' + AFF : '<span class="none">Hindu selles klassis veel pole</span>');
         } else box.innerHTML = '<span class="pl">Hinnad</span> <span class="none">vali rehv, et näha müüjaid</span>';
       });
@@ -1409,7 +1411,7 @@
   function priceHtml(rows, avail) {
     if (rows && rows.length) {
       return '<ul class="sellers">' + rows.slice(0, 4).map(function (r) {
-        var name = r.url ? '<a href="' + esc(r.url) + '" target="_blank" rel="nofollow sponsored noopener">' + esc(r.myyja) + '</a>' : esc(r.myyja);
+        var name = r.url ? '<a href="' + esc(r.url) + '" target="_blank" rel="nofollow sponsored noopener" data-pood="' + esc(r.myyja) + '">' + esc(r.myyja) + '</a>' : esc(r.myyja);
         return '<li><span>' + name + (r.laos === false ? ' <small>tellimisel</small>' : '') + '</span><b>' + eur(r.hind) + '</b></li>';
       }).join('') + '</ul>' + (rows.length > 4 ? '<p class="more">+' + (rows.length - 4) + ' müüjat veel</p>' : '') + AFF;
     }
@@ -2061,9 +2063,13 @@
     trackPage();
     if (!partnerKuular) {
       partnerKuular = true;
+      /* väljaminevad poelingid (rel="sponsored"): partneri kaart või hind */
       document.addEventListener('click', function (e) {
-        var a = e.target instanceof Element ? e.target.closest('a[data-partner]') : null;
-        if (a) Track('partner_klikk', a.dataset.partner);
+        var a = e.target instanceof Element ? e.target.closest('a[rel~="sponsored"]') : null;
+        if (!a) return;
+        if (a.dataset.partner) { Track('partner_klikk', a.dataset.partner); return; }
+        var pood = a.dataset.pood || a.textContent.trim() || a.hostname;
+        Track('poe_klikk', pood + (a.dataset.rehv ? ' · ' + a.dataset.rehv : ''));
       });
     }
     /* päis jääb lehevahetusel alles — sulgeme lahtise menüü */

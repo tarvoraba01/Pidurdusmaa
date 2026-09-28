@@ -27,10 +27,11 @@ function lubatud(pakkuja, url) {
 	);
 }
 
+/* Veateates ainult aadressi host: mõnel pakkujal (nt Awini tootefail) on
+   võti URL-i TEES, mitte päringuosas, nii et teed ka ei näidata. */
 const puhas = (url) => {
 	try {
-		const u = new URL(url);
-		return u.origin + u.pathname;
+		return new URL(url).origin;
 	} catch {
 		return '(vigane URL)';
 	}
@@ -71,6 +72,44 @@ export async function paring(pakkuja, url, o = {}) {
 			}
 		}
 		return { status: r.status, tyyp: r.headers.get('content-type') || '', andmed: Buffer.concat(tykid) };
+	}
+	throw new Error(`${pakkuja.id}: liiga palju ümbersuunamisi`);
+}
+
+/**
+ * Suure faili päring voona (nt tootefail, kümned MB). Sama kaitse, mis
+ * paring()-il, aga sisu ei laeta korraga mällu: tagastab Response'i keha,
+ * mis lõpetab vea visates, kui maxBaite ületatakse.
+ * @returns {Promise<{ status: number, tyyp: string, keha: AsyncIterable<Uint8Array> }>}
+ */
+export async function voog(pakkuja, url, o = {}) {
+	const maxBaite = o.maxBaite ?? 100_000_000;
+	let siht = url;
+	for (let hyppe = 0; hyppe < 4; hyppe++) {
+		if (!lubatud(pakkuja, siht)) throw new Error(`${pakkuja.id}: aadress pole lubatud (${puhas(siht)})`);
+		const r = await fetch(siht, {
+			headers: { 'User-Agent': 'Pidurdusmaa.ee/1.0 (+https://pidurdusmaa.ee/kontakt/)', ...(o.headers || {}) },
+			redirect: 'manual',
+			signal: AbortSignal.timeout(o.aegMs ?? 120_000)
+		});
+		if (r.status >= 300 && r.status < 400 && r.headers.get('location')) {
+			siht = new URL(r.headers.get('location'), siht).toString();
+			continue;
+		}
+		if (r.status < 200 || r.status >= 300) throw new Error(`${pakkuja.id}: HTTP ${r.status} (${puhas(siht)})`);
+		const pikkus = +(r.headers.get('content-length') || 0);
+		if (pikkus > maxBaite) throw new Error(`${pakkuja.id}: fail liiga suur`);
+		const keha = r.body;
+		async function* piiratud() {
+			let kokku = 0;
+			if (!keha) return;
+			for await (const t of keha) {
+				kokku += t.length;
+				if (kokku > maxBaite) throw new Error(`${pakkuja.id}: fail liiga suur`);
+				yield t;
+			}
+		}
+		return { status: r.status, tyyp: r.headers.get('content-type') || '', keha: piiratud() };
 	}
 	throw new Error(`${pakkuja.id}: liiga palju ümbersuunamisi`);
 }

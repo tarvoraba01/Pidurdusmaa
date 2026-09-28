@@ -9,12 +9,12 @@
  */
 import { PAKKUJAD } from './pakkujad/index.js';
 import { muutuja, koikOlemas } from './seaded.js';
-import { jsonParing, paring, lubatud } from './http.js';
+import { jsonParing, paring, voog, lubatud } from './http.js';
 import { vahemalus, stat as vmStat, suurus as vmSuurus } from './vahemalu.js';
 import { leiaRehv, normMoot } from './sobitus.js';
 import { eprelSize } from '$lib/server/andmed.js';
 
-const ctx = { muutuja, jsonParing, paring };
+const ctx = { muutuja, jsonParing, paring, voog };
 const olekud = new Map(); // id -> { viga, vigaAeg, edu, tooteid, sobitatud }
 const pildid = new Map(); // slug -> { pakkuja, url }
 const MAX_PILTE = 20000;
@@ -36,6 +36,29 @@ function poeLink(p, url) {
 		return ok ? u.toString() : null;
 	} catch {
 		return null;
+	}
+}
+
+/* Pakkuja võib anda poe nime rea kaupa (nt Awini fail, kus on mitu poodi).
+   Ainult lühike lihttekst — see läheb lehele. */
+function myyjaNimi(v) {
+	if (typeof v !== 'string') return null;
+	const s = v.replace(/[<>\u0000-\u001f]/g, '').replace(/\s+/g, ' ').trim();
+	return s && s.length <= 60 ? s : null;
+}
+
+/** Käivita pakkujate eellaadimine (nt suur tootefail) serveri käivitumisel.
+ *  Ei oota ära ja vead ei kuku läbi — need jõuavad olekusse. */
+export function soojenda() {
+	for (const p of aktiivsed()) {
+		if (typeof p.soojenda !== 'function') continue;
+		Promise.resolve()
+			.then(() => p.soojenda(ctx))
+			.catch((e) => {
+				const o = olek(p);
+				o.viga = String(e.message || e).slice(0, 200);
+				o.vigaAeg = new Date().toISOString();
+			});
 	}
 }
 
@@ -76,7 +99,7 @@ export async function hinnadMoodus(moot) {
 				sob++;
 				const id = slug + '@' + moot;
 				(hinnad[id] = hinnad[id] || []).push({
-					myyja: p.nimi,
+					myyja: myyjaNimi(t.myyja) || p.nimi,
 					hind: Math.round(hind * 100) / 100,
 					url: t.url ? poeLink(p, t.url) : null,
 					laos: t.laos === undefined ? undefined : !!t.laos
@@ -141,7 +164,8 @@ export function olekKoond() {
 			nimi: p.nimi,
 			sees: koikOlemas(p.env || []),
 			puuduvadMuutujad: (p.env || []).filter((n) => !muutuja(n)),
-			...olek(p)
+			...olek(p),
+			...(typeof p.lisaOlek === 'function' ? { fail: p.lisaOlek() } : {})
 		})),
 		vahemalu: { ...vmStat, kirjeid: vmSuurus() },
 		pilte: pildid.size

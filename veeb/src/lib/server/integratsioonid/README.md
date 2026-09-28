@@ -31,6 +31,23 @@ joonistatud rehvi (pilt tuleb läbi `/api/pilt/<slug>`, mitte otse pakkujalt).
 
 Pakkuja on sees ainult siis, kui KÕIK tema `env` muutujad on seatud.
 
+## Awin (tootefail)
+
+`pakkujad/awin.js` loeb Awini "Create-a-Feed" CSV-faili. Ühes failis võib olla mitu poodi —
+poe nimi tuleb veerust `merchant_name`, link on Awini jälgimislink (`aw_deep_link`).
+
+1. Awin → Toolbox → Create-a-Feed: vali programm(id), keel, formaat **CSV**, tihendus **gzip**
+   (või none — ZIP ei sobi). Veerud vähemalt: `aw_deep_link, product_name, brand_name,
+   search_price, currency, merchant_name, in_stock, aw_image_url, ean`.
+2. Kopeeri Awini antud allalaadimise aadress. **Selles on sinu võti** — ära saada seda kellelegi.
+3. Coolify → Environment Variables: `PAKKUJA_AWIN_FEED = <see aadress>` (mitu faili: tühikuga
+   eraldatult). Redeploy.
+4. Kontroll: `/api/integratsioonid/olek` → `awin.fail.hoitud` (mitu toodet meie mõõtudes) ja
+   `awin.sobitatud` (mitu neist leidis meie rehvi).
+
+Fail laetakse alla serveri käivitumisel ja siis iga 6 h järel. Kui värskendus ebaõnnestub, jääb
+kehtima eelmine (kuni 48 h). Mälus hoitakse ainult meie mõõtudega tooteid.
+
 ## Kaitse
 
 | Oht | Kaitse |
