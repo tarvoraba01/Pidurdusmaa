@@ -352,7 +352,10 @@
         md = sel.model.value; from = 'model';
       }
       if (from === 'model') {
-        var yrs = uniq(V.filter(function (v) { return v.make === mk && v.model === md; }).map(function (v) { return [v.yearLabel, v.yearLabel]; }));
+        /* põlvkonnad uusimast vanimani (algusaasta järgi) */
+        var alg = function (l) { var m = /\((\d{4})/.exec(l[0]); return m ? +m[1] : 0; };
+        var yrs = uniq(V.filter(function (v) { return v.make === mk && v.model === md; }).map(function (v) { return [v.yearLabel, v.yearLabel]; }))
+          .sort(function (a, b) { return alg(b) - alg(a); });
         opts(sel.year, md ? yrs : [], md ? 'Vali aasta' : '—');
         yr = sel.year.value; from = 'year';
       }

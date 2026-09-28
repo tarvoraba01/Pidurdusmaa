@@ -387,7 +387,9 @@ _MAKE_BY_PREFIX = {
     "alfa_": "Alfa Romeo", "chevrolet_": "Chevrolet",
     "ssangyong_": "SsangYong", "jaguar_": "Jaguar",
     "polestar_": "Polestar", "mg4_": "MG", "mg_": "MG",
-    "cupra_": "Cupra", "isuzu_": "Isuzu", "yld_": "Ei leia oma autot",
+    "cupra_": "Cupra", "isuzu_": "Isuzu", "zeekr_": "Zeekr", "xpeng_": "Xpeng",
+    "lynk_": "Lynk & Co", "omoda_": "Omoda", "jaecoo_": "Jaecoo",
+    "leapmotor_": "Leapmotor", "smart_": "Smart", "ram_": "RAM", "mg3_": "MG", "yld_": "Ei leia oma autot",
     "moskvich_": "Moskvitš", "gaz_": "GAZ", "zaz_": "ZAZ", "uaz_": "UAZ",
     "vw": "Volkswagen", "passat": "Volkswagen", "audi": "Audi",
     "skoda": "Škoda", "toyota": "Toyota", "bmw": "BMW",
@@ -430,6 +432,8 @@ _BODY_SMALL = {
     "honda_jazz_3", "hyundai_i20_3", "mazda_2_de", "nissan_micra_k13", "nissan_note_e12", "renault_clio_2", "suzuki_swift_5", "toyota_aygo_x", "toyota_yaris_xp10",
     # 2026-09-28 viies ring, teine osa
     "ford_fiesta_5",
+    # 2026-09-28 kuues ring
+    "audi_a1_gb", "citroen_c1_1", "hyundai_i20_1",
 }
 
 _BODY_SUV = {
@@ -481,6 +485,8 @@ _BODY_SUV = {
     "bmw_x1_u11", "bmw_x3_g45", "hyundai_santafe_dm", "kia_niro_2", "kia_sorento_4", "kia_sportage_2", "mazda_cx7", "mb_eqa", "mb_glc_x254", "mb_ml_w163", "nissan_juke_f16", "renault_captur_1", "skoda_elroq", "skoda_kodiaq_2", "subaru_forester_sk", "toyota_lc_250",
     # 2026-09-28 viies ring, teine osa
     "audi_q4_etron", "dacia_duster_3", "honda_crv_2", "hyundai_kona_2", "kia_ev3", "lexus_rx_xu30", "mg_hs", "nissan_xtrail_t33", "opel_crossland", "opel_mokka_b", "peugeot_3008_3", "renault_austral", "toyota_rav4_2", "volvo_ex30",
+    # 2026-09-28 kuues ring
+    "audi_q8_etron", "bmw_ix1", "bmw_ix3", "bmw_x2_f39", "mb_eqb", "mb_eqc", "mb_g_w463", "mb_gla_h247", "mitsu_l200_4", "toyota_lc_90", "toyota_rav4_1", "volvo_c40", "volvo_ex90", "volvo_xc40_p8", "vw_id5", "vw_tiguan_allspace", "bmw_x5_45e_g05", "bmw_x3_30d_g01", "skoda_kodiaq_1_15", "audi_q5_8r_30", "toyota_rav4_4_hyb", "toyota_rav4_5_phev", "volvo_xc60_1_d5", "volvo_xc60_2_t8", "volvo_xc90_2_t8", "nissan_qashqai_j11_16", "kia_sportage_4_16", "hyundai_tucson_nx4_phev",
 }
 _BODY_VAN = {
     "vw_transporter", "vw_caddy_3", "vw_t5", "ford_transit_custom",
@@ -507,6 +513,8 @@ _BODY_VAN = {
     "mb_v_w447",
     # 2026-09-28 viies ring, teine osa
     "citroen_c4_picasso_1", "citroen_jumper_3", "ford_smax_2", "ford_transit_8", "ford_transit_connect_2", "mb_citan_w415", "opel_meriva_a", "opel_vivaro_b", "opel_vivaro_c", "peugeot_5008_1", "peugeot_expert_3", "renault_kangoo_3", "renault_trafic_3", "vw_transporter_t6",
+    # 2026-09-28 kuues ring
+    "bmw_218i_at_u06", "citroen_c3_picasso", "ford_galaxy_3", "mb_citan_w420", "toyota_corolla_verso", "toyota_prius_plus", "toyota_proace_city", "vw_golf_sportsvan", "vw_id_buzz", "vw_multivan_t7",
 }
 
 

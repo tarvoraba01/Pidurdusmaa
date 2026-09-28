@@ -137,6 +137,42 @@ MARK_ALIAS = {"VW": "Volkswagen", "Mercedes": "Mercedes-Benz",
               "Range": "Land Rover", "VAZ": "Lada / VAZ", "Lada": "Lada / VAZ"}
 
 
+# Mitmesõnalised mudelinimed: (esimene sõna, järgmine sõna) -> üks mudel
+_MUDEL2 = {("Golf", "Plus"), ("Passat", "CC"), ("Transit", "Custom"),
+           ("Transit", "Connect"), ("Discovery", "Sport"), ("Xsara", "Picasso"),
+           ("Q4", "e-tron"), ("718", "Cayman"), ("718", "Boxster"),
+           ("Sealion", "7"), ("Ioniq", "5"), ("Ioniq", "6"), ("Ioniq", "9"),
+           ("Golf", "Sportsvan"), ("Tiguan", "Allspace"), ("Corolla", "Verso"),
+           ("Proace", "City"), ("Q8", "e-tron"), ("e-tron", "GT"), ("A6", "allroad"),
+           ("A4", "allroad"), ("C5", "X"), ("C4", "Cactus"), ("Seal", "U")}
+_MUDEL_NIMI = {"Cee'd": "Ceed"}
+# Üksikud read, mille nimi ei ütle põlvkonda/aastaid õigesti (vanad
+# üheaastased näidisread jms): võti -> (põlvkond, aastad, variant | None)
+_VALIK_PARANDUS = {
+    "vw_golf_8": ("8", "2020+", None), "vw_golf_4": ("IV", "1997-2006", None),
+    "passat_b5": ("B5", "1996-2005", None), "vw_passat_b8": ("B8", "2014-2023", None),
+    "bmw_320d": ("G20", "2019+", None), "bmw_330e_g20": ("G20", "2019+", None),
+    "skoda_octavia": ("IV", "2020+", None), "toyota_corolla": ("E210", "2019+", None),
+    "audi_a3": ("8Y", "2020+", "Sportback"), "vw_transporter": ("T6.1", "2019+", "—"),
+    "volvo_xc60": ("II", "2017+", "B4"), "tesla_model3": ("", "2019-2023", "Long Range"),
+    "mb_sprinter_906": ("906", "2006-2018", "313 CDI"), "mb_sprinter_907": ("907", "2018+", "—"),
+    "opel_corsa_d": ("D", "2006-2014", "—"), "opel_combo_d": ("D", "2011-2018", "—"),
+    "porsche_macan_95b": ("95B", "2013+", "S Diesel"), "lexus_rx_al10": ("AL10", "2009-2015", "450h"),
+    "hyundai_ioniq5": ("", "2021+", "77 kWh"), "mg4_ev": ("", "2022+", "64 kWh"),
+    "skoda_elroq": ("", "2025+", "85"), "audi_etron": ("", "2019-2022", "55"),
+    "audi_q4_etron": ("", "2021+", "40"), "bmw_330e_f30": ("F30", "2012-2019", None),
+    "vw_golf_gti_7": ("VII", "2012-2019", "GTI 2.0 TSI"), "vw_golf_r_8": ("8", "2020+", "R 2.0 TSI"),
+    # ABS-ita ja ABS-iga read samasse põlvkonda (variandina)
+    "mb_e230_w124": ("W124", "1984-1996", None),
+    "bmw_520i_e34": ("E34", "1988-1996", None),
+    "opel_vectra_a": ("A", "1988-1995", None),
+    "opel_omega_a": ("A", "1986-1994", None),
+    "toyota_carina_e": ("E", "1992-1997", None),
+    "nissan_almera_n15": ("N15", "1995-2000", None), "nissan_almera_n15_abs": ("N15", "1995-2000", None),
+    "mitsu_lancer_evo_x": ("X", "2007-2017", "Evolution"), "honda_civic_typer_fk8": ("X", "2017-2022", "Type-R FK8"),
+}
+
+
 def parse_vehicle(v):
     """'VW Golf 8 1.5 TSI (2020)' -> mudel 'Golf', aasta '2020', variant.
 
@@ -148,15 +184,13 @@ def parse_vehicle(v):
     ym = re.search(r"\(([^)]*)\)\s*$", name)
     years = ym.group(1) if ym else ""
     rest = name[:ym.start()].strip() if ym else name
-    # margisona(d) eest ara
-    for pre in sorted({make, "VW", "Mercedes", "Lada", "VAZ", "Range Rover",
+    # margisona(d) eest ara; "Range Rover" jääb mudelinimeks
+    for pre in sorted({make, "VW", "Mercedes", "Lada", "VAZ",
                        "Land Rover", "Škoda", "Citroën"}, key=len,
                       reverse=True):
         if rest.startswith(pre + " "):
             rest = rest[len(pre) + 1:]
             break
-    if rest.startswith("Rover "):
-        rest = rest[6:]
     toks = rest.split()
     if not toks:
         return {"model": name, "years": years, "variant": ""}
@@ -169,27 +203,48 @@ def parse_vehicle(v):
     elif make == "Mercedes-Benz" and re.match(r"^[A-Z]{1,3}\d{3}", model):
         tail = [model] + tail
         model = re.match(r"^([A-Z]{1,3})", model).group(1) + "-klass"
-    elif (model in ("Grand", "Range", "Model", "Land", "Santa", "Space",
-                    "Grande", "Atto") and tail) or (
-            model == "Ioniq" and tail and tail[0] in ("5", "6", "9")):
+    elif model == "Range" and tail[:1] == ["Rover"]:
+        tail = tail[1:]
+        if tail and tail[0] in ("Sport", "Evoque", "Velar"):
+            model, tail = "Range Rover " + tail[0], tail[1:]
+        else:
+            model = "Range Rover"
+    elif model in ("Grand", "Model", "Land", "Santa", "Space",
+                   "Grande", "Atto") and tail:
         model, tail = model + " " + tail[0], tail[1:]
-    elif model in ("C4", "C5") and tail and tail[0] in ("Picasso", "Aircross"):
+    elif tail and (model, tail[0]) in _MUDEL2:
+        model, tail = model + " " + tail[0], tail[1:]
+    elif tail[:2] == ["Cross", "Country"]:
+        model, tail = model + " Cross Country", tail[2:]
+    elif model in ("C3", "C4", "C5") and tail and tail[0] in ("Picasso", "Aircross"):
         model, tail = model + " " + tail[0], tail[1:]
     elif tail and tail[0] in ("Cross", "S-Cross", "Mach-E"):
         # Yaris Cross, Corolla Cross, Eclipse Cross, SX4 S-Cross, Mustang Mach-E
         model, tail = model + " " + tail[0], tail[1:]
-    # polvkonnakood (roomlane, taht, W212, B8, E46...) voib olla KUS TAHES
-    # sabas -- ta laheb aasta juurde, mootor jaab variandiks.
-    pinned = []
-    if make in ("BMW", "Mercedes-Benz") and tail:
-        pinned = [tail.pop(0)]              # 520d / E220 on variant
-    # NB: kahetäheline kood (BK, GH, KF, TM ...) on põlvkond, aga EV / SR ei ole
+    model = _MUDEL_NIMI.get(model, model)
+    # polvkonnakood (roomlane, taht, W212, B8, E46, 8V...) voib olla KUS
+    # TAHES sabas -- ta laheb aasta juurde, mootor jaab variandiks.
+    # NB: kahetäheline kood (BK, GH, KF, TM ...) on põlvkond, aga EV / SR /
+    # LR / SW ei ole; Volvo D4/D5 on mootor; 4S (Taycan) on variant.
     GEN = re.compile(r"^(I|II|III|IV|V|VI|VII|VIII|IX|X|[A-CE-Z]|"
-                     r"(?!EV$|SR$|GT$|RS$|ST$)[A-Z]{2}|"
-                     r"[A-Z]{1,2}\d{1,3}[A-Z]?|\d{1,3}|Mk\d)$")
+                     r"(?!EV$|SR$|LR$|GT$|RS$|ST$|SW$)[A-Z]{2}|"
+                     + (r"(?![BDPT]\d$)" if make == "Volvo" else "") +
+                     r"[A-Z]{1,2}\d{1,3}[A-Z]?|\d{1,3}|Mk\d|"
+                     r"(?!4S$)\d[A-Z])$")
+    pinned = []
+    # 520d / E220 on variant; aga BMW X1 E84 / Mercedes A-klass W169 on põlvkond
+    SASSII = {"BMW": r"^[EFGU]\d{2}$", "Mercedes-Benz": r"^[WXHV]\d{3}$"}
+    if make in SASSII and tail and not re.match(SASSII[make], tail[0]):
+        pinned = [tail.pop(0)]
     gen = [t for t in tail if GEN.match(t)]
     tail = pinned + [t for t in tail if not GEN.match(t)]
     variant = " ".join(tail)
+    fix = _VALIK_PARANDUS.get(v.get("key"))
+    if fix:
+        gen = [fix[0]] if fix[0] else []
+        years = fix[1]
+        if fix[2] is not None:
+            variant = fix[2]
     label = (" ".join(gen) + " " if gen else "") + (f"({years})" if years else "")
     return {"model": model, "years": years, "gen": " ".join(gen),
             "yearLabel": label.strip() or "—", "variant": variant or "—"}
