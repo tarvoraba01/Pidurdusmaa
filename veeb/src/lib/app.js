@@ -986,7 +986,7 @@
           box.innerHTML = '<span class="pl">Soodsaimad klassi ' + cur.g + ' rehvid</span> ' + (top.length ? '<ul class="sellers">' + top.map(function (t) {
             return '<li><span><a href="' + CFG.home + 'rehvid/' + esc(t.m.slug) + '/">' + esc(t.m.mark + ' ' + t.m.name) + '</a> <small>' + esc(t.r.myyja) + '</small></span>' +
               (t.r.url ? '<a class="buy" href="' + esc(t.r.url) + '" target="_blank" rel="nofollow sponsored noopener">' + eur(t.r.hind) + '</a>' : '<b>' + eur(t.r.hind) + '</b>') + '</li>';
-          }).join('') + '</ul>' : '<span class="none">Hindu selles klassis veel pole</span>');
+          }).join('') + '</ul>' + AFF : '<span class="none">Hindu selles klassis veel pole</span>');
         } else box.innerHTML = '<span class="pl">Hinnad</span> <span class="none">vali rehv, et näha müüjaid</span>';
       });
     }
@@ -1404,12 +1404,14 @@
   };
   function eur(v) { return (+v).toFixed(2).replace('.', ',') + ' €'; }
   function priceSlot(id) { return '<div class="pv" data-price="' + esc(id) + '"><span class="none">Laen hindu…</span></div>'; }
+  /* partnerlinkide märge — ainult siis, kui poelingid päriselt ekraanil on */
+  var AFF = '<p class="aff">Poelingid võivad olla partnerlingid — sinu hind ja meie järjestus ei muutu. <a href="' + '/teadmine/partnerid/">Loe lähemalt</a></p>';
   function priceHtml(rows, avail) {
     if (rows && rows.length) {
       return '<ul class="sellers">' + rows.slice(0, 4).map(function (r) {
         var name = r.url ? '<a href="' + esc(r.url) + '" target="_blank" rel="nofollow sponsored noopener">' + esc(r.myyja) + '</a>' : esc(r.myyja);
         return '<li><span>' + name + (r.laos === false ? ' <small>tellimisel</small>' : '') + '</span><b>' + eur(r.hind) + '</b></li>';
-      }).join('') + '</ul>' + (rows.length > 4 ? '<p class="more">+' + (rows.length - 4) + ' müüjat veel</p>' : '');
+      }).join('') + '</ul>' + (rows.length > 4 ? '<p class="more">+' + (rows.length - 4) + ' müüjat veel</p>' : '') + AFF;
     }
     return '<span class="none">' + (avail ? 'Selle rehvi hinda müüjatelt hetkel pole' : 'Hinnad pole hetkel saadaval') + '</span> ' + tip(PRICE_T);
   }

@@ -170,6 +170,7 @@
 					<li><a href="/teadmine/">Teadmine</a></li>
 					<li><a href="/teadmine/artiklid/">Artiklid</a></li>
 					<li><a href="/meist/">Meist</a></li>
+					<li><a href="/teadmine/partnerid/">Partnerid</a></li>
 					<li><a href="/kontakt/">Kontakt</a></li>
 				</ul>
 			</div>

@@ -32,6 +32,7 @@ export function GET() {
 		['/teadmine/pidurdusteekond-ja-peatumisteekond/', '0.7'],
 		['/teadmine/kuidas-pidurdusmaa-arvutatakse/', '0.6'],
 		['/teadmine/rehvimargis/', '0.6'],
+		['/teadmine/partnerid/', '0.3'],
 		['/meist/', '0.5'],
 		['/kontakt/', '0.4'],
 		['/kasutustingimused/', '0.3'],

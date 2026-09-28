@@ -9,9 +9,11 @@
 <ul><li>kiiruse, pikivahe või pidurdamise otsustamiseks liikluses — sõida alati vastavalt oludele ja liiklusseadusele;</li><li>liiklusõnnetuse asjaolude hindamiseks, ekspertarvamuseks, kindlustus- või kohtumenetluses tõendina;</li><li>sõiduki või rehvide tehnilise korrasoleku hindamiseks.</li></ul>
 <h2>4. Andmed ja allikad</h2>
 <ul><li>Rehvimärgise andmed pärinevad EL-i tooteregistrist EPREL, testitulemused kolmandate osapoolte avaldatud testidest. Iga allikas on lehel viidatud.</li><li>Andmetes võib olla vigu, lünki või aegunud infot. Me ei vastuta kolmandate osapoolte andmete õigsuse eest.</li><li>Tootjate ja toodete nimed ning kaubamärgid kuuluvad nende omanikele.</li><li>Leht näitab ainult omadusi, mille kohta on usaldusväärsed andmed, ega arva midagi juurde.</li></ul>
-<h2>5. Vastutuse piirang</h2>
+<h2>5. Poelingid ja vahendustasu</h2>
+<p>Rehvide juures võivad olla lingid rehvipoodidesse. Osa neist on partnerlingid: kui ostad lingi kaudu, võib Rabarvo OÜ saada poelt vahendustasu. Sinu hind sellest ei muutu. Pidurdusmaad ja rehvide järjestus arvutatakse ainult andmete põhjal ning vahendustasu ei mõjuta, milline rehv on eespool. Praegused partnerid: <a href="/teadmine/partnerid/">Partnerid ja poelingid</a>.</p>
+<h2>6. Vastutuse piirang</h2>
 <p>Leht ja selle sisu antakse kasutada „nagu on“, ilma otseste või kaudsete garantiideta. Seadusega lubatud ulatuses ei vastuta Rabarvo OÜ otsese ega kaudse kahju eest, mis tuleneb lehe kasutamisest, sellele tuginemisest või selle kättesaamatusest. Kasutaja vastutab ise otsuste eest, mida ta lehe teabe põhjal teeb.</p>
-<h2>6. Muudatused</h2>
+<h2>7. Muudatused</h2>
 <p>Arvutusmudel, andmed ja need tingimused võivad muutuda. Kehtib lehel avaldatud versioon.</p>`;
 </script>
 

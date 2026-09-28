@@ -11,7 +11,7 @@
 		`</ul>
 <p><a href="/teadmine/artiklid/">Kõik artiklid →</a></p>
 <h2>Kuidas leht töötab</h2>
-<ul><li><a href="/teadmine/pidurdusteekond-ja-peatumisteekond/">Pidurdusteekond ja peatumisteekond</a> — valem, näited eri kiirustel ja reaktsiooniaja mõju</li><li><a href="/teadmine/kuidas-pidurdusmaa-arvutatakse/">Kuidas pidurdusmaa arvutatakse</a> — mudel, eeldused, täpsus ja piirangud</li><li><a href="/teadmine/rehvimargis/">EL-i rehvimärgis</a> — mida märghaardumise, veeretakistuse ja müra klass tähendavad</li><li><a href="/testid/">Sõltumatud testid</a> — millised testid on andmestikus ja kuidas neid kasutatakse</li></ul>`;
+<ul><li><a href="/teadmine/pidurdusteekond-ja-peatumisteekond/">Pidurdusteekond ja peatumisteekond</a> — valem, näited eri kiirustel ja reaktsiooniaja mõju</li><li><a href="/teadmine/kuidas-pidurdusmaa-arvutatakse/">Kuidas pidurdusmaa arvutatakse</a> — mudel, eeldused, täpsus ja piirangud</li><li><a href="/teadmine/rehvimargis/">EL-i rehvimärgis</a> — mida märghaardumise, veeretakistuse ja müra klass tähendavad</li><li><a href="/testid/">Sõltumatud testid</a> — millised testid on andmestikus ja kuidas neid kasutatakse</li><li><a href="/teadmine/partnerid/">Partnerid ja poelingid</a> — kuidas leht tasuta püsib ja miks see järjestust ei mõjuta</li></ul>`;
 </script>
 
 <Leht

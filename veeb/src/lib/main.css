@@ -764,3 +764,8 @@ textarea.lin{resize:vertical;min-height:140px}
 .mbar.own .n{font-weight:800}
 .mbar.own .n::before{content:"Sinu rehv · ";color:var(--yellow)}
 .own-cmp{display:block;margin-top:var(--sp-2);font-size:14px}
+
+/* partnerlinkide märge */
+.aff{margin:var(--sp-2) 0 0;font-size:11.5px;line-height:1.4;color:var(--muted)}
+.aff a{color:inherit}
+.prose p.aff-legal{margin-top:var(--sp-8);font-size:13px;color:var(--muted)}
