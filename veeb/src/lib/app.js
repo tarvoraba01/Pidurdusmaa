@@ -634,6 +634,8 @@
     }
 
     var picker = VehPicker(root, function (key) {
+      /* mark → mudel → aasta: vahepealsed sammud (auto veel valimata) ei muuda midagi */
+      if (!key && !S.veh) return;
       S.veh = key;
       var veh = key ? core.vehByKey[key] : null;
       if (veh) Track('auto', veh.make + ' ' + veh.model + ' ' + veh.yearLabel);
@@ -1184,30 +1186,49 @@
   var FG = { A: 5, B: 4, C: 3, D: 2, E: 1 };
 
   /* Ühe rehvi omadused sinu mõõdus. Iga väärtus kannab allikat. */
+  /* Pidurdusmaad rehvi kohta (5 simulatsiooni). Ainult märgisega rehvidel
+     sõltub tulemus ainult kategooriast, klassist ja mõõdust — sama klassi
+     rehvid saavad sama arvu. Vahemälu: 400 rehvi → ~15 arvutust, mitte 2000
+     (enne jooksis nimekiri telefonis mitu sekundit). */
+  var simCache = {};
+  function simul(t, r, veh) {
+    var key = (t ? 't:' + t.key : 'e:' + r.cat + '|' + r.g) + '|' + r.m + '|' + (veh.key || veh.name);
+    var c = simCache[key];
+    if (c) return c;
+    var base = t ? Object.assign({}, t, { size: pretty(r.m) }) : eprelTyre(r), aq = base;
+    if (t && t.aqua) {
+      var hpM = window.Pidurdus.hydroplaneSpeedKmh(base, veh, { surface: 'ASPHALT', waterMm: 7.8 });
+      if (hpM) aq = Object.assign({}, base, { hpFactor: t.aqua.kmh / hpM });
+    }
+    c = {
+      wb: calc(base, veh, condObj('wet', 90)).distanceM,
+      db: calc(base, veh, condObj('dry', 90)).distanceM,
+      dd: calc(aq, veh, Object.assign(condObj('wet', 90), { waterMm: 3 })).distanceM,
+      aEst: aq === base,
+      sb: calc(base, veh, condObj('snow', 50)).distanceM,
+      ib: calc(base, veh, condObj('ice', 50)).distanceM
+    };
+    return (simCache[key] = c);
+  }
   function tyreProps(r, veh) {
     var t = r.tested ? core.tyreByKey[r.tested] : null, P = {};
     P.wet = { v: r.g, show: grade(r.g), src: 'off', score: FG[r.g] };
-    var wb = calc(t ? Object.assign({}, t, { size: pretty(r.m) }) : eprelTyre(r), veh, condObj('wet', 90));
+    var sim = simul(t, r, veh);
+    var wb = { distanceM: sim.wb };
     P.wetb = { v: wb.distanceM, show: fmt(wb.distanceM) + ' m', src: 'calc', score: -wb.distanceM,
                sub: t ? 'haare testist (mõõt ' + t.size + ')' : 'klassi ' + r.g + (gmidN(r.g, r.cat) ? ' mõõdetud keskmine' : ' keskpunkt') };
     var tw = t ? pick(t.tests, 'ASPHALT', true) : null, td = t ? pick(t.tests, 'ASPHALT', false) : null;
     /* Mõõdetud testitulemus on väike rida arvutuse all — kõik rehvid saavad
        sama protokolli järgi (90→0, sinu auto) arvutatud väärtuse. */
     if (tw) P.wetb.sub += ' · testis ' + fmt(tw.m) + ' m (' + srcLine(tw) + ')';
-    var base = t ? Object.assign({}, t, { size: pretty(r.m) }) : eprelTyre(r);
-    var db = calc(base, veh, condObj('dry', 90)), dEst = !(t && t.muDry != null);
+    var db = { distanceM: sim.db }, dEst = !(t && t.muDry != null);
     P.dryb = { v: db.distanceM, show: est(fmt(db.distanceM) + ' m', dEst), src: dEst ? 'est' : 'calc', score: -db.distanceM,
                sub: dEst ? 'rehvitüübi keskmine' : 'haare testist' + (td ? ' · testis ' + fmt(td.m) + ' m (' + srcLine(td) + ')' : '') };
     /* VESILIUG = pidurdusmaa sügavas vees (3 mm, roopad/lombid), 90→0.
        Testitud rehvil nihutatakse mudeli ujumiskiirust mõõdetu järgi:
        ADAC-i protokollis (mudelis 7,8 mm vett) annab mudel 65 mõõdetud
        ujumiskiiruse vastu mediaanvea 0,7% ja keskmise vea 3,8%. */
-    var deep = Object.assign(condObj('wet', 90), { waterMm: 3 }), aq = base;
-    if (t && t.aqua) {
-      var hpM = window.Pidurdus.hydroplaneSpeedKmh(base, veh, { surface: 'ASPHALT', waterMm: 7.8 });
-      if (hpM) aq = Object.assign({}, base, { hpFactor: t.aqua.kmh / hpM });
-    }
-    var dd = calc(aq, veh, deep), aEst = aq === base;
+    var dd = { distanceM: sim.dd }, aEst = sim.aEst;
     P.aqua = { v: dd.distanceM, show: est(fmt(dd.distanceM) + ' m', aEst), src: aEst ? 'est' : 'calc', score: -dd.distanceM,
                sub: aEst ? 'rehvitüübi ja laiuse järgi' : 'testis hakkas ujuma ' + fmt(t.aqua.kmh) + ' km/h juures (' + ((core.sources[t.aqua.src] || {}).nimi || 'test') + ')' };
     P.noise = r.db ? { v: r.db, show: r.db + ' dB' + (r.nk ? ' (' + r.nk + ')' : ''), src: 'off', score: -r.db } : null;
@@ -1219,7 +1240,7 @@
     /* TALV = arvutatud pidurdusmaa lumel + jääl 50→0 sinu autoga (sama mudel,
        mis kalkulaatoris). Testitud rehvil mõõdetud haardest, teistel rehvi
        tüübi (märgise kategooria) keskmisest — see on tuletatud (≈). */
-    var sb = calc(base, veh, condObj('snow', 50)), ib = calc(base, veh, condObj('ice', 50));
+    var sb = { distanceM: sim.sb }, ib = { distanceM: sim.ib };
     var wEst = !(t && t.muSnow != null && t.muIce != null);
     P.winter = { v: sb.distanceM + ib.distanceM,
                  show: est('lumi ' + fmt(sb.distanceM) + ' m · jää ' + fmt(ib.distanceM) + ' m', wEst), src: wEst ? 'est' : 'calc',
@@ -1546,7 +1567,16 @@
         });
       });
     }
+    /* Avalehel on rehvide nimekiri peidus, kuni vaheleht „Leia sobiv rehv“
+       pole avatud. Peidus nimekirja ei arvutata (auto valimine ei jõnksu) —
+       joonistatakse alles siis, kui see nähtavale tuleb. */
+    var peidusKast = ext ? $('[data-home=valik]') : null, ootel = false;
+    if (peidusKast && window.MutationObserver) {
+      new MutationObserver(function () { if (!peidusKast.hidden && ootel) { ootel = false; draw(); } })
+        .observe(peidusKast, { attributes: true, attributeFilter: ['hidden'] });
+    }
     function draw() {
+      if (peidusKast && peidusKast.hidden && window.MutationObserver) { ootel = true; return; }
       var joonis = ++joonisNr;
       if (!listEl) { drawTable(); return; }
       listEl.innerHTML = '<p class="note">Laen…</p>';

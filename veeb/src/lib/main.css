@@ -746,3 +746,9 @@ textarea.lin{resize:vertical;min-height:140px}
 .eri-b{background:#fff4e5;color:#9a3412}
 .eri-t{display:flex;align-items:center;gap:var(--sp-2);margin-top:var(--sp-2);font-size:13.5px;color:var(--muted);cursor:pointer;width:fit-content}
 .eri-t input{width:16px;height:16px;accent-color:var(--ink);margin:0}
+
+/* iPhone/iPad suumib lahtrisse sisse, kui kiri on alla 16px, ja jääb
+   suumituks. 16px ainult iOS-is (-webkit-touch-callout on ainult seal). */
+@supports (-webkit-touch-callout: none) {
+  input, select, textarea, .sel, .lsel, .lin, .vs-in, .sp .sp-in { font-size: 16px !important; }
+}
