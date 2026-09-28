@@ -642,7 +642,11 @@
       S.size = sizeOptions(sizeSel, veh, veh && !qsc.get('moot') ? norm(veh.oemSize) : S.size);
       qsc.delete('moot');
       paintSize(); save(); recalc(); emit();
-      $('[data-veh-hint]', root).textContent = veh ? 'levinuim tehasemõõt ' + veh.oemSize : '';
+      /* oemTyp: levinuim mõõt, mille kohta märgise andmeid veel pole —
+         siis arvutatakse teise tehasemõõduga ja seda öeldakse välja */
+      $('[data-veh-hint]', root).textContent = !veh ? '' : veh.oemTyp
+        ? 'levinuim tehasemõõt ' + veh.oemTyp + ' · arvutame ' + veh.oemSize + ' järgi'
+        : 'levinuim tehasemõõt ' + veh.oemSize;
     });
     S.size = sizeOptions(sizeSel, null, S.size);
 

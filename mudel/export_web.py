@@ -56,6 +56,11 @@ def _veh(key, v):
         "oemConf": _OEM.get(key, (None, [], ""))[2] if key in _OEM else "",
         "oemSrc": _OEM.get(key, (None, [], "", ""))[3] if key in _OEM else "",
     }
+    # levinuim tehasemõõt, kui arvutus käib teise mõõduga (sellel puuduvad
+    # märgise andmed) -- oem_sizes.py märkusest
+    _m = re.search(r"Levinuim tehasemõõt (\d{3}/\d{2} R\d{2}C?); arvutus", _OEM.get(key, ("", [], "", "", ""))[4] if key in _OEM else "")
+    if _m and _m.group(1) != v.oem_size:
+        d["oemTyp"] = _m.group(1)
     if VEHICLE_NOTES.get(key):
         d["note"] = VEHICLE_NOTES[key]
     return d

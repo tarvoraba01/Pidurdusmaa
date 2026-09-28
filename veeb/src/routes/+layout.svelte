@@ -23,6 +23,18 @@
 	});
 
 	onMount(async () => {
+		/* Avalehel logo / „Pidurdusmaa“ peale vajutus = lehe värskendus
+		   (tulemus ja valikud nullitakse, leht algusest). Mujal tavaline
+		   kiire üleminek. Ctrl/Cmd-klõps (uus vaheleht) jääb puutumata. */
+		document.addEventListener('click', (e) => {
+			const a = e.target instanceof Element ? e.target.closest('a[href="/"]') : null;
+			if (!a || location.pathname !== '/' || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+			e.preventDefault();
+			e.stopPropagation();
+			try { history.scrollRestoration = 'manual'; } catch {}
+			window.scrollTo(0, 0);
+			location.href = '/';
+		}, true);
 		window.PM_DEFER = true;
 		window.PM_CFG = {
 			data: '/data/',
