@@ -1,0 +1,8019 @@
+[
+ {
+  "test_id": "AUTOBILD-2024-S-205-55R16",
+  "publication": "Auto Bild",
+  "year": 2024,
+  "season": "summer",
+  "size": "205/55 R16",
+  "car": "VW Golf",
+  "tester": "Auto Bild, ATP proving ground Papenburg (Germany)",
+  "url": "https://www.reifenlab.de/autobild/summer/2024/205-55-r16/braking-distance/",
+  "url_original": "https://www.autobild.de/produkttests/sommerreifen-test-205-55-r-16-21237731.html",
+  "disciplines": [
+   {
+    "id": "dry",
+    "surface": "asphalt",
+    "wet": false,
+    "v_from": 100,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "braking qualifying of 55 tyres; 'aus Tempo 100'; v_to not stated (assumed standstill)"
+   },
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": 80,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "braking qualifying of 55 tyres; 'aus Tempo 80'; v_to not stated (assumed standstill); top-20 sum qualify for main test"
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Continental PremiumContact 7",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 35.4,
+     "wet": 25.8
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Kumho Ecsta HS52",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 35.4,
+     "wet": 26.1
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Vredestein Ultrac",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 36.1,
+     "wet": 26.6
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Hankook Ventus Prime 4",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 35.9,
+     "wet": 27.7
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Michelin Primacy 4+",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 36.3,
+     "wet": 27.7
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Toyo Proxes Comfort",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 36.7,
+     "wet": 27.5
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Falken Ziex ZE310 Ecorun",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 36.5,
+     "wet": 28.0
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Maxxis Premitra HP5",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 36.2,
+     "wet": 28.4
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Pirelli Cinturato P7",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 36.3,
+     "wet": 28.4
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Bridgestone Turanza 6",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 36.9,
+     "wet": 27.9
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Nexen N'Fera Primus",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 37.2,
+     "wet": 27.7
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Firestone Roadhawk",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 36.6,
+     "wet": 28.7
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Goodyear EfficientGrip Performance 2",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 36.4,
+     "wet": 29.2
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Uniroyal RainSport 5",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 37.9,
+     "wet": 27.7
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Kleber Dynaxer HP4",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 37.4,
+     "wet": 28.8
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Fulda EcoControl HP2",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 36.8,
+     "wet": 29.5
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Giti Synergy H2",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 36.6,
+     "wet": 29.8
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "BFGoodrich Advantage",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 37.4,
+     "wet": 29.1
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "GT Radial Champiro FE2",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 37.4,
+     "wet": 29.3
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Dunlop Sport BluResponse",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 36.9,
+     "wet": 30.0
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Sava Intensa HP2",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 37.2,
+     "wet": 30.0
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Debica Presto HP2",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 37.4,
+     "wet": 30.2
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Semperit Speed-Life 3",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 39.0,
+     "wet": 28.8
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Goodride ZuperEco Z-107",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 37.6,
+     "wet": 30.5
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Apollo Aspire 4G",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 37.6,
+     "wet": 30.7
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Kenda Kenetica Pro KR210",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 38.6,
+     "wet": 31.2
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Westlake ZuperEco Z-107",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 38.6,
+     "wet": 31.5
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Petlas Imperium PT515",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 39.0,
+     "wet": 31.4
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Minerva F209",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 39.3,
+     "wet": 31.6
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Leao Nova-Force HP100",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 38.0,
+     "wet": 33.1
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Tristar Ecopower 4",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 39.5,
+     "wet": 32.1
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Tracmax X-Privilo TX3",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 39.2,
+     "wet": 32.5
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Cooper Zeon CS8",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 38.9,
+     "wet": 33.0
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Tomket Sport",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 38.6,
+     "wet": 33.3
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Linglong Comfort Master",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 38.6,
+     "wet": 33.5
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Ovation Eco-Vision VI-682",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 39.6,
+     "wet": 32.5
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Sumitomo BC100",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 39.2,
+     "wet": 33.2
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Imperial EcoDriver 5",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 40.1,
+     "wet": 32.6
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Tourador Wonder TH1",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 39.5,
+     "wet": 33.2
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Zeta Alventi",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 39.6,
+     "wet": 33.1
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Tigar High Performance",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 38.3,
+     "wet": 34.5
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Milestone Green Sport GS05",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 39.2,
+     "wet": 33.7
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Matador Hectorra 5",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 40.1,
+     "wet": 32.9
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Firemax FM601",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 38.4,
+     "wet": 34.9
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Radar RPX-800",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 40.2,
+     "wet": 33.3
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Ceat SecuraDrive",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 40.6,
+     "wet": 33.3
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Fortuna EcoPlus 4S",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 39.1,
+     "wet": 34.9
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Lassa Driveways",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 39.5,
+     "wet": 34.7
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Atlas Green HP",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 39.3,
+     "wet": 35.1
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Superia Ecoblue HP",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 39.7,
+     "wet": 34.7
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Nordexx NS9000",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 38.8,
+     "wet": 36.1
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Berlin Tires Summer UHP 1",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 41.1,
+     "wet": 35.6
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Arivo Premio Arzero",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 40.1,
+     "wet": 38.0
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Double Coin DC99",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 39.6,
+     "wet": 42.1
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Triangle AdvanteX TC101",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 42.1,
+     "wet": 39.7
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   }
+  ]
+ },
+ {
+  "test_id": "AUTOBILD-2025-S-225-40R18",
+  "publication": "Auto Bild",
+  "year": 2025,
+  "season": "summer",
+  "size": "225/40 R18",
+  "car": "VW Golf GTD",
+  "tester": "Auto Bild",
+  "url": "https://www.reifenlab.de/autobild/summer/2025/225-40-r18/braking-distance/",
+  "url_original": "https://press.bridgestone-emea.com/de/bridgestone-potenza-sport-faehrt-auf-platz-1-in-der-qualifikation-des-auto-bild-sommerreifentests-2025/",
+  "disciplines": [
+   {
+    "id": "dry",
+    "surface": "asphalt",
+    "wet": false,
+    "v_from": 100,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "braking qualifying of 52 tyres; 100->0 km/h per Bridgestone press release and autobild.de"
+   },
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": 80,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "braking qualifying; 80->0 km/h per Bridgestone press release and autobild.de; top 20 to main test (ranks 21 and 41 absent on source)"
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Bridgestone Potenza Sport",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 32.6,
+     "wet": 27.6
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Michelin Pilot Sport 5",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 33.5,
+     "wet": 27.7
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Hankook Ventus Evo",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 34.0,
+     "wet": 27.4
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Kumho Ecsta PS71",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 34.2,
+     "wet": 27.4
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Linglong Sport Master",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 34.2,
+     "wet": 27.4
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Goodyear Eagle F1 Asymmetric 6",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 34.1,
+     "wet": 28.3
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Falken Ziex ZE320",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 33.0,
+     "wet": 29.5
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Continental PremiumContact 7",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 34.6,
+     "wet": 28.3
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Sailun Atrezzo ZSR 2",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 34.3,
+     "wet": 28.7
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Maxxis Victra Sport 5",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 33.9,
+     "wet": 29.2
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Toyo Proxes Comfort",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 34.0,
+     "wet": 30.4
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Laufenn S Fit EQ+ LK01",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 34.9,
+     "wet": 29.7
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Nokian Powerproof 1",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 34.8,
+     "wet": 30.4
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Yokohama Advan Sport V107",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 33.8,
+     "wet": 31.8
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Firestone Firehawk Sport",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 34.6,
+     "wet": 31.1
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Nexen N'Fera Sport",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 35.0,
+     "wet": 30.9
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Giti GitiSport S2",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 35.4,
+     "wet": 30.9
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Vredestein Ultrac Pro",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 35.0,
+     "wet": 31.2
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Dunlop SP Sport Maxx RT2",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 35.2,
+     "wet": 31.5
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Pirelli P Zero PZ4",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 34.6,
+     "wet": 32.3
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "GT Radial Sport Active 2",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 36.0,
+     "wet": 31.7
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Uniroyal RainSport 5",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 37.4,
+     "wet": 30.3
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "BFGoodrich Advantage",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 36.2,
+     "wet": 31.9
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Petlas Velox Sport PT741",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 35.4,
+     "wet": 33.1
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Semperit Speed-Life 3",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 37.4,
+     "wet": 31.2
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Syron Premium Performance",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 36.9,
+     "wet": 31.9
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Debica Presto UHP2",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 36.4,
+     "wet": 33.1
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Ceat SportDrive",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 35.8,
+     "wet": 34.0
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Leao Nova-Force Acro",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 36.8,
+     "wet": 32.9
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Fulda SportControl 2",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 36.2,
+     "wet": 33.9
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Radar Dimax R8+",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 38.6,
+     "wet": 31.7
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Sava Intensa UHP 2",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 35.9,
+     "wet": 34.4
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Viking ProTech NewGen",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 37.6,
+     "wet": 33.5
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Star Performer Interstellar",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 37.5,
+     "wet": 33.7
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Event Potentem UHP",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 37.9,
+     "wet": 33.8
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Gislaved Ultra Speed 2",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 37.6,
+     "wet": 34.2
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Matador Hectorra 5",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 37.7,
+     "wet": 34.1
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Ovation VI-588 Sport",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 37.1,
+     "wet": 35.2
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Barum Bravuris 6",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 37.6,
+     "wet": 34.8
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Kormoran Ultra High Performance",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 36.6,
+     "wet": 36.2
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Yartu ZuperEco Z-107",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 37.9,
+     "wet": 34.9
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Iris Sefar",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 37.9,
+     "wet": 35.1
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Windforce Catchfors UHP Pro",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 36.5,
+     "wet": 36.7
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Lanvigator Catch Power Plus",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 37.2,
+     "wet": 36.7
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Riken Ultra High Performance",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 36.9,
+     "wet": 37.5
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Z Max Zealion",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 37.5,
+     "wet": 38.0
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Rockblade Rock 525",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 37.5,
+     "wet": 38.1
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Arivo Ultra ARZ-5",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 38.1,
+     "wet": 37.6
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Tigar Ultra High Performance",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 37.6,
+     "wet": 38.4
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Tourador X Speed TU1",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 38.9,
+     "wet": 37.1
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "RoyalBlack Explorer II",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 38.4,
+     "wet": 38.6
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Autogreen Smart Chaser SC1",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 38.3,
+     "wet": 43.6
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   }
+  ]
+ },
+ {
+  "test_id": "AUTOBILD-2024-W-205-55R16",
+  "publication": "Auto Bild",
+  "year": 2024,
+  "season": "winter",
+  "size": "205/55 R16",
+  "car": "VW Golf",
+  "tester": "Auto Bild",
+  "url": "https://www.reifenlab.de/autobild/winter/2024/205-55-r16/braking-distance/",
+  "url_original": null,
+  "disciplines": [
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": 80,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "braking qualifying of 55 tyres; speed not stated on source page (Auto Bild qualifying normally wet from 80 km/h) - verify; tyres ranked 34-55 not braked on snow"
+   },
+   {
+    "id": "snow",
+    "surface": "snow",
+    "wet": false,
+    "v_from": 50,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "braking qualifying; speed not stated on source page (assumed 50 km/h) - verify"
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Bridgestone Blizzak 6",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 34.6,
+     "snow": 29.6
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Kumho WinterCraft WP52",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 34.6,
+     "snow": 30.3
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "GT Radial WinterPro 2 Evo",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 36.0,
+     "snow": 29.3
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Pirelli Cinturato Winter 2",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 35.6,
+     "snow": 30.2
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Michelin Alpin 6",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 36.2,
+     "snow": 29.7
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Semperit Speed-Grip 5",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 36.8,
+     "snow": 29.1
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Uniroyal WinterExpert",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 36.5,
+     "snow": 29.5
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Continental WinterContact TS 870",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 37.1,
+     "snow": 29.1
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Goodyear UltraGrip Performance 3",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 36.9,
+     "snow": 29.4
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Firestone Winterhawk 4",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 35.5,
+     "snow": 30.9
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Dunlop Winter Sport 5",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 37.4,
+     "snow": 29.2
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Giti GitiWinter W2",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 37.4,
+     "snow": 29.2
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "BFGoodrich g-Force Winter 2",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 37.5,
+     "snow": 29.4
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Hankook Winter i*cept RS3 W462",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 37.8,
+     "snow": 29.1
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Apollo Alnac 4G Winter",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 36.4,
+     "snow": 30.6
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Kleber Krisalp HP3",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 37.8,
+     "snow": 29.3
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Vredestein Wintrac",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 37.3,
+     "snow": 30.2
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Barum Polaris 5",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 37.7,
+     "snow": 30.0
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Yokohama BluEarth-Winter V906",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 37.1,
+     "snow": 30.8
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Fulda Kristall Control HP2",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 38.6,
+     "snow": 29.6
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Radar Dimax Alpine",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 39.9,
+     "snow": 28.9
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Falken Eurowinter HS02",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 38.3,
+     "snow": 30.7
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Sava Eskimo HP2",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 39.5,
+     "snow": 29.6
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Ceat WinterDrive",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 39.0,
+     "snow": 30.2
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Point S Winter S",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 38.3,
+     "snow": 31.2
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Nexen Winguard Snow G3 WH21",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 37.7,
+     "snow": 32.4
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Nokian Snowproof 2",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 40.0,
+     "snow": 30.5
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Delinte Winter WD1",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 36.1,
+     "snow": 35.8
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Lassa Snoways 4",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 39.2,
+     "snow": 34.1
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Petlas Snowmaster 2",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 39.5,
+     "snow": 35.4
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Landsail Winter Lander",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 38.0,
+     "snow": 38.1
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Mastersteel Winter+",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 38.6,
+     "snow": 38.4
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Infinity Ecozen",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 37.6,
+     "snow": 41.0
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Goodride SW608",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 40.6
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Toyo Snowprox S944",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 40.6
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Riken Snow",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 40.8
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Torque TQ023",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 40.8
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Laufenn i Fit+ LW31",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 41.1
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Kormoran Snow",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 41.5
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Westlake Snowmaster SW608",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 41.5
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Maxxis Premitra Snow WP6",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 42.0
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Zeetex WH1000",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 42.3
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Tracmax X-Privilo S130",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 43.3
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Sailun Ice Blazer Alpine+",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 43.5
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Tourador Winter Pro TS1",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 43.5
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Kenda Wintergen 2 KR501",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 43.7
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Road X WU01",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 44.2
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Imperial Snowdragon HP",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 44.5
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Minerva Frostrack HP",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 44.5
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Duraturn Mozzo Winter",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 44.7
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Austone SP901",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 45.7
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Superia Bluewin UHP",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 45.7
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Powertrac Snowtour Pro",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 46.6
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Roadmarch Winter XPro 888",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 48.2
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Maxtrek Trek M7 Plus",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 50.6
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   }
+  ]
+ },
+ {
+  "test_id": "AUTOBILD-2025-W-225-40R18",
+  "publication": "Auto Bild",
+  "year": 2025,
+  "season": "winter",
+  "size": "225/40 R18",
+  "car": "BMW M135i",
+  "tester": "Auto Bild",
+  "url": "https://www.reifenlab.de/autobild/winter/2025/225-40-r18/braking-distance/",
+  "url_original": null,
+  "disciplines": [
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": 80,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "braking qualifying (51 tyres); speed not stated on source page, Auto Bild winter qualifying wet from 80 km/h (confirmed for 2024 205/55 R16) - verify; tyres ranked 32-51 not braked on snow"
+   },
+   {
+    "id": "snow",
+    "surface": "snow",
+    "wet": false,
+    "v_from": 50,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "braking qualifying; speed not stated on source (assumed 50 km/h) - verify"
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Dunlop Winter",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 33.3,
+     "snow": 27.5
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Michelin Pilot Alpin 5",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 33.2,
+     "snow": 27.8
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Goodyear UltraGrip Performance 3",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 32.6,
+     "snow": 28.5
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Kumho WinterCraft WP52+",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 33.5,
+     "snow": 28.3
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Uniroyal WinterExpert",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 34.1,
+     "snow": 28.6
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Bridgestone Blizzak 6",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 35.0,
+     "snow": 28.0
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Firestone Winterhawk 4",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 34.8,
+     "snow": 28.2
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Toyo Observe Winter Sport 1",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 33.3,
+     "snow": 29.7
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Pirelli Cinturato Winter 3",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 34.5,
+     "snow": 28.7
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Barum Polaris 6",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 35.1,
+     "snow": 28.2
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "BFGoodrich g-Force Winter 2",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 36.0,
+     "snow": 27.3
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Kleber Krisalp HP3",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 36.2,
+     "snow": 27.1
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Continental WinterContact TS 870 P",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 35.6,
+     "snow": 28.0
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Hankook Winter i*cept evo3 W330",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 35.6,
+     "snow": 28.1
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Semperit Speed-Grip 5",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 34.9,
+     "snow": 29.0
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Linglong Sport Master Winter",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 35.7,
+     "snow": 28.7
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Vredestein Wintrac Pro+",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 36.0,
+     "snow": 28.7
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Fulda Kristall Control HP2",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 36.9,
+     "snow": 28.0
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Ceat WinterDrive",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 36.9,
+     "snow": 28.2
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Falken Eurowinter HS02 Pro",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 35.8,
+     "snow": 29.5
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Sportiva Snow Win 3",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 36.5,
+     "snow": 29.2
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Apollo Aspire XP Winter",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 37.3,
+     "snow": 28.7
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Sava Eskimo HP2",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 37.9,
+     "snow": 28.1
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Giti GitiWinter W2",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 37.7,
+     "snow": 28.4
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Paxaro Winter",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 36.5,
+     "snow": 29.7
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Platin RP70 Winter",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 38.0,
+     "snow": 28.5
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Debica Frigo HP2",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 38.1,
+     "snow": 28.6
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Yokohama BluEarth-Winter V906",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 37.9,
+     "snow": 29.0
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Lassa Snoways 4",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 38.4,
+     "snow": 30.5
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Landsail Winter Lander",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 36.5,
+     "snow": 32.5
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Rotalla Ice-Plus S210",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 38.7,
+     "snow": 32.6
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Kenda Wintergen 2 KR501",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 38.8
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Tracmax Ice-Plus S210",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 38.8
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Trazano ZuperSnow Z-507",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 38.9
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "GT Radial WinterPro 2 Sport",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 39.2
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "RoyalBlack RoyalWinter UHP",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 39.4
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Sumitomo WT200",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 39.4
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Tigar Winter",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 39.7
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Davanti Wintoura+",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 39.9
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Nankang Winter Activa 4",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 39.9
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Goodride ZuperSnow Z-507",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 40.1
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Imperial SnowDragon UHP",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 40.4
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Westlake SW608",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 40.9
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Maxxis Premitra Snow WP6",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 41.0
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Star Performer Stratos UHP-11",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 41.2
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Tomket Snowroad Pro 3",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 41.3
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Atlas Polarbear UHP",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 42.2
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Sunny Winter-maX A1 NW211",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 42.5
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Milever Winter-maX A1 MW255",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 42.8
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Infinity EcoZen",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 43.3
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Windforce Snowblazer UHP",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 45.1
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   }
+  ]
+ },
+ {
+  "test_id": "AUTOBILD-2025-A-225-40R18",
+  "publication": "Auto Bild",
+  "year": 2025,
+  "season": "allseason",
+  "size": "225/40 R18",
+  "car": null,
+  "tester": "Auto Bild",
+  "url": "https://www.reifenlab.de/autobild/allseason/2025/225-40-r18/braking-distance/",
+  "url_original": "https://press.bridgestone-emea.com/de/bridgestone-turanza-all-season-6-holt-platz-1-in-der-qualifikation-des-auto-bild-ganzjahresreifentests-2025/",
+  "disciplines": [
+   {
+    "id": "dry",
+    "surface": "asphalt",
+    "wet": false,
+    "v_from": 100,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "braking qualifying of 30 tyres; 100->0 km/h per Bridgestone press release on this qualifying"
+   },
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": 100,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "braking qualifying; 100->0 km/h per Bridgestone press release; top 20 to main test"
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Bridgestone Turanza All Season 6",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 38.1,
+     "wet": 45.0
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Vredestein Quatrac",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 40.3,
+     "wet": 43.9
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Pirelli Cinturato All Season SF3",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 38.0,
+     "wet": 46.3
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Linglong Grip Master 4S",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 38.2,
+     "wet": 47.5
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Ceat 4SeasonDrive",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 38.6,
+     "wet": 47.4
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Michelin CrossClimate 3 Sport",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 38.8,
+     "wet": 47.3
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Continental AllSeasonContact 2",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 41.5,
+     "wet": 44.9
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Kleber Quadraxer 3",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 39.3,
+     "wet": 47.9
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Sailun Atrezzo 4Seasons Ultra",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 41.2,
+     "wet": 46.1
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Laufenn G Fit 4S",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 42.1,
+     "wet": 45.8
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Michelin CrossClimate 3",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 40.4,
+     "wet": 49.0
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Hankook Kinergy 4S",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 41.3,
+     "wet": 49.2
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Road Hog RGAS02",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 38.5,
+     "wet": 52.6
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Toyo Celsius AS2",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 40.4,
+     "wet": 51.0
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Dunlop All Season 2",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 42.5,
+     "wet": 49.2
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Firestone Multiseason 2",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 41.5,
+     "wet": 50.3
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Delinte AW6",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 38.9,
+     "wet": 53.0
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "BFGoodrich Advantage All-Season",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 41.0,
+     "wet": 51.1
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Semperit AllSeason-Grip",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 44.8,
+     "wet": 47.4
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Nexen N'blue 4Season 2",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 40.2,
+     "wet": 52.9
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Viking FourTech Plus",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 43.8,
+     "wet": 49.7
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Tigar All Season",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 40.9,
+     "wet": 56.3
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Imperial All Season Driver",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 43.7,
+     "wet": 55.2
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Star Performer Solar 4S",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 41.4,
+     "wet": 57.5
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Nankang Cross Seasons AW-6",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 43.5,
+     "wet": 56.7
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Debica Navigator 3",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 44.1,
+     "wet": 56.4
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Davanti Alltoura",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 44.7,
+     "wet": 56.8
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Fulda MultiControl",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 45.0,
+     "wet": 57.0
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Berlin Tires All Season 2",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 44.0,
+     "wet": 58.9
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Goodride All Season Elite Z-401",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 44.6,
+     "wet": 58.4
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   }
+  ]
+ },
+ {
+  "test_id": "AUTOBILD-2024-A-225-50R17",
+  "publication": "Auto Bild",
+  "year": 2024,
+  "season": "allseason",
+  "size": "225/50 R17",
+  "car": "BMW 3 Series",
+  "tester": "Auto Bild",
+  "url": "https://www.reifenlab.de/autobild/allseason/2024/225-50-r17/braking-distance/",
+  "url_original": "https://www.autobild.de/produkttests/ganzjahresreifen-test-225-50-r-17-20594811.html",
+  "disciplines": [
+   {
+    "id": "dry",
+    "surface": "asphalt",
+    "wet": false,
+    "v_from": 100,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "braking qualifying of 37 tyres; speed not stated on source; assumed 100->0 as in Auto Bild 2025 all-season qualifying - verify"
+   },
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": 100,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "braking qualifying; speed not stated on source; assumed 100->0 as in Auto Bild 2025 all-season qualifying (distances ~50-82 m fit 100 km/h) - verify"
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Bridgestone Turanza All Season 6",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 36.8,
+     "wet": 50.5
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Pirelli Cinturato All Season SF3",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 36.9,
+     "wet": 53.5
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Continental AllSeasonContact 2",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 40.0,
+     "wet": 53.6
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Michelin CrossClimate 2",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 37.9,
+     "wet": 56.4
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Vredestein Quatrac",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 40.2,
+     "wet": 55.4
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Goodyear Vector 4Seasons Gen-3",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 41.5,
+     "wet": 55.2
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Kleber Quadraxer 3",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 38.5,
+     "wet": 58.4
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "GT Radial ClimateActive",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 40.9,
+     "wet": 56.6
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "BFGoodrich Advantage All-Season",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 38.9,
+     "wet": 59.0
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Viking FourTech Plus",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 43.1,
+     "wet": 55.4
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Dunlop All Season 2",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 41.6,
+     "wet": 57.3
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Toyo Celsius AS2",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 39.9,
+     "wet": 59.0
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Giti AllSeason AS2",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 40.6,
+     "wet": 58.6
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Linglong Grip Master 4S",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 40.2,
+     "wet": 59.8
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Kumho Solus 4S HA32+",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 42.5,
+     "wet": 57.9
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Nexen N'blue 4Season 2",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 39.4,
+     "wet": 61.4
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Laufenn G Fit 4S",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 42.7,
+     "wet": 58.2
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Nokian Seasonproof 1",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 41.2,
+     "wet": 60.1
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Ceat 4SeasonDrive+",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 40.5,
+     "wet": 62.1
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Semperit AllSeason-Grip",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 44.1,
+     "wet": 58.9
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Prinx Quattura 4S",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 40.7,
+     "wet": 62.5
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Firestone Multiseason 2",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 41.8,
+     "wet": 64.0
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Tourador X All Climate TF1",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 42.6,
+     "wet": 63.4
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Tristar All Season Power",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 42.8,
+     "wet": 63.4
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Triangle SeasonX TA01",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 42.5,
+     "wet": 63.7
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Tracmax X-Privilo A/S Trac Saver",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 42.3,
+     "wet": 64.4
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Fulda MultiControl",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 44.4,
+     "wet": 65.0
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Superia Ecoblue2 4S",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 42.3,
+     "wet": 67.5
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Minerva All Season Master",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 43.5,
+     "wet": 66.5
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Fortuna EcoPlus 2 4S",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 42.4,
+     "wet": 68.9
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Westlake All Season Elite Z-401",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 44.1,
+     "wet": 68.0
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Fronway Fronwing A/S",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 41.3,
+     "wet": 72.5
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Berlin Tires All Season 2",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 43.6,
+     "wet": 71.3
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "RoadX RX Motion 4S",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 45.4,
+     "wet": 70.0
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Lanvigator Catchfors A/S II",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 41.9,
+     "wet": 74.1
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Arivo Carlorful A/S",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 42.5,
+     "wet": 74.0
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "RoyalBlack Royal A/S II",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 43.6,
+     "wet": 82.1
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   }
+  ]
+ },
+ {
+  "test_id": "AUTOBILD-2023-S-225-45R18",
+  "publication": "Auto Bild",
+  "year": 2023,
+  "season": "summer",
+  "size": "225/45 R18",
+  "car": "BMW 3 Series",
+  "tester": "Auto Bild",
+  "url": "https://www.reifenlab.de/autobild/summer/2023/225-45-r18/braking-distance/",
+  "url_original": "https://www.hankooktire-mediacenter.com/de/pressemitteilung/news/hankook-ventus-s1-evo-3-holt-sieg-im-bremsweg-test-bei-europas-grossem-sommerreifentest-des-automobil-magazins-auto-bild",
+  "disciplines": [
+   {
+    "id": "dry",
+    "surface": "asphalt",
+    "wet": false,
+    "v_from": 100,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "braking qualifying of 50 tyres, 100 km/h per Hankook press release. DERIVED: source column labelled 'trocken' actually holds dry+wet SUM (Hankook: 58.1 = 33.3 dry + 24.8 wet, 33.3 confirmed by press release); dry computed as sum - wet. Ranks 43-48 omitted (source shows identical 72.3 sums, suspect)"
+   },
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": 80,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "braking qualifying, 80 km/h per Hankook press release; values as printed; top 20 to main test"
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Hankook Ventus S1 evo3 K127",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 33.3,
+     "wet": 24.8
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Goodyear Eagle F1 Asymmetric 6",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 33.2,
+     "wet": 25.4
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Pirelli P Zero PZ4",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 34.0,
+     "wet": 24.9
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Yokohama Advan Sport V107",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 33.5,
+     "wet": 25.4
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Continental PremiumContact 7",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 33.7,
+     "wet": 25.3
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Michelin Pilot Sport 5",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 34.1,
+     "wet": 26.0
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Linglong Sport Master",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 34.4,
+     "wet": 25.8
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Falken Azenis FK520",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 33.7,
+     "wet": 27.0
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Maxxis Victra Sport 5",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 34.1,
+     "wet": 26.7
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Toyo Proxes Sport 2",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 34.1,
+     "wet": 26.9
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Sava Intensa UHP 2",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 34.3,
+     "wet": 27.4
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Kumho Ecsta PS71",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 35.1,
+     "wet": 26.6
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Dunlop SP Sport Maxx RT2",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 34.8,
+     "wet": 27.0
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Nexen N'Fera Sport",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 36.0,
+     "wet": 27.2
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "GT Radial Sport Active 2",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 36.0,
+     "wet": 27.3
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Bridgestone Turanza 6",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 36.2,
+     "wet": 27.6
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Uniroyal RainSport 5",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 37.4,
+     "wet": 26.5
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Fulda SportControl 2",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 34.9,
+     "wet": 29.0
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Giti GitiSport S2",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 36.1,
+     "wet": 28.1
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Kleber Dynaxer UHP",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 36.5,
+     "wet": 28.0
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Ceat SportDrive",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 36.6,
+     "wet": 28.3
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Federal Evoluzion ST-1",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 36.0,
+     "wet": 29.0
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Avon ZV7",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 37.1,
+     "wet": 28.0
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Cooper Zeon CS8",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 37.7,
+     "wet": 27.7
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Lassa Driveways Sport",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 36.3,
+     "wet": 29.3
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Laufenn S Fit EQ+ LK01",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 36.7,
+     "wet": 29.6
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Sumitomo HTR Z5",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 38.0,
+     "wet": 28.9
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Gripmax SureGrip Pro Sport",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 37.3,
+     "wet": 30.0
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Vredestein Ultrac Vorti+",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 37.8,
+     "wet": 29.5
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Apollo Aspire 4G",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 37.9,
+     "wet": 29.8
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Firestone Roadhawk",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 36.8,
+     "wet": 30.9
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Infinity Ecomax",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 37.4,
+     "wet": 30.4
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Sportiva Super Z+",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 37.5,
+     "wet": 31.4
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Barum Bravuris 5HM",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 39.8,
+     "wet": 29.5
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Matador MP47 Hectorra 3",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 38.3,
+     "wet": 31.1
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Radar Dimax R8+",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 39.3,
+     "wet": 30.6
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Viking ProTech NewGen",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 39.1,
+     "wet": 31.3
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Riken Ultra High Performance",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 37.3,
+     "wet": 33.1
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Platin RP 420 Summer",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 39.0,
+     "wet": 31.5
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Orium Ultra High Performance",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 37.9,
+     "wet": 33.3
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Semperit Speed-Life 3",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 39.9,
+     "wet": 31.3
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Tomason Sportrace",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 39.5,
+     "wet": 31.8
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Imperial EcoSport 2",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "wet": 31.7
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Zeetex HP6000 eco",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "wet": 33.4
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Rotalla Setula S-Pace RU01",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "wet": 33.0
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Minerva F205",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "wet": 33.0
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Tracmax X-Privilo TX3",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "wet": 33.6
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Tristar Sportpower 2",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "wet": 33.1
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Triangle Sportex TH201",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 40.3,
+     "wet": 39.7
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Zeta Alventi",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 39.9,
+     "wet": 40.3
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   }
+  ]
+ },
+ {
+  "test_id": "AUTOBILD-2023-W-225-45R18",
+  "publication": "Auto Bild",
+  "year": 2023,
+  "season": "winter",
+  "size": "225/45 R18",
+  "car": "BMW 3 Series",
+  "tester": "Auto Bild",
+  "url": "https://www.reifenlab.de/autobild/winter/2023/225-45-r18/braking-distance/",
+  "url_original": null,
+  "disciplines": [
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": 80,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "braking qualifying of 54 tyres; source: 'braking from 80 km/h on wet'; ranks 32-54 not braked on snow"
+   },
+   {
+    "id": "snow",
+    "surface": "snow",
+    "wet": false,
+    "v_from": 50,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "braking qualifying; source: 'braking from 50 km/h on snow'"
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Bridgestone Blizzak LM005",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 31.4,
+     "snow": 30.9
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Michelin Pilot Alpin 5",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 34.3,
+     "snow": 29.2
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Goodyear UltraGrip Performance 3",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 33.9,
+     "snow": 30.1
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Kleber Krisalp HP3",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 35.1,
+     "snow": 29.3
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "BFGoodrich g-Force Winter 2",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 35.2,
+     "snow": 29.3
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Firestone Winterhawk 4",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 33.9,
+     "snow": 31.0
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Continental WinterContact TS 870 P",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 34.9,
+     "snow": 30.5
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Hankook Winter i*cept evo3 W330",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 35.2,
+     "snow": 30.3
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Pirelli Cinturato Winter 2",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 34.9,
+     "snow": 30.7
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Laufenn i Fit+",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 35.1,
+     "snow": 30.6
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Uniroyal WinterExpert",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 35.0,
+     "snow": 30.7
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Paxaro Inverno",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 35.8,
+     "snow": 30.4
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Toyo Observe S944",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 35.7,
+     "snow": 30.8
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Barum Polaris 5",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 35.6,
+     "snow": 31.0
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Dunlop Winter Sport 5",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 36.1,
+     "snow": 30.7
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Viking WinTech",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 36.0,
+     "snow": 31.0
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Vredestein Wintrac Pro",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 36.4,
+     "snow": 30.6
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Debica Frigo HP2",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 37.0,
+     "snow": 30.1
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Semperit Speed-Grip 5",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 35.9,
+     "snow": 31.3
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Falken Eurowinter HS02 Pro",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 36.0,
+     "snow": 31.3
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Radar Dimax Alpine",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 36.8,
+     "snow": 30.6
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "GT Radial Champiro WinterPro HP",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 36.2,
+     "snow": 31.6
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Fulda Kristall Control HP2",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 37.4,
+     "snow": 30.7
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Austone SP901",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 37.6,
+     "snow": 30.7
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Kumho WinterCraft WP52",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 36.9,
+     "snow": 31.4
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Yokohama BluEarth-Winter V906",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 36.7,
+     "snow": 31.8
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Nexen Winguard Sport 2 WU7",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 37.9,
+     "snow": 31.0
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Giti GitiWinter W2",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 37.9,
+     "snow": 31.2
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Lassa Snoways 4",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 36.9,
+     "snow": 32.5
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Apollo Aspire XP Winter",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 37.2,
+     "snow": 33.0
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Sumitomo WT200",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 37.7,
+     "snow": 32.5
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Kormoran Snow",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 38.0
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Petlas Snowmaster W651",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 38.0
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Maxxis Premitra Snow WP6",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 38.4
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Nankang Winter Activa SV-3",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 38.4
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Tigar Winter",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 38.4
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Superia Bluewin UHP2",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 38.5
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Matador MP93 Nordicca",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 38.6
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "CST Medallion Winter WCP1",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 38.9
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Riken Snow",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 39.1
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Triangle Snowlink PL02",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 39.2
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Goodride Z-507",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 39.4
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Westlake Z-507",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 40.3
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Rotalla Setula W Race S330",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 40.4
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Tourador Winter Pro TSU2",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 40.4
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Gripmax SureGrip Pro Winter",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 40.6
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Kenda Wintergen 2 KR501",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 40.9
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Roadstone Winguard Sport",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 41.1
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Minerva Ice-Plus S210",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 41.9
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Imperial Snowdragon 3",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 42.3
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Tomket Snowroad Pro 3",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 42.3
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Double Coin DW300",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 42.7
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Momo W-2 North Pole",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 42.8
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Tracmax Ice-Plus S210",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 42.9
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   }
+  ]
+ },
+ {
+  "test_id": "AUTOBILD-2023-A-225-45R17",
+  "publication": "Auto Bild",
+  "year": 2023,
+  "season": "allseason",
+  "size": "225/45 R17",
+  "car": "VW Golf",
+  "tester": "Auto Bild",
+  "url": "https://www.reifenlab.de/autobild/allseason/2023/225-45-r17/braking-distance/",
+  "url_original": null,
+  "disciplines": [
+   {
+    "id": "dry",
+    "surface": "asphalt",
+    "wet": false,
+    "v_from": 100,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "braking qualifying of 35 tyres; speed not stated on source; assumed 100->0 as in Auto Bild 2025 all-season qualifying - verify"
+   },
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": 100,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "braking qualifying; speed not stated on source; assumed 100->0 as in Auto Bild 2025 all-season qualifying - verify"
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Bridgestone Turanza All Season 6",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 38.5,
+     "wet": 45.0
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Michelin CrossClimate 2",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 37.7,
+     "wet": 47.0
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Pirelli Cinturato All Season SF2",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 38.8,
+     "wet": 46.7
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Vredestein Quatrac",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 40.3,
+     "wet": 45.4
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Continental AllSeasonContact 2",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 40.4,
+     "wet": 45.4
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Falken EuroAll Season AS220 Pro",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 39.8,
+     "wet": 46.0
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "BFGoodrich Advantage All-Season",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 38.9,
+     "wet": 47.4
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Kleber Quadraxer 3",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 38.3,
+     "wet": 48.5
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Nexen N'blue 4Season 2",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 39.2,
+     "wet": 48.8
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Firestone Multiseason 2",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 41.8,
+     "wet": 47.9
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Dunlop Sport All Season",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 42.5,
+     "wet": 47.4
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Goodyear Vector 4Seasons Gen-3",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 41.8,
+     "wet": 48.3
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Hankook Kinergy 4S2 H750",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 41.3,
+     "wet": 49.5
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Ceat 4 SeasonDrive",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 40.8,
+     "wet": 50.1
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Kumho Solus 4S HA32",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 41.4,
+     "wet": 49.8
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Toyo Celsius AS2",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 40.9,
+     "wet": 50.6
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Minerva All Season Master",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 42.9,
+     "wet": 49.5
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Lanvigator Catchfors A/S",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 39.7,
+     "wet": 53.7
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Barum Quartaris 5",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 45.0,
+     "wet": 49.2
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Linglong Grip Master 4S",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 41.3,
+     "wet": 53.0
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Yokohama BluEarth-4S AW21",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 42.9,
+     "wet": 52.4
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Kormoran All Season",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 41.5,
+     "wet": 54.4
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "A Plus A909 All Season",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 40.7,
+     "wet": 55.4
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Headway PMS01 4 Seasons",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 41.8,
+     "wet": 54.4
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Tracmax X-Privilo Trac Saver",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 42.5,
+     "wet": 53.9
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Sava All Weather",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 43.1,
+     "wet": 53.8
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Tourador X All Climate TF1",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 42.5,
+     "wet": 55.8
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "CST Medallion All Season ACP1",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 44.2,
+     "wet": 54.4
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Fulda MultiControl",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 44.2,
+     "wet": 54.9
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Tomket Allyear 3",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 44.0,
+     "wet": 56.7
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Hifly All-Turi 221",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 45.3,
+     "wet": 55.6
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Leao iGreen All Season",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 42.3,
+     "wet": 59.7
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Atlas Green 4S",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 42.4,
+     "wet": 61.7
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Goodride All Season Elite Z-401",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 44.2,
+     "wet": 60.6
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Black Arrow Dart 4S",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 41.8,
+     "wet": 63.8
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   }
+  ]
+ },
+ {
+  "test_id": "AUTOBILD-2022-S-215-55R17",
+  "publication": "Auto Bild",
+  "year": 2022,
+  "season": "summer",
+  "size": "215/55 R17",
+  "car": "VW Passat",
+  "tester": "Auto Bild",
+  "url": "https://www.reifenlab.de/autobild/summer/2022/215-55-r17/braking-distance/",
+  "url_original": null,
+  "disciplines": [
+   {
+    "id": "dry",
+    "surface": "asphalt",
+    "wet": false,
+    "v_from": 100,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "braking qualifying (~51 tyres); speed not stated on source, Auto Bild standard qualifying dry from 100 km/h - verify. Source rank 11 missing and rank 14 duplicated Kleber Dynaxer HP4 -> 2 of the top 20 unknown"
+   },
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": 80,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "braking qualifying; speed not stated on source, Auto Bild standard qualifying wet from 80 km/h - verify"
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Bridgestone Turanza T005",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 35.8,
+     "wet": 27.5
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Hankook Ventus Prime 4",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 35.8,
+     "wet": 27.8
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Kumho Ecsta HS52",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 35.7,
+     "wet": 28.6
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Vredestein Ultrac",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 36.1,
+     "wet": 28.2
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Falken Ziex ZE310 Ecorun",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 36.1,
+     "wet": 28.2
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Nokian Powerproof",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 35.7,
+     "wet": 28.9
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Dunlop SP Sport Maxx RT2",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 36.1,
+     "wet": 28.8
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Michelin Primacy 4",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 36.2,
+     "wet": 29.3
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Toyo Proxes Comfort",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 35.9,
+     "wet": 29.6
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Nexen N'Fera Primus",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 37.2,
+     "wet": 28.6
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Kleber Dynaxer HP4",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 36.2,
+     "wet": 29.9
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Fulda SportControl 2",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 36.5,
+     "wet": 29.4
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Sava Intensa UHP 2",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 36.3,
+     "wet": 29.8
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Maxxis Premitra HP5",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 37.3,
+     "wet": 28.9
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Debica Presto UHP2",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 36.5,
+     "wet": 29.8
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Goodyear EfficientGrip Performance 2",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 36.8,
+     "wet": 29.7
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "GT Radial FE2 SUV",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 37.0,
+     "wet": 29.7
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "BFGoodrich Advantage",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 36.3,
+     "wet": 31.0
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Laufenn S Fit EQ+ LK01",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 36.5,
+     "wet": 31.9
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Goodride Zuper Ace SA-57",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 37.3,
+     "wet": 31.3
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Continental EcoContact 6",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 36.4,
+     "wet": 32.7
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Mirage MR-182",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 37.7,
+     "wet": 31.8
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Yokohama BluEarth-GT AE51",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 37.7,
+     "wet": 32.2
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Tomket Sport 3",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 37.2,
+     "wet": 32.8
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Cooper Zeon CS8",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 39.1,
+     "wet": 31.3
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Infinity Ecomax",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 37.7,
+     "wet": 32.7
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Starmaxx Ultrasport ST760",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 37.5,
+     "wet": 32.9
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Firestone Roadhawk",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 37.7,
+     "wet": 32.8
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Hifly HF805",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 38.5,
+     "wet": 32.0
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Tyfoon Successor 5",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 38.5,
+     "wet": 32.1
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Roadstone Eurovis Sport 04",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 38.7,
+     "wet": 32.6
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Mazzini Eco605 Plus",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 39.0,
+     "wet": 32.4
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Delinte DH2",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 39.1,
+     "wet": 32.6
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Uniroyal RainSport 5",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 38.4,
+     "wet": 33.5
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "General Altimax One S",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 39.3,
+     "wet": 32.9
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Kormoran UHP",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 37.3,
+     "wet": 34.9
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Platin RP 420 Summer",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 38.5,
+     "wet": 33.7
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Zeetex HP2000 VFM",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 38.9,
+     "wet": 33.9
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "A-Plus A607",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 39.0,
+     "wet": 33.9
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Novex Super Speed A3",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 39.4,
+     "wet": 33.5
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Semperit Speed-Life 3",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 40.0,
+     "wet": 33.1
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Tracmax X-Privilo TX3",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 38.9,
+     "wet": 34.3
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Viking ProTech NewGen",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 39.8,
+     "wet": 33.4
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Barum Bravuris 5HM",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 40.0,
+     "wet": 33.3
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Lassa Driveways",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 39.0,
+     "wet": 34.9
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Tomason Sportrace",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 39.2,
+     "wet": 34.7
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Imperial EcoSport 2",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 40.3,
+     "wet": 33.8
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Rotalla Setula S-Pace RU01",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 39.8,
+     "wet": 36.0
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Firemax FM601",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 39.8,
+     "wet": 36.0
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Atlas Sport Green 2",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 39.5,
+     "wet": 36.6
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   }
+  ]
+ },
+ {
+  "test_id": "AUTOBILD-2022-W-215-55R17",
+  "publication": "Auto Bild",
+  "year": 2022,
+  "season": "winter",
+  "size": "215/55 R17",
+  "car": null,
+  "tester": "Auto Bild",
+  "url": "https://www.reifenlab.de/autobild/winter/2022/215-55-r17/braking-distance/",
+  "url_original": null,
+  "disciplines": [
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": 80,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "braking qualifying of 56 tyres; speed not stated on source (Auto Bild winter qualifying wet from 80 km/h per 2023/2024 tests) - verify. Source rank 10 missing / Goodyear duplicated -> one top-20 tyre unknown; ranks 31-56 not braked on snow"
+   },
+   {
+    "id": "snow",
+    "surface": "snow",
+    "wet": false,
+    "v_from": 50,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "braking qualifying; speed not stated on source (50 km/h per Auto Bild 2023 winter qualifying) - verify"
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Bridgestone Blizzak LM005",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 32.8,
+     "snow": 26.3
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Continental WinterContact TS 870 P",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 34.6,
+     "snow": 25.5
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Michelin Alpin 6",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 34.1,
+     "snow": 26.4
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Goodyear UltraGrip Performance+",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 35.5,
+     "snow": 25.5
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Pirelli Cinturato Winter 2",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 34.6,
+     "snow": 26.4
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "BFGoodrich g-Force Winter 2",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 35.8,
+     "snow": 25.4
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Cooper Discoverer Winter",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 35.1,
+     "snow": 26.3
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Dunlop Winter Sport 5",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 35.3,
+     "snow": 26.5
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Hankook Winter i*cept RS3 W462",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 35.3,
+     "snow": 26.6
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Maxxis Premitra Snow WP6",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 35.8,
+     "snow": 26.3
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Falken Eurowinter HS01",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 36.3,
+     "snow": 25.9
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Nokian WR Snowproof P",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 36.0,
+     "snow": 26.2
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Firestone Winterhawk 4",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 36.0,
+     "snow": 26.4
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Nexen Winguard Sport 2 WU7",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 36.3,
+     "snow": 26.4
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Kleber Krisalp HP3",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 37.3,
+     "snow": 25.5
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Uniroyal WinterExpert",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 36.9,
+     "snow": 26.1
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Fulda Kristall Control HP2",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 36.8,
+     "snow": 26.3
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Kumho WinterCraft WP52",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 35.9,
+     "snow": 27.3
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Vredestein Wintrac Pro",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 36.9,
+     "snow": 26.3
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "GT Radial Champiro WinterPro 2",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 37.3,
+     "snow": 26.1
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Sava Eskimo HP2",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 37.6,
+     "snow": 26.1
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Avon WV7",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 35.3,
+     "snow": 28.7
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Debica Frigo HP2",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 37.1,
+     "snow": 26.9
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Viking WinTech",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 37.1,
+     "snow": 27.1
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Barum Polaris 5",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 37.5,
+     "snow": 26.9
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Lassa Snoways 4",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 37.3,
+     "snow": 27.1
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Toyo Observe S944",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 37.7,
+     "snow": 26.8
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Paxaro Winter",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 37.1,
+     "snow": 27.5
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Yokohama BluEarth-Winter V906",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 37.6,
+     "snow": 27.0
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Matador MP93 Nordicca",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 37.8
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Platin RP60 Winter",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 37.8
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Gislaved Euro*Frost 6",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 38.0
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Nankang Winter Activa SV-3",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 38.0
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "General Altimax Winter 3",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 38.1
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Radar Dimax Alpine",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 38.1
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Giti GitiWinter W1",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 38.4
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Kormoran Snow",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 38.4
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Minerva Frostrack UHP",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 38.6
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Syron Everest 1 X",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 38.6
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Laufenn i Fit Winter",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 39.0
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Imperial SnowDragon UHP",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 39.1
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Riken Snow",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 39.2
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Tracmax S210",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 39.3
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Westlake SW608",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 39.3
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Triangle WinterX TW401",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 39.5
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Petlas Snowmaster W651",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 39.7
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Zeetex WH1000",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 39.7
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Goodride SW608",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 40.0
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Tomket Snowroad Pro 3",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 40.8
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Kenda Wintergen 2 KR501",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 41.1
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Austone SP901",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 41.2
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Tourador Winter Pro TSU2",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 41.7
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Starmaxx W850",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 42.3
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Road X WU01",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 42.8
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Double Coin DW300",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 43.7
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   }
+  ]
+ },
+ {
+  "test_id": "AUTOBILD-2022-A-195-55R16",
+  "publication": "Auto Bild",
+  "year": 2022,
+  "season": "allseason",
+  "size": "195/55 R16",
+  "car": null,
+  "tester": "Auto Bild",
+  "url": "https://www.reifenlab.de/autobild/allseason/2022/195-55-r16/braking-distance/",
+  "url_original": null,
+  "disciplines": [
+   {
+    "id": "dry",
+    "surface": "asphalt",
+    "wet": false,
+    "v_from": 100,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "braking qualifying of 35 tyres; speed not stated on source; assumed 100->0 as in Auto Bild 2025 all-season qualifying - verify"
+   },
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": 100,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "braking qualifying; speed not stated on source; assumed 100->0 as in Auto Bild 2025 all-season qualifying - verify"
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Bridgestone Weather Control A005 Evo",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 41.4,
+     "wet": 44.4
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Vredestein Quatrac",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 41.7,
+     "wet": 47.1
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Michelin CrossClimate 2",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 39.9,
+     "wet": 49.2
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Kleber Quadraxer 3",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 40.3,
+     "wet": 49.4
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Hankook Kinergy 4S2 H750",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 42.1,
+     "wet": 48.0
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Goodyear Vector 4Seasons Gen-3",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 43.9,
+     "wet": 46.8
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Dunlop Sport All Season",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 44.6,
+     "wet": 46.6
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Continental AllSeasonContact",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 45.8,
+     "wet": 48.9
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Firestone Multiseason 2",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 45.9,
+     "wet": 48.9
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Maxxis Premitra All Season AP3",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 43.1,
+     "wet": 51.8
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Falken EuroAll Season AS210",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 44.4,
+     "wet": 51.6
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Kumho Solus 4S HA32",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 44.4,
+     "wet": 51.9
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Toyo Celsius AS2",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 43.5,
+     "wet": 53.2
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Nexen N'blue 4Season",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 43.7,
+     "wet": 54.5
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Nokian Seasonproof",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 46.3,
+     "wet": 52.4
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Laufenn G Fit 4S",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 45.2,
+     "wet": 53.9
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "CST Medallion All Season ACP1",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 46.6,
+     "wet": 53.0
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "GT Radial 4Seasons",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 49.3,
+     "wet": 51.3
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Tristar All Season Power",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 43.1,
+     "wet": 57.6
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Sebring All Season",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 42.5,
+     "wet": 58.3
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Triangle SeasonX TA01",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 45.6,
+     "wet": 57.1
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Minerva All Season Master",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 45.0,
+     "wet": 58.3
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Ovation VI-782 AS",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 47.1,
+     "wet": 56.2
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Kormoran All Season",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 42.4,
+     "wet": 61.0
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Tracmax X-Privilo Trac Saver",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 45.7,
+     "wet": 58.0
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Nankang Cross Seasons AW-6",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 46.9,
+     "wet": 57.6
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Hifly All-Turi 221",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 47.6,
+     "wet": 57.5
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Torque TQ025 All Season",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 48.6,
+     "wet": 58.1
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Fortuna EcoPlus 4S",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 43.9,
+     "wet": 63.1
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Goodride All Season Elite Z-401",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 48.7,
+     "wet": 58.5
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Fulda MultiControl",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 51.1,
+     "wet": 56.3
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Superia Ecoblue 4S",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 44.2,
+     "wet": 63.6
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Westlake All Season Elite Z-401",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 50.5,
+     "wet": 57.6
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Ceat 4 SeasonDrive",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 44.9,
+     "wet": 63.7
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Atlas Green 4S",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 45.0,
+     "wet": 66.2
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   }
+  ]
+ },
+ {
+  "test_id": "AUTOBILD-2021-S-205-55R16",
+  "publication": "Auto Bild",
+  "year": 2021,
+  "season": "summer",
+  "size": "205/55 R16",
+  "car": "VW Golf",
+  "tester": "Auto Bild",
+  "url": "https://www.reifenlab.de/autobild/summer/2021/205-55-r16/braking-distance/",
+  "url_original": null,
+  "disciplines": [
+   {
+    "id": "dry",
+    "surface": "asphalt",
+    "wet": false,
+    "v_from": 100,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "braking qualifying of 53 tyres; speed not stated on source, Auto Bild standard qualifying dry from 100 km/h - verify"
+   },
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": 80,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "braking qualifying; speed not stated on source, Auto Bild standard qualifying wet from 80 km/h - verify"
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Hankook Ventus Prime3 K125",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 34.1,
+     "wet": 29.6
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Pirelli Cinturato P7 C2",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 34.5,
+     "wet": 29.7
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Kumho Ecsta HS51",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 34.8,
+     "wet": 30.4
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Continental PremiumContact 6",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 36.5,
+     "wet": 29.6
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Michelin Primacy 4",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 35.8,
+     "wet": 30.4
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Nokian Wetproof",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 35.1,
+     "wet": 31.7
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Bridgestone Turanza T005",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 35.4,
+     "wet": 31.6
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Falken Ziex ZE310 Ecorun",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 35.8,
+     "wet": 31.4
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Maxxis Premitra HP5",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 35.0,
+     "wet": 32.2
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Firestone Roadhawk",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 35.7,
+     "wet": 31.6
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Dunlop Sport BluResponse",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 35.4,
+     "wet": 32.2
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Semperit Speed-Life 3",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 37.7,
+     "wet": 30.0
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Goodyear EfficientGrip Performance 2",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 36.1,
+     "wet": 31.7
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Kleber Dynaxer HP4",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 36.2,
+     "wet": 31.6
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Nexen N'blue HD Plus",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 35.8,
+     "wet": 32.1
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Debica Presto HP2",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 36.3,
+     "wet": 31.9
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Toyo Proxes Comfort",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 35.2,
+     "wet": 33.2
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "BFGoodrich Advantage",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 36.7,
+     "wet": 31.9
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Uniroyal RainSport 5",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 37.4,
+     "wet": 32.0
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Fulda EcoControl HP2",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 36.0,
+     "wet": 33.8
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Apollo Alnac 4G",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 36.8,
+     "wet": 33.2
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Sava Intensa HP2",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 36.4,
+     "wet": 33.7
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Radar RPX-800",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 38.4,
+     "wet": 32.5
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Goodride ZuperEco Z-107",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 37.1,
+     "wet": 34.3
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Avon ZV7",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 37.9,
+     "wet": 34.3
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Cooper Zeon CS8",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 38.0,
+     "wet": 34.5
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Event Futurum HP",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 38.1,
+     "wet": 34.4
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Zeetex ZT1000",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 38.6,
+     "wet": 33.9
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Barum Bravuris 5HM",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 39.0,
+     "wet": 33.6
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "General Altimax One S",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 38.5,
+     "wet": 34.6
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Hifly HF201",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 38.1,
+     "wet": 35.3
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Imperial EcoDriver 5",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 37.3,
+     "wet": 36.1
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Wanli SA302 Sport Macro",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 37.4,
+     "wet": 36.2
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Leao Nova-Force HP",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 37.4,
+     "wet": 36.5
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Petlas Imperium PT515",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 38.3,
+     "wet": 35.9
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Viking ProTech NewGen",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 38.1,
+     "wet": 36.1
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "GT Radial Champiro FE1",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 38.0,
+     "wet": 36.5
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Sailun Atrezzo Elite",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 38.2,
+     "wet": 37.1
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Nankang Green Sport Eco-2+",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 37.7,
+     "wet": 37.9
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Austone SP-6 Athena",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 38.7,
+     "wet": 37.4
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Fortune FSR602",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 39.6,
+     "wet": 36.7
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Firemax FM601",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 38.5,
+     "wet": 37.9
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Alliance 030Ex",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 36.6,
+     "wet": 40.3
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Seiberling Touring 2",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 38.7,
+     "wet": 38.2
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "A-Plus A606",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 37.4,
+     "wet": 39.6
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Riken Road Performance",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 37.8,
+     "wet": 39.7
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Powertrac CityTour",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 38.5,
+     "wet": 39.6
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Atlas Green HP",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 38.8,
+     "wet": 39.4
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Tomket Sport",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 39.0,
+     "wet": 39.2
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Antares Ingens A1",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 39.8,
+     "wet": 39.5
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Achilles ATR Sport 2",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 38.4,
+     "wet": 41.0
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Maxtrek Maximus M1",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 38.9,
+     "wet": 45.9
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Double Coin DC99",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 40.5,
+     "wet": 51.0
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   }
+  ]
+ },
+ {
+  "test_id": "AUTOBILD-2021-W-205-55R16",
+  "publication": "Auto Bild",
+  "year": 2021,
+  "season": "winter",
+  "size": "205/55 R16",
+  "car": "VW Golf",
+  "tester": "Auto Bild",
+  "url": "https://www.reifenlab.de/autobild/winter/2021/205-55-r16/braking-distance/",
+  "url_original": null,
+  "disciplines": [
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": 80,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "braking qualifying of 50 tyres; speed not stated on source (Auto Bild winter qualifying wet from 80 km/h per 2023/2024 tests) - verify; ranks 36-50 not braked on snow"
+   },
+   {
+    "id": "snow",
+    "surface": "snow",
+    "wet": false,
+    "v_from": 50,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "braking qualifying; speed not stated on source (50 km/h per Auto Bild 2023 winter qualifying) - verify"
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Bridgestone Blizzak LM005",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 32.1,
+     "snow": 28.1
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Dunlop Winter Sport 5",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 33.6,
+     "snow": 27.3
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Hankook Winter i*cept RS2 W452",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 33.4,
+     "snow": 28.2
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Continental WinterContact TS 870",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 34.2,
+     "snow": 27.7
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Firestone Winterhawk 4",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 33.5,
+     "snow": 28.6
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Goodyear UltraGrip 9+",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 35.2,
+     "snow": 27.5
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "BFGoodrich g-Force Winter 2",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 35.6,
+     "snow": 27.9
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Semperit Speed-Grip 3",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 35.1,
+     "snow": 28.5
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Vredestein Wintrac",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 33.5,
+     "snow": 30.3
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Laufenn i Fit+",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 35.2,
+     "snow": 28.6
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Kleber Krisalp HP3",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 35.6,
+     "snow": 28.4
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Michelin Alpin 6",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 34.9,
+     "snow": 29.1
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Sava Eskimo HP2",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 36.5,
+     "snow": 28.0
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Uniroyal MS plus 77",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 36.1,
+     "snow": 28.6
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Barum Polaris 5",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 36.1,
+     "snow": 28.8
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Nexen Winguard Snow G3 WH21",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 35.6,
+     "snow": 29.4
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Yokohama BluEarth-Winter V906",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 35.9,
+     "snow": 29.2
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Fulda Kristall Control HP2",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 36.8,
+     "snow": 28.6
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Falken Eurowinter HS01",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 36.2,
+     "snow": 29.5
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Nokian WR Snowproof",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 36.5,
+     "snow": 29.2
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Matador MP92 Sibir Snow",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 37.4,
+     "snow": 28.6
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Cooper WeatherMaster SA2+",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 35.9,
+     "snow": 30.2
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Avon WV7",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 36.4,
+     "snow": 29.8
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "General Altimax Winter 3",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 37.7,
+     "snow": 28.6
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Radar Dimax Alpine",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 37.7,
+     "snow": 28.6
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Tyfoon Eurosnow 2",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 37.7,
+     "snow": 28.7
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Pirelli Cinturato Winter",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 37.3,
+     "snow": 29.2
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Giti GitiWinter W2",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 38.0,
+     "snow": 29.1
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Maxxis Premitra Snow WP6",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 38.0,
+     "snow": 29.1
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Apollo Alnac 4G Winter",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 38.0,
+     "snow": 29.5
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Kumho WinterCraft WP51",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 37.8,
+     "snow": 29.8
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "CST Medallion Winter WCP1",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 37.6,
+     "snow": 30.5
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Landsail Winter Lander",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 35.3,
+     "snow": 37.9
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Mastersteel Winter+",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 36.1,
+     "snow": 37.2
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Roadhog Winter+",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 37.5,
+     "snow": 40.4
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Toyo Observe S944",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 38.2
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Kormoran Snow",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 39.1
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Syron Everest 1 X",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 39.9
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Goodride SW608",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 40.8
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Zeetex WH1000",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 41.0
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Imperial Snowdragon HP",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 41.1
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Tourador Winter Pro TS1",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 41.2
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Hifly Win-Turi",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 41.3
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Nordexx Wintersafe",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 42.8
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Platin RP60 Winter",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 43.1
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Tristar Snowpower HP",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 43.2
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Sunny Wintermax NW211",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 43.6
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Premiorri ViaMaggiore Z Plus",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 44.1
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Superia Bluewin UHP",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 44.8
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Petlas Snowmaster W651",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 45.4
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   }
+  ]
+ },
+ {
+  "test_id": "AUTOBILD-2021-A-225-50R17",
+  "publication": "Auto Bild",
+  "year": 2021,
+  "season": "allseason",
+  "size": "225/50 R17",
+  "car": "BMW 3 Series",
+  "tester": "Auto Bild",
+  "url": "https://www.reifenlab.de/autobild/allseason/2021/225-50-r17/braking-distance/",
+  "url_original": null,
+  "disciplines": [
+   {
+    "id": "dry",
+    "surface": "asphalt",
+    "wet": false,
+    "v_from": 100,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "braking qualifying of 32 tyres; speed not stated on source; assumed 100->0 as in Auto Bild 2025 all-season qualifying - verify"
+   },
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": 100,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "braking qualifying; speed not stated on source; assumed 100->0 as in Auto Bild 2025 all-season qualifying - verify"
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Michelin CrossClimate 2",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 37.6,
+     "wet": 53.9
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Vredestein Quatrac Pro",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 42.0,
+     "wet": 50.0
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Goodyear Vector 4Seasons Gen-3",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 41.9,
+     "wet": 50.7
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Hankook Kinergy 4S2 H750",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 40.3,
+     "wet": 52.3
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Falken EuroAll Season AS210",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 42.2,
+     "wet": 50.8
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Dunlop Sport All Season",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 41.7,
+     "wet": 51.4
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Maxxis Premitra All Season AP3",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 38.4,
+     "wet": 54.7
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Bridgestone Weather Control A005 Evo",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 41.4,
+     "wet": 52.9
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Nokian Seasonproof",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 41.4,
+     "wet": 53.5
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Continental AllSeasonContact",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 42.3,
+     "wet": 53.0
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Kumho Solus 4S HA32",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 41.5,
+     "wet": 54.4
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Nexen N'blue 4Season",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 42.0,
+     "wet": 54.0
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Viking FourTech",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 43.5,
+     "wet": 52.6
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Pirelli Cinturato All Season SF2",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 40.2,
+     "wet": 56.0
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Giti AllSeason AS1",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 43.5,
+     "wet": 52.9
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Firestone Multiseason 2",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 42.4,
+     "wet": 54.1
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Uniroyal AllSeasonExpert 2",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 44.8,
+     "wet": 52.7
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "BFGoodrich g-Grip All Season 2",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 42.0,
+     "wet": 55.9
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Barum Quartaris 5",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 44.4,
+     "wet": 53.9
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Kleber Quadraxer 2",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 42.6,
+     "wet": 55.8
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Laufenn G Fit 4S",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 43.6,
+     "wet": 55.2
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Semperit AllSeason-Grip",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 44.1,
+     "wet": 55.5
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Avon AS7",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 40.9,
+     "wet": 59.5
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Kenda Kenetica 4S",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 43.3,
+     "wet": 57.2
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Cooper Discoverer All Season",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 41.1,
+     "wet": 59.6
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Apollo Alnac 4G All Season",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 42.8,
+     "wet": 58.5
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "CST Medallion All Season ACP1",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 44.3,
+     "wet": 57.5
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "General Altimax A/S 365",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 44.2,
+     "wet": 58.2
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "GT Radial 4Seasons",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 45.3,
+     "wet": 58.2
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Fulda MultiControl",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 45.5,
+     "wet": 58.6
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Berlin Tires All Season 1",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 42.4,
+     "wet": 62.3
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   },
+   {
+    "name": "Tomket Allyear 3",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 42.9,
+     "wet": 63.7
+    },
+    "aqua_kmh": null,
+    "note": "eliminated in braking qualifying (not in main test)"
+   }
+  ]
+ }
+]

@@ -17,7 +17,8 @@ import {
 	sizeSlug,
 	rehviIndeks,
 	mark,
-	markSlug
+	markSlug,
+	extTests
 } from '$lib/server/andmed.js';
 
 /* Kolm lehte ühe aadressimustri all — täpselt nagu PHP-s pm_ctx():
@@ -147,6 +148,8 @@ function rehvLeht(t) {
 			})
 		: [];
 
+	const ext = extTests(t.slug);
+
 	const aqua = t.tested && t.tested.aqua
 		? { ...t.tested.aqua, nimi: (source(t.tested.aqua.src) || {}).nimi || '' }
 		: null;
@@ -175,10 +178,11 @@ function rehvLeht(t) {
 		mootudeArv: new Set(sizes.map((z) => z.m)).size,
 		mootudUnik: sizes.filter((z, i) => sizes.findIndex((y) => y.m === z.m) === i),
 		tests,
+		ext,
 		aqua,
 		vs,
 		/* Indekseerimise reegel on andmed.js-is (rehviIndeks) */
-		noindex: !(tests.length || sizes.length) || !ix.index,
+		noindex: !(tests.length || ext.length || sizes.length) || !ix.index,
 		canonical: ix.canonical ? 'rehvid/' + ix.canonical + '/' : null,
 		desc: kirjeldus(t, sizes, tests),
 		ogPilt: ix.sitemap

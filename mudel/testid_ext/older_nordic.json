@@ -1,0 +1,53 @@
+[
+ {
+  "test_id": "ViBilagare-2019-W-225-50R17",
+  "publication": "Vi Bilägare",
+  "year": 2019,
+  "season": "winter",
+  "size": "225/50 R17",
+  "car": null,
+  "tester": "Vi Bilägare; asphalt tests in Småland, Sweden",
+  "url": "https://tiresvote.com/articles/vi-bilagare-winter-studded-tires-test-size-2019/",
+  "url_original": null,
+  "disciplines": [
+   {"id": "ice", "surface": "ice", "wet": false, "v_from": 25, "v_to": 5, "temp_c": null, "note": "labelled 'Braking 25-5 km/h, m.'"},
+   {"id": "snow", "surface": "snow", "wet": false, "v_from": 40, "v_to": 5, "temp_c": null, "note": "labelled 'Braking 40-5 km/h, m.'"},
+   {"id": "wet", "surface": "asphalt", "wet": true, "v_from": 80, "v_to": 0, "temp_c": null, "note": "labelled 'Braking 80-0 km/h, m.'"},
+   {"id": "dry", "surface": "asphalt", "wet": false, "v_from": 80, "v_to": 0, "temp_c": null, "note": "UNCERTAIN: secondary source labels it 'Braking 80 km/h, m.' but 43-48 m values look like 100-0 km/h; verify against original before use"}
+  ],
+  "tyres": [
+   {"name": "Continental IceContact 3", "category": "winter_studded", "label_wet": null, "results": {"ice": 8.67, "snow": 16.7, "wet": 28.8, "dry": 43.0}, "aqua_kmh": null, "note": "source lists results by brand only; model mapped from tyre list"},
+   {"name": "Michelin X-Ice North 4", "category": "winter_studded", "label_wet": null, "results": {"ice": 9.42, "snow": 17.9, "wet": 31.0, "dry": 46.2}, "aqua_kmh": null, "note": "source lists results by brand only; model mapped from tyre list"},
+   {"name": "Nokian Hakkapeliitta 9", "category": "winter_studded", "label_wet": null, "results": {"ice": 9.68, "snow": 18.0, "wet": 29.9, "dry": 44.9}, "aqua_kmh": null, "note": "source lists results by brand only; model mapped from tyre list"},
+   {"name": "Continental VikingContact 7", "category": "winter_nordic", "label_wet": null, "results": {"ice": 10.64, "snow": 16.9, "wet": 31.0, "dry": 48.0}, "aqua_kmh": null, "note": "non-studded reference, listed as 'Friction' in source"},
+   {"name": "Goodyear UltraGrip Ice Arctic", "category": "winter_studded", "label_wet": null, "results": {"ice": 10.87, "snow": 18.0, "wet": 29.8, "dry": 47.8}, "aqua_kmh": null, "note": "source lists results by brand only; model mapped from tyre list"},
+   {"name": "Bridgestone Noranza 001", "category": "winter_studded", "label_wet": null, "results": {"ice": 10.88, "snow": 18.4, "wet": 30.8, "dry": 46.7}, "aqua_kmh": null, "note": "source lists results by brand only; model mapped from tyre list"},
+   {"name": "Hankook Winter i*Pike RS2 W429", "category": "winter_studded", "label_wet": null, "results": {"ice": 10.97, "snow": 18.1, "wet": 31.4, "dry": 47.1}, "aqua_kmh": null, "note": "source lists results by brand only; model mapped from tyre list"},
+   {"name": "Sailun Ice Blazer WST3", "category": "winter_studded", "label_wet": null, "results": {"ice": 13.97, "snow": 19.2, "wet": 31.3, "dry": 48.2}, "aqua_kmh": null, "note": "source lists results by brand only; model mapped from tyre list"}
+  ]
+ },
+ {
+  "test_id": "ZaRulem-2008-W-ICETEMP-mixed",
+  "publication": "Za Rulem",
+  "year": 2008,
+  "season": "winter",
+  "size": "195/65 R15 (studded) / 205/55 R16 (non-studded)",
+  "car": "Skoda Octavia",
+  "tester": "Za Rulem; ice braking of same tyre set repeated at four temperatures, Feb-Mar 2008",
+  "url": "https://www.zr.ru/content/articles/16906-test_shipy_i_lipuchki_na_ldu_kazus_gradusa/",
+  "url_original": null,
+  "disciplines": [
+   {"id": "ice_m19", "surface": "ice", "wet": false, "v_from": 50, "v_to": 5, "temp_c": -19, "note": "-19 +/-1 C. Group averages from text: non-studded avg 31.3 m; studded worse by 6.1 m (19.5%) => studded avg 37.4 m (derived from text, not printed as a number). Per-tyre values otherwise only in chart image. Temp type (air vs ice) not specified."},
+   {"id": "ice_m13", "surface": "ice", "wet": false, "v_from": 50, "v_to": 5, "temp_c": -13, "note": "-13 +/-1 C. Group averages printed: studded 34.4 m, non-studded 34.7 m. Best studded Continental, worst studded Michelin, gap 6.7 m. Per-tyre values only in chart image."},
+   {"id": "ice_m5", "surface": "ice", "wet": false, "v_from": 50, "v_to": 5, "temp_c": -5, "note": "-5 +/-1 C. Group averages printed: studded 29.2 m, non-studded 54.9 m. Studded Michelin improved 5.8 m and Continental 4.5 m vs -13 C. Per-tyre values only in chart image."},
+   {"id": "ice_0", "surface": "ice", "wet": false, "v_from": 50, "v_to": 5, "temp_c": -0.5, "note": "0...-1 C (temp_c set to midpoint). Group averages: non-studded 82.3 m printed; studded avg increased 3.9 m vs -5 C (=> ~33.1 m, derived). Per-tyre values only in chart image. Speed 50->5 km/h chosen to exclude ABS errors (per article)."}
+  ],
+  "tyres": [
+   {"name": "Michelin X-Ice North", "category": "winter_studded", "label_wet": null, "results": {}, "aqua_kmh": null, "note": "195/65 R15; per-tyre values not in text"},
+   {"name": "Continental ContiWinterViking 2", "category": "winter_studded", "label_wet": null, "results": {}, "aqua_kmh": null, "note": "195/65 R15; per-tyre values not in text"},
+   {"name": "Michelin X-Ice 2", "category": "winter_nordic", "label_wet": null, "results": {"ice_m19": 30.3}, "aqua_kmh": null, "note": "205/55 R16; best at -19 C per text. X-Ice 2 is a Michelin non-studded ice tyre (Asian/North-American style), category approximate"},
+   {"name": "Nokian Hakkapeliitta R", "category": "winter_nordic", "label_wet": null, "results": {}, "aqua_kmh": null, "note": "205/55 R16; one extraction gave 77.1 m at 0...-1 C but could not be verified verbatim, so omitted"},
+   {"name": "Bridgestone Blizzak WS-60", "category": "winter_nordic", "label_wet": null, "results": {}, "aqua_kmh": null, "note": "205/55 R16; Japanese-style studless, category approximate"}
+  ]
+ }
+]

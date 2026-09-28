@@ -1,0 +1,1732 @@
+[
+ {
+  "test_id": "SPORTAUTO-2024-S-215-40R18",
+  "publication": "sport auto",
+  "year": 2024,
+  "season": "summer",
+  "size": "215/40 R18",
+  "car": "Hyundai i20 N",
+  "tester": "sport auto, Bridgestone proving ground near Rome (per vergoelst.de)",
+  "url": "https://www.tyrereviews.com/Article/2024-Sport-Auto-Summer-Tyre-Test.htm",
+  "url_original": null,
+  "disciplines": [
+   {
+    "id": "dry",
+    "surface": "asphalt",
+    "wet": false,
+    "v_from": 100,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "v_from 100 per source text ('35.5 m from 100 km/h'); v_to not stated, 0 assumed"
+   },
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": null,
+    "v_to": null,
+    "temp_c": null,
+    "note": "start/end speed NOT stated on tyrereviews summer-test page; sport auto 2024 all-season test (same car/size) states Wet braking 80 - 0 km/h, so likely 80-0, unverified for this test"
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Continental PremiumContact 7",
+    "category": "summer",
+    "label_wet": "A",
+    "results": {
+     "dry": 35.5,
+     "wet": 29.8
+    },
+    "aqua_kmh": null,
+    "note": "label C/A/71; aquaplaning 76.4 vs 76.7 km/h ambiguous between Conti/Michelin in two reads, left null"
+   },
+   {
+    "name": "Michelin Pilot Sport 5",
+    "category": "summer_uhp",
+    "label_wet": "A",
+    "results": {
+     "dry": 35.5,
+     "wet": 30.8
+    },
+    "aqua_kmh": null,
+    "note": "label C/A/72; aquaplaning 76.4 vs 76.7 km/h ambiguous between Conti/Michelin in two reads, left null"
+   },
+   {
+    "name": "Bridgestone Turanza T005",
+    "category": "summer",
+    "label_wet": "A",
+    "results": {
+     "dry": 36.4,
+     "wet": 30.6
+    },
+    "aqua_kmh": 77.2,
+    "note": "label C/A/71"
+   },
+   {
+    "name": "Maxxis Victra Sport 5",
+    "category": "summer_uhp",
+    "label_wet": "A",
+    "results": {
+     "dry": 35.9,
+     "wet": 31.5
+    },
+    "aqua_kmh": 76.3,
+    "note": "label D/A/72"
+   },
+   {
+    "name": "Dunlop SportMaxx RT 2",
+    "category": "summer_uhp",
+    "label_wet": "A",
+    "results": {
+     "dry": 37.1,
+     "wet": 32
+    },
+    "aqua_kmh": 76.8,
+    "note": "label C/A/72"
+   },
+   {
+    "name": "Goodyear Vector 4Seasons Gen 3",
+    "category": "allseason",
+    "label_wet": "B",
+    "results": {
+     "dry": 43.2,
+     "wet": 35.6
+    },
+    "aqua_kmh": 71.2,
+    "note": "all-season reference tyre in summer test; label C/B/72"
+   }
+  ]
+ },
+ {
+  "test_id": "AUTOZEITUNG-2023-A-215-55R17",
+  "publication": "Auto Zeitung",
+  "year": 2023,
+  "season": "allseason",
+  "size": "215/55 R17",
+  "car": "VW T-Roc 1.5 TSI (per autozeitung.de)",
+  "tester": "Auto Zeitung; snow: Arctic Center near Ivalo (FIN); wet/dry: Michelin Ladoux (FR)",
+  "url": "https://www.tyrereviews.com/Article/2023-Auto-Zeitung-All-Season-Tyre-Test.htm",
+  "url_original": "https://www.autozeitung.de/ganzjahresreifen-test-2023-204840.html",
+  "disciplines": [
+   {
+    "id": "dry",
+    "surface": "asphalt",
+    "wet": false,
+    "v_from": 100,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "source heading: Dry braking in meters (100 - 0 km/h); confirmed on autozeitung.de (web page dated 04.10.2024)"
+   },
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": 100,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "source heading: Wet braking in meters (100 - 0 km/h); confirmed on autozeitung.de (web page dated 04.10.2024)"
+   },
+   {
+    "id": "snow",
+    "surface": "snow",
+    "wet": false,
+    "v_from": 50,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "source heading: Snow braking in meters (50 - 0 km/h); confirmed on autozeitung.de (web page dated 04.10.2024)"
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Goodyear Vector 4Seasons Gen 3",
+    "category": "allseason",
+    "label_wet": "B",
+    "results": {
+     "dry": 38.5,
+     "wet": 44.0,
+     "snow": 25.1
+    },
+    "aqua_kmh": 80,
+    "note": "label B/B/70; wet: autozeitung.de prints 44,0 m, tyrereviews shows 43.5 m -> original used"
+   },
+   {
+    "name": "Michelin CrossClimate 2",
+    "category": "allseason",
+    "label_wet": "B",
+    "results": {
+     "dry": 36,
+     "wet": 43.6,
+     "snow": 25.2
+    },
+    "aqua_kmh": 81.1,
+    "note": "label B/B/71"
+   },
+   {
+    "name": "Hankook Kinergy 4S2",
+    "category": "allseason",
+    "label_wet": "B",
+    "results": {
+     "dry": 37.5,
+     "wet": 43,
+     "snow": 25.5
+    },
+    "aqua_kmh": 76.9,
+    "note": "label C/B/72"
+   },
+   {
+    "name": "Kleber Quadraxer 3",
+    "category": "allseason",
+    "label_wet": "B",
+    "results": {
+     "dry": 37.2,
+     "wet": 46.1,
+     "snow": 24.9
+    },
+    "aqua_kmh": 81.7,
+    "note": "label C/B/72"
+   },
+   {
+    "name": "Pirelli Cinturato All Season SF2",
+    "category": "allseason",
+    "label_wet": "A",
+    "results": {
+     "dry": 36.7,
+     "wet": 40.8,
+     "snow": 26.5
+    },
+    "aqua_kmh": 81.8,
+    "note": "label C/A/68"
+   },
+   {
+    "name": "Vredestein Quatrac Pro+",
+    "category": "allseason",
+    "label_wet": "B",
+    "results": {
+     "dry": 39.4,
+     "wet": 43.5,
+     "snow": 25.7
+    },
+    "aqua_kmh": 74.3,
+    "note": "label printed 'CB/72'"
+   },
+   {
+    "name": "Firestone MultiSeason Gen 02",
+    "category": "allseason",
+    "label_wet": "B",
+    "results": {
+     "dry": 39.5,
+     "wet": 44,
+     "snow": 25.3
+    },
+    "aqua_kmh": 77.4,
+    "note": "label C/B/72"
+   },
+   {
+    "name": "Uniroyal AllSeasonExpert 2",
+    "category": "allseason",
+    "label_wet": "C",
+    "results": {
+     "dry": 41.8,
+     "wet": 43.7,
+     "snow": 25.5
+    },
+    "aqua_kmh": 84.2,
+    "note": "label C/C/72"
+   },
+   {
+    "name": "Nexen N Blue 4Season 2",
+    "category": "allseason",
+    "label_wet": "A",
+    "results": {
+     "dry": 37.9,
+     "wet": 49,
+     "snow": 25.6
+    },
+    "aqua_kmh": 74.2,
+    "note": "label C/A/72"
+   }
+  ]
+ },
+ {
+  "test_id": "AMS-2022-W-245-45R19",
+  "publication": "auto motor und sport",
+  "year": 2022,
+  "season": "winter",
+  "size": "245/45 R19",
+  "car": "Audi A6",
+  "tester": null,
+  "url": "https://www.tyrereviews.com/Article/2022-AMS-Winter-Tyre-Test.htm",
+  "url_original": null,
+  "disciplines": [
+   {
+    "id": "dry",
+    "surface": "asphalt",
+    "wet": false,
+    "v_from": 100,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "source heading: Dry braking in meters (100 - 0 km/h)"
+   },
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": 80,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "source heading: Wet braking in meters (80 - 0 km/h)"
+   },
+   {
+    "id": "snow",
+    "surface": "snow",
+    "wet": false,
+    "v_from": 50,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "source heading: Snow braking in meters (50 - 0 km/h)"
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Michelin Pilot Alpin 5",
+    "category": "winter_central",
+    "label_wet": "B",
+    "results": {
+     "dry": 43.5,
+     "wet": 34.6,
+     "snow": 25.7
+    },
+    "aqua_kmh": 74.9,
+    "note": "label C/B/72"
+   },
+   {
+    "name": "Continental WinterContact TS 870 P",
+    "category": "winter_central",
+    "label_wet": "B",
+    "results": {
+     "dry": 44.2,
+     "wet": 35.4,
+     "snow": 25.7
+    },
+    "aqua_kmh": 73.0,
+    "note": "label C/B/71"
+   },
+   {
+    "name": "Vredestein Wintrac Pro",
+    "category": "winter_central",
+    "label_wet": "B",
+    "results": {
+     "dry": 47.3,
+     "wet": 31.8,
+     "snow": 25.4
+    },
+    "aqua_kmh": 75.1,
+    "note": "label D/B/72"
+   },
+   {
+    "name": "Bridgestone Blizzak LM005",
+    "category": "winter_central",
+    "label_wet": "A",
+    "results": {
+     "dry": 46.6,
+     "wet": 33.1,
+     "snow": 26.0
+    },
+    "aqua_kmh": 76.2,
+    "note": "label C/A/72"
+   },
+   {
+    "name": "Firestone Winterhawk 4",
+    "category": "winter_central",
+    "label_wet": "B",
+    "results": {
+     "dry": 48.5,
+     "wet": 34.7,
+     "snow": 24.9
+    },
+    "aqua_kmh": 73.2,
+    "note": "label C/B/71"
+   },
+   {
+    "name": "Cooper Discoverer Winter",
+    "category": "winter_central",
+    "label_wet": "B",
+    "results": {
+     "dry": 45.2,
+     "wet": 38.5,
+     "snow": 27.0
+    },
+    "aqua_kmh": 76.7,
+    "note": "label C/B/71"
+   },
+   {
+    "name": "Uniroyal WinterExpert",
+    "category": "winter_central",
+    "label_wet": "C",
+    "results": {
+     "dry": 49.0,
+     "wet": 39.5,
+     "snow": 26.4
+    },
+    "aqua_kmh": 73.2,
+    "note": "label C/C/72"
+   },
+   {
+    "name": "Falken Eurowinter HS01",
+    "category": "winter_central",
+    "label_wet": "B",
+    "results": {
+     "dry": 45.1,
+     "wet": 34.0,
+     "snow": 30.0
+    },
+    "aqua_kmh": 78.9,
+    "note": "label D/B/72"
+   }
+  ]
+ },
+ {
+  "test_id": "AUTOZEITUNG-2024-S-225-45R17",
+  "publication": "Auto Zeitung",
+  "year": 2024,
+  "season": "summer",
+  "size": "225/45 R17",
+  "car": "BMW 120i (per blog.reifen-vor-ort.de)",
+  "tester": null,
+  "url": "https://www.tyrereviews.com/Tyre-Tests/2024-AZ-Summer-Tyre-Test.htm",
+  "url_original": null,
+  "disciplines": [
+   {
+    "id": "dry",
+    "surface": "asphalt",
+    "wet": false,
+    "v_from": null,
+    "v_to": null,
+    "temp_c": null,
+    "note": "speeds NOT stated on tyrereviews page; AZ 2023 all-season test used 100-0 km/h dry, likely same, unverified; AZ 2025 summer test (autozeitung.de) also uses 'Bremsen, 100-0 km/h' for dry and wet"
+   },
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": null,
+    "v_to": null,
+    "temp_c": null,
+    "note": "speeds NOT stated on tyrereviews page; AZ 2023 all-season test used 100-0 km/h wet, likely same, unverified; AZ 2025 summer test (autozeitung.de) also uses 'Bremsen, 100-0 km/h' for dry and wet"
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Continental PremiumContact 7",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 32.9,
+     "wet": 39.5
+    },
+    "aqua_kmh": 82.3,
+    "note": ""
+   },
+   {
+    "name": "Pirelli Cinturato P7 C2",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 33,
+     "wet": 41.9
+    },
+    "aqua_kmh": 81.4,
+    "note": ""
+   },
+   {
+    "name": "Hankook Ventus S1 evo 3",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 33.3,
+     "wet": 40.9
+    },
+    "aqua_kmh": 79.4,
+    "note": ""
+   },
+   {
+    "name": "Michelin Primacy 4 Plus",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 33.6,
+     "wet": 44.6
+    },
+    "aqua_kmh": 81.9,
+    "note": ""
+   },
+   {
+    "name": "Vredestein Ultrac",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 33.7,
+     "wet": 44.1
+    },
+    "aqua_kmh": 79.3,
+    "note": ""
+   },
+   {
+    "name": "Firestone Roadhawk 2 ENLITEN",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 34.2,
+     "wet": 43.1
+    },
+    "aqua_kmh": 84.2,
+    "note": ""
+   },
+   {
+    "name": "Maxxis Premitra HP5",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 34.2,
+     "wet": 43.3
+    },
+    "aqua_kmh": 83.2,
+    "note": ""
+   },
+   {
+    "name": "Falken ZIEX ZE310 EcoRun",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 34.3,
+     "wet": 43.2
+    },
+    "aqua_kmh": 79.2,
+    "note": ""
+   },
+   {
+    "name": "Bridgestone Turanza 6",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 34.8,
+     "wet": 43.2
+    },
+    "aqua_kmh": 78.6,
+    "note": ""
+   }
+  ]
+ },
+ {
+  "test_id": "ACE-GTU-ARBOE-2024-S-225-45R17",
+  "publication": "ACE / GTÜ / ARBÖ",
+  "year": 2024,
+  "season": "summer",
+  "size": "225/45 R17",
+  "car": "Opel Astra Sportstourer (objective tests); VW Golf VII Variant (subjective tests)",
+  "tester": "GTÜ, Triwo proving ground (ace.de: near Frankfurt; vergoelst.de: Pferdsfeld)",
+  "url": "https://www.ace.de/ratgeber/rund-ums-auto/reifen/reifentests/sommerreifen-test/sommerreifentest-2024/",
+  "url_original": null,
+  "disciplines": [
+   {
+    "id": "dry",
+    "surface": "asphalt",
+    "wet": false,
+    "v_from": 100,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "from 100 km/h to standstill per ace.de text; only 3-4 of 10 tyres' values published in text"
+   },
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": 80,
+    "v_to": null,
+    "temp_c": null,
+    "note": "from 80 km/h per ace.de text; end speed not stated explicitly; only 4 of 10 tyres' values published in text"
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Continental PremiumContact 7",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 33.7,
+     "wet": 27.4
+    },
+    "aqua_kmh": null,
+    "note": "source text names brand only; only Continental tyre in test"
+   },
+   {
+    "name": "Michelin Primacy 4+",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 34.1,
+     "wet": 28.18
+    },
+    "aqua_kmh": null,
+    "note": "source text names brand only; only Michelin tyre in test"
+   },
+   {
+    "name": "Pirelli Cinturato P7",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 35.1
+    },
+    "aqua_kmh": null,
+    "note": "source text names brand only; model name as listed on ace.de (likely Cinturato P7 C2, unverified)"
+   },
+   {
+    "name": "Maxxis Victra Sport 5 VS5",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "wet": 28.01
+    },
+    "aqua_kmh": null,
+    "note": "source text names brand only; dry rank 5 but dry value not published"
+   },
+   {
+    "name": "Austone Athena SP-701",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 38.2,
+     "wet": 31.7
+    },
+    "aqua_kmh": null,
+    "note": "source text names brand only; worst in dry and wet"
+   }
+  ]
+ },
+ {
+  "test_id": "SPORTAUTO-2024-A-215-40R18",
+  "publication": "sport auto",
+  "year": 2024,
+  "season": "allseason",
+  "size": "215/40 R18",
+  "car": "Hyundai i20 N",
+  "tester": null,
+  "url": "https://www.tyrereviews.com/Article/2024-Sport-Auto-All-Season-Tyre-Test.htm",
+  "url_original": null,
+  "disciplines": [
+   {
+    "id": "dry",
+    "surface": "asphalt",
+    "wet": false,
+    "v_from": 100,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "source heading: Dry braking in meters (100 - 0 km/h)"
+   },
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": 80,
+    "v_to": 0,
+    "temp_c": 7,
+    "note": "source heading: Wet braking in meters (80 - 0 km/h); tyrereviews text: wet tests well below 10 C, braking approx. 7 C"
+   },
+   {
+    "id": "snow",
+    "surface": "snow",
+    "wet": false,
+    "v_from": 50,
+    "v_to": 5,
+    "temp_c": null,
+    "note": "source heading: Snow braking in meters (50 - 5 km/h)"
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Goodyear Eagle F1 Asymmetric 3",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 35.3,
+     "wet": 35.2,
+     "snow": 52.9
+    },
+    "aqua_kmh": 75.4,
+    "note": "summer reference tyre"
+   },
+   {
+    "name": "Michelin CrossClimate 2",
+    "category": "allseason",
+    "label_wet": "B",
+    "results": {
+     "dry": 37.2,
+     "wet": 34.1,
+     "snow": 26.3
+    },
+    "aqua_kmh": 75.0,
+    "note": "label C/B/71"
+   },
+   {
+    "name": "Bridgestone Turanza All Season 6",
+    "category": "allseason",
+    "label_wet": "B",
+    "results": {
+     "dry": 38.0,
+     "wet": 31.9,
+     "snow": 26.9
+    },
+    "aqua_kmh": 74.2,
+    "note": "label C/B/70"
+   },
+   {
+    "name": "Continental AllSeasonContact 2",
+    "category": "allseason",
+    "label_wet": "B",
+    "results": {
+     "dry": 39.1,
+     "wet": 33.7,
+     "snow": 26.5
+    },
+    "aqua_kmh": 72.5,
+    "note": "label C/B/72"
+   },
+   {
+    "name": "Goodyear Vector 4Seasons Gen 3",
+    "category": "allseason",
+    "label_wet": "B",
+    "results": {
+     "dry": 41.7,
+     "wet": 34.5,
+     "snow": 27.1
+    },
+    "aqua_kmh": 72.0,
+    "note": "label C/B/72"
+   },
+   {
+    "name": "Vredestein Quatrac Pro Plus",
+    "category": "allseason",
+    "label_wet": "B",
+    "results": {
+     "dry": 41.7,
+     "wet": 32.8,
+     "snow": 29.3
+    },
+    "aqua_kmh": 71.1,
+    "note": "label D/B/72"
+   },
+   {
+    "name": "Hankook Kinergy 4S2",
+    "category": "allseason",
+    "label_wet": "B",
+    "results": {
+     "dry": 42.2,
+     "wet": 32.7,
+     "snow": 26.0
+    },
+    "aqua_kmh": 75.2,
+    "note": "label C/B/72"
+   },
+   {
+    "name": "Goodyear UltraGrip Performance 3",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "dry": 43.4,
+     "wet": 34.3,
+     "snow": 24.4
+    },
+    "aqua_kmh": 77.2,
+    "note": "winter reference tyre"
+   }
+  ]
+ },
+ {
+  "test_id": "PROMOBIL-2024-A-235-55R17",
+  "publication": "Promobil",
+  "year": 2024,
+  "season": "allseason",
+  "size": "235/55 R17",
+  "car": "VW Transporter T6.1 (camper conversion)",
+  "tester": null,
+  "url": "https://www.tyrereviews.com/Article/2024-Motorhome-Camper-Van-All-Season-Tyre-Test.htm",
+  "url_original": null,
+  "disciplines": [
+   {
+    "id": "dry",
+    "surface": "asphalt",
+    "wet": false,
+    "v_from": null,
+    "v_to": null,
+    "temp_c": null,
+    "note": "speeds NOT stated on tyrereviews page; heavy camper van"
+   },
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": null,
+    "v_to": null,
+    "temp_c": null,
+    "note": "speeds NOT stated on tyrereviews page"
+   },
+   {
+    "id": "snow",
+    "surface": "snow",
+    "wet": false,
+    "v_from": null,
+    "v_to": null,
+    "temp_c": null,
+    "note": "speeds NOT stated on tyrereviews page"
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Goodyear Vector 4Seasons Gen-3",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 46.9,
+     "wet": 36.4,
+     "snow": 28.5
+    },
+    "aqua_kmh": 76.8,
+    "note": ""
+   },
+   {
+    "name": "Michelin CrossClimate 2",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 40.7,
+     "wet": 38.9,
+     "snow": 27.9
+    },
+    "aqua_kmh": 77.6,
+    "note": ""
+   },
+   {
+    "name": "Giti GitiAllSeason AS1 SUV",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 49.4,
+     "wet": 35.7,
+     "snow": 29.2
+    },
+    "aqua_kmh": 72.8,
+    "note": ""
+   },
+   {
+    "name": "Falken Euroall Season AS220 Pro",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 44.6,
+     "wet": 37.4,
+     "snow": 30.8
+    },
+    "aqua_kmh": 73.6,
+    "note": ""
+   },
+   {
+    "name": "Vredestein Quatrac Pro",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 46.5,
+     "wet": 36.6,
+     "snow": 31.3
+    },
+    "aqua_kmh": 74,
+    "note": ""
+   },
+   {
+    "name": "Firestone MultiSeason Gen 02",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 48,
+     "wet": 37.7,
+     "snow": 28.7
+    },
+    "aqua_kmh": 73,
+    "note": ""
+   },
+   {
+    "name": "Pirelli Cinturato All Season SF2",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 43.7,
+     "wet": 37.6,
+     "snow": 30.2
+    },
+    "aqua_kmh": 73.7,
+    "note": ""
+   },
+   {
+    "name": "Uniroyal AllSeasonExpert 2",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 51.3,
+     "wet": 38.5,
+     "snow": 28.3
+    },
+    "aqua_kmh": 79,
+    "note": ""
+   }
+  ]
+ },
+ {
+  "test_id": "AMS-2025-W-215-55R17",
+  "publication": "auto motor und sport",
+  "year": 2025,
+  "season": "winter",
+  "size": "215/55 R17",
+  "car": "Audi Q2 / Audi SQ2 (both named; which car per discipline not stated)",
+  "tester": null,
+  "url": "https://www.tyrereviews.com/Article/2025-AMS-Winter-Tyre-Test.htm",
+  "url_original": null,
+  "disciplines": [
+   {
+    "id": "dry",
+    "surface": "asphalt",
+    "wet": false,
+    "v_from": 100,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "source heading: Dry braking in meters (100 - 0 km/h)"
+   },
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": 80,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "source heading: Wet braking in meters (80 - 0 km/h)"
+   },
+   {
+    "id": "snow",
+    "surface": "snow",
+    "wet": false,
+    "v_from": 50,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "source heading: Snow braking in meters (50 - 0 km/h)"
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Continental WinterContact TS 870 P",
+    "category": "winter_central",
+    "label_wet": "B",
+    "results": {
+     "dry": 43.6,
+     "wet": 31.2,
+     "snow": 28.7
+    },
+    "aqua_kmh": 77.4,
+    "note": "label B/B/71"
+   },
+   {
+    "name": "Goodyear UltraGrip Performance 3",
+    "category": "winter_central",
+    "label_wet": "C",
+    "results": {
+     "dry": 44.6,
+     "wet": 32.8,
+     "snow": 28.1
+    },
+    "aqua_kmh": 78.5,
+    "note": "label C/C/71"
+   },
+   {
+    "name": "Michelin Alpin 7",
+    "category": "winter_central",
+    "label_wet": "B",
+    "results": {
+     "dry": 45.7,
+     "wet": 31.4,
+     "snow": 28.4
+    },
+    "aqua_kmh": 73.5,
+    "note": "label C/B/71"
+   },
+   {
+    "name": "Hankook Winter i*cept RS3",
+    "category": "winter_central",
+    "label_wet": "B",
+    "results": {
+     "dry": 45.6,
+     "wet": 32.6,
+     "snow": 27.2
+    },
+    "aqua_kmh": 80,
+    "note": "label C/B/72; name printed 'Winter I cept RS3'"
+   },
+   {
+    "name": "Vredestein Wintrac Pro+",
+    "category": "winter_central",
+    "label_wet": "B",
+    "results": {
+     "dry": 46.4,
+     "wet": 31.9,
+     "snow": 29.6
+    },
+    "aqua_kmh": 78.3,
+    "note": "label C/B/71; printed 'Wintrac Pro plus'"
+   },
+   {
+    "name": "Bridgestone Blizzak 6",
+    "category": "winter_central",
+    "label_wet": "B",
+    "results": {
+     "dry": 45,
+     "wet": 33.3,
+     "snow": 28.3
+    },
+    "aqua_kmh": 75.3,
+    "note": "label C/B/70"
+   },
+   {
+    "name": "Pirelli Cinturato Winter 2",
+    "category": "winter_central",
+    "label_wet": "B",
+    "results": {
+     "dry": 45.5,
+     "wet": 32.9,
+     "snow": 29.1
+    },
+    "aqua_kmh": 78.2,
+    "note": "label C/B/71"
+   },
+   {
+    "name": "Linglong Sport Master Winter",
+    "category": "winter_central",
+    "label_wet": "A",
+    "results": {
+     "dry": 44.5,
+     "wet": 32.2,
+     "snow": 29.4
+    },
+    "aqua_kmh": 73.6,
+    "note": "label D/A/72"
+   },
+   {
+    "name": "Falken Eurowinter HS02",
+    "category": "winter_central",
+    "label_wet": "B",
+    "results": {
+     "dry": 45.2,
+     "wet": 33.2,
+     "snow": 30.8
+    },
+    "aqua_kmh": 76.2,
+    "note": "label C/B/70"
+   },
+   {
+    "name": "Profil Winter Maxx",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "dry": 50.1,
+     "wet": 52.5,
+     "snow": 27.7
+    },
+    "aqua_kmh": 63.1,
+    "note": "retreaded tyre; label not listed"
+   }
+  ]
+ },
+ {
+  "test_id": "ACE-GTU-ARBOE-2023-W-235-55R18",
+  "publication": "ACE / GTÜ / ARBÖ",
+  "year": 2023,
+  "season": "winter",
+  "size": "235/55 R18",
+  "car": null,
+  "tester": "GTÜ; snow: Arctic Center Ivalo (FIN); wet/dry: Goodyear track Mireval (FR)",
+  "url": "https://www.gtue.de/news/partner/winterreifentest-2023-premiumhersteller-versus-guenstige-anbieter",
+  "url_original": "https://www.reifen-testberichte.info/gtue-winterreifentest-2023-teuer-oder-billig/1350/",
+  "disciplines": [
+   {
+    "id": "dry",
+    "surface": "asphalt",
+    "wet": false,
+    "v_from": 100,
+    "v_to": null,
+    "temp_c": null,
+    "note": "from 100 km/h per text; end speed not stated; wet/dry tests at 13-18 C (range stated); only best/worst values published"
+   },
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": 80,
+    "v_to": null,
+    "temp_c": null,
+    "note": "from 80 km/h per text; end speed not stated; 13-18 C (range stated); only best + 2 worst values published"
+   },
+   {
+    "id": "snow",
+    "surface": "snow",
+    "wet": false,
+    "v_from": 35,
+    "v_to": null,
+    "temp_c": -4.5,
+    "note": "from 35 km/h per text; end speed not stated; only best value published"
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Hankook Winter i*cept evo3 X",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 30.4
+    },
+    "aqua_kmh": null,
+    "note": "text names brand only; model from reifen-testberichte.info list"
+   },
+   {
+    "name": "Fortuna Winter SUV",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "dry": 45.3,
+     "wet": 41
+    },
+    "aqua_kmh": null,
+    "note": "text names brand only; model from reifen-testberichte.info list"
+   },
+   {
+    "name": "Austone Skadi SP-901",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 38.8
+    },
+    "aqua_kmh": null,
+    "note": "text names brand only; 2nd in snow braking but value not published"
+   },
+   {
+    "name": "Michelin Pilot Alpin 5 SUV",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "dry": 40.4
+    },
+    "aqua_kmh": null,
+    "note": "text names brand only; model from reifen-testberichte.info list"
+   },
+   {
+    "name": "Bridgestone Blizzak LM005",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "snow": 12.26
+    },
+    "aqua_kmh": null,
+    "note": "text names brand only; model from reifen-testberichte.info list"
+   }
+  ]
+ },
+ {
+  "test_id": "ACE-GTU-ARBOE-2024-A-215-50R18",
+  "publication": "ACE / GTÜ / ARBÖ",
+  "year": 2024,
+  "season": "allseason",
+  "size": "215/50 R18",
+  "car": "VW T-Roc",
+  "tester": "GTÜ; snow: Arctic Falls (Sweden, Jan); wet/dry: ATP Papenburg",
+  "url": "https://www.gtue.de/news/technik/ganzjahresreifen-die-alleskoenner-im-haertetest-von-ace-arboe-und-gtue",
+  "url_original": "https://www.ace.de/ratgeber/rund-ums-auto/reifen/reifentests/ganzjahresreifen-test/ganzjahresreifentest-215-50-r18/",
+  "disciplines": [
+   {
+    "id": "dry",
+    "surface": "asphalt",
+    "wet": false,
+    "v_from": 100,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "'Vollbremsung aus 100 km/h ... bis zum Stillstand'; only 6 of 9 values in text"
+   },
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": 80,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "'Aus 80 km/h ... zum Stehen'; only 4 of 9 values in text"
+   },
+   {
+    "id": "snow",
+    "surface": "snow",
+    "wet": false,
+    "v_from": 40,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "'Vollbremsung aus 40 km/h auf schneebedeckter Fahrbahn'; only best (Falken) and worst (Pirelli) all-season values in text; summer ref value 'bis der Wagen zum Stehen kommt'"
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Continental AllSeasonContact 2",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 36.1,
+     "wet": 29
+    },
+    "aqua_kmh": null,
+    "note": "text names brand only; model from ace.de list"
+   },
+   {
+    "name": "Pirelli Cinturato All Season SF 2",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 35.6,
+     "wet": 29.9,
+     "snow": 20.9
+    },
+    "aqua_kmh": null,
+    "note": "text names brand only; model from ace.de list"
+   },
+   {
+    "name": "Bridgestone Turanza All Season 6",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "wet": 29.9
+    },
+    "aqua_kmh": null,
+    "note": "text names brand only"
+   },
+   {
+    "name": "Toyo Celsius AS2",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 36.7,
+     "wet": 33.5
+    },
+    "aqua_kmh": null,
+    "note": "text names brand only"
+   },
+   {
+    "name": "Goodyear Vector 4Seasons Gen-3",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 42
+    },
+    "aqua_kmh": null,
+    "note": "text names brand only"
+   },
+   {
+    "name": "Falken Euroall Season AS210",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 42,
+     "snow": 19.4
+    },
+    "aqua_kmh": null,
+    "note": "text names brand only"
+   },
+   {
+    "name": "Vredestein Quatrac Pro+",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 42.4
+    },
+    "aqua_kmh": null,
+    "note": "text names brand only"
+   },
+   {
+    "name": "Summer reference tyre (previous summer-test winner, model not named)",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "snow": 51.8
+    },
+    "aqua_kmh": null,
+    "note": "a 30,6 m value for this tyre is also printed but the text is ambiguous whether dry or wet -> omitted"
+   }
+  ]
+ },
+ {
+  "test_id": "AUTOZEITUNG-2025-S-225-45R18",
+  "publication": "Auto Zeitung",
+  "year": 2025,
+  "season": "summer",
+  "size": "225/45 R18",
+  "car": "Skoda Octavia Combi 1.5 TSI 150 PS",
+  "tester": "Auto Zeitung, Bridgestone EUPG proving ground south of Rome",
+  "url": "https://www.autozeitung.de/sommerreifen-im-test-2025-208086.html",
+  "url_original": null,
+  "disciplines": [
+   {
+    "id": "dry",
+    "surface": "asphalt",
+    "wet": false,
+    "v_from": 100,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "table row 'Bremsen, 100-0 km/h' (dry section); article dated 17.09.2025"
+   },
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": 100,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "table row 'Bremsen, 100-0 km/h' (wet section)"
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Goodyear Eagle F1 Asymmetric 6",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 33.3,
+     "wet": 43.3
+    },
+    "aqua_kmh": 75.9,
+    "note": "aqua = longitudinal aquaplaning"
+   },
+   {
+    "name": "Continental PremiumContact 7",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 33.6,
+     "wet": 41.8
+    },
+    "aqua_kmh": 73.2,
+    "note": "aqua = longitudinal aquaplaning"
+   },
+   {
+    "name": "Bridgestone Potenza Sport",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 33.0,
+     "wet": 42.5
+    },
+    "aqua_kmh": 73.7,
+    "note": "aqua = longitudinal aquaplaning"
+   },
+   {
+    "name": "Michelin Pilot Sport 5",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 33.5,
+     "wet": 44.4
+    },
+    "aqua_kmh": 75.7,
+    "note": "aqua = longitudinal aquaplaning"
+   },
+   {
+    "name": "Pirelli P Zero",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 33.9,
+     "wet": 45.2
+    },
+    "aqua_kmh": 73.0,
+    "note": "aqua = longitudinal aquaplaning; printed as 'Pirelli P Zero (PZ4 S.C.)'"
+   },
+   {
+    "name": "Vredestein Ultrac Pro",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 35.0,
+     "wet": 47.3
+    },
+    "aqua_kmh": 76.6,
+    "note": "aqua = longitudinal aquaplaning"
+   },
+   {
+    "name": "Toyo Proxes Sport 2",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 33.6,
+     "wet": 46.6
+    },
+    "aqua_kmh": 75.2,
+    "note": "aqua = longitudinal aquaplaning"
+   },
+   {
+    "name": "Falken Azenis FK520",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 34.2,
+     "wet": 48.2
+    },
+    "aqua_kmh": 75.3,
+    "note": "aqua = longitudinal aquaplaning"
+   },
+   {
+    "name": "Triangle EffeXSport TH202",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 36.1,
+     "wet": 52.0
+    },
+    "aqua_kmh": 74.7,
+    "note": "aqua = longitudinal aquaplaning"
+   },
+   {
+    "name": "Mastersteel Super Sport 2",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 36.9,
+     "wet": 52.7
+    },
+    "aqua_kmh": 70.8,
+    "note": "aqua = longitudinal aquaplaning"
+   }
+  ]
+ },
+ {
+  "test_id": "AUTOZEITUNG-2024-W-215-55R17",
+  "publication": "Auto Zeitung",
+  "year": 2024,
+  "season": "winter",
+  "size": "215/55 R17",
+  "car": "VW Passat Variant 2.0 TDI SCR 150 PS",
+  "tester": "Auto Zeitung; snow: Sottozero Center Älvsbyn (SWE, March 2024); wet/dry: Contidrom near Hannover (Feb 2024)",
+  "url": "https://www.autozeitung.de/winterreifen-test-2022-202485.html",
+  "url_original": null,
+  "disciplines": [
+   {
+    "id": "dry",
+    "surface": "asphalt",
+    "wet": false,
+    "v_from": 100,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "table row 'Bremsen, 100 - 0 km/h'; conditions described as cool, frost-free; page URL says 2022 but content is 2024 test (article dated 28.09.2024)"
+   },
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": 100,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "table row 'Bremsen, 100 - 0 km/h'; cool, frost-free (Feb)"
+   },
+   {
+    "id": "snow",
+    "surface": "snow",
+    "wet": false,
+    "v_from": 50,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "table row 'Bremsen, 50 - 0 km/h'; air -10 to -15 C stated as range"
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Bridgestone Blizzak LM 005",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "dry": 44.8,
+     "wet": 49.0,
+     "snow": 21.9
+    },
+    "aqua_kmh": 77.1,
+    "note": "; aqua = longitudinal"
+   },
+   {
+    "name": "Goodyear UltraGrip Performance 3",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "dry": 43.3,
+     "wet": 52.5,
+     "snow": 21.9
+    },
+    "aqua_kmh": 79.4,
+    "note": "; aqua = longitudinal"
+   },
+   {
+    "name": "Continental WinterContact TS 870P",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "dry": 43.2,
+     "wet": 51.2,
+     "snow": 22.0
+    },
+    "aqua_kmh": 78.3,
+    "note": "; aqua = longitudinal"
+   },
+   {
+    "name": "Pirelli Cinturato Winter 2",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "dry": 44.0,
+     "wet": 53.0,
+     "snow": 21.9
+    },
+    "aqua_kmh": 78.7,
+    "note": "; aqua = longitudinal"
+   },
+   {
+    "name": "Hankook Winter i*cept RS3 W462",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "dry": 44.9,
+     "wet": 53.7,
+     "snow": 21.9
+    },
+    "aqua_kmh": 82.2,
+    "note": "; aqua = longitudinal"
+   },
+   {
+    "name": "Michelin Alpin 6",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "dry": 44.9,
+     "wet": 51.5,
+     "snow": 21.9
+    },
+    "aqua_kmh": 78.1,
+    "note": "; aqua = longitudinal"
+   },
+   {
+    "name": "Vredestein Wintrac Pro",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "dry": 44.4,
+     "wet": 53.3,
+     "snow": 21.7
+    },
+    "aqua_kmh": 75.8,
+    "note": "; aqua = longitudinal"
+   },
+   {
+    "name": "Goodyear Vector 4Seasons GEN-3",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 41.8,
+     "wet": 51.9,
+     "snow": 22.2
+    },
+    "aqua_kmh": null,
+    "note": "all-season comparison tyre"
+   },
+   {
+    "name": "Continental AllSeasonContact 2",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 40.4,
+     "wet": 49.8,
+     "snow": 22.1
+    },
+    "aqua_kmh": null,
+    "note": "all-season comparison tyre"
+   },
+   {
+    "name": "Bridgestone Turanza All Season 6",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 38.3,
+     "wet": 48.9,
+     "snow": 21.9
+    },
+    "aqua_kmh": null,
+    "note": "all-season comparison tyre"
+   }
+  ]
+ },
+ {
+  "test_id": "AUTOZEITUNG-2025-W-245-45R19",
+  "publication": "Auto Zeitung",
+  "year": 2025,
+  "season": "winter",
+  "size": "245/45 R19",
+  "car": "BMW 520d Touring (145 kW)",
+  "tester": "Auto Zeitung; snow: Goodyear facility; wet/dry: Continental facility",
+  "url": "https://www.autozeitung.de/winterreifen-test-2025-209490.html",
+  "url_original": null,
+  "disciplines": [
+   {
+    "id": "dry",
+    "surface": "asphalt",
+    "wet": false,
+    "v_from": 100,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "table row 'Bremsen, 100 - 0 km/h'; article dated 17.10.2025"
+   },
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": 100,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "table row 'Bremsen, 100 - 0 km/h'"
+   },
+   {
+    "id": "snow",
+    "surface": "snow",
+    "wet": false,
+    "v_from": 50,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "table row 'Bremsen, 50 - 0 km/h'"
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Goodyear UltraGrip Performance 3",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "dry": 43.6,
+     "wet": 49.3,
+     "snow": 26.0
+    },
+    "aqua_kmh": 88.1,
+    "note": "aqua = longitudinal aquaplaning as printed"
+   },
+   {
+    "name": "Michelin Pilot Alpin 5",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "dry": 42.4,
+     "wet": 50.6,
+     "snow": 25.9
+    },
+    "aqua_kmh": 88.2,
+    "note": "aqua = longitudinal aquaplaning as printed"
+   },
+   {
+    "name": "Pirelli P Zero Winter 2",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "dry": 43.6,
+     "wet": 48.6,
+     "snow": 26.1
+    },
+    "aqua_kmh": 86.4,
+    "note": "aqua = longitudinal aquaplaning as printed"
+   },
+   {
+    "name": "Bridgestone Blizzak 6 Enliten",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "dry": 45.2,
+     "wet": 51.3,
+     "snow": 25.7
+    },
+    "aqua_kmh": 90.3,
+    "note": "aqua = longitudinal aquaplaning as printed"
+   },
+   {
+    "name": "Continental WinterContact TS 870P",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "dry": 44.8,
+     "wet": 52.4,
+     "snow": 26.4
+    },
+    "aqua_kmh": 91.0,
+    "note": "aqua = longitudinal aquaplaning as printed"
+   },
+   {
+    "name": "Vredestein Wintrac Pro+",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "dry": 44.6,
+     "wet": 53.3,
+     "snow": 26.3
+    },
+    "aqua_kmh": 88.2,
+    "note": "aqua = longitudinal aquaplaning as printed"
+   },
+   {
+    "name": "Triangle EffeXWinter TW421",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "dry": 42.8,
+     "wet": 52.7,
+     "snow": 26.3
+    },
+    "aqua_kmh": 86.7,
+    "note": "aqua = longitudinal aquaplaning as printed"
+   },
+   {
+    "name": "Yokohama BluEarth Winter V906",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "dry": 43.3,
+     "wet": 51.4,
+     "snow": 27.1
+    },
+    "aqua_kmh": 85.4,
+    "note": "aqua = longitudinal aquaplaning as printed"
+   },
+   {
+    "name": "Linglong Sport Master Winter",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "dry": 43.4,
+     "wet": 53.4,
+     "snow": 27.6
+    },
+    "aqua_kmh": 87.9,
+    "note": "aqua = longitudinal aquaplaning as printed"
+   },
+   {
+    "name": "Maxxis Premitra Snow WP6",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "dry": 46.2,
+     "wet": 56.8,
+     "snow": 26.4
+    },
+    "aqua_kmh": 88.0,
+    "note": "aqua = longitudinal aquaplaning as printed"
+   }
+  ]
+ }
+]

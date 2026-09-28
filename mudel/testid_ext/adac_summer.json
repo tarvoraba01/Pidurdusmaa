@@ -1,0 +1,577 @@
+[
+ {
+  "test_id": "ADAC-2024-S-215-55R17",
+  "publication": "ADAC",
+  "year": 2024,
+  "season": "summer",
+  "size": "215/55 R17",
+  "car": "VW T-Roc",
+  "tester": "ADAC",
+  "url": "https://www.tyrereviews.com/Tyre-Tests/2024-ADAC-Summer-Tyre-Test.htm",
+  "url_original": "https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/sommerreifen/215-55-r17/",
+  "disciplines": [
+   {
+    "id": "dry",
+    "surface": "asphalt",
+    "wet": false,
+    "v_from": 100,
+    "v_to": null,
+    "temp_c": null,
+    "note": "ABS braking 'aus 100 km/h' per adac.de; end speed not stated (ADAC 2023 report: 100-0)"
+   },
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": 80,
+    "v_to": null,
+    "temp_c": null,
+    "note": "ABS braking 'aus 80 km/h' on wet asphalt per adac.de; end speed not stated (ADAC 2023 report: 80-0)"
+   },
+   {
+    "id": "wet_concrete",
+    "surface": "concrete",
+    "wet": true,
+    "v_from": 80,
+    "v_to": null,
+    "temp_c": null,
+    "note": "ABS braking 'aus 80 km/h' on wet concrete per adac.de; tyrereviews label 'Wet Braking - Concrete'; end speed not stated"
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Continental PremiumContact 7",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 35.4,
+     "wet": 28.5,
+     "wet_concrete": 32
+    },
+    "aqua_kmh": 74,
+    "note": ""
+   },
+   {
+    "name": "Michelin Primacy 4 Plus",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 37.3,
+     "wet": 31.1,
+     "wet_concrete": 37.1
+    },
+    "aqua_kmh": 75.3,
+    "note": ""
+   },
+   {
+    "name": "Falken ZIEX ZE310 EcoRun",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 37.7,
+     "wet": 32.6,
+     "wet_concrete": 36.3
+    },
+    "aqua_kmh": 77.4,
+    "note": ""
+   },
+   {
+    "name": "Sailun Atrezzo ZSR2",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 37.7,
+     "wet": 32.7,
+     "wet_concrete": 40
+    },
+    "aqua_kmh": 76.4,
+    "note": ""
+   },
+   {
+    "name": "Hankook Ventus Prime 4",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 38.1,
+     "wet": 32.8,
+     "wet_concrete": 39.1
+    },
+    "aqua_kmh": 74.3,
+    "note": ""
+   },
+   {
+    "name": "Kumho Ecsta HS52",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 38.1,
+     "wet": 32.8,
+     "wet_concrete": 35.8
+    },
+    "aqua_kmh": 73.8,
+    "note": ""
+   },
+   {
+    "name": "Nexen N Fera Primus",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 38.4,
+     "wet": 33,
+     "wet_concrete": 37.2
+    },
+    "aqua_kmh": 75.1,
+    "note": ""
+   },
+   {
+    "name": "Linglong Sport Master",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 37.3,
+     "wet": 33.2,
+     "wet_concrete": 37.3
+    },
+    "aqua_kmh": 74.2,
+    "note": "wet_concrete value read only once (not cross-checked)"
+   },
+   {
+    "name": "Goodyear EfficientGrip Performance",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 37.9,
+     "wet": 33.3,
+     "wet_concrete": 38.3
+    },
+    "aqua_kmh": 74.9,
+    "note": "model name as on tyrereviews (likely EfficientGrip Performance 2)"
+   },
+   {
+    "name": "Semperit Speed Life 3",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 40.9,
+     "wet": 33.6,
+     "wet_concrete": 39.5
+    },
+    "aqua_kmh": 76.8,
+    "note": ""
+   },
+   {
+    "name": "Vredestein Ultrac",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 37.8,
+     "wet": 34.1,
+     "wet_concrete": 36.3
+    },
+    "aqua_kmh": 78.4,
+    "note": ""
+   },
+   {
+    "name": "Dunlop SportMaxx RT 2",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 37.5,
+     "wet": 34.4,
+     "wet_concrete": 38.2
+    },
+    "aqua_kmh": 77.8,
+    "note": ""
+   },
+   {
+    "name": "Debica Presto UHP2",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 37.9,
+     "wet": 34.6,
+     "wet_concrete": 37.4
+    },
+    "aqua_kmh": 77.3,
+    "note": ""
+   },
+   {
+    "name": "Bridgestone Turanza 6",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 38,
+     "wet": 34.6,
+     "wet_concrete": 39.9
+    },
+    "aqua_kmh": 78.5,
+    "note": ""
+   },
+   {
+    "name": "Fulda SportControl 2",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 37.8,
+     "wet": 34.9,
+     "wet_concrete": 38.3
+    },
+    "aqua_kmh": 77.7,
+    "note": ""
+   },
+   {
+    "name": "Goodride Solmax 1",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 38.9,
+     "wet": 35.1,
+     "wet_concrete": 40.1
+    },
+    "aqua_kmh": 76.7,
+    "note": ""
+   }
+  ]
+ },
+ {
+  "test_id": "ADAC-2023-S-205-55R16",
+  "publication": "ADAC",
+  "year": 2023,
+  "season": "summer",
+  "size": "205/55 R16",
+  "car": "VW Golf 8",
+  "tester": "ADAC (with ÖAMTC etc.; 50-tyre test, 205/55 R16 91V)",
+  "url": "https://www.tire-reviews.com/Article/2023-ADAC-Summer-Tire-Test.htm",
+  "url_original": "https://wiki.unece.org/download/attachments/198673973/TA-12-05%20ADAC%20Summer%20Tyre%202023%20TO33115%20en-GB.pdf?api=v2",
+  "disciplines": [
+   {
+    "id": "dry",
+    "surface": "asphalt",
+    "wet": false,
+    "v_from": 100,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "ABS; speeds per ADAC report (UNECE TA-12-05). Values cross-checked tyrereviews vs ADAC PDF"
+   },
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": 80,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "ABS; speeds per ADAC report (UNECE TA-12-05)"
+   },
+   {
+    "id": "wet_concrete",
+    "surface": "concrete",
+    "wet": true,
+    "v_from": 80,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "ABS; speeds per ADAC report (UNECE TA-12-05)"
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Goodyear EfficientGrip Performance 2",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 37.7,
+     "wet": 37.4,
+     "wet_concrete": 36.0
+    },
+    "aqua_kmh": 80.3,
+    "note": "one tyrereviews read attributed this row to Michelin e.Primacy; ADAC PDF row = Goodyear"
+   },
+   {
+    "name": "Continental PremiumContact 6",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 35.9,
+     "wet": 34.4,
+     "wet_concrete": 35.2
+    },
+    "aqua_kmh": null,
+    "note": "aquaplaning conflicting between sources (80.3 vs 86.7) -> omitted"
+   },
+   {
+    "name": "Michelin Primacy 4+",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 36.9,
+     "wet": 36.7,
+     "wet_concrete": 37.7
+    },
+    "aqua_kmh": 83.5,
+    "note": ""
+   },
+   {
+    "name": "Bridgestone Turanza T005",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 37.3,
+     "wet": 37.7,
+     "wet_concrete": 39.1
+    },
+    "aqua_kmh": 82.8,
+    "note": ""
+   },
+   {
+    "name": "Nokian Wetproof",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 37.8,
+     "wet": 35.8,
+     "wet_concrete": 37.3
+    },
+    "aqua_kmh": 84.6,
+    "note": ""
+   },
+   {
+    "name": "Falken Ziex ZE310 Ecorun",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 37.4,
+     "wet": 36.8,
+     "wet_concrete": 35.8
+    },
+    "aqua_kmh": 79.7,
+    "note": ""
+   },
+   {
+    "name": "Kumho Ecsta HS52",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 36.7,
+     "wet": 38.4,
+     "wet_concrete": 37.6
+    },
+    "aqua_kmh": 81.9,
+    "note": ""
+   },
+   {
+    "name": "Hankook Ventus Prime 4",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 36.6,
+     "wet": 35.8,
+     "wet_concrete": 35.5
+    },
+    "aqua_kmh": 77.6,
+    "note": ""
+   },
+   {
+    "name": "Kenda Kenetica Pro KR210",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 39.5,
+     "wet": 40.2,
+     "wet_concrete": 40.1
+    },
+    "aqua_kmh": 84.1,
+    "note": ""
+   },
+   {
+    "name": "Kleber Dynaxer HP4",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 37.3,
+     "wet": 40.2,
+     "wet_concrete": 39.5
+    },
+    "aqua_kmh": 81.3,
+    "note": ""
+   },
+   {
+    "name": "Fulda EcoControl HP2",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 38.0,
+     "wet": 40.8,
+     "wet_concrete": 41.1
+    },
+    "aqua_kmh": 80.8,
+    "note": ""
+   },
+   {
+    "name": "Toyo Proxes Comfort",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 37.8,
+     "wet": 40.6,
+     "wet_concrete": 38.8
+    },
+    "aqua_kmh": 78.3,
+    "note": ""
+   },
+   {
+    "name": "Debica Presto HP2",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 39.4,
+     "wet": 41.8,
+     "wet_concrete": 41.7
+    },
+    "aqua_kmh": 82.1,
+    "note": ""
+   },
+   {
+    "name": "Pirelli Cinturato P7 C2",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 37.0,
+     "wet": 40.3,
+     "wet_concrete": 39.1
+    },
+    "aqua_kmh": 81.8,
+    "note": ""
+   },
+   {
+    "name": "Dunlop Sport BluResponse",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 37.8,
+     "wet": 41.5,
+     "wet_concrete": 40.2
+    },
+    "aqua_kmh": 82.5,
+    "note": ""
+   },
+   {
+    "name": "Semperit Speed-Life 3",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 39.7,
+     "wet": 37.2,
+     "wet_concrete": 35.7
+    },
+    "aqua_kmh": 81.8,
+    "note": ""
+   },
+   {
+    "name": "Sava Intensa HP2",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 38.2,
+     "wet": 40.9,
+     "wet_concrete": 40.9
+    },
+    "aqua_kmh": 81.3,
+    "note": ""
+   },
+   {
+    "name": "Firestone Roadhawk",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 38.1,
+     "wet": 41.7,
+     "wet_concrete": 40.6
+    },
+    "aqua_kmh": 83.6,
+    "note": ""
+   },
+   {
+    "name": "BFGoodrich Advantage",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 37.2,
+     "wet": 39.8,
+     "wet_concrete": 39.0
+    },
+    "aqua_kmh": 81.3,
+    "note": ""
+   },
+   {
+    "name": "ESA+Tecar Spirit Pro",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 39.5,
+     "wet": 36.3,
+     "wet_concrete": 36.2
+    },
+    "aqua_kmh": 81.5,
+    "note": ""
+   },
+   {
+    "name": "Double Coin DC99",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 59.3,
+     "wet_concrete": 58.4
+    },
+    "aqua_kmh": 70.3,
+    "note": "dry conflicting between sources (38.7 vs 42.5) -> omitted"
+   },
+   {
+    "name": "Michelin e.Primacy",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 36.7,
+     "wet": 43.7,
+     "wet_concrete": 43.8
+    },
+    "aqua_kmh": 72.8,
+    "note": "wet 43.7 confirmed by 2 sources (tire-reviews, tiresvote); dry/wet_concrete/aqua unconfirmed: tyrereviews only, not matched in ADAC PDF extraction"
+   },
+   {
+    "name": "Continental UltraContact",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 37.1,
+     "wet": 38.3,
+     "wet_concrete": 38.7
+    },
+    "aqua_kmh": 76.5,
+    "note": "unconfirmed: tyrereviews only, not matched in ADAC PDF extraction (2 consistent tyrereviews reads)"
+   },
+   {
+    "name": "Nexen N'Fera Primus",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 38.2,
+     "wet": 38.2,
+     "wet_concrete": 37.9
+    },
+    "aqua_kmh": 84.5,
+    "note": "wet 38.2 matched in ADAC PDF; dry/wet_concrete/aqua unconfirmed: tyrereviews only, not matched in ADAC PDF extraction"
+   },
+   {
+    "name": "Uniroyal RainSport 5",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 39.1,
+     "wet": 36.8,
+     "wet_concrete": 36.3
+    },
+    "aqua_kmh": 86.7,
+    "note": "unconfirmed: tyrereviews only, not matched in ADAC PDF extraction (2 consistent tyrereviews reads)"
+   }
+  ]
+ }
+]

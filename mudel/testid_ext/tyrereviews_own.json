@@ -1,0 +1,80 @@
+[
+ {
+  "test_id": "TyreReviews-2024-A-225-40R18",
+  "publication": "Tyre Reviews",
+  "year": 2024,
+  "season": "allseason",
+  "size": "225/40 R18",
+  "car": "Subaru BRZ",
+  "tester": "Tyre Reviews (Jonathan Benson); proving ground not stated on page",
+  "url": "https://tyrereviews.com/Tyre-Tests/2024-Sports-Car-All-Season-Tyre-Test.htm",
+  "url_original": null,
+  "disciplines": [
+   {"id": "dry", "surface": "asphalt", "wet": false, "v_from": null, "v_to": null, "temp_c": null, "note": "start/end speed not stated in page text (charts titled only 'Dry Braking')"},
+   {"id": "wet", "surface": "asphalt", "wet": true, "v_from": null, "v_to": null, "temp_c": null, "note": "start/end speed not stated in page text"},
+   {"id": "snow", "surface": "snow", "wet": false, "v_from": null, "v_to": null, "temp_c": null, "note": "start/end speed not stated in page text"}
+  ],
+  "tyres": [
+   {"name": "Pirelli Cinturato All Season SF3", "category": "allseason", "label_wet": null, "results": {"dry": 36.9, "wet": 43.9, "snow": 24.4}, "aqua_kmh": null, "note": ""},
+   {"name": "Bridgestone Turanza All Season 6", "category": "allseason", "label_wet": null, "results": {"dry": 37.4, "wet": 45.9, "snow": 24.5}, "aqua_kmh": null, "note": ""},
+   {"name": "Nexen N Blue 4Season 2", "category": "allseason", "label_wet": null, "results": {"dry": 37.9, "wet": 45.7, "snow": 24.8}, "aqua_kmh": null, "note": ""},
+   {"name": "Michelin CrossClimate 2", "category": "allseason", "label_wet": null, "results": {"dry": 38.4, "wet": 46.0, "snow": 23.9}, "aqua_kmh": null, "note": ""},
+   {"name": "Kleber Quadraxer 3", "category": "allseason", "label_wet": null, "results": {"dry": 38.8, "wet": 46.8, "snow": 23.0}, "aqua_kmh": null, "note": ""},
+   {"name": "Falken Euroall Season AS220 Pro", "category": "allseason", "label_wet": null, "results": {"dry": 39.1, "wet": 47.1, "snow": 24.5}, "aqua_kmh": null, "note": ""},
+   {"name": "Toyo Celsius AS2", "category": "allseason", "label_wet": null, "results": {"dry": 39.4, "wet": 48.4, "snow": 24.9}, "aqua_kmh": null, "note": ""},
+   {"name": "Goodyear Vector 4Seasons Gen 3", "category": "allseason", "label_wet": null, "results": {"dry": 39.4, "wet": 46.4, "snow": 24.1}, "aqua_kmh": null, "note": ""},
+   {"name": "Vredestein Quatrac Pro", "category": "allseason", "label_wet": null, "results": {"dry": 41.1, "wet": 48.1, "snow": 23.4}, "aqua_kmh": null, "note": ""},
+   {"name": "Double Coin DASP Plus 4 Seasons", "category": "allseason", "label_wet": null, "results": {"dry": 41.9, "wet": 54.3, "snow": 22.4}, "aqua_kmh": null, "note": ""},
+   {"name": "Continental AllSeasonContact", "category": "allseason", "label_wet": null, "results": {"dry": 42.1, "wet": 45.3, "snow": 24.6}, "aqua_kmh": null, "note": ""}
+  ]
+ },
+ {
+  "test_id": "TyreReviews-2024-S-295-30R20",
+  "publication": "Tyre Reviews",
+  "year": 2024,
+  "season": "summer",
+  "size": "295/30 R20",
+  "car": "Mercedes AMG (as printed; staggered 265/35 R19 front, 295/30 R20 rear)",
+  "tester": "Tyre Reviews (Jonathan Benson); proving ground not stated on page",
+  "url": "https://tyrereviews.com/Article/2024-Sports-Car-Tyre-Test.htm",
+  "url_original": null,
+  "disciplines": [
+   {"id": "dry", "surface": "asphalt", "wet": false, "v_from": null, "v_to": null, "temp_c": null, "note": "start/end speed not stated in page text"},
+   {"id": "wet", "surface": "asphalt", "wet": true, "v_from": null, "v_to": null, "temp_c": null, "note": "start/end speed not stated in page text"}
+  ],
+  "tyres": [
+   {"name": "Bridgestone Potenza Sport", "category": "summer_uhp", "label_wet": null, "results": {"dry": 37.0, "wet": 50.6}, "aqua_kmh": 96.8, "note": ""},
+   {"name": "Michelin Pilot Sport 4 S", "category": "summer_uhp", "label_wet": null, "results": {"dry": 37.8, "wet": 53.4}, "aqua_kmh": 94.4, "note": ""},
+   {"name": "Continental SportContact 7", "category": "summer_uhp", "label_wet": null, "results": {"dry": 38.5, "wet": 49.2}, "aqua_kmh": 97.6, "note": ""},
+   {"name": "Vredestein Ultrac Pro", "category": "summer_uhp", "label_wet": null, "results": {"dry": 39.1, "wet": 53.1}, "aqua_kmh": 100.3, "note": ""},
+   {"name": "Hankook Ventus S1 Evo Z K129", "category": "summer_uhp", "label_wet": null, "results": {"dry": 39.7, "wet": 50.2}, "aqua_kmh": 99.5, "note": ""},
+   {"name": "Goodyear Eagle F1 SuperSport", "category": "summer_uhp", "label_wet": null, "results": {"dry": 39.7, "wet": 57.3}, "aqua_kmh": 97.1, "note": ""},
+   {"name": "Winrun R330", "category": "summer_uhp", "label_wet": null, "results": {"dry": 44.8, "wet": 68.3}, "aqua_kmh": 94.3, "note": "budget"}
+  ]
+ },
+ {
+  "test_id": "TyreReviews-2023-S-225-40R18",
+  "publication": "Tyre Reviews",
+  "year": 2023,
+  "season": "summer",
+  "size": "225/40 R18",
+  "car": "VW Golf GTI (mentioned in methodology/results text, not in a dedicated car line)",
+  "tester": "Tyre Reviews (Jonathan Benson); 'Professional Proving Ground' (name not given)",
+  "url": "https://www.tyrereviews.com/Tyre-Tests/2023-Tyre-Reviews-Performance-Tyre-Test.htm",
+  "url_original": null,
+  "disciplines": [
+   {"id": "dry", "surface": "asphalt", "wet": false, "v_from": 100, "v_to": 5, "temp_c": null, "note": "entry 110 km/h, measured 100-5 km/h window, ABS, typically 5 runs per set (generic methodology text)"},
+   {"id": "wet", "surface": "asphalt", "wet": true, "v_from": 80, "v_to": 5, "temp_c": 18, "note": "warm wet: avg air 18 C, water 19 C; entry 88 km/h, measured 80-5 km/h, ABS; new tyres"},
+   {"id": "wet_cool", "surface": "asphalt", "wet": true, "v_from": 80, "v_to": 5, "temp_c": 8, "note": "cool wet: avg air 8 C, water 12 C; 80-5 km/h, new tyres"},
+   {"id": "wet_worn", "surface": "asphalt", "wet": true, "v_from": 80, "v_to": 5, "temp_c": null, "note": "worn tyres, methodology says 'typically around 2mm' tread (exact depth for this test not confirmed); 80-5 km/h"}
+  ],
+  "tyres": [
+   {"name": "Bridgestone Potenza Sport", "category": "summer_uhp", "label_wet": null, "results": {"dry": 32.88, "wet": 28.30, "wet_cool": 31.50, "wet_worn": 40.50}, "aqua_kmh": 78.30, "note": ""},
+   {"name": "Continental PremiumContact 7", "category": "summer", "label_wet": null, "results": {"dry": 32.98, "wet": 27.10, "wet_cool": 27.90, "wet_worn": 42.20}, "aqua_kmh": 80.90, "note": ""},
+   {"name": "Goodyear Eagle F1 Asymmetric 6", "category": "summer_uhp", "label_wet": null, "results": {"dry": 33.24, "wet": 28.60, "wet_cool": 31.40, "wet_worn": 40.50}, "aqua_kmh": 79.00, "note": ""},
+   {"name": "Hankook Ventus S1 evo 3", "category": "summer_uhp", "label_wet": null, "results": {"dry": 33.59, "wet": 28.90, "wet_cool": 29.50, "wet_worn": 43.40}, "aqua_kmh": 76.80, "note": ""},
+   {"name": "Michelin Pilot Sport 5", "category": "summer_uhp", "label_wet": null, "results": {"dry": 34.11, "wet": 29.10, "wet_cool": 30.70, "wet_worn": 41.70}, "aqua_kmh": 80.50, "note": ""},
+   {"name": "Yokohama Advan Sport V107", "category": "summer_uhp", "label_wet": null, "results": {"dry": 35.56, "wet": 29.70, "wet_cool": 32.30, "wet_worn": 44.90}, "aqua_kmh": 76.80, "note": ""}
+  ]
+ }
+]

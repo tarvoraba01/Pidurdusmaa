@@ -66,7 +66,9 @@ python3 -m mudel.export_web
 python3 -m mudel.audit      # peab ütlema: AUDIT LÄBITUD
 python3 -m mudel.parity_core          # paarsusfikstuur core.json-i pealt (iga mudelimuudatuse järel)
 python3 -m unittest mudel.test_mudel  # Pythoni mootori testid
-(cd veeb && npm test)                 # JS-mootor: paarsus Pythoniga, andmed, kõik autod (~18 min)
+(cd veeb && npm test)                 # JS-mootor: paarsus Pythoniga, andmed, kõik autod (~20 min)
+python3 -m mudel.backtest_ext         # mudel vs ~1950 välismaa testitulemust (vt mudel/BACKTEST_VALISTESTID.md)
+python3 -m mudel.export_testid        # välistestid rehvilehtedele (static/data/testid_ext.json)
 # NB: vana `mudel.parity` loeb vananenud web/data.js-i ega tööta enam
 
 # 3) eelvaatefail (kohalik WP peab jooksma pordil 8080)

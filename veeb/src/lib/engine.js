@@ -9,7 +9,7 @@
   var CAL = {
     kG: 0.6727,
     muDry: { SUMMER_UHP: 1.314, SUMMER_TOURING: 1.208, ALL_SEASON: 1.039, WINTER_CENTRAL: 0.934, WINTER_NORDIC: 0.842, WINTER_STUDDED: 0.823 },
-    muSnow: { SUMMER_UHP: 0.14, SUMMER_TOURING: 0.15, ALL_SEASON: 0.3925, WINTER_CENTRAL: 0.375, WINTER_NORDIC: 0.377, WINTER_STUDDED: 0.345 },
+    muSnow: { SUMMER_UHP: 0.14, SUMMER_TOURING: 0.15, ALL_SEASON: 0.3925, WINTER_CENTRAL: 0.375, WINTER_NORDIC: 0.377, WINTER_STUDDED: 0.39 },
     muIce: { SUMMER_UHP: 0.06, SUMMER_TOURING: 0.06, ALL_SEASON: 0.107, WINTER_CENTRAL: 0.096, WINTER_NORDIC: 0.203, WINTER_STUDDED: 0.27 },
     muGravel: 0.694,
     treadLossGravel: 0.148, treadLossGravelLocked: 0.148, treadGravelSatFrac: 0.7,
@@ -44,6 +44,7 @@
     iceTempExp: {SUMMER_UHP: 1.0, SUMMER_TOURING: 1.0, ALL_SEASON: 1.0,
                  WINTER_CENTRAL: 1.0, WINTER_NORDIC: 1.0,
                  WINTER_STUDDED: 0.545},
+    iceTempExpCold: { WINTER_STUDDED: -0.43 },
     snowLooseFactor: 0.85,
     snowTempCurve: [[-30.0, 1.0], [-3.0, 1.0], [0.0, 0.9], [2.0, 0.84]],
     snowTempMin: 0.60, snowTempMax: 1.05,
@@ -57,7 +58,7 @@
     absEffGravel: { NONE: 1.0, EARLY: 0.698, MODERN: 0.698, LATEST: 0.698 },
     brakeBuildup: { NONE: 0.35, EARLY: 0.28, MODERN: 0.22, LATEST: 0.17 },
     crr: 0.011,
-    sigmaBase: { ASPHALT: 0.07, CONCRETE: 0.085, GRAVEL: 0.22, SNOW_PACKED: 0.13, SNOW_LOOSE: 0.18, ICE: 0.17 },
+    sigmaBase: { ASPHALT: 0.07, CONCRETE: 0.085, GRAVEL: 0.22, SNOW_PACKED: 0.13, SNOW_LOOSE: 0.18, ICE: 0.25 },
     speedRange: { ASPHALT: [40.0, 130.0], CONCRETE: [40.0, 120.0], SNOW_PACKED: [15.0, 80.0], SNOW_LOOSE: [15.0, 60.0], ICE: [15.0, 80.0], GRAVEL: [40.0, 80.0] },
     sigmaSpeedExtrap: 0.25, sigmaSpeedExtrapMax: 0.4,
     sigmaWetExtra: 0.02, sigmaLabelOnly: 0.045,
@@ -134,6 +135,9 @@
       var eIce = CAL.iceTempExp[tyre.category];
       if (eIce == null) eIce = 1.0;
       if (eIce !== 1.0 && fIce > 0.0 && fIce < 1.0) fIce = Math.pow(fIce, eIce);
+      /* külm jää: naast käitub vastupidi (Za Rulem 2008, vt model.py) */
+      var eCold = CAL.iceTempExpCold[tyre.category];
+      if (eCold != null && eCold !== 1.0 && fIce > 1.0) fIce = Math.pow(fIce, eCold);
       mu *= clamp(fIce, CAL.iceTempMin, CAL.iceTempMax);
     } else {
       mu = CAL.muGravel;

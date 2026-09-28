@@ -145,7 +145,7 @@
 			</p>
 			<div class="pills">
 				{#if data.sizes.length}<span class="pill off">EL-i märgis · {data.mootudeArv} {data.mootudeArv === 1 ? 'mõõt' : 'mõõtu'}</span>{/if}
-				{#if data.tests.length}<span class="pill test">Sõltumatult testitud</span>{/if}
+				{#if data.tests.length || data.ext.length}<span class="pill test">Sõltumatult testitud</span>{/if}
 			</div>
 		</div>
 	</section>
@@ -214,6 +214,40 @@
 						</div>
 						<p class="srcline">
 							Test: {t.testSize}. Sama rehv võib teises mõõdus olla veidi teistsugune.
+						</p>
+					</div>
+				{/if}
+
+				{#if data.ext.length}
+					<div class="box">
+						<h2>Ajakirjade testid</h2>
+						<p class="sub">
+							Avaldatud pidurdusmaad (Auto Bild, auto motor und sport, Auto Zeitung, ADAC, Za Rulem jt).
+							Koht = järjekoht samas testis samal pinnal (1 = lühim). Testid on eri mõõtudes, autodel ja
+							tingimustes, seega võrdle numbreid ainult sama testi sees.
+						</p>
+						<div class="tbl-wrap">
+							<table class="t">
+								<thead>
+									<tr><th>Test</th><th>Mõõt</th><th>Katse</th><th class="n">Tulemus</th><th class="n">Koht</th><th class="n">Parim</th></tr>
+								</thead>
+								<tbody>
+									{#each data.ext as x, xi (xi)}
+										<tr class={x.pos === 1 ? 'best' : ''}>
+											<td>{#if x.src.url}<a href={x.src.url} rel="nofollow noopener" target="_blank">{x.src.pub} {x.src.year}</a>{:else}{x.src.pub} {x.src.year}{/if}</td>
+											<td>{x.src.size || ''}</td>
+											<td>{x.d} {Math.round(x.v0)}→{Math.round(x.v1)} km/h</td>
+											<td class="n"><b>{num(x.m)} m</b></td>
+											<td class="n">{x.pos} / {x.n}</td>
+											<td class="n">{num(x.best)} m</td>
+										</tr>
+									{/each}
+								</tbody>
+							</table>
+						</div>
+						<p class="srcline">
+							Neid tulemusi lehe arvutus ei kasuta: meie kontroll näitas, et teises mõõdus tehtud test ei ennusta
+							märja tee pidurdust paremini kui sinu mõõdu EL-i märgis. Need on siin mõõdetud faktina.
 						</p>
 					</div>
 				{/if}

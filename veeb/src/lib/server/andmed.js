@@ -148,6 +148,13 @@ export function tyrePage(slug) {
 	};
 }
 
+/** Välismaa ajakirjade testid (export_testid.py) — ainult näitamiseks. */
+export function extTests(slug) {
+	const d = json('testid_ext.json');
+	if (!d || !d.rehvid || !d.rehvid[slug]) return [];
+	return d.rehvid[slug].map((x) => ({ ...x, src: d.allikad[x.t] || {} }));
+}
+
 /** Mõõdetud testid, kus MÕLEMAD rehvid olid koos (sama auto, sama päev). */
 export function sharedSources(a, b) {
 	if (!a || !b || !a.tested || !b.tested || a.slug === b.slug) return [];

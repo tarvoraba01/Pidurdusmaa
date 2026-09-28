@@ -67,11 +67,12 @@ ORIGINS: dict[str, Origin] = {
 
     "mu_snow_base": Origin(
         F, "[ADACA25] lamell / [ADAC25] talv / [UTAC25N] Pohjamaa / "
-           "[ZR24] naast / [ADAC25]+[ADACA25] suverehvid",
+           "[ZR24]+[ZR19-22]+[VIB19] naast / [ADAC25]+[ADACA25] suverehvid",
         "Suverehvide lumebaas on tuletatud samade testide suverehvi "
         "ridadest; Pohjamaa ja naast said oma esimesed motmised 2026-09 "
-        "(vt anchors_snow_nordic.py) ja neil on laiem veapiir.",
-        anchors=56),
+        "(vt anchors_snow_nordic.py) ja neil on laiem veapiir. Naast "
+        "uuendatud 2026-09-28 valistestidega (backtest_ext.py, 7 testi).",
+        anchors=106),
 
     "mu_ice_base": Origin(
         F, "[ADACA25] lamell / [ADAC25] talv / [TM25] Pohjamaa ja naast",
@@ -239,6 +240,14 @@ ORIGINS: dict[str, Origin] = {
         "seega valjaspool seda on kover ekstrapolatsioon. "
         "NB: tsiteeritud valitood on TAVAREHVIGA -- naastrehvi kohta "
         "vt ice_temp_exp."),
+    "ice_temp_exp_cold": Origin(
+        F, "[ZR08T] Za Rulem 2008, samad rehvid jaal -19/-13/-5/0 C",
+        "Naastrehvi jaahaare KULMAL poolel. Rühmakeskmised (2 naast, 3 "
+        "naelutut): naelutu -5 -> -19 C suhe 1,75 (= kirjanduse kover, "
+        "jaab puutumata), naast 0,78. Aste -0,43 annab ka -13 C punkti "
+        "(0,845 vs moodetud 0,85). Soltumatu kontroll [ZR19] naastutest "
+        "-20...-25 C, 12 rehvi: vana mudel ennustas 2,9 x liiga luhikese. "
+        "Vt backtest_ext.py."),
     "ice_temp_exp": Origin(
         F, "[VIB10D] Vi Bilagare 2010 naastrehvitest",
         "Jaa temperatuuritundlikkus kategooria kaupa. Sobitatud PAARIS-"
@@ -342,7 +351,9 @@ ORIGINS: dict[str, Origin] = {
         "EI OLE vaba parameeter: peab olema vahemalt sama suur kui "
         "selle pinna ankrute tegelik jaakhajuvus. audit.py kontrollib "
         "seda igal jooksul ja kukub labi, kui sigma on jaagist vaiksem "
-        "ehk mudel lubab rohkem tapsust, kui ta suudab.", anchors=369),
+        "ehk mudel lubab rohkem tapsust, kui ta suudab. Jaa 0,25 tuleb "
+        "valistestide backtestist (backtest_ext.py): 1-sigma peab katma "
+        "~68 % valimivalistest tulemustest.", anchors=369),
     "speed_range": Origin(
         D, "ankrute tegelik kiirusekate + kirjanduse kiirusesoltuvus",
         "Kus mudelit tohib usaldada. audit.py kontrollib, et iga pinna "

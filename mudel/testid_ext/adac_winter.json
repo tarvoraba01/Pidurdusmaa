@@ -1,0 +1,54 @@
+[
+ {
+  "test_id": "ADAC-2024-W-215-55R17",
+  "publication": "ADAC",
+  "year": 2024,
+  "season": "winter",
+  "size": "215/55 R17 V",
+  "car": null,
+  "tester": "ADAC (published jointly with partner clubs, Sept 2024)",
+  "url": "https://www.auto.cz/test-zimnich-pneu-adac-ve-dvou-rozmerech-majlant-utratit-nemusite-154390",
+  "url_original": "https://presse.adac.de/meldungen/adac-ev/tests/winterreifentest-vier-von-28-fallen-durch.html",
+  "disciplines": [
+   {"id": "wet", "surface": "asphalt", "wet": true, "v_from": 80, "v_to": 0, "temp_c": null,
+    "note": "Only wet braking published in metres (table 'Brzdna draha z 80 km/h na mokru [m]', attributed to ADAC). End speed not printed in table; ADAC press text says 'aus 80 km/h' / to standstill. Dry, snow, ice braking published by ADAC only as grades."}
+  ],
+  "tyres": [
+   {"name": "Pirelli Cinturato Winter 2", "category": "winter_central", "label_wet": null, "results": {"wet": 34.2}, "aqua_kmh": null, "note": ""},
+   {"name": "Firestone Winterhawk 4", "category": "winter_central", "label_wet": null, "results": {"wet": 34.6}, "aqua_kmh": null, "note": ""},
+   {"name": "Continental WinterContact TS 870 P", "category": "winter_central", "label_wet": null, "results": {"wet": 34.6}, "aqua_kmh": null, "note": ""},
+   {"name": "Dunlop Winter Sport 5", "category": "winter_central", "label_wet": null, "results": {"wet": 34.7}, "aqua_kmh": null, "note": ""},
+   {"name": "Yokohama BluEarth-Winter V906", "category": "winter_central", "label_wet": null, "results": {"wet": 35.1}, "aqua_kmh": null, "note": ""},
+   {"name": "Vredestein Wintrac Pro", "category": "winter_central", "label_wet": null, "results": {"wet": 35.4}, "aqua_kmh": null, "note": ""},
+   {"name": "Goodyear UltraGrip Performance 3", "category": "winter_central", "label_wet": null, "results": {"wet": 35.6}, "aqua_kmh": null, "note": ""},
+   {"name": "Semperit Speed-Grip 5", "category": "winter_central", "label_wet": null, "results": {"wet": 35.9}, "aqua_kmh": null, "note": ""},
+   {"name": "Hankook Winter i*cept RS3", "category": "winter_central", "label_wet": null, "results": {"wet": 36.5}, "aqua_kmh": null, "note": "model name as printed by source"},
+   {"name": "Kumho WinterCraft WP52", "category": "winter_central", "label_wet": null, "results": {"wet": 36.7}, "aqua_kmh": null, "note": ""},
+   {"name": "Giti GitiWinter W2", "category": "winter_central", "label_wet": null, "results": {"wet": 37.1}, "aqua_kmh": null, "note": ""},
+   {"name": "Viking WinTech", "category": "winter_central", "label_wet": null, "results": {"wet": 37.3}, "aqua_kmh": null, "note": ""},
+   {"name": "Maxxis Premitra Snow WP6", "category": "winter_central", "label_wet": null, "results": {"wet": 38.3}, "aqua_kmh": null, "note": ""},
+   {"name": "Kenda Wintergen 2 KR501", "category": "winter_central", "label_wet": null, "results": {"wet": 41.1}, "aqua_kmh": null, "note": ""},
+   {"name": "Triangle WinterX TW401", "category": "winter_central", "label_wet": null, "results": {"wet": 41.1}, "aqua_kmh": null, "note": ""},
+   {"name": "Davanti Wintoura +", "category": "winter_central", "label_wet": null, "results": {"wet": 41.3}, "aqua_kmh": null, "note": ""}
+  ]
+ },
+ {
+  "test_id": "ADAC-2022-W-185-65R15",
+  "publication": "ADAC",
+  "year": 2022,
+  "season": "winter",
+  "size": "185/65 R15 T",
+  "car": null,
+  "tester": "ADAC (press release 27.09.2022)",
+  "url": "https://presse.adac.de/meldungen/adac-ev/tests/winterreifentest22.html",
+  "url_original": null,
+  "disciplines": [
+   {"id": "wet", "surface": "asphalt", "wet": true, "v_from": 80, "v_to": 0, "temp_c": null,
+    "note": "Single absolute value in press text ('Bremsweg aus 80 Stundenkilometern', winner). Other tyres only given as 'rund 10 Meter laenger' (Imperial, Wanli) - not recorded. Full per-tyre metres not accessible (tyrereviews.com returned 403)."}
+  ],
+  "tyres": [
+   {"name": "Bridgestone Blizzak LM005", "category": "winter_central", "label_wet": null, "results": {"wet": 36.2}, "aqua_kmh": null,
+    "note": "Press release names only 'Bridgestone' (Erstplatzierter); model Blizzak LM005 inferred from ADAC 2022 185/65 R15 test listing (testyopon.pl also says 'Bridgestone Blizzak ... 36,2 m')."}
+  ]
+ }
+]

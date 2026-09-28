@@ -208,7 +208,14 @@ class Calibration:
         # suunaga: Põhjamaade rehv on just lume jaoks tehtud.
         # Nüüd mõõtmistest, vt anchors_snow_nordic.py.
         TyreCategory.WINTER_NORDIC: 0.377,   # sobitatud (UTAC25N, lumi -8 C)
-        TyreCategory.WINTER_STUDDED: 0.345,  # sobitatud (ZR24, 4 rehvi 12-st)
+        # Naast: 0,345 oli sobitatud ühe testi (ZR24, 4 rehvi) järgi.
+        # Välistestide backtest 2026-09-28 (backtest_ext.py): kuus
+        # sõltumatut testi (Za Rulem 2019-2022 x5, Vi Bilägare 2019),
+        # 50 naastrehvi, lumi 40->5 km/h -- KÕIK kuus mõõtsid lühema
+        # pidurdusmaa kui mudel, testide mediaan 0,88. 0,39 juures on
+        # testide mediaan 0,95 (vahemik 0,90-1,11): endiselt pigem pikem
+        # kui mõõdetud, st ohutuse poole, aga enam mitte 12 % pessimistlik.
+        TyreCategory.WINTER_STUDDED: 0.390,  # sobitatud (ZR24 + ZR19-22, ViB19; 7 testi)
     })
     mu_ice_base: dict = field(default_factory=lambda: {
         TyreCategory.SUMMER_UHP: 0.06,
@@ -464,6 +471,22 @@ class Calibration:
         TyreCategory.WINTER_NORDIC: 1.0,
         TyreCategory.WINTER_STUDDED: 0.545,   # [VIB10D] n=7, suhe 1,23
     })
+    # KÜLM JÄÄ JA NAAST (lisatud 2026-09-28, välistestide backtest).
+    # Kirjanduse kõver ütleb, et jää muutub külmemaks minnes haardevamaks
+    # (-20 °C juures 1,78 x). Za Rulem mõõtis 2008 SAMU rehve neljal
+    # temperatuuril (50->5 km/h, jää), ja naastrehvid käitusid VASTUPIDI:
+    #   naelutu:  -19 °C 31,3 m | -13 °C 34,7 m | -5 °C 54,9 m | 0 °C 82,3 m
+    #   naast:    -19 °C 37,4 m | -13 °C 34,4 m | -5 °C 29,2 m | 0 °C 33,1 m
+    # Naelutu suhe -5 -> -19 °C on 1,75 x ehk kirjanduse kõver (1,78) --
+    # see jääb puutumata. Naastul on see 0,78 x: kõva külm jää ei lase
+    # naelal sisse minna. Üks aste -0,43 (1,78^-0,43 = 0,78) annab ka
+    # -13 °C punkti õigesti (1,48^-0,43 = 0,845, mõõdetud 0,85).
+    # Sõltumatu kontroll: Za Rulem 2019 naastutest -20...-25 °C, 12 rehvi
+    # -- vana mudel ennustas mediaanis 2,9 x liiga lühikese pidurdusmaa.
+    # Aste mõjub ainult külmal poolel (f > 1). -5 °C ankrud (TM25) ei muutu.
+    ice_temp_exp_cold: dict = field(default_factory=lambda: {
+        TyreCategory.WINTER_STUDDED: -0.43,   # [ZR08T] rühmakeskmised, 4 temperatuuri
+    })
     # LUMI JA TEMPERATUUR. Mudelis oli lumel temperatuurikõver PUUDU --
     # -20 °C ja -1 °C andsid täpselt sama vastuse. Jääl oli kõver olemas.
     # See asümmeetria oli kaitsmatu, aga õige parandus EI OLE jää kõvera
@@ -590,7 +613,13 @@ class Calibration:
     sigma_base: dict = field(default_factory=lambda: {
         Surface.ASPHALT: 0.070, Surface.CONCRETE: 0.085,
         Surface.GRAVEL: 0.220, Surface.SNOW_PACKED: 0.130,
-        Surface.SNOW_LOOSE: 0.180, Surface.ICE: 0.170})
+        Surface.SNOW_LOOSE: 0.180, Surface.ICE: 0.250})
+    # JÄÄ 0,17 -> 0,25 (2026-09-28). 0,17 kattis ankrute jäägi (6,9 %),
+    # aga välistestide backtest (8 testi, 67 rehvi, eri jääväljakud ja
+    # temperatuurid) näitas, et väljaspool valimit oli 1-sigma vahemikus
+    # ainult 45 % tulemustest (oodatav 68 %); 68. protsentiil oli 26 %.
+    # Jää haare sõltub väljakust (poleeritud järvejää vs hall) rohkem kui
+    # rehvist -- see ebamäärasus on päris ja kasutaja peab seda nägema.
     # Millises KIIRUSEVAHEMIKUS võib mudelit selle pinna peal usaldada?
     # Väljaspool seda on tulemus ekstrapolatsioon ja veapiir peab kasvama.
     #
@@ -859,6 +888,9 @@ class BrakingModel:
             e_ice = cal.ice_temp_exp.get(tyre.category, 1.0)
             if e_ice != 1.0 and 0.0 < f_ice < 1.0:
                 f_ice = f_ice ** e_ice
+            e_cold = cal.ice_temp_exp_cold.get(tyre.category, 1.0)
+            if e_cold != 1.0 and f_ice > 1.0:
+                f_ice = f_ice ** e_cold
             mu *= _clamp(f_ice, cal.ice_temp_min, cal.ice_temp_max)
         else:  # kruus
             mu = cal.mu_gravel_base

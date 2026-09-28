@@ -156,6 +156,7 @@ _VALIK_PARANDUS = {
     "audi_a3": ("8Y", "2020+", "Sportback"), "vw_transporter": ("T6.1", "2019+", "—"),
     "volvo_xc60": ("II", "2017+", "B4"), "tesla_model3": ("", "2019-2023", "Long Range"),
     "mb_sprinter_906": ("906", "2006-2018", "313 CDI"), "mb_sprinter_907": ("907", "2018+", "—"),
+    "mb_sprinter_901": ("901", "1995-2006", "2.2 CDI"), "opel_zafira_life": ("Life", "2019+", "2.0 diisel"),
     "opel_corsa_d": ("D", "2006-2014", "—"), "opel_combo_d": ("D", "2011-2018", "—"),
     "porsche_macan_95b": ("95B", "2013+", "S Diesel"), "lexus_rx_al10": ("AL10", "2009-2015", "450h"),
     "hyundai_ioniq5": ("", "2021+", "77 kWh"), "mg4_ev": ("", "2022+", "64 kWh"),

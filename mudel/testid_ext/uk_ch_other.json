@@ -1,0 +1,1200 @@
+[
+ {
+  "test_id": "EVO-2024-S-235-35R19",
+  "publication": "evo",
+  "year": 2024,
+  "season": "summer",
+  "size": "235/35 R19",
+  "car": "VW Golf Mk8 (objective tests)",
+  "tester": "evo (John Barker) at Goodyear Mireval proving ground, France",
+  "url": "https://www.evo.co.uk/features/208248/best-19-inch-tyres-r19-23535-performance-tyre-test",
+  "url_original": null,
+  "note": "page dated 3 Nov 2025 but is the evo test at Mireval before the 2025 Aprilia test; year 2024 inferred: 2025 evo article (BMW M135i, Aprilia) refers to previous test of this size on front-drive Golf with SC7 winner/PS4S second; line-up incl. Vredestein Ultrac Pro (2024 launch). Wet 80-1 stated in article",
+  "disciplines": [
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": 80,
+    "v_to": 1,
+    "temp_c": null,
+    "note": "80-1 km/h (50-1 mph) per article; wet circuit water depth 8mm stated"
+   },
+   {
+    "id": "dry",
+    "surface": "asphalt",
+    "wet": false,
+    "v_from": 100,
+    "v_to": 1,
+    "temp_c": null,
+    "note": "100-1 km/h (62-1 mph)"
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Michelin Pilot Sport 4 S",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "wet": 31.4,
+     "dry": 33.1
+    },
+    "aqua_kmh": 70.51,
+    "note": "aqua = straight aquaplaning 7mm water"
+   },
+   {
+    "name": "Continental SportContact 7",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "wet": 32.3,
+     "dry": 30.7
+    },
+    "aqua_kmh": 72.0,
+    "note": "aqua = straight aquaplaning 7mm water"
+   },
+   {
+    "name": "Vredestein Ultrac Pro",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "wet": 32.3,
+     "dry": 35.1
+    },
+    "aqua_kmh": 71.76,
+    "note": "aqua = straight aquaplaning 7mm water"
+   },
+   {
+    "name": "Goodyear Eagle F1 Supersport",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "wet": 33.5,
+     "dry": 33.5
+    },
+    "aqua_kmh": 72.04,
+    "note": "aqua = straight aquaplaning 7mm water"
+   },
+   {
+    "name": "Pirelli P Zero PZ4",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "wet": 34.1,
+     "dry": 33.6
+    },
+    "aqua_kmh": 69.85,
+    "note": "aqua = straight aquaplaning 7mm water"
+   },
+   {
+    "name": "Falken Azenis FK520",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "wet": 34.8,
+     "dry": 33.4
+    },
+    "aqua_kmh": 71.43,
+    "note": "aqua = straight aquaplaning 7mm water"
+   },
+   {
+    "name": "Bridgestone Potenza Sport",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "wet": 35.1,
+     "dry": 32.1
+    },
+    "aqua_kmh": 72.66,
+    "note": "aqua = straight aquaplaning 7mm water"
+   }
+  ]
+ },
+ {
+  "test_id": "EVO-2025-S-235-35R19",
+  "publication": "evo",
+  "year": 2025,
+  "season": "summer",
+  "size": "235/35 R19",
+  "car": "BMW M135i xDrive",
+  "tester": "evo at Bridgestone proving ground, Aprilia (Rome), Italy",
+  "url": "https://www.evo.co.uk/features/207242/best-car-tyres-2025-evo-tyre-test",
+  "url_original": null,
+  "disciplines": [
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": 80,
+    "v_to": 20,
+    "temp_c": null,
+    "note": "published as 50 to 12 mph (~80.5-19.3 km/h); km/h values are conversion"
+   },
+   {
+    "id": "dry",
+    "surface": "asphalt",
+    "wet": false,
+    "v_from": 100,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "100-0 kph (62-0 mph); high ambient temps, no value given"
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Bridgestone Potenza Sport",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "wet": 27.56,
+     "dry": 32.2
+    },
+    "aqua_kmh": 74.95,
+    "note": "aqua = straight aquaplaning, 15% slip, 7mm water"
+   },
+   {
+    "name": "Goodyear Eagle F1 SuperSport",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "wet": 27.79,
+     "dry": 32.8
+    },
+    "aqua_kmh": 75.67,
+    "note": "aqua = straight aquaplaning, 15% slip, 7mm water"
+   },
+   {
+    "name": "Yokohama Advan Sport V107",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "wet": 28.55,
+     "dry": 32.0
+    },
+    "aqua_kmh": 73.99,
+    "note": "aqua = straight aquaplaning, 15% slip, 7mm water"
+   },
+   {
+    "name": "Continental SportContact 7",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "wet": 29.06,
+     "dry": 31.49
+    },
+    "aqua_kmh": 74.68,
+    "note": "aqua = straight aquaplaning, 15% slip, 7mm water"
+   },
+   {
+    "name": "Michelin Pilot Sport 4 S",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "wet": 29.15,
+     "dry": 32.36
+    },
+    "aqua_kmh": 75.13,
+    "note": "aqua = straight aquaplaning, 15% slip, 7mm water"
+   },
+   {
+    "name": "Pirelli P Zero PZ5",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "wet": 29.68,
+     "dry": 32.26
+    },
+    "aqua_kmh": 71.45,
+    "note": "aqua = straight aquaplaning, 15% slip, 7mm water"
+   },
+   {
+    "name": "Maxxis Victra Sport 6",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "wet": 30.62,
+     "dry": 33.08
+    },
+    "aqua_kmh": 71.4,
+    "note": "aqua = straight aquaplaning, 15% slip, 7mm water"
+   },
+   {
+    "name": "Falken Azenis RS820",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "wet": 33.63,
+     "dry": 33.01
+    },
+    "aqua_kmh": 74.89,
+    "note": "aqua = straight aquaplaning, 15% slip, 7mm water"
+   },
+   {
+    "name": "Kormoran Ultra High Performance",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "wet": 39.43,
+     "dry": 35.15
+    },
+    "aqua_kmh": 72.57,
+    "note": "aqua = straight aquaplaning, 15% slip, 7mm water"
+   }
+  ]
+ },
+ {
+  "test_id": "EVO-2022-S-235-35R19",
+  "publication": "evo",
+  "year": 2022,
+  "season": "summer",
+  "size": "235/35 R19",
+  "car": "VW Golf GTI Clubsport",
+  "tester": "evo at Goodyear Mireval proving ground, France",
+  "url": "https://www.evo.co.uk/tyre-reviews/206340/best-19-inch-tyres-r19-23535-performance-tyre-test",
+  "url_original": null,
+  "note": "page dated 1 Dec 2023, test carried out 2022",
+  "disciplines": [
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": 80,
+    "v_to": null,
+    "temp_c": null,
+    "note": "from 80 kph (50 mph); end speed not stated on page (later evo tests use 80-1)"
+   },
+   {
+    "id": "dry",
+    "surface": "asphalt",
+    "wet": false,
+    "v_from": 100,
+    "v_to": null,
+    "temp_c": null,
+    "note": "from 100 kph (62 mph); end speed not stated"
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Bridgestone Potenza Sport",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "wet": 31.3,
+     "dry": 31.8
+    },
+    "aqua_kmh": 82.1,
+    "note": "aqua = straight aquaplaning"
+   },
+   {
+    "name": "Continental SportContact 7",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "wet": 28.1,
+     "dry": 31.0
+    },
+    "aqua_kmh": 81.3,
+    "note": "aqua = straight aquaplaning"
+   },
+   {
+    "name": "Falken Azenis FK520",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "wet": 32.4,
+     "dry": 32.4
+    },
+    "aqua_kmh": 79.9,
+    "note": "aqua = straight aquaplaning"
+   },
+   {
+    "name": "Goodyear Eagle F1 SuperSport",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "wet": 30.1,
+     "dry": 32.6
+    },
+    "aqua_kmh": 81.8,
+    "note": "aqua = straight aquaplaning"
+   },
+   {
+    "name": "Maxxis Victra Sport 5",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "wet": 32.0,
+     "dry": 32.6
+    },
+    "aqua_kmh": 81.0,
+    "note": "aqua = straight aquaplaning"
+   },
+   {
+    "name": "Michelin Pilot Sport 4 S",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "wet": 30.7,
+     "dry": 32.3
+    },
+    "aqua_kmh": 82.0,
+    "note": "aqua = straight aquaplaning"
+   },
+   {
+    "name": "Pirelli P Zero",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "wet": 31.0,
+     "dry": 32.6
+    },
+    "aqua_kmh": 81.3,
+    "note": "aqua = straight aquaplaning"
+   }
+  ]
+ },
+ {
+  "test_id": "EVO-2023-S-225-40R18",
+  "publication": "evo",
+  "year": 2023,
+  "season": "summer",
+  "size": "225/40 R18",
+  "car": "Toyota GR86",
+  "tester": "evo at Continental Contidrom proving ground, Hannover, Germany",
+  "url": "https://www.evo.co.uk/tyre-reviews/18309/best-car-tyres-2023-evo-performance-tyre-test",
+  "url_original": null,
+  "note": "article states all tyres EU label wet grip A",
+  "disciplines": [
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": 80,
+    "v_to": null,
+    "temp_c": null,
+    "note": "'from 80kph (50mph)'; end speed not stated - distances (24-27 m) suggest end speed >0 or high-grip surface; treat with caution"
+   },
+   {
+    "id": "dry",
+    "surface": "asphalt",
+    "wet": false,
+    "v_from": 100,
+    "v_to": null,
+    "temp_c": null,
+    "note": "from 100kph (62mph); end speed not stated"
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Continental SportContact 7",
+    "category": "summer_uhp",
+    "label_wet": "A",
+    "results": {
+     "wet": 24.1,
+     "dry": 34.0
+    },
+    "aqua_kmh": 76.9,
+    "note": "aqua = straight aquaplaning, 9mm water"
+   },
+   {
+    "name": "Bridgestone Potenza Sport",
+    "category": "summer_uhp",
+    "label_wet": "A",
+    "results": {
+     "wet": 25.1,
+     "dry": 35.5
+    },
+    "aqua_kmh": 77.1,
+    "note": "aqua = straight aquaplaning, 9mm water"
+   },
+   {
+    "name": "Pirelli P Zero PZ4",
+    "category": "summer_uhp",
+    "label_wet": "A",
+    "results": {
+     "wet": 25.4,
+     "dry": 35.3
+    },
+    "aqua_kmh": 76.5,
+    "note": "aqua = straight aquaplaning, 9mm water"
+   },
+   {
+    "name": "Goodyear Eagle F1 SuperSport",
+    "category": "summer_uhp",
+    "label_wet": "A",
+    "results": {
+     "wet": 25.6,
+     "dry": 35.9
+    },
+    "aqua_kmh": 77.0,
+    "note": "aqua = straight aquaplaning, 9mm water"
+   },
+   {
+    "name": "Falken Azenis FK510",
+    "category": "summer_uhp",
+    "label_wet": "A",
+    "results": {
+     "wet": 25.5,
+     "dry": 35.8
+    },
+    "aqua_kmh": 77.5,
+    "note": "aqua = straight aquaplaning, 9mm water"
+   },
+   {
+    "name": "Maxxis Victra Sport 5",
+    "category": "summer_uhp",
+    "label_wet": "A",
+    "results": {
+     "wet": 25.6,
+     "dry": 35.8
+    },
+    "aqua_kmh": 77.6,
+    "note": "aqua = straight aquaplaning, 9mm water"
+   },
+   {
+    "name": "Michelin Pilot Sport 4 S",
+    "category": "summer_uhp",
+    "label_wet": "A",
+    "results": {
+     "wet": 25.1,
+     "dry": 35.8
+    },
+    "aqua_kmh": 77.1,
+    "note": "aqua = straight aquaplaning, 9mm water"
+   },
+   {
+    "name": "Toyo Proxes Sport 2",
+    "category": "summer_uhp",
+    "label_wet": "A",
+    "results": {
+     "wet": 26.8,
+     "dry": 35.4
+    },
+    "aqua_kmh": 76.0,
+    "note": "aqua = straight aquaplaning, 9mm water"
+   }
+  ]
+ },
+ {
+  "test_id": "TUVSUD-BRIDGESTONE-2023-A-205-55R16",
+  "publication": "TÜV SÜD (commissioned by Bridgestone)",
+  "year": 2023,
+  "season": "allseason",
+  "size": "205/55 R16",
+  "car": "VW Golf VIII 1.5TSI / 2.0TSI, Skoda Octavia 2.0TDI (per report)",
+  "tester": "TÜV SÜD Automotive, commissioned by Bridgestone; report 713281374-PM; test period Feb-Mar 2023; sites ATP Papenburg, EUPG Aprilia, Vidsel (SE), Neubiberg, Garching",
+  "url": "https://www.bridgestone-daten.eu/TUEV-TuranzaAllSeason6.pdf",
+  "url_original": null,
+  "note": "manufacturer-commissioned; absolute m cross-checked against printed % (consistent)",
+  "disciplines": [
+   {
+    "id": "dry",
+    "surface": "asphalt",
+    "wet": false,
+    "v_from": 100,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "ABS braking, dry asphalt; double execution"
+   },
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": 80,
+    "v_to": 20,
+    "temp_c": null,
+    "note": "ABS braking, wet asphalt, ~7mm water"
+   },
+   {
+    "id": "snow",
+    "surface": "snow",
+    "wet": false,
+    "v_from": 40,
+    "v_to": 5,
+    "temp_c": null,
+    "note": "ABS braking, compressed snow"
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Bridgestone Turanza All Season 6 94V XL",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 38.6,
+     "wet": 27.2,
+     "snow": 17.3
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Continental AllSeasonContact 94V XL",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 41.3,
+     "wet": 28.3,
+     "snow": 18.0
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Goodyear Vector 4Seasons Gen-3 94V XL",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 42.3,
+     "wet": 28.9,
+     "snow": 17.5
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Michelin CrossClimate 2 94V XL",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 37.8,
+     "wet": 31.4,
+     "snow": 17.1
+    },
+    "aqua_kmh": null,
+    "note": ""
+   }
+  ]
+ },
+ {
+  "test_id": "TUVSUD-BRIDGESTONE-2022-S-245-45R18",
+  "publication": "TÜV SÜD (commissioned by Bridgestone)",
+  "year": 2022,
+  "season": "summer",
+  "size": "245/45 R18",
+  "car": "BMW 520i / BMW 530d",
+  "tester": "TÜV SÜD, commissioned by Bridgestone; report 713263409; test period June 2022; EUPG Aprilia (IT), ATP Papenburg (aquaplaning)",
+  "url": "https://www.bridgestone-daten.eu/TUEV-T6-Report.pdf",
+  "url_original": "https://bridgestone-reifentest.de/produkt/turanza-6",
+  "note": "manufacturer-commissioned; m values cross-checked against printed %",
+  "disciplines": [
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": 80,
+    "v_to": 20,
+    "temp_c": null,
+    "note": "ABS braking on watered asphalt, EUPG Aprilia"
+   },
+   {
+    "id": "dry",
+    "surface": "asphalt",
+    "wet": false,
+    "v_from": 100,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "ABS braking on dry asphalt, EUPG Aprilia"
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Bridgestone Turanza 6 100Y XL",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 33.7,
+     "dry": 33.1
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Continental PremiumContact 6 100Y XL",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 33.0,
+     "dry": 33.2
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Michelin Primacy 4+ 100Y XL",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 36.0,
+     "dry": 33.5
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Pirelli Cinturato P7 (P7C2) 100Y XL",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 34.4,
+     "dry": 34.3
+    },
+    "aqua_kmh": null,
+    "note": ""
+   }
+  ]
+ },
+ {
+  "test_id": "TUVSUD-BRIDGESTONE-2020-S-245-40R18",
+  "publication": "TÜV SÜD (commissioned by Bridgestone)",
+  "year": 2020,
+  "season": "summer",
+  "size": "245/40 R18",
+  "car": "Audi S4 3.0TFSI / Audi A4 (per report; vehicle per discipline not specified)",
+  "tester": "TÜV SÜD, commissioned by Bridgestone; report 713190691-PS; test period Jul-Sep 2020; EUPG Aprilia (IT)",
+  "url": "https://bridgestone-daten.eu/TUEV-PotenzaSport-Report.pdf",
+  "url_original": "https://bridgestone-reifentest.de/produkt/potenza-sport-2022",
+  "note": "manufacturer-commissioned; m values cross-checked against printed %",
+  "disciplines": [
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": 80,
+    "v_to": 20,
+    "temp_c": null,
+    "note": "ABS braking wet asphalt, EUPG Aprilia"
+   },
+   {
+    "id": "dry",
+    "surface": "asphalt",
+    "wet": false,
+    "v_from": 100,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "ABS braking dry asphalt, EUPG Aprilia"
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Bridgestone Potenza Sport 97Y XL",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "wet": 33.4,
+     "dry": 33.4
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Continental PremiumContact 6 97Y XL",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "wet": 35.0,
+     "dry": 35.4
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Goodyear Eagle F1 Asymmetric 5 97Y XL",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "wet": 36.0,
+     "dry": 35.9
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Michelin Pilot Sport 4 97Y XL",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "wet": 34.1,
+     "dry": 34.5
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Pirelli P Zero PZ4 97Y XL",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "wet": 31.6,
+     "dry": 34.8
+    },
+    "aqua_kmh": null,
+    "note": ""
+   }
+  ]
+ },
+ {
+  "test_id": "TUVSUD-BRIDGESTONE-2023-W-205-55R16",
+  "publication": "TÜV SÜD (commissioned by Bridgestone)",
+  "year": 2023,
+  "season": "winter",
+  "size": "205/55 R16",
+  "car": "VW Golf VIII 2.0TSI / 1.5TSI",
+  "tester": "TÜV SÜD, commissioned by Bridgestone; report 713307065-BM01; 2023",
+  "url": "https://bridgestone-daten.eu/TUEV_Blizzak6.pdf",
+  "url_original": "https://bridgestone-reifentest.de/produkt/blizzak-6",
+  "note": "manufacturer-commissioned; 94H XL; m values cross-checked against printed %",
+  "disciplines": [
+   {
+    "id": "snow",
+    "surface": "snow",
+    "wet": false,
+    "v_from": 40,
+    "v_to": 5,
+    "temp_c": null,
+    "note": "ABS braking compressed snow, Arctic Falls Pitea (SE)"
+   },
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": 80,
+    "v_to": 20,
+    "temp_c": null,
+    "note": "ABS braking wet asphalt, EUPG Aprilia"
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Bridgestone Blizzak 6",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "snow": 18.9,
+     "wet": 35.1
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Continental WinterContact TS 870",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "snow": 18.9,
+     "wet": 35.9
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Goodyear UltraGrip Performance 3",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "snow": 18.9,
+     "wet": 36.4
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Michelin Alpin 6",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "snow": 19.3,
+     "wet": 35.5
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Pirelli Cinturato Winter 2",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "snow": 18.8,
+     "wet": 36.0
+    },
+    "aqua_kmh": null,
+    "note": ""
+   }
+  ]
+ },
+ {
+  "test_id": "TUVSUD-BRIDGESTONE-2022-S-245-35R19",
+  "publication": "TÜV SÜD (commissioned by Bridgestone)",
+  "year": 2022,
+  "season": "summer",
+  "size": "245/35 R19",
+  "car": "Mercedes-AMG A 45 S",
+  "tester": "TÜV SÜD, commissioned by Bridgestone; report 713231330-05; test period Nov 2021-Mar 2022; EUPG Aprilia & Nardo (IT)",
+  "url": "https://bridgestone-daten.eu/TUEV-PotenzaRace-Report.pdf",
+  "url_original": "https://bridgestone-reifentest.de/produkt/potenza-race",
+  "note": "manufacturer-commissioned; semi-slick/track tyres (93Y XL); m cross-checked against %",
+  "disciplines": [
+   {
+    "id": "dry",
+    "surface": "asphalt",
+    "wet": false,
+    "v_from": 100,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "ABS braking dry asphalt, EUPG Aprilia; only braking discipline in report"
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Bridgestone Potenza Race",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 32.3
+    },
+    "aqua_kmh": null,
+    "note": "track-focused semi-slick"
+   },
+   {
+    "name": "Goodyear Eagle F1 Supersport R",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 34.6
+    },
+    "aqua_kmh": null,
+    "note": "track-focused semi-slick"
+   },
+   {
+    "name": "Michelin Pilot Sport Cup 2 Connect",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 32.8
+    },
+    "aqua_kmh": null,
+    "note": "track-focused semi-slick"
+   },
+   {
+    "name": "Pirelli P Zero Trofeo R",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 33.2
+    },
+    "aqua_kmh": null,
+    "note": "track-focused semi-slick"
+   }
+  ]
+ },
+ {
+  "test_id": "QUATTRORUOTE-2021-S-225-50R17",
+  "publication": "Quattroruote",
+  "year": 2021,
+  "season": "summer",
+  "size": "225/50 R17",
+  "car": "BMW 320d Touring",
+  "tester": "Quattroruote",
+  "url": "https://pneusnews.it/2021/05/03/quattroruote-testa-gli-estivi-i-risultati/",
+  "url_original": null,
+  "note": "read via pneusnews.it summary of Quattroruote test",
+  "disciplines": [
+   {
+    "id": "dry",
+    "surface": "asphalt",
+    "wet": false,
+    "v_from": 100,
+    "v_to": null,
+    "temp_c": null,
+    "note": "'Frenata da 100 km/h (metri)'; end speed not stated (presumably 0)"
+   },
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": 100,
+    "v_to": null,
+    "temp_c": null,
+    "note": "'Frenata da 100 km/h (metri)' wet; end speed not stated (presumably 0)"
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Michelin Primacy 4",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 38.4,
+     "wet": 46.5
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Pirelli Cinturato P7",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 38.7,
+     "wet": 47.7
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Continental PremiumContact 6",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 38.8,
+     "wet": 45.6
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Nokian Powerproof",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 39.4,
+     "wet": 48.3
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Bridgestone Turanza T005",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 39.7,
+     "wet": 48.3
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Goodyear Eagle F1 Asymmetric 5",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 39.9,
+     "wet": 47.0
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Nankang Sportnex AS-2+",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 41.6,
+     "wet": 50.0
+    },
+    "aqua_kmh": null,
+    "note": ""
+   }
+  ]
+ },
+ {
+  "test_id": "EVO-2021-S-225-40R18",
+  "publication": "evo",
+  "year": 2021,
+  "season": "summer",
+  "size": "225/40 R18",
+  "car": "Audi S3",
+  "tester": "evo at Bridgestone European Proving Ground, Aprilia, Italy",
+  "url": "https://www.evo.co.uk/tyre-reviews/205473/best-car-tyres-2021-evo-performance-tyre-test",
+  "url_original": null,
+  "disciplines": [
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": 80,
+    "v_to": 20,
+    "temp_c": null,
+    "note": "80 to 20 kph (50 to 12 mph), surface wetted to 1.6mm"
+   },
+   {
+    "id": "dry",
+    "surface": "asphalt",
+    "wet": false,
+    "v_from": 100,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "100 to 0 kph"
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Pirelli P Zero PZ4",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "wet": 27.0,
+     "dry": 34.3
+    },
+    "aqua_kmh": 66.3,
+    "note": "aqua = straight aquaplaning"
+   },
+   {
+    "name": "Bridgestone Potenza Sport",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "wet": 28.3,
+     "dry": 33.9
+    },
+    "aqua_kmh": 69.7,
+    "note": "aqua = straight aquaplaning"
+   },
+   {
+    "name": "Michelin Pilot Sport 4",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "wet": 29.2,
+     "dry": 34.5
+    },
+    "aqua_kmh": 67.2,
+    "note": "aqua = straight aquaplaning"
+   },
+   {
+    "name": "Goodyear Eagle F1 SuperSport",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "wet": 30.4,
+     "dry": 34.8
+    },
+    "aqua_kmh": 69.1,
+    "note": "aqua = straight aquaplaning"
+   },
+   {
+    "name": "Continental PremiumContact 6",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "wet": 30.6,
+     "dry": 35.9
+    },
+    "aqua_kmh": 67.2,
+    "note": "aqua = straight aquaplaning"
+   },
+   {
+    "name": "Hankook Ventus S1 evo3",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "wet": 30.3,
+     "dry": 35.8
+    },
+    "aqua_kmh": 65.2,
+    "note": "aqua = straight aquaplaning"
+   },
+   {
+    "name": "Dunlop Sport Maxx RT 2",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "wet": 32.3,
+     "dry": 36.7
+    },
+    "aqua_kmh": 73.2,
+    "note": "aqua = straight aquaplaning"
+   },
+   {
+    "name": "GT Radial SportActive 2",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "wet": 32.1,
+     "dry": 37.9
+    },
+    "aqua_kmh": 73.2,
+    "note": "aqua = straight aquaplaning"
+   },
+   {
+    "name": "Triangle Sportex TH201",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "wet": 42.9,
+     "dry": 41.2
+    },
+    "aqua_kmh": 66.1,
+    "note": "aqua = straight aquaplaning"
+   }
+  ]
+ },
+ {
+  "test_id": "EVO-2022-S-265-35R20",
+  "publication": "evo",
+  "year": 2022,
+  "season": "summer",
+  "size": "265/35 R20",
+  "car": "Ford Mustang GT",
+  "tester": "evo (John Barker) at Continental proving ground, Uvalde, Texas (Continental facility)",
+  "url": "https://www.evo.co.uk/car-technology/204817/continental-sportcontact-7-vs-rivals-tyre-test-review",
+  "url_original": null,
+  "note": "3-tyre comparison at Continental's own facility around SportContact 7 launch - possible manufacturer influence",
+  "disciplines": [
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": 80,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "80 kph to zero, average"
+   },
+   {
+    "id": "dry",
+    "surface": "asphalt",
+    "wet": false,
+    "v_from": 100,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "100 kph to zero on 'warm asphalt' (no value)"
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Continental SportContact 7",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "wet": 31.9,
+     "dry": 33.8
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Bridgestone Potenza Sport",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "wet": 34.9,
+     "dry": 35.8
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Michelin Pilot Sport 4 S",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "wet": 35.7,
+     "dry": 34.3
+    },
+    "aqua_kmh": null,
+    "note": ""
+   }
+  ]
+ }
+]
