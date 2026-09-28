@@ -638,7 +638,8 @@
     (function () {
       var inp = $('[data-own-in]', root), list = $('[data-own-list]', root), hint = $('[data-own-hint]', root);
       if (!inp || !list) return;
-      var hits = [], act = -1, valitudNimi = '', HINT = hint ? hint.textContent : '';
+      var hits = [], act = -1, valitudNimi = '';
+      function vihje(t) { if (hint) { hint.textContent = t || ''; hint.hidden = !t; } }
       function otsi(q, rows) {
         var toks = lihtne(q).split(' ').filter(Boolean);
         if (!toks.length) return [];
@@ -670,7 +671,7 @@
         S.minu = h.e ? { e: h.e, n: h.n } : { t: h.t, n: h.n };
         valitudNimi = inp.value = h.n;
         hits = []; act = -1; naita(); list.hidden = true;
-        if (hint) hint.textContent = h.s ? 'Valitud: ' + h.s + '. Võrdluses on sama hooaja rehvid.' : HINT;
+        vihje(h.s ? h.s.charAt(0).toUpperCase() + h.s.slice(1) + ' — võrdleme sama hooaja rehvidega.' : '');
         Track('oma_rehv', h.n);
         recalc();
       }
@@ -679,7 +680,7 @@
         loadSize(S.size).then(function (rows) { if (inp.value !== q) return; hits = otsi(q, rows); act = hits.length ? 0 : -1; naita(); });
       }
       inp.addEventListener('input', function () {
-        if (S.minu && inp.value !== valitudNimi) { S.minu = null; if (hint) hint.textContent = HINT; recalc(); }
+        if (S.minu && inp.value !== valitudNimi) { S.minu = null; vihje(''); recalc(); }
         otsiNyyd();
       });
       inp.addEventListener('focus', function () { if (inp.value && !S.minu) otsiNyyd(); });
@@ -776,6 +777,7 @@
       $$('[data-tab]', root).forEach(function (x) { x.setAttribute('aria-selected', x.dataset.tab === tab ? 'true' : 'false'); x.tabIndex = x.dataset.tab === tab ? 0 : -1; });
       $('#p-calc', root).hidden = tab !== 'calc';
       $('#p-valik', root).hidden = tab !== 'valik';
+      $$('[data-calc-only]', root).forEach(function (x) { x.hidden = tab !== 'calc'; });
       /* avalehe alumine osa: kalkulaatori tulemus + info VÕI sobivad rehvid */
       $$('[data-home]').forEach(function (x) { x.hidden = x.dataset.home !== tab; });
     }
