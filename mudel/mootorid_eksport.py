@@ -28,7 +28,9 @@ KYTUS_JRK = {"b": 0, "bg": 1, "g": 2, "d": 3, "h": 4, "p": 5, "e": 6}
 
 
 def silt(lab, hp, kw, drive):
-    return f"{lab}{' ' + drive if drive else ''} · {hp} hj ({kw} kW)"
+    # vedu nime lõppu ainult siis, kui seda nimes juba pole ("73 kWh AWD" + AWD)
+    lisa = drive and drive.lower() not in lab.lower().split()
+    return f"{lab}{' ' + drive if lisa else ''} · {hp} hj ({kw} kW)"
 
 
 def _tok(s):
@@ -60,8 +62,23 @@ def _cmp(sz):
     return re.sub(r"[^0-9R]", "", sz.upper())
 
 
-def oma(group, slug, host, eprel=None):
-    """Mootori enda mass ja rehvimõõdud või None."""
+def _rim(sz):
+    m = re.search(r"R(\d{2})", sz or "")
+    return int(m.group(1)) if m else 0
+
+
+def _hp(variant):
+    m = re.search(r"(\d+) hj", variant or "")
+    return int(m.group(1)) if m else None
+
+
+def oma(group, slug, host, eprel=None, hp=None):
+    """Mootori enda mass ja rehvimõõdud või None.
+
+    auto-data loetleb mõõdud väiksemast suuremani ja mõnikord kogu mudeli
+    kohta, mitte ainult selle versiooni kohta. Seepärast ei saa võimsam mootor
+    arvutuseks väiksemat velge kui põlvkonna põhirida: võetakse esimene
+    mõõt, mille velg on vähemalt põhirea oma (kui nimekirjas selline on)."""
     r = RATTAD.get(group, {}).get(slug)
     if not r:
         return None
@@ -70,13 +87,23 @@ def oma(group, slug, host, eprel=None):
     base = host.get("kerbMassKg") or 0
     if kg and base and 0.75 * base <= kg <= 1.7 * base:
         o["m"] = kg
+    hh, hr = _hp(host.get("variant")), _rim(host.get("oemSize"))
+    if sizes and hp and hh and hp >= 1.5 * hh and max(_rim(z) for z in sizes) < hr:
+        # palju võimsam versioon, aga lehel ainult põhireast väiksemad veljed:
+        # tõenäoliselt lehe viga (nt A7 Competition 235/55 R17) -> põhirea mõõt
+        sizes = ()
     if sizes:
         o["s"] = list(sizes)
         calc = sizes[0]
+        if hp and hh and hp > hh and _rim(calc) < hr:
+            suurem = [z for z in sizes if _rim(z) >= hr]
+            if suurem:
+                calc = suurem[0]
         if eprel is not None and _cmp(calc) not in eprel:
-            ok = [s for s in sizes if _cmp(s) in eprel]
+            ok = [z for z in sizes[sizes.index(calc):] if _cmp(z) in eprel] or \
+                 [z for z in sizes if _cmp(z) in eprel]
             if ok:
-                o["t"], calc = sizes[0], ok[0]
+                o["t"], calc = calc, ok[0]
         o["o"] = calc
     return o or None
 
@@ -140,7 +167,7 @@ def attach(vehicles, eprel=None):
                 if orig != "—" and rt and all(t in _tok(lab) for t in rt) and len(rt) > hs:
                     host, hs = r, len(rt)
             ent = [silt(lab, hp, kw, drv), fu, yrs, _slug(lab, hp, drv), order.index(i)]
-            om = oma(key, ent[3], host, eprel)
+            om = oma(key, ent[3], host, eprel, hp)
             if om:
                 ent.append(om)
                 n_oma += 1

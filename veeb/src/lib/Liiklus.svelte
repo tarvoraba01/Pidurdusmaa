@@ -363,10 +363,14 @@
 	<div class="lo-grid">
 		<!-- ================= SISENDID ================= -->
 		<section class="lo-in" aria-label="Olukord">
-			<div class="lo-tabs" role="tablist" aria-label="Olukord">
-				<button type="button" role="tab" aria-selected={muuda === 'A'} class="t-a" onclick={() => (muuda = 'A')}>Olukord A</button>
+			<div class="lo-tabs">
+				<div class="lo-tablist" role="tablist" aria-label="Olukord">
+					<button type="button" role="tab" aria-selected={muuda === 'A'} class="t-a" onclick={() => (muuda = 'A')}>Olukord A</button>
+					{#if B}
+						<button type="button" role="tab" aria-selected={muuda === 'B'} class="t-b" onclick={() => (muuda = 'B')}>Olukord B</button>
+					{/if}
+				</div>
 				{#if B}
-					<button type="button" role="tab" aria-selected={muuda === 'B'} class="t-b" onclick={() => (muuda = 'B')}>Olukord B</button>
 					<button type="button" class="lo-x" onclick={eemaldaB} aria-label="Eemalda olukord B">×</button>
 				{:else}
 					<button type="button" class="lo-add" onclick={lisaB}>+ Lisa võrdlus</button>
@@ -880,6 +884,11 @@
 		gap: var(--sp-2);
 		margin-bottom: var(--sp-3);
 		align-items: center;
+	}
+	.lo-tablist {
+		flex: 1;
+		display: flex;
+		gap: var(--sp-2);
 	}
 	.lo-tabs [role='tab'] {
 		flex: 1;

@@ -326,8 +326,10 @@
   }
   /* ABS oli lisavarustus: kasutaja linnuke "autol on ABS" (auto kaupa,
      sessionStorage) vahetab ABS-klassi ja pidurite võimekuse (core: absOpt). */
-  function absOn(key) { var a = store.get('abs', {}); return !!(a && a[key]); }
-  function absSet(key, on) { var a = store.get('abs', {}) || {}; if (on) a[key] = 1; else delete a[key]; store.set('abs', a); }
+  /* ABS on auto (põlvkonna rea), mitte mootori omadus: <rida>~<mootor> -> <rida> */
+  function absKey(key) { return String(key || '').split('~')[0]; }
+  function absOn(key) { var a = store.get('abs', {}); return !!(a && a[absKey(key)]); }
+  function absSet(key, on) { var a = store.get('abs', {}) || {}; if (on) a[absKey(key)] = 1; else delete a[absKey(key)]; store.set('abs', a); }
   function vehEff(veh) { return veh && veh.absOpt && absOn(veh.key) ? Object.assign({}, veh, veh.absOpt) : veh; }
   function calc(tyre, veh, cond) { return window.Pidurdus.stoppingDistance(tyre, vehEff(veh), cond); }
   /* Testitud rehv autol: füüsika (laius -> akvaplaneerimine) käib autol oleva

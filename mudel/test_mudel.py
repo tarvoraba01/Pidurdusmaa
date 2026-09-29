@@ -320,8 +320,20 @@ class Mootorid(unittest.TestCase):
             o = oma("g", "x", {"kerbMassKg": 700}, {"22545R17"})     # mass liiga erinev -> ei
             self.assertNotIn("m", o)
             self.assertEqual(o["o"], "225/45 R17")
+            # võimsam mootor ei saa väiksemat velge kui põhirida (auto-data
+            # nimekiri algab kogu mudeli väikseimast mõõdust)
+            E.RATTAD = {"g": {"x": (1400, ("195/65 R15", "205/55 R16", "225/45 R17"), "")}}
+            host = {"kerbMassKg": 1320, "variant": "1.5 TSI · 130 hj (96 kW)", "oemSize": "205/55 R16"}
+            self.assertEqual(oma("g", "x", host, None, 245)["o"], "205/55 R16")
+            self.assertEqual(oma("g", "x", host, None, 90)["o"], "195/65 R15")
+            E.RATTAD = {"g": {"x": (1400, ("195/65 R15",), "")}}
+            self.assertNotIn("s", oma("g", "x", host, None, 245))           # kahtlane -> põhirida
+            self.assertEqual(oma("g", "x", host, None, 150)["o"], "195/65 R15")
         finally:
             E.RATTAD = vana
+        from .mootorid_eksport import silt
+        self.assertEqual(silt("73 kWh AWD", 300, 221, "AWD"), "73 kWh AWD · 300 hj (221 kW)")
+        self.assertEqual(silt("2.0 TSI", 190, 140, "4MOTION"), "2.0 TSI 4MOTION · 190 hj (140 kW)")
 
 
 if __name__ == "__main__":

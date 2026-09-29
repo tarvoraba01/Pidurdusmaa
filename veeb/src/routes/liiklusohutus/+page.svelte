@@ -4,7 +4,7 @@
 	import { ORG, graph, tooriist } from '$lib/skeem.js';
 
 	const KIRJ =
-		'Tasuta peatumisteekonna kalkulaator liiklusohutuse õppeks ja autokoolidele: kiirus, reaktsiooniaeg, teeolud, mustrisügavus, rehvid, koormus ja pidurid. Kaks olukorda kõrvuti, ilma reklaamide ja hindadeta.';
+		'Tasuta peatumisteekonna kalkulaator autokoolidele ja liiklusohutuse õppeks: kiirus, reaktsiooniaeg, teeolud ja rehvid, kaks olukorda kõrvuti. Ilma reklaamita.';
 	const jsonld = graph(tooriist('Pidurdusmaa kalkulaator liiklusohutuse õppeks', '/liiklusohutus/', KIRJ), ORG);
 </script>
 

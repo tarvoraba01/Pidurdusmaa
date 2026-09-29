@@ -17,6 +17,22 @@ function fondid() {
 }
 
 const W = 1200;
+
+/* Sildi teksti tegelik laius (Inter 500, 26 px): resvg mõõdab, varuks hinnang */
+const _laius = new Map();
+function tekstiLaius(s) {
+	if (_laius.has(s)) return _laius.get(s);
+	let w = String(s).length * 15.2;
+	try {
+		const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="60"><text x="0" y="40" font-family="Inter" font-weight="500" font-size="26" fill="#000">${esc(s)}</text></svg>`;
+		const bb = new Resvg(svg, { font: { fontFiles: fondid(), loadSystemFonts: false, defaultFontFamily: 'Inter' } }).getBBox();
+		if (bb && bb.width > 0) w = bb.width;
+	} catch {
+		/* hinnang jääb */
+	}
+	_laius.set(s, w);
+	return w;
+}
 const H = 630;
 const INK = '#0a0b0d';
 const KOLLANE = '#ffc20e';
@@ -72,7 +88,7 @@ export function ogPilt({ kicker = '', pealkiri, alapealkiri = '', sildid = [] })
 		.filter(Boolean)
 		.slice(0, 3)
 		.map((s) => {
-			const w = Math.round(String(s).length * 15.2 + 40);
+			const w = Math.round(tekstiLaius(s) + 40);
 			const g = `<rect x="${x}" y="470" width="${w}" height="56" rx="12" fill="#1a1d24" stroke="#2b3039"/>` +
 				`<text x="${x + 20}" y="507" font-family="Inter" font-weight="500" font-size="26" fill="#f3f4f6">${esc(s)}</text>`;
 			x += w + 14;
