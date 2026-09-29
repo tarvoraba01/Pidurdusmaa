@@ -19,6 +19,7 @@
 <li>Midagi ei kirjutata sinu brauserisse.</li>
 <li>Alus: õigustatud huvi teenust parandada. Andmeid hoitakse kuni 12 kuud.</li>
 </ul>
+<p>Külastuste koondstatistika (mitu külastust, millistelt lehtedelt, mis riigist, millise seadmega) tuleb <strong>Plausible</strong>'ist, mis töötab meie enda serveris (track.pidurdusmaa.ee). Plausible ei kasuta küpsiseid, ei salvesta IP-aadressi ega jälgi sind teistel lehtedel.</p>
 
 <h2>2. Google Analytics (ainult nõusolekul)</h2>
 <p>Kui vajutad küpsiste ribal „Nõustun“, laetakse Google Analytics 4. Enne seda ei tehta Google'isse ühtegi päringut. Google Analytics paneb brauserisse küpsised <code>_ga</code> ja <code>_ga_…</code> (säilivad kuni 2 aastat) ning näitab meile koondstatistikat: mitu külastajat, millistelt lehtedelt, millise seadmega, mis riigist.</p>

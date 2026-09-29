@@ -45,22 +45,24 @@ const LISTEN = process.env.HOST || '0.0.0.0';
 /* Välised aadressid, mida leht tohib kasutada:
  *   Google Analytics (ainult pärast küpsiste nõusolekut)
  *   Cloudflare Turnstile (kontaktivormi robotikaitse)
+ *   Plausible (küpsisteta statistika, oma server track.pidurdusmaa.ee)
  * Uue välise teenuse lisamisel tuleb see siia lisada, muidu brauser
  * blokeerib selle (konsoolis on siis „Content Security Policy“ viga). */
 const GA = 'https://www.googletagmanager.com';
 const GTM_KOIK = 'https://*.googletagmanager.com';
 const GA_KOGU = 'https://*.google-analytics.com https://*.analytics.google.com';
 const CF = 'https://challenges.cloudflare.com';
+const PLAUSIBLE = 'https://track.pidurdusmaa.ee';
 
 const CSP = [
 	"default-src 'self'",
 	/* 'unsafe-inline': SvelteKiti käivitusskript on lehe sees. Välist
 	   skripti ei saa laadida mujalt kui allolevatelt aadressidelt. */
-	`script-src 'self' 'unsafe-inline' ${GA} ${CF}`,
+	`script-src 'self' 'unsafe-inline' ${GA} ${CF} ${PLAUSIBLE}`,
 	"style-src 'self' 'unsafe-inline'",
 	`img-src 'self' data: blob: ${GTM_KOIK} ${GA_KOGU}`,
 	"font-src 'self'",
-	`connect-src 'self' ${GTM_KOIK} ${GA_KOGU} ${CF}`,
+	`connect-src 'self' ${GTM_KOIK} ${GA_KOGU} ${CF} ${PLAUSIBLE}`,
 	`frame-src ${CF}`,
 	"frame-ancestors 'self'",
 	"base-uri 'self'",
