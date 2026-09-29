@@ -27,7 +27,7 @@ import {
 export const prerender = true;
 
 export function entries() {
-	const out = [{ liik: 'sait', slug: 'avaleht' }];
+	const out = [{ liik: 'sait', slug: 'avaleht' }, { liik: 'sait', slug: 'liiklusohutus' }, { liik: 'sait', slug: 'peatumisteekonna-kalkulaator' }];
 	for (const s of core().sizes) if (sizeModelCount(s.m) >= SIZE_MIN_MODELS) out.push({ liik: 'm', slug: s.slug });
 	const rehvid = new Set([...Object.keys(models()), ...core().tyres.map((t) => t.slug).filter(Boolean)]);
 	for (const slug of rehvid) if (rehviIndeks(slug).sitemap) out.push({ liik: 'r', slug });
@@ -68,6 +68,14 @@ function andmed(liik, slug) {
 				num(core().vehicles.length, 0) + ' autot',
 				'Tasuta'
 			]
+		};
+	}
+	if (liik === 'sait' && (slug === 'liiklusohutus' || slug === 'peatumisteekonna-kalkulaator')) {
+		return {
+			kicker: slug === 'liiklusohutus' ? 'Liiklusohutus' : 'Uus tasuta kalkulaator',
+			pealkiri: 'Kui pika maa pealt auto peatub?',
+			alapealkiri: 'Kiirus, reaktsiooniaeg, teeolud ja rehvid — kaks olukorda kõrvuti',
+			sildid: ['Tasuta', 'Ilma reklaamita', 'Autokoolidele']
 		};
 	}
 	if (liik === 'm') {

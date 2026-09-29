@@ -5,13 +5,13 @@
 	import Meta from '$lib/Meta.svelte';
 	import Autor from '$lib/Autor.svelte';
 	import { artikkel, graph } from '$lib/skeem.js';
-	let { title, desc, path, crumbs = [], sisu, lapsed = [], uuendatud = '', avaldatud = '' } = $props();
+	let { title, desc, path, crumbs = [], sisu, lapsed = [], uuendatud = '', avaldatud = '', image = undefined } = $props();
 	const jsonld = $derived(
 		uuendatud ? graph(...artikkel({ path: '/' + path, title, desc, uuendatud, avaldatud })) : null
 	);
 </script>
 
-<Meta {title} {desc} {path} crumbs={[['Avaleht', '/'], ...crumbs]} ogType={uuendatud ? 'article' : undefined} {jsonld} />
+<Meta {title} {desc} {path} crumbs={[['Avaleht', '/'], ...crumbs]} ogType={uuendatud ? 'article' : undefined} {jsonld} {image} />
 
 <section class="page-hero">
 	<div class="wrap">

@@ -8,7 +8,7 @@
 	const jsonld = graph(tooriist('Pidurdusmaa kalkulaator liiklusohutuse õppeks', '/liiklusohutus/', KIRJ), ORG);
 </script>
 
-<Meta title="Peatumisteekonna kalkulaator liiklusohutuse õppeks" desc={KIRJ} path="liiklusohutus/" {jsonld} />
+<Meta title="Peatumisteekonna kalkulaator liiklusohutuse õppeks" desc={KIRJ} path="liiklusohutus/" {jsonld} image="/og/sait/liiklusohutus.png" />
 
 <section class="lo-hero">
 	<div class="wrap">
