@@ -16,9 +16,8 @@
 		const p = page.url.pathname;
 		if (p === '/') return 'home';
 		if (p.startsWith('/rehvi-valimine') || p.startsWith('/vordle-rehve')) return 'valik';
-		if (p.startsWith('/testid')) return 'testid';
-		if (p.startsWith('/rehvid')) return 'rehvid';
-		if (p.startsWith('/teadmine')) return 'teadmine';
+		/* rehvid, testid ja margid on menüüs Teadmine all */
+		if (p.startsWith('/teadmine') || p.startsWith('/testid') || p.startsWith('/rehvid') || p.startsWith('/margid')) return 'teadmine';
 		return '';
 	});
 
@@ -106,8 +105,6 @@
 					>
 				</div>
 			</div>
-			<a href="/testid/" aria-current={cur === 'testid' ? 'page' : undefined}>Testid</a>
-			<a href="/rehvid/" aria-current={cur === 'rehvid' ? 'page' : undefined}>Rehvid</a>
 			<a href="/teadmine/" aria-current={cur === 'teadmine' ? 'page' : undefined}>Teadmine</a>
 		</nav>
 		<div class="hdr-right">

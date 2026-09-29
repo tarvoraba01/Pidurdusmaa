@@ -6,11 +6,15 @@
 
 	const POHI = [
 		['/teadmine/pidurdusteekond-ja-peatumisteekond/', 'road', 'Pidurdus- ja peatumisteekond', 'Valem, reaktsiooniaeg ja näited eri kiirustel.'],
-		['/teadmine/rehvimargis/', 'tyre', 'EL-i rehvimärgis', 'Mida tähendavad märghaarde, veeretakistuse ja müra klassid.']
+		['/teadmine/rehvimargis/', 'info', 'EL-i rehvimärgis', 'Mida tähendavad märghaarde, veeretakistuse ja müra klassid.']
 	];
 	const ANDMED = [
+		['/rehvid/', 'tyre', 'Rehvid', 'Kõik rehvid märgise andmete ja testitulemustega.'],
+		['/testid/', 'test', 'Sõltumatud testid', 'ADAC, Tekniikan Maailma jt — mõõdetud pidurdusmaad.'],
+		['/margid/', 'scale', 'Rehvimargid', 'Tootjad ja nende rehvid ühest kohast.']
+	];
+	const MEETOD = [
 		['/teadmine/kuidas-pidurdusmaa-arvutatakse/', 'gauge', 'Kuidas pidurdusmaa arvutatakse', 'Mudel, eeldused, täpsus ja piirangud.'],
-		['/testid/', 'test', 'Sõltumatud testid', 'Millised testid on andmestikus ja kuidas neid kasutame.'],
 		['/teadmine/partnerid/', 'shield', 'Partnerid ja poelingid', 'Kuidas leht tasuta püsib ja miks see järjestust ei mõjuta.']
 	];
 </script>
@@ -40,6 +44,20 @@
 			<span class="tm-go"><Icon name="arrow" /></span>
 		</a>
 
+		<section class="tm-sec" aria-labelledby="tm-and">
+			<h2 id="tm-and">Rehvid ja testid</h2>
+			<div class="tm-grid tm-grid3">
+				{#each ANDMED as [href, ic, t, d] (href)}
+					<a class="tm-card" {href}>
+						<span class="tm-ic"><Icon name={ic} /></span>
+						<span class="tm-t">{t}</span>
+						<span class="tm-d">{d}</span>
+					</a>
+				{/each}
+			</div>
+		</section>
+
+		<!-- järjekord: tööriist, rehvid ja testid (kõige enam kasutatud), põhitõed, artiklid, meetod -->
 		<section class="tm-sec" aria-labelledby="tm-pohi">
 			<h2 id="tm-pohi">Põhitõed</h2>
 			<div class="tm-grid">
@@ -70,10 +88,10 @@
 			</div>
 		</section>
 
-		<section class="tm-sec" aria-labelledby="tm-and">
-			<h2 id="tm-and">Kust numbrid tulevad</h2>
-			<div class="tm-grid tm-grid3">
-				{#each ANDMED as [href, ic, t, d] (href)}
+		<section class="tm-sec" aria-labelledby="tm-met">
+			<h2 id="tm-met">Kust numbrid tulevad</h2>
+			<div class="tm-grid">
+				{#each MEETOD as [href, ic, t, d] (href)}
 					<a class="tm-card" {href}>
 						<span class="tm-ic"><Icon name={ic} /></span>
 						<span class="tm-t">{t}</span>
