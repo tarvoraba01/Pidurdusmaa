@@ -218,6 +218,7 @@
 	function naide(n) {
 		const a = { ...ALGNE, tyyp: A.tyyp, mk: A.mk, md: A.md, veh: A.veh };
 		const b = { ...a };
+		takistus = 0;
 		if (n === 'kiirus') { a.kiirus = 50; b.kiirus = 70; takistus = 0; }
 		if (n === 'muster') { Object.assign(a, { kiirus: 90, vesi: 1 }); Object.assign(b, { kiirus: 90, vesi: 1, muster: 1.6, vanus: 10 }); }
 		if (n === 'lumi') {
@@ -236,35 +237,60 @@
 		if (n === 'kiirus') takistus = Math.ceil(arvuta(a)?.r?.totalDistanceM || 0);
 	}
 
-	/* ------------------------------------------------------ aadress */
+	/* ------------------------------------------------------ aadress
+	   Aadressi lõppu (#…) läheb AINULT see, mis erineb algseisust, loetava
+	   nimega: #kiirus=70&pind=ICE&b.kiirus=90. Algseisus on aadress puhas.
+	   Nii saab õpetaja lingi kopeerida ja olukord avaneb täpselt samana. */
 	const VOTMED = Object.keys(ALGNE);
-	function kodeeri(s) {
-		return VOTMED.map((k) => (s[k] === ALGNE[k] ? '' : String(s[k]))).join('*');
+	function kirjuta(h, s, eel) {
+		VOTMED.forEach((k) => {
+			if (s[k] !== ALGNE[k]) h.set(eel + k, String(s[k]));
+		});
 	}
-	function dekodeeri(t) {
+	function loe(h, eel) {
+		const o = { ...ALGNE };
+		VOTMED.forEach((k) => {
+			const x = h.get(eel + k);
+			if (x !== null && x !== '') o[k] = typeof ALGNE[k] === 'number' ? +x : x;
+		});
+		return o;
+	}
+	/* vana vorm (#a=***…) -- enne 2026-09-30 jagatud lingid töötavad edasi */
+	function vanaVorm(t) {
 		const o = { ...ALGNE };
 		(t || '').split('*').forEach((x, i) => {
 			const k = VOTMED[i];
-			if (!k || x === '') return;
-			o[k] = typeof ALGNE[k] === 'number' ? +x : x;
+			if (k && x !== '') o[k] = typeof ALGNE[k] === 'number' ? +x : x;
 		});
 		return o;
 	}
 	function loeAadressist() {
 		try {
 			const h = new URLSearchParams(location.hash.slice(1));
-			if (h.get('a')) A = dekodeeri(h.get('a'));
-			if (h.get('b')) { B = dekodeeri(h.get('b')); }
+			if (h.get('a') && h.get('a').includes('*')) {
+				A = vanaVorm(h.get('a'));
+				if (h.get('b')) B = vanaVorm(h.get('b'));
+			} else {
+				A = loe(h, '');
+				if (h.has('b') || [...h.keys()].some((k) => k.startsWith('b.'))) B = loe(h, 'b.');
+			}
 			if (h.get('t')) takistus = +h.get('t') || 0;
+			if (h.get('takistus')) takistus = +h.get('takistus') || 0;
 		} catch {}
 	}
 	$effect(() => {
 		if (!core) return;
 		const h = new URLSearchParams();
-		h.set('a', kodeeri(A));
-		if (B) h.set('b', kodeeri(B));
-		if (takistus) h.set('t', String(takistus));
-		try { history.replaceState(history.state, '', '#' + h.toString()); } catch {}
+		kirjuta(h, A, '');
+		if (B) {
+			h.set('b', '1');
+			kirjuta(h, B, 'b.');
+		}
+		if (takistus) h.set('takistus', String(takistus));
+		const q = h.toString();
+		try {
+			history.replaceState(history.state, '', location.pathname + location.search + (q ? '#' + q : ''));
+		} catch {}
 	});
 	async function kopeeri() {
 		try {
