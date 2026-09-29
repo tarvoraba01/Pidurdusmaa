@@ -135,7 +135,8 @@ button,input,select{font:inherit;color:inherit}
 .sel:hover{border-color:#5a616d}
 .sel:disabled{opacity:.5;cursor:not-allowed}
 .sel option,.sel optgroup{background:#1b1e24;color:#fff}
-.var-row{margin-top:var(--sp-2);max-width:calc(66.6% - 3px)}
+.var-row{margin-top:var(--sp-2);display:flex;align-items:center;gap:var(--sp-3)}
+.var-row .sel{flex:0 1 calc(66.6% - 3px);min-width:0}
 .size-note{margin:var(--sp-2) 0 0;font-size:12px;color:var(--muted-d)}
 .size-note.warn{color:#fbbf24}
 .spd{display:flex;align-items:center;gap:var(--sp-4)}
@@ -229,7 +230,7 @@ input[type=range].slider{-webkit-appearance:none;appearance:none;width:100%;heig
   .cc-grid{grid-template-columns:minmax(0,1fr);gap:var(--sp-4)}
   .car3{grid-template-columns:1fr 1fr}
   .car3 .sel:first-child{grid-column:1/-1}
-  .var-row{max-width:none}
+  .var-row .sel{flex:1 1 auto}
   .tab{font-size:14.5px}
   .mbar{grid-template-columns:minmax(0,1fr) 56px 96px;row-gap:var(--sp-1);padding:var(--sp-1) 0}
   .mbar .n{grid-column:1/-1}
@@ -783,19 +784,20 @@ textarea.lin{resize:vertical;min-height:140px}
 .partn-d{font-size:13.5px;color:var(--muted);line-height:1.4}
 .partn-g{margin-top:auto;padding-top:var(--sp-2);font-size:13.5px;font-weight:600;color:var(--ink);text-decoration:underline;text-decoration-color:var(--yellow);text-decoration-thickness:2px;text-underline-offset:3px}
 
-/* ABS-i hoiatustuli: kustunud = ABS-i pole, põleb = ABS olemas */
-.abs-lamp{display:inline-flex;align-items:center;gap:7px;margin:-4px 0 6px;padding:2px 8px 2px 2px;background:none;border:0;border-radius:999px;font:inherit;font-size:12.5px;font-weight:600;color:var(--muted-d);cursor:pointer;line-height:1}
-.abs-lamp:hover{color:var(--on-d)}
+/* ABS-i hoiatustuli variandi kõrval: kustunud = ABS-i pole, põleb = ABS olemas */
+.abs-lamp{display:inline-flex;align-items:center;gap:7px;flex:none;padding:2px 8px 2px 2px;background:none;border:0;border-radius:999px;font:inherit;font-size:12.5px;font-weight:600;color:var(--muted-d);cursor:pointer;line-height:1;white-space:nowrap}
+.abs-lamp[data-st="opt"]:hover{color:var(--on-d)}
+.abs-lamp[aria-disabled="true"]{cursor:default}
 .abs-lamp svg{width:34px;height:22px;flex:none;overflow:visible}
+.abs-lamp span{min-width:6.4em}
 .abs-lamp svg *{fill:none;stroke:#555c68;stroke-width:2.2;stroke-linecap:round;transition:stroke .2s,fill .2s}
 .abs-lamp text{fill:#555c68;stroke:none;font:800 8.8px/1 system-ui,sans-serif;text-anchor:middle;letter-spacing:-.01em}
-.abs-lamp .al-on{display:none;color:var(--yellow)}
-.abs-lamp[aria-pressed="true"] .al-off{display:none}
-.abs-lamp[aria-pressed="true"] .al-on{display:inline;animation:al-txt .5s ease-out}
+.abs-lamp[aria-pressed="true"]{color:var(--yellow)}
 .abs-lamp[aria-pressed="true"] svg{filter:drop-shadow(0 0 3px rgba(255,176,0,.85)) drop-shadow(0 0 8px rgba(255,176,0,.45))}
 .abs-lamp[aria-pressed="true"] svg *{stroke:#ffb000}
 .abs-lamp[aria-pressed="true"] text{fill:#ffb000;stroke:none}
 .abs-lamp[aria-pressed="true"] circle{fill:rgba(255,176,0,.14)}
 .abs-lamp.lit svg{animation:al-ign .7s linear}
+.abs-lamp.lit span{animation:al-txt .5s ease-out}
 @keyframes al-ign{0%{opacity:.25}8%{opacity:1}16%{opacity:.35}26%{opacity:1}34%{opacity:.6}44%,100%{opacity:1}}
 @keyframes al-txt{from{opacity:0;transform:translateX(-4px)}to{opacity:1;transform:none}}

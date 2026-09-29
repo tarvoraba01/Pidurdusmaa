@@ -214,6 +214,15 @@
         core = d;
         core.vehByKey = {};
         d.vehicles.forEach(function (v) { core.vehByKey[v.key] = v; });
+        /* vanad ABS-iga paariread (<võti>_abs): nüüd baasrida + ABS-i tuli põlemas */
+        var al = d.vehAlias || {}, qa = null;
+        try { qa = new URLSearchParams(location.search).get('auto'); } catch (e) {}
+        Object.keys(al).forEach(function (a) {
+          var b = al[a]; if (!core.vehByKey[b]) return;
+          core.vehByKey[a] = core.vehByKey[b];
+          if (store.get('veh', null) === a) { store.set('veh', b); absSet(b, true); }
+          if (qa === a) absSet(b, true);
+        });
         core.tyreByKey = {};
         d.tyres.forEach(function (t) { core.tyreByKey[t.key] = t; });
         return core;
@@ -372,7 +381,7 @@
       if (from === 'year') {
         var vars = V.filter(function (v) { return v.make === mk && v.model === md && v.yearLabel === yr; })
           .map(function (v) { return [v.key, v.variant === '—' ? 'Standard' : v.variant]; });
-        opts(sel.variant, yr ? vars : [], yr ? 'Vali variant' : '—');
+        opts(sel.variant, yr ? vars : [], yr ? 'Vali mootor' : '—');
       }
       onChange(sel.variant.value || null);
     }
@@ -728,20 +737,28 @@
     });
     S.size = sizeOptions(sizeSel, null, S.size);
 
-    /* ABS-i tuli: ainult autodel, millel ABS oli lisavarustus */
-    var absBtn = $('[data-abs]', root);
+    /* ABS-i tuli variandi kõrval: standard = põleb (ei muudeta), lisavarustus =
+       vajutatav, puudus = kustunud (ei muudeta) */
+    var absBtn = $('[data-abs]', root), absTxt = absBtn ? $('[data-abs-t]', absBtn) : null;
+    function absState(veh) { return !veh ? '' : veh.absOpt ? 'opt' : veh.absClass === 'NONE' ? 'none' : 'std'; }
     function paintAbs(veh) {
       if (!absBtn) return;
-      absBtn.hidden = !(veh && veh.absOpt);
+      var st = absState(veh), on = st === 'std' || (st === 'opt' && absOn(veh.key));
+      absBtn.hidden = !st;
       absBtn.classList.remove('lit');
-      absBtn.setAttribute('aria-pressed', veh && veh.absOpt && absOn(veh.key) ? 'true' : 'false');
+      absBtn.dataset.st = st;
+      absBtn.setAttribute('aria-pressed', on ? 'true' : 'false');
+      absBtn.setAttribute('aria-disabled', st === 'opt' ? 'false' : 'true');
+      absBtn.title = st === 'std' ? 'ABS on selle auto standardvarustus.'
+        : st === 'none' ? 'Sellel autol ABS-i ei olnud.'
+        : 'ABS oli selle auto lisavarustus. Kui armatuuril süttib käivitamisel hetkeks ABS-tuli, on sinu autol ABS. Vajuta tulele, kui sul on ABS.';
+      if (absTxt) absTxt.textContent = on ? 'ABS olemas' : st === 'none' ? 'ABS-i pole' : 'Kas on ABS?';
     }
     if (absBtn) absBtn.addEventListener('click', function () {
-      if (!S.veh) return;
+      if (!S.veh || absBtn.dataset.st !== 'opt') return;
       var on = absBtn.getAttribute('aria-pressed') !== 'true';
       absSet(S.veh, on);
-      absBtn.setAttribute('aria-pressed', on ? 'true' : 'false');
-      absBtn.classList.remove('lit');
+      paintAbs(core.vehByKey[S.veh]);
       if (on) { void absBtn.offsetWidth; absBtn.classList.add('lit'); }
       Track('abs', on ? 'jah' : 'ei');
       recalc(); emit();

@@ -43,7 +43,7 @@ from .anchors import ANCHORS
 from .anchors_adac import ADAC_2025
 from .anchors_adac2 import ADAC_ALLSEASON, ADAC_SUMMER
 from .anchors_vib10 import VIB10D, VIB10F
-from .export_web import _tyre, _veh
+from .export_web import _tyre, _veh, veh_alias
 from .model import BrakingModel, Conditions, Surface, Tyre, TyreCategory, replace
 from .presets import TYRES, VEHICLES
 
@@ -406,7 +406,10 @@ def main():
 
     # --- autod
     vehicles = []
+    alias = veh_alias()
     for k, v in VEHICLES.items():
+        if k in alias:          # ABS-iga paaririda -> baasrea absOpt
+            continue
         d = _veh(k, v)
         d.update(parse_vehicle(d))
         vehicles.append(d)
@@ -424,6 +427,7 @@ def main():
     core = {
         "demo": demo_numbers(),
         "vehicles": vehicles,
+        "vehAlias": alias,
         "tyres": tested,
         "sources": SOURCES,
         "sizes": size_list,

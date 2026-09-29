@@ -68,12 +68,22 @@ def _veh(key, v):
     # ABS-iga rida on olemas (<võti>_abs), võetakse väärtused sealt; muidu
     # varane ABS ja pidurite võimekus +0,10 g (ABS-iga ja -ita paaride
     # keskmine vahe andmetes: 1,08-1,10 -> 1,16-1,22).
-    if v.abs_class.name == "NONE" and _abs_valikuline(d.get("note", "")):
-        pair = _ALL_VEH.get(key + "_abs")
+    # ABS-iga paaririda (<võti>_abs) ei ole lehel eraldi variant: variant
+    # näitab mootorit, ABS on eraldi lüliti (absOpt). Vt veh_alias().
+    pair = _ALL_VEH.get(key + "_abs")
+    if pair is not None:
+        d["name"] = v.name.replace(" ilma ABS-ita", "")
+    if v.abs_class.name == "NONE" and (pair is not None or _abs_valikuline(d.get("note", ""))):
         d["absOpt"] = ({"absClass": pair.abs_class.name, "brakeCapacityG": pair.brake_capacity_g}
                        if pair else {"absClass": "EARLY",
                                      "brakeCapacityG": round(v.brake_capacity_g + 0.10, 2)})
     return d
+
+
+def veh_alias():
+    """ABS-iga paariread, mida lehel eraldi ei näidata: {'<võti>_abs': '<võti>'}.
+    Vanad lingid / salvestatud valikud suunatakse baasreale, ABS sisse."""
+    return {k: k[:-4] for k in _ALL_VEH if k.endswith("_abs") and k[:-4] in _ALL_VEH}
 
 
 def _abs_valikuline(note):
@@ -116,7 +126,7 @@ def _eprel():
 def main():
     data = {
         "tyres": [_tyre(k, t) for k, t in TYRES.items()],
-        "vehicles": [_veh(k, v) for k, v in VEHICLES.items()],
+        "vehicles": [_veh(k, v) for k, v in VEHICLES.items() if k not in veh_alias()],
         "tips": json.load(open(TIPS, encoding="utf-8")),
         "eprel": _eprel(),
     }

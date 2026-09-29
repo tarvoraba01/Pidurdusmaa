@@ -273,7 +273,7 @@ VEHICLES = {
         wheelbase_m=2.51, recommended_pressure_bar=2.2,
         oem_size="195/65 R15", brake_capacity_g=1.3),
     "lada_2107": Vehicle(
-        name="VAZ 2107 (ABS puudub)", kerb_mass_kg=1060,
+        name="VAZ 2107 (1982-2012)", kerb_mass_kg=1060,
         abs_class=AbsClass.NONE, cda_m2=0.75, cog_height_m=0.58,
         wheelbase_m=2.42, recommended_pressure_bar=1.9,
         oem_size="175/70 R13", brake_capacity_g=0.85),

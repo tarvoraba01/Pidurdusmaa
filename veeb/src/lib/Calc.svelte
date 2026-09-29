@@ -32,15 +32,6 @@
 		<div class="cc-grid" style="margin-bottom:var(--sp-3)">
 			<div>
 				<p class="lbl">1. Sinu auto <span class="aside" data-veh-hint></span></p>
-				<button type="button" class="abs-lamp" data-abs hidden aria-pressed="false"
-					title="ABS oli selle auto lisavarustus. Kui armatuuril süttib käivitamisel hetkeks ABS-tuli, on sinu autol ABS. Vajuta, kui sul on ABS."
-					><svg viewBox="0 0 44 28" aria-hidden="true"
-						><path class="al-arc" d="M9 4.5a14 14 0 0 0 0 19M35 4.5a14 14 0 0 1 0 19" /><circle cx="22" cy="14" r="10" /><text
-							x="22"
-							y="17.3">ABS</text
-						></svg
-					><span class="al-off">Autol on ABS?</span><span class="al-on">ABS olemas</span></button
-				>
 				<div class="car3">
 					<select class="sel" data-f="make" aria-label="Mark"><option value="">Mark</option></select>
 					<select class="sel" data-f="model" aria-label="Mudel" disabled
@@ -51,8 +42,16 @@
 					>
 				</div>
 				<div class="var-row">
-					<select class="sel" data-f="variant" aria-label="Mootor / variant" disabled
-						><option value="">Mootor / variant</option></select
+					<select class="sel" data-f="variant" aria-label="Mootor" disabled
+						><option value="">Mootor</option></select
+					>
+					<button type="button" class="abs-lamp" data-abs hidden aria-pressed="false" aria-disabled="true"
+						><svg viewBox="0 0 44 28" aria-hidden="true"
+							><path d="M9 4.5a14 14 0 0 0 0 19M35 4.5a14 14 0 0 1 0 19" /><circle cx="22" cy="14" r="10" /><text
+								x="22"
+								y="17.3">ABS</text
+							></svg
+						><span data-abs-t>Kas on ABS?</span></button
 					>
 				</div>
 			</div>

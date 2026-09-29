@@ -33,7 +33,7 @@
 					<select class="lsel" data-f="make" aria-label="Mark"><option value="">Mark</option></select>
 					<select class="lsel" data-f="model" aria-label="Mudel" disabled><option value="">Mudel</option></select>
 					<select class="lsel" data-f="year" aria-label="Aasta" disabled><option value="">Aasta</option></select>
-					<select class="lsel" data-f="variant" aria-label="Mootor / variant" disabled><option value="">Variant</option></select>
+					<select class="lsel" data-f="variant" aria-label="Mootor" disabled><option value="">Mootor</option></select>
 				</div>
 				<label class="qlab" for="v-size">Rehvimõõt</label>
 				<select class="lsel" id="v-size" data-f="size"><option value="20555R16">205/55 R16</option></select>
