@@ -78,7 +78,7 @@
 {#if neutraal}
 <header class="site-header">
 	<div class="wrap">
-		<a class="logo" href="/liiklusohutus/" aria-label="Peatumisteekonna kalkulaator"><b>PIDURDUSMAA</b><em>.ee</em></a>
+		<a class="logo" href="/" aria-label="Pidurdusmaa.ee avaleht"><b>PIDURDUSMAA</b><em>.ee</em></a>
 		<span class="neutraal-silt">Liiklusohutus</span>
 	</div>
 </header>
