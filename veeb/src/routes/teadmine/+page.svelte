@@ -4,6 +4,8 @@
 	const esc = (t) => t.replace(/&/g, '&amp;').replace(/</g, '&lt;');
 	const SISU =
 		`<p>Pidurdusmaa.ee näitab arvutatud pidurdusmaad ja rehvide päris omadusi. Siin on kirjas, kust iga number tuleb ja mida me <strong>ei</strong> tea.</p>
+<h2>Tööriist liiklusohutuse õppeks</h2>
+<p><a href="/liiklusohutus/">Peatumisteekonna kalkulaator liiklusohutuse õppeks</a> — tasuta autokoolidele, koolidele ja liiklusohutuse tööks. Kiirus, reaktsiooniaeg, teeolud, mustrisügavus ja rehvid, kaks olukorda kõrvuti ning esitlusrežiim klassiruumi jaoks. Ilma hindade ja poodideta.</p>
 <h2>Artiklid</h2>
 <p>Praktilised juhendid rehvi valimiseks — numbritega.</p>
 <ul>` +
@@ -19,6 +21,6 @@
 	desc="Artiklid rehvi valimiseks ja kust iga Pidurdusmaa.ee number tuleb — mudel, EL-i rehvimärgis ja sõltumatud testid."
 	path="teadmine/"
 	crumbs={[["Teadmine", "/teadmine/"]]}
-	lapsed={[["Artiklid", "/teadmine/artiklid/"], ["Pidurdusteekond ja peatumisteekond", "/teadmine/pidurdusteekond-ja-peatumisteekond/"], ["Kuidas pidurdusmaa arvutatakse", "/teadmine/kuidas-pidurdusmaa-arvutatakse/"], ["EL-i rehvimärgis: mida klassid tähendavad", "/teadmine/rehvimargis/"]]}
+	lapsed={[["Liiklusohutuse kalkulaator", "/liiklusohutus/"], ["Artiklid", "/teadmine/artiklid/"], ["Pidurdusteekond ja peatumisteekond", "/teadmine/pidurdusteekond-ja-peatumisteekond/"], ["Kuidas pidurdusmaa arvutatakse", "/teadmine/kuidas-pidurdusmaa-arvutatakse/"], ["EL-i rehvimärgis: mida klassid tähendavad", "/teadmine/rehvimargis/"]]}
 	sisu={SISU}
 />

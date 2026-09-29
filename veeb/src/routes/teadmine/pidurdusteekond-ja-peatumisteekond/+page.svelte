@@ -216,6 +216,11 @@
 				vali <strong>„Peatumisteekond“</strong> ja reaktsiooniaeg: näed eraldi reageerimisteekonda ja
 				pidurdusteekonda ning seda, kui palju muudaks teine rehv.
 			</p>
+			<p>
+				Õpetamiseks ja kahe olukorra võrdlemiseks (nt 50 vs 70 km/h, uus vs kulunud rehv) on
+				<a href="/liiklusohutus/">liiklusohutuse kalkulaator</a> — ilma hindade ja poodideta, esitlusrežiimiga
+				klassiruumi jaoks.
+			</p>
 
 			<h2>Korduma kippuvad küsimused</h2>
 			{#each KKK as [q, a] (q)}

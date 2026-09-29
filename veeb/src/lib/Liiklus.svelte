@@ -70,6 +70,15 @@
 	let esitlus = $state(false);
 	let kopeeritud = $state(false);
 	let juur;
+	let outEl = $state(null);
+	let tulemusNahtav = $state(true);
+	$effect(() => {
+		if (!outEl || typeof IntersectionObserver === 'undefined') return;
+		const io = new IntersectionObserver((e) => (tulemusNahtav = e[0].isIntersecting), { threshold: 0.15 });
+		io.observe(outEl);
+		return () => io.disconnect();
+	});
+	const naitaTulemust = () => outEl?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
 	const S = $derived(muuda === 'B' && B ? B : A);
 
@@ -209,7 +218,7 @@
 	function naide(n) {
 		const a = { ...ALGNE, tyyp: A.tyyp, mk: A.mk, md: A.md, veh: A.veh };
 		const b = { ...a };
-		if (n === 'kiirus') { a.kiirus = 50; b.kiirus = 60; takistus = 0; }
+		if (n === 'kiirus') { a.kiirus = 50; b.kiirus = 70; takistus = 0; }
 		if (n === 'muster') { Object.assign(a, { kiirus: 90, vesi: 1 }); Object.assign(b, { kiirus: 90, vesi: 1, muster: 1.6, vanus: 10 }); }
 		if (n === 'lumi') {
 			Object.assign(a, { kat: 'WINTER_NORDIC', pind: 'SNOW_PACKED', temp: -5, kiirus: 50 });
@@ -276,7 +285,10 @@
 	const stsenaariumid = $derived([['A', RA], ...(B ? [['B', RB]] : [])].filter(([, x]) => x && x.r));
 	const maxD = $derived(Math.max(10, takistus || 0, ...stsenaariumid.map(([, x]) => (x.r.stopped ? x.r.totalDistanceM : 0))));
 	const samm = $derived([2, 5, 10, 20, 25, 50, 100, 200].find((s) => maxD / s <= 9) || 500);
-	const W = 1000, PADL = 40, PADR = 30;
+	/* joonise laius = päris pikslid, et kiri oleks telefonis sama loetav kui arvutis */
+	let figW = $state(700);
+	const W = $derived(Math.max(300, Math.min(1000, Math.round(figW || 700))));
+	const PADL = 26, PADR = 18;
 	const X = (d) => PADL + (d / (Math.ceil(maxD / samm) * samm)) * (W - PADL - PADR);
 	const tikid = $derived(Array.from({ length: Math.ceil(maxD / samm) + 1 }, (_, i) => i * samm));
 
@@ -298,7 +310,7 @@
 	<div class="lo-top">
 		<div class="lo-naited" aria-label="Näidisvõrdlused">
 			<span class="lo-lbl">Valmis võrdlused:</span>
-			<button type="button" onclick={() => naide('kiirus')}>50 vs 60 km/h</button>
+			<button type="button" onclick={() => naide('kiirus')}>50 vs 70 km/h</button>
 			<button type="button" onclick={() => naide('telefon')}>Tähelepanelik vs hajevil</button>
 			<button type="button" onclick={() => naide('muster')}>Uus vs kulunud rehv</button>
 			<button type="button" onclick={() => naide('vesi')}>Märg vs lombid</button>
@@ -475,7 +487,7 @@
 		</section>
 
 		<!-- ================= TULEMUS ================= -->
-		<section class="lo-out" aria-live="polite" aria-label="Tulemus">
+		<section class="lo-out" aria-live="polite" aria-label="Tulemus" bind:this={outEl}>
 			{#if !core}
 				<p class="lo-laeb">Laadin arvutusmudelit…</p>
 			{:else}
@@ -514,9 +526,20 @@
 				{/each}
 				</div>
 
+				<div class="lo-actions">
+					{#if !B}
+						<button type="button" class="lo-addb" onclick={lisaB}>+ Lisa võrdlus: olukord B</button>
+					{:else}
+						<span>Muudad:</span>
+						<button type="button" class="lo-sw" aria-pressed={muuda === 'A'} onclick={() => (muuda = 'A')}>A</button>
+						<button type="button" class="lo-sw lo-sw-b" aria-pressed={muuda === 'B'} onclick={() => (muuda = 'B')}>B</button>
+						<button type="button" class="lo-rm" onclick={eemaldaB}>Eemalda B</button>
+					{/if}
+				</div>
+
 				{#if stsenaariumid.length}
-					<figure class="lo-fig">
-						<svg viewBox="0 0 {W} {60 + stsenaariumid.length * 70}" role="img" aria-label="Peatumisteekond teel meetrites">
+					<figure class="lo-fig" bind:clientWidth={figW}>
+						<svg width={W} viewBox="0 0 {W} {60 + stsenaariumid.length * 70}" role="img" aria-label="Peatumisteekond teel meetrites">
 							<defs>
 								<pattern id="lo-hatch" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
 									<rect width="10" height="10" fill="#3a3f49" />
@@ -530,17 +553,17 @@
 							{#each stsenaariumid as [n, x], i}
 								{@const y = 30 + i * 70}
 								{@const kokku = x.r.stopped ? x.r.totalDistanceM : maxD}
-								<text x="8" y={y + 30} class="lo-rowlbl">{n}</text>
+								<text x="4" y={y + 30} class="lo-rowlbl">{n}</text>
 								<rect x={X(0)} y={y + 10} width={Math.max(0, X(x.r.reactionM) - X(0))} height="28" fill="url(#lo-hatch)" rx="3" />
 								<rect x={X(x.r.reactionM)} y={y + 10} width={Math.max(0, X(kokku) - X(x.r.reactionM))} height="28" class={n === 'A' ? 'lo-bar-a' : 'lo-bar-b'} rx="3" />
 								{#if x.r.stopped}
 									<line x1={X(kokku)} x2={X(kokku)} y1={y + 4} y2={y + 44} class="lo-stop" />
-									<text x={Math.min(X(kokku) + 6, W - 4)} y={y + 58} class="lo-endlbl" text-anchor={X(kokku) > W - 120 ? 'end' : 'start'}>{m(kokku)} m</text>
+									<text x={Math.min(X(kokku) + 6, W - 4)} y={y + 58} class="lo-endlbl" text-anchor={X(kokku) > W - 70 ? 'end' : 'start'}>{m(kokku)} m</text>
 								{/if}
-								{#if x.r.reactionM > maxD * 0.08}
+								{#if X(x.r.reactionM) - X(0) > 96}
 									<text x={(X(0) + X(x.r.reactionM)) / 2} y={y + 30} class="lo-inlbl">reageerimine</text>
 								{/if}
-								{#if x.r.distanceM > maxD * 0.12}
+								{#if X(kokku) - X(x.r.reactionM) > 90}
 									<text x={(X(x.r.reactionM) + X(kokku)) / 2} y={y + 30} class="lo-inlbl lo-dark">pidurdamine</text>
 								{/if}
 							{/each}
@@ -586,6 +609,24 @@
 			{/if}
 		</section>
 	</div>
+
+	{#if core && !esitlus}
+		<div class="lo-mini" class:peidus={tulemusNahtav}>
+			<button type="button" class="lo-mini-res" onclick={naitaTulemust} aria-label="Näita tulemust">
+				<span class="lo-tag sm">A</span><b>{RA?.r ? (RA.r.stopped ? m(RA.r.totalDistanceM) + ' m' : 'ei peatu') : '—'}</b>
+				{#if B}<span class="lo-tag sm lo-tag-b">B</span><b>{RB?.r ? (RB.r.stopped ? m(RB.r.totalDistanceM) + ' m' : 'ei peatu') : '—'}</b>{/if}
+				<span class="lo-mini-up">Tulemus ↑</span>
+			</button>
+			{#if B}
+				<div class="lo-mini-sw" role="group" aria-label="Mida muudad">
+					<button type="button" aria-pressed={muuda === 'A'} onclick={() => (muuda = 'A')}>A</button>
+					<button type="button" class="b" aria-pressed={muuda === 'B'} onclick={() => (muuda = 'B')}>B</button>
+				</div>
+			{:else}
+				<button type="button" class="lo-mini-add" onclick={lisaB}>+ Võrdle</button>
+			{/if}
+		</div>
+	{/if}
 </div>
 
 <style>
@@ -663,7 +704,132 @@
 		}
 		.lo-out {
 			order: -1;
+			position: static !important;
 		}
+		.lo {
+			padding-bottom: 96px;
+		}
+	}
+	/* tegevusrida tulemuse all */
+	.lo-actions {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: var(--sp-2);
+		margin-top: var(--sp-4);
+		color: var(--muted-d);
+		font-size: 14px;
+	}
+	.lo-addb {
+		border: 2px dashed #5aa9ff;
+		background: rgba(90, 169, 255, 0.08);
+		color: #cfe6ff;
+		border-radius: 10px;
+		padding: 10px 16px;
+		font-weight: 700;
+		cursor: pointer;
+		width: 100%;
+	}
+	.lo-sw,
+	.lo-rm {
+		border: 1px solid #454b57;
+		background: #1d2027;
+		color: #fff;
+		border-radius: 8px;
+		padding: 6px 14px;
+		font-weight: 800;
+		cursor: pointer;
+	}
+	.lo-sw[aria-pressed='true'] {
+		background: var(--yellow);
+		color: var(--yellow-ink);
+		border-color: var(--yellow);
+	}
+	.lo-sw-b[aria-pressed='true'] {
+		background: #5aa9ff;
+		border-color: #5aa9ff;
+		color: #04121f;
+	}
+	.lo-rm {
+		margin-left: auto;
+		font-weight: 600;
+		color: var(--muted-d);
+	}
+	/* telefoni alariba: tulemus nähtav ka siis, kui kerid sisendeid */
+	.lo-mini {
+		display: none;
+	}
+	@media (max-width: 900px) {
+		.lo-mini {
+			display: flex;
+			position: fixed;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			z-index: 40;
+			gap: var(--sp-2);
+			align-items: center;
+			padding: 10px 12px calc(10px + env(safe-area-inset-bottom, 0px));
+			background: var(--ink);
+			color: #fff;
+			box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.35);
+			transition: transform 0.2s;
+		}
+		.lo-mini.peidus {
+			transform: translateY(110%);
+		}
+	}
+	.lo-mini-res {
+		flex: 1;
+		display: flex;
+		align-items: center;
+		gap: 6px;
+		border: 0;
+		background: transparent;
+		color: #fff;
+		font-size: 18px;
+		cursor: pointer;
+		padding: 0;
+		min-width: 0;
+	}
+	.lo-mini-res b {
+		font-variant-numeric: tabular-nums;
+		margin-right: 8px;
+	}
+	.lo-mini-up {
+		margin-left: auto;
+		font-size: 13px;
+		color: var(--muted-d);
+		white-space: nowrap;
+	}
+	.lo-mini-sw {
+		display: flex;
+		gap: 4px;
+	}
+	.lo-mini-sw button,
+	.lo-mini-add {
+		border: 1px solid #454b57;
+		background: #1d2027;
+		color: #fff;
+		border-radius: 8px;
+		padding: 8px 12px;
+		font-weight: 800;
+		cursor: pointer;
+	}
+	.lo-mini-sw button[aria-pressed='true'] {
+		background: var(--yellow);
+		color: var(--yellow-ink);
+		border-color: var(--yellow);
+	}
+	.lo-mini-sw button.b[aria-pressed='true'] {
+		background: #5aa9ff;
+		border-color: #5aa9ff;
+		color: #04121f;
+	}
+	.lo-mini-add {
+		border-color: #5aa9ff;
+		color: #cfe6ff;
+		white-space: nowrap;
 	}
 	.lo-in {
 		background: var(--lo-card);
@@ -989,7 +1155,8 @@
 		margin: var(--sp-5) 0 0;
 	}
 	.lo-fig svg {
-		width: 100%;
+		display: block;
+		max-width: 100%;
 		height: auto;
 		overflow: visible;
 	}
@@ -999,13 +1166,13 @@
 	}
 	.lo-tick {
 		fill: #9aa2ae;
-		font-size: 17px;
+		font-size: 12px;
 		text-anchor: middle;
 	}
 	.lo-rowlbl {
 		fill: #fff;
 		font-weight: 800;
-		font-size: 22px;
+		font-size: 16px;
 	}
 	.lo-bar-a {
 		fill: var(--yellow);
@@ -1020,11 +1187,11 @@
 	.lo-endlbl {
 		fill: #fff;
 		font-weight: 700;
-		font-size: 19px;
+		font-size: 14px;
 	}
 	.lo-inlbl {
 		fill: #e5e7eb;
-		font-size: 16px;
+		font-size: 12px;
 		text-anchor: middle;
 		font-weight: 600;
 	}
@@ -1038,7 +1205,7 @@
 	}
 	.lo-obstlbl {
 		fill: #f87171;
-		font-size: 16px;
+		font-size: 12px;
 		font-weight: 700;
 	}
 	.lo-fig figcaption {

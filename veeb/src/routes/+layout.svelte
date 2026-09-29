@@ -132,6 +132,7 @@
 					<a href="/">Pidurdusmaa kalkulaator</a>
 					<a href="/teadmine/pidurdusteekond-ja-peatumisteekond/">Pidurdus- ja peatumisteekond</a>
 					<a href="/teadmine/kuidas-pidurdusmaa-arvutatakse/">Kuidas arvutatakse</a>
+					<a href="/liiklusohutus/">Liiklusohutuse kalkulaator (autokoolidele)</a>
 				</div>
 				<div>
 					<h4>Rehvi valimine</h4>
@@ -172,6 +173,7 @@
 					<li><a href="/">Pidurdusmaa kalkulaator</a></li>
 					<li><a href="/rehvi-valimine/">Rehvi valimine</a></li>
 					<li><a href="/vordle-rehve/">Võrdle rehve</a></li>
+					<li><a href="/liiklusohutus/">Liiklusohutuse kalkulaator</a></li>
 				</ul>
 			</div>
 			<div>
@@ -199,7 +201,7 @@
 		</div>
 		{/if}
 		<div class="ft-b">
-			<span>© {new Date().getFullYear()} Rabarvo OÜ · Pidurdusmaa.ee</span>
+			<span>© {new Date().getFullYear()} Rabarvo OÜ · {#if neutraal}<a href="/">Pidurdusmaa.ee</a> — rehvide pidurdusmaa sinu autoga{:else}Pidurdusmaa.ee{/if}</span>
 			<span
 				>Tulemused on arvutatud hinnangud — mitte mõõtmised ega garantii.
 				<a href="/kasutustingimused/">Kasutustingimused ja vastutus</a> ·

@@ -34,8 +34,8 @@
 			<h2>Kuidas tunnis kasutada</h2>
 			<ul>
 				<li>
-					<b>Kiirus.</b> Vali „50 vs 60 km/h“. Takistus on pandud kohta, kus 50 km/h auto peatub — vaata,
-					millise kiirusega 60 km/h auto sinna jõuab.
+					<b>Kiirus.</b> Vali „50 vs 70 km/h“. Takistus on pandud kohta, kus 50 km/h auto peatub — vaata,
+					millise kiirusega 70 km/h auto sinna jõuab.
 				</li>
 				<li>
 					<b>Tähelepanu.</b> Reaktsiooniaja ajal sõidab auto täiskiirusel edasi. 50 km/h juures on iga
