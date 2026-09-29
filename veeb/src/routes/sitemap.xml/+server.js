@@ -36,6 +36,7 @@ export function GET() {
 		['/teadmine/rehvimargis/', '0.6'],
 		['/teadmine/partnerid/', '0.3'],
 		['/meist/', '0.5'],
+		['/liiklusohutus/', '0.8'],
 		['/kontakt/', '0.4'],
 		['/kasutustingimused/', '0.3'],
 		['/privaatsus/', '0.3']

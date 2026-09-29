@@ -801,3 +801,5 @@ textarea.lin{resize:vertical;min-height:140px}
 .abs-lamp.lit span{animation:al-txt .5s ease-out}
 @keyframes al-ign{0%{opacity:.25}8%{opacity:1}16%{opacity:.35}26%{opacity:1}34%{opacity:.6}44%,100%{opacity:1}}
 @keyframes al-txt{from{opacity:0;transform:translateX(-4px)}to{opacity:1;transform:none}}
+
+.neutraal-silt{color:var(--muted-d);font-weight:600;font-size:14px;letter-spacing:.08em;text-transform:uppercase;margin-left:var(--sp-3)}

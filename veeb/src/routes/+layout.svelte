@@ -22,6 +22,10 @@
 		return '';
 	});
 
+	/* /liiklusohutus/ on neutraalne õppevahend (Transpordiamet, autokoolid):
+	   ei menüüd, poode ega rehvivalikut — ainult logo ja õiguslikud lingid. */
+	const neutraal = $derived(page.url.pathname.startsWith('/liiklusohutus'));
+
 	onMount(async () => {
 		/* Avalehel logo / „Pidurdusmaa“ peale vajutus = lehe värskendus
 		   (tulemus ja valikud nullitakse, leht algusest). Mujal tavaline
@@ -71,6 +75,14 @@
 
 <a class="skip" href="#sisu">Liigu sisu juurde</a>
 
+{#if neutraal}
+<header class="site-header">
+	<div class="wrap">
+		<a class="logo" href="/liiklusohutus/" aria-label="Peatumisteekonna kalkulaator"><b>PIDURDUSMAA</b><em>.ee</em></a>
+		<span class="neutraal-silt">Liiklusohutus</span>
+	</div>
+</header>
+{:else}
 <header class="site-header">
 	<div class="wrap">
 		<a class="logo" href="/" aria-label="Pidurdusmaa.ee avaleht"><b>PIDURDUSMAA</b><em>.ee</em></a>
@@ -139,11 +151,13 @@
 		</div>
 	</div>
 </header>
+{/if}
 
 <main id="sisu">{@render children()}</main>
 
 <footer class="site-footer">
 	<div class="wrap">
+		{#if !neutraal}
 		<div class="ft">
 			<div>
 				<a class="logo" href="/"><b>PIDURDUSMAA</b><em>.ee</em></a>
@@ -183,6 +197,7 @@
 				</ul>
 			</div>
 		</div>
+		{/if}
 		<div class="ft-b">
 			<span>© {new Date().getFullYear()} Rabarvo OÜ · Pidurdusmaa.ee</span>
 			<span
