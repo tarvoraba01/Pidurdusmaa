@@ -82,6 +82,13 @@
 
 	const S = $derived(muuda === 'B' && B ? B : A);
 
+	/* Plausible (küpsisteta statistika): ainult tegevused, mitte iga liigutus */
+	const pl = (nimi, props) => {
+		try {
+			if (typeof window !== 'undefined' && typeof window.plausible === 'function') window.plausible(nimi, props ? { props } : undefined);
+		} catch {}
+	};
+
 	/* ------------------------------------------------------ andmed */
 	onMount(async () => {
 		try {
@@ -208,6 +215,7 @@
 	});
 
 	function lisaB() {
+		pl('Liiklusohutus: võrdlus lisatud');
 		B = JSON.parse(JSON.stringify(A));
 		muuda = 'B';
 	}
@@ -216,6 +224,7 @@
 		muuda = 'A';
 	}
 	function naide(n) {
+		pl('Liiklusohutus: valmis võrdlus', { naide: n });
 		const a = { ...ALGNE, tyyp: A.tyyp, mk: A.mk, md: A.md, veh: A.veh };
 		const b = { ...a };
 		takistus = 0;
@@ -295,12 +304,14 @@
 	async function kopeeri() {
 		try {
 			await navigator.clipboard.writeText(location.href);
+			pl('Liiklusohutus: link kopeeritud');
 			kopeeritud = true;
 			setTimeout(() => (kopeeritud = false), 2000);
 		} catch {}
 	}
 	async function esitlusrezim() {
 		esitlus = !esitlus;
+		if (esitlus) pl('Liiklusohutus: esitlusrežiim');
 		try {
 			if (esitlus && juur.requestFullscreen) await juur.requestFullscreen();
 			else if (!esitlus && document.fullscreenElement) await document.exitFullscreen();

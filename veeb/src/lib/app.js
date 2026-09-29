@@ -139,6 +139,7 @@
       jarjekord.push(rida);
       if (CFG.track && !ajastus) ajastus = setTimeout(saada, 4000);
       ga4(rida);
+      plaus(rida);
     }
     /* Sama sündmus ka Google Analyticsisse — AINULT siis, kui külastaja on
        küpsistega nõustunud (window.PM_GA on olemas ainult pärast nõusolekut,
@@ -197,6 +198,27 @@
         else window.PM_GA(r.e.slice(0, 40), gaParam(r));
       } catch (e) { /* statistika ei tohi lehte katki teha */ }
     }
+    /* Olulisemad sündmused ka Plausible'isse (küpsisteta, nõusolekut ei
+       vaja). Nimi = eesmärk (Goal) Plausible'is, props = kohandatud
+       omadused. Plausible'is tuleb samad nimed lisada Goals alla. */
+    var PLAUS = { arvuta: 'Arvutus', arvuta_ilma_autota: 'Arvutus', auto: 'Auto valitud', poe_klikk: 'Poe klikk',
+      partner_klikk: 'Partneri klikk', vordlusse: 'Rehv võrdlusse', otsing: 'Otsing', oma_rehv: 'Oma rehv valitud' };
+    function plaus(r) {
+      var nimi = PLAUS[r.e];
+      if (!nimi || typeof window.plausible !== 'function') return;
+      try {
+        var p = gaParam(r), props = {};
+        if (r.e === 'arvuta') { props.teeolu = p.teeolu; props.kiirus = p.kiirus; props.auto = p.auto; }
+        else if (r.e === 'arvuta_ilma_autota') { props.auto = 'valimata'; }
+        else if (r.e === 'auto') { props.auto = p.auto; }
+        else if (r.e === 'poe_klikk') { props.pood = p.pood; if (p.rehv) props.rehv = p.rehv; }
+        else if (r.e === 'partner_klikk') { props.partner = p.partner; }
+        else if (r.e === 'vordlusse') { props.rehv = p.rehv; }
+        else if (r.e === 'otsing') { props.otsing = String(r.v || '').split(' → ')[0].slice(0, 100); }
+        for (var k in props) if (!props[k]) delete props[k];
+        window.plausible(nimi, { props: props });
+      } catch (e) { /* statistika ei tohi lehte katki teha */ }
+    }
     t.log = function () { return log.slice(); };
     t.t0 = function () { return t0; };
     t.clear = function () { log = []; t0 = Date.now(); salvesta(); };
@@ -212,19 +234,6 @@
       .then(function (r) { return r.json(); })
       .then(function (d) {
         core = d;
-        /* tehase mootorid: rea "eng" kirjed -> valikud, mis kasutavad selle rea
-           andmeid (mass, pidurid, rehvid). [silt, kütus, aastad, slug, jrk] */
-        var ext = [];
-        d.vehicles.forEach(function (v) {
-          if (!v.eng) return;
-          v.eng.forEach(function (e) {
-            ext.push(Object.assign({}, v, { key: v.key + '~' + e[3], variant: e[0], fuel: e[1],
-              engYears: e[2], engOrd: e[4], virt: 1, eng: undefined,
-              name: [v.make.split(' /')[0], v.model, v.gen, e[0].split(' · ')[0]].filter(Boolean).join(' ') + ' (' + (e[2] || v.years) + ')' }));
-          });
-          delete v.eng;
-        });
-        if (ext.length) d.vehicles = d.vehicles.concat(ext);
         core.vehByKey = {};
         d.vehicles.forEach(function (v) { core.vehByKey[v.key] = v; });
         /* vanad ABS-iga paariread (<võti>_abs): nüüd baasrida + ABS-i tuli põlemas */
@@ -238,8 +247,48 @@
         });
         core.tyreByKey = {};
         d.tyres.forEach(function (t) { core.tyreByKey[t.key] = t; });
+        /* Mootorid on eraldi failis (mootorid.json, ~600 KB). Kui salvestatud
+           valik või link on mootori kohta (võtmes on ~), oodatakse need ära;
+           muidu laetakse taustal pärast lehe avanemist. */
+        var vaja = false;
+        try { vaja = String(store.get('veh', '') || '').indexOf('~') > 0 || String(qa || '').indexOf('~') > 0; } catch (e) {}
+        if (vaja) return laeMootorid().then(function () { return core; });
+        setTimeout(laeMootorid, 1200);
         return core;
       });
+  }
+  /* rea mootorid -> valikud, mis kasutavad selle rea andmeid.
+     kirje: [silt, kütus, aastad, slug, jrk] */
+  var mootoridP = null;
+  function laeMootorid() {
+    if (mootoridP) return mootoridP;
+    mootoridP = fetch(CFG.data + 'mootorid.json?v=' + encodeURIComponent(CFG.ver || ''), { credentials: 'same-origin' })
+      .then(function (r) { return r.ok ? r.json() : {}; })
+      .catch(function () { return {}; })
+      .then(function (m) {
+        Object.keys(m).forEach(function (k) {
+          var v = core.vehByKey[k];
+          if (!v || v.virt) return;
+          m[k].forEach(function (e) {
+            var x = Object.assign({}, v, { key: v.key + '~' + e[3], variant: e[0], fuel: e[1],
+              engYears: e[2], engOrd: e[4], virt: 1,
+              name: [v.make.split(' /')[0], v.model, v.gen, e[0].split(' · ')[0]].filter(Boolean).join(' ') + ' (' + (e[2] || v.years) + ')' });
+            /* mootori enda tühimass ja tehase rehvimõõdud (nt GTI 225/45 R17,
+               kui põhireal on 205/55 R16); muu (pidurid, ABS, aero) reast */
+            var o = e[5];
+            if (o) {
+              if (o.m) x.kerbMassKg = o.m;
+              if (o.s) { x.oemSizes = o.s; x.oemSize = o.o || o.s[0]; x.oemConf = 'mootor'; }
+              if (o.t) x.oemTyp = o.t; else delete x.oemTyp;
+            }
+            core.vehicles.push(x);     /* sama massiiv, mida autovalik kasutab */
+            core.vehByKey[x.key] = x;
+          });
+        });
+        try { document.dispatchEvent(new CustomEvent('pm:mootorid')); } catch (e) {}
+        return core;
+      });
+    return mootoridP;
   }
   function loadSize(m) {
     if (!m) return Promise.resolve([]);
@@ -394,20 +443,29 @@
         opts(sel.year, md ? yrs : [], md ? 'Vali aasta' : '—');
         yr = sel.year.value; from = 'year';
       }
-      if (from === 'year') {
-        var rows = V.filter(function (v) { return v.make === mk && v.model === md && v.yearLabel === yr; });
-        var first = rows.filter(function (v) { return !v.virt; })[0];
-        var jrk = function (v) { return v.engOrd != null ? v.engOrd : 1e3; };
-        var mitmeKytusega = rows.some(function (v) { return v.fuel && v.fuel !== rows[0].fuel; });
-        var vars = rows.slice().sort(function (a, b) { return jrk(a) - jrk(b); })
-          .map(function (v) { return [v.key, v.variant === '—' ? 'Standard' : v.variant, mitmeKytusega ? (KYTUS[v.fuel] || 'Muu') : undefined]; });
-        opts(sel.variant, yr ? vars : [], yr ? 'Vali mootor' : '—');
-        /* mitu mootorit: vaikimisi põlvkonna põhirida (selle andmed on
-           põlvkonna tüüpilised), kasutaja saab mootori ise vahetada */
-        if (yr && first && !sel.variant.value) sel.variant.value = first.key;
-      }
+      if (from === 'year') taidaMootorid();
       onChange(sel.variant.value || null);
     }
+    function taidaMootorid() {
+      var mk = sel.make.value, md = sel.model.value, yr = sel.year.value;
+      var rows = V.filter(function (v) { return v.make === mk && v.model === md && v.yearLabel === yr; });
+      var first = rows.filter(function (v) { return !v.virt; })[0];
+      var jrk = function (v) { return v.engOrd != null ? v.engOrd : 1e3; };
+      var mitmeKytusega = rows.some(function (v) { return v.fuel && v.fuel !== rows[0].fuel; });
+      var vars = rows.slice().sort(function (a, b) { return jrk(a) - jrk(b); })
+        .map(function (v) { return [v.key, v.variant === '—' ? 'Standard' : v.variant, mitmeKytusega ? (KYTUS[v.fuel] || 'Muu') : undefined]; });
+      opts(sel.variant, yr ? vars : [], yr ? 'Vali mootor' : '—');
+      /* mitu mootorit: vaikimisi põlvkonna põhirida (selle andmed on
+         põlvkonna tüüpilised), kasutaja saab mootori ise vahetada */
+      if (yr && first && !sel.variant.value) sel.variant.value = first.key;
+    }
+    /* mootorid saabusid taustal: täida valik uuesti, valitud auto jääb samaks */
+    document.addEventListener('pm:mootorid', function () {
+      if (!sel.year.value) return;
+      var cur = sel.variant.value;
+      taidaMootorid();
+      if (cur && core.vehByKey[cur]) sel.variant.value = cur;
+    });
     sel.make.addEventListener('change', function () { fill('make'); });
     vehSearch(sel, V, function (key) { api.set(key); });
     sel.model.addEventListener('change', function () { fill('model'); });

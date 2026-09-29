@@ -416,7 +416,12 @@ def main():
 
     # --- tehase mootorid põlvkonna kaupa (mootorid.py)
     from .mootorid_eksport import attach as _mootorid
-    print("mootorid:", _mootorid(vehicles))
+    print("mootorid:", _mootorid(vehicles, set(per.keys())))
+    # mootorite nimekiri eraldi faili: core.json jääb väikseks, brauser laeb
+    # mootorid taustal alles pärast lehe avanemist (vt app.js laeMootorid)
+    mootorid_json = {d["key"]: d.pop("eng") for d in vehicles if d.get("eng")}
+    with open(os.path.join(OUT, "mootorid.json"), "w", encoding="utf-8") as f:
+        json.dump(mootorid_json, f, ensure_ascii=False, separators=(",", ":"))
 
     # --- VIB10 testitabelid (ainult Testid-lehele; rehve mudelis ei ole)
     vib = {

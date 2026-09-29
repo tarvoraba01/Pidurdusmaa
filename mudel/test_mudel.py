@@ -292,6 +292,37 @@ class Mootorid(unittest.TestCase):
         keys = [e[3] for e in vs[0].get("eng", [])]
         self.assertEqual(len(keys), len(set(keys)))
 
+    def test_mootori_rehvid_ja_mass(self):
+        """mootorid_rehvid.py: mõõdud loetavad, mass mõistlik, allikas auto-data;
+        oma() eelistab märgise andmetega mõõtu ja ütleb levinuima välja."""
+        import re as _re
+        from .mootorid import MOOTORID
+        from .mootorid_eksport import _slug, oma
+        try:
+            from .mootorid_rehvid import RATTAD
+        except ImportError:
+            self.skipTest("mootorid_rehvid.py puudub")
+        for g, d in RATTAD.items():
+            self.assertIn(g, MOOTORID, g)
+            slugs = {_slug(e[0], e[1], e[5]) for e in MOOTORID[g]["eng"]}
+            for s, (kg, sz, src) in d.items():
+                self.assertIn(s, slugs, (g, s))
+                self.assertTrue(kg is None or 500 <= kg <= 4000, (g, s, kg))
+                for z in sz:
+                    self.assertRegex(z, r"^\d{3}/\d{2} R\d{2}$", (g, s))
+                self.assertTrue(src.startswith("https://www.auto-data.net/"), (g, s))
+        import pidurdus.mootorid_eksport as E
+        vana = E.RATTAD
+        E.RATTAD = {"g": {"x": (1400, ("225/45 R17", "225/40 R18"), "")}}
+        try:
+            o = oma("g", "x", {"kerbMassKg": 1320}, {"22540R18"})
+            self.assertEqual((o["m"], o["o"], o["t"]), (1400, "225/40 R18", "225/45 R17"))
+            o = oma("g", "x", {"kerbMassKg": 700}, {"22545R17"})     # mass liiga erinev -> ei
+            self.assertNotIn("m", o)
+            self.assertEqual(o["o"], "225/45 R17")
+        finally:
+            E.RATTAD = vana
+
 
 if __name__ == "__main__":
     unittest.main()

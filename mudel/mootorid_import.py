@@ -67,9 +67,8 @@ def main(paths):
                 "eng: (nimi, hj, kW, kütus, aastad, vedu)\n"
                 "kütus: b bensiin, d diisel, h hübriid, p pistikhübriid, e elekter,\n"
                 "       g gaas, bg bensiin/gaas\n\n"
-                "NB: mootor muudab arvutuses ainult nime. Mass, pidurid ja rehvid tulevad\n"
-                "põlvkonna reast (vt mootorid_eksport.py) -- mootorite massi ei ole\n"
-                "siia kogutud.\n\"\"\"\n\nMOOTORID = {\n")
+                "Mootori enda tühimass ja tehase rehvimõõdud: mootorid_rehvid.py (kui\n"
+                "kogutud); pidurid, ABS ja aero tulevad põlvkonna reast.\n\"\"\"\n\nMOOTORID = {\n")
         for g in sorted(data):
             d = data[g]
             f.write(f"    {g!r}: {{\n        'src': {d['src']!r},\n        'eng': [\n")

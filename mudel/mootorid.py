@@ -10,9 +10,8 @@ eng: (nimi, hj, kW, kütus, aastad, vedu)
 kütus: b bensiin, d diisel, h hübriid, p pistikhübriid, e elekter,
        g gaas, bg bensiin/gaas
 
-NB: mootor muudab arvutuses ainult nime. Mass, pidurid ja rehvid tulevad
-põlvkonna reast (vt mootorid_eksport.py) -- mootorite massi ei ole
-siia kogutud.
+Mootori enda tühimass ja tehase rehvimõõdud: mootorid_rehvid.py (kui
+kogutud); pidurid, ABS ja aero tulevad põlvkonna reast.
 """
 
 MOOTORID = {

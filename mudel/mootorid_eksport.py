@@ -6,7 +6,10 @@ sobiva mootoriga ja saavad selle nime; ülejäänud mootorid lähevad
 kompaktselt rea välja "eng" alla ja brauser teeb neist valikud, mis
 kasutavad selle rea andmeid (mass, pidurid, rehvid, ABS).
 
-"eng" kirje: [silt, kütus, aastad, slug, järjekord]  (nime teeb brauser)
+"eng" kirje: [silt, kütus, aastad, slug, järjekord(, oma)]  (nime teeb brauser)
+  oma = mootori enda andmed (mootorid_rehvid.py), kui need on kogutud:
+        {"m": tühimass, "s": [tehasemõõdud], "o": arvutuse mõõt, "t": levinuim
+         mõõt, kui sellel puuduvad märgise andmed}
 Valiku võti brauseris: <rea võti>~<slug>.
 """
 import re
@@ -16,6 +19,10 @@ try:
     from .mootorid import MOOTORID
 except Exception:            # fail puudub -> mootoreid ei lisata
     MOOTORID = {}
+try:
+    from .mootorid_rehvid import RATTAD      # mootori kaupa rehvid + mass
+except Exception:
+    RATTAD = {}
 
 KYTUS_JRK = {"b": 0, "bg": 1, "g": 2, "d": 3, "h": 4, "p": 5, "e": 6}
 
@@ -49,12 +56,38 @@ def _row_match(row_var, eng_lab):
     return None
 
 
-def attach(vehicles):
-    """Muudab `vehicles` (export_wp dictid) kohapeal. Tagastab statistika."""
+def _cmp(sz):
+    return re.sub(r"[^0-9R]", "", sz.upper())
+
+
+def oma(group, slug, host, eprel=None):
+    """Mootori enda mass ja rehvimõõdud või None."""
+    r = RATTAD.get(group, {}).get(slug)
+    if not r:
+        return None
+    kg, sizes, _src = r
+    o = {}
+    base = host.get("kerbMassKg") or 0
+    if kg and base and 0.75 * base <= kg <= 1.7 * base:
+        o["m"] = kg
+    if sizes:
+        o["s"] = list(sizes)
+        calc = sizes[0]
+        if eprel is not None and _cmp(calc) not in eprel:
+            ok = [s for s in sizes if _cmp(s) in eprel]
+            if ok:
+                o["t"], calc = sizes[0], ok[0]
+        o["o"] = calc
+    return o or None
+
+
+def attach(vehicles, eprel=None):
+    """Muudab `vehicles` (export_wp dictid) kohapeal. Tagastab statistika.
+    eprel: moodud (nt "22545R17"), millel on märgise andmed."""
     groups = OrderedDict()
     for d in vehicles:
         groups.setdefault((d["make"], d["model"], d["yearLabel"]), []).append(d)
-    n_grp = n_virt = n_claim = 0
+    n_grp = n_virt = n_claim = n_oma = 0
     for rows in groups.values():
         key = next((r["key"] for r in rows if r["key"] in MOOTORID), None)
         if not key:
@@ -106,9 +139,14 @@ def attach(vehicles):
                 rt = _tok(orig)
                 if orig != "—" and rt and all(t in _tok(lab) for t in rt) and len(rt) > hs:
                     host, hs = r, len(rt)
-            host.setdefault("eng", []).append(
-                [silt(lab, hp, kw, drv), fu, yrs, _slug(lab, hp, drv), order.index(i)])
+            ent = [silt(lab, hp, kw, drv), fu, yrs, _slug(lab, hp, drv), order.index(i)]
+            om = oma(key, ent[3], host, eprel)
+            if om:
+                ent.append(om)
+                n_oma += 1
+            host.setdefault("eng", []).append(ent)
             n_virt += 1
         for r in rows:
             r.pop("_var0", None)
-    return {"polvkondi": n_grp, "seotud_ridu": n_claim, "lisavalikuid": n_virt}
+    return {"polvkondi": n_grp, "seotud_ridu": n_claim, "lisavalikuid": n_virt,
+            "oma_rehvid_mass": n_oma}
