@@ -414,6 +414,10 @@ def main():
         d.update(parse_vehicle(d))
         vehicles.append(d)
 
+    # --- tehase mootorid põlvkonna kaupa (mootorid.py)
+    from .mootorid_eksport import attach as _mootorid
+    print("mootorid:", _mootorid(vehicles))
+
     # --- VIB10 testitabelid (ainult Testid-lehele; rehve mudelis ei ole)
     vib = {
         "VIB10D": {"cols": ["lumi 45→5", "jää 30→5 (−2,5 °C)",

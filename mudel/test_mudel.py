@@ -256,5 +256,42 @@ class Regressioon(unittest.TestCase):
             self.assertLess(abs(got - want) / want, 0.01, f"{vk} {ck} {s}: {got:.2f} (oli {want})")
 
 
+class Mootorid(unittest.TestCase):
+    """Tehase mootorid (mootorid.py -> mootorid_eksport.attach)."""
+
+    def test_kirjed_korras(self):
+        from .mootorid import MOOTORID
+        for g, d in MOOTORID.items():
+            self.assertIn(g, VEHICLES, g)
+            self.assertTrue(d["eng"], g)
+            for lab, hp, kw, fu, yrs, drv in d["eng"]:
+                self.assertTrue(lab.strip(), g)
+                self.assertTrue(20 <= hp <= 1300, (g, lab, hp))
+                self.assertLess(abs(kw - hp * 0.7355), 3, (g, lab))
+                self.assertIn(fu, ("b", "d", "h", "p", "e", "g", "bg"), (g, lab))
+
+    def test_sidumine(self):
+        from .mootorid_eksport import attach
+        vs = [{"key": "x1", "make": "M", "model": "A", "yearLabel": "I", "variant": "2.0 TDI",
+               "gen": "I", "years": "2000-2005"},
+              {"key": "x2", "make": "M", "model": "A", "yearLabel": "I", "variant": "R 2.0 TSI",
+               "gen": "I", "years": "2000-2005"}]
+        import pidurdus.mootorid_eksport as E
+        vana = E.MOOTORID
+        E.MOOTORID = {"x1": {"src": [], "eng": [
+            ("1.4 TSI", 125, 92, "b", "", ""), ("R 2.0 TSI", 300, 221, "b", "", ""),
+            ("2.0 TDI", 122, 90, "d", "", ""), ("2.0 TDI", 150, 110, "d", "", ""),
+            ("2.0 TDI", 190, 140, "d", "", "")]}}
+        try:
+            st = attach(vs)
+        finally:
+            E.MOOTORID = vana
+        self.assertEqual(vs[0]["variant"], "2.0 TDI · 150 hj (110 kW)")   # keskmine võrdsetest
+        self.assertEqual(vs[1]["variant"], "R 2.0 TSI · 300 hj (221 kW)")
+        self.assertEqual(st["lisavalikuid"], 3)
+        keys = [e[3] for e in vs[0].get("eng", [])]
+        self.assertEqual(len(keys), len(set(keys)))
+
+
 if __name__ == "__main__":
     unittest.main()

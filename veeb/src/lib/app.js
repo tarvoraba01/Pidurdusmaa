@@ -212,6 +212,19 @@
       .then(function (r) { return r.json(); })
       .then(function (d) {
         core = d;
+        /* tehase mootorid: rea "eng" kirjed -> valikud, mis kasutavad selle rea
+           andmeid (mass, pidurid, rehvid). [silt, kütus, aastad, slug, jrk] */
+        var ext = [];
+        d.vehicles.forEach(function (v) {
+          if (!v.eng) return;
+          v.eng.forEach(function (e) {
+            ext.push(Object.assign({}, v, { key: v.key + '~' + e[3], variant: e[0], fuel: e[1],
+              engYears: e[2], engOrd: e[4], virt: 1, eng: undefined,
+              name: [v.make.split(' /')[0], v.model, v.gen, e[0].split(' · ')[0]].filter(Boolean).join(' ') + ' (' + (e[2] || v.years) + ')' }));
+          });
+          delete v.eng;
+        });
+        if (ext.length) d.vehicles = d.vehicles.concat(ext);
         core.vehByKey = {};
         d.vehicles.forEach(function (v) { core.vehByKey[v.key] = v; });
         /* vanad ABS-iga paariread (<võti>_abs): nüüd baasrida + ABS-i tuli põlemas */
@@ -348,9 +361,12 @@
     };
     var V = core.vehicles;
     function opts(el, list, ph) {
+      var grp = null;
       el.innerHTML = '<option value="">' + esc(ph) + '</option>' + list.map(function (o) {
-        return '<option value="' + esc(o[0]) + '">' + esc(o[1]) + '</option>';
-      }).join('');
+        var h = '';
+        if (o[2] !== undefined && o[2] !== grp) { h = (grp !== null ? '</optgroup>' : '') + (o[2] ? '<optgroup label="' + esc(o[2]) + '">' : ''); grp = o[2]; }
+        return h + '<option value="' + esc(o[0]) + '">' + esc(o[1]) + '</option>';
+      }).join('') + (grp ? '</optgroup>' : '');
       el.disabled = !list.length;
       if (list.length === 1) el.value = list[0][0];
     }
@@ -379,9 +395,16 @@
         yr = sel.year.value; from = 'year';
       }
       if (from === 'year') {
-        var vars = V.filter(function (v) { return v.make === mk && v.model === md && v.yearLabel === yr; })
-          .map(function (v) { return [v.key, v.variant === '—' ? 'Standard' : v.variant]; });
+        var rows = V.filter(function (v) { return v.make === mk && v.model === md && v.yearLabel === yr; });
+        var first = rows.filter(function (v) { return !v.virt; })[0];
+        var jrk = function (v) { return v.engOrd != null ? v.engOrd : 1e3; };
+        var mitmeKytusega = rows.some(function (v) { return v.fuel && v.fuel !== rows[0].fuel; });
+        var vars = rows.slice().sort(function (a, b) { return jrk(a) - jrk(b); })
+          .map(function (v) { return [v.key, v.variant === '—' ? 'Standard' : v.variant, mitmeKytusega ? (KYTUS[v.fuel] || 'Muu') : undefined]; });
         opts(sel.variant, yr ? vars : [], yr ? 'Vali mootor' : '—');
+        /* mitu mootorit: vaikimisi põlvkonna põhirida (selle andmed on
+           põlvkonna tüüpilised), kasutaja saab mootori ise vahetada */
+        if (yr && first && !sel.variant.value) sel.variant.value = first.key;
       }
       onChange(sel.variant.value || null);
     }
@@ -415,6 +438,7 @@
     bemm: 'bmw', ziguli: 'lada', zhiguli: 'lada', zigul: 'lada', vaz: 'lada', moskvich: 'moskvits', moskvitch: 'moskvits',
     shkoda: 'skoda', citroen: 'citroen', alfa: 'alfa', chevy: 'chevrolet', landrover: 'land rover'
   };
+  var KYTUS = { b: 'Bensiin', bg: 'Bensiin / gaas', g: 'Gaas', d: 'Diisel', h: 'Hübriid', p: 'Pistikhübriid', e: 'Elekter' };
   function vehSearch(sel, V, onPick) {
     var dark = sel.make.classList.contains('sel');
     var host = sel.make.parentNode;
@@ -427,7 +451,7 @@
     host.parentNode.insertBefore(wrap, host);
     var inp = $('input', wrap), list = $('ul', wrap), hits = [], act = -1;
 
-    var idx = V.filter(function (v) { return v.make !== 'Ei leia oma autot'; }).map(function (v) {
+    var idx = V.filter(function (v) { return v.make !== 'Ei leia oma autot' && !v.virt; }).map(function (v) {
       var g = lihtne(v.gen), extra = '';
       if (ROOMA[g]) extra = ' ' + ROOMA[g];
       else if (/^\d+$/.test(g) && ROOMA_T[+g]) extra = ' ' + ROOMA_T[+g];
