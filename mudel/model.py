@@ -172,6 +172,10 @@ class Conditions:
     # klotsid annavad endiselt 1.0 -- klots hõõrdub sama hästi kuni
     # metallini. Alla 1.0 tähendab tegelikku riket või kuumenemist.
     brake_condition: float = 1.0
+    # JÄÄ: True = tüüpiline SÕIDUTEE jää (linn, maantee, kruusatee, kiilasjää);
+    # False = testiväljaku sile jää (ajakirjade testid, kalibreerimine).
+    # Vt Calibration.ice_road_add.
+    ice_road: bool = True
 
 
 # ---------------------------------------------------------------------------
@@ -225,6 +229,34 @@ class Calibration:
         TyreCategory.WINTER_NORDIC: 0.203,   # sobitatud (TM25, jää -5 C)
         TyreCategory.WINTER_STUDDED: 0.270,  # sobitatud (TM25, jää -5 C)
     })
+    # SÕIDUTEE JÄÄ vs TESTIVÄLJAK (2026-09-29).
+    # mu_ice_base ja testitud rehvide mu_ice on mõõdetud ajakirjade
+    # jääväljakutel: sile, hooldatud, sageli järve- või hallijää. Päris
+    # sõiduteel on jää teistsugune: rööbastatud ja kare, liivatatud või
+    # kruusaga segi, osalt ka täiesti sile kiilasjää. Seda, mida teel
+    # tegelikult mõõdetakse, näitavad teehoolduse haardemõõturid:
+    #   * VTI (Wallman jt 1997): jäistel/lumistel teedel on haarde
+    #     mediaan tavaliselt 0,15-0,25; kare ja sile jää erinevad u 0,1;
+    #     liivatamine lisab mediaanis u 0,1.
+    #   * Statens vegvesen TS-käsiraamat: liiv lisab u 0,10.
+    #   * Maanteeamet (Hallimäe, ERR 2018): teedel tagatakse 0,20-0,30;
+    #     0,10-0,15 on märg jää / must jää / jäävihm.
+    #   * VTT T244: Soome/Eesti mõõturi skaala näitab u 25-30 % VÄHEM kui
+    #     füüsikaline hõõre (0,29 skaalal = 0,37 päriselt).
+    # Mudelis: sõidutee jää = testiväljaku haare (sama temperatuurikõver)
+    # + kareduse/liivatamise lisa. Täislisa 0,10 kehtib karedale või
+    # liivatatud jääle, sile kiilasjää saab 0. Eeldame, et pool teejääst
+    # on kare/töödeldud ja pool sile -> 0,05. See pool-pooleks jaotus on
+    # MINU EELDUS, mitte mõõtmine; kontroll: Põhjamaade rehv -5 °C juures
+    # annab 0,25, mis on teehoolduse mediaanis (0,15-0,25 skaalal ehk
+    # u 0,19-0,32 füüsikaliselt). Sile kiilasjää ja liivatatud jää jäävad
+    # veapiiri sisse (sigma 0,25 = +/-0,05 u 0,2 ümber, vt sigma_base).
+    # Lisa on liidetav, mitte korrutatav: liiv ja karedus annavad kõigile
+    # rehvidele umbes sama palju juurde, seetõttu väheneb teel rehvide
+    # SUHTELINE vahe (naast vs naelutu), nagu Väylävirasto 10/2023 ja VTI
+    # 543 kirjeldavad (naastu eelis sõltub jää struktuurist, 10-40 %).
+    ice_road_add: float = 0.05
+
     # KRUUS. Lukustatud ratas kaevub kruusa sisse ja lükkab enda ette valli
     # -- see on omaette pidurdusjõud, mida asfaldil ei ole. Seetõttu on
     # kruusal ABS-iga auto pidurdusmaa PIKEM kui ABS-ita, vastupidi kõigile
@@ -614,6 +646,9 @@ class Calibration:
         Surface.ASPHALT: 0.070, Surface.CONCRETE: 0.085,
         Surface.GRAVEL: 0.220, Surface.SNOW_PACKED: 0.130,
         Surface.SNOW_LOOSE: 0.180, Surface.ICE: 0.250})
+    # JÄÄ 0,25 sõidutee mõttes (2026-09-29): VTI 1997 järgi erinevad kare
+    # ja sile teejää u 0,1 ehk +/-0,05 u 0,2 ümber = +/-25 %. Sama suurus
+    # tuli testiväljakute omavahelisest nihkest (allpool), seega jääb.
     # JÄÄ 0,17 -> 0,25 (2026-09-28). 0,17 kattis ankrute jäägi (6,9 %),
     # aga välistestide backtest (8 testi, 67 rehvi, eri jääväljakud ja
     # temperatuurid) näitas, et väljaspool valimit oli 1-sigma vahemikus
@@ -892,6 +927,8 @@ class BrakingModel:
             if e_cold != 1.0 and f_ice > 1.0:
                 f_ice = f_ice ** e_cold
             mu *= _clamp(f_ice, cal.ice_temp_min, cal.ice_temp_max)
+            if cond.ice_road:
+                mu += cal.ice_road_add
         else:  # kruus
             mu = cal.mu_gravel_base
 

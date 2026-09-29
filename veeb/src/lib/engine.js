@@ -45,6 +45,8 @@
                  WINTER_CENTRAL: 1.0, WINTER_NORDIC: 1.0,
                  WINTER_STUDDED: 0.545},
     iceTempExpCold: { WINTER_STUDDED: -0.43 },
+    /* sõidutee jää = testiväljaku jää + kareduse/liivatamise lisa (vt model.py ice_road_add) */
+    iceRoadAdd: 0.05,
     snowLooseFactor: 0.85,
     snowTempCurve: [[-30.0, 1.0], [-3.0, 1.0], [0.0, 0.9], [2.0, 0.84]],
     snowTempMin: 0.60, snowTempMax: 1.05,
@@ -139,6 +141,7 @@
       var eCold = CAL.iceTempExpCold[tyre.category];
       if (eCold != null && eCold !== 1.0 && fIce > 1.0) fIce = Math.pow(fIce, eCold);
       mu *= clamp(fIce, CAL.iceTempMin, CAL.iceTempMax);
+      if (cond.iceRoad !== false) mu += CAL.iceRoadAdd;
     } else {
       mu = CAL.muGravel;
     }

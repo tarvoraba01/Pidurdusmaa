@@ -57,7 +57,8 @@ def cond_from(c):
         texture=Texture[c["texture"]], water_mm=c["waterMm"], temp_c=c["tempC"],
         payload_kg=c["payloadKg"], gradient_pct=c["gradientPct"],
         reaction_time_s=c["reactionTimeS"],
-        brake_condition=c.get("brakeCondition", 1.0))
+        brake_condition=c.get("brakeCondition", 1.0),
+        ice_road=c.get("iceRoad", True) is not False)
 
 
 def gmid(core, g, cat):

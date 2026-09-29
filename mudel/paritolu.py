@@ -240,6 +240,16 @@ ORIGINS: dict[str, Origin] = {
         "seega valjaspool seda on kover ekstrapolatsioon. "
         "NB: tsiteeritud valitood on TAVAREHVIGA -- naastrehvi kohta "
         "vt ice_temp_exp."),
+    "ice_road_add": Origin(
+        L, "VTI (Wallman jt 1997, meddelande 911A), Statens vegvesen "
+        "TS-handbok, Maanteeamet (ERR 2018), VTT T244",
+        "Soidutee jaa vs testivaljak. Kare vs sile jaa ja liivatamine: "
+        "u +0,1 haardetegurit (VTI 1997, TS-handbok). Pool teejaast "
+        "eeldatakse kare/tootletud -> +0,05. Pool-pooleks jaotus on "
+        "EELDUS, mitte moodetud; kontroll: Pohjamaade rehv -5 C juures "
+        "0,25, teehoolduse mediaan 0,15-0,25 moturi skaalal = u 0,19-0,32 "
+        "fuusikaliselt (VTT T244: skaala x1,28). Ankrud ja backtest "
+        "kasutavad ice_road=False, sest testid on jaavaljakul."),
     "ice_temp_exp_cold": Origin(
         F, "[ZR08T] Za Rulem 2008, samad rehvid jaal -19/-13/-5/0 C",
         "Naastrehvi jaahaare KULMAL poolel. Rühmakeskmised (2 naast, 3 "

@@ -13,6 +13,8 @@ import { ARTIKLID, artikliTee } from '$lib/artiklid.js';
 export const prerender = true;
 
 const BASE = 'https://pidurdusmaa.ee';
+/* ehituse kuupäev: Google kasutab lastmod-i, et otsustada, mida uuesti lugeda */
+const LASTMOD = new Date().toISOString().slice(0, 10);
 
 /* Saidikaart = lehed, mida tahame Google'is näha: tööriistad, mõõdud
    (vähemalt 10 mudelit), testitud rehvid, vs-lehed ja testid. Ülejäänud
@@ -56,7 +58,7 @@ export function GET() {
 	const xml =
 		'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
 		urls
-			.map(([u, p]) => `<url><loc>${BASE}${u}</loc><priority>${p}</priority></url>`)
+			.map(([u, p]) => `<url><loc>${BASE}${u}</loc><lastmod>${LASTMOD}</lastmod><priority>${p}</priority></url>`)
 			.join('\n') +
 		'\n</urlset>\n';
 

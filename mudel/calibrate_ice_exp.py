@@ -62,7 +62,7 @@ def mudeli_suhe(kat, exp):
     for votme in ("jaa_k", "jaa_s"):
         surf, water, temp, v0, v1 = CONDS[votme]
         c = Conditions(speed_kmh=v0, surface=surf, water_mm=water,
-                       temp_c=temp)
+                       temp_c=temp, ice_road=False)
         d[votme] = m.distance_between(t, VEH, c, v0, v1)
     return d["jaa_s"] / d["jaa_k"]
 

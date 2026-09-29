@@ -1,13 +1,16 @@
-# EPREL-i andmed puuduvad nendes mõõtudes (2026-09-28)
+# EPREL-i andmed puuduvad nendes mõõtudes (2026-09-29)
 
-Need mõõdud on autode tehasemõõtude hulgas, aga EPREL-i korjes (eprel_harvest.py
-MOODUD-nimekiri) neid ei olnud. Kui auto BAASMÕÕT on siin, näitab leht selle auto
-märja tee klassiridade asemel "andmeid ei ole", kuni mõõt on korjatud.
+Need mõõdud on autode tehasemõõtude hulgas, aga EPREL-i korjes neid veel ei ole. Kui auto
+BAASMÕÕT on siin, näitab leht märja tee tulemuse asemel "andmeid ei ole", kuni mõõt on korjatud.
 
-Korjamiseks lisa mõõdud eprel_harvest.py MOODUD-nimekirja ja käivita korje oma
-võtmega (võtit Claude ei loe ega kasuta). Siis: eprel_import -> export_wp.
+Korje: tooriistad/eprel_korje6.py (sama fail on ka ~/Downloads kaustas):
 
-## Baasmõõdud (34 mõõtu, 47 autot)
+    cd ~/Downloads
+    python3 eprel_korje6.py eprel-key.txt
+
+Pärast korjet: mudel/eprel_convert.py eprel2.json -> export_wp (Claude teeb).
+
+## Baasmõõdud (34 mõõtu, 48 autot)
 
 - 205/70 R15  (6 autot)
 - 195/70 R14  (3 autot)
@@ -16,6 +19,7 @@ võtmega (võtit Claude ei loe ega kasuta). Siis: eprel_import -> export_wp.
 - 235/80 R16  (2 autot)
 - 275/50 R21  (2 autot)
 - 225/75 R16  (2 autot)
+- 145/80 R13  (2 autot)
 - 225/75 R15  (2 autot)
 - 235/60 R20  (1 autot)
 - 275/70 R16  (1 autot)
@@ -37,18 +41,17 @@ võtmega (võtit Claude ei loe ega kasuta). Siis: eprel_import -> export_wp.
 - 145/70 R13  (1 autot)
 - 195/65 R14  (1 autot)
 - 235/75 R15  (1 autot)
-- 145/80 R13  (1 autot)
 - 265/75 R15  (1 autot)
 - 195/50 R19  (1 autot)
 - 135/80 R13  (1 autot)
 - 185/80 R14  (1 autot)
 - 215/75 R15  (1 autot)
 
-## Muud tehasemõõdud ilma andmeteta (135 mõõtu)
+## Muud tehasemõõdud ilma andmeteta
 
 - 195/60 R14  (20)
 - 205/50 R15  (11)
-- 185/70 R13  (8)
+- 185/70 R13  (9)
 - 285/40 R20  (6)
 - 295/40 R21  (5)
 - 265/40 R22  (5)
@@ -59,6 +62,8 @@ võtmega (võtit Claude ei loe ega kasuta). Siis: eprel_import -> export_wp.
 - 275/40 R22  (4)
 - 285/45 R22  (4)
 - 215/60 R18  (4)
+- 265/70 R16  (4)
+- 165/65 R13  (4)
 - 195/45 R15  (3)
 - 165/80 R14  (3)
 - 205/70 R14  (3)
@@ -71,13 +76,12 @@ võtmega (võtit Claude ei loe ega kasuta). Siis: eprel_import -> export_wp.
 - 255/65 R16  (3)
 - 265/40 R18  (3)
 - 285/35 R19  (3)
-- 265/70 R16  (3)
 - 295/35 R22  (3)
 - 255/65 R18  (3)
-- 165/65 R13  (3)
 - 245/55 R16  (2)
 - 215/40 R16  (2)
 - 185/55 R14  (2)
+- 175/60 R13  (2)
 - 285/30 R21  (2)
 - 325/30 R21  (2)
 - 275/45 R18  (2)
@@ -97,7 +101,6 @@ võtmega (võtit Claude ei loe ega kasuta). Siis: eprel_import -> export_wp.
 - 175/65 R19  (1)
 - 205/80 R16C  (1)
 - 195/70 R13  (1)
-- 175/60 R13  (1)
 - 215/90 R15  (1)
 - 315/35 R22  (1)
 - 275/35 R23  (1)
@@ -147,3 +150,5 @@ võtmega (võtit Claude ei loe ega kasuta). Siis: eprel_import -> export_wp.
 - 255/70 R17  (1)
 - 205/75 R15  (1)
 - 285/30 R18  (1)
+- 215/70 R17  (1)
+- 195/80 R14C  (1)

@@ -118,7 +118,9 @@ class Aarmus(unittest.TestCase):
         self.assertTrue(any("ei peatu" in w for w in r.warnings))
 
     def test_pikk_pidurdus_ei_karbita(self):
-        r = M.stopping_distance(SUMMER, GOLF, Conditions(speed_kmh=200, surface=Surface.ICE, temp_c=-5))
+        # testiväljaku jää (sõidutee jääl on aeg u 40 s, alla 60 s piiri)
+        r = M.stopping_distance(SUMMER, GOLF, Conditions(speed_kmh=200, surface=Surface.ICE, temp_c=-5,
+                                                         ice_road=False))
         self.assertTrue(math.isfinite(r.distance_m))
         self.assertGreater(r.time_s, 60.0)
 
@@ -242,7 +244,9 @@ class Regressioon(unittest.TestCase):
         ("vw_golf_8", "dry", 100): 36.644,
         ("vw_golf_8", "wet", 80): 32.785,
         ("vw_golf_8", "snow", 50): 26.176,
-        ("vw_golf_8", "ice", 50): 47.647,
+        # 2026-09-29: jää on nüüd SÕIDUTEE jää (ice_road_add 0,05), mitte
+        # testiväljak. Testiväljaku väärtus (ice_road=False) on endiselt 47,6.
+        ("vw_golf_8", "ice", 50): 38.947,
     }
 
     def test_numbrid(self):

@@ -239,7 +239,8 @@ def predict_label(model, core, o):
     ty = Tyre(name=o["tyre"], category=cat, wet_grip_index=gmid(core, g, cat), size=o["size"])
     veh = VEHICLES[o["veh"]]
     cond = Conditions(speed_kmh=o["v0"], surface=SURF[o["surface"]], water_mm=o["water"] if o["wet"] else 0.0,
-                      temp_c=o["temp"], payload_kg=150.0)
+                      temp_c=o["temp"], payload_kg=150.0,
+                      ice_road=False)   # ajakirjade testid on jääväljakul
     o["sig"] = model.stopping_distance(ty, veh, cond).sigma_rel
     return model.distance_between(ty, veh, cond, o["v0"], o["v1"]), g
 

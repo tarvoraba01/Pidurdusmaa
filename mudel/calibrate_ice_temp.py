@@ -59,7 +59,7 @@ def mu_at(cal: Calibration, temp_c: float) -> float:
     from .presets import VEHICLES
     veh = VEHICLES["vw_golf_8"]
     cond = Conditions(speed_kmh=30.0, surface=Surface.ICE,
-                      temp_c=temp_c, payload_kg=75.0)
+                      temp_c=temp_c, payload_kg=75.0, ice_road=False)
     return m.mu_at_speed(ty, veh, cond, 30.0 / 3.6)
 
 

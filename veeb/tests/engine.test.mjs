@@ -192,10 +192,11 @@ test('auto, mis ei saa peatuda, annab Infinity ja hoiatuse', () => {
 
 test('pikk pidurdus ei kärbita (varem vaikne 60 s piir)', () => {
   const v = vehByKey.vw_golf_8, t = classTyre('B', 'SUMMER_TOURING', v.oemSize);
-  const r = P.stoppingDistance(t, v, cond('ice', 200));
+  // testiväljaku jää (sõidutee jääl on aeg u 40 s, alla vana 60 s piiri)
+  const r = P.stoppingDistance(t, v, cond('ice', 200, { iceRoad: false }));
   assert.ok(r.stopped && r.timeS > 60, 'aeg ' + r.timeS);
   // kiirusega kasvav ka seal, kus vana piir lõikas
-  const r180 = P.stoppingDistance(t, v, cond('ice', 180));
+  const r180 = P.stoppingDistance(t, v, cond('ice', 180, { iceRoad: false }));
   assert.ok(Number.isFinite(r.distanceM) && r.distanceM > r180.distanceM);
 });
 

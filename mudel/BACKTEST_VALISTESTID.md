@@ -73,7 +73,12 @@ Igaüks on tõendatud mitme sõltumatu testiga. 369 vanast ankrust ei muutunud �
    - Parandus on aste −0,43, mis kehtib ainult külmemal kui −5 °C. See klapib ka −13 °C punktiga.
    - Kontroll Za Rulem 2019 testiga (−22 °C): vana mudel ennustas 2,9 × liiga lühikese pidurdusmaa.
 4. **Jää veapiir: 0,17 → 0,25.** Väljaspool valimit oli vanas vahemikus ainult 45 % tulemustest. Jää haare sõltub väljakust rohkem kui rehvist.
-5. **Rehvilehed.** Lehel on nüüd kast „Ajakirjade testid“: 264 rehvimudelit, 1245 mõõdetud tulemust (`export_testid.py`). Arvutus neid EI kasuta, sest märjal ei ennusta need paremini kui märgis (punkt C).
+5. **Sõidutee jää (2026-09-29).** Kõik ülaltoodud jäänumbrid on testiväljaku jää kohta ja backtest jookseb endiselt selles režiimis (`ice_road=False`). Leht näitab aga nüüd **sõidutee jääd**: testiväljaku haare + 0,05 (`ice_road_add`).
+   - Põhjus: ajakirjade jääväljak on sile ja hooldatud. Teel on jää rööbastatud, kare või liivatatud, osalt sile kiilasjää. VTI (1997) ja Statens vegvesen: kare jää või liiv lisab u 0,1. Pool teejääst eeldatakse kare → 0,05. See jaotus on **eeldus**, mitte mõõtmine.
+   - Kontroll: Põhjamaade rehv −5 °C juures annab teel 0,25. Teehoolduse mediaan on 0,15–0,25 mõõturi skaalal, VTT T244 järgi u 0,19–0,32 füüsikaliselt.
+   - Mõju Golf 8-le, 50 → 0 km/h, −5 °C: suverehv 137 → 83 m, Kesk-Euroopa talverehv 93 → 64 m, Põhjamaade 48 → 39 m, naast 37 → 31 m.
+   - Seega on lehe jäänumbrid ajakirjade testidest **teadlikult lühemad**. Rehvilehe kast „Ajakirjade testid“ näitab testiväljaku tulemust.
+6. **Rehvilehed.** Lehel on nüüd kast „Ajakirjade testid“: 264 rehvimudelit, 1245 mõõdetud tulemust (`export_testid.py`). Arvutus neid EI kasuta, sest märjal ei ennusta need paremini kui märgis (punkt C).
 
 ## Mis jäi lahtiseks
 

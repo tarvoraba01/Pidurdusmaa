@@ -253,7 +253,12 @@
     return { speedKmh: speed, surface: c.surface, texture: 'NORMAL', waterMm: c.waterMm, tempC: c.tempC,
              payloadKg: 75, gradientPct: 0, reactionTimeS: 0, brakeCondition: 1 };
   }
-  function calc(tyre, veh, cond) { return window.Pidurdus.stoppingDistance(tyre, veh, cond); }
+  /* ABS oli lisavarustus: kasutaja linnuke "autol on ABS" (auto kaupa,
+     sessionStorage) vahetab ABS-klassi ja pidurite võimekuse (core: absOpt). */
+  function absOn(key) { var a = store.get('abs', {}); return !!(a && a[key]); }
+  function absSet(key, on) { var a = store.get('abs', {}) || {}; if (on) a[key] = 1; else delete a[key]; store.set('abs', a); }
+  function vehEff(veh) { return veh && veh.absOpt && absOn(veh.key) ? Object.assign({}, veh, veh.absOpt) : veh; }
+  function calc(tyre, veh, cond) { return window.Pidurdus.stoppingDistance(tyre, vehEff(veh), cond); }
   /* Testitud rehv autol: füüsika (laius -> akvaplaneerimine) käib autol oleva
      mõõdu järgi, mõõdu-ülekande veapiir testimõõdu (gSize) järgi.
      QA 2026-09-28: varem arvutati tulemuste lehel testimõõduga ja
@@ -716,11 +721,31 @@
       paintSize(); save(); recalc(); emit();
       /* oemTyp: levinuim mõõt, mille kohta märgise andmeid veel pole —
          siis arvutatakse teise tehasemõõduga ja seda öeldakse välja */
+      paintAbs(veh);
       $('[data-veh-hint]', root).textContent = !veh ? '' : veh.oemTyp
         ? 'levinuim tehasemõõt ' + veh.oemTyp + ' · arvutame ' + veh.oemSize + ' järgi'
         : 'levinuim tehasemõõt ' + veh.oemSize;
     });
     S.size = sizeOptions(sizeSel, null, S.size);
+
+    /* ABS-i tuli: ainult autodel, millel ABS oli lisavarustus */
+    var absBtn = $('[data-abs]', root);
+    function paintAbs(veh) {
+      if (!absBtn) return;
+      absBtn.hidden = !(veh && veh.absOpt);
+      absBtn.classList.remove('lit');
+      absBtn.setAttribute('aria-pressed', veh && veh.absOpt && absOn(veh.key) ? 'true' : 'false');
+    }
+    if (absBtn) absBtn.addEventListener('click', function () {
+      if (!S.veh) return;
+      var on = absBtn.getAttribute('aria-pressed') !== 'true';
+      absSet(S.veh, on);
+      absBtn.setAttribute('aria-pressed', on ? 'true' : 'false');
+      absBtn.classList.remove('lit');
+      if (on) { void absBtn.offsetWidth; absBtn.classList.add('lit'); }
+      Track('abs', on ? 'jah' : 'ei');
+      recalc(); emit();
+    });
 
     function paintSize() {
       var veh = S.veh ? core.vehByKey[S.veh] : null;

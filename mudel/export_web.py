@@ -41,6 +41,7 @@ def _tyre(key, t):
 
 
 from .oem_sizes import OEM_SIZES as _OEM
+_ALL_VEH = VEHICLES
 
 
 def _veh(key, v):
@@ -63,7 +64,23 @@ def _veh(key, v):
         d["oemTyp"] = _m.group(1)
     if VEHICLE_NOTES.get(key):
         d["note"] = VEHICLE_NOTES[key]
+    # ABS OLI LISAVARUSTUS: lehel on linnuke "autol on ABS". Kui sama auto
+    # ABS-iga rida on olemas (<võti>_abs), võetakse väärtused sealt; muidu
+    # varane ABS ja pidurite võimekus +0,10 g (ABS-iga ja -ita paaride
+    # keskmine vahe andmetes: 1,08-1,10 -> 1,16-1,22).
+    if v.abs_class.name == "NONE" and _abs_valikuline(d.get("note", "")):
+        pair = _ALL_VEH.get(key + "_abs")
+        d["absOpt"] = ({"absClass": pair.abs_class.name, "brakeCapacityG": pair.brake_capacity_g}
+                       if pair else {"absClass": "EARLY",
+                                     "brakeCapacityG": round(v.brake_capacity_g + 0.10, 2)})
     return d
+
+
+def _abs_valikuline(note):
+    n = (note or "").lower()
+    if "lisavarustus" in n or "viimastel mudeliaastatel" in n:
+        return True
+    return False
 
 
 def _eprel():

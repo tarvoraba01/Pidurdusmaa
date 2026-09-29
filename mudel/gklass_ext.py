@@ -44,7 +44,7 @@ from .presets import ALL_VEHICLES as VEHICLES, G_CLASS
 
 def _dist(model, o, cat, G):
     ty = Tyre(name=o["tyre"], category=cat, wet_grip_index=G, size=o["size"])
-    cond = B.Conditions(speed_kmh=o["v0"], surface=B.SURF[o["surface"]], water_mm=o["water"],
+    cond = B.Conditions(ice_road=False, speed_kmh=o["v0"], surface=B.SURF[o["surface"]], water_mm=o["water"],
                         temp_c=o["temp"], payload_kg=150.0)
     return model.distance_between(ty, VEHICLES[o["veh"]], cond, o["v0"], o["v1"])
 

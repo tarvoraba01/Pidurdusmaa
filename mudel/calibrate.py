@@ -46,7 +46,8 @@ def predict(model: BrakingModel, a: Anchor, tyre: Tyre = None) -> float:
     ty = tyre or build_tyre(a)
     cond = Conditions(speed_kmh=a.v_from_kmh, surface=a.surface,
                       texture=a.texture, water_mm=a.water_mm,
-                      temp_c=a.temp_c, payload_kg=150.0)
+                      temp_c=a.temp_c, payload_kg=150.0,
+                      ice_road=False)   # ankrud on testiväljaku jää
     return model.distance_between(ty, veh, cond, a.v_from_kmh, a.v_to_kmh)
 
 

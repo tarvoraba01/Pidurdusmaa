@@ -36,10 +36,10 @@
   },
   "ICE": {
    "pealkiri": "Jää",
-   "abi": "Paljas sile jää KOGU pidurdusteel — jäätunud parkla, mitte talvine tee, kus on jäälaike. Temperatuur on siin kõige tugevam tegur: jää on kõige libedam 0 °C lähedal.",
+   "abi": "Jäine sõidutee KOGU pidurdusteel: tänav, maantee või kruusatee, kus on rööbastatud, kare või liivatatud jää ja kohati sile kiilasjää. Mitte ajakirjade siledat testiväljakut. Temperatuur on siin kõige tugevam tegur: jää on kõige libedam 0 °C lähedal.",
    "tapsus": "61 mõõtmist, viga 5,0 %. EL-i märgis ei kata jäähaaret numbriliselt, ainult linnukesega. Ühes testis oli naastrehvide vahel jääl 65 % vahe — mudel ütleb klassi tüüpilise, mitte sinu rehvi.",
    "usaldus": "madal",
-   "taust": "Paljas sile jää KOGU pidurdusteel — jäätunud parkla, mitte talvine tee, kus on jäälaike. Päris teel on jäine lõik enamasti lühike.\n\nTEMPERATUUR on jääl tugevam tegur kui kiirus. Jää on kõige libedam 0 °C lähedal, kus pinnal on õhuke veekiht.\n\nKUS ON PÄRIS ANDMEID. Jäämärgise määrab ISO 19447 ja see lubab katsetada ainult jääl −15…−5 °C. Iga sertifitseeritud jäähaarde number maailmas on sellest aknast. Mudeli kõver ulatub kaugemale ja on seal ekstrapolatsioon.\n\nSama standard katab ainult sõiduautorehve. Kaubikurehvil ei saagi jäämärgist olla, isegi kui ta on jääl hea.\n\nJa pea meeles: sama haare, mis piirab pidurdamist, piirab ka kiirendamist. Kui paned siia 90 km/h, arvutab mudel ausalt selle pidurdusmaa — aga sellel pinnal poleks sa sinna kiiruseni jõudnud."
+   "taust": "Jäine sõidutee KOGU pidurdusteel: tänav, maantee või kruusatee, kus on rööbastatud, kare või liivatatud jää ja kohati sile kiilasjää. Mitte ajakirjade siledat testiväljakut. Testiväljaku haardele liidetakse 0,05 (pool sellest, mida kare jää või liiv teehoolduse mõõtmistes juurde annab).\n\nTEMPERATUUR on jääl tugevam tegur kui kiirus. Jää on kõige libedam 0 °C lähedal, kus pinnal on õhuke veekiht.\n\nKUS ON PÄRIS ANDMEID. Jäämärgise määrab ISO 19447 ja see lubab katsetada ainult jääl −15…−5 °C. Iga sertifitseeritud jäähaarde number maailmas on sellest aknast. Mudeli kõver ulatub kaugemale ja on seal ekstrapolatsioon.\n\nSama standard katab ainult sõiduautorehve. Kaubikurehvil ei saagi jäämärgist olla, isegi kui ta on jääl hea.\n\nJa pea meeles: sama haare, mis piirab pidurdamist, piirab ka kiirendamist. Kui paned siia 90 km/h, arvutab mudel ausalt selle pidurdusmaa — aga sellel pinnal poleks sa sinna kiiruseni jõudnud."
   },
   "GRAVEL": {
    "pealkiri": "Kruus",
