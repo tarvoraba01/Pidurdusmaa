@@ -99,3 +99,5 @@ EPREL-i API võti **ei ole** ja ei tohi olla üheski selle repo failis.
 
 Lehel näidatakse arvutatud hinnangut, mitte mõõtmistulemust. Iga arv on
 seotud sellega, kust ta tuli.
+
+<!-- deploy 2026-09-29 -->
