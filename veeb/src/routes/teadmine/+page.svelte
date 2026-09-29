@@ -44,33 +44,6 @@
 			<span class="tm-go"><Icon name="arrow" /></span>
 		</a>
 
-		<section class="tm-sec" aria-labelledby="tm-and">
-			<h2 id="tm-and">Rehvid ja testid</h2>
-			<div class="tm-grid tm-grid3">
-				{#each ANDMED as [href, ic, t, d] (href)}
-					<a class="tm-card" {href}>
-						<span class="tm-ic"><Icon name={ic} /></span>
-						<span class="tm-t">{t}</span>
-						<span class="tm-d">{d}</span>
-					</a>
-				{/each}
-			</div>
-		</section>
-
-		<!-- järjekord: tööriist, rehvid ja testid (kõige enam kasutatud), põhitõed, artiklid, meetod -->
-		<section class="tm-sec" aria-labelledby="tm-pohi">
-			<h2 id="tm-pohi">Põhitõed</h2>
-			<div class="tm-grid">
-				{#each POHI as [href, ic, t, d] (href)}
-					<a class="tm-card" {href}>
-						<span class="tm-ic"><Icon name={ic} /></span>
-						<span class="tm-t">{t}</span>
-						<span class="tm-d">{d}</span>
-					</a>
-				{/each}
-			</div>
-		</section>
-
 		<section class="tm-sec" aria-labelledby="tm-art">
 			<div class="tm-head">
 				<h2 id="tm-art">Artiklid</h2>
@@ -88,10 +61,36 @@
 			</div>
 		</section>
 
+		<section class="tm-sec" aria-labelledby="tm-pohi">
+			<h2 id="tm-pohi">Põhitõed</h2>
+			<div class="tm-grid">
+				{#each POHI as [href, ic, t, d] (href)}
+					<a class="tm-card" {href}>
+						<span class="tm-ic"><Icon name={ic} /></span>
+						<span class="tm-t">{t}</span>
+						<span class="tm-d">{d}</span>
+					</a>
+				{/each}
+			</div>
+		</section>
+
 		<section class="tm-sec" aria-labelledby="tm-met">
 			<h2 id="tm-met">Kust numbrid tulevad</h2>
 			<div class="tm-grid">
 				{#each MEETOD as [href, ic, t, d] (href)}
+					<a class="tm-card" {href}>
+						<span class="tm-ic"><Icon name={ic} /></span>
+						<span class="tm-t">{t}</span>
+						<span class="tm-d">{d}</span>
+					</a>
+				{/each}
+			</div>
+		</section>
+
+		<section class="tm-sec" aria-labelledby="tm-and">
+			<h2 id="tm-and">Rehvid ja testid</h2>
+			<div class="tm-grid tm-grid3">
+				{#each ANDMED as [href, ic, t, d] (href)}
 					<a class="tm-card" {href}>
 						<span class="tm-ic"><Icon name={ic} /></span>
 						<span class="tm-t">{t}</span>
