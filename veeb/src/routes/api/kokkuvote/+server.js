@@ -26,7 +26,7 @@ export function GET(event) {
 	if (!piirang('kokkuvote', event, 30, 60)) error(429, 'Liiga palju päringuid');
 	if (!votiOnOige(request, key)) error(401, 'Vale võti');
 
-	const paevi = Math.min(90, Math.max(1, +(url.searchParams.get('paevi') || 7)));
+	const paevi = Math.min(3650, Math.max(1, +(url.searchParams.get('paevi') || 7)));
 	const alates = Date.now() - paevi * 864e5;
 
 	let read = [];
