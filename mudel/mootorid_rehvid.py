@@ -11,12 +11,29 @@ Esimene mõõt = selle versiooni põhimõõt (auto-data järjekord).
 """
 
 RATTAD = {
+    'alfa_giulia': {
+        '2-9-v6-quadrifoglio-510': (1620, ('245/35 R19',), 'https://www.auto-data.net/en/alfa-romeo-giulia-952-quadrifoglio-2.9-v6-biturbo-510hp-automatic-36547'),
+        '2-9-v6-quadrifoglio-520': (1660, ('245/35 R19',), 'https://www.auto-data.net/en/alfa-romeo-giulia-952-facelift-2022-quadrifoglio-2.9-v6-bi-turbo-520hp-automatic-49720'),
+        'gta-2-9-v6-540': (1605, ('265/30 R20',), 'https://www.auto-data.net/en/alfa-romeo-giulia-952-gta-2.9-v6-540hp-automatic-47186'),
+    },
     'alfa_giulietta': {
         '1-4-tb-multiair-170': (1365, ('205/55 R16',), 'https://www.auto-data.net/en/alfa-romeo-giulietta-type-940-1.4-tb-multiair-170hp-start-stop-16670'),
         '1-750-tbi-235': (1320, ('225/45 R17', '225/40 R18'), 'https://www.auto-data.net/en/alfa-romeo-giulietta-type-940-1.750-tbi-235hp-16765'),
         '1-750-tbi-240': (1320, ('225/45 R17', '225/40 R18'), 'https://www.auto-data.net/en/alfa-romeo-giulietta-type-940-1.750-tbi-235hp-16765'),
         '2-0-jtdm-170': (1385, ('205/55 R16',), 'https://www.auto-data.net/en/alfa-romeo-giulietta-type-940-2.0-jtdm-170hp-start-stop-16767'),
         '2-0-jtdm-175': (1385, ('205/55 R16',), 'https://www.auto-data.net/en/alfa-romeo-giulietta-type-940-2.0-jtdm-170hp-start-stop-16767'),
+    },
+    'alfa_stelvio': {
+        '2-9-v6-quadrifoglio-q4-510': (1830, (), 'https://www.auto-data.net/en/alfa-romeo-stelvio-949-quadrifoglio-2.9-bi-turbo-v6-510hp-awd-automatic-32173'),
+        '2-9-v6-quadrifoglio-q4-520': (1850, ('255/45 R20',), 'https://www.auto-data.net/en/alfa-romeo-stelvio-949-facelift-2022-quadrifoglio-2.9-v6-bi-turbo-520hp-q4-automatic-49721'),
+    },
+    'alfa_tonale': {
+        '1-3-t-plug-in-hybrid-q4-190': (1875, ('235/50 R18', '235/45 R19', '235/40 R20'), 'https://www.auto-data.net/en/alfa-romeo-tonale-1.3-t-multiair-190hp-plug-in-hybrid-eq4-automatic-53583'),
+        '1-3-t-plug-in-hybrid-q4-269': (1835, ('235/50 R18',), 'https://www.auto-data.net/en/alfa-romeo-tonale-facelift-2025-1.3-269hp-plug-in-hybrid-q4-automatic-55563'),
+        '1-3-t-plug-in-hybrid-q4-280': (1835, ('235/50 R18',), 'https://www.auto-data.net/en/alfa-romeo-tonale-1.3-t-multiair-280hp-plug-in-hybrid-eq4-automatic-47046'),
+        '1-5-hybrid-130': (1525, ('235/50 R18',), 'https://www.auto-data.net/en/alfa-romeo-tonale-1.5-turbo-130hp-48v-hybrid-tct-45794'),
+        '1-5-vgt-hybrid-160': (1525, ('235/50 R18',), 'https://www.auto-data.net/en/alfa-romeo-tonale-1.5-vgt-160hp-48v-hybrid-tct-45795'),
+        '1-5-vgt-hybrid-174': (1525, ('235/50 R18',), 'https://www.auto-data.net/en/alfa-romeo-tonale-facelift-2025-1.5-vgt-174hp-hybrid-tct-55564'),
     },
     'audi_100_c3': {
         '2-1-136': (1210, ('185/70 R14',), 'https://www.auto-data.net/en/audi-100-c3-typ-44-44q-2.1-136hp-4110'),
@@ -27,6 +44,11 @@ RATTAD = {
     },
     'audi_100_c4': {
         '2-8-v6-e-174': (1400, ('195/65 R15',), 'https://www.auto-data.net/en/audi-100-4a-c4-2.8-v6-e-174hp-4094'),
+    },
+    'audi_80_b2': {
+        '1-8-gte-110': (960, ('175/70 R13',), 'https://www.auto-data.net/en/audi-80-b2-typ-81-85-1.8-gte-112hp-26438'),
+        '1-8-gte-112': (960, ('175/70 R13',), 'https://www.auto-data.net/en/audi-80-b2-typ-81-85-1.8-gte-112hp-26438'),
+        '2-1-quattro-136': (1190, ('195/60 R14',), 'https://www.auto-data.net/en/audi-80-b2-typ-81-85-2.1-136hp-quattro-4618'),
     },
     'audi_80_b4': {
         '2-0-e-16v-137': (1270, ('205/60 R15',), 'https://www.auto-data.net/en/audi-80-b4-typ-8c-2.0-e-16v-140hp-4566'),
@@ -42,6 +64,10 @@ RATTAD = {
         '1-8-tfsi-192': (1180, ('215/45 R16', '215/40 R17'), 'https://www.auto-data.net/en/audi-a1-8x-facelift-2014-1.8-tfsi-192hp-s-tronic-31980'),
         '2-0-tdi-143': (1265, ('215/45 R17', '215/40 R17'), 'https://www.auto-data.net/en/audi-a1-8x-2.0-tdi-143hp-18969'),
         '2-0-tfsi-quattro-256': (1390, ('225/35 R18',), 'https://www.auto-data.net/en/audi-a1-8x-2.0-tfsi-256hp-quattro-47023'),
+    },
+    'audi_a1_gb': {
+        '2-0-tfsi-40-tfsi-200': (1260, ('215/45 R17',), 'https://www.auto-data.net/en/audi-a1-sportback-gb-40-tfsi-200hp-s-tronic-35812'),
+        '2-0-tfsi-40-tfsi-207': (1260, ('215/45 R17',), 'https://www.auto-data.net/en/audi-a1-sportback-gb-40-tfsi-200hp-s-tronic-35812'),
     },
     'audi_a3': {
         '2-0-tdi-40-tdi-quattro-200': (1480, ('225/45 R17',), 'https://www.auto-data.net/en/audi-a3-sportback-8y-40-tdi-200hp-quattro-s-tronic-49058'),
@@ -59,6 +85,12 @@ RATTAD = {
         '2-0-tdi-184': (1390, ('205/55 R16',), 'https://www.auto-data.net/en/audi-a3-8v-2.0-tdi-184hp-clean-diesel-quattro-s-tronic-23160'),
         '2-0-tfsi-190': (1285, ('205/55 R16', '225/45 R17', '225/40 R18', '235/35 R19'), 'https://www.auto-data.net/en/audi-a3-8v-facelift-2016-2.0-tfsi-190hp-s-tronic-23680'),
         'e-tron-1-4-tfsi-204': (1540, ('205/55 R16', '225/45 R17', '225/40 R18'), 'https://www.auto-data.net/en/audi-a3-sportback-8v-e-tron-1.4-tfsi-204hp-plug-in-hybrid-s-tronic-23162'),
+    },
+    'audi_a4_allroad_b8': {
+        '3-0-tdi-v6-quattro-245': (1790, ('225/55 R17',), 'https://www.auto-data.net/en/audi-a4-allroad-b8-8k-facelift-2011-3.0-tdi-v6-245hp-quattro-s-tronic-18937'),
+    },
+    'audi_a4_allroad_b9': {
+        '3-0-tdi-v6-quattro-286': (1755, ('225/50 R17', '245/40 R18', '245/35 R19'), 'https://www.auto-data.net/en/audi-a4-allroad-b9-8w-facelift-2019-50-tdi-v6-286hp-quattro-tiptronic-38315'),
     },
     'audi_a4_b5': {
         '1-8-turbo-180': (1260, ('195/65 R15',), 'https://www.auto-data.net/en/audi-a4-b5-typ-8d-facelift-1999-1.8-turbo-180hp-4414'),
@@ -95,6 +127,22 @@ RATTAD = {
         '3-0-tfsi-v6-quattro-272': (1650, ('245/40 R18',), 'https://www.auto-data.net/en/audi-a5-coupe-8t3-facelift-2011-3.0-tfsi-v6-272hp-quattro-s-tronic-19041'),
         '3-2-fsi-v6-265': (1575, ('225/50 R17',), 'https://www.auto-data.net/en/audi-a5-coupe-8t3-3.2-fsi-v6-265hp-quattro-tiptronic-4521'),
     },
+    'audi_a5_b10': {
+        '2-0-tfsi-e-hybrid-quattro-299': (2070, ('235/45 R18',), 'https://www.auto-data.net/en/audi-a5-sedan-b10-2.0-tfsi-299hp-e-hybrid-quattro-ultra-s-tronic-54000'),
+        '2-0-tfsi-e-hybrid-quattro-367': (2095, ('235/45 R18',), 'https://www.auto-data.net/en/audi-a5-sedan-b10-2.0-tfsi-367hp-e-hybrid-quattro-ultra-s-tronic-54001'),
+    },
+    'audi_a5_f5': {
+        '3-0-tdi-quattro-286': (1700, (), 'https://www.auto-data.net/en/audi-a5-sportback-f5-3.0-tdi-286hp-quattro-tiptronic-32133'),
+    },
+    'audi_a6_allroad_c5': {
+        '4-2-v8-quattro-300': (1860, ('245/45 R18',), 'https://www.auto-data.net/en/audi-a6-allroad-4b-c5-4.2-v8-300hp-quattro-tiptronic-26877'),
+    },
+    'audi_a6_allroad_c6': {
+        '4-2-fsi-v8-quattro-350': (1880, ('245/45 R18',), 'https://www.auto-data.net/en/audi-a6-allroad-4f-c6-4.2-fsi-v8-350hp-quattro-tiptronic-27126'),
+    },
+    'audi_a6_allroad_c7': {
+        '3-0-tfsi-quattro-333': (1870, ('235/55 R18',), 'https://www.auto-data.net/en/audi-a6-allroad-4g-c7-facelift-2014-3.0-tfsi-v6-333hp-quattro-s-tronic-20707'),
+    },
     'audi_a6_c5': {
         '2-7-t-v6-quattro-250': (1705, ('215/55 R16',), 'https://www.auto-data.net/en/audi-a6-4b-c5-2.7-t-v6-250hp-quattro-tiptronic-26693'),
         '4-2-v8-quattro-300': (1730, ('235/50 R16',), 'https://www.auto-data.net/en/audi-a6-4b-c5-4.2-v8-40v-300hp-quattro-tiptronic-4717'),
@@ -129,16 +177,55 @@ RATTAD = {
         '3-0-tfsi-quattro-333': (1810, ('235/55 R17', '255/45 R18'), 'https://www.auto-data.net/en/audi-a7-sportback-c7-facelift-2014-3.0-tfsi-v6-333hp-quattro-s-tronic-22438'),
         'competition-3-0-bitdi-quattro-326': (1925, ('235/55 R17',), 'https://www.auto-data.net/en/audi-a7-sportback-c7-facelift-2014-competition-3.0-bitdi-v6-326hp-quattro-tiptronic-20689'),
     },
+    'audi_a7_c8': {
+        '50-tfsi-e-quattro-299': (2065, ('245/45 R19', '255/40 R20'), 'https://www.auto-data.net/en/audi-a7-sportback-c8-50-tfsi-e-299hp-plug-in-hybrid-quattro-ultra-s-tronic-45397'),
+        '55-tfsi-e-quattro-367': (2065, ('245/45 R19', '255/40 R20'), 'https://www.auto-data.net/en/audi-a7-sportback-c8-55-tfsi-e-367hp-plug-in-hybrid-quattro-ultra-s-tronic-45396'),
+    },
+    'audi_a8_d2': {
+        '3-7-v8-230': (1645, ('225/60 R16',), 'https://www.auto-data.net/en/audi-a8-d2-4d-3.7-v8-32v-230hp-tiptronic-4841'),
+        '3-7-v8-40v-260': (1645, ('225/60 R16',), 'https://www.auto-data.net/en/audi-a8-d2-4d-facelift-1998-3.7-v8-40v-260hp-tiptronic-4842'),
+        '4-2-v8-40v-quattro-310': (1750, ('225/60 R16',), 'https://www.auto-data.net/en/audi-a8-d2-4d-facelift-1998-4.2-v8-40v-310hp-quattro-tiptronic-49430'),
+        '4-2-v8-quattro-300': (1750, ('225/60 R16',), 'https://www.auto-data.net/en/audi-a8-d2-4d-4.2-v8-32v-300hp-quattro-tiptronic-4848'),
+        '6-0-w12-quattro-420': (1980, ('245/45 R18',), 'https://www.auto-data.net/en/audi-a8l-d2-4d-facelift-1999-6.0-w12-420hp-quattro-tiptronic-4849'),
+    },
+    'audi_a8_d3': {
+        '4-2-bitdi-v8-quattro-326': (1945, ('235/55 R17',), 'https://www.auto-data.net/en/audi-a8-d3-4e-facelift-2005-4.2-bitdi-v8-326hp-quattro-dpf-tiptronic-4819'),
+        '4-2-fsi-v8-quattro-350': (1945, ('235/55 R17', '235/50 R18', '255/45 R18', '255/40 R19', '275/35 R20'), 'https://www.auto-data.net/en/audi-a8-d3-4e-facelift-2005-4.2-fsi-v8-350hp-quattro-tiptronic-43762'),
+        '4-2-v8-quattro-335': (1780, ('235/55 R17',), 'https://www.auto-data.net/en/audi-a8-d3-4e-4.2-v8-40v-335hp-quattro-tiptronic-4818'),
+        '6-0-w12-quattro-450': (1960, ('255/40 R19',), 'https://www.auto-data.net/en/audi-a8-d3-4e-6.0i-w12-450hp-quattro-tiptronic-4820'),
+    },
+    'audi_a8_d4': {
+        '2-0-tfsi-hybrid-quattro-245': (1870, ('235/55 R18',), 'https://www.auto-data.net/en/audi-a8-d4-4h-2.0-tfsi-245hp-hybrid-tiptronic-26908'),
+        '4-0-tfsi-v8-quattro-420': (1895, ('235/60 R17',), 'https://www.auto-data.net/en/audi-a8-d4-4h-4.0-tfsi-v8-420hp-quattro-tiptronic-20320'),
+        '4-0-tfsi-v8-quattro-435': (1995, ('235/55 R18',), 'https://www.auto-data.net/en/audi-a8-d4-4h-facelift-2013-4.0-bitfsi-v8-435hp-quattro-tiptronic-19138'),
+        '4-2-fsi-v8-quattro-372': (1835, ('235/60 R17',), 'https://www.auto-data.net/en/audi-a8-d4-4h-4.2-fsi-v8-372hp-quattro-tiptronic-20337'),
+        '4-2-tdi-v8-quattro-350': (1995, ('235/60 R17',), 'https://www.auto-data.net/en/audi-a8-d4-4h-4.2-bitdi-v8-350hp-quattro-tiptronic-20321'),
+        '4-2-tdi-v8-quattro-385': (2040, ('235/55 R18',), 'https://www.auto-data.net/en/audi-a8-d4-4h-facelift-2013-4.2-tdi-v8-clean-diesel-385hp-quattro-tiptronic-19136'),
+        '6-3-fsi-w12-quattro-500': (2055, ('255/45 R17',), 'https://www.auto-data.net/en/audi-a8l-d4-4h-6.3-fsi-w12-500hp-quattro-tiptronic-20343'),
+    },
     'audi_a8_d5': {
         '4-0-tdi-v8-60-tdi-quattro-435': (2190, ('255/45 R19', '265/40 R20', '265/35 R21'), 'https://www.auto-data.net/en/audi-a8-d5-60-tdi-v8-435hp-mild-hybrid-quattro-tiptronic-44953'),
         '4-0-tfsi-v8-60-tfsi-quattro-460': (2045, ('255/45 R19', '265/40 R20', '265/35 R21'), 'https://www.auto-data.net/en/audi-a8-d5-facelift-2021-60-tfsi-v8-460hp-mild-hybrid-quattro-tiptronic-45173'),
         '60-tfsi-e-quattro-449': (2300, ('255/45 R19',), 'https://www.auto-data.net/en/audi-a8-d5-60-tfsi-e-449hp-plug-in-hybrid-quattro-tiptronic-37916'),
         '60-tfsi-e-quattro-462': (2310, ('235/55 R18', '255/45 R19', '265/40 R20', '265/35 R21'), 'https://www.auto-data.net/en/audi-a8-d5-facelift-2021-60-tfsi-e-v6-462hp-plug-in-hybrid-quattro-tiptronic-52201'),
     },
+    'audi_q2': {
+        '2-0-tdi-quattro-190': (1480, ('205/60 R16', '215/60 R16', '215/55 R17', '215/50 R18', '235/40 R19'), 'https://www.auto-data.net/en/audi-q2-2.0-tdi-190hp-quattro-s-tronic-22954'),
+        '2-0-tfsi-quattro-190': (1430, ('205/60 R16', '215/60 R16', '215/55 R17', '215/50 R18', '235/40 R19'), 'https://www.auto-data.net/en/audi-q2-2.0-tfsi-190hp-quattro-s-tronic-22876'),
+    },
     'audi_q3_f3': {
         '2-0-tfsi-quattro-230': (1620, ('215/65 R17',), 'https://www.auto-data.net/en/audi-q3-ii-f3-45-tfsi-230hp-quattro-s-tronic-34922'),
         '2-0-tfsi-quattro-245': (1620, ('215/65 R17', '235/55 R18', '235/50 R19', '255/45 R19', '255/40 R20'), 'https://www.auto-data.net/en/audi-q3-ii-f3-45-tfsi-245hp-quattro-s-tronic-52208'),
         '45-tfsi-e-245': (1740, ('215/65 R17', '235/55 R18', '235/50 R19', '255/45 R19', '255/40 R20'), 'https://www.auto-data.net/en/audi-q3-ii-f3-45-tfsi-e-245hp-plug-in-hybrid-s-tronic-42115'),
+    },
+    'audi_q4_etron': {
+        '55-82-kwh-quattro-quattro-340': (2160, ('235/55 R19', '235/50 R20', '235/45 R21'), 'https://www.auto-data.net/en/audi-q4-e-tron-55-82-kwh-340hp-quattro-49894'),
+        'performance-82-kwh-quattro-quattro-340': (2170, ('235/55 R19',), 'https://www.auto-data.net/en/audi-q4-e-tron-facelift-2026-performance-82-kwh-340hp-quattro-56934'),
+        'performance-84-kwh-286': (2090, ('235/55 R19',), 'https://www.auto-data.net/en/audi-q4-e-tron-facelift-2026-performance-84-kwh-286hp-56933'),
+    },
+    'audi_q5_3': {
+        '2-0-tfsi-e-hybrid-quattro-299': (2150, ('235/60 R18', '235/55 R19', '255/45 R20', '255/40 R21'), 'https://www.auto-data.net/en/audi-q5-iii-gu-2.0-tfsi-299hp-e-hybrid-quattro-ultra-s-tronic-54560'),
+        '2-0-tfsi-e-hybrid-quattro-367': (2170, ('235/60 R18', '235/55 R19', '255/45 R20', '255/40 R21'), 'https://www.auto-data.net/en/audi-q5-iii-gu-2.0-tfsi-367hp-e-hybrid-quattro-ultra-s-tronic-54561'),
     },
     'audi_q5_8r': {
         '2-0-tfsi-hybrid-quattro-245': (1910, ('235/55 R19',), 'https://www.auto-data.net/en/audi-q5-i-8r-facelift-2012-2.0-tfsi-hybrid-245hp-quattro-tiptronic-27117'),
@@ -162,6 +249,22 @@ RATTAD = {
         '60-tfsi-e-quattro-490': (2385, ('255/55 R19', '285/45 R20', '285/40 R21', '285/35 R22'), 'https://www.auto-data.net/en/audi-q7-ii-typ-4m-facelift-2024-60-tfsi-e-v6-490hp-plug-in-hybrid-quattro-tiptronic-51703'),
         'e-tron-3-0-tdi-quattro-374': (2445, ('255/55 R19', '285/45 R20', '285/40 R21'), 'https://www.auto-data.net/en/audi-q7-ii-typ-4m-e-tron-3.0-tdi-374hp-plug-in-hybrid-quattro-tiptronic-23166'),
     },
+    'audi_q8': {
+        '55-tfsi-e-381': (2430, ('265/55 R19', '275/50 R20', '285/45 R21', '285/40 R22'), 'https://www.auto-data.net/en/audi-q8-4m-55-tfsi-e-v6-381hp-plug-in-hybrid-quattro-tiptronic-42076'),
+        '55-tfsi-e-394': (2415, ('265/55 R19', '265/50 R20', '275/50 R20', '285/45 R21', '285/40 R22', '285/35 R23'), 'https://www.auto-data.net/en/audi-q8-4m-facelift-2023-55-tfsi-e-v6-394hp-plug-in-hybrid-quattro-tiptronic-51704'),
+        '60-tfsi-e-462': (2440, ('265/55 R19', '275/50 R20', '285/45 R21', '285/40 R22'), 'https://www.auto-data.net/en/audi-q8-4m-60-tfsi-e-v6-462hp-plug-in-hybrid-quattro-tiptronic-42077'),
+        '60-tfsi-e-490': (2415, ('265/55 R19', '265/50 R20', '275/50 R20', '285/45 R21', '285/40 R22', '285/35 R23'), 'https://www.auto-data.net/en/audi-q8-4m-facelift-2023-60-tfsi-e-v6-490hp-plug-in-hybrid-quattro-tiptronic-51705'),
+    },
+    'audi_tt_8j': {
+        'tt-rs-2-5-tfsi-quattro-340': (1450, ('245/40 R18',), 'https://www.auto-data.net/en/audi-tt-rs-coupe-8j-2.5-tfsi-340hp-quattro-17882'),
+        'tt-rs-plus-2-5-tfsi-quattro-360': (1475, ('245/40 R18',), 'https://www.auto-data.net/en/audi-tt-rs-coupe-8j-facelift-2010-2.5-tfsi-plus-360hp-quattro-s-tronic-27313'),
+    },
+    'audi_tt_8n': {
+        '1-8-t-sport-quattro-240': (1390, ('235/40 R18',), 'https://www.auto-data.net/en/audi-tt-coupe-8n-facelift-2000-1.8-t-sport-240hp-quattro-4890'),
+    },
+    'audi_tt_8s': {
+        'tt-rs-2-5-tfsi-quattro-400': (1440, ('245/35 R19', '255/30 R20'), 'https://www.auto-data.net/en/audi-tt-rs-coupe-8s-2.5-tfsi-400hp-quattro-s-tronic-25753'),
+    },
     'bmw_116d_f20': {
         '120d-184': (1390, ('205/55 R16', '205/50 R17', '225/45 R17', '245/40 R17', '225/40 R18', '245/35 R18'), 'https://www.auto-data.net/en/bmw-1-series-hatchback-5dr-f20-lci-facelift-2015-120d-190hp-steptronic-22965'),
         '120d-190': (1390, ('205/55 R16', '205/50 R17', '225/45 R17', '245/40 R17', '225/40 R18', '245/35 R18'), 'https://www.auto-data.net/en/bmw-1-series-hatchback-5dr-f20-lci-facelift-2015-120d-190hp-steptronic-22965'),
@@ -183,6 +286,12 @@ RATTAD = {
         '128ti-265': (1445, ('225/40 R18',), 'https://www.auto-data.net/en/bmw-1-series-hatchback-f40-128ti-265hp-steptronic-sport-41414'),
         'm135i-xdrive-306': (1525, ('225/45 R17',), 'https://www.auto-data.net/en/bmw-1-series-hatchback-f40-m135i-306hp-xdrive-steptronic-42485'),
     },
+    'bmw_118i_f70': {
+        '120-204': (1425, ('205/55 R17',), 'https://www.auto-data.net/en/bmw-1-series-hatchback-f70-120-204hp-steptronic-dct-54817'),
+        '123-xdrive-218': (1530, ('205/55 R17', '225/45 R18', '225/40 R19'), 'https://www.auto-data.net/en/bmw-1-series-hatchback-f70-123-218hp-mild-hybrid-xdrive-steptronic-dct-52792'),
+        'm135-xdrive-300': (1550, ('225/45 R18',), 'https://www.auto-data.net/en/bmw-1-series-hatchback-f70-m135-317hp-xdrive-steptronic-dct-54831'),
+        'm135-xdrive-317': (1550, ('225/45 R18',), 'https://www.auto-data.net/en/bmw-1-series-hatchback-f70-m135-317hp-xdrive-steptronic-dct-54831'),
+    },
     'bmw_218d_f45': {
         '220d-190': (1470, ('205/60 R16',), 'https://www.auto-data.net/en/bmw-2-series-active-tourer-f45-lci-facelift-2018-220d-190hp-steptronic-32500'),
         '220i-178': (1415, ('205/60 R16',), 'https://www.auto-data.net/en/bmw-2-series-active-tourer-f45-lci-facelift-2018-220i-178hp-steptronic-44633'),
@@ -190,6 +299,35 @@ RATTAD = {
         '225i-231': (1520, ('205/55 R17',), 'https://www.auto-data.net/en/bmw-2-series-active-tourer-f45-lci-facelift-2018-225i-231hp-xdrive-steptronic-32492'),
         '225xe-xdrive-220': (1660, ('205/55 R17',), 'https://www.auto-data.net/en/bmw-2-series-active-tourer-f45-lci-facelift-2018-225xe-iperformance-224hp-plug-in-hybrid-xdrive-steptronic-32493'),
         '225xe-xdrive-224': (1660, ('205/55 R17',), 'https://www.auto-data.net/en/bmw-2-series-active-tourer-f45-lci-facelift-2018-225xe-iperformance-224hp-plug-in-hybrid-xdrive-steptronic-32493'),
+    },
+    'bmw_218i_at_u06': {
+        '223d-xdrive-211': (1655, ('205/60 R17',), 'https://www.auto-data.net/en/bmw-2-series-active-tourer-u06-223d-211hp-mild-hybrid-xdrive-steptronic-45883'),
+        '223i-218': (1615, ('205/60 R17',), 'https://www.auto-data.net/en/bmw-2-series-active-tourer-u06-223i-218hp-mild-hybrid-xdrive-steptronic-45885'),
+        '225e-xdrive-245': (1825, ('205/65 R16',), 'https://www.auto-data.net/en/bmw-2-series-active-tourer-u06-225e-245hp-plug-in-hybrid-xdrive-steptronic-45935'),
+        '230e-xdrive-326': (1845, ('205/60 R17',), 'https://www.auto-data.net/en/bmw-2-series-active-tourer-u06-230e-326hp-plug-in-hybrid-xdrive-steptronic-45936'),
+    },
+    'bmw_218i_f22': {
+        '225d-218': (1430, ('225/45 R17', '245/40 R17', '225/40 R18', '245/35 R18'), 'https://www.auto-data.net/en/bmw-2-series-coupe-f22-225d-224hp-steptronic-21836'),
+        '225d-224': (1430, ('225/45 R17', '245/40 R17', '225/40 R18', '245/35 R18'), 'https://www.auto-data.net/en/bmw-2-series-coupe-f22-225d-224hp-steptronic-21836'),
+        '228i-245': (1405, ('205/50 R17',), 'https://www.auto-data.net/en/bmw-2-series-coupe-f22-228i-245hp-steptronic-19938'),
+        '230i-252': (1425, ('205/50 R17', '225/45 R17', '245/40 R17', '225/40 R18', '245/35 R18'), 'https://www.auto-data.net/en/bmw-2-series-coupe-f22-230i-252hp-steptronic-24035'),
+        'm235i-326': (1525, ('225/40 R18', '245/35 R18'), 'https://www.auto-data.net/en/bmw-2-series-coupe-f22-m235i-326hp-xdrive-steptronic-19939'),
+        'm240i-340': (1540, ('225/40 R18', '245/35 R18'), 'https://www.auto-data.net/en/bmw-2-series-coupe-f22-m240i-340hp-xdrive-steptronic-23798'),
+    },
+    'bmw_218i_gc_f44': {
+        '220-204': (1450, ('205/55 R17', '225/45 R18', '225/40 R19'), 'https://www.auto-data.net/en/bmw-2-series-gran-coupe-f74-220-204hp-steptronic-dct-54819'),
+        '220d-190': (1505, ('225/45 R17',), 'https://www.auto-data.net/en/bmw-2-series-gran-coupe-f44-220d-190hp-steptronic-37875'),
+        '223-xdrive-218': (1565, ('205/55 R17', '225/45 R18', '225/40 R19'), 'https://www.auto-data.net/en/bmw-2-series-gran-coupe-f74-223-218hp-mild-hybrid-xdrive-steptronic-dct-54821'),
+        '228-xdrive-241': (1603, ('225/45 R18',), 'https://www.auto-data.net/en/bmw-2-series-gran-coupe-f74-228-241hp-xdrive-steptronic-dct-52958'),
+        '228i-xdrive-228': (1603, ('225/45 R17',), 'https://www.auto-data.net/en/bmw-2-series-gran-coupe-f44-228i-228hp-xdrive-steptronic-39232'),
+        'm235-xdrive-300': (1623, ('225/45 R18',), 'https://www.auto-data.net/en/bmw-2-series-gran-coupe-f74-m235-312hp-xdrive-steptronic-dct-52959'),
+        'm235-xdrive-312': (1623, ('225/45 R18',), 'https://www.auto-data.net/en/bmw-2-series-gran-coupe-f74-m235-312hp-xdrive-steptronic-dct-52959'),
+        'm235i-xdrive-306': (1570, ('225/40 R18',), 'https://www.auto-data.net/en/bmw-2-series-gran-coupe-f44-m235i-306hp-xdrive-steptronic-42770'),
+    },
+    'bmw_220i_g42': {
+        'm240i-374': (1756, ('225/40 R19', '245/35 R19'), 'https://www.auto-data.net/en/bmw-2-series-coupe-g42-m240i-382hp-xdrive-steptronic-sport-52015'),
+        'm240i-382': (1756, ('225/40 R19', '245/35 R19'), 'https://www.auto-data.net/en/bmw-2-series-coupe-g42-m240i-382hp-xdrive-steptronic-sport-52015'),
+        'm240i-xdrive-392': (1755, ('225/40 R19', '245/35 R19'), 'https://www.auto-data.net/en/bmw-2-series-coupe-g42-m240i-392hp-mild-hybrid-xdrive-steptronic-sport-55435'),
     },
     'bmw_316i_e36': {
         '323i-170': (1375, ('205/60 R15',), 'https://www.auto-data.net/en/bmw-3-series-sedan-e36-323i-170hp-automatic-27476'),
@@ -219,6 +357,27 @@ RATTAD = {
         '335i-306': (1520, ('225/50 R17',), 'https://www.auto-data.net/en/bmw-3-series-sedan-f30-335i-306hp-steptronic-20799'),
         '340i-326': (1540, ('225/50 R17', '225/45 R18', '225/40 R19'), 'https://www.auto-data.net/en/bmw-3-series-sedan-f30-lci-facelift-2015-340i-326hp-steptronic-22864'),
         'activehybrid-3-340': (1655, ('225/50 R17',), 'https://www.auto-data.net/en/bmw-3-series-sedan-f30-activehybrid-3.0-340hp-steptronic-44479'),
+    },
+    'bmw_420d_f32': {
+        '435d-xdrive-313': (1625, ('225/50 R17', '225/45 R18', '225/40 R19'), 'https://www.auto-data.net/en/bmw-4-series-coupe-f32-435d-313hp-xdrive-steptronic-23831'),
+        '435i-306': (1590, ('225/50 R17', '225/45 R18', '225/40 R19', '225/35 R20'), 'https://www.auto-data.net/en/bmw-4-series-coupe-f32-435i-306hp-xdrive-steptronic-21116'),
+        '440i-326': (1625, ('225/50 R17', '225/45 R18', '225/40 R19'), 'https://www.auto-data.net/en/bmw-4-series-coupe-f32-440i-326hp-xdrive-steptronic-22661'),
+    },
+    'bmw_420d_g22': {
+        '430d-xdrive-286': (1780, ('225/50 R17',), 'https://www.auto-data.net/en/bmw-4-series-coupe-g22-430d-286hp-mild-hybrid-xdrive-steptronic-42479'),
+        'm440d-xdrive-340': (1830, ('225/45 R18',), 'https://www.auto-data.net/en/bmw-4-series-coupe-g22-m440d-340hp-mild-hybrid-xdrive-steptronic-42480'),
+        'm440i-374': (1740, ('225/45 R18',), 'https://www.auto-data.net/en/bmw-4-series-coupe-g22-m440i-374hp-mild-hybrid-xdrive-steptronic-40263'),
+        'm440i-382': (1740, ('225/45 R18',), 'https://www.auto-data.net/en/bmw-4-series-coupe-g22-m440i-374hp-mild-hybrid-xdrive-steptronic-40263'),
+        'm440i-386': (1767, ('225/45 R18', '225/40 R19'), 'https://www.auto-data.net/en/bmw-4-series-coupe-g22-lci-facelift-2024-m440i-386hp-mild-hybrid-steptronic-53465'),
+        'm440i-xdrive-392': (1770, ('225/45 R18', '225/40 R19'), 'https://www.auto-data.net/en/bmw-4-series-coupe-g22-lci-facelift-2024-m440i-392hp-mild-hybrid-xdrive-steptronic-55429'),
+    },
+    'bmw_518i_e28': {
+        '528i-184': (1320, (), 'https://www.auto-data.net/en/bmw-5-series-e28-528i-184hp-9690'),
+        '535i-185': (1370, (), 'https://www.auto-data.net/en/bmw-5-series-e28-535i-185hp-26056'),
+        '535i-192': (1370, (), 'https://www.auto-data.net/en/bmw-5-series-e28-535i-185hp-26056'),
+        '535i-218': (1370, (), 'https://www.auto-data.net/en/bmw-5-series-e28-535i-218hp-26160'),
+        'm535i-185': (1315, ('220/55 R16',), 'https://www.auto-data.net/en/bmw-5-series-e28-m535i-185hp-9890'),
+        'm535i-218': (1315, ('220/55 R16',), 'https://www.auto-data.net/en/bmw-5-series-e28-m535i-218hp-automatic-9891'),
     },
     'bmw_520d_e60': {
         '530i-272': (1540, ('225/55 R17',), 'https://www.auto-data.net/en/bmw-5-series-e60-lci-facelift-2007-530i-272hp-steptronic-21197'),
@@ -266,6 +425,18 @@ RATTAD = {
         '540i-xdrive-375': (1982, ('245/45 R19', '245/40 R20', '245/35 R21'), 'https://www.auto-data.net/en/bmw-5-series-sedan-g60-540i-375hp-mild-hybrid-xdrive-steptronic-53442'),
         '550e-xdrive-489': (2155, ('245/45 R19',), 'https://www.auto-data.net/en/bmw-5-series-sedan-g60-550e-489hp-plug-in-hybrid-xdrive-steptronic-50217'),
     },
+    'bmw_535d_e61': {
+        '530i-258': (1590, ('225/55 R16', '225/50 R17', '245/45 R17', '245/40 R18'), 'https://www.auto-data.net/en/bmw-5-series-touring-e61-530i-258hp-steptronic-52674'),
+        '530i-272': (1735, ('225/50 R17',), 'https://www.auto-data.net/en/bmw-5-series-touring-e61-lci-facelift-2007-530i-272hp-xdrive-steptronic-28288'),
+        '535d-272': (1760, ('225/50 R17',), 'https://www.auto-data.net/en/bmw-5-series-touring-e61-535d-272hp-9626'),
+        '535d-286': (1760, ('225/50 R17',), 'https://www.auto-data.net/en/bmw-5-series-touring-e61-lci-facelift-2007-535d-286hp-steptronic-28307'),
+        '535i-300': (1880, ('225/50 R17', '245/40 R18'), 'https://www.auto-data.net/en/bmw-5-series-touring-e61-lci-facelift-2007-535i-300hp-xdrive-steptronic-54882'),
+        '545i-333': (1795, ('225/50 R17',), 'https://www.auto-data.net/en/bmw-5-series-touring-e61-545i-333hp-steptronic-21205'),
+        '550i-367': (1755, ('225/50 R17',), 'https://www.auto-data.net/en/bmw-5-series-touring-e61-550i-v8-367hp-steptronic-21206'),
+    },
+    'bmw_728i_e38': {
+        '750i-326': (1960, ('235/60 R16',), 'https://www.auto-data.net/en/bmw-7-series-e38-750i-326hp-steptronic-9744'),
+    },
     'bmw_730d_e65': {
         '750i-367': (1910, ('245/55 R17',), 'https://www.auto-data.net/en/bmw-7-series-e65-facelift-2005-750i-367hp-steptronic-9722'),
         '760i-445': (2015, ('245/50 R18',), 'https://www.auto-data.net/en/bmw-7-series-e65-760i-445hp-steptronic-9724'),
@@ -274,6 +445,23 @@ RATTAD = {
         '750i-408': (1945, ('245/50 R18',), 'https://www.auto-data.net/en/bmw-7-series-f01-750i-408hp-steptronic-9705'),
         '750i-450': (2015, ('245/50 R18',), 'https://www.auto-data.net/en/bmw-7-series-f01-lci-facelift-2012-750i-450hp-steptronic-17763'),
         '760i-544': (2180, ('245/45 R19',), 'https://www.auto-data.net/en/bmw-7-series-f01-760i-544hp-automatic-17302'),
+        'activehybrid-7-3-0-354': (2045, ('245/50 R18',), 'https://www.auto-data.net/en/bmw-7-series-activehybrid-f01h-lci-facelift-2012-activehybrid-3.0-354hp-steptronic-18651'),
+        'activehybrid-7-4-4-v8-465': (2045, ('245/45 R19',), 'https://www.auto-data.net/en/bmw-7-series-activehybrid-f04-activehybrid-4.4-v8-465hp-steptronic-45109'),
+    },
+    'bmw_730d_g11': {
+        '740e-iperformance-326': (1900, ('225/60 R17', '245/50 R18', '245/45 R19', '245/40 R20', '245/35 R21'), 'https://www.auto-data.net/en/bmw-7-series-g11-740e-iperformance-326hp-plug-in-hybrid-steptronic-24841'),
+        '745e-394': (1995, ('245/50 R18',), 'https://www.auto-data.net/en/bmw-7-series-g11-lci-facelift-2019-745e-394hp-plug-in-hybrid-steptronic-35571'),
+        '750i-450': (1870, ('245/50 R18', '245/45 R19', '245/40 R20', '245/35 R21'), 'https://www.auto-data.net/en/bmw-7-series-g11-750i-450hp-xdrive-steptronic-22313'),
+        '750i-xdrive-530': (2040, ('245/45 R19',), 'https://www.auto-data.net/en/bmw-7-series-g11-lci-facelift-2019-750i-530hp-xdrive-steptronic-35570'),
+    },
+    'bmw_730i_e32': {
+        '750i-300': (1800, ('225/60 R15',), 'https://www.auto-data.net/en/bmw-7-series-e32-750i-300hp-automatic-28118'),
+    },
+    'bmw_740d_g70': {
+        '750e-489': (2380, ('245/50 R19', '255/45 R20', '255/40 R21'), 'https://www.auto-data.net/en/bmw-7-series-g70-750e-489hp-plug-in-hybrid-xdrive-steptronic-51754'),
+        '760i-xdrive-544': (2270, ('255/45 R20',), 'https://www.auto-data.net/en/bmw-7-series-g70-760i-544hp-mild-hybrid-xdrive-steptronic-45708'),
+        'm760e-xdrive-571': (2450, ('255/45 R20', '255/40 R21'), 'https://www.auto-data.net/en/bmw-7-series-g70-m760e-571hp-plug-in-hybrid-xdrive-steptronic-51755'),
+        'm760e-xdrive-612': (2495, ('255/45 R20',), 'https://www.auto-data.net/en/bmw-7-series-g70-lci-facelift-2026-m760e-612hp-plug-in-hybrid-xdrive-steptronic-56885'),
     },
     'bmw_i3': {
         '22-kwh-170': (1195, ('155/70 R19',), 'https://www.auto-data.net/en/bmw-i3-l01-22-kwh-170hp-19682'),
@@ -281,6 +469,19 @@ RATTAD = {
         '42-2-kwh-170': (1270, ('155/70 R19',), 'https://www.auto-data.net/en/bmw-i3-l01-lci-facelift-2017-42.2-kwh-170hp-34425'),
         'i3s-33-2-kwh-184': (1265, ('175/55 R20',), 'https://www.auto-data.net/en/bmw-i3s-l01-33.2-kwh-184hp-32733'),
         'i3s-42-2-kwh-184': (1290, ('175/55 R20',), 'https://www.auto-data.net/en/bmw-i3s-l01-42.2-kwh-184hp-34426'),
+    },
+    'bmw_i4': {
+        'm50-xdrive-83-9-kwh-xdrive-544': (2215, ('245/45 R18', '245/40 R19', '245/35 R20', '255/35 R20'), 'https://www.auto-data.net/en/bmw-i4-g26-m50-83.9-kwh-544hp-xdrive-43563'),
+        'm60-xdrive-83-9-kwh-xdrive-601': (2210, ('245/40 R19', '245/35 R20'), 'https://www.auto-data.net/en/bmw-i4-g26-lci-facelift-2024-m60-83.9-kwh-601hp-xdrive-54427'),
+    },
+    'bmw_i5': {
+        'm60-xdrive-81-2-kwh-xdrive-601': (2305, ('245/45 R19',), 'https://www.auto-data.net/en/bmw-i5-sedan-g60-m60-81.2-kwh-601hp-xdrive-48720'),
+    },
+    'bmw_ix': {
+        'm60-xdrive-111-5-kwh-xdrive-619': (2584, ('255/50 R21', '275/40 R22'), 'https://www.auto-data.net/en/bmw-ix-i20-m60-111.5-kwh-619hp-xdrive-45257'),
+        'm70-xdrive-108-9-kwh-xdrive-659': (2580, ('275/40 R22',), 'https://www.auto-data.net/en/bmw-ix-i20-lci-facelift-2025-m70-108.9-kwh-659hp-xdrive-53594'),
+        'xdrive50-111-5-kwh-xdrive-523': (2510, ('235/60 R20',), 'https://www.auto-data.net/en/bmw-ix-i20-111.5-kwh-523hp-xdrive50-43229'),
+        'xdrive60-109-1-kwh-xdrive-544': (2505, ('235/60 R20',), 'https://www.auto-data.net/en/bmw-ix-i20-lci-facelift-2025-109.1-kwh-544hp-xdrive60-53593'),
     },
     'bmw_x1_e84': {
         '28i-xdrive-245': (1595, ('225/50 R17', '225/45 R18'), 'https://www.auto-data.net/en/bmw-x1-e84-28i-245hp-xdrive-steptronic-56786'),
@@ -290,6 +491,28 @@ RATTAD = {
         '25d-xdrive-231': (1575, ('225/55 R17', '225/45 R19'), 'https://www.auto-data.net/en/bmw-x1-f48-25d-231hp-xdrive-steptronic-21971'),
         '25e-xdrive-220': (1745, ('225/55 R17',), 'https://www.auto-data.net/en/bmw-x1-f48-lci-facelift-2019-25e-220hp-plug-in-hybrid-xdrive-steptronic-38379'),
         '25i-xdrive-231': (1580, ('225/55 R17',), 'https://www.auto-data.net/en/bmw-x1-f48-25i-231hp-xdrive-steptronic-35947'),
+    },
+    'bmw_x1_u11': {
+        '23d-xdrive-211': (1690, ('205/65 R17',), 'https://www.auto-data.net/en/bmw-x1-u11-23d-211hp-mild-hybrid-xdrive-steptronic-45913'),
+        '23i-xdrive-218': (1655, ('205/65 R17',), 'https://www.auto-data.net/en/bmw-x1-u11-23i-218hp-mild-hybrid-xdrive-steptronic-45911'),
+        '25e-xdrive-245': (1855, ('205/65 R17', '225/55 R18', '245/45 R19'), 'https://www.auto-data.net/en/bmw-x1-u11-25e-245hp-plug-in-hybrid-xdrive-steptronic-49766'),
+        '28i-xdrive-241': (1701, ('245/45 R19',), 'https://www.auto-data.net/en/bmw-x1-u11-28i-241hp-xdrive-steptronic-52148'),
+        '30e-xdrive-326': (1860, ('205/65 R17', '225/55 R18', '245/45 R19'), 'https://www.auto-data.net/en/bmw-x1-u11-30e-326hp-plug-in-hybrid-xdrive-steptronic-49765'),
+        'ix1-edrive20-66-5-kwh-204': (1865, ('205/65 R17',), 'https://www.auto-data.net/en/bmw-ix1-u11-66.5-kwh-204hp-edrive20-50592'),
+        'ix1-xdrive30-68-kwh-xdrive-313': (2010, ('205/65 R17',), 'https://www.auto-data.net/en/bmw-ix1-u11-68-kwh-313hp-xdrive30-46581'),
+        'm35i-xdrive-300': (1719, ('245/45 R19', '245/40 R20'), 'https://www.auto-data.net/en/bmw-x1-u11-m35i-312hp-xdrive-steptronic-53642'),
+        'm35i-xdrive-312': (1719, ('245/45 R19', '245/40 R20'), 'https://www.auto-data.net/en/bmw-x1-u11-m35i-312hp-xdrive-steptronic-53642'),
+    },
+    'bmw_x2_f39': {
+        '25d-xdrive-231': (1620, ('225/55 R17',), 'https://www.auto-data.net/en/bmw-x2-f39-25d-231hp-xdrive-steptronic-38827'),
+        '25e-xdrive-220': (1730, ('225/55 R17',), 'https://www.auto-data.net/en/bmw-x2-f39-25e-220hp-plug-in-hybrid-xdrive-steptronic-40204'),
+        'm35i-xdrive-306': (1610, ('225/45 R19',), 'https://www.auto-data.net/en/bmw-x2-f39-m35i-306hp-xdrive-steptronic-35930'),
+    },
+    'bmw_x2_u10': {
+        'ix2-edrive20-66-5-kwh-204': (1885, ('205/65 R17',), 'https://www.auto-data.net/en/bmw-ix2-u10-66.5-kwh-204hp-edrive20-51144'),
+        'ix2-xdrive30-66-5-kwh-xdrive-313': (2020, ('205/65 R17',), 'https://www.auto-data.net/en/bmw-ix2-u10-66.5-kwh-313hp-xdrive30-50020'),
+        'm35i-xdrive-300': (1695, ('245/40 R20',), 'https://www.auto-data.net/en/bmw-x2-u10-m35i-300hp-xdrive-steptronic-50023'),
+        'm35i-xdrive-312': (1695, ('245/40 R20',), 'https://www.auto-data.net/en/bmw-x2-u10-m35i-300hp-xdrive-steptronic-50023'),
     },
     'bmw_x3_e83': {
         '3-0sd-286': (1875, ('235/50 R18',), 'https://www.auto-data.net/en/bmw-x3-e83-facelift-2006-3.0sd-286hp-steptronic-9784'),
@@ -306,6 +529,11 @@ RATTAD = {
         'm40d-xdrive-340': (2020, ('245/45 R20',), 'https://www.auto-data.net/en/bmw-x3-g01-m40d-340hp-mild-hybrid-xdrive-steptronic-40610'),
         'm40i-xdrive-360': (1845, ('245/45 R20',), 'https://www.auto-data.net/en/bmw-x3-g01-m40i-360hp-xdrive-steptronic-39229'),
         'm40i-xdrive-382': (1992, ('245/50 R19', '245/45 R20', '245/40 R21'), 'https://www.auto-data.net/en/bmw-x3-g01-lci-facelift-2021-m40i-382hp-mild-hybrid-xdrive-steptronic-53772'),
+    },
+    'bmw_x3_g45': {
+        '30e-xdrive-299': (2065, ('245/50 R19',), 'https://www.auto-data.net/en/bmw-x3-g45-30e-299hp-plug-in-hybrid-xdrive-steptronic-52049'),
+        '40d-xdrive-303': (1975, ('225/60 R18', '245/50 R19', '255/45 R20', '255/40 R21'), 'https://www.auto-data.net/en/bmw-x3-g45-40d-303hp-mild-hybrid-xdrive-steptronic-53653'),
+        'm50-xdrive-398': (1980, ('255/45 R20',), 'https://www.auto-data.net/en/bmw-x3-g45-m50-398hp-mild-hybrid-xdrive-steptronic-52051'),
     },
     'bmw_x4_f26': {
         '35d-313': (1860, ('245/50 R18',), 'https://www.auto-data.net/en/bmw-x4-f26-35d-313hp-xdrive-steptronic-19929'),
@@ -343,9 +571,45 @@ RATTAD = {
         'm50i-530': (2235, ('275/40 R21',), 'https://www.auto-data.net/en/bmw-x6-g06-m50i-530hp-xdrive-steptronic-37403'),
         'm60i-530': (2315, ('275/40 R21',), 'https://www.auto-data.net/en/bmw-x6-g06-lci-facelift-2023-m60i-v8-530hp-mild-hybrid-xdrive-steptronic-47474'),
     },
+    'bmw_x7_g07': {
+        'm50i-530': (2490, ('285/45 R21',), 'https://www.auto-data.net/en/bmw-x7-g07-m50i-v8-530hp-xdrive-steptronic-37221'),
+        'm60i-530': (2600, ('285/45 R21', '275/40 R22', '275/35 R23'), 'https://www.auto-data.net/en/bmw-x7-g07-facelift-2022-m60i-530hp-mild-hybrid-xdrive-steptronic-45766'),
+    },
+    'bmw_z3': {
+        '3-0i-231': (1305, ('225/50 R16',), 'https://www.auto-data.net/en/bmw-z3-e36-7-3.0i-231hp-9917'),
+        'm-3-2-321': (1450, ('245/45 R17',), 'https://www.auto-data.net/en/bmw-z3-m-e36-7-3.2-325hp-9924'),
+        'm-3-2-325': (1450, ('245/45 R17',), 'https://www.auto-data.net/en/bmw-z3-m-e36-7-3.2-325hp-9924'),
+    },
+    'bmw_z4_e85': {
+        'm-3-2-343': (1415, ('225/45 R18',), 'https://www.auto-data.net/en/bmw-z4-e85-lci-facelift-2006-m-3.2-343hp-9909'),
+    },
+    'bmw_z4_e89': {
+        'sdrive35i-306': (1600, ('225/45 R17',), 'https://www.auto-data.net/en/bmw-z4-e89-35i-306hp-sdrive-steptronic-21255'),
+        'sdrive35is-340': (1600, ('225/40 R18',), 'https://www.auto-data.net/en/bmw-z4-e89-35is-340hp-sdrive-dct-18656'),
+    },
+    'bmw_z4_g29': {
+        'm40i-3-0-340': (1535, ('255/40 R18',), 'https://www.auto-data.net/en/bmw-z4-g29-m40i-340hp-steptronic-34275'),
+        'm40i-3-0-382': (1562, ('255/40 R18', '255/35 R19'), 'https://www.auto-data.net/en/bmw-z4-g29-m40i-382hp-steptronic-53667'),
+    },
+    'byd_atto2': {
+        '45-12-kwh-177': (1570, (), 'https://www.auto-data.net/en/byd-atto-2-45.12-kwh-177hp-electric-53651'),
+        '51-1-kwh-177': (1590, (), 'https://www.auto-data.net/en/byd-atto-2-51.1-kwh-177hp-electric-55156'),
+        '64-8-kwh-204': (1680, (), 'https://www.auto-data.net/en/byd-atto-2-64.8-kwh-204hp-electric-55157'),
+    },
     'byd_atto3': {
         'evo-74-8-kwh-awd-awd-449': (1990, (), 'https://www.auto-data.net/en/byd-atto-3-evo-74.8-kwh-449hp-awd-electric-56400'),
         'evo-74-8-kwh-rwd-313': (1880, (), 'https://www.auto-data.net/en/byd-atto-3-evo-74.8-kwh-313hp-rwd-electric-56399'),
+    },
+    'byd_dolphin': {
+        '44-9-kwh-177': (None, ('205/50 R17',), 'https://www.auto-data.net/en/byd-dolphin-44.9-kwh-177hp-bev-48442'),
+    },
+    'byd_seal': {
+        '1-5-dm-i-197': (None, ('225/55 R17', '225/50 R18'), 'https://www.auto-data.net/en/byd-seal-dm-i-1.5l-17.6-kwh-197hp-plug-in-hybrid-e-cvt-51280'),
+        '1-5-dm-i-218': (None, ('235/45 R19',), 'https://www.auto-data.net/en/byd-seal-dm-i-1.5t-30.7-kwh-218hp-plug-in-hybrid-e-cvt-51282'),
+    },
+    'byd_seal_u': {
+        '71-8-kwh-218': (2020, ('235/50 R19',), 'https://www.auto-data.net/en/byd-seal-u-71.8-kwh-218hp-electric-51217'),
+        '87-kwh-218': (2147, ('235/50 R19',), 'https://www.auto-data.net/en/byd-seal-u-87-kwh-218hp-electric-51218'),
     },
     'chevrolet_aveo_t300': {
         '1-6-16v-115': (1162, ('205/55 R16',), 'https://www.auto-data.net/en/chevrolet-aveo-ii-sedan-1.6-16v-115hp-16928'),
@@ -367,11 +631,26 @@ RATTAD = {
         '5-7-v8-340': (1935, ('225/60 R18',), 'https://www.auto-data.net/en/chrysler-300-5.7-i-v8-awd-340hp-14689'),
         'srt-8-6-1-v8-425': (1888, ('245/45 R20', '255/45 R20'), 'https://www.auto-data.net/en/chrysler-300-6.1-i-v8-16v-srt-8-425hp-14690'),
     },
+    'citroen_berlingo_1': {
+        '1-6i-16v-110': (1170, ('185/65 R15',), 'https://www.auto-data.net/en/citroen-berlingo-i-phase-i-1996-1.6i-16v-110hp-15157'),
+    },
     'citroen_berlingo_2': {
         'electrique-22-5-kwh-67': (1604, ('195/70 R15',), 'https://www.auto-data.net/en/citroen-berlingo-ii-phase-iii-2015-22.5-kwh-67hp-32713'),
     },
     'citroen_berlingo_3': {
         'e-berlingo-50-kwh-136': (1724, ('205/60 R16',), 'https://www.auto-data.net/en/citroen-berlingo-iii-m-phase-i-2018-e-berlingo-50-kwh-136hp-7-seat-44026'),
+    },
+    'citroen_bx': {
+        '1-9-gti-120': (1025, ('185/60 R14',), 'https://www.auto-data.net/en/citroen-bx-i-phase-ii-1987-19-gti-125hp-15256'),
+        '1-9-gti-125': (1025, ('185/60 R14',), 'https://www.auto-data.net/en/citroen-bx-i-phase-ii-1987-19-gti-125hp-15256'),
+        '1-9-gti-16v-147': (1070, ('195/60 R14',), 'https://www.auto-data.net/en/citroen-bx-i-phase-ii-1987-19-gti-16v-160hp-15258'),
+        '1-9-gti-16v-160': (1070, ('195/60 R14',), 'https://www.auto-data.net/en/citroen-bx-i-phase-ii-1987-19-gti-16v-160hp-15258'),
+        '1-9-sport-126': (1010, ('185/60 R14',), 'https://www.auto-data.net/en/citroen-bx-i-phase-i-1982-19-sport-126hp-27345'),
+        '4-tc-2-0-4x4-200': (1280, (), 'https://www.auto-data.net/en/citroen-bx-i-phase-i-1982-4-tc-2.0-200hp-4x4-27330'),
+    },
+    'citroen_c3_1': {
+        '1-6-hdi-109': (1127, ('175/65 R14', '185/60 R15', '195/50 R16'), 'https://www.auto-data.net/en/citroen-c3-i-phase-ii-2005-1.6-hdi-109hp-fap-15092'),
+        '1-6i-16v-109': (1063, ('185/60 R15',), 'https://www.auto-data.net/en/citroen-c3-i-phase-i-2002-1.6i-16v-109hp-sensodrive-24745'),
     },
     'citroen_c3_2': {
         '1-2-puretech-110': (1170, ('195/55 R16',), 'https://www.auto-data.net/en/citroen-c3-ii-phase-ii-2013-1.2-puretech-110hp-start-stop-21077'),
@@ -382,6 +661,32 @@ RATTAD = {
     'citroen_c3_3': {
         '1-2-puretech-110': (1050, ('205/55 R16',), 'https://www.auto-data.net/en/citroen-c3-iii-phase-i-2016-1.2-puretech-110hp-26409'),
         '1-5-bluehdi-102': (1090, ('205/55 R16',), 'https://www.auto-data.net/en/citroen-c3-iii-phase-i-2016-1.5-bluehdi-102hp-38815'),
+    },
+    'citroen_c3_4': {
+        '1-2-hybrid-e-dcs-101': (1252, ('205/55 R16', '205/50 R17'), 'https://www.auto-data.net/en/citroen-c3-iv-phase-i-2024-1.2-110hp-mild-hybrid-e-dcs-54289'),
+        '1-2-hybrid-e-dcs-110': (1252, ('205/55 R16', '205/50 R17'), 'https://www.auto-data.net/en/citroen-c3-iv-phase-i-2024-1.2-110hp-mild-hybrid-e-dcs-54289'),
+        'c3-standard-range-44-kwh-113': (None, ('205/50 R17',), 'https://www.auto-data.net/en/citroen-c3-iv-phase-i-2024-e-c3-44-kwh-113hp-standard-range-51042'),
+        'c3-urban-range-30-3-kwh-113': (1338, ('205/55 R16', '205/50 R17'), 'https://www.auto-data.net/en/citroen-c3-iv-phase-i-2024-e-c3-30.3-kwh-113hp-urban-range-56945'),
+    },
+    'citroen_c3_aircross': {
+        '1-2-puretech-130': (1205, ('195/60 R16', '205/60 R16', '215/50 R17'), 'https://www.auto-data.net/en/citroen-c3-aircross-i-phase-i-2017-1.2-puretech-130hp-automatic-39046'),
+        '1-2-puretech-131': (1205, ('195/60 R16', '205/60 R16', '215/50 R17'), 'https://www.auto-data.net/en/citroen-c3-aircross-i-phase-ii-2021-1.2-puretech-131hp-automatic-42504'),
+    },
+    'citroen_c4_1': {
+        'vts-2-0i-16v-177': (1337, ('205/50 R17',), 'https://www.auto-data.net/en/citroen-c4-i-coupe-phase-i-2004-vts-2.0i-16v-177hp-15174'),
+    },
+    'citroen_c4_3': {
+        '1-2-hybrid-e-dcs-101': (1324, ('195/60 R18',), 'https://www.auto-data.net/en/citroen-c4-iii-phase-i-2020-1.2-101hp-mild-hybrid-e-dsc-52648'),
+        '1-2-hybrid-e-dcs-110': (1324, ('195/60 R18',), 'https://www.auto-data.net/en/citroen-c4-iii-phase-i-2020-1.2-101hp-mild-hybrid-e-dsc-52648'),
+        '1-2-hybrid-e-dcs-136': (1335, ('195/60 R18',), 'https://www.auto-data.net/en/citroen-c4-iii-phase-i-2020-1.2-136hp-mild-hybrid-e-dsc-52649'),
+        '1-2-hybrid-e-dcs-145': (1335, ('195/60 R18',), 'https://www.auto-data.net/en/citroen-c4-iii-phase-i-2020-1.2-136hp-mild-hybrid-e-dsc-52649'),
+        '1-2-puretech-155': (1299, ('195/60 R18',), 'https://www.auto-data.net/en/citroen-c4-iii-phase-i-2020-1.2-puretech-155hp-automatic-42198'),
+        'c4-50-kwh-136': (1541, ('195/60 R18',), 'https://www.auto-data.net/en/citroen-c4-iii-phase-i-2020-e-c4-50-kwh-136hp-41600'),
+        'c4-54-kwh-156': (1561, ('195/60 R18',), 'https://www.auto-data.net/en/citroen-c4-iii-phase-i-2020-e-c4-54-kwh-156hp-50633'),
+    },
+    'citroen_c4_cactus': {
+        '1-2-puretech-130': (1085, ('205/55 R16', '205/50 R17'), 'https://www.auto-data.net/en/citroen-c4-cactus-phase-ii-2018-1.2-puretech-130hp-39020'),
+        '1-5-bluehdi-120': (1180, ('205/55 R16', '205/50 R17'), 'https://www.auto-data.net/en/citroen-c4-cactus-phase-ii-2018-1.5-bluehdi-120hp-eat6-39022'),
     },
     'citroen_c4_picasso_2': {
         '1-6-thp-165': (1310, ('205/60 R16', '205/55 R17'), 'https://www.auto-data.net/en/citroen-c4-ii-picasso-phase-i-2013-1.6-thp-165hp-s-s-automatic-21091'),
@@ -405,6 +710,32 @@ RATTAD = {
         'plug-in-hybrid-195-195': (1874, ('235/55 R19', '235/50 R20'), 'https://www.auto-data.net/en/citroen-c5-aircross-ii-phase-i-2025-1.6-195hp-plug-in-hybrid-e-dcs-55490'),
         'plug-in-hybrid-225-225': (1750, ('215/65 R17', '225/55 R18', '205/55 R19'), 'https://www.auto-data.net/en/citroen-c5-aircross-i-phase-i-2017-hybrid-225-225hp-plug-in-hybrid-automatic-38708'),
     },
+    'citroen_c5x': {
+        '1-2-puretech-131': (1493, (), 'https://www.auto-data.net/en/citroen-c5-x-1.2-puretech-131hp-automatic-44586'),
+        '1-6-puretech-181': (1467, ('205/55 R19',), 'https://www.auto-data.net/en/citroen-c5-x-1.6-puretech-181hp-automatic-45453'),
+    },
+    'citroen_jumpy_1': {
+        '2-0-136': (1545, ('205/65 R15',), 'https://www.auto-data.net/en/citroen-jumpy-i-combi-2.0-136hp-automatic-9-seat-46418'),
+        '2-0-hdi-109': (1415, ('205/65 R15',), 'https://www.auto-data.net/en/citroen-jumpy-i-2.0-hdi-109hp-46348'),
+    },
+    'citroen_jumpy_3': {
+        'e-jumpy-50-kwh-136': (1862, ('215/65 R16',), 'https://www.auto-data.net/en/citroen-jumpy-iii-m-e-jumpy-50-kwh-136hp-43914'),
+        'e-jumpy-75-kwh-136': (1874, ('215/65 R16',), 'https://www.auto-data.net/en/citroen-jumpy-iii-m-e-jumpy-75-kwh-136hp-43915'),
+    },
+    'citroen_xantia': {
+        '2-0-turbo-147': (1376, ('205/65 R15',), 'https://www.auto-data.net/en/citroen-xantia-x1-2.0-turbo-147hp-14966'),
+        '2-0i-16v-132': (1238, ('185/65 R15',), 'https://www.auto-data.net/en/citroen-xantia-x1-2.0i-16v-132hp-14964'),
+        '2-0i-16v-152': (1302, ('205/55 R15',), 'https://www.auto-data.net/en/citroen-xantia-x1-2.0i-16v-152hp-14965'),
+        '3-0-v6-190': (1451, ('205/65 R15',), 'https://www.auto-data.net/en/citroen-xantia-x1-3.0i-v6-24v-190hp-14968'),
+    },
+    'citroen_xsara': {
+        '2-0-16v-136': (1173, ('195/55 R15',), 'https://www.auto-data.net/en/citroen-xsara-n1-phase-ii-2.0-16v-136hp-24739'),
+    },
+    'cupra_born': {
+        '62-kwh-e-boost-231': (1749, ('215/50 R19', '215/45 R20'), 'https://www.auto-data.net/en/cupra-born-e-boost-62-kwh-231hp-electric-45438'),
+        '82-kwh-e-boost-231': (1871, ('215/50 R19', '215/45 R20'), 'https://www.auto-data.net/en/cupra-born-e-boost-82-kwh-231hp-electric-45441'),
+        'vz-84-kwh-326': (1999, ('215/45 R20', '235/40 R20'), 'https://www.auto-data.net/en/cupra-born-vz-84-kwh-326hp-electric-52046'),
+    },
     'cupra_formentor': {
         '1-4-tsi-e-hybrid-204': (1606, ('245/45 R18', '245/40 R19'), 'https://www.auto-data.net/en/cupra-formentor-1.4-tsi-204hp-e-hybrid-dsg-43390'),
         '1-4-tsi-e-hybrid-245': (1629, ('245/40 R19',), 'https://www.auto-data.net/en/cupra-formentor-1.4-tsi-245hp-e-hybrid-dsg-42287'),
@@ -417,8 +748,31 @@ RATTAD = {
         'vz-2-0-tsi-4drive-333': (1566, ('245/40 R19',), 'https://www.auto-data.net/en/cupra-formentor-facelift-2024-2.0-tsi-333hp-4drive-dsg-53214'),
         'vz5-2-5-tsi-4drive-390': (1608, ('255/35 R20',), 'https://www.auto-data.net/en/cupra-formentor-vz5-2.5-tsi-390hp-4drive-dsg-44952'),
     },
+    'cupra_leon': {
+        '1-4-tsi-e-hybrid-204': (1558, ('225/40 R18',), 'https://www.auto-data.net/en/cupra-leon-1.4-tsi-204hp-e-hybrid-dsg-45448'),
+        '1-4-tsi-e-hybrid-245': (1558, ('235/35 R19',), 'https://www.auto-data.net/en/cupra-leon-1.4-tsi-245hp-e-hybrid-dsg-41496'),
+        '1-5-etsi-150': (1289, ('225/40 R18', '235/35 R19'), 'https://www.auto-data.net/en/cupra-leon-1.5-etsi-150hp-mild-hybrid-dsg-51758'),
+        '1-5-tsi-e-hybrid-204': (1598, ('235/35 R19',), 'https://www.auto-data.net/en/cupra-leon-facelift-2024-1.5-tsi-204hp-e-hybrid-dsg-53236'),
+        '1-5-tsi-e-hybrid-272': (1633, ('235/35 R19',), 'https://www.auto-data.net/en/cupra-leon-facelift-2024-1.5-tsi-272hp-e-hybrid-dsg-53237'),
+    },
+    'cupra_terramar': {
+        '1-5-etsi-150': (1563, ('235/55 R18', '255/45 R19', '255/40 R20'), 'https://www.auto-data.net/en/cupra-terramar-1.5-etsi-150hp-mild-hybrid-dsg-52621'),
+        '1-5-tsi-e-hybrid-204': (1823, ('235/55 R18', '255/45 R19', '255/45 R20'), 'https://www.auto-data.net/en/cupra-terramar-1.5-tsi-204hp-e-hybrid-dsg-53218'),
+        '1-5-tsi-e-hybrid-272': (1829, ('235/55 R18', '255/45 R19', '255/40 R20'), 'https://www.auto-data.net/en/cupra-terramar-1.5-tsi-272hp-e-hybrid-dsg-52623'),
+    },
+    'dacia_bigster': {
+        '1-2-tce-140': (1350, ('215/65 R17', '215/60 R18', '205/55 R19'), 'https://www.auto-data.net/en/dacia-bigster-1.2-tce-140hp-mild-hybrid-53506'),
+        '1-2-tce-4x4-130': (1428, ('215/65 R17', '215/60 R18', '205/55 R19'), 'https://www.auto-data.net/en/dacia-bigster-1.2-tce-130hp-mild-hybrid-4x4-53507'),
+        '1-8-hybrid-156': (1419, ('215/65 R17', '215/60 R18', '205/55 R19'), 'https://www.auto-data.net/en/dacia-bigster-1.8-156hp-hybrid-automatic-53509'),
+    },
     'dacia_duster_2': {
         '1-3-tce-150': (1309, ('215/60 R17',), 'https://www.auto-data.net/en/dacia-duster-ii-1.3-tce-150hp-gpf-35557'),
+    },
+    'dacia_duster_3': {
+        '1-0-eco-g-101': (1276, ('215/70 R16', '215/60 R18'), 'https://www.auto-data.net/en/dacia-duster-iii-1.0-eco-g-91-101hp-51388'),
+        '1-2-eco-g-120': (1318, ('215/70 R16', '215/65 R17', '215/60 R18'), 'https://www.auto-data.net/en/dacia-duster-iii-1.2-eco-g-120hp-56509'),
+        '1-2-tce-hybrid-g-4x4-150': (1484, ('225/60 R17', '225/55 R18'), 'https://www.auto-data.net/en/dacia-duster-iii-1.2-tce-150hp-hybrid-g-4x4-edc-56506'),
+        '1-5-dci-115': (1343, ('215/70 R16', '215/65 R17', '215/60 R18'), 'https://www.auto-data.net/en/dacia-duster-iii-1.5-dci-115hp-55407'),
     },
     'dacia_jogger': {
         '1-6-hybrid-141': (1385, ('205/60 R16',), 'https://www.auto-data.net/en/dacia-jogger-facelift-2022-1.6-141hp-hybrid-automatic-7-seat-47182'),
@@ -430,11 +784,37 @@ RATTAD = {
         '1-2-eco-g-120-122': (1205, ('195/55 R16',), 'https://www.auto-data.net/en/dacia-sandero-iii-facelift-2025-1.2-eco-g-120-114-122hp-lpg-edc-55968'),
         '1-8-hybrid-155-158': (1258, ('185/65 R15', '195/55 R16'), 'https://www.auto-data.net/en/dacia-sandero-iii-facelift-2025-1.8-155-158hp-hybrid-multi-mode-57736'),
     },
+    'dacia_spring': {
+        'electric-102-24-3-kwh-102': (995, ('165/65 R15',), 'https://www.auto-data.net/en/dacia-spring-i-facelift-2024-24.3-kwh-102hp-electric-56628'),
+        'electric-71-24-3-kwh-71': (995, ('165/70 R14', '165/65 R15'), 'https://www.auto-data.net/en/dacia-spring-i-facelift-2024-24.3-kwh-71hp-electric-56627'),
+        'electric-82-27-5-kwh-82': (1212, (), 'https://www.auto-data.net/en/dacia-spring-ii-27.5-kwh-82hp-electric-57795'),
+    },
     'fiat_500_312': {
         '1-4-multiair-135': (1168, ('195/45 R16',), 'https://www.auto-data.net/en/fiat-500-312-facelift-2015-1.4-multiair-135hp-automatic-39070'),
     },
+    'fiat_500l': {
+        '1-4-multiair-160': (1476, ('205/55 R16', '225/45 R17'), 'https://www.auto-data.net/en/fiat-500l-facelift-2017-1.4-multiair-160hp-automatic-39208'),
+    },
+    'fiat_500x': {
+        '1-3-turbo-awd-4x4-177': (1499, ('215/60 R17', '225/55 R18'), 'https://www.auto-data.net/en/fiat-500x-urban-facelift-2018-1.3-turbo-177hp-awd-automatic-39209'),
+        '1-5-gse-mild-hybrid-130': (1405, ('215/60 R16', '215/55 R17', '225/45 R18', '225/40 R19'), 'https://www.auto-data.net/en/fiat-500x-facelift-2022-1.5-gse-130hp-mild-hybrid-dct-47332'),
+    },
+    'fiat_bravo_2': {
+        '1-4-multiair-140': (1275, ('205/55 R16',), 'https://www.auto-data.net/en/fiat-bravo-ii-198-1.4-multiair-140hp-turbo-31572'),
+        '1-4-t-jet-150': (1275, ('205/55 R16', '225/45 R17', '225/40 R18'), 'https://www.auto-data.net/en/fiat-bravo-ii-198-1.4-t-jet-150hp-7176'),
+        '1-9-multijet-150': (1360, ('205/55 R16',), 'https://www.auto-data.net/en/fiat-bravo-ii-198-1.9-multijet-150hp-7180'),
+        '2-0-multijet-165': (1360, ('225/45 R17',), 'https://www.auto-data.net/en/fiat-bravo-ii-198-2.0-multijet-165hp-16762'),
+    },
+    'fiat_doblo_3': {
+        'e-doblo-50-kwh-136': (1664, ('205/60 R16',), 'https://www.auto-data.net/en/fiat-doblo-iii-k9-e-doblo-50-kwh-136hp-46480'),
+    },
     'fiat_panda_3': {
         '1-0-gse-mild-hybrid-70': (980, ('175/65 R14', '185/55 R15', '195/45 R16'), 'https://www.auto-data.net/en/fiat-panda-iii-319-facelift-2020-1.0-gse-70hp-mild-hybrid-51630'),
+    },
+    'fiat_punto_2': {
+        '1-4-16v-95': (960, ('165/70 R14',), 'https://www.auto-data.net/en/fiat-punto-ii-188-facelift-2003-3dr-1.4-95hp-6974'),
+        '1-9-multijet-100': (1075, ('185/55 R15',), 'https://www.auto-data.net/en/fiat-punto-ii-188-facelift-2003-3dr-1.9-multijet-100hp-6978'),
+        'hgt-1-8-131': (1040, ('185/55 R15',), 'https://www.auto-data.net/en/fiat-punto-ii-188-facelift-2003-3dr-hgt-1.8-131hp-6976'),
     },
     'fiat_punto_3': {
         '1-4-t-jet-multiair-135': (1170, ('185/65 R15', '195/55 R16', '205/45 R17'), 'https://www.auto-data.net/en/fiat-punto-evo-199-1.4-16v-t-jet-multiair-135hp-start-stop-16753'),
@@ -443,11 +823,35 @@ RATTAD = {
     'fiat_tipo_2': {
         '1-5-t4-gse-mild-hybrid-130': (1330, ('205/55 R16',), 'https://www.auto-data.net/en/fiat-tipo-357-facelift-2020-hatchback-1.5-t4-gse-130hp-mild-hybrid-edct-47024'),
     },
+    'fiat_uno': {
+        '1-4-i-71': (825, ('155/70 R13',), 'https://www.auto-data.net/en/fiat-uno-146a-1.4-i-71hp-7232'),
+        '1-4-i-turbo-114': (940, ('175/60 R13',), 'https://www.auto-data.net/en/fiat-uno-146a-1.4-i-turbo-114hp-7234'),
+        '1-4-td-72': (910, ('155/70 R13',), 'https://www.auto-data.net/en/fiat-uno-146a-1.4-td-72hp-7235'),
+        '1-5-i-76': (840, ('155/70 R13',), 'https://www.auto-data.net/en/fiat-uno-146a-1.5-i-76hp-7236'),
+    },
+    'ford_cmax_2': {
+        '1-5-ecoboost-182': (1338, ('205/55 R16', '215/55 R16', '215/50 R17', '235/40 R18'), 'https://www.auto-data.net/en/ford-c-max-ii-facelift-2015-1.5-ecoboost-182hp-powershift-s-s-21445'),
+        '1-6-ecoboost-182': (1310, ('215/55 R16',), 'https://www.auto-data.net/en/ford-c-max-ii-1.6-ecoboost-182hp-s-s-46351'),
+    },
     'ford_escort_7': {
         'rs-2000-150': (1096, ('195/50 R15',), 'https://www.auto-data.net/en/ford-escort-v-gal-rs-2000-150hp-7468'),
     },
+    'ford_explorer_ev': {
+        'extended-range-awd-82-kwh-awd-340': (2092, ('235/55 R19', '235/50 R20', '235/45 R21'), 'https://www.auto-data.net/en/ford-explorer-ev-82-kwh-340hp-extended-range-awd-51464'),
+        'extended-range-rwd-82-kwh-286': (2015, ('235/55 R19', '235/50 R20', '235/45 R21'), 'https://www.auto-data.net/en/ford-explorer-ev-82-kwh-286hp-extended-range-rwd-51463'),
+    },
+    'ford_fiesta_3': {
+        '1-6-16v-88': (990, ('185/55 R14',), 'https://www.auto-data.net/en/ford-fiesta-iii-mk3-1.6-i-16v-88hp-8059'),
+        '1-6-i-110': (845, ('135/80 R13',), 'https://www.auto-data.net/en/ford-fiesta-iii-mk3-1.6-i-110hp-8058'),
+        '1-8-16v-105': (950, ('155/70 R13',), 'https://www.auto-data.net/en/ford-fiesta-iii-mk3-1.8-16v-105hp-8062'),
+        'turbo-1-6-133': (920, ('185/55 R14',), 'https://www.auto-data.net/en/ford-fiesta-iii-mk3-1.6-i-turbo-133hp-8060'),
+        'xr2i-1-8-16v-130': (907, ('185/55 R14',), 'https://www.auto-data.net/en/ford-fiesta-iii-mk3-1.8-xr2i-16v-130hp-8064'),
+    },
     'ford_fiesta_4': {
         '1-6-16v-sport-103': (1029, ('195/50 R15',), 'https://www.auto-data.net/en/ford-fiesta-v-mk5-3-door-1.6-16v-sport-103hp-8048'),
+    },
+    'ford_fiesta_5': {
+        'st-2-0-150': (1165, ('195/45 R16',), 'https://www.auto-data.net/en/ford-fiesta-vi-mk6-facelift-2005-3-door-st-2.0-duratec-he-150hp-8043'),
     },
     'ford_fiesta_6': {
         '1-0-ecoboost-100': (1016, ('175/65 R14', '195/55 R15'), 'https://www.auto-data.net/en/ford-fiesta-vii-mk7-facelift-2012-5-door-1.0-ecoboost-100hp-start-stop-46870'),
@@ -501,6 +905,13 @@ RATTAD = {
         'st-2-0-ecoblue-190': (1473, ('235/40 R18',), 'https://www.auto-data.net/en/ford-focus-iv-hatchback-st-2.0-ecoblue-190hp-37682'),
         'st-2-3-ecoboost-280': (1459, ('235/40 R18',), 'https://www.auto-data.net/en/ford-focus-iv-hatchback-st-2.3-ecoboost-280hp-automatic-37603'),
     },
+    'ford_galaxy_1': {
+        '2-8-v6-174': (1785, ('205/60 R15',), 'https://www.auto-data.net/en/ford-galaxy-i-2.8i-v6-174hp-7893'),
+        '2-8-v6-204': (1700, ('205/60 R15',), 'https://www.auto-data.net/en/ford-galaxy-i-2.8-v6-204hp-7895'),
+    },
+    'ford_galaxy_3': {
+        '2-5-hybrid-190': (1903, ('235/55 R17', '235/50 R18'), 'https://www.auto-data.net/en/ford-galaxy-iii-facelift-2019-2.5-duratec-190hp-hybrid-cvt-7-seats-42204'),
+    },
     'ford_kuga_2': {
         '1-5-ecoboost-4x4-182': (1686, ('235/50 R18',), 'https://www.auto-data.net/en/ford-kuga-ii-facelift-2016-1.5-ecoboost-182hp-4x4-automatic-25762'),
         '1-6-ecoboost-4x4-182': (1682, (), 'https://www.auto-data.net/en/ford-kuga-ii-1.6-ecoboost-182hp-4x4-automatic-18050'),
@@ -520,6 +931,9 @@ RATTAD = {
     'ford_mondeo_1': {
         '2-5-st200-205': (1345, ('215/45 R17',), 'https://www.auto-data.net/en/ford-mondeo-i-hatchback-facelift-1996-2.5-st-200-205hp-7716'),
         '2-5-v6-24v-170': (1340, ('205/55 R15',), 'https://www.auto-data.net/en/ford-mondeo-i-hatchback-2.5i-24v-170hp-7735'),
+    },
+    'ford_mondeo_2': {
+        '2-5-st200-205': (1345, ('215/45 R17',), 'https://www.auto-data.net/en/ford-mondeo-i-hatchback-facelift-1996-2.5-st-200-205hp-7716'),
     },
     'ford_mondeo_3': {
         '2-5-v6-170': (1477, ('205/55 R16',), 'https://www.auto-data.net/en/ford-mondeo-ii-hatchback-2.5-v6-170hp-automatic-29225'),
@@ -548,6 +962,10 @@ RATTAD = {
         'st-1-0-ecoboost-hybrid-170': (1315, ('225/40 R19',), 'https://www.auto-data.net/en/ford-puma-facelift-2024-st-1.0-ecoboost-170hp-mild-hybrid-powershift-51181'),
         'st-1-5-ecoboost-200': (1358, ('225/40 R19',), 'https://www.auto-data.net/en/ford-puma-st-1.5-ecoboost-200hp-41462'),
     },
+    'ford_ranger_p703': {
+        '2-3-ecoboost-phev-e-4wd-281': (2507, ('255/65 R17', '255/65 R18'), 'https://www.auto-data.net/en/ford-ranger-iv-double-cab-2.3-ecoboost-281hp-plug-in-hybrid-e-4wd-automatic-55706'),
+        'raptor-3-0-ecoboost-v6-e-4wd-292': (2454, ('285/70 R17',), 'https://www.auto-data.net/en/ford-ranger-iv-double-cab-raptor-3.0-ecoboost-v6-292hp-e-4wd-automatic-46825'),
+    },
     'ford_smax_1': {
         '2-0-ecoboost-240': (1661, (), 'https://www.auto-data.net/en/ford-s-max-facelift-2010-2.0-ecoboost-240hp-powershift-18024'),
     },
@@ -555,10 +973,37 @@ RATTAD = {
         '2-0-bi-turbo-ecoblue-240': (1876, ('235/55 R17', '235/50 R18'), 'https://www.auto-data.net/en/ford-s-max-ii-facelift-2019-2.0-bi-turbo-ecoblue-240hp-automatic-39275'),
         '2-5-hybrid-190': (1827, ('235/55 R17', '235/50 R18', '245/45 R19'), 'https://www.auto-data.net/en/ford-s-max-ii-facelift-2019-2.5-190hp-hybrid-cvt-42318'),
     },
+    'ford_transit_connect_2': {
+        '1-6-ecoboost-150': (1391, ('205/60 R16',), 'https://www.auto-data.net/en/ford-transit-connect-ii-panel-van-l1-1.6-ecoboost-150hp-automatic-53292'),
+    },
+    'ford_transit_connect_3': {
+        '1-5-ecoboost-phev-150': (1694, ('215/55 R17',), 'https://www.auto-data.net/en/ford-transit-connect-iii-panel-van-l1-1.5-ecoboost-150hp-plug-in-hybrid-dsg-53224'),
+    },
     'ford_transit_custom': {
         '1-0-ecoboost-phev-126': (2609, ('215/60 R17',), 'https://www.auto-data.net/en/ford-tourneo-custom-i-facelift-2018-l1-1.0-ecoboost-126hp-plug-in-hybrid-automatic-48795'),
         '2-0-ecoblue-185': (2438, ('215/65 R16',), 'https://www.auto-data.net/en/ford-tourneo-custom-i-facelift-2018-l1-2.0-ecoblue-185hp-automatic-48794'),
         '2-0-ecoblue-mhev-130': (2353, ('215/65 R16',), 'https://www.auto-data.net/en/ford-tourneo-custom-i-facelift-2018-l1-2.0-ecoblue-130hp-mild-hybrid-48788'),
+    },
+    'ford_transit_custom_2': {
+        '2-5-duratec-phev-233': (None, ('215/65 R16', '215/60 R17', '235/50 R19'), 'https://www.auto-data.net/en/ford-tourneo-custom-ii-l1-2.5-duratec-233hp-plug-in-hybrid-cvt-52391'),
+        'e-transit-custom-82-5-kwh-218': (2589, ('215/65 R16', '215/60 R17', '235/50 R19'), 'https://www.auto-data.net/en/ford-tourneo-custom-ii-l1-82.5-kwh-218hp-52392'),
+    },
+    'honda_accord_5': {
+        '2-3i-sr-158': (1320, ('195/60 R15',), 'https://www.auto-data.net/en/honda-accord-v-cc7-2.3-i-sr-158hp-12078'),
+    },
+    'honda_accord_6': {
+        '2-2-type-r-212': (1345, ('215/45 R17',), 'https://www.auto-data.net/en/honda-accord-vi-ce-cf-2.2-type-r-212hp-12062'),
+    },
+    'honda_civic_11': {
+        '2-0-i-mmd-e-hev-184': (1442, ('215/50 R17', '235/40 R18'), 'https://www.auto-data.net/en/honda-civic-xi-2.0-i-mmd-184hp-ehev-e-cvt-46986'),
+    },
+    'honda_civic_6': {
+        '1-6-vti-160': (1190, ('195/55 R15',), 'https://www.auto-data.net/en/honda-civic-vi-1.6-i-vti-160hp-12263'),
+        '1-8-16v-169': (1220, ('195/55 R15',), 'https://www.auto-data.net/en/honda-civic-vi-fastback-1.8-16v-169hp-12246'),
+    },
+    'honda_civic_7': {
+        '1-3-ima-93': (1239, ('185/70 R14',), 'https://www.auto-data.net/en/honda-civic-vii-sedan-1.3-93hp-hybrid-e-cvt-48994'),
+        'type-s-2-0-i-vtec-160': (1286, ('205/55 R16',), 'https://www.auto-data.net/en/honda-civic-vii-hatchback-5d-2.0-i-16v-type-s-160hp-12225'),
     },
     'honda_civic_8': {
         '1-3-i-dsi-ima-110': (1304, ('195/65 R15',), 'https://www.auto-data.net/en/honda-civic-viii-sedan-1.3-i-dsi-ima-110hp-hybrid-e-cvt-12214'),
@@ -579,6 +1024,21 @@ RATTAD = {
     'honda_jazz_2': {
         '1-3-ima-88': (1162, ('175/65 R15',), 'https://www.auto-data.net/en/honda-jazz-ii-facelift-2011-1.3-ima-88hp-hybrid-18528'),
     },
+    'hyundai_getz': {
+        '1-4-i-16v-97': (1000, ('175/65 R14',), 'https://www.auto-data.net/en/hyundai-getz-1.4-i-16v-97hp-automatic-13784'),
+        '1-5-crdi-hp-110': (1187, ('175/65 R14',), 'https://www.auto-data.net/en/hyundai-getz-1.5-crdi-hp-110hp-13786'),
+        '1-6-mpi-105': (1005, ('185/55 R15',), 'https://www.auto-data.net/en/hyundai-getz-1.6-mpi-105hp-automatic-13788'),
+    },
+    'hyundai_i10_3': {
+        'n-line-1-0-t-gdi-100': (None, ('195/45 R16',), 'https://www.auto-data.net/en/hyundai-i10-iii-n-line-1.0-t-gdi-100hp-37588'),
+    },
+    'hyundai_i20_1': {
+        '1-6-126': (1157, ('175/70 R14',), 'https://www.auto-data.net/en/hyundai-i20-i-pb-1.6-126hp-automatic-13927'),
+        '1-6-crdi-128': (1223, ('185/60 R15',), 'https://www.auto-data.net/en/hyundai-i20-i-pb-1.6-crdi-128hp-31443'),
+    },
+    'hyundai_i20_3': {
+        'n-1-6-t-gdi-204': (1190, ('215/40 R18',), 'https://www.auto-data.net/en/hyundai-i20-iii-n-1.6-t-gdi-204hp-43685'),
+    },
     'hyundai_i30_2': {
         '1-6-t-gdi-186': (1292, ('225/40 R18',), 'https://www.auto-data.net/en/hyundai-i30-ii-facelift-2015-1.6-t-gdi-186hp-23662'),
         '1-8-150': (1240, ('205/55 R16', '225/45 R17'), 'https://www.auto-data.net/en/hyundai-i30-ii-1.8-150hp-automatic-37606'),
@@ -588,12 +1048,23 @@ RATTAD = {
         'n-performance-2-0-t-gdi-275': (1429, ('225/40 R18', '235/35 R19'), 'https://www.auto-data.net/en/hyundai-i30-iii-n-performance-2.0-t-gdi-275hp-30086'),
         'n-performance-2-0-t-gdi-280': (1419, ('235/35 R19',), 'https://www.auto-data.net/en/hyundai-i30-iii-facelift-2020-n-performance-2.0-t-gdi-280-кс-43365'),
     },
+    'hyundai_ioniq': {
+        'electric-30-5-kwh-120': (1420, ('205/55 R16',), 'https://www.auto-data.net/en/hyundai-ioniq-30.5-kwh-120hp-electric-30667'),
+        'electric-40-4-kwh-136': (1527, ('205/60 R16',), 'https://www.auto-data.net/en/hyundai-ioniq-facelift-2019-40.4-kwh-136hp-electric-37746'),
+    },
     'hyundai_ioniq5': {
         '77-4-kwh-awd-awd-325': (2025, ('235/55 R19', '255/45 R20'), 'https://www.auto-data.net/en/hyundai-ioniq-5-77.4-kwh-325hp-electric-awd-44596'),
         'long-range-72-6-kwh-awd-awd-305': (2020, ('235/55 R19', '255/45 R20'), 'https://www.auto-data.net/en/hyundai-ioniq-5-long-range-72.6-kwh-305hp-electric-awd-42370'),
         'long-range-84-kwh-awd-awd-325': (2120, ('235/55 R19', '255/45 R20'), 'https://www.auto-data.net/en/hyundai-ioniq-5-facelift-2024-long-range-84-kwh-325hp-electric-awd-51443'),
         'n-84-kwh-awd-awd-650': (None, ('275/35 R21',), 'https://www.auto-data.net/en/hyundai-ioniq-5-n-84-kwh-650hp-electric-awd-49033'),
         'xrt-84-kwh-awd-awd-320': (2135, ('235/60 R18',), 'https://www.auto-data.net/en/hyundai-ioniq-5-facelift-2024-xrt-84-kwh-320hp-electric-awd-53731'),
+    },
+    'hyundai_ioniq6': {
+        '84-kwh-229': (1925, ('225/55 R18', '245/40 R20'), 'https://www.auto-data.net/en/hyundai-ioniq-6-facelift-2025-84-kwh-229hp-56184'),
+        '84-kwh-awd-awd-325': (2030, ('225/55 R18', '245/40 R20'), 'https://www.auto-data.net/en/hyundai-ioniq-6-facelift-2025-84-kwh-325hp-awd-56185'),
+        'long-range-77-4-kwh-229': (1930, ('225/55 R18', '245/40 R20'), 'https://www.auto-data.net/en/hyundai-ioniq-6-longrange-77.4-kwh-229hp-bev-46599'),
+        'long-range-77-4-kwh-awd-awd-325': (2020, ('225/55 R18', '245/40 R20'), 'https://www.auto-data.net/en/hyundai-ioniq-6-longrange-77.4-kwh-325hp-bev-awd-46600'),
+        'n-84-kwh-awd-awd-650': (None, ('275/35 R20',), 'https://www.auto-data.net/en/hyundai-ioniq-6-facelift-2025-n-84-kwh-650hp-awd-54853'),
     },
     'hyundai_kona_1': {
         '1-6-gdi-hybrid-141': (1451, ('205/60 R16', '225/45 R18', '235/45 R18'), 'https://www.auto-data.net/en/hyundai-kona-i-facelift-2020-1.6-gdi-141hp-hybrid-dct-45774'),
@@ -602,6 +1073,24 @@ RATTAD = {
         'electric-67-kwh-204': (1685, ('215/55 R17',), 'https://www.auto-data.net/en/hyundai-kona-i-facelift-2020-long-range-67-kwh-204hp-electric-41784'),
         'n-2-0-t-gdi-280': (1510, ('235/40 R19',), 'https://www.auto-data.net/en/hyundai-kona-i-facelift-2020-n-2.0-t-gdi-280hp-dct-43277'),
     },
+    'hyundai_kona_2': {
+        '1-0-t-gdi-100': (1295, ('205/65 R16',), 'https://www.auto-data.net/en/hyundai-kona-ii-1.0-t-gdi-100hp-53150'),
+        '1-0-t-gdi-115': (1295, ('205/65 R16',), 'https://www.auto-data.net/en/hyundai-kona-ii-1.0-t-gdi-115hp-55195'),
+        '1-0-t-gdi-120': (1295, ('205/65 R16',), 'https://www.auto-data.net/en/hyundai-kona-ii-1.0-t-gdi-115hp-55195'),
+        '1-6-t-gdi-138': (1330, ('215/60 R17', '215/55 R18'), 'https://www.auto-data.net/en/hyundai-kona-ii-1.6-t-gdi-138hp-53151'),
+        '1-6-t-gdi-150': (1330, ('215/60 R17', '215/55 R18'), 'https://www.auto-data.net/en/hyundai-kona-ii-1.6-t-gdi-138hp-53151'),
+        '1-6-t-gdi-170': (1360, ('215/55 R18',), 'https://www.auto-data.net/en/hyundai-kona-ii-1.6-t-gdi-170hp-dct-53153'),
+        '1-6-t-gdi-180': (1360, ('215/55 R18',), 'https://www.auto-data.net/en/hyundai-kona-ii-1.6-t-gdi-170hp-dct-53153'),
+        '1-6-t-gdi-198': (1360, ('215/60 R17', '215/55 R18'), 'https://www.auto-data.net/en/hyundai-kona-ii-1.6t-198hp-dct-48423'),
+        'electric-48-4-kwh-156': (1690, (), 'https://www.auto-data.net/en/hyundai-kona-ii-48.4-kwh-156hp-electric-48436'),
+        'electric-49-kwh-135': (1615, ('215/60 R17',), 'https://www.auto-data.net/en/hyundai-kona-ii-49-kwh-135hp-electric-55222'),
+        'electric-65-4-kwh-218': (1773, (), 'https://www.auto-data.net/en/hyundai-kona-ii-65.4-kwh-218hp-electric-48435'),
+        'electric-65-kwh-204': (1698, ('215/60 R17', '235/45 R19'), 'https://www.auto-data.net/en/hyundai-kona-ii-65-kwh-204hp-electric-55223'),
+    },
+    'hyundai_santafe_sm': {
+        '2-7-i-v6-24v-4wd-173': (1814, ('225/70 R16',), 'https://www.auto-data.net/en/hyundai-santa-fe-i-sm-2.7-i-v6-24v-173hp-4wd-automatic-13761'),
+        '3-5-i-v6-24v-203': (1790, ('225/70 R16',), 'https://www.auto-data.net/en/hyundai-santa-fe-i-sm-3.5-i-v6-24v-203hp-13762'),
+    },
     'hyundai_santafe_tm': {
         '1-6-t-gdi-hev-230': (1780, ('235/55 R19',), 'https://www.auto-data.net/en/hyundai-santa-fe-iv-tm-facelift-2020-1.6-t-gdi-230hp-hybrid-automatic-7-seat-43422'),
         '1-6-t-gdi-phev-4wd-265': (2005, ('235/55 R19',), 'https://www.auto-data.net/en/hyundai-santa-fe-iv-tm-facelift-2020-1.6-t-gdi-265hp-plug-in-hybrid-4wd-automatic-7-seat-43425'),
@@ -609,6 +1098,31 @@ RATTAD = {
     'hyundai_tucson_nx4': {
         '1-6-t-gdi-hev-215': (1701, ('215/65 R17', '235/55 R18', '235/50 R19'), 'https://www.auto-data.net/en/hyundai-tucson-iv-facelift-2024-1.6t-215hp-full-hybrid-automatic-51862'),
         '1-6-t-gdi-hev-230': (1564, ('215/65 R17', '235/50 R19'), 'https://www.auto-data.net/en/hyundai-tucson-iv-1.6-t-gdi-230hp-hev-automatic-42126'),
+    },
+    'isuzu_dmax_3': {
+        'ev-66-9-kwh-awd-4wd-190': (2350, ('265/60 R18',), 'https://www.auto-data.net/en/isuzu-d-max-iii-double-cab-facelift-2023-ev-66.9-kwh-190hp-4wd-56268'),
+    },
+    'jaecoo_7': {
+        'shs-1-5-tgdi-347': (1795, ('235/50 R19',), 'https://www.auto-data.net/en/jaecoo-j7-shs-1.5-tgdi-347hp-plug-in-hybrid-dht-53992'),
+    },
+    'jaguar_epace': {
+        '2-0-d240-awd-240': (1926, ('225/65 R17', '235/65 R17', '235/60 R18', '235/55 R19', '245/45 R20', '245/45 R21'), 'https://www.auto-data.net/en/jaguar-e-pace-2.0-d240-240hp-awd-automatic-30688'),
+        '2-0-p250-awd-250': (1832, ('225/65 R17', '235/65 R17', '235/60 R18', '235/55 R19', '245/45 R20', '245/45 R21'), 'https://www.auto-data.net/en/jaguar-e-pace-2.0-p250-250hp-awd-automatic-30570'),
+        '2-0-p300-awd-300': (1894, ('225/65 R17', '235/65 R17', '235/60 R18', '235/55 R19', '245/45 R20', '245/45 R21'), 'https://www.auto-data.net/en/jaguar-e-pace-2.0-p300-300hp-awd-automatic-30669'),
+        'p270e-awd-269': (2098, ('235/60 R18', '235/55 R19', '235/50 R20'), 'https://www.auto-data.net/en/jaguar-e-pace-facelift-2020-1.5i-p270e-269hp-plug-in-hybrid-awd-automatic-54119'),
+        'p300e-awd-309': (2098, ('235/60 R18', '235/55 R19', '235/50 R20'), 'https://www.auto-data.net/en/jaguar-e-pace-facelift-2020-1.5i-p300e-309hp-plug-in-hybrid-awd-automatic-41566'),
+    },
+    'jaguar_fpace': {
+        '3-0-p400-awd-400': (2028, (), 'https://www.auto-data.net/en/jaguar-f-pace-facelift-2020-3.0i-400hp-mild-hybrid-awd-automatic-41366'),
+        '3-0-v6-380-awd-380': (1861, (), 'https://www.auto-data.net/en/jaguar-f-pace-3.0t-v6-380hp-awd-automatic-22985'),
+        'p400e-awd-404': (2114, ('255/55 R19',), 'https://www.auto-data.net/en/jaguar-f-pace-facelift-2020-2.0-p400e-404hp-plug-in-hybrid-awd-automatic-41311'),
+        'svr-5-0-v8-awd-550': (1995, (), 'https://www.auto-data.net/en/jaguar-f-pace-svr-5.0-v8-550hp-awd-automatic-32909'),
+    },
+    'jaguar_xe': {
+        '2-0-p300-300': (1620, (), 'https://www.auto-data.net/en/jaguar-xe-x760-2.0-300hp-awd-automatic-31919'),
+        '3-0-v6-340-340': (1721, ('225/40 R19', '235/35 R20'), 'https://www.auto-data.net/en/jaguar-xe-x760-3.0-v6-340hp-awd-automatic-51152'),
+        's-3-0-v6-380': (1776, ('225/40 R19', '235/35 R20'), 'https://www.auto-data.net/en/jaguar-xe-x760-s-3.0-v6-380hp-awd-automatic-51151'),
+        'sv-project-8-5-0-v8-awd-600': (1745, ('265/35 R20',), 'https://www.auto-data.net/en/jaguar-xe-x760-sv-project-8-5.0-v8-600hp-awd-automatic-32170'),
     },
     'jaguar_xf_x250': {
         '3-0-v6-340': (1880, (), 'https://www.auto-data.net/en/jaguar-xf-x250-facelift-2011-3.0-v6-340hp-awd-automatic-21889'),
@@ -619,10 +1133,39 @@ RATTAD = {
         'r-5-0-v8-510': (1891, ('255/35 R20',), 'https://www.auto-data.net/en/jaguar-xf-x250-r-5.0-v8-510hp-automatic-253'),
         'r-s-5-0-v8-550': (1875, (), 'https://www.auto-data.net/en/jaguar-xf-x250-facelift-2011-r-s-5.0-v8-550hp-automatic-21890'),
     },
+    'jeep_avenger': {
+        '1-2-4xe-eawd-136': (1400, ('215/60 R17', '215/55 R18'), 'https://www.auto-data.net/en/jeep-avenger-1.2-4xe-136hp-hybrid-eawd-e-dct-53032'),
+        '1-2-4xe-eawd-145': (1400, ('215/60 R17', '215/55 R18'), 'https://www.auto-data.net/en/jeep-avenger-1.2-4xe-136hp-hybrid-eawd-e-dct-53032'),
+        '1-2-e-hybrid-100': (1213, ('215/65 R16', '215/60 R17', '215/55 R18'), 'https://www.auto-data.net/en/jeep-avenger-1.2-100hp-e-hybrid-e-dcs-51322'),
+        '1-2-e-hybrid-110': (1213, ('215/65 R16', '215/60 R17', '215/55 R18'), 'https://www.auto-data.net/en/jeep-avenger-1.2-110hp-e-hybrid-edct-54799'),
+        '54-kwh-156': (1536, ('215/65 R16', '215/60 R17', '215/55 R18'), 'https://www.auto-data.net/en/jeep-avenger-54-kwh-156hp-electric-47331'),
+    },
+    'jeep_cherokee_xj': {
+        '4-0-i-178': (1530, ('225/70 R15',), 'https://www.auto-data.net/en/jeep-cherokee-ii-xj-5-door-4.0-i-184hp-1139'),
+        '4-0-i-184': (1530, ('225/70 R15',), 'https://www.auto-data.net/en/jeep-cherokee-ii-xj-5-door-4.0-i-184hp-1139'),
+        '4-0-i-190': (1530, ('225/70 R15',), 'https://www.auto-data.net/en/jeep-cherokee-ii-xj-5-door-4.0-i-184hp-1139'),
+        '4-0-i-sport-192': (1545, ('225/70 R15',), 'https://www.auto-data.net/en/jeep-cherokee-ii-xj-3-door-4.0-i-sport-4wd-192hp-1142'),
+    },
     'jeep_compass_mp': {
         '1-3-gse-t4-4xe-4xe-190': (1860, ('235/60 R17',), 'https://www.auto-data.net/en/jeep-compass-ii-mp-facelift-2021-1.3-gse-t4-190hp-plug-in-hybrid-4xe-automatic-43190'),
         '1-3-gse-t4-4xe-4xe-240': (1860, ('235/60 R17', '235/55 R18'), 'https://www.auto-data.net/en/jeep-compass-ii-mp-facelift-2021-1.3-gse-t4-240hp-plug-in-hybrid-4xe-automatic-43189'),
         '1-5-gse-e-hybrid-130': (1500, ('225/60 R17', '225/55 R18'), 'https://www.auto-data.net/en/jeep-compass-ii-mp-facelift-2021-1.5-gse-130hp-e-hybrid-dct-46374'),
+    },
+    'jeep_gc_wj': {
+        '4-7-ho-v8-258': (1960, ('235/65 R17',), 'https://www.auto-data.net/en/jeep-grand-cherokee-ii-wj-4.7-ho-v8-258hp-4x4-automatic-1163'),
+        '4-7-ho-v8-265': (1960, ('235/65 R17',), 'https://www.auto-data.net/en/jeep-grand-cherokee-ii-wj-4.7-ho-v8-258hp-4x4-automatic-1163'),
+        '4-7-v8-220': (1851, ('245/70 R16',), 'https://www.auto-data.net/en/jeep-grand-cherokee-ii-wj-4.7-v8-220hp-4x4-automatic-1161'),
+        '4-7-v8-223': (1866, ('245/70 R16',), 'https://www.auto-data.net/en/jeep-grand-cherokee-ii-wj-4.7-v8-223hp-4x4-automatic-31294'),
+        '4-7-v8-227': (1923, ('235/65 R17',), 'https://www.auto-data.net/en/jeep-grand-cherokee-ii-wj-facelift-2003-4.7-v8-227hp-4x4-automatic-31261'),
+        '4-7-v8-235': (1759, ('245/70 R16', '235/65 R17'), 'https://www.auto-data.net/en/jeep-grand-cherokee-ii-wj-4.7-v8-235hp-automatic-31332'),
+    },
+    'jeep_gc_wk': {
+        '4-7-v8-309': (2037, ('245/65 R17',), 'https://www.auto-data.net/en/jeep-grand-cherokee-iii-wk-4.7i-v8-309hp-automatic-31227'),
+        '5-7-v8-326': (2175, ('245/65 R17',), 'https://www.auto-data.net/en/jeep-grand-cherokee-iii-wk-5.7i-v8-326hp-4x4-automatic-1156'),
+        '5-7-v8-335': (2175, ('245/65 R17',), 'https://www.auto-data.net/en/jeep-grand-cherokee-iii-wk-5.7i-v8-326hp-4x4-automatic-1156'),
+        '5-7-v8-352': (2175, ('245/60 R18',), 'https://www.auto-data.net/en/jeep-grand-cherokee-iii-wk-5.7i-v8-352hp-4x4-automatic-31158'),
+        '5-7-v8-362': (2175, ('245/60 R18',), 'https://www.auto-data.net/en/jeep-grand-cherokee-iii-wk-5.7i-v8-352hp-4x4-automatic-31158'),
+        'srt8-6-1-v8-426': (2145, ('255/45 R20', '285/40 R20'), 'https://www.auto-data.net/en/jeep-grand-cherokee-iii-wk-srt8-6.1i-v8-426hp-4x4-automatic-1157'),
     },
     'jeep_gc_wk2': {
         'srt-6-4-v8-468': (2356, ('295/45 R20',), 'https://www.auto-data.net/en/jeep-grand-cherokee-iv-wk2-facelift-2017-srt-6.4-v8-475hp-4x4-automatic-50602'),
@@ -634,12 +1177,24 @@ RATTAD = {
         'trackhawk-6-2-v8-707': (2456, ('295/45 R20',), 'https://www.auto-data.net/en/jeep-grand-cherokee-iv-wk2-facelift-2017-trackhawk-6.2-v8-710hp-4x4-automatic-50605'),
         'trackhawk-6-2-v8-710': (2456, ('295/45 R20',), 'https://www.auto-data.net/en/jeep-grand-cherokee-iv-wk2-facelift-2017-trackhawk-6.2-v8-710hp-4x4-automatic-50605'),
     },
+    'jeep_gc_wl': {
+        '2-0-turbo-4xe-4xe-375': (2415, ('265/60 R18', '265/50 R20', '275/45 R21'), 'https://www.auto-data.net/en/jeep-grand-cherokee-v-wl-2.0-turbo-375hp-4xe-etorque-torqueflite-45014'),
+    },
+    'jeep_gc_zj': {
+        '5-9-v8-249': (1913, ('225/70 R16',), 'https://www.auto-data.net/en/jeep-grand-cherokee-i-zj-5.9i-v8-249hp-4x4-automatic-31371'),
+    },
     'jeep_renegade': {
         '1-3-t-gdi-4x4-180': (1430, ('215/60 R17',), 'https://www.auto-data.net/en/jeep-renegade-facelift-2018-1.3-t-gdi-180hp-4x4-automatic-35849'),
         '1-3-turbo-4xe-4xe-190': (1770, ('235/55 R17', '235/50 R18'), 'https://www.auto-data.net/en/jeep-renegade-facelift-2018-1.3-turbo-190hp-plug-in-hybrid-4xe-automatic-41418'),
         '1-3-turbo-4xe-4xe-240': (1770, ('235/55 R17', '235/50 R18'), 'https://www.auto-data.net/en/jeep-renegade-facelift-2018-1.3-turbo-240hp-plug-in-hybrid-4xe-automatic-41419'),
         '1-5-gse-t4-e-hybrid-130': (1420, ('215/60 R17',), 'https://www.auto-data.net/en/jeep-renegade-facelift-2018-1.5-gse-t4-130hp-e-hybrid-dct-46356'),
         '2-4-multiair2-tigershark-182': (1436, ('215/60 R17', '215/65 R17', '225/55 R18'), 'https://www.auto-data.net/en/jeep-renegade-facelift-2018-2.4-multiair2-tigershark-182hp-automatic-35852'),
+    },
+    'jeep_wrangler_jl': {
+        '2-0-turbo-4xe-4x4-375': (2334, ('285/70 R17',), 'https://www.auto-data.net/en/jeep-wrangler-iv-unlimited-jl-rubicon-2.0-turbo-375hp-4xe-etorque-plug-in-hybrid-rock-trac-automatic-43238'),
+        '2-0-turbo-4xe-4x4-380': (2273, ('255/70 R18',), 'https://www.auto-data.net/en/jeep-wrangler-iv-unlimited-jl-facelift-2023-sahara-2.0l-380hp-4xe-plug-in-hybrid-4x4-automatic-50540'),
+        'rubicon-392-6-4-v8-4x4-470': (2315, ('285/70 R17',), 'https://www.auto-data.net/en/jeep-wrangler-iv-unlimited-jl-rubicon-6.4-392-v8-470hp-4x4-selec-trac-automatic-43239'),
+        'rubicon-392-6-4-v8-4x4-481': (2390, ('315/70 R17',), 'https://www.auto-data.net/en/jeep-wrangler-iv-unlimited-jl-facelift-2023-rubicon-392-6.4-v8-481hp-4x4-automatic-50545'),
     },
     'kia_ceed_cd': {
         '1-5-t-gdi-160': (1315, ('205/55 R16', '225/45 R17'), 'https://www.auto-data.net/en/kia-ceed-iii-1.5-t-gdi-160hp-mild-hybrid-dct-54533'),
@@ -653,19 +1208,50 @@ RATTAD = {
     'kia_ceed_jd': {
         'gt-1-6-t-gdi-204': (1448, ('225/40 R18',), 'https://www.auto-data.net/en/kia-ceed-ii-gt-1.6-t-gdi-16v-204hp-19017'),
     },
+    'kia_ev3': {
+        'gt-81-4-kwh-awd-awd-292': (1935, ('245/40 R20',), 'https://www.auto-data.net/en/kia-ev3-gt-81.4-kwh-292hp-awd-57424'),
+    },
     'kia_ev6': {
         'gt-77-4-kwh-awd-awd-585': (2125, ('255/40 R21',), 'https://www.auto-data.net/en/kia-ev6-gt-long-range-77.4-kwh-585hp-awd-42616'),
         'gt-84-kwh-awd-awd-650': (2215, ('255/40 R21',), 'https://www.auto-data.net/en/kia-ev6-facelift-2024-gt-84-kwh-650hp-4wd-54182'),
     },
+    'kia_ev9': {
+        '99-8-kwh-awd-awd-380': (2580, (), 'https://www.auto-data.net/en/kia-ev9-99.8-kwh-380hp-awd-electric-50465'),
+        'gt-99-8-kwh-awd-awd-508': (2589, ('285/45 R21',), 'https://www.auto-data.net/en/kia-ev9-gt-99.8-kwh-508hp-awd-electric-7-seat-54239'),
+    },
     'kia_niro_1': {
         'e-niro-42-kwh-136': (1592, ('215/55 R17',), 'https://www.auto-data.net/en/kia-niro-i-facelift-2019-e-niro-42-kwh-136hp-37380'),
         'e-niro-67-kwh-204': (1737, ('215/55 R17',), 'https://www.auto-data.net/en/kia-niro-i-facelift-2019-e-niro-67-kwh-204hp-35167'),
+    },
+    'kia_niro_2': {
+        'ev-64-8-kwh-204': (1682, (), 'https://www.auto-data.net/en/kia-niro-ii-64.8-kwh-204hp-ev-45731'),
+    },
+    'kia_optima_3': {
+        '2-0-hybrid-177': (1587, ('215/55 R17',), 'https://www.auto-data.net/en/kia-optima-iii-facelift-2013-2.0i-16v-hybrid-177hp-automatic-19744'),
+        '2-0-t-gdi-278': (1433, ('215/55 R17',), 'https://www.auto-data.net/en/kia-optima-iii-2.0-t-gdi-278hp-automatic-31094'),
+        '2-4-mpi-hybrid-199': (1586, ('205/65 R16',), 'https://www.auto-data.net/en/kia-optima-iii-facelift-2013-2.4-mpi-199hp-hybrid-sportmatic-54686'),
     },
     'kia_optima_4': {
         '2-0-gdi-hybrid-192': (1586, ('205/65 R16', '215/55 R17'), 'https://www.auto-data.net/en/kia-optima-iv-facelift-2018-2.0-gdi-192hp-hybrid-automatic-37989'),
         '2-0-gdi-plug-in-hybrid-205': (1705, ('215/55 R17',), 'https://www.auto-data.net/en/kia-optima-iv-2.0-gdi-205hp-plug-in-hybrid-automatic-31142'),
         'gt-2-0-t-gdi-238': (1580, ('215/60 R16', '215/55 R17', '235/45 R18'), 'https://www.auto-data.net/en/kia-optima-iv-facelift-2018-2.0-t-gdi-238hp-gpf-sportmatic-54684'),
         'gt-2-0-t-gdi-245': (1580, ('215/60 R16', '215/55 R17', '235/45 R18'), 'https://www.auto-data.net/en/kia-optima-iv-gt-2.0-t-gdi-245hp-automatic-32738'),
+    },
+    'kia_sorento_1': {
+        '3-3-v6-238': (1965, ('245/65 R17', '245/70 R16'), 'https://www.auto-data.net/en/kia-sorento-i-facelift-2006-3.3i-v6-automatic-238hp-2662'),
+    },
+    'kia_sorento_4': {
+        '2-2-crdi-194': (1810, ('235/60 R18', '255/45 R20'), 'https://www.auto-data.net/en/kia-sorento-iv-facelift-2024-2.2-crdi-194hp-dct-50917'),
+        '2-2-crdi-201': (1757, ('235/65 R17', '235/60 R18', '235/55 R19', '255/45 R20'), 'https://www.auto-data.net/en/kia-sorento-iv-2.2-crdi-201hp-dct-7-seat-39351'),
+    },
+    'kia_soul_2': {
+        '1-6-t-gdi-204': (1289, ('235/45 R18',), 'https://www.auto-data.net/en/kia-soul-ii-facelift-2016-1.6-t-gdi-204hp-dct-23895'),
+        'ev-31-kwh-110': (1490, ('205/60 R16',), 'https://www.auto-data.net/en/kia-soul-ii-ev-31-kwh-110hp-22374'),
+        'ev-33-kwh-110': (1505, ('205/60 R16',), 'https://www.auto-data.net/en/kia-soul-ii-facelift-2016-ev-33-kwh-110hp-32780'),
+    },
+    'kia_soul_3': {
+        '1-6-gdi-201': (1377, ('235/45 R18',), 'https://www.auto-data.net/en/kia-soul-iii-1.6-gdi-201hp-dct-36292'),
+        '2-0-mpi-147': (1290, ('205/60 R16', '215/55 R17', '235/45 R18'), 'https://www.auto-data.net/en/kia-soul-iii-2.0-mpi-147hp-i-cvt-36281'),
     },
     'kia_sportage_3': {
         '2-0-t-gdi-260': (1502, ('235/55 R18',), 'https://www.auto-data.net/en/kia-sportage-iii-2.0-t-gdi-260hp-sportmatic-56579'),
@@ -682,11 +1268,19 @@ RATTAD = {
         '1-6-t-gdi-phev-awd-252': (1830, ('235/50 R19',), 'https://www.auto-data.net/en/kia-sportage-v-1.6-t-gdi-252hp-plug-in-hybrid-awd-automatic-52567'),
         '1-6-t-gdi-phev-awd-265': (None, ('235/50 R19',), 'https://www.auto-data.net/en/kia-sportage-v-1.6-t-gdi-265hp-plug-in-hybrid-awd-automatic-45242'),
     },
+    'kia_stinger': {
+        '3-3-t-gdi-v6-373': (1845, ('225/40 R19',), 'https://www.auto-data.net/en/kia-stinger-facelift-2020-3.3-t-gdi-v6-373hp-awd-automatic-43275'),
+        'gt-3-3-gdi-370': (1858, ('225/40 R19',), 'https://www.auto-data.net/en/kia-stinger-gt-3.3-gdi-366hp-awd-automatic-36044'),
+        'gt-3-3-gdi-awd-366': (1858, ('225/40 R19',), 'https://www.auto-data.net/en/kia-stinger-gt-3.3-gdi-366hp-awd-automatic-36044'),
+    },
     'kia_stonic': {
         '1-0-t-gdi-100': (1105, ('185/65 R15', '195/55 R16', '205/55 R17'), 'https://www.auto-data.net/en/kia-stonic-1.0-t-gdi-100hp-43689'),
         '1-0-t-gdi-120': (1185, ('185/65 R15', '205/55 R17'), 'https://www.auto-data.net/en/kia-stonic-1.0-t-gdi-120hp-31102'),
         '1-2-84': (1145, ('185/65 R15', '205/55 R17'), 'https://www.auto-data.net/en/kia-stonic-1.2i-84hp-31654'),
         '1-4-100': (1160, ('185/65 R15', '205/55 R17'), 'https://www.auto-data.net/en/kia-stonic-1.4i-100hp-31118'),
+        '1-6-crdi-110': (1255, ('185/65 R15', '205/55 R17'), 'https://www.auto-data.net/en/kia-stonic-1.6-crdi-110hp-31655'),
+        '1-6-crdi-116': (1255, ('185/65 R15', '205/55 R17'), 'https://www.auto-data.net/en/kia-stonic-1.6-crdi-110hp-31655'),
+        '1-6-crdi-136': (1288, ('205/55 R17',), 'https://www.auto-data.net/en/kia-stonic-1.6-crdi-136hp-33876'),
     },
     'kia_xceed': {
         '1-6-gdi-phev-141': (1444, ('205/60 R16', '235/45 R18'), 'https://www.auto-data.net/en/kia-xceed-1.6-gdi-141hp-plug-in-hybrid-dct-44845'),
@@ -697,18 +1291,52 @@ RATTAD = {
     'lada_granta': {
         'sport-1-6-118': (1140, ('195/50 R16',), 'https://www.auto-data.net/en/lada-granta-i-sport-1.6-118hp-22320'),
     },
+    'lada_kalina': {
+        'nfr-1-6-16v-136': (1215, ('205/40 R17', '195/50 R16'), 'https://www.auto-data.net/en/lada-kalina-ii-hatchback-2192-nfr-1.6-16v-136hp-24227'),
+        'sport-1-6-118': (1150, ('195/50 R16',), 'https://www.auto-data.net/en/lada-kalina-ii-hatchback-2192-sport-1.6-118hp-22351'),
+    },
     'lada_niva': {
         'sport-1-6-16v-4x4-122': (1300, ('215/60 R17',), 'https://www.auto-data.net/en/lada-niva-legend-3-door-sport-1.6-16v-122hp-4x4-54121'),
     },
     'lada_vesta': {
         'sport-1-8-16v-145': (1322, ('205/50 R17',), 'https://www.auto-data.net/en/lada-vesta-sport-1.8-16v-145hp-35903'),
     },
+    'leapmotor_c10': {
+        '52-9-kwh-231': (1845, ('235/55 R18',), 'https://www.auto-data.net/en/leapmotor-c10-52.9-kwh-231hp-bev-51828'),
+        '69-9-kwh-218': (1940, ('235/55 R18', '245/45 R20'), 'https://www.auto-data.net/en/leapmotor-c10-69.9-kwh-231hp-bev-51829'),
+        '69-9-kwh-231': (1940, ('235/55 R18', '245/45 R20'), 'https://www.auto-data.net/en/leapmotor-c10-69.9-kwh-231hp-bev-51829'),
+        '74-9-kwh-299': (1995, ('235/55 R18', '245/45 R20'), 'https://www.auto-data.net/en/leapmotor-c10-74.9-kwh-299hp-bev-55065'),
+    },
+    'lexus_gs_l10': {
+        '200t-241': (1665, ('235/50 R17', '235/45 R18'), 'https://www.auto-data.net/en/lexus-gs-iv-facelift-2015-200t-241hp-automatic-36720'),
+        '250-209': (1555, ('225/50 R17', '235/45 R18', '265/35 R19'), 'https://www.auto-data.net/en/lexus-gs-iv-250-v6-209hp-automatic-21321'),
+        '300-241': (1726, ('235/50 R17', '235/45 R18'), 'https://www.auto-data.net/en/lexus-gs-iv-facelift-2015-300-241hp-automatic-36718'),
+        '350-306': (1805, ('225/50 R17',), 'https://www.auto-data.net/en/lexus-gs-iv-350-306hp-awd-automatic-36738'),
+        '350-311': (1765, ('235/45 R18',), 'https://www.auto-data.net/en/lexus-gs-iv-facelift-2015-350-v6-311hp-awd-automatic-36729'),
+        '450h-338': (1820, ('245/40 R18',), 'https://www.auto-data.net/en/lexus-gs-iv-450h-345hp-hybrid-e-cvt-21324'),
+        '450h-345': (1820, ('245/40 R18',), 'https://www.auto-data.net/en/lexus-gs-iv-450h-345hp-hybrid-e-cvt-21324'),
+        'f-5-0-v8-467': (1865, ('255/35 R19',), 'https://www.auto-data.net/en/lexus-gs-iv-facelift-2015-f-5.0-v8-477hp-automatic-24662'),
+        'f-5-0-v8-477': (1865, ('255/35 R19',), 'https://www.auto-data.net/en/lexus-gs-iv-facelift-2015-f-5.0-v8-477hp-automatic-24662'),
+    },
     'lexus_is_xe20': {
         '350-306': (1600, ('225/45 R17', '225/40 R18'), 'https://www.auto-data.net/en/lexus-is-ii-xe20-350-v6-306hp-ect-i-5925'),
+    },
+    'lexus_is_xe30': {
+        '200t-245': (1590, ('225/45 R17', '225/40 R18'), 'https://www.auto-data.net/en/lexus-is-iii-xe30-200t-245hp-direct-shift-24366'),
+        '250-208': (1645, ('205/55 R16', '225/40 R18', '255/35 R18'), 'https://www.auto-data.net/en/lexus-is-iii-xe30-250-208hp-automatic-21288'),
+        '300-241': (1570, ('225/45 R17', '225/40 R18'), 'https://www.auto-data.net/en/lexus-is-iii-xe30-facelift-2016-300-241hp-direct-shift-34705'),
+        '300-v6-awd-255': (1695, ('225/45 R17', '225/40 R18'), 'https://www.auto-data.net/en/lexus-is-iii-xe30-300-v6-255hp-awd-ect-i-53753'),
+        '300-v6-awd-260': (1695, ('225/45 R17', '225/40 R18'), 'https://www.auto-data.net/en/lexus-is-iii-xe30-300-v6-255hp-awd-ect-i-53753'),
+        '350-306': (1630, ('225/45 R17', '225/35 R18', '225/40 R18'), 'https://www.auto-data.net/en/lexus-is-iii-xe30-350-v6-306hp-direct-shift-53751'),
+        '350-311': (1630, ('225/45 R17', '225/35 R18', '225/40 R18'), 'https://www.auto-data.net/en/lexus-is-iii-xe30-350-v6-306hp-direct-shift-53751'),
     },
     'lexus_nx_az10': {
         '200t-238': (1810, ('225/60 R18',), 'https://www.auto-data.net/en/lexus-nx-i-az10-200t-238hp-awd-automatic-21326'),
         '300-238': (1837, ('225/65 R17', '225/60 R18'), 'https://www.auto-data.net/en/lexus-nx-i-az10-facelift-2017-300-238hp-awd-automatic-32699'),
+    },
+    'lexus_nx_az20': {
+        '250-203': (1660, (), 'https://www.auto-data.net/en/lexus-nx-ii-az20-250-203hp-ect-i-44996'),
+        '350-awd-275': (1830, (), 'https://www.auto-data.net/en/lexus-nx-ii-az20-350-275hp-awd-ect-i-44998'),
     },
     'lexus_rx_al10': {
         '270-188': (1840, (), 'https://www.auto-data.net/en/lexus-rx-iii-facelift-2012-270-188hp-automatic-21299'),
@@ -724,6 +1352,14 @@ RATTAD = {
         '350-f-sport-295': (1990, ('235/65 R18', '235/55 R20'), 'https://www.auto-data.net/en/lexus-rx-iv-350-f-sport-v6-295hp-awd-automatic-32387'),
         '350l-290': (2095, ('235/65 R18', '235/55 R20'), 'https://www.auto-data.net/en/lexus-rx-iv-350l-v6-290hp-awd-automatic-32363'),
     },
+    'lexus_rx_al30': {
+        '350-275': (1885, (), 'https://www.auto-data.net/en/lexus-rx-v-350-275hp-ect-i-46873'),
+    },
+    'lexus_rx_xu30': {
+        '300-awd-204': (1835, ('225/60 R17',), 'https://www.auto-data.net/en/lexus-rx-ii-300-4wd-204hp-5889'),
+        '330-230': (1751, ('225/65 R17',), 'https://www.auto-data.net/en/lexus-rx-ii-330-230hp-5890'),
+        '350-awd-276': (1835, ('225/60 R17',), 'https://www.auto-data.net/en/lexus-rx-ii-350-4wd-276hp-5892'),
+    },
     'lexus_ux': {
         '200-171': (1460, ('215/60 R17',), 'https://www.auto-data.net/en/lexus-ux-200-171hp-d-cvt-34085'),
         '300e-54-3-kwh-204': (1840, ('215/60 R17',), 'https://www.auto-data.net/en/lexus-ux-300e-54.3-kwh-204hp-39169'),
@@ -737,13 +1373,87 @@ RATTAD = {
         '5-0-v8-p525-525': (2603, ('255/60 R20', '275/45 R22'), 'https://www.auto-data.net/en/land-rover-defender-110-l663-5.0-v8-p525-525hp-awd-automatic-42462'),
         'octa-4-4-v8-p635-635': (2510, ('275/60 R20', '275/50 R22'), 'https://www.auto-data.net/en/land-rover-defender-110-l663-octa-4.4-v8-p635-635hp-mild-hybrid-awd-automatic-53541'),
     },
+    'lr_disco_1': {
+        '3-5i-v8-155': (1925, ('205/80 R16',), 'https://www.auto-data.net/en/land-rover-discovery-i-3.5-i-v8-5-dr-166hp-5233'),
+        '3-5i-v8-166': (1925, ('205/80 R16',), 'https://www.auto-data.net/en/land-rover-discovery-i-3.5-i-v8-5-dr-166hp-5233'),
+        '3-9i-v8-182': (2020, ('205/80 R16',), 'https://www.auto-data.net/en/land-rover-discovery-i-3.9i-v8-182hp-automatic-28673'),
+    },
+    'lr_disco_2': {
+        '4-0i-v8-185': (2020, ('235/70 R16',), 'https://www.auto-data.net/en/land-rover-discovery-ii-4.0i-v8-185hp-automatic-28796'),
+    },
+    'lr_disco_3': {
+        '4-4-v8-295': (2536, ('255/55 R19',), 'https://www.auto-data.net/en/land-rover-discovery-iii-4.4-i-v8-32v-295hp-5223'),
+    },
     'lr_disco_4': {
         '3-0-v6-supercharged-340': (2565, (), 'https://www.auto-data.net/en/land-rover-discovery-iv-facelift-2013-3.0-v6-340hp-awd-automatic-23048'),
+    },
+    'lr_discovery_5': {
+        'svx-5-0-v8-525': (2516, (), 'https://www.auto-data.net/en/land-rover-discovery-v-svx-5.0-v8-525hp-awd-automatic-7-seat-39120'),
+    },
+    'lr_evoque_2': {
+        '1-5-p300e-309': (2082, (), 'https://www.auto-data.net/en/land-rover-range-rover-evoque-ii-1.5-p300e-309hp-plug-in-hybrid-awd-automatic-40728'),
+        '2-0-p250-249': (1893, ('225/65 R17', '235/65 R17', '235/60 R18', '235/50 R20', '245/45 R21'), 'https://www.auto-data.net/en/land-rover-range-rover-evoque-ii-2.0-si4-249hp-mild-hybrid-awd-automatic-34871'),
+        '2-0-p300-300': (1925, ('225/65 R17', '235/65 R17', '235/60 R18', '235/50 R20', '245/45 R21'), 'https://www.auto-data.net/en/land-rover-range-rover-evoque-ii-2.0-si4-300hp-mild-hybrid-awd-automatic-34870'),
+        '2-0-sd4-240': (1955, ('225/65 R17', '235/65 R17', '235/60 R18', '235/50 R20', '245/45 R21'), 'https://www.auto-data.net/en/land-rover-range-rover-evoque-ii-2.0-sd4-240hp-mild-hybrid-awd-automatic-34873'),
+    },
+    'lr_freelander_1': {
+        '2-5-v6-24v-177': (1620, ('195/80 R15',), 'https://www.auto-data.net/en/land-rover-freelander-i-ln-2.5-v6-24v-177hp-5183'),
+    },
+    'lr_rr_l322': {
+        '4-2-v8-supercharged-396': (2687, ('255/50 R20',), 'https://www.auto-data.net/en/land-rover-range-rover-iii-facelift-2005-4.2-v8-supercharged-396hp-awd-automatic-5196'),
+        '5-0-v8-375': (2584, (), 'https://www.auto-data.net/en/land-rover-range-rover-iii-facelift-2009-5.0-lr-v8-375hp-awd-automatic-23011'),
+    },
+    'lr_rr_l405': {
+        '3-0-sdv6-hybrid-340': (2394, (), 'https://www.auto-data.net/en/land-rover-range-rover-iv-3.0-sd-v6-340hp-awd-automatic-hybrid-23023'),
+        '5-0-v8-375': (2200, (), 'https://www.auto-data.net/en/land-rover-range-rover-iv-5.0-v8-375hp-awd-automatic-23046'),
+        '5-0-v8-supercharged-510': (2330, (), 'https://www.auto-data.net/en/land-rover-range-rover-iv-5.0-v8-510hp-awd-automatic-23034'),
+        '5-0-v8-supercharged-525': (2383, (), 'https://www.auto-data.net/en/land-rover-range-rover-iv-facelift-2017-5.0-v8-525hp-awd-automatic-supercharged-31385'),
+        'p400e-404': (2502, ('255/55 R20', '275/45 R21', '275/40 R22'), 'https://www.auto-data.net/en/land-rover-range-rover-iv-facelift-2017-p400e-404hp-plug-in-hybrid-awd-automatic-31357'),
+        'svautobiography-dynamic-5-0-v8-565': (2497, (), 'https://www.auto-data.net/en/land-rover-range-rover-iv-facelift-2017-svautobiography-dynamic-5.0-v8-565hp-awd-automatic-supercharged-31386'),
+    },
+    'lr_rr_l460': {
+        '3-0-p440e-441': (2695, (), 'https://www.auto-data.net/en/land-rover-range-rover-v-swb-3.0-p440e-441hp-plug-in-hybrid-awd-automatic-45361'),
+        '3-0-p460e-460': (2695, (), 'https://www.auto-data.net/en/land-rover-range-rover-v-swb-3.0-p460e-460hp-plug-in-hybrid-awd-automatic-50776'),
+        '3-0-p510e-510': (2735, (), 'https://www.auto-data.net/en/land-rover-range-rover-v-swb-3.0-p510e-510hp-plug-in-hybrid-awd-automatic-45362'),
+        '3-0-p550e-550': (2735, (), 'https://www.auto-data.net/en/land-rover-range-rover-v-swb-3.0-p550e-550hp-plug-in-hybrid-awd-automatic-50777'),
+        '4-4-v8-p530-530': (2510, (), 'https://www.auto-data.net/en/land-rover-range-rover-v-swb-4.4-v8-p530-530hp-awd-automatic-44918'),
+        '4-4-v8-p615-615': (2716, (), 'https://www.auto-data.net/en/land-rover-range-rover-v-swb-4.4-v8-p615-615hp-mild-hybrid-awd-automatic-50778'),
+        'ev450-118-5-kwh-awd-450': (2735, (), 'https://www.auto-data.net/en/land-rover-range-rover-v-swb-ev450-118.5-kwh-450hp-electric-awd-57771'),
+        'ev550-118-5-kwh-awd-550': (2735, (), 'https://www.auto-data.net/en/land-rover-range-rover-v-swb-ev550-118.5-kwh-550hp-electric-awd-57772'),
+    },
+    'lr_rrs_l461': {
+        '3-0-p440e-441': (2660, (), 'https://www.auto-data.net/en/land-rover-range-rover-sport-iii-3.0-p440e-441hp-plug-in-hybrid-iawd-automatic-45786'),
+        '3-0-p460e-460': (2660, (), 'https://www.auto-data.net/en/land-rover-range-rover-sport-iii-3.0-p460e-460hp-plug-in-hybrid-iawd-automatic-50787'),
+        '3-0-p510e-510': (2735, (), 'https://www.auto-data.net/en/land-rover-range-rover-sport-iii-3.0-p510e-510hp-plug-in-hybrid-iawd-automatic-45787'),
+        '3-0-p550e-550': (2735, (), 'https://www.auto-data.net/en/land-rover-range-rover-sport-iii-3.0-p550e-550hp-plug-in-hybrid-iawd-automatic-50788'),
+        '4-4-v8-p530-530': (2430, (), 'https://www.auto-data.net/en/land-rover-range-rover-sport-iii-4.4-v8-p530-530hp-iawd-automatic-45788'),
+        'sv-4-4-v8-635': (2485, (), 'https://www.auto-data.net/en/land-rover-range-rover-sport-iii-sv-4.4-v8-635hp-mild-hybrid-iawd-automatic-48776'),
+    },
+    'lr_rrs_l494': {
+        '3-0-d250-mild-hybrid-249': (2203, (), 'https://www.auto-data.net/en/land-rover-range-rover-sport-ii-facelift-2017-3.0-d250-249hp-mild-hybrid-awd-automatic-40723'),
+        '3-0-d300-mild-hybrid-301': (2203, (), 'https://www.auto-data.net/en/land-rover-range-rover-sport-ii-facelift-2017-3.0-d300-301hp-mild-hybrid-awd-automatic-40725'),
+        '3-0-d350-mild-hybrid-351': (2203, (), 'https://www.auto-data.net/en/land-rover-range-rover-sport-ii-facelift-2017-3.0-d350-351hp-mild-hybrid-awd-automatic-40727'),
+        '3-0-p360-mild-hybrid-360': (2210, (), 'https://www.auto-data.net/en/land-rover-range-rover-sport-ii-facelift-2017-3.0-p360-360hp-mild-hybrid-awd-automatic-40719'),
+        '3-0-p400-mild-hybrid-400': (2210, (), 'https://www.auto-data.net/en/land-rover-range-rover-sport-ii-facelift-2017-3.0-p400-400hp-mild-hybrid-awd-automatic-40721'),
+        '5-0-v8-supercharged-510': (2310, (), 'https://www.auto-data.net/en/land-rover-range-rover-sport-ii-5.0-v8-510hp-awd-automatic-23089'),
+        '5-0-v8-supercharged-525': (2323, (), 'https://www.auto-data.net/en/land-rover-range-rover-sport-ii-facelift-2017-5.0-v8-525hp-awd-automatic-supercharged-31682'),
+        'p400e-404': (2471, (), 'https://www.auto-data.net/en/land-rover-range-rover-sport-ii-facelift-2017-p400e-404hp-plug-in-hybrid-awd-automatic-31679'),
+        'svr-5-0-v8-550': (2335, ('275/45 R21', '295/40 R22'), 'https://www.auto-data.net/en/land-rover-range-rover-sport-ii-svr-5.0-v8-550hp-awd-automatic-23056'),
+        'svr-5-0-v8-575': (2310, (), 'https://www.auto-data.net/en/land-rover-range-rover-sport-ii-facelift-2017-svr-5.0-v8-575hp-awd-automatic-supercharged-31683'),
+    },
+    'lr_velar': {
+        'p380-3-0-v6-380': (1884, (), 'https://www.auto-data.net/en/land-rover-range-rover-velar-p-380-3.0-v6-380hp-awd-automatic-29540'),
+        'p400-3-0-mild-hybrid-400': (2010, (), 'https://www.auto-data.net/en/land-rover-range-rover-velar-facelift-2020-3.0-p400-400hp-mild-hybrid-awd-automatic-41436'),
+        'p400e-2-0-404': (2158, ('235/65 R18', '255/55 R19', '255/50 R20', '265/45 R21', '265/40 R22'), 'https://www.auto-data.net/en/land-rover-range-rover-velar-facelift-2020-2.0-p400e-404hp-plug-in-hybrid-awd-automatic-41437'),
+        'svautobiography-dynamic-edition-5-0-v8-550': (2160, (), 'https://www.auto-data.net/en/land-rover-range-rover-velar-svautobiography-dynamic-edition-5.0-v8-550hp-awd-automatic-35908'),
     },
     'mazda_2_dj': {
         '1-5-e-skyactiv-g-115': (1079, ('185/60 R16',), 'https://www.auto-data.net/en/mazda-2-iii-dj-facelift-2019-1.5-e-skyactiv-g-115hp-m-hybrid-45440'),
         '1-5-e-skyactiv-g-90': (1079, ('185/65 R15', '185/60 R16'), 'https://www.auto-data.net/en/mazda-2-iii-dj-facelift-2019-1.5-e-skyactiv-g-90hp-m-hybrid-45439'),
         '1-5-skyactiv-g-115': (975, ('185/60 R16',), 'https://www.auto-data.net/en/mazda-2-iii-dj-1.5-skyactiv-g-115hp-22025'),
+    },
+    'mazda_323_ba': {
+        '2-0-v6-24v-144': (1210, ('195/60 R15',), 'https://www.auto-data.net/en/mazda-323-f-v-ba-2.0i-v6-24v-144hp-11158'),
     },
     'mazda_3_bk': {
         '2-0-150': (1235, ('205/55 R16',), 'https://www.auto-data.net/en/mazda-3-i-hatchback-bk-2.0i-150hp-11480'),
@@ -769,6 +1479,10 @@ RATTAD = {
         '2-0-skyactiv-x-180': (1349, ('205/60 R16', '215/45 R18'), 'https://www.auto-data.net/en/mazda-3-iv-hatchback-2.0-skyactiv-x-m-hybrid-180hp-skyactiv-drive-35965'),
         '2-5-e-skyactiv-g-140': (1379, ('205/60 R16', '215/45 R18'), 'https://www.auto-data.net/en/mazda-3-iv-hatchback-2.5-e-skyactiv-g-140hp-skyactiv-drive-53115'),
     },
+    'mazda_626_gf': {
+        '2-0-136': (1250, ('195/60 R15',), 'https://www.auto-data.net/en/mazda-626-v-hatchback-gf-2.0-136hp-11279'),
+        '2-5-v6-167': (1425, ('205/55 R16',), 'https://www.auto-data.net/en/mazda-626-v-gf-2.5-v6-167hp-11271'),
+    },
     'mazda_6_gg': {
         '3-0-v6-220': (1537, ('215/50 R17',), 'https://www.auto-data.net/en/mazda-6-i-combi-typ-gg-gy-gg1-3.0-v6-220hp-50810'),
     },
@@ -792,6 +1506,16 @@ RATTAD = {
         '3-3-e-skyactiv-d-200': (1815, ('235/60 R18', '235/50 R20'), 'https://www.auto-data.net/en/mazda-cx-60-3.3-e-skyactiv-d-200hp-mild-hybrid-automatic-46079'),
         '3-3-e-skyactiv-d-awd-254': (1860, ('235/60 R18', '235/50 R20'), 'https://www.auto-data.net/en/mazda-cx-60-3.3-e-skyactiv-d-254hp-mild-hybrid-awd-automatic-46080'),
         '3-3-e-skyactiv-g-awd-284': (1880, ('235/60 R18', '235/50 R20'), 'https://www.auto-data.net/en/mazda-cx-60-3.3-e-skyactiv-g-284hp-mild-hybrid-i-activ-awd-skyactiv-drive-54136'),
+    },
+    'mazda_cx7': {
+        '2-3-disi-turbo-awd-238': (1772, ('235/55 R19',), 'https://www.auto-data.net/en/mazda-cx-7-facelift-2009-2.3-disi-turbo-238hp-awd-automatic-11438'),
+        '2-3-disi-turbo-awd-260': (1740, ('235/55 R19',), 'https://www.auto-data.net/en/mazda-cx-7-2.3-disi-turbo-260hp-awd-17514'),
+    },
+    'mazda_cx80': {
+        '2-5-e-skyactiv-phev-i-activ-awd-327': (2165, ('235/50 R20',), 'https://www.auto-data.net/en/mazda-cx-80-2.5-e-skyactiv-327hp-plug-in-hybrid-i-activ-awd-automatic-51601'),
+    },
+    'mazda_mx30': {
+        '35-5-kwh-e-skyactiv-145': (1675, ('215/55 R18',), 'https://www.auto-data.net/en/mazda-mx-30-35.5-kwh-e-skyactiv-145hp-bev-37917'),
     },
     'mb_190_w201': {
         '190-e-2-3-16-170': (None, ('205/55 R15',), 'https://www.auto-data.net/en/mercedes-benz-190-w201-e-2.3-16-185hp-12814'),
@@ -832,6 +1556,10 @@ RATTAD = {
         'b-220-4matic-184': (1530, ('205/55 R16',), 'https://www.auto-data.net/en/mercedes-benz-b-class-w246-b-220-184hp-4matic-7g-dct-18640'),
         'b-250-211': (1475, ('225/45 R17',), 'https://www.auto-data.net/en/mercedes-benz-b-class-w246-b-250-211hp-7g-dct-18639'),
         'b-250-e-31-kwh-180': (1650, ('205/60 R16',), 'https://www.auto-data.net/en/mercedes-benz-b-class-electric-drive-w242-b-250-e-31-kwh-180hp-20827'),
+    },
+    'mb_b_w247': {
+        'b-250-224': (1420, (), 'https://www.auto-data.net/en/mercedes-benz-b-class-w247-b-250-224hp-dct-35618'),
+        'b-250-e-218': (1650, ('205/55 R17',), 'https://www.auto-data.net/en/mercedes-benz-b-class-w247-b-250e-218hp-plug-in-hybrid-8g-dct-41799'),
     },
     'mb_c200_w206': {
         'amg-c-43-4matic-408': (1735, ('245/45 R18', '245/40 R19', '245/35 R20'), 'https://www.auto-data.net/en/mercedes-benz-c-class-w206-amg-c-43-408hp-eq-boost-4matic-amg-speedshift-mct-9g-45710'),
@@ -888,11 +1616,26 @@ RATTAD = {
         'amg-cla-45-4matic-381': (1510, ('235/40 R18',), 'https://www.auto-data.net/en/mercedes-benz-cla-coupe-c117-facelift-2016-amg-cla-45-381hp-4matic-dct-23338'),
         'cla-250-sport-218': (1415, ('235/40 R18',), 'https://www.auto-data.net/en/mercedes-benz-cla-coupe-c117-facelift-2016-cla-250-218hp-sport-dct-23357'),
     },
+    'mb_cla_c118': {
+        'amg-cla-35-4matic-306': (1515, ('235/40 R18',), 'https://www.auto-data.net/en/mercedes-benz-cla-coupe-c118-amg-cla-35-306hp-4matic-amg-speedshift-dct-7g-36973'),
+        'amg-cla-45-4matic-387': (1585, ('245/40 R18',), 'https://www.auto-data.net/en/mercedes-benz-cla-coupe-c118-amg-cla-45-387hp-4matic-amg-speedshift-dct-8g-37420'),
+        'amg-cla-45-s-4matic-421': (1600, ('255/35 R19',), 'https://www.auto-data.net/en/mercedes-benz-cla-coupe-c118-amg-cla-45-s-421hp-4matic-amg-speedshift-dct-8g-37421'),
+        'cla-250-e-218': (1650, ('205/55 R17', '225/45 R18'), 'https://www.auto-data.net/en/mercedes-benz-cla-coupe-c118-cla-250e-218hp-eq-power-8g-dct-39260'),
+        'cla-250-mild-hybrid-221': (None, ('225/45 R18',), 'https://www.auto-data.net/en/mercedes-benz-cla-coupe-c118-facelift-2023-cla-250-221hp-mild-hybrid-8g-dct-52406'),
+    },
     'mb_cls_c218': {
+        'amg-cls-63-525': (1795, ('255/35 R19',), 'https://www.auto-data.net/en/mercedes-benz-cls-coupe-c218-amg-cls-63-v8-525hp-amg-speedshift-mct-47101'),
         'amg-cls-63-557': (1795, ('255/35 R19',), 'https://www.auto-data.net/en/mercedes-benz-cls-coupe-c218-facelift-2014-amg-cls-63-v8-557hp-amg-speedshift-mct-20858'),
         'amg-cls-63-s-4matic-585': (1870, ('255/35 R19',), 'https://www.auto-data.net/en/mercedes-benz-cls-coupe-c218-facelift-2014-amg-cls-63-s-v8-585hp-amg-speedshift-mct-4matic-20928'),
         'cls-500-408': (1815, ('255/40 R18', '255/35 R19'), 'https://www.auto-data.net/en/mercedes-benz-cls-coupe-c218-facelift-2014-cls-500-v8-408hp-9g-tronic-20857'),
         'cls-550-402': (1886, ('255/40 R18',), 'https://www.auto-data.net/en/mercedes-benz-cls-coupe-c218-facelift-2014-cls-550-v8-402hp-9g-tronic-53863'),
+    },
+    'mb_cls_c219': {
+        'amg-cls-55-476': (1845, ('245/40 R18', '255/35 R19'), 'https://www.auto-data.net/en/mercedes-benz-cls-coupe-c219-amg-cls-55-v8-476hp-5g-tronic-28342'),
+        'amg-cls-63-514': (1830, ('255/40 R18',), 'https://www.auto-data.net/en/mercedes-benz-cls-coupe-c219-amg-cls-63-v8-514hp-7g-tronic-amg-speedshift-52982'),
+    },
+    'mb_cls_c257': {
+        'amg-cls-53-4matic-435': (1980, ('245/40 R19',), 'https://www.auto-data.net/en/mercedes-benz-cls-coupe-c257-amg-cls-53-435hp-eq-boost-4matic-tct-32793'),
     },
     'mb_e220_w210': {
         'amg-e-50-347': (1750, ('235/40 R18',), 'https://www.auto-data.net/en/mercedes-benz-e-class-w210-amg-e-50-v8-347hp-automatic-12972'),
@@ -950,9 +1693,61 @@ RATTAD = {
         'e-320-220': (1490, ('195/65 R15',), 'https://www.auto-data.net/en/mercedes-benz-e-class-w124-e-320-220hp-automatic-43293'),
         'e-420-400-e-279': (1620, ('215/55 R16',), 'https://www.auto-data.net/en/mercedes-benz-e-class-w124-e-420-v8-279hp-automatic-13008'),
     },
+    'mb_e_w214': {
+        'amg-e-53-hybrid-4matic-585': (2315, ('255/45 R19',), 'https://www.auto-data.net/en/mercedes-benz-e-class-w214-amg-e-53-585hp-plug-in-hybrid-4matic-amg-speedshift-tct-9g-51327'),
+        'amg-e-53-hybrid-4matic-612': (2315, ('255/45 R19',), 'https://www.auto-data.net/en/mercedes-benz-e-class-w214-amg-e-53-585hp-plug-in-hybrid-4matic-amg-speedshift-tct-9g-51327'),
+        'e-300-de-313': (2180, ('245/40 R19',), 'https://www.auto-data.net/en/mercedes-benz-e-class-w214-e-300de-313hp-plug-in-hybrid-9g-tronic-50067'),
+        'e-300-e-313': (2210, ('245/40 R19',), 'https://www.auto-data.net/en/mercedes-benz-e-class-w214-e-300e-313hp-plug-in-hybrid-9g-tronic-48462'),
+        'e-400-e-4matic-381': (2170, ('245/40 R19',), 'https://www.auto-data.net/en/mercedes-benz-e-class-w214-e-400e-381hp-plug-in-hybrid-4matic-9g-tronic-48464'),
+        'e-450-4matic-381': (1895, ('225/55 R18', '245/45 R19'), 'https://www.auto-data.net/en/mercedes-benz-e-class-w214-e-450-381hp-mild-hybrid-4matic-9g-tronic-50064'),
+        'e-450-d-4matic-367': (1990, ('225/55 R18', '245/45 R19'), 'https://www.auto-data.net/en/mercedes-benz-e-class-w214-e-450d-367hp-mild-hybrid-4matic-9g-tronic-50068'),
+    },
+    'mb_eqa': {
+        'eqa-350-69-7-kwh-4matic-292': (2030, ('235/55 R18', '235/50 R19', '235/45 R20'), 'https://www.auto-data.net/en/mercedes-benz-eqa-h243-eqa-350-69.7-kwh-292hp-4matic-43352'),
+        'eqa-350-73-9-kwh-4matic-292': (2040, ('235/55 R18', '235/50 R19', '235/45 R20'), 'https://www.auto-data.net/en/mercedes-benz-eqa-h243-facelift-2023-eqa-350-73.9-kwh-292hp-4matic-56234'),
+    },
+    'mb_eqb': {
+        'eqb-350-69-7-kwh-4matic-292': (2100, ('235/55 R18', '235/45 R20'), 'https://www.auto-data.net/en/mercedes-benz-eqb-x243-eqb-350-69.7-kwh-292hp-4matic-43159'),
+    },
+    'mb_eqe': {
+        'amg-eqe-43-100-kwh-4matic-476': (2450, ('265/40 R20', '265/35 R21'), 'https://www.auto-data.net/en/mercedes-benz-eqe-v295-amg-eqe-43-100-kwh-476hp-4matic-45421'),
+        'amg-eqe-53-100-kwh-4matic-625': (2450, ('265/40 R20', '265/35 R21'), 'https://www.auto-data.net/en/mercedes-benz-eqe-v295-amg-eqe-53-100-kwh-625hp-4matic-45422'),
+        'amg-eqe-53-100-kwh-4matic-687': (2450, ('265/40 R20', '265/35 R21'), 'https://www.auto-data.net/en/mercedes-benz-eqe-v295-amg-eqe-53-100-kwh-625hp-4matic-45422'),
+        'eqe-500-100-kwh-4matic-408': (2400, ('235/50 R19', '255/50 R19', '255/45 R19', '255/40 R20'), 'https://www.auto-data.net/en/mercedes-benz-eqe-v295-eqe-500-100-kwh-408hp-4matic-46214'),
+        'eqe-500-100-kwh-4matic-449': (2415, ('255/45 R19', '255/40 R20', '255/35 R21', '265/35 R21'), 'https://www.auto-data.net/en/mercedes-benz-eqe-v295-eqe-500-100-kwh-449hp-4matic-56206'),
+    },
+    'mb_g_w463': {
+        'amg-g-63-585': (2485, ('275/50 R20', '285/45 R21', '295/40 R22'), 'https://www.auto-data.net/en/mercedes-benz-g-class-long-w463-facelift-2018-amg-g-63-v8-585hp-4matic-9g-tronic-amg-speedshift-plus-42381'),
+        'g-580-eq-116-kwh-587': (3010, ('265/60 R18', '275/50 R20'), 'https://www.auto-data.net/en/mercedes-benz-g-class-long-w465-g-580-eq-116-kwh-587hp-4matic-51619'),
+    },
+    'mb_g_w463_1': {
+        'amg-g-55-354': (2485, ('265/60 R18',), 'https://www.auto-data.net/en/mercedes-benz-g-class-long-w463-facelift-2000-amg-g-55-v8-354hp-4matic-automatic-41185'),
+        'amg-g-55-kompressor-476': (2475, ('285/55 R18',), 'https://www.auto-data.net/en/mercedes-benz-g-class-long-w463-facelift-2000-amg-g-55-v8-kompressor-476hp-4matic-automatic-42226'),
+        'amg-g-55-kompressor-500': (2475, ('285/55 R18',), 'https://www.auto-data.net/en/mercedes-benz-g-class-long-w463-facelift-2007-amg-g-55-v8-kompressor-500hp-4matic-automatic-17402'),
+        'amg-g-55-kompressor-507': (2515, ('275/55 R19',), 'https://www.auto-data.net/en/mercedes-benz-g-class-long-w463-facelift-2008-amg-g-55-v8-kompressor-507hp-4matic-7g-tronic-42528'),
+        'amg-g-63-544': (2475, ('275/50 R20',), 'https://www.auto-data.net/en/mercedes-benz-g-class-long-w463-facelift-2012-amg-g-63-v8-544hp-4matic-amg-speedshift-plus-18785'),
+        'amg-g-63-571': (2480, ('275/50 R20',), 'https://www.auto-data.net/en/mercedes-benz-g-class-long-w463-facelift-2015-amg-g-63-v8-571hp-4matic-7g-tronic-amg-speedshift-plus-23501'),
+        'amg-g-65-612': (2505, ('275/50 R20',), 'https://www.auto-data.net/en/mercedes-benz-g-class-long-w463-facelift-2012-amg-g-65-v12-612hp-4matic-amg-speedshift-plus-18784'),
+        'amg-g-65-630': (2510, ('275/50 R20',), 'https://www.auto-data.net/en/mercedes-benz-g-class-long-w463-facelift-2015-amg-g-65-v12-630hp-4matic-7g-tronic-amg-speedshift-plus-23490'),
+        'g-500-388': (2455, ('265/60 R18',), 'https://www.auto-data.net/en/mercedes-benz-g-class-long-w463-facelift-2012-g-500-v8-388hp-4matic-7g-tronic-plus-18786'),
+        'g-500-422': (2520, ('265/60 R18',), 'https://www.auto-data.net/en/mercedes-benz-g-class-long-w463-facelift-2015-g-500-v8-422hp-4matic-7g-tronic-plus-23460'),
+        'g-550-382': (2530, ('265/60 R18',), 'https://www.auto-data.net/en/mercedes-benz-g-class-long-w463-facelift-2012-g-550-v8-382hp-4matic-7g-tronic-plus-18782'),
+    },
+    'mb_gl_x164': {
+        'gl-450-4matic-340': (2355, ('275/55 R19',), 'https://www.auto-data.net/en/mercedes-benz-gl-x164-gl-450-340hp-4matic-g-tronic-17408'),
+        'gl-500-4matic-388': (2170, ('265/60 R18',), 'https://www.auto-data.net/en/mercedes-benz-gl-x164-gl-500-388hp-4matic-g-tronic-17409'),
+    },
+    'mb_gla_h247': {
+        'amg-gla-35-4matic-306': (1675, ('235/50 R19',), 'https://www.auto-data.net/en/mercedes-benz-gla-h247-facelift-2023-amg-gla-35-306hp-mild-hybrid-4matic-amg-speedshift-dct-8g-50040'),
+        'amg-gla-45-s-4matic-421': (1695, ('255/40 R20', '275/40 R21'), 'https://www.auto-data.net/en/mercedes-benz-gla-h247-facelift-2023-amg-gla-45-s-421hp-4matic-amg-speedshift-dct-8g-51785'),
+        'gla-250-e-218': (1700, ('215/65 R17', '235/55 R18', '235/50 R19', '235/45 R20'), 'https://www.auto-data.net/en/mercedes-benz-gla-h247-gla-250e-218hp-eq-power-8g-dct-39258'),
+    },
     'mb_gla_x156': {
         'amg-gla-45-4matic-360': (1510, ('215/55 R18', '235/45 R19', '235/40 R20'), 'https://www.auto-data.net/en/mercedes-benz-gla-x156-amg-gla-45-360hp-4matic-amg-speedshift-dct-20954'),
         'amg-gla-45-4matic-381': (1510, ('235/45 R19', '235/40 R20'), 'https://www.auto-data.net/en/mercedes-benz-gla-x156-amg-gla-45-381hp-4matic-amg-speedshift-dct-25534'),
+    },
+    'mb_glb_x247': {
+        'amg-glb-35-4matic-306': (1745, ('235/50 R19',), 'https://www.auto-data.net/en/mercedes-benz-glb-x247-facelift-2023-amg-glb-35-306hp-mild-hybrid-4matic-amg-speedshift-dct-8g-50051'),
     },
     'mb_glc_x253': {
         'amg-glc-43-4matic-367': (1770, ('235/55 R19', '255/50 R19'), 'https://www.auto-data.net/en/mercedes-benz-glc-suv-x253-amg-glc-43-367hp-4matic-g-tronic-24365'),
@@ -964,6 +1759,25 @@ RATTAD = {
         'glc-350-e-4matic-315': (2066, ('235/60 R18',), 'https://www.auto-data.net/en/mercedes-benz-glc-suv-x253-facelift-2019-glc-350e-315hp-plug-in-hybrid-4matic-9g-tronic-52989'),
         'glc-350-e-4matic-320': (2025, (), 'https://www.auto-data.net/en/mercedes-benz-glc-suv-x253-glc-350e-320hp-4matic-g-tronic-plus-32287'),
         'glc-400-d-4matic-330': (1835, ('245/45 R18',), 'https://www.auto-data.net/en/mercedes-benz-glc-suv-x253-facelift-2019-glc-400d-330hp-4matic-9g-tronic-41514'),
+    },
+    'mb_glc_x254': {
+        'amg-glc-43-4matic-421': (1975, ('235/55 R19',), 'https://www.auto-data.net/en/mercedes-benz-glc-suv-x254-amg-glc-43-421hp-mild-hybrid-4matic-amg-speedshift-mct-9g-49042'),
+        'amg-glc-53-4matic-449': (1990, (), 'https://www.auto-data.net/en/mercedes-benz-glc-suv-x254-amg-glc-53-449hp-mild-hybrid-4matic-amg-speedshift-tct-9g-56388'),
+        'amg-glc-63-s-e-performance-4matic-680': (2310, ('265/45 R20',), 'https://www.auto-data.net/en/mercedes-benz-glc-suv-x254-amg-glc-63-s-e-performance-680hp-plug-in-hybrid-4matic-amg-speedshift-mct-9g-49047'),
+        'glc-300-de-4matic-335': (2340, ('235/55 R19',), 'https://www.auto-data.net/en/mercedes-benz-glc-suv-x254-glc-300de-335hp-plug-in-hybrid-4matic-9g-tronic-45919'),
+        'glc-300-e-4matic-313': (2280, ('235/55 R19',), 'https://www.auto-data.net/en/mercedes-benz-glc-suv-x254-glc-300e-313hp-plug-in-hybrid-4matic-9g-tronic-45916'),
+        'glc-350-e-4matic-313': (None, ('235/60 R18',), 'https://www.auto-data.net/en/mercedes-benz-glc-suv-x254-glc-350e-313hp-plug-in-hybrid-4matic-9g-tronic-52988'),
+        'glc-400-e-4matic-381': (2280, ('235/55 R19',), 'https://www.auto-data.net/en/mercedes-benz-glc-suv-x254-glc-400e-381hp-plug-in-hybrid-4matic-9g-tronic-45917'),
+        'glc-450-d-4matic-367': (2005, ('235/60 R18', '235/55 R19', '255/45 R20', '265/40 R21'), 'https://www.auto-data.net/en/mercedes-benz-glc-suv-x254-glc-450d-367hp-mild-hybrid-4matic-9g-tronic-51661'),
+    },
+    'mb_gle_w166': {
+        'amg-gle-43-4matic-390': (2105, ('265/45 R20', '265/40 R21'), 'https://www.auto-data.net/en/mercedes-benz-gle-suv-w166-amg-gle-43-v6-390hp-4matic-9g-tronic-52316'),
+        'amg-gle-450-4matic-367': (2105, ('265/45 R20',), 'https://www.auto-data.net/en/mercedes-benz-gle-suv-w166-amg-gle-450-367hp-4matic-9g-tronic-23376'),
+        'amg-gle-63-4matic-557': (2270, ('265/45 R20', '295/35 R21'), 'https://www.auto-data.net/en/mercedes-benz-gle-suv-w166-amg-gle-63-v8-557hp-4matic-amg-speedshift-plus-7g-tronic-22088'),
+        'amg-gle-63-s-4matic-585': (2270, ('295/35 R21',), 'https://www.auto-data.net/en/mercedes-benz-gle-suv-w166-amg-gle-63-s-v8-585hp-4matic-amg-speedshift-plus-7g-tronic-22089'),
+        'gle-500-4matic-435': (2160, ('255/50 R19', '265/45 R20', '265/40 R21'), 'https://www.auto-data.net/en/mercedes-benz-gle-suv-w166-gle-500-v8-435hp-4matic-7g-tronic-plus-22087'),
+        'gle-500-4matic-455': (2160, ('255/50 R19', '265/45 R20', '265/40 R21'), 'https://www.auto-data.net/en/mercedes-benz-gle-suv-w166-gle-500-v8-435hp-4matic-7g-tronic-plus-22087'),
+        'gle-500-e-4matic-442': (2390, ('255/50 R19', '265/45 R20', '265/40 R21'), 'https://www.auto-data.net/en/mercedes-benz-gle-suv-w166-gle-500e-v6-442hp-plug-in-hybrid-4matic-7g-tronic-plus-22063'),
     },
     'mb_gle_w167': {
         'amg-gle-53-4matic-435': (2230, ('275/50 R20',), 'https://www.auto-data.net/en/mercedes-benz-gle-suv-v167-amg-gle-53-435hp-eq-boost-4matic-amg-speedshift-tct-37681'),
@@ -979,6 +1793,24 @@ RATTAD = {
         'gle-450-e-4matic-435': (2700, ('275/50 R20', '275/45 R21', '285/40 R22'), 'https://www.auto-data.net/en/mercedes-benz-gle-suv-v167-facelift-2026-gle-450e-435hp-plug-in-hybrid-4matic-9g-tronic-57123'),
         'gle-580-4matic-489': (2270, ('275/50 R20',), 'https://www.auto-data.net/en/mercedes-benz-gle-suv-v167-gle-580-v8-489hp-eq-boost-4matic-g-tronic-38979'),
         'gle-580-4matic-517': (2410, ('275/55 R19', '275/50 R20'), 'https://www.auto-data.net/en/mercedes-benz-gle-suv-v167-facelift-2023-gle-580-v8-517hp-eq-boost-4matic-9g-tronic-51784'),
+    },
+    'mb_gls_x166': {
+        'amg-gl-63-4matic-558': (2505, ('295/40 R21',), 'https://www.auto-data.net/en/mercedes-benz-gl-x166-amg-gl-63-558hp-4matic-g-tronic-18790'),
+        'amg-gls-63-4matic-585': (2505, ('295/40 R21',), 'https://www.auto-data.net/en/mercedes-benz-gls-x166-amg-gls-63-585hp-4matic-g-tronic-22504'),
+        'gl-500-4matic-435': (2370, ('275/55 R19',), 'https://www.auto-data.net/en/mercedes-benz-gl-x166-gl-500-435hp-4matic-g-tronic-18791'),
+        'gls-500-4matic-456': (2370, ('275/55 R19',), 'https://www.auto-data.net/en/mercedes-benz-gls-x166-gls-500-456hp-4matic-g-tronic-22512'),
+    },
+    'mb_gls_x167': {
+        'amg-gls-63-4matic-612': (2555, ('275/50 R21',), 'https://www.auto-data.net/en/mercedes-benz-gls-x167-amg-gls-63-v8-612hp-eq-boost-4matic-tct-38081'),
+        'gls-580-4matic-517': (2565, ('275/50 R20', '275/45 R21', '285/45 R22', '285/40 R23'), 'https://www.auto-data.net/en/mercedes-benz-gls-x167-facelift-2023-gls-580-v8-517hp-eq-boost-4matic-9g-tronic-51550'),
+        'gls-600-maybach-4matic-558': (2785, ('285/45 R22',), 'https://www.auto-data.net/en/mercedes-benz-gls-x167-gls-600-v8-558hp-eq-boost-4matic-g-tronic-38252'),
+    },
+    'mb_ml_w163': {
+        'amg-ml-55-4matic-347': (2085, ('285/50 R18',), 'https://www.auto-data.net/en/mercedes-benz-m-class-w163-amg-ml-55-v8-347hp-4matic-5g-tronic-12775'),
+        'ml-350-4matic-245': (2040, ('255/60 R17',), 'https://www.auto-data.net/en/mercedes-benz-m-class-w163-facelift-2001-ml-350-v6-245hp-4matic-5g-tronic-43629'),
+        'ml-400-cdi-4matic-250': (2260, ('275/55 R17',), 'https://www.auto-data.net/en/mercedes-benz-m-class-w163-facelift-2001-ml-400-cdi-v8-250hp-4matic-5g-tronic-12772'),
+        'ml-430-4matic-272': (2015, ('275/55 R17',), 'https://www.auto-data.net/en/mercedes-benz-m-class-w163-ml-430-v8-272hp-4matic-5g-tronic-12773'),
+        'ml-500-4matic-292': (2135, ('275/55 R17',), 'https://www.auto-data.net/en/mercedes-benz-m-class-w163-facelift-2001-ml-500-v8-292hp-4matic-5g-tronic-12774'),
     },
     'mb_ml_w164': {
         'amg-ml-63-4matic-510': (2240, ('295/45 R19',), 'https://www.auto-data.net/en/mercedes-benz-m-class-w164-amg-ml-63-v8-510hp-4matic-7g-tronic-amg-speedshift-12766'),
@@ -996,11 +1828,41 @@ RATTAD = {
         's-500-320': (2000, ('235/60 R16',), 'https://www.auto-data.net/en/mercedes-benz-s-class-w140-s-500-v8-320hp-automatic-13086'),
         's-600-394': (2180, ('235/60 R16',), 'https://www.auto-data.net/en/mercedes-benz-s-class-w140-s-600-v12-394hp-automatic-37014'),
     },
+    'mb_s_w126': {
+        '500-se-265': (1670, ('205/65 R15',), 'https://www.auto-data.net/en/mercedes-benz-s-class-se-w126-facelift-1985-500-se-v8-265hp-automatic-13111'),
+        '500-se-cat-252': (1670, ('205/65 R15',), 'https://www.auto-data.net/en/mercedes-benz-s-class-se-w126-facelift-1985-500-se-v8-cat-252hp-automatic-13112'),
+        '560-se-300': (1800, ('215/65 R15',), 'https://www.auto-data.net/en/mercedes-benz-s-class-se-w126-facelift-1985-560-se-v8-300hp-automatic-13116'),
+        '560-se-cat-279': (1800, ('215/65 R15',), 'https://www.auto-data.net/en/mercedes-benz-s-class-se-w126-facelift-1985-560-se-v8-cat-279hp-automatic-13115'),
+    },
+    'mb_s_w220': {
+        'amg-s-55-360': (1810, ('245/45 R18', '275/40 R18'), 'https://www.auto-data.net/en/mercedes-benz-s-class-w220-amg-s-55-360hp-5g-tronic-13070'),
+        'amg-s-55-500': (1910, ('245/45 R18', '265/40 R18'), 'https://www.auto-data.net/en/mercedes-benz-s-class-w220-facelift-2002-amg-s-55-v8-500hp-5g-tronic-13071'),
+        's-500-306': (1780, ('225/60 R16',), 'https://www.auto-data.net/en/mercedes-benz-s-class-w220-s-500-v8-306hp-5g-tronic-13067'),
+    },
     'mb_s_w221': {
         'amg-s-63-525': (1995, ('255/40 R19',), 'https://www.auto-data.net/en/mercedes-benz-s-class-w221-amg-s-63-v8-525hp-7g-tronic-36902'),
         'amg-s-63-544': (1995, ('255/40 R19',), 'https://www.auto-data.net/en/mercedes-benz-s-class-w221-amg-s-63-v8-525hp-7g-tronic-36902'),
         's-400-hybrid-299': (1880, ('235/55 R17',), 'https://www.auto-data.net/en/mercedes-benz-s-class-w221-facelift-2009-s-400-v6-299hp-hybrid-7g-tronic-13039'),
         's-500-blueefficiency-435': (1935, ('255/45 R18',), 'https://www.auto-data.net/en/mercedes-benz-s-class-w221-facelift-2009-s-500-blueefficiency-435hp-g-tronic-36929'),
+    },
+    'mb_s_w222': {
+        'amg-s-63-4matic-585': (1970, ('255/45 R19',), 'https://www.auto-data.net/en/mercedes-benz-s-class-w222-amg-s-63-585hp-speedshift-18886'),
+        's-300-bluetec-hybrid-231': (1940, ('245/55 R17',), 'https://www.auto-data.net/en/mercedes-benz-s-class-w222-s-300-bluetec-231hp-hybrid-7g-tronic-18880'),
+        's-400-hybrid-333': (1850, ('245/55 R17',), 'https://www.auto-data.net/en/mercedes-benz-s-class-w222-s-400-333hp-hybrid-7g-tronic-18885'),
+        's-500-455': (1920, ('245/50 R18',), 'https://www.auto-data.net/en/mercedes-benz-s-class-w222-s-500-v8-455hp-9g-tronic-43403'),
+        's-500-eq-boost-435': (1930, ('245/50 R18',), 'https://www.auto-data.net/en/mercedes-benz-s-class-w222-facelift-2017-s-500-435hp-eq-boost-g-tronic-31876'),
+        's-560-469': (1970, ('245/50 R18',), 'https://www.auto-data.net/en/mercedes-benz-s-class-w222-facelift-2017-s-560-v8-469hp-g-tronic-31875'),
+    },
+    'mb_s_w223': {
+        's-450-e-408': (2335, ('255/45 R19', '255/40 R20', '255/35 R21'), 'https://www.auto-data.net/en/mercedes-benz-s-class-w223-s-450e-408hp-plug-in-hybrid-9g-tronic-51740'),
+        's-450-e-435': (2370, ('255/45 R19',), 'https://www.auto-data.net/en/mercedes-benz-s-class-w223-facelift-2026-s-450e-435hp-eq-hybrid-9g-tronic-56283'),
+        's-580-4matic-503': (2020, ('255/50 R18', '255/45 R19', '255/40 R20'), 'https://www.auto-data.net/en/mercedes-benz-s-class-w223-s-580-v8-503hp-eq-boost-4matic-9g-tronic-43453'),
+        's-580-4matic-537': (2175, ('255/45 R19',), 'https://www.auto-data.net/en/mercedes-benz-s-class-w223-facelift-2026-s-580-v8-537hp-eq-boost-4matic-9g-tronic-56282'),
+        's-580-e-4matic-585': (2420, ('255/45 R19',), 'https://www.auto-data.net/en/mercedes-benz-s-class-w223-facelift-2026-s-580e-585hp-eq-hybrid-4matic-9g-tronic-56284'),
+        's-580-e-510': (2290, ('255/45 R19',), 'https://www.auto-data.net/en/mercedes-benz-s-class-w223-s-580e-510hp-plug-in-hybrid-9g-tronic-44006'),
+    },
+    'mb_v_w447': {
+        'v-300-mild-hybrid-231': (2193, ('225/55 R17', '235/55 R17', '245/55 R17', '245/45 R18', '245/50 R18', '245/45 R19'), 'https://www.auto-data.net/en/mercedes-benz-v-class-long-v447-facelift-2024-v-300-231hp-mild-hybrid-9g-tronic-54363'),
     },
     'mb_vito_w447': {
         '114-cdi-136': (2002, (), 'https://www.auto-data.net/en/mercedes-benz-vito-w447-tourer-long-114-cdi-136hp-awd-automatic-36095'),
@@ -1009,13 +1871,56 @@ RATTAD = {
         'evito-41-kwh-116': (2184, ('225/55 R17',), 'https://www.auto-data.net/en/mercedes-benz-vito-w447-facelift-2020-panel-van-long-evito-41-kwh-116hp-36171'),
         'evito-66-kwh-116': (2318, ('225/55 R17',), 'https://www.auto-data.net/en/mercedes-benz-vito-w447-facelift-2020-panel-van-long-evito-66-kwh-116hp-55894'),
     },
+    'mg3_hybrid': {
+        '1-5-116': (1162, (), 'https://www.auto-data.net/en/mg-mg3-iii-1.5-116hp-54092'),
+    },
     'mg4_ev': {
         'xpower-64-kwh-awd-awd-435': (1800, (), 'https://www.auto-data.net/en/mg-mg4-ev-i-64-kwh-435hp-xpower-awd-49032'),
+    },
+    'mg_hs': {
+        'ehs-1-5-t-gdi-258': (1737, ('235/50 R18',), 'https://www.auto-data.net/en/mg-hs-i-ehs-1.5-t-gdi-258hp-plug-in-hybrid-automatic-41321'),
+    },
+    'mg_hs_2': {
+        '1-5-plug-in-hybrid-299': (1850, (), 'https://www.auto-data.net/en/mg-hs-ii-1.5t-299hp-plug-in-hybrid-automatic-54115'),
+    },
+    'mg_zs_2': {
+        '1-5-110': (1266, ('215/60 R16', '215/55 R17'), 'https://www.auto-data.net/en/mg-zs-2024-1.5l-110hp-cvt-54106'),
+        '1-5-116': (1260, (), 'https://www.auto-data.net/en/mg-zs-2024-1.5l-116hp-54093'),
+        '1-5t-170': (1361, ('215/50 R18',), 'https://www.auto-data.net/en/mg-zs-2024-1.5t-170hp-cvt-54107'),
+    },
+    'mini_clubman_f54': {
+        'cooper-s-2-0-192': (1395, ('225/45 R17',), 'https://www.auto-data.net/en/mini-clubman-f54-cooper-s-2.0-192hp-steptronic-34093'),
+        'cooper-sd-2-0-190': (1450, ('225/45 R17',), 'https://www.auto-data.net/en/mini-clubman-f54-cooper-sd-2.0-190hp-steptronic-34098'),
+        'jcw-2-0-231': (1490, ('225/40 R18',), 'https://www.auto-data.net/en/mini-clubman-f54-jcw-2.0-231hp-steptronic-27756'),
+        'jcw-2-0-all4-306': (None, ('225/40 R18',), 'https://www.auto-data.net/en/mini-clubman-f54-facelift-2019-jcw-2.0-306hp-all4-automatic-37462'),
+    },
+    'mini_cooper_j01': {
+        'jcw-54-2-kwh-258': (1655, ('225/40 R18',), 'https://www.auto-data.net/en/mini-electric-j01-jcw-54.2-kwh-258hp-54295'),
+    },
+    'mini_cooper_r50': {
+        'cooper-s-1-6-163': (1215, ('195/55 R16',), 'https://www.auto-data.net/en/mini-hatch-r50-r53-cooper-s-1.6-i-16v-163hp-15331'),
+        'cooper-s-1-6-170': (1215, ('195/55 R16',), 'https://www.auto-data.net/en/mini-hatch-r50-r53-cooper-s-1.6-i-16v-163hp-15331'),
+    },
+    'mini_countryman_f60': {
+        'cooper-s-2-0-178': (1480, ('225/55 R17',), 'https://www.auto-data.net/en/mini-countryman-f60-facelift-2020-cooper-s-2.0-178hp-steptronic-40758'),
+        'cooper-s-2-0-192': (1465, ('225/55 R17',), 'https://www.auto-data.net/en/mini-countryman-f60-cooper-s-2.0-192hp-steptronic-34155'),
+        'cooper-s-e-1-5-all4-224': (1660, ('225/55 R17',), 'https://www.auto-data.net/en/mini-countryman-f60-cooper-s-e-1.5-224hp-plug-in-hybrid-all4-steptronic-34154'),
+        'cooper-sd-2-0-190': (1510, ('225/55 R17',), 'https://www.auto-data.net/en/mini-countryman-f60-cooper-sd-2.0-190hp-steptronic-34159'),
+        'cooper-se-1-5-all4-220': (1715, ('225/55 R17',), 'https://www.auto-data.net/en/mini-countryman-f60-facelift-2020-cooper-se-1.5-220hp-plug-in-hybrid-all4-steptronic-40760'),
+        'jcw-2-0-231': (1555, ('225/50 R18',), 'https://www.auto-data.net/en/mini-countryman-f60-jcw-2.0-231hp-steptronic-27690'),
+        'jcw-2-0-all4-306': (1605, ('225/50 R18',), 'https://www.auto-data.net/en/mini-countryman-f60-facelift-2020-jcw-2.0-306hp-all4-steptronic-45498'),
     },
     'mini_countryman_r60': {
         'cooper-s-1-6-184': (1335, ('205/55 R17',), 'https://www.auto-data.net/en/mini-countryman-r60-cooper-s-1.6-184hp-automatic-21601'),
         'cooper-s-1-6-190': (1335, ('205/55 R17',), 'https://www.auto-data.net/en/mini-countryman-r60-cooper-s-1.6-184hp-automatic-21601'),
         'jcw-1-6-218': (1430, ('225/45 R18',), 'https://www.auto-data.net/en/mini-countryman-r60-facelift-2014-jcw-1.6-218hp-automatic-21641'),
+    },
+    'mini_countryman_u25': {
+        'c-1-5-170': (1545, ('205/65 R17',), 'https://www.auto-data.net/en/mini-countryman-u25-c-1.5-170hp-mild-hybrid-steptronic-51555'),
+        'd-2-0-163': (1620, ('205/65 R17',), 'https://www.auto-data.net/en/mini-countryman-u25-d-2.0-163hp-mild-hybrid-steptronic-51559'),
+        'e-66-5-kwh-204': (1865, ('205/65 R17',), 'https://www.auto-data.net/en/mini-countryman-u25-e-66.5-kwh-204hp-electric-56273'),
+        's-2-0-all4-218': (1640, ('205/65 R17',), 'https://www.auto-data.net/en/mini-countryman-u25-s-2.0-218hp-mild-hybrid-all4-steptronic-51557'),
+        'se-66-5-kwh-all4-313': (2000, ('205/65 R17',), 'https://www.auto-data.net/en/mini-countryman-u25-se-66.5-kwh-313hp-electric-all4-56274'),
     },
     'mini_f56': {
         'cooper-1-5-136': (1115, ('175/65 R15',), 'https://www.auto-data.net/en/mini-hatch-f56-3-door-cooper-1.5-136hp-automatic-21550'),
@@ -1030,11 +1935,22 @@ RATTAD = {
         'cooper-s-1-6-turbo-175': (1130, ('195/55 R16',), 'https://www.auto-data.net/en/mini-hatch-r56-cooper-s-1.6-i-16v-turbo-175hp-15328'),
         'jcw-1-6-211': (1130, ('205/45 R17',), 'https://www.auto-data.net/en/mini-hatch-r56-jcw-1.6-211hp-21504'),
     },
+    'mitsu_asx_2': {
+        '1-3-turbo-mild-hybrid-140': (1324, ('215/60 R17',), 'https://www.auto-data.net/en/mitsubishi-asx-ii-1.3-turbo-140hp-mild-hybrid-47525'),
+        '1-3-turbo-mild-hybrid-141': (1324, ('215/60 R17',), 'https://www.auto-data.net/en/mitsubishi-asx-ii-1.3-turbo-140hp-mild-hybrid-47525'),
+        '1-3-turbo-mild-hybrid-158': (1325, ('215/55 R18',), 'https://www.auto-data.net/en/mitsubishi-asx-ii-1.3-turbo-158hp-mild-hybrid-dct-47526'),
+        '1-6-hybrid-143': (1420, ('215/60 R17', '215/55 R18'), 'https://www.auto-data.net/en/mitsubishi-asx-ii-1.6-143hp-hybrid-multi-mode-47527'),
+        '1-6-plug-in-hybrid-159': (1596, ('215/55 R18',), 'https://www.auto-data.net/en/mitsubishi-asx-ii-1.6-159hp-plug-in-hybrid-multi-mode-47528'),
+        '1-8-hybrid-158': (1374, ('215/60 R17', '215/55 R18'), 'https://www.auto-data.net/en/mitsubishi-asx-ii-facelift-2024-1.8-158hp-hybrid-multi-mode-56042'),
+    },
     'mitsu_colt_6': {
         '1-5-turbo-czt-ralliart-150': (1055, ('205/45 R16',), 'https://www.auto-data.net/en/mitsubishi-colt-vi-z30-1.5-i-16v-czt-150hp-15757'),
     },
     'mitsu_eclipse_cross': {
         '2-4-mivec-plug-in-hybrid-s-awc-188': (1910, ('225/55 R18',), 'https://www.auto-data.net/en/mitsubishi-eclipse-cross-i-facelift-2021-2.4-mivec-188hp-plug-in-hybrid-s-awc-42259'),
+    },
+    'mitsu_galant_8': {
+        '2-5-vr-4-4wd-280': (1480, ('205/55 R16',), 'https://www.auto-data.net/en/mitsubishi-galant-viii-2.5-i-vr-4-type-v-4wd-280hp-automatic-24630'),
     },
     'mitsu_lancer_10': {
         'ralliart-2-0-240': (None, ('205/60 R16', '215/45 R18'), 'https://www.auto-data.net/en/mitsubishi-lancer-sportback-ix-gs44s-ralliart-2.0-240hp-15646'),
@@ -1042,16 +1958,31 @@ RATTAD = {
     'mitsu_lancer_9': {
         'sport-2-0-i-16v-135': (1270, ('195/50 R16',), 'https://www.auto-data.net/en/mitsubishi-lancer-viii-sport-2.0i-16v-135hp-15631'),
     },
+    'mitsu_outlander_1': {
+        '2-0-i-16v-turbo-4wd-202': (1595, ('215/55 R17',), 'https://www.auto-data.net/en/mitsubishi-outlander-i-2.0-i-16v-4wd-turbo-202hp-15456'),
+    },
     'mitsu_outlander_2': {
         '3-0-v6-4wd-230': (1710, ('225/55 R18',), 'https://www.auto-data.net/en/mitsubishi-outlander-ii-facelift-2009-3.0-v6-230hp-automatic-4wd-42196'),
+    },
+    'mitsu_pajero_2': {
+        '3-5-v6-gdi-245': (2170, ('265/70 R16',), 'https://www.auto-data.net/en/mitsubishi-pajero-ii-v2-w-v4-w-3.5-i-v6-24v-gdi-245hp-15511'),
     },
     'mitsubishi_outlander_3': {
         '2-0-mivec-plug-in-hybrid-4wd-200': (1810, ('225/55 R18',), 'https://www.auto-data.net/en/mitsubishi-outlander-iii-2.0-mivec-200hp-plug-in-hybrid-4wd-39236'),
         '2-0-mivec-plug-in-hybrid-4wd-203': (1810, ('225/55 R18',), 'https://www.auto-data.net/en/mitsubishi-outlander-iii-2.0-mivec-200hp-plug-in-hybrid-4wd-39236'),
         '2-4-mivec-plug-in-hybrid-4wd-224': (1880, ('215/70 R16', '225/55 R18'), 'https://www.auto-data.net/en/mitsubishi-outlander-iii-facelift-2018-2.4-mivec-224hp-plug-in-hybrid-4wd-33489'),
     },
+    'nissan_almera_n15': {
+        '2-0-gti-143': (1210, ('195/50 R15',), 'https://www.auto-data.net/en/nissan-almera-i-hatchback-n15-2.0-gti-143hp-761'),
+    },
     'nissan_almera_n16': {
         '2-2-dci-136': (1235, ('185/65 R15',), 'https://www.auto-data.net/en/nissan-almera-ii-hatchback-n16-facelift-2003-2.2-dci-136hp-755'),
+    },
+    'nissan_ariya': {
+        '66-kwh-e-4orce-e-4orce-340': (2090, ('235/55 R19',), 'https://www.auto-data.net/en/nissan-ariya-66-kwh-340hp-e-4orce-48645'),
+        'nismo-b6-66-kwh-e-4orce-e-4orce-367': (2080, ('255/45 R20',), 'https://www.auto-data.net/en/nissan-ariya-nismo-66-kwh-367hp-b6-e-4orce-52704'),
+        'nismo-b9-91-kwh-e-4orce-e-4orce-435': (2210, ('255/45 R20',), 'https://www.auto-data.net/en/nissan-ariya-nismo-91-kwh-435hp-b9-e-4orce-52703'),
+        'performance-90-kwh-e-4orce-e-4orce-394': (None, ('235/55 R19', '255/45 R20'), 'https://www.auto-data.net/en/nissan-ariya-performance-90-kwh-394hp-e-4orce-40705'),
     },
     'nissan_juke_f15': {
         '1-6-dig-t-190': (1225, ('225/45 R18',), 'https://www.auto-data.net/en/nissan-juke-i-facelift-2014-1.6-dig-t-190hp-23560'),
@@ -1059,20 +1990,41 @@ RATTAD = {
         'nismo-rs-1-6-dig-t-218': (1267, ('225/45 R18',), 'https://www.auto-data.net/en/nissan-juke-i-facelift-2014-nismo-rs-1.6-dig-t-218hp-22215'),
         'nismo-rs-1-6-dig-t-4x4-214': (1394, ('225/45 R18',), 'https://www.auto-data.net/en/nissan-juke-i-facelift-2014-nismo-rs-1.6-dig-t-214hp-4x4-xtronic-22216'),
     },
+    'nissan_juke_f16': {
+        '1-6-hybrid-143': (1287, ('215/60 R17', '225/45 R19'), 'https://www.auto-data.net/en/nissan-juke-ii-1.6-143hp-hybrid-automatic-45922'),
+    },
     'nissan_micra_k12': {
         '160-sr-110': (1024, ('185/50 R16',), 'https://www.auto-data.net/en/nissan-micra-k12-160-sr-110hp-712'),
+    },
+    'nissan_primera_p10': {
+        '2-0-gt-150': (1249, ('195/60 R14',), 'https://www.auto-data.net/en/nissan-primera-p10-2.0-gt-150hp-639'),
+    },
+    'nissan_primera_p11': {
+        '2-0-gt-150': (1345, ('195/60 R15',), 'https://www.auto-data.net/en/nissan-primera-p11-2.0-16v-150hp-gt-619'),
     },
     'nissan_primera_p12': {
         '2-5-i-16v-170': (1340, ('205/60 R16',), 'https://www.auto-data.net/en/nissan-primera-p12-2.5-i-16v-170hp-598'),
     },
     'nissan_sunny_n14': {
         '2-0-gti-16v-143': (1070, ('185/60 R14',), 'https://www.auto-data.net/en/nissan-sunny-iii-n14-2.0-i-16v-143hp-472'),
+        '2-0-gti-r-4x4-230': (1220, ('195/55 R14',), 'https://www.auto-data.net/en/nissan-sunny-iii-hatch-n14-3-doors-2.0-gti-r-4x4-230hp-491'),
     },
     'nissan_xtrail_t32': {
         '2-0i-hybrid-176': (1634, ('225/65 R17',), 'https://www.auto-data.net/en/nissan-x-trail-iii-t32-facelift-2017-2.0i-176hp-hybrid-xtronic-cvt-49631'),
     },
+    'nissan_xtrail_t33': {
+        '2-5-184': (1540, ('235/65 R17', '235/60 R18'), 'https://www.auto-data.net/en/nissan-x-trail-iv-t33-2.5-16v-184hp-cvt-46447'),
+    },
+    'omoda_5': {
+        '60-9-kwh-211': (1810, ('215/55 R18',), 'https://www.auto-data.net/en/omoda-5-facelift-2024-60.9-kwh-211hp-ev-55820'),
+        '61-kwh-204': (1710, ('215/55 R18',), 'https://www.auto-data.net/en/omoda-5-61.06-kwh-204hp-ev-54027'),
+        'shs-h-1-5-tgdi-full-hybrid-224': (1621, ('215/60 R17', '215/55 R18'), 'https://www.auto-data.net/en/omoda-5-facelift-2024-shs-h-1.5-tgdi-224hp-full-hybrid-dht-55821'),
+    },
     'opel_antara': {
         '3-2-v6-ecotec-4x4-227': (1770, ('235/55 R18', '245/45 R19'), 'https://www.auto-data.net/en/opel-antara-3.2-v6-ecotec-227hp-4x4-automatic-1828'),
+    },
+    'opel_ascona_c': {
+        '2-0i-gt-129': (1030, ('195/60 R14',), 'https://www.auto-data.net/en/opel-ascona-c-2.0i-gt-129hp-2038'),
     },
     'opel_astra_f': {
         'gsi-2-0-16v-150': (1100, ('205/50 R15',), 'https://www.auto-data.net/en/opel-astra-f-gsi-2.0-16v-150hp-2510'),
@@ -1126,6 +2078,15 @@ RATTAD = {
         '58-kwh-156': (1658, ('215/45 R18',), 'https://www.auto-data.net/en/opel-astra-l-facelift-2026-58-kwh-156hp-electric-56231'),
         'gse-1-6-turbo-plug-in-hybrid-225': (1628, ('225/40 R18',), 'https://www.auto-data.net/en/opel-astra-l-gse-1.6-turbo-225hp-plug-in-hybrid-automatic-47188'),
     },
+    'opel_combo_e': {
+        '54-kwh-136': (1736, ('205/60 R16', '205/55 R17'), 'https://www.auto-data.net/en/opel-combo-e-facelift-2024-54-kwh-136hp-electric-56380'),
+    },
+    'opel_corsa_a': {
+        '1-6-gsi-100': (820, ('175/65 R14',), 'https://www.auto-data.net/en/opel-corsa-a-facelift-1987-1.6-gsi-100hp-2133'),
+        '1-6-gsi-101': (845, ('165/65 R14',), 'https://www.auto-data.net/en/opel-corsa-a-facelift-1990-1.6-gsi-101hp-2134'),
+        '1-6-gsi-75': (820, ('175/65 R14',), 'https://www.auto-data.net/en/opel-corsa-a-facelift-1987-1.6-gsi-75hp-25882'),
+        '1-6-gsi-98': (820, ('175/65 R14',), 'https://www.auto-data.net/en/opel-corsa-a-facelift-1987-1.6-gsi-100hp-2133'),
+    },
     'opel_corsa_b': {
         '1-6i-16v-gsi-109': (975, ('165/70 R13',), 'https://www.auto-data.net/en/opel-corsa-b-1.6i-16v-gsi-109hp-2120'),
     },
@@ -1157,9 +2118,29 @@ RATTAD = {
         'e-51-kwh-156': (1469, ('195/55 R16', '205/45 R17'), 'https://www.auto-data.net/en/opel-corsa-f-facelift-2023-e-51-kwh-156hp-49041'),
         'gse-54-kwh-281': (1554, ('215/40 R18',), 'https://www.auto-data.net/en/opel-corsa-f-facelift-2023-gse-54-kwh-281hp-57873'),
     },
+    'opel_crossland': {
+        '1-2-turbo-130': (1291, ('195/60 R16', '215/50 R17'), 'https://www.auto-data.net/en/opel-crossland-x-1.2-turbo-130hp-automatic-39019'),
+    },
+    'opel_frontera_2024': {
+        '1-2-turbo-hybrid-110': (1269, ('215/65 R16', '215/60 R17'), 'https://www.auto-data.net/en/opel-frontera-2024-1.2-turbo-110hp-hybrid-edct-54771'),
+        '1-2-turbo-hybrid-145': (1269, ('215/65 R16', '215/60 R17'), 'https://www.auto-data.net/en/opel-frontera-2024-1.2-turbo-145hp-hybrid-edct-54772'),
+        '1-2-turbo-mild-hybrid-100': (1269, ('215/65 R16', '215/60 R17'), 'https://www.auto-data.net/en/opel-frontera-2024-1.2-turbo-100hp-mild-hybrid-e-dct-52245'),
+        '1-2-turbo-mild-hybrid-136': (1269, ('215/65 R16', '215/60 R17'), 'https://www.auto-data.net/en/opel-frontera-2024-1.2-turbo-136hp-mild-hybrid-e-dct-52246'),
+        '44-kwh-113': (1439, ('215/65 R16', '215/60 R17'), 'https://www.auto-data.net/en/opel-frontera-2024-44-kwh-113hp-electric-52244'),
+        '54-kwh-extended-range-113': (1535, ('215/65 R16', '215/60 R17'), 'https://www.auto-data.net/en/opel-frontera-2024-54-kwh-113hp-electric-extended-range-54903'),
+    },
+    'opel_frontera_b': {
+        '3-2i-v6-4x4-205': (1720, ('235/75 R15',), 'https://www.auto-data.net/en/opel-frontera-b-3.2i-v6-205hp-4x4-automatic-2561'),
+    },
     'opel_grandland': {
         '1-6-turbo-plug-in-hybrid-224': (1800, ('225/55 R18', '205/55 R19'), 'https://www.auto-data.net/en/opel-grandland-x-1.6-turbo-224hp-plug-in-hybrid-automatic-38293'),
         '1-6-turbo-plug-in-hybrid4-gse-from-2021-awd-300': (1800, ('225/55 R18', '205/55 R19'), 'https://www.auto-data.net/en/opel-grandland-x-1.6-turbo-300hp-plug-in-hybrid4-awd-automatic-37601'),
+    },
+    'opel_grandland_2': {
+        '73-kwh-213': (2057, ('225/55 R19', '235/55 R19', '235/50 R20'), 'https://www.auto-data.net/en/opel-grandland-b-73-kwh-213hp-electric-52923'),
+        '73-kwh-awd-awd-325': (2250, ('235/50 R20',), 'https://www.auto-data.net/en/opel-grandland-b-73-kwh-325hp-awd-electric-54602'),
+        '82-kwh-213': (2045, ('225/55 R19', '235/55 R19', '235/50 R20'), 'https://www.auto-data.net/en/opel-grandland-b-82-kwh-213hp-electric-52924'),
+        '97-kwh-long-range-231': (2180, ('235/55 R19', '235/50 R20'), 'https://www.auto-data.net/en/opel-grandland-b-97-kwh-231hp-electric-long-range-55528'),
     },
     'opel_insignia_a': {
         '2-0-turbo-220': (1670, ('225/55 R17', '245/45 R18'), 'https://www.auto-data.net/en/opel-insignia-hatchback-a-2.0-turbo-220hp-automatic-1788'),
@@ -1177,6 +2158,16 @@ RATTAD = {
         '2-0-gsi-129': (985, (), 'https://www.auto-data.net/en/opel-kadett-e-cc-2.0-gsi-129hp-1918'),
         '2-0-gsi-16v-150': (1030, ('185/60 R14',), 'https://www.auto-data.net/en/opel-kadett-e-cc-2.0-gsi-16v-150hp-1919'),
         '2-0-gsi-16v-156': (1030, ('185/60 R14',), 'https://www.auto-data.net/en/opel-kadett-e-cc-2.0-gsi-16v-150hp-1919'),
+    },
+    'opel_meriva_a': {
+        'opc-1-6i-16v-180': (1450, ('205/45 R17',), 'https://www.auto-data.net/en/opel-meriva-a-facelift-2006-opc-1.6i-16v-180hp-2520'),
+    },
+    'opel_mokka_b': {
+        '1-2-turbo-hybrid-edct-145': (1287, ('215/65 R16', '215/60 R17', '215/55 R18', '195/60 R18'), 'https://www.auto-data.net/en/opel-mokka-b-facelift-2024-1.2-turbo-145hp-hybrid-edct-54782'),
+        '1-2-turbo-mild-hybrid-e-dct-136': (1287, ('215/65 R16', '215/60 R17', '195/60 R18', '215/55 R18'), 'https://www.auto-data.net/en/opel-mokka-b-facelift-2024-1.2-turbo-136hp-mild-hybrid-e-dct-53126'),
+        '54-kwh-156': (1557, ('215/65 R16', '215/60 R17', '215/55 R18'), 'https://www.auto-data.net/en/opel-mokka-b-54-kwh-156hp-electric-50963'),
+        'gse-54-kwh-281': (1597, ('225/40 R20',), 'https://www.auto-data.net/en/opel-mokka-b-facelift-2024-gse-54-kwh-281hp-electric-55307'),
+        'mokka-e-50-kwh-136': (1523, ('215/65 R16', '215/60 R17', '215/55 R18'), 'https://www.auto-data.net/en/opel-mokka-b-mokka-e-50-kwh-136hp-45148'),
     },
     'opel_omega_a': {
         '2-6i-cat-150': (1415, ('195/65 R15',), 'https://www.auto-data.net/en/opel-omega-a-2.6i-cat-150hp-automatic-26025'),
@@ -1220,6 +2211,10 @@ RATTAD = {
         '3-0-cdti-184': (1565, ('215/55 R16',), 'https://www.auto-data.net/en/opel-vectra-c-facelift-2005-3.0-cdti-184hp-2230'),
         '3-2i-v6-24v-211': (1523, ('215/55 R16',), 'https://www.auto-data.net/en/opel-vectra-c-3.2i-v6-24v-211hp-2231'),
     },
+    'opel_vivaro_b': {
+        '1-6-cdti-biturbo-140': (1665, (), 'https://www.auto-data.net/en/opel-vivaro-b-1.6-cdti-biturbo-140hp-26604'),
+        '1-6-cdti-biturbo-145': (1665, (), 'https://www.auto-data.net/en/opel-vivaro-b-1.6-cdti-biturbo-145hp-26860'),
+    },
     'opel_zafira_a': {
         'opc-2-0-16v-turbo-192': (1540, ('225/45 R17',), 'https://www.auto-data.net/en/opel-zafira-a-t3000-opc-2.0-16v-192hp-2605'),
     },
@@ -1231,12 +2226,22 @@ RATTAD = {
     'opel_zafira_c': {
         '1-6-turbo-200': (1616, (), 'https://www.auto-data.net/en/opel-zafira-tourer-c-1.6-turbo-ecotec-200hp-7-seat-38479'),
     },
+    'opel_zafira_life': {
+        '2-2-d-180': (1871, ('215/65 R16', '215/60 R17', '225/55 R17'), 'https://www.auto-data.net/en/opel-zafira-life-facelift-2024-2.2d-180hp-automatic-56375'),
+        '50-kwh-136': (1943, ('225/55 R17',), 'https://www.auto-data.net/en/opel-zafira-life-facelift-2024-50-kwh-136hp-electric-53065'),
+        '75-kwh-136': (2136, ('225/55 R17',), 'https://www.auto-data.net/en/opel-zafira-life-facelift-2024-75-kwh-136hp-electric-53066'),
+    },
     'passat_b5': {
         '1-8-t-20v-170': (1280, ('195/65 R15',), 'https://www.auto-data.net/en/volkswagen-passat-b5.5-1.8t-20v-170hp-tiptronic-28717'),
         '2-3-v5-170': (1571, ('205/55 R16',), 'https://www.auto-data.net/en/volkswagen-passat-b5.5-2.3-v5-170hp-tiptronic-29208'),
         '2-5-tdi-4motion-180': (None, ('205/55 R16',), 'https://www.auto-data.net/en/volkswagen-passat-b5.5-2.5-tdi-v6-180hp-4motion-tiptronic-29190'),
         '2-8-v6-30v-193': (1764, ('205/55 R16',), 'https://www.auto-data.net/en/volkswagen-passat-b5.5-2.8-30v-v6-193hp-4motion-tiptronic-43045'),
         '4-0-w8-4motion-275': (None, ('225/45 R17',), 'https://www.auto-data.net/en/volkswagen-passat-b5.5-4.0-w8-32v-275hp-4motion-tiptronic-29030'),
+    },
+    'peugeot_106': {
+        '1-6-104': (870, ('175/60 R14',), 'https://www.auto-data.net/en/peugeot-106-i-1a-c-1.6-104hp-5418'),
+        '1-6-i-101': (900, ('175/60 R14',), 'https://www.auto-data.net/en/peugeot-106-ii-1-1.6-i-101hp-5408'),
+        '1-6-s16-118': (950, ('185/55 R14',), 'https://www.auto-data.net/en/peugeot-106-ii-1-1.6-s16-118hp-5410'),
     },
     'peugeot_2008_1': {
         '1-2-puretech-130': (1160, ('195/60 R16', '205/50 R17'), 'https://www.auto-data.net/en/peugeot-2008-i-facelift-2016-1.2-puretech-130hp-start-stop-stt-22745'),
@@ -1247,6 +2252,24 @@ RATTAD = {
         '1-2-puretech-155': (1205, ('215/65 R16', '215/60 R17', '215/55 R18'), 'https://www.auto-data.net/en/peugeot-2008-ii-1.2-puretech-155hp-automatic-38131'),
         'e-2008-50-kwh-136': (1548, ('215/60 R16', '215/65 R16', '215/60 R17', '215/55 R18'), 'https://www.auto-data.net/en/peugeot-2008-ii-e-2008-50-kwh-136hp-38043'),
         'e-2008-54-kwh-156': (1550, ('215/65 R16', '215/60 R17', '215/55 R18'), 'https://www.auto-data.net/en/peugeot-2008-ii-facelift-2023-e-2008-54-kwh-156hp-48807'),
+    },
+    'peugeot_205': {
+        '1-3-rallye-101': (790, ('165/70 R13',), 'https://www.auto-data.net/en/peugeot-205-i-20a-c-facelift-1987-1.3-rallye-101hp-5643'),
+        '1-4-79': (810, ('165/70 R14',), 'https://www.auto-data.net/en/peugeot-205-i-741a-c-1.4-80hp-5668'),
+        '1-4-80': (810, ('165/70 R14',), 'https://www.auto-data.net/en/peugeot-205-i-741a-c-1.4-80hp-5668'),
+        '1-4-84': (810, ('165/70 R14',), 'https://www.auto-data.net/en/peugeot-205-i-741a-c-1.4-80hp-5668'),
+        '1-4-i-75': (820, ('165/70 R13',), 'https://www.auto-data.net/en/peugeot-205-i-20a-c-facelift-1987-1.4-i-75hp-5648'),
+        '1-6-75': (832, ('165/70 R13',), 'https://www.auto-data.net/en/peugeot-205-i-741a-c-1.6-80hp-automatic-5670'),
+        '1-6-80': (832, ('165/70 R13',), 'https://www.auto-data.net/en/peugeot-205-i-741a-c-1.6-80hp-automatic-5670'),
+        '1-6-gti-103': (850, ('185/60 R14',), 'https://www.auto-data.net/en/peugeot-205-i-741a-c-3-door-1.6-gti-105hp-5671'),
+        '1-6-gti-105': (850, ('185/60 R14',), 'https://www.auto-data.net/en/peugeot-205-i-741a-c-3-door-1.6-gti-105hp-5671'),
+        '1-6-gti-113': (850, ('185/60 R14',), 'https://www.auto-data.net/en/peugeot-205-i-741a-c-3-door-1.6-gti-105hp-5671'),
+        '1-6-i-89': (880, ('165/70 R13',), 'https://www.auto-data.net/en/peugeot-205-i-20a-c-facelift-1987-1.6-i-89hp-5655'),
+        '1-8-d-78': (925, ('165/70 R13',), 'https://www.auto-data.net/en/peugeot-205-i-20a-c-facelift-1987-1.8-d-78hp-5658'),
+        '1-9-gti-102': (880, ('185/60 R14',), 'https://www.auto-data.net/en/peugeot-205-i-20a-c-facelift-1987-1.9-gti-102hp-cat-5660'),
+        '1-9-gti-120': (880, ('185/60 R14',), 'https://www.auto-data.net/en/peugeot-205-i-20a-c-facelift-1987-1.9-gti-120hp-5661'),
+        '1-9-gti-128': (880, ('185/60 R14',), 'https://www.auto-data.net/en/peugeot-205-i-20a-c-facelift-1987-1.9-gti-120hp-5661'),
+        '1-9-gti-130': (880, ('185/60 R14',), 'https://www.auto-data.net/en/peugeot-205-i-20a-c-facelift-1987-1.9-gti-120hp-5661'),
     },
     'peugeot_206': {
         '1-6-hdi-109': (1055, ('195/55 R15',), 'https://www.auto-data.net/en/peugeot-206-facelift-2003-1.6-hdi-109hp-34676'),
@@ -1291,6 +2314,16 @@ RATTAD = {
         'hybrid-225-225': (1763, ('225/55 R18', '205/55 R19'), 'https://www.auto-data.net/en/peugeot-3008-ii-phase-ii-2020-1.6-225hp-plug-in-hybrid-e-eat8-41856'),
         'hybrid4-300-4x4-300': (1840, ('225/55 R18', '205/55 R19'), 'https://www.auto-data.net/en/peugeot-3008-ii-phase-i-2016-1.6-hybrid4-300hp-e-eat8-34447'),
     },
+    'peugeot_3008_3': {
+        'e-3008-73-kwh-213': (2114, ('235/55 R19', '235/50 R20'), 'https://www.auto-data.net/en/peugeot-3008-iii-phase-i-2023-e-3008-73-kwh-213hp-50490'),
+        'e-3008-73-kwh-dual-motor-awd-awd-326': (2199, ('235/55 R19', '235/50 R20'), 'https://www.auto-data.net/en/peugeot-3008-iii-phase-i-2023-e-3008-73-kwh-326hp-dual-motor-awd-50491'),
+        'e-3008-98-kwh-long-range-231': (2174, ('235/55 R19', '235/50 R20'), 'https://www.auto-data.net/en/peugeot-3008-iii-phase-i-2023-e-3008-98-kwh-231hp-long-range-50492'),
+    },
+    'peugeot_306': {
+        '2-0-s16-150': (1160, ('195/50 R15',), 'https://www.auto-data.net/en/peugeot-306-hatchback-7a-c-2.0-s16-150hp-5719'),
+        '2-0-s16-152': (1160, ('195/50 R15',), 'https://www.auto-data.net/en/peugeot-306-hatchback-7a-c-2.0-s16-150hp-5719'),
+        '2-0-s16-163': (1160, ('195/55 R15',), 'https://www.auto-data.net/en/peugeot-306-hatchback-7a-c-2.0-s16-163hp-5721'),
+    },
     'peugeot_307': {
         '2-0-136': (1238, ('205/55 R16',), 'https://www.auto-data.net/en/peugeot-307-2.0-136hp-automatic-28652'),
         '2-0-140': (1271, ('205/55 R16',), 'https://www.auto-data.net/en/peugeot-307-facelift-2005-2.0i-140hp-automatic-34821'),
@@ -1329,6 +2362,13 @@ RATTAD = {
         'e-308-54-kwh-156': (1684, ('215/45 R18',), 'https://www.auto-data.net/en/peugeot-308-iii-phase-i-2021-e-308-54-kwh-156hp-49111'),
         'e-308-58-3-kwh-156': (1674, ('215/45 R18',), 'https://www.auto-data.net/en/peugeot-308-iii-phase-ii-2025-e-308-58.3-kwh-156hp-electric-55211'),
     },
+    'peugeot_405': {
+        '1-9-sport-mi-16-147': (1085, ('195/55 R15',), 'https://www.auto-data.net/en/peugeot-405-i-15b-1.9-sport-mi-16-147hp-5597'),
+        '1-9-sport-mi-16-158': (1085, ('195/55 R15',), 'https://www.auto-data.net/en/peugeot-405-i-15b-1.9-sport-mi-16-158hp-5598'),
+        '2-0-16v-150': (1180, ('195/55 R15',), 'https://www.auto-data.net/en/peugeot-405-i-15b-facelift-1992-2.0-16v-150hp-5572'),
+        '2-0-mi-16-150': (1180, ('195/55 R15',), 'https://www.auto-data.net/en/peugeot-405-i-15b-facelift-1992-2.0-mi-16-150hp-5573'),
+        '2-0-t16-4x4-196': (1340, ('205/50 R16',), 'https://www.auto-data.net/en/peugeot-405-i-15b-facelift-1992-2.0-t-16-x4-196hp-5574'),
+    },
     'peugeot_406': {
         '2-0-132': (1315, ('195/65 R15',), 'https://www.auto-data.net/en/peugeot-406-phase-i-1995-2.0-132hp-5299'),
         '2-0-16v-136': (1350, ('205/55 R16',), 'https://www.auto-data.net/en/peugeot-406-phase-ii-1999-2.0-16v-136hp-5300'),
@@ -1341,6 +2381,13 @@ RATTAD = {
     'peugeot_407': {
         '2-7-v6-hdi-204': (1727, ('235/45 R18',), 'https://www.auto-data.net/en/peugeot-407-phase-ii-2008-2.7-v6-hdi-204hp-automatic-57064'),
         '3-0-v6-24v-211': (1585, ('215/55 R17',), 'https://www.auto-data.net/en/peugeot-407-phase-i-2004-3.0-v6-24v-211hp-5398'),
+    },
+    'peugeot_408': {
+        '1-2-puretech-130': (1393, ('215/65 R17', '205/55 R19'), 'https://www.auto-data.net/en/peugeot-408-crossover-phase-i-2022-1.2-puretech-130hp-eat8-46026'),
+        '1-6-plug-in-hybrid-225': (1706, ('205/55 R19', '245/40 R20'), 'https://www.auto-data.net/en/peugeot-408-crossover-phase-i-2022-1.6-225hp-plug-in-hybrid-e-eat8-46028'),
+        '1-6-plug-in-hybrid-240': (1706, ('205/55 R19', '245/40 R20'), 'https://www.auto-data.net/en/peugeot-408-crossover-phase-i-2022-1.6-225hp-plug-in-hybrid-e-eat8-46028'),
+        'e-408-58-kwh-213': (1804, ('225/50 R19',), 'https://www.auto-data.net/en/peugeot-408-crossover-phase-i-2022-e-408-58-kwh-213hp-52857'),
+        'e-408-61-9-kwh-213': (1806, ('225/50 R19',), 'https://www.auto-data.net/en/peugeot-408-crossover-phase-ii-2026-e-408-61.9-kwh-213hp-electric-56408'),
     },
     'peugeot_5008_2': {
         '1-2-hybrid-136': (1552, ('215/65 R17', '225/55 R18', '205/55 R19'), 'https://www.auto-data.net/en/peugeot-5008-ii-phase-ii-2020-1.2-136hp-hybrid-e-dcs6-49106'),
@@ -1356,14 +2403,71 @@ RATTAD = {
         'gt-1-6-puretech-225': (1420, ('215/55 R17', '235/45 R18', '235/40 R19'), 'https://www.auto-data.net/en/peugeot-508-ii-phase-i-2018-gt-1.6-puretech-225hp-automatic-32750'),
         'pse-1-6-plug-in-hybrid-4wd-360': (1850, ('245/35 R20',), 'https://www.auto-data.net/en/peugeot-508-ii-phase-i-2018-pse-1.6-puretech-360hp-4wd-plug-in-hybrid-e-eat8-44905'),
     },
+    'peugeot_807': {
+        '3-0-v6-24v-204': (1760, ('205/65 R15',), 'https://www.auto-data.net/en/peugeot-807-phase-i-3.0-v6-24v-204hp-5528'),
+    },
+    'peugeot_expert_1': {
+        '2-0-hdi-109': (1415, ('205/65 R15',), 'https://www.auto-data.net/en/citroen-jumpy-i-2.0-hdi-109hp-46348'),
+    },
+    'peugeot_expert_3': {
+        '2-0-bluehdi-177': (1730, ('215/60 R17',), 'https://www.auto-data.net/en/peugeot-traveller-l2-2.0-bluehdi-180hp-eat6-32411'),
+        '2-0-bluehdi-180': (1730, ('215/60 R17',), 'https://www.auto-data.net/en/peugeot-traveller-l2-2.0-bluehdi-180hp-eat6-32411'),
+        '2-2-diesel-180': (1912, ('215/60 R17', '225/55 R17'), 'https://www.auto-data.net/en/peugeot-traveller-l2-facelift-2024-2.2-diesel-180hp-eat8-56567'),
+        'e-traveller-50-kwh-136': (1894, ('225/55 R17',), 'https://www.auto-data.net/en/peugeot-traveller-l2-e-traveller-50-kwh-136hp-52912'),
+        'e-traveller-75-kwh-136': (2065, ('225/55 R17',), 'https://www.auto-data.net/en/peugeot-traveller-l2-e-traveller-75-kwh-136hp-52913'),
+    },
+    'peugeot_partner_1': {
+        '1-6-109': (1250, ('175/70 R14',), 'https://www.auto-data.net/en/peugeot-partner-i-phase-ii-2002-1.6-109hp-5624'),
+    },
     'peugeot_partner_2': {
         '22-5-kwh-electric-67': (1794, ('195/70 R15',), 'https://www.auto-data.net/en/peugeot-partner-ii-tepee-phase-iii-2015-22.5-kwh-67hp-electric-32794'),
+    },
+    'peugeot_partner_3': {
+        '1-5-bluehdi-131': (1380, ('205/60 R16',), 'https://www.auto-data.net/en/peugeot-partner-iii-van-1.5-bluehdi-131hp-s-s-automatic-34584'),
     },
     'peugeot_rifter': {
         'e-rifter-50-kwh-136': (1690, ('215/65 R16', '215/60 R17'), 'https://www.auto-data.net/en/peugeot-rifter-l1-e-rifter-50-kwh-136hp-43967'),
     },
     'polestar_2': {
         'long-range-dual-motor-awd-performance-82-kwh-awd-476': (None, ('245/40 R20',), 'https://www.auto-data.net/en/polestar-2-facelift-2023-82-kwh-476hp-long-range-dual-motor-with-performance-pack-awd-47318'),
+    },
+    'polestar_3': {
+        'awd-dual-motor-106-kwh-awd-544': (2490, ('255/50 R20', '265/45 R21', '265/40 R22'), 'https://www.auto-data.net/en/polestar-3-106-kwh-544hp-awd-dual-motor-55488'),
+        'awd-long-range-dual-motor-111-kwh-awd-490': (2584, ('265/45 R21', '265/40 R22'), 'https://www.auto-data.net/en/polestar-3-111-kwh-490hp-awd-long-range-dual-motor-46677'),
+        'awd-performance-106-kwh-awd-680': (2525, ('255/50 R20', '265/45 R21', '265/40 R22'), 'https://www.auto-data.net/en/polestar-3-106-kwh-680hp-awd-performance-55489'),
+        'awd-performance-pack-111-kwh-awd-517': (2584, ('265/45 R21', '265/40 R22'), 'https://www.auto-data.net/en/polestar-3-111-kwh-517hp-awd-performance-pack-46678'),
+    },
+    'porsche_911_991': {
+        'gt2-rs-3-8-700': (1470, ('265/35 R20',), 'https://www.auto-data.net/en/porsche-911-991-ii-gt2-rs-3.8-700hp-pdk-30466'),
+        'gt3-4-0-500': (1430, ('245/35 R20',), 'https://www.auto-data.net/en/porsche-911-991-ii-gt3-4.0-500hp-pdk-29522'),
+        'gt3-rs-4-0-500': (1420, ('265/35 R20',), 'https://www.auto-data.net/en/porsche-911-991-gt3-rs-4.0-500hp-pdk-21666'),
+        'gt3-rs-4-0-520': (1430, ('265/35 R20',), 'https://www.auto-data.net/en/porsche-911-991-ii-gt3-rs-4.0-520hp-pdk-32740'),
+        'r-4-0-500': (1370, ('245/35 R20',), 'https://www.auto-data.net/en/porsche-911-991-r-4.0-500hp-23665'),
+        'turbo-3-8-520': (1595, ('245/35 R20',), 'https://www.auto-data.net/en/porsche-911-991-turbo-3.8-520hp-pdk-36786'),
+        'turbo-3-8-540': (1595, ('245/35 R20',), 'https://www.auto-data.net/en/porsche-911-991-ii-turbo-3.8-540hp-pdk-22598'),
+        'turbo-s-3-8-560': (1605, ('245/35 R20',), 'https://www.auto-data.net/en/porsche-911-991-turbo-s-3.8-560hp-pdk-21417'),
+        'turbo-s-3-8-580': (1600, ('245/35 R20',), 'https://www.auto-data.net/en/porsche-911-991-ii-turbo-s-3.8-580hp-pdk-22599'),
+        'turbo-s-exclusive-3-8-607': (1600, ('245/35 R20',), 'https://www.auto-data.net/en/porsche-911-991-ii-turbo-s-exclusive-3.8-607hp-pdk-30479'),
+    },
+    'porsche_911_992': {
+        'carrera-gts-3-6-t-hybrid-541': (1595, ('245/35 R20',), 'https://www.auto-data.net/en/porsche-911-992-facelift-2024-carrera-gts-3.6-541hp-t-hybrid-pdk-51873'),
+        'gt3-rs-4-0-525': (1450, ('275/30 R20',), 'https://www.auto-data.net/en/porsche-911-992-gt3-rs-4.0-525hp-pdk-46354'),
+        'sport-classic-3-7-550': (1570, ('255/35 R20',), 'https://www.auto-data.net/en/porsche-911-992-sport-classic-3.7-550hp-45721'),
+        'turbo-3-8-580': (1640, ('255/35 R20',), 'https://www.auto-data.net/en/porsche-911-992-turbo-3.8-580hp-pdk-40989'),
+        'turbo-s-3-6-t-hybrid-711': (1725, ('255/35 R20',), 'https://www.auto-data.net/en/porsche-911-992-facelift-2024-turbo-s-3.6-711hp-t-hybrid-pdk-55303'),
+        'turbo-s-3-8-650': (1640, ('255/35 R20',), 'https://www.auto-data.net/en/porsche-911-992-turbo-s-3.8-650hp-pdk-39256'),
+    },
+    'porsche_911_996': {
+        'gt2-3-6-483': (1420, ('235/40 R18',), 'https://www.auto-data.net/en/porsche-911-996-facelift-2001-gt2-3.6-483hp-6593'),
+        'turbo-3-6-420': (1540, ('225/40 R18',), 'https://www.auto-data.net/en/porsche-911-996-facelift-2001-turbo-3.6-420hp-tiptronic-s-29584'),
+    },
+    'porsche_911_997': {
+        'gt2-3-6-530': (1440, ('235/35 R19',), 'https://www.auto-data.net/en/porsche-911-997-gt2-3.6-530hp-6584'),
+        'gt2-rs-3-6-620': (1370, ('245/35 R19',), 'https://www.auto-data.net/en/porsche-911-997-facelift-2008-gt2-rs-3.6-620hp-16696'),
+        'gt3-rs-3-8-450': (1370, ('245/35 R19',), 'https://www.auto-data.net/en/porsche-911-997-facelift-2008-gt3-rs-3.8-450hp-36792'),
+        'turbo-3-6-480': (1620, ('235/35 R19',), 'https://www.auto-data.net/en/porsche-911-997-turbo-3.6-480hp-tiptronic-s-28569'),
+        'turbo-3-8-500': (1595, ('235/35 R19',), 'https://www.auto-data.net/en/porsche-911-997-facelift-2008-turbo-3.8-500hp-pdk-36762'),
+        'turbo-s-3-8-530': (1585, ('235/35 R19',), 'https://www.auto-data.net/en/porsche-911-997-facelift-2008-turbo-s-3.8-530hp-pdk-36763'),
     },
     'porsche_cayenne_958': {
         'diesel-s-4-2-v8-382': (2195, ('255/55 R18',), 'https://www.auto-data.net/en/porsche-cayenne-ii-diesel-s-4.2-v8-382hp-tiptronic-31045'),
@@ -1379,6 +2483,22 @@ RATTAD = {
         'turbo-s-4-8-v8-550': (2235, ('295/35 R21',), 'https://www.auto-data.net/en/porsche-cayenne-ii-facelift-2014-turbo-s-4.8-v8-570hp-tiptronic-21440'),
         'turbo-s-4-8-v8-570': (2235, ('295/35 R21',), 'https://www.auto-data.net/en/porsche-cayenne-ii-facelift-2014-turbo-s-4.8-v8-570hp-tiptronic-21440'),
     },
+    'porsche_cayenne_9y0': {
+        '3-0-v6-e-hybrid-462': (2295, ('255/55 R19',), 'https://www.auto-data.net/en/porsche-cayenne-iii-3.0-v6-462hp-e-hybrid-tiptronic-s-45380'),
+        '3-0-v6-e-hybrid-470': (2295, ('255/55 R19',), 'https://www.auto-data.net/en/porsche-cayenne-iii-3.0-v6-462hp-e-hybrid-tiptronic-s-45380'),
+        'gts-4-0-v8-460': (2145, ('285/40 R21',), 'https://www.auto-data.net/en/porsche-cayenne-iii-gts-4.0-v8-460hp-tiptronic-s-40967'),
+        'gts-4-0-v8-500': (2190, ('285/45 R21', '285/40 R22'), 'https://www.auto-data.net/en/porsche-cayenne-iii-facelift-2023-gts-4.0-v8-500hp-tiptronic-s-51610'),
+        's-3-0-v6-e-hybrid-519': (2410, ('255/55 R20',), 'https://www.auto-data.net/en/porsche-cayenne-iii-facelift-2023-s-3.0-v6-519hp-e-hybrid-tiptronic-s-49734'),
+        's-4-0-v8-474': (2160, ('255/55 R20',), 'https://www.auto-data.net/en/porsche-cayenne-iii-facelift-2023-s-4.0-v8-474hp-tiptronic-s-48444'),
+        'turbo-4-0-v8-550': (2175, (), 'https://www.auto-data.net/en/porsche-cayenne-iii-turbo-4.0-v8-550hp-tiptronic-s-31101'),
+        'turbo-4-0-v8-e-hybrid-739': (2570, ('285/45 R21',), 'https://www.auto-data.net/en/porsche-cayenne-iii-facelift-2023-turbo-4.0-v8-739hp-e-hybrid-tiptronic-s-49735'),
+        'turbo-s-4-0-v8-e-hybrid-680': (2490, ('285/40 R21',), 'https://www.auto-data.net/en/porsche-cayenne-iii-turbo-s-4.0-v8-680hp-e-hybrid-tiptronic-s-45387'),
+    },
+    'porsche_cayman_982': {
+        'gt4-4-0-420': (1450, ('245/35 R20',), 'https://www.auto-data.net/en/porsche-718-cayman-982-gt4-4.0-420hp-pdk-41383'),
+        'gt4-rs-4-0-493': (1464, ('245/35 R20',), 'https://www.auto-data.net/en/porsche-718-cayman-982-gt4-rs-4.0-493hp-pdk-45089'),
+        'gts-4-0-400': (1435, ('235/35 R20',), 'https://www.auto-data.net/en/porsche-718-cayman-982-gts-4.0-400hp-pdk-41385'),
+    },
     'porsche_macan_95b': {
         'gts-2-9-v6-380': (1910, ('265/45 R20',), 'https://www.auto-data.net/en/porsche-macan-i-95b-facelift-2018-gts-2.9-v6-380hp-pdk-gpf-38260'),
         'gts-2-9-v6-440': (1960, ('265/40 R21',), 'https://www.auto-data.net/en/porsche-macan-i-95b-facelift-2021-gts-2.9-v6-440hp-pdk-44010'),
@@ -1388,6 +2508,54 @@ RATTAD = {
         'turbo-3-6-v6-400': (1925, ('235/55 R19',), 'https://www.auto-data.net/en/porsche-macan-i-95b-turbo-3.6-v6-400hp-pdk-21422'),
         'turbo-3-6-v6-performance-440': (1925, ('235/55 R19',), 'https://www.auto-data.net/en/porsche-macan-i-95b-turbo-3.6-v6-performance-440hp-pdk-26890'),
     },
+    'porsche_macan_ev': {
+        'macan-gts-100-kwh-awd-571': (2395, ('255/45 R21', '255/40 R22'), 'https://www.auto-data.net/en/porsche-macan-ii-electric-gts-100-kwh-571hp-55595'),
+        'macan-turbo-100-kwh-awd-639': (2405, ('235/55 R20', '255/45 R21', '255/40 R22'), 'https://www.auto-data.net/en/porsche-macan-ii-electric-turbo-100-kwh-639hp-51058'),
+    },
+    'porsche_panamera_970': {
+        'gts-4-8-v8-430': (1920, ('255/45 R19', '255/40 R20'), 'https://www.auto-data.net/en/porsche-panamera-g1-gts-4.8-v8-430hp-pdk-56302'),
+        'gts-4-8-v8-440': (1925, ('255/45 R19',), 'https://www.auto-data.net/en/porsche-panamera-g1-ii-gts-4.8-v8-440hp-pdk-21430'),
+        's-e-hybrid-3-0-v6-416': (2095, ('245/50 R18',), 'https://www.auto-data.net/en/porsche-panamera-g1-ii-s-3.0-v6-416hp-e-hybrid-tiptronic-21427'),
+        's-hybrid-3-0-v6-380': (1980, ('245/50 R18',), 'https://www.auto-data.net/en/porsche-panamera-g1-s-3.0-v6-380hp-hybrid-tiptronic-s-41871'),
+        'turbo-4-8-v8-500': (1970, ('255/45 R19',), 'https://www.auto-data.net/en/porsche-panamera-g1-turbo-4.8-v8-500hp-pdk-6731'),
+        'turbo-4-8-v8-520': (1970, ('255/45 R19',), 'https://www.auto-data.net/en/porsche-panamera-g1-ii-turbo-4.8-v8-520hp-pdk-21431'),
+        'turbo-s-4-8-v8-550': (1995, ('255/40 R20',), 'https://www.auto-data.net/en/porsche-panamera-g1-turbo-s-4.8-v8-550hp-pdk-56301'),
+        'turbo-s-4-8-v8-570': (1995, ('255/40 R20',), 'https://www.auto-data.net/en/porsche-panamera-g1-ii-turbo-s-4.8-v8-570hp-pdk-21874'),
+    },
+    'porsche_panamera_971': {
+        '4-e-hybrid-2-9-v6-462': (2170, ('265/45 R19',), 'https://www.auto-data.net/en/porsche-panamera-g2-4-2.9-v6-462hp-e-hybrid-pdk-37956'),
+        '4s-e-hybrid-2-9-v6-560': (2225, ('275/40 R20',), 'https://www.auto-data.net/en/porsche-panamera-g2-ii-4s-2.9-v6-560hp-e-hybrid-pdk-41055'),
+        'gts-4-0-v8-460': (1995, ('275/40 R20',), 'https://www.auto-data.net/en/porsche-panamera-g2-gts-4.0-v8-460hp-pdk-34592'),
+        'gts-4-0-v8-480': (2020, ('275/40 R20',), 'https://www.auto-data.net/en/porsche-panamera-g2-ii-gts-4.0-v8-480hp-pdk-41054'),
+        'turbo-4-0-v8-550': (1995, ('275/40 R20',), 'https://www.auto-data.net/en/porsche-panamera-g2-turbo-4.0-v8-550hp-pdk-37955'),
+        'turbo-s-4-0-v8-630': (2080, ('275/35 R21',), 'https://www.auto-data.net/en/porsche-panamera-g2-ii-turbo-s-4.0-v8-630hp-pdk-41052'),
+        'turbo-s-e-hybrid-4-0-v8-680': (2310, ('275/35 R21',), 'https://www.auto-data.net/en/porsche-panamera-g2-turbo-s-4.0-v8-680hp-e-hybrid-pdk-opf-37957'),
+        'turbo-s-e-hybrid-4-0-v8-700': (2350, ('275/35 R21',), 'https://www.auto-data.net/en/porsche-panamera-g2-ii-turbo-s-4.0-v8-700hp-e-hybrid-pdk-42320'),
+    },
+    'porsche_taycan': {
+        'turbo-105-kwh-884': (2290, ('245/45 R20', '245/40 R21', '265/35 R21'), 'https://www.auto-data.net/en/porsche-taycan-y1a-facelift-2024-turbo-105-kwh-884hp-51183'),
+        'turbo-gt-105-kwh-1034': (2290, ('265/35 R21',), 'https://www.auto-data.net/en/porsche-taycan-y1a-facelift-2024-turbo-gt-105-kwh-1034hp-51329'),
+        'turbo-s-105-kwh-952': (2295, ('245/40 R21', '265/35 R21'), 'https://www.auto-data.net/en/porsche-taycan-y1a-facelift-2024-turbo-s-105-kwh-952hp-51176'),
+    },
+    'ram_1500_dt': {
+        'ramcharger-3-6-v6-91-8-kwh-4x4-647': (3405, ('275/60 R20', '275/50 R22'), 'https://www.auto-data.net/en/ram-1500-crew-cab-dt-facelift-2024-ramcharger-3.6-v6-91.8-kwh-647hp-range-extender-4x4-54379'),
+        'srt-trx-6-2-hemi-v8-4x4-777': (None, ('325/65 R18',), 'https://www.auto-data.net/en/ram-1500-crew-cab-dt-facelift-2024-srt-trx-6.2-hemi-v8-777hp-4x4-torqueflite-56251'),
+        'trx-6-2-hemi-v8-supercharged-702': (2880, ('325/65 R18',), 'https://www.auto-data.net/en/ram-1500-crew-cab-dt-trx-6.2-hemi-supercharged-v8-702hp-4wd-automatic-42563'),
+    },
+    'renault_19': {
+        '1-8-16v-135': (1115, ('195/50 R15',), 'https://www.auto-data.net/en/renault-19-b-c53-facelift-1992-1.8-i-16v-135hp-10763'),
+        '1-8-i-107': (1045, ('175/65 R14',), 'https://www.auto-data.net/en/renault-19-b-c53-facelift-1992-1.8-i-107hp-10762'),
+        '1-8-i-16v-137': (1160, ('195/50 R15',), 'https://www.auto-data.net/en/renault-19-b-c53-facelift-1992-1.8-i-16v-137hp-10764'),
+        '1-8-i-s-90': (1025, ('175/75 R13', '175/65 R14'), 'https://www.auto-data.net/en/renault-19-b-c53-facelift-1992-1.8-i-s-90hp-10765'),
+        '1-8-rsi-113': (1065, ('175/65 R14',), 'https://www.auto-data.net/en/renault-19-chamade-l53-facelift-1992-1.8-rsi-113hp-10774'),
+        '1-9-td-90': (1065, ('175/70 R13',), 'https://www.auto-data.net/en/renault-19-b-c53-facelift-1992-1.9-td-90hp-10767'),
+    },
+    'renault_arkana': {
+        'e-tech-1-6-hybrid-143': (1435, ('215/60 R17', '215/55 R18'), 'https://www.auto-data.net/en/renault-arkana-1.6-143hp-e-tech-hybrid-multimode-42468'),
+    },
+    'renault_captur_1': {
+        '1-3-tce-150': (None, ('205/55 R17',), 'https://www.auto-data.net/en/renault-captur-facelift-2017-s-1.3-tce-150hp-start-stop-edc-32832'),
+    },
     'renault_captur_2': {
         '1-3-tce-140': (1368, ('215/60 R17',), 'https://www.auto-data.net/en/renault-captur-ii-1.3-tce-140hp-edc-41888'),
         '1-3-tce-154': (1266, ('215/65 R16', '215/60 R17', '215/55 R18'), 'https://www.auto-data.net/en/renault-captur-ii-1.3-tce-154hp-edc-gpf-37822'),
@@ -1395,6 +2563,23 @@ RATTAD = {
         'e-tech-1-6-hybrid-143': (1361, ('215/60 R17', '215/55 R18'), 'https://www.auto-data.net/en/renault-captur-ii-1.6-143hp-e-tech-hybrid-multimode-43582'),
         'e-tech-1-6-plug-in-hybrid-158': (1564, ('215/65 R16', '215/60 R17', '215/55 R18'), 'https://www.auto-data.net/en/renault-captur-ii-e-tech-1.6-158hp-plug-in-hybrid-multimode-39733'),
         'e-tech-1-8-full-hybrid-158': (1514, ('215/60 R17', '215/55 R18', '225/45 R19'), 'https://www.auto-data.net/en/renault-captur-ii-facelift-2024-1.8-158hp-e-tech-full-hybrid-multi-mode-54222'),
+    },
+    'renault_clio_1': {
+        '1-8-i-110': (955, ('175/60 R14',), 'https://www.auto-data.net/en/renault-clio-i-phase-i-1.8-i-110hp-10436'),
+        '1-8-i-16v-135': (955, ('185/55 R15',), 'https://www.auto-data.net/en/renault-clio-i-phase-i-1.8i-16v-135hp-10440'),
+        '1-8-i-88': (950, ('165/60 R14',), 'https://www.auto-data.net/en/renault-clio-i-phase-i-1.8-i-88hp-10437'),
+        '1-8-i-rsi-107': (955, ('175/60 R14',), 'https://www.auto-data.net/en/renault-clio-i-phase-i-1.8-i-rsi-109hp-10439'),
+        '1-8-i-rsi-109': (955, ('175/60 R14',), 'https://www.auto-data.net/en/renault-clio-i-phase-i-1.8-i-rsi-109hp-10439'),
+        '2-0-williams-150': (1010, ('195/50 R15',), 'https://www.auto-data.net/en/renault-clio-i-phase-i-2.0-150hp-williams-16666'),
+    },
+    'renault_clio_2': {
+        '1-4-16v-98': (1030, ('165/65 R14', '175/65 R14', '175/60 R14'), 'https://www.auto-data.net/en/renault-clio-ii-phase-i-5-door-1.4-16v-98hp-automatic-46357'),
+        '1-5-dci-101': (1000, ('185/55 R15',), 'https://www.auto-data.net/en/renault-clio-ii-phase-iii-2003-5-door-1.5-dci-101hp-46394'),
+        '1-6-16v-107': (1065, ('185/55 R15',), 'https://www.auto-data.net/en/renault-clio-ii-phase-ii-2001-5-door-1.6-16v-107hp-automatic-46370'),
+        '1-6-90': (1000, ('165/60 R14', '165/65 R14', '175/65 R14'), 'https://www.auto-data.net/en/renault-clio-ii-phase-i-5-door-1.6-90hp-automatic-28968'),
+        '2-0-16v-sport-rs-172-169': (1035, ('195/45 R16',), 'https://www.auto-data.net/en/renault-clio-ii-phase-ii-2001-3-door-2.0-16v-sport-169hp-46371'),
+        '2-0-16v-sport-rs-182-179': (1110, ('185/55 R15',), 'https://www.auto-data.net/en/renault-clio-ii-phase-iii-2003-3-door-2.0-16v-sport-179hp-46397'),
+        'sport-v6-3-0-226': (1335, ('235/45 R17',), 'https://www.auto-data.net/en/renault-clio-sport-phase-i-3.0-v6-226hp-10416'),
     },
     'renault_clio_3': {
         '1-2-16v-tce-100': (1100, ('185/60 R15', '195/50 R16'), 'https://www.auto-data.net/en/renault-clio-iii-phase-i-5-door-1.2-16v-tce-100hp-56129'),
@@ -1424,6 +2609,25 @@ RATTAD = {
         'e-tech-1-6-hybrid-140': (1238, ('185/65 R15', '195/55 R16', '205/45 R17'), 'https://www.auto-data.net/en/renault-clio-v-phase-i-e-tech-1.6-140hp-hybrid-multi-mode-39728'),
         'e-tech-1-6-hybrid-143': (1238, ('185/65 R15', '195/55 R16', '205/45 R17'), 'https://www.auto-data.net/en/renault-clio-v-phase-i-e-tech-1.6-140hp-hybrid-multi-mode-39728'),
     },
+    'renault_espace_4': {
+        '3-5-v6-241': (1770, ('225/55 R17',), 'https://www.auto-data.net/en/renault-espace-iv-3.5i-v6-24v-241hp-automatic-10499'),
+    },
+    'renault_kangoo_3': {
+        'e-tech-45-kwh-122': (1795, ('205/60 R16', '205/55 R17'), 'https://www.auto-data.net/en/renault-kangoo-iii-45-kwh-e-tech-122hp-electric-48623'),
+    },
+    'renault_laguna_1': {
+        '2-0-16v-139': (1285, ('195/60 R15',), 'https://www.auto-data.net/en/renault-laguna-2.0-16v-139hp-10339'),
+        '2-0-16v-140': (1285, ('195/60 R15',), 'https://www.auto-data.net/en/renault-laguna-2.0-16v-139hp-10339'),
+        '2-9-24v-v6-190': (1375, ('195/60 R15',), 'https://www.auto-data.net/en/renault-laguna-2.9-24v-190hp-10343'),
+        '3-0-v6-167': (1370, ('205/60 R15',), 'https://www.auto-data.net/en/renault-laguna-3.0-167hp-10344'),
+        '3-0-v6-rxe-170': (1370, ('205/60 R15',), 'https://www.auto-data.net/en/renault-laguna-3.0-v6-rxe-170hp-10345'),
+    },
+    'renault_laguna_2': {
+        '2-0-16v-gt-204': (1320, ('225/45 R17',), 'https://www.auto-data.net/en/renault-laguna-ii-2.0-i-16v-gt-204hp-10327'),
+        '2-0-16v-t-165': (1355, ('205/55 R16',), 'https://www.auto-data.net/en/renault-laguna-ii-2.0-i-t-16v-165hp-10329'),
+        '2-0-16v-turbo-170': (1280, ('205/55 R16',), 'https://www.auto-data.net/en/renault-laguna-ii-2.0i-16v-turbo-170hp-10328'),
+        '3-0-v6-24v-207': (1505, ('205/55 R16',), 'https://www.auto-data.net/en/renault-laguna-ii-3.0-v6-24v-207hp-10332'),
+    },
     'renault_laguna_3': {
         '2-0-16v-turbo-170': (1542, ('215/55 R16',), 'https://www.auto-data.net/en/renault-laguna-iii-2.0-16v-turbo-170hp-automatic-10288'),
         '2-0-dci-173': (1567, ('215/50 R17',), 'https://www.auto-data.net/en/renault-laguna-iii-2.0-dci-fap-173hp-10292'),
@@ -1438,6 +2642,10 @@ RATTAD = {
         '2-3-dci-170': (2055, ('225/65 R16',), 'https://www.auto-data.net/en/renault-master-iii-phase-ii-2014-panel-van-2.3-energy-dci-170hp-l3h3-lh35-40275'),
         '2-3-dci-180': (2073, ('225/65 R16',), 'https://www.auto-data.net/en/renault-master-iii-phase-iii-2019-panel-van-2.3-energy-dci-180hp-l3h3-automatic-40055'),
         'z-e-33-kwh-76': (2175, (), 'https://www.auto-data.net/en/renault-master-iii-phase-iii-2019-panel-van-33-kwh-76hp-l3h2-direct-drive-40117'),
+    },
+    'renault_megane_1': {
+        '1-8-16v-116': (1120, ('185/60 R15',), 'https://www.auto-data.net/en/renault-megane-i-phase-ii-1999-1.8-16v-116hp-10574'),
+        '2-0-114': (1160, ('185/60 R14',), 'https://www.auto-data.net/en/renault-megane-i-ba-2.0i-114hp-automatic-29012'),
     },
     'renault_megane_2': {
         '2-0-16v-135': (1265, ('205/55 R16',), 'https://www.auto-data.net/en/renault-megane-ii-2.0-16v-135hp-automatic-30292'),
@@ -1468,12 +2676,33 @@ RATTAD = {
         'rs-1-8-300': (1430, ('235/40 R18', '245/35 R19'), 'https://www.auto-data.net/en/renault-megane-iv-rs-1.8-280hp-edc-32603'),
         'rs-trophy-1-8-300': (1443, ('245/35 R19',), 'https://www.auto-data.net/en/renault-megane-iv-rs-trophy-1.8-300hp-edc-56860'),
     },
+    'renault_megane_etech': {
+        '67-kwh-facelift-218': (1772, (), 'https://www.auto-data.net/en/renault-megane-v-e-tech-electric-facelift-2026-67-kwh-218hp-57325'),
+        'ev60-220-220': (1636, ('195/60 R18', '215/45 R20'), 'https://www.auto-data.net/en/renault-megane-v-e-tech-electric-ev60-220hp-44444'),
+    },
+    'renault_scenic_1': {
+        '2-0-16v-140': (1290, ('195/60 R15',), 'https://www.auto-data.net/en/renault-scenic-i-phase-ii-2.0-i-16v-ide-140hp-10465'),
+    },
     'renault_scenic_2': {
         '2-0-16v-t-163': (1425, ('205/60 R16',), 'https://www.auto-data.net/en/renault-scenic-ii-phase-i-2.0-i-16v-t-163hp-10453'),
         '2-0-dci-150': (1465, ('205/60 R16',), 'https://www.auto-data.net/en/renault-scenic-ii-phase-i-2.0-dci-150hp-39488'),
     },
+    'renault_trafic_3': {
+        '1-6-dci-140': (1807, ('215/65 R16',), 'https://www.auto-data.net/en/renault-trafic-iii-1.6-dci-145hp-29888'),
+        '1-6-dci-145': (1807, ('215/65 R16',), 'https://www.auto-data.net/en/renault-trafic-iii-1.6-dci-145hp-29888'),
+    },
+    'renault_twingo_2': {
+        'gt-1-2-16v-tce-100': (1055, ('185/55 R15',), 'https://www.auto-data.net/en/renault-twingo-ii-1.2-16v-tce-gt-100hp-10691'),
+        'rs-1-6-16v-133': (1049, ('195/45 R16', '195/40 R17'), 'https://www.auto-data.net/en/renault-twingo-ii-rs-1.6-16v-133hp-35198'),
+    },
+    'renault_twingo_3': {
+        'z-e-22-kwh-82': (1093, ('165/65 R15', '185/50 R16'), 'https://www.auto-data.net/en/renault-twingo-iii-facelift-2019-z.e.-22-kwh-82hp-39211'),
+    },
     'renault_zoe': {
         'r135-52-kwh-135': (1502, ('195/55 R16', '215/45 R17'), 'https://www.auto-data.net/en/renault-zoe-i-phase-ii-2019-r135-52-kwh-135hp-electric-37612'),
+    },
+    'saab_9000': {
+        '2-3-aero-225': (1440, ('205/55 R16',), 'https://www.auto-data.net/en/saab-9000-hatchback-2.3-cs-aero-225hp-11897'),
     },
     'saab_93_2': {
         '2-0-t-210': (1460, ('215/55 R15',), 'https://www.auto-data.net/en/saab-9-3-sedan-ii-2.0-t-210hp-automatic-11917'),
@@ -1488,12 +2717,37 @@ RATTAD = {
         '2-3-t-aero-250': (1540, ('225/45 R17',), 'https://www.auto-data.net/en/saab-9-5-2.3-t-16v-aero-250hp-automatic-29150'),
         '2-3-turbo-260': (None, ('235/45 R17',), 'https://www.auto-data.net/en/saab-9-5-facelift-2005-2.3-turbo-260hp-sentronic-42736'),
     },
+    'seat_alhambra_1': {
+        '2-8-v6-204': (1652, ('215/55 R16',), 'https://www.auto-data.net/en/seat-alhambra-i-7m-facelift-2000-2.8-v6-204hp-tiptronic-29364'),
+    },
+    'seat_altea': {
+        '1-8-tsi-160': (1495, ('195/65 R15', '205/55 R16', '225/45 R17', '225/40 R18'), 'https://www.auto-data.net/en/seat-altea-5p-1.8-tsi-160hp-dsg-16901'),
+        'fr-2-0-tdi-170': (1446, ('225/55 R17',), 'https://www.auto-data.net/en/seat-altea-5p-fr-2.0-tdi-170hp-dpf-13585'),
+        'fr-2-0-tfsi-200': (1446, ('225/45 R17',), 'https://www.auto-data.net/en/seat-altea-5p-fr-2.0-tfsi-200hp-automatic-13587'),
+    },
     'seat_arona': {
         '1-5-tsi-150': (1149, ('205/55 R17', '215/45 R18'), 'https://www.auto-data.net/en/seat-arona-1.5-tsi-evo-150hp-act-32051'),
     },
     'seat_ateca': {
         '2-0-tdi-4drive-190': (1535, ('225/55 R17', '225/50 R18', '225/45 R19'), 'https://www.auto-data.net/en/seat-ateca-i-2.0-tdi-190hp-4drive-dsg-start-stop-23142'),
         '2-0-tsi-4drive-190': (1466, ('215/50 R18', '235/40 R19'), 'https://www.auto-data.net/en/seat-ateca-i-2.0-tsi-190hp-4drive-dsg-51365'),
+    },
+    'seat_ibiza_2': {
+        '1-8-i-16v-129': (1030, ('185/60 R14',), 'https://www.auto-data.net/en/seat-ibiza-ii-1.8-i-16v-129hp-13505'),
+        '1-8-t-20v-156': (1120, ('195/45 R16',), 'https://www.auto-data.net/en/seat-ibiza-ii-facelift-1999-1.8-t-20v-156hp-13493'),
+        '2-0-i-115': (1005, ('185/60 R14',), 'https://www.auto-data.net/en/seat-ibiza-ii-2.0-i-115hp-13512'),
+        'cupra-2-0-i-16v-150': (1100, ('195/45 R16',), 'https://www.auto-data.net/en/seat-ibiza-ii-cupra-2.0-i-16v-150hp-13513'),
+    },
+    'seat_ibiza_3': {
+        '1-4-16v-100': (1050, ('185/60 R14',), 'https://www.auto-data.net/en/seat-ibiza-iii-1.4-16v-100hp-13478'),
+        '1-4-86': (1035, ('185/60 R14', '195/50 R15'), 'https://www.auto-data.net/en/seat-ibiza-iii-facelift-2006-1.4-86hp-34934'),
+        '1-6-105': (1069, ('195/50 R15',), 'https://www.auto-data.net/en/seat-ibiza-iii-facelift-2006-1.6-105hp-34936'),
+        '1-9-tdi-101': (1140, ('185/60 R14',), 'https://www.auto-data.net/en/seat-ibiza-iii-1.9-tdi-101hp-13484'),
+        'cupra-1-8-t-180': (1177, ('205/40 R17',), 'https://www.auto-data.net/en/seat-ibiza-iii-cupra-1.8-i-20v-180hp-13482'),
+        'cupra-1-9-tdi-160': (1248, ('205/40 R17',), 'https://www.auto-data.net/en/seat-ibiza-iii-cupra-1.9-tdi-160hp-13486'),
+        'fr-1-8-t-20v-150': (1180, ('205/45 R16',), 'https://www.auto-data.net/en/seat-ibiza-iii-fr-1.8-i-20v-150hp-13481'),
+        'fr-1-9-tdi-130': (1190, ('185/60 R14',), 'https://www.auto-data.net/en/seat-ibiza-iii-fr-1.9-tdi-130hp-13485'),
+        'sport-2-0i-115': (1128, ('205/45 R16',), 'https://www.auto-data.net/en/seat-ibiza-iii-sport-2.0i-115hp-13487'),
     },
     'seat_ibiza_4': {
         '1-4-eco-tsi-act-150': (1068, ('215/45 R16', '215/40 R17'), 'https://www.auto-data.net/en/seat-ibiza-iv-facelift-2015-1.4-eco-tsi-150hp-act-21923'),
@@ -1509,6 +2763,13 @@ RATTAD = {
         '1-5-tsi-150': (1109, ('215/45 R17', '215/40 R18'), 'https://www.auto-data.net/en/seat-ibiza-v-1.5-tsi-evo-150hp-act-30985'),
         '1-6-mpi-110': (1078, ('215/45 R17',), 'https://www.auto-data.net/en/seat-ibiza-v-1.6-mpi-110hp-automatic-41621'),
         '1-6-tdi-115': (1183, ('185/65 R15', '195/55 R16', '215/45 R17', '215/40 R18'), 'https://www.auto-data.net/en/seat-ibiza-v-1.6-tdi-115hp-start-stop-33871'),
+    },
+    'seat_leon_1': {
+        '1-8-t-20v-180': (1322, ('205/55 R16',), 'https://www.auto-data.net/en/seat-leon-i-1m-1.8-t-20v-180hp-13618'),
+        '1-9-tdi-150': (1356, ('205/55 R16',), 'https://www.auto-data.net/en/seat-leon-i-1m-1.9-tdi-150hp-13622'),
+        'cupra-2-8-v6-4-204': (1558, ('225/45 R17',), 'https://www.auto-data.net/en/seat-leon-i-1m-cupra-2.8-v6-4-204hp-13614'),
+        'cupra-r-1-8-t-210': (1395, ('225/45 R17',), 'https://www.auto-data.net/en/seat-leon-i-1m-cupra-r-1.8-t-210hp-13612'),
+        'cupra-r-1-8-t-225': (1366, ('225/40 R18',), 'https://www.auto-data.net/en/seat-leon-i-1m-cupra-r-1.8-t-225hp-44878'),
     },
     'seat_leon_2': {
         '1-8-tsi-160': (1295, ('225/45 R17',), 'https://www.auto-data.net/en/seat-leon-ii-1p-1.8-tsi-160hp-dsg-46463'),
@@ -1542,6 +2803,9 @@ RATTAD = {
         '1-5-etsi-150': (1286, ('195/65 R15', '205/55 R16', '225/45 R17', '205/50 R17', '225/40 R18'), 'https://www.auto-data.net/en/seat-leon-iv-1.5-etsi-150hp-mild-hybrid-dsg-39369'),
         '1-5-tsi-e-hybrid-272': (1595, ('225/45 R17', '225/40 R18'), 'https://www.auto-data.net/en/seat-leon-iv-1.5-tsi-272hp-e-hybrid-dsg-53257'),
     },
+    'seat_mii': {
+        'electric-36-8-kwh-83': (1160, ('165/70 R14', '185/50 R16'), 'https://www.auto-data.net/en/seat-mii-electric-36.8-kwh-83hp-37896'),
+    },
     'seat_tarraco': {
         '1-4-tsi-e-hybrid-245': (1793, ('235/50 R19', '255/45 R19', '235/45 R20', '255/40 R20'), 'https://www.auto-data.net/en/seat-tarraco-1.4-tsi-245hp-e-hybrid-dsg-42062'),
         '2-0-tsi-4drive-245': (1698, (), 'https://www.auto-data.net/en/seat-tarraco-2.0-tsi-245hp-4drive-dsg-7-seat-42460'),
@@ -1553,6 +2817,16 @@ RATTAD = {
         '1-9-tdi-110': (1170, ('195/65 R15',), 'https://www.auto-data.net/en/seat-toledo-i-1l-facelift-1995-1.9-tdi-110hp-13562'),
         '2-0-i-115': (1080, ('185/60 R14',), 'https://www.auto-data.net/en/seat-toledo-i-1l-2.0-i-115hp-automatic-29380'),
         '2-0-i-16v-150': (1150, ('195/50 R15',), 'https://www.auto-data.net/en/seat-toledo-i-1l-2.0-i-16v-150hp-13565'),
+    },
+    'seat_toledo_2': {
+        '1-8-20vt-180': (1305, ('205/55 R16',), 'https://www.auto-data.net/en/seat-toledo-ii-1m2-1.8-20vt-180hp-13542'),
+        '1-9-tdi-150': (1312, ('205/55 R16',), 'https://www.auto-data.net/en/seat-toledo-ii-1m2-1.9-tdi-150hp-13544'),
+        '2-3-v5-150': (1305, ('205/55 R16',), 'https://www.auto-data.net/en/seat-toledo-ii-1m2-2.3-v5-150hp-13546'),
+        '2-3-v5-170': (1386, ('205/55 R16',), 'https://www.auto-data.net/en/seat-toledo-ii-1m2-2.3-v5-170hp-13547'),
+    },
+    'seat_toledo_3': {
+        '1-8-tsi-160': (1344, ('205/55 R16',), 'https://www.auto-data.net/en/seat-toledo-iii-5p-1.8-tsi-160hp-13532'),
+        '2-0-tdi-170': (1454, ('205/55 R16',), 'https://www.auto-data.net/en/seat-toledo-iii-5p-2.0-tdi-170hp-dpf-13538'),
     },
     'skoda_citigo': {
         'iv-36-8-kwh-83': (1160, ('175/70 R14', '185/50 R16'), 'https://www.auto-data.net/en/skoda-citigo-facelift-2017-5-door-iv-36.8-kwh-83hp-37198'),
@@ -1600,6 +2874,8 @@ RATTAD = {
         'rs-2-0-tsi-4x4-245': (1719, ('235/45 R20', '255/40 R20'), 'https://www.auto-data.net/en/skoda-kodiaq-i-facelift-2021-rs-2.0-tsi-245hp-4x4-dsg-43763'),
     },
     'skoda_kodiaq_2': {
+        '1-5-tsi-mhev-150': (1628, ('215/65 R17', '235/55 R18', '235/50 R19', '235/45 R20'), 'https://www.auto-data.net/en/skoda-kodiaq-ii-1.5-tsi-150hp-mild-hybrid-dsg-7-seat-51562'),
+        'iv-1-5-tsi-phev-204': (1838, ('215/65 R17', '235/55 R18', '235/50 R19', '235/45 R20'), 'https://www.auto-data.net/en/skoda-kodiaq-ii-iv-1.5-tsi-204hp-plug-in-hybrid-dsg-49887'),
         'rs-2-0-tsi-4x4-265': (1828, (), 'https://www.auto-data.net/en/skoda-kodiaq-ii-rs-2.0-tsi-265hp-4x4-dsg-7-seat-53044'),
     },
     'skoda_octavia': {
@@ -1637,6 +2913,15 @@ RATTAD = {
         'iv-1-5-tsi-204': (1774, ('215/55 R17', '235/45 R18', '235/40 R19'), 'https://www.auto-data.net/en/skoda-superb-iv-iv-1.5-tsi-204hp-plug-in-hybrid-dsg-53760'),
         'iv-1-5-tsi-272': (1766, ('235/45 R18', '235/40 R19'), 'https://www.auto-data.net/en/skoda-superb-iv-iv-1.5-tsi-272hp-plug-in-hybrid-dsg-56635'),
     },
+    'smart_fortwo_453': {
+        'eq-17-6-kwh-82': (1010, ('165/65 R15',), 'https://www.auto-data.net/en/smart-fortwo-iii-coupe-c453-17.6-kwh-82hp-electric-drive-32737'),
+    },
+    'subaru_crosstrek': {
+        '2-0ie-mild-hybrid-136': (1520, ('225/60 R17', '225/55 R18'), 'https://www.auto-data.net/en/subaru-crosstrek-iii-2.0ie-136hp-mild-hybrid-awd-lineartronic-50989'),
+    },
+    'subaru_forester_sg': {
+        '2-5-i-turbo-211': (1455, ('215/60 R15',), 'https://www.auto-data.net/en/subaru-forester-ii-2.5-i-16v-turbo-211hp-16216'),
+    },
     'subaru_forester_sh': {
         '2-5-turbo-262': (1585, ('225/55 R17',), 'https://www.auto-data.net/en/subaru-forester-iii-facelift-2010-2.5-turbo-262hp-awd-e-5at-54227'),
         '2-5-xt-230': (1510, ('215/55 R17',), 'https://www.auto-data.net/en/subaru-forester-iii-2.5-xt-230hp-e-4at-16213'),
@@ -1644,6 +2929,14 @@ RATTAD = {
     'subaru_forester_sj': {
         '2-0-t-240': (1624, ('225/55 R18',), 'https://www.auto-data.net/en/subaru-forester-iv-facelift-2016-sport-2.0-t-240hp-awd-lineartronic-22316'),
         '2-0-xt-241': (1613, ('225/55 R18',), 'https://www.auto-data.net/en/subaru-forester-iv-2.0-241hp-cvt-4wd-22994'),
+    },
+    'subaru_forester_sk': {
+        '1-8-dit-177': (1570, ('225/55 R18',), 'https://www.auto-data.net/en/subaru-forester-v-facelift-2021-1.8-dit-177hp-awd-lineartronic-44383'),
+        '2-5-182': (1567, ('225/60 R17', '225/55 R18'), 'https://www.auto-data.net/en/subaru-forester-v-facelift-2021-2.5-182hp-awd-lineartronic-44438'),
+    },
+    'subaru_impreza_gc': {
+        'gt-2-0-turbo-211': (1255, ('205/50 R16',), 'https://www.auto-data.net/en/subaru-impreza-i-gc-gt-2.0-turbo-211hp-4wd-16101'),
+        'gt-2-0-turbo-218': (1255, ('205/50 R16',), 'https://www.auto-data.net/en/subaru-impreza-i-gc-gt-2.0-turbo-211hp-4wd-16101'),
     },
     'subaru_impreza_gd': {
         '2-0-160': (1305, ('205/50 R16',), 'https://www.auto-data.net/en/subaru-impreza-ii-facelift-2005-2.0-160hp-awd-automatic-24094'),
@@ -1654,12 +2947,41 @@ RATTAD = {
         'wrx-sti-2-0-265': (1470, ('225/45 R17',), 'https://www.auto-data.net/en/subaru-impreza-ii-facelift-2002-wrx-sti-2.0-265hp-awd-16082'),
         'wrx-sti-2-5-280': (1495, ('225/45 R17',), 'https://www.auto-data.net/en/subaru-impreza-ii-facelift-2005-wrx-sti-2.5-280hp-awd-16084'),
     },
+    'subaru_impreza_gh': {
+        '2-5i-170': (1390, ('205/55 R16',), 'https://www.auto-data.net/en/subaru-impreza-iii-hatchback-2.5i-170hp-awd-automatic-24097'),
+        'wrx-2-5-224': (1425, ('205/50 R17',), 'https://www.auto-data.net/en/subaru-impreza-iii-hatchback-wrx-2.5-224hp-awd-automatic-24098'),
+        'wrx-2-5-230': (1425, ('205/50 R17',), 'https://www.auto-data.net/en/subaru-impreza-iii-hatchback-wrx-2.5-224hp-awd-automatic-24098'),
+        'wrx-2-5-265': (1410, ('225/45 R17',), 'https://www.auto-data.net/en/subaru-impreza-iii-hatchback-wrx-2.5-265hp-awd-16070'),
+        'wrx-sti-2-5-293': (1395, ('245/40 R18',), 'https://www.auto-data.net/en/subaru-impreza-iii-hatchback-wrx-sti-2.5-300hp-awd-16071'),
+        'wrx-sti-2-5-300': (1395, ('245/40 R18',), 'https://www.auto-data.net/en/subaru-impreza-iii-hatchback-wrx-sti-2.5-300hp-awd-16071'),
+        'wrx-sti-2-5-305': (1395, ('245/40 R18',), 'https://www.auto-data.net/en/subaru-impreza-iii-hatchback-wrx-sti-2.5-300hp-awd-16071'),
+        'wrx-sti-2-5-330': (None, ('245/40 R18',), 'https://www.auto-data.net/en/subaru-impreza-iii-hatchback-wrx-sti-2.5-330hp-awd-16073'),
+    },
+    'subaru_impreza_gt': {
+        '2-0ie-e-boxer-150': (1515, ('215/50 R17',), 'https://www.auto-data.net/en/subaru-impreza-v-hatchback-facelift-2020-2.0ie-e-boxer-150hp-awd-lineartronic-42141'),
+    },
+    'subaru_legacy_bg': {
+        '2-0-turbo-200': (1390, ('205/60 R15',), 'https://www.auto-data.net/en/subaru-legacy-ii-bd-bg-2.0-turbo-200hp-awd-16179'),
+        '2-0-turbo-250': (1370, ('215/45 R17',), 'https://www.auto-data.net/en/subaru-legacy-ii-bd-bg-2.0-turbo-250hp-awd-automatic-24066'),
+    },
+    'subaru_legacy_bm': {
+        '2-5-gt-awd-265': (1577, ('225/45 R18',), 'https://www.auto-data.net/en/subaru-legacy-v-2.5-gt-265hp-awd-17949'),
+        '3-6r-awd-256': (1579, ('215/50 R17',), 'https://www.auto-data.net/en/subaru-legacy-v-3.6r-256hp-awd-automatic-34053'),
+    },
     'subaru_legacy_bp': {
         '2-5i-gt-awd-250': (1497, ('215/45 R17',), 'https://www.auto-data.net/en/subaru-legacy-iv-facelift-2006-2.5i-gt-250hp-awd-automatic-34066'),
         '3-0r-awd-245': (1620, ('215/45 R17',), 'https://www.auto-data.net/en/subaru-legacy-iv-facelift-2006-3.0r-spec.b-245hp-awd-automatic-34064'),
     },
     'subaru_outback_bp': {
         '2-5-t-awd-250': (1550, ('225/55 R17',), 'https://www.auto-data.net/en/subaru-outback-iii-bl-bp-2.5-t-250hp-awd-automatic-24079'),
+    },
+    'subaru_outback_bt': {
+        '2-4-turbo-xt-awd-260': (1761, ('225/65 R17', '225/60 R18'), 'https://www.auto-data.net/en/subaru-outback-vi-bt-xt-2.4turbo-260hp-awd-cvt-37890'),
+    },
+    'subaru_xv_2': {
+        '2-0-e-boxer-awd-145': (1550, (), 'https://www.auto-data.net/en/subaru-xv-ii-2.0-e-boxer-145hp-awd-cvt-35536'),
+        '2-0-e-boxer-awd-150': (1554, ('225/55 R18',), 'https://www.auto-data.net/en/subaru-xv-ii-facelift-2021-2.0ie-e-boxer-150hp-awd-lineartronic-42166'),
+        '2-0i-plug-in-hybrid-awd-148': (1690, ('225/55 R18',), 'https://www.auto-data.net/en/subaru-xv-ii-2.0i-148hp-plug-in-hybrid-awd-lineartronic-35042'),
     },
     'suzuki_gv': {
         '2-4-166': (1461, ('215/70 R16', '225/70 R16', '225/65 R17'), 'https://www.auto-data.net/en/suzuki-grand-vitara-ii-facelift-2008-3-door-2.4-166hp-awd-automatic-55764'),
@@ -1678,8 +3000,20 @@ RATTAD = {
     'suzuki_swift_4': {
         'sport-1-6-136': (1075, ('195/45 R17',), 'https://www.auto-data.net/en/suzuki-swift-v-facelift-2013-sport-1.6-136hp-cvt-30938'),
     },
+    'suzuki_swift_5': {
+        '1-0-boosterjet-shvs-112': (950, ('185/55 R16',), 'https://www.auto-data.net/en/suzuki-swift-vi-1.0-112hp-shvs-29940'),
+        '1-2-dualjet-shvs-83': (925, ('175/65 R15', '185/55 R16'), 'https://www.auto-data.net/en/suzuki-swift-vi-facelift-2020-1.2-dualjet-shvs-83hp-cvt-41205'),
+        'sport-1-4-boosterjet-140': (990, ('195/50 R17',), 'https://www.auto-data.net/en/suzuki-swift-vi-sport-1.4-140hp-automatic-32531'),
+        'sport-1-4-boosterjet-hybrid-129': (1025, ('195/45 R17',), 'https://www.auto-data.net/en/suzuki-swift-vi-sport-1.4-boosterjet-129hp-mild-hybrid-39366'),
+    },
+    'suzuki_swift_6': {
+        '1-2-mild-hybrid-82': (940, ('185/55 R16',), 'https://www.auto-data.net/en/suzuki-swift-vii-1.2-82hp-mild-hybrid-cvt-50688'),
+    },
     'suzuki_sx4_scross': {
         '1-4-boosterjet-mild-hybrid-129': (1265, ('215/55 R17',), 'https://www.auto-data.net/en/suzuki-sx4-s-cross-ii-facelift-2016-1.4-boosterjet-129hp-mild-hybrid-allgrip-automatic-45128'),
+    },
+    'suzuki_vitara_1': {
+        '2-0-v6-24v-136': (1310, ('215/65 R16',), 'https://www.auto-data.net/en/suzuki-vitara-et-ta-2.0-i-v6-24v-136hp-automatic-23944'),
     },
     'suzuki_vitara_4': {
         '1-4-boosterjet-mild-hybrid-110': (1205, ('215/55 R17',), 'https://www.auto-data.net/en/suzuki-vitara-iv-facelift-2024-1.4-boosterjet-110hp-mild-hybrid-automatic-55159'),
@@ -1689,6 +3023,12 @@ RATTAD = {
         'e-vitara-61-kwh-174': (1760, ('225/55 R18', '225/50 R19'), 'https://www.auto-data.net/en/suzuki-vitara-iv-facelift-2024-e-vitara-61-kwh-174hp-53092'),
         'e-vitara-61-kwh-allgrip-e-allgrip-e-184': (1860, ('225/55 R18', '225/50 R19'), 'https://www.auto-data.net/en/suzuki-vitara-iv-facelift-2024-e-vitara-61-kwh-184hp-allgrip-e-53093'),
     },
+    'tesla_model3_highland': {
+        'long-range-79-kwh-awd-awd-440': (1828, ('235/45 R18', '235/40 R19'), 'https://www.auto-data.net/en/tesla-model-3-highland-facelift-2023-long-range-79-kwh-440hp-dual-motor-awd-49903'),
+        'performance-79-kwh-awd-awd-460': (1851, (), 'https://www.auto-data.net/en/tesla-model-3-highland-facelift-2023-performance-79-kwh-460hp-dual-motor-awd-51629'),
+        'performance-82-kwh-awd-awd-510': (1839, (), 'https://www.auto-data.net/en/tesla-model-3-highland-facelift-2023-performance-82-kwh-510hp-dual-motor-awd-51628'),
+        'premium-long-range-84-7-kwh-awd-awd-440': (1824, ('235/45 R18', '235/40 R19'), 'https://www.auto-data.net/en/tesla-model-3-highland-facelift-2023-premium-long-range-84.7-kwh-440hp-dual-motor-awd-56055'),
+    },
     'tesla_model_s': {
         'long-range-100-kwh-awd-541': (2201, ('245/45 R19', '245/35 R21'), 'https://www.auto-data.net/en/tesla-model-s-facelift-2016-long-range-100-kwh-541hp-dual-motor-awd-42388'),
         'p100d-100-kwh-awd-605': (2241, ('245/45 R19', '245/35 R21'), 'https://www.auto-data.net/en/tesla-model-s-facelift-2016-p100d-100-kwh-605hp-dual-motor-awd-32862'),
@@ -1697,12 +3037,21 @@ RATTAD = {
         'p90d-ludicrous-90-kwh-awd-532': (2196, ('245/45 R19', '245/35 R21'), 'https://www.auto-data.net/en/tesla-model-s-facelift-2016-p90d-ludicrous-90-kwh-532hp-dual-motor-awd-34259'),
         'performance-100-kwh-awd-611': (2253, ('245/45 R19', '245/35 R21'), 'https://www.auto-data.net/en/tesla-model-s-facelift-2016-performance-100-kwh-611hp-dual-motor-awd-42389'),
     },
+    'tesla_modelx': {
+        'long-range-100-kwh-2021-awd-670': (2352, ('255/45 R20', '265/40 R20', '265/35 R22'), 'https://www.auto-data.net/en/tesla-model-x-facelift-2021-long-range-100-kwh-670hp-dual-motor-awd-42386'),
+        'p90d-90-kwh-awd-772': (2439, ('255/45 R20', '265/45 R20', '265/35 R22'), 'https://www.auto-data.net/en/tesla-model-x-p90d-90-kwh-772hp-dual-motor-awd-33038'),
+        'performance-100-kwh-awd-611': (2562, ('265/45 R20', '265/35 R22'), 'https://www.auto-data.net/en/tesla-model-x-performance-100-kwh-611hp-dual-motor-awd-42397'),
+        'plaid-100-kwh-awd-1020': (2445, ('255/45 R20', '265/40 R20', '265/35 R22'), 'https://www.auto-data.net/en/tesla-model-x-facelift-2021-plaid-100-kwh-1020hp-dual-motor-awd-42387'),
+    },
     'tesla_modely': {
         'long-range-75-kwh-awd-awd-351': (1979, ('255/45 R19', '255/40 R20'), 'https://www.auto-data.net/en/tesla-model-y-long-range-75-kwh-351hp-dual-motor-awd-42079'),
         'long-range-78-1-kwh-347': (1959, ('255/45 R19', '255/40 R20'), 'https://www.auto-data.net/en/tesla-model-y-long-range-78.1-kwh-347hp-54410'),
         'long-range-80-5-kwh-awd-awd-514': (1979, ('255/45 R19', '255/40 R20'), 'https://www.auto-data.net/en/tesla-model-y-long-range-80.5-kwh-514hp-dual-motor-awd-45720'),
         'performance-75-kwh-awd-awd-462': (2003, ('255/35 R21',), 'https://www.auto-data.net/en/tesla-model-y-performance-75-kwh-462hp-dual-motor-awd-42080'),
         'performance-80-5-kwh-awd-awd-534': (1995, ('255/35 R21',), 'https://www.auto-data.net/en/tesla-model-y-performance-80.5-kwh-534hp-dual-motor-awd-45719'),
+    },
+    'tesla_modely_juniper': {
+        'performance-84-7-kwh-awd-awd-460': (2033, ('255/35 R21',), 'https://www.auto-data.net/en/tesla-model-y-juniper-facelift-2025-performance-84.7-kwh-460hp-dual-motor-awd-56053'),
     },
     'toyota_auris_1': {
         '1-8-vvt-i-hybrid-136': (1380, ('195/65 R15',), 'https://www.auto-data.net/en/toyota-auris-i-facelift-2010-1.8-vvt-i-136hp-hybrid-e-cvt-43595'),
@@ -1720,8 +3069,16 @@ RATTAD = {
     'toyota_avensis_t25': {
         '2-2-d-cat-177': (1535, (), 'https://www.auto-data.net/en/toyota-avensis-ii-wagon-2.2-d-cat-177hp-3595'),
     },
+    'toyota_aygo_x': {
+        '1-5-hybrid-116': (1090, (), 'https://www.auto-data.net/en/toyota-aygo-x-facelift-2025-1.5-116hp-hybrid-ecvt-55421'),
+    },
     'toyota_bz4x': {
         '73-kwh-awd-awd-343': (2180, (), 'https://www.auto-data.net/en/toyota-bz4x-facelift-2025-73-kwh-343hp-bev-awd-54889'),
+    },
+    'toyota_camry_xv40': {
+        '2-4-hybrid-187': (1669, ('215/60 R16', '215/55 R17'), 'https://www.auto-data.net/en/toyota-camry-vi-xv40-2.4-187hp-hybrid-e-cvt-31252'),
+        '3-5-v6-268': (1610, ('215/60 R16',), 'https://www.auto-data.net/en/toyota-camry-vi-xv40-3.5i-v6-277hp-automatic-3919'),
+        '3-5-v6-277': (1610, ('215/60 R16',), 'https://www.auto-data.net/en/toyota-camry-vi-xv40-3.5i-v6-277hp-automatic-3919'),
     },
     'toyota_camry_xv70': {
         '2-0-150': (1570, ('205/65 R16',), 'https://www.auto-data.net/en/toyota-camry-viii-xv70-2.0-150hp-automatic-39087'),
@@ -1763,9 +3120,15 @@ RATTAD = {
     'toyota_lc_200': {
         '5-7-v8-381': (2615, ('285/60 R18',), 'https://www.auto-data.net/en/toyota-land-cruiser-j200-5.7-v8-381hp-4x4-ect-i-44057'),
     },
+    'toyota_lc_250': {
+        '2-4-i-force-max-326': (2285, ('245/70 R18', '265/70 R18', '265/60 R20'), 'https://www.auto-data.net/en/toyota-land-cruiser-j250-2.4-i-force-max-326hp-full-hybrid-4wd-ect-i-51279'),
+    },
     'toyota_proace': {
         '50-kwh-136': (1894, ('225/55 R17',), 'https://www.auto-data.net/en/toyota-proace-verso-ii-swb-50-kwh-136hp-electric-47303'),
         '75-kwh-136': (2065, ('225/55 R17',), 'https://www.auto-data.net/en/toyota-proace-verso-ii-swb-75-kwh-136hp-electric-47304'),
+    },
+    'toyota_proace_city': {
+        '50-kwh-136': (1515, ('195/65 R15', '215/65 R16'), 'https://www.auto-data.net/en/toyota-proace-city-l1-50-kwh-136hp-electric-47191'),
     },
     'toyota_rav4_5': {
         '2-0-173': (1565, ('235/55 R19',), 'https://www.auto-data.net/en/toyota-rav4-v-facelift-2021-2.0-173hp-cvt-54078'),
@@ -1807,6 +3170,16 @@ RATTAD = {
         't5-2-5-220': (1437, (), 'https://www.auto-data.net/en/volvo-c30-2.5-i-20v-t5-220hp-automatic-24347'),
         't5-2-5-230': (1437, ('205/55 R16',), 'https://www.auto-data.net/en/volvo-c30-2.5-i-20v-t5-230hp-automatic-43228'),
     },
+    'volvo_c40': {
+        'recharge-twin-motor-awd-78-kwh-awd-408': (2185, ('235/60 R17', '235/55 R18', '235/50 R19', '245/45 R20', '245/40 R21'), 'https://www.auto-data.net/en/volvo-c40-recharge-78-kwh-408hp-awd-twin-motor-42724'),
+        'recharge-twin-motor-awd-82-kwh-awd-408': (2110, ('235/50 R19',), 'https://www.auto-data.net/en/volvo-c40-recharge-82-kwh-408hp-awd-twin-motor-47263'),
+    },
+    'volvo_ex90': {
+        'twin-motor-awd-106-kwh-awd-449': (2725, (), 'https://www.auto-data.net/en/volvo-ex90-106-kwh-449hp-twin-motor-awd-55419'),
+        'twin-motor-performance-awd-106-kwh-awd-680': (2725, (), 'https://www.auto-data.net/en/volvo-ex90-106-kwh-680hp-twin-motor-performance-awd-55420'),
+        'twin-motor-performance-awd-111-kwh-awd-503': (2818, (), 'https://www.auto-data.net/en/volvo-ex90-111-kwh-503hp-twin-motor-performance-awd-46807'),
+        'twin-motor-performance-awd-111-kwh-awd-517': (2818, (), 'https://www.auto-data.net/en/volvo-ex90-111-kwh-503hp-twin-motor-performance-awd-46807'),
+    },
     'volvo_s40_1': {
         '1-9-t4-200': (1310, ('205/55 R15',), 'https://www.auto-data.net/en/volvo-s40-vs-1.9-t4-200hp-automatic-29006'),
     },
@@ -1817,6 +3190,20 @@ RATTAD = {
         't5-2-5-220': (1486, ('205/55 R16',), 'https://www.auto-data.net/en/volvo-s40-ii-2.5-t5-220hp-awd-geartronic-9561'),
         't5-2-5-230': (1485, ('205/55 R16',), 'https://www.auto-data.net/en/volvo-s40-ii-facelift-2007-2.5-t5-230hp-geartronic-17554'),
     },
+    'volvo_s60_1': {
+        '2-4-t5-260': (1520, ('215/55 R16',), 'https://www.auto-data.net/en/volvo-s60-2.4i-t5-20v-260hp-automatic-28904'),
+        'r-2-5-awd-300': (1614, ('235/45 R17',), 'https://www.auto-data.net/en/volvo-s60-r-2.5i-20v-300hp-awd-geartronic-28913'),
+    },
+    'volvo_s60_3': {
+        'polestar-t8-twin-engine-awd-318': (1979, ('235/40 R19',), 'https://www.auto-data.net/en/volvo-s60-iii-polestar-2.0-t8-twin-engine-318hp-plug-in-hybrid-awd-geartronic-36938'),
+        'recharge-t6-awd-350': (2039, ('215/60 R16', '225/50 R17', '235/45 R18', '235/40 R19', '245/35 R20'), 'https://www.auto-data.net/en/volvo-s60-iii-recharge-2.0-t6-350hp-plug-in-hybrid-awd-geartronic-46516'),
+        'recharge-t8-awd-455': (1964, ('235/45 R18', '235/40 R19'), 'https://www.auto-data.net/en/volvo-s60-iii-recharge-2.0-t8-455hp-plug-in-hybrid-awd-geartronic-45635'),
+        't5-250': (1747, (), 'https://www.auto-data.net/en/volvo-s60-iii-2.0-t5-250hp-awd-automatic-36942'),
+        't8-twin-engine-awd-303': (1973, ('235/45 R18', '235/45 R19'), 'https://www.auto-data.net/en/volvo-s60-iii-2.0-t8-twin-engine-303hp-plug-in-hybrid-awd-geartronic-36939'),
+    },
+    'volvo_s70': {
+        '2-3-turbo-250': (1473, ('205/45 R17',), 'https://www.auto-data.net/en/volvo-s70-2.3-turbo-250hp-9302'),
+    },
     'volvo_s80_1': {
         '2-8-t6-2-9-t6-272': (1630, ('225/50 R17',), 'https://www.auto-data.net/en/volvo-s80-2.8-24v-t6-272hp-9379'),
     },
@@ -1824,6 +3211,18 @@ RATTAD = {
         '3-0-t6-awd-285': (1762, ('225/55 R16',), 'https://www.auto-data.net/en/volvo-s80-ii-3.0-t6-285hp-awd-geartronic-46143'),
         '3-0-t6-awd-304': (1736, (), 'https://www.auto-data.net/en/volvo-s80-ii-facelift-2011-3.0-t6-304hp-awd-geartronic-17567'),
         '4-4-v8-awd-315': (1742, ('225/50 R17',), 'https://www.auto-data.net/en/volvo-s80-ii-4.4-v8-315hp-awd-geartronic-9368'),
+    },
+    'volvo_s90_2': {
+        'b5-diesel-awd-235': (1843, ('245/45 R18', '255/40 R19', '255/35 R20', '245/35 R21'), 'https://www.auto-data.net/en/volvo-s90-facelift-2020-2.0-b5-diesel-235hp-mild-hybrid-awd-geartronic-52431'),
+        'b6-awd-299': (1860, (), 'https://www.auto-data.net/en/volvo-s90-facelift-2020-2.0-b6-299hp-mild-hybrid-awd-automatic-40864'),
+        'recharge-t8-awd-310': (2035, ('245/45 R18', '255/40 R19', '245/40 R20'), 'https://www.auto-data.net/en/volvo-s90-facelift-2020-recharge-2.0-t8-310hp-plug-in-hybrid-awd-geartronic-45588'),
+        't6-awd-310': (1930, ('245/45 R18',), 'https://www.auto-data.net/en/volvo-s90-2016-2.0-t6-310hp-awd-automatic-34906'),
+        't6-awd-320': (None, ('245/45 R18', '255/40 R19', '255/35 R20'), 'https://www.auto-data.net/en/volvo-s90-2016-2.0-t6-320hp-awd-automatic-22594'),
+        't8-twin-engine-awd-320': (None, ('245/45 R18', '255/40 R19'), 'https://www.auto-data.net/en/volvo-s90-2016-2.0-t8-twin-engine-320hp-plug-in-hybrid-awd-geartronic-22592'),
+        't8-twin-engine-recharge-t8-awd-303': (2060, ('255/40 R19',), 'https://www.auto-data.net/en/volvo-s90-2016-2.0-t8-twin-engine-303hp-plug-in-hybrid-awd-geartronic-34905'),
+    },
+    'volvo_v40_1': {
+        't4-200': (1335, ('205/50 R16',), 'https://www.auto-data.net/en/volvo-v40-combi-vw-2.0-t4-200hp-9518'),
     },
     'volvo_v40_2': {
         '2-5-t5-254': (1574, (), 'https://www.auto-data.net/en/volvo-v40-2012-2.5-t5-254hp-automatic-18334'),
@@ -1873,6 +3272,12 @@ RATTAD = {
         't8-twin-engine-2-0-awd-303': (None, ('245/45 R18',), 'https://www.auto-data.net/en/volvo-v90-2016-2.0-t8-twin-engine-320hp-plug-in-hybrid-awd-geartronic-22758'),
         't8-twin-engine-2-0-awd-320': (None, ('245/45 R18',), 'https://www.auto-data.net/en/volvo-v90-2016-2.0-t8-twin-engine-320hp-plug-in-hybrid-awd-geartronic-22758'),
     },
+    'volvo_v90cc': {
+        'b4-diesel-2-0-mild-hybrid-awd-197': (1907, ('235/55 R18', '235/50 R19', '245/45 R20', '245/40 R21'), 'https://www.auto-data.net/en/volvo-v90-cross-country-facelift-2020-2.0-b4-diesel-197hp-mild-hybrid-awd-geartronic-52422'),
+        'b5-2-0-mild-hybrid-petrol-awd-250': (1855, ('235/55 R18', '235/50 R19', '245/45 R20', '245/40 R21'), 'https://www.auto-data.net/en/volvo-v90-cross-country-facelift-2020-2.0-b5-250hp-mild-hybrid-awd-automatic-40857'),
+        'b5-diesel-2-0-mild-hybrid-awd-235': (1907, ('235/55 R18', '235/50 R19', '245/45 R20', '245/40 R21'), 'https://www.auto-data.net/en/volvo-v90-cross-country-facelift-2020-2.0-b5-diesel-235hp-mild-hybrid-awd-geartronic-52430'),
+        'b6-2-0-mild-hybrid-awd-299': (1857, ('235/55 R18', '235/50 R19', '245/45 R20', '245/40 R21'), 'https://www.auto-data.net/en/volvo-v90-cross-country-facelift-2020-2.0-b6-299hp-mild-hybrid-awd-automatic-40858'),
+    },
     'volvo_xc40': {
         '1-5-recharge-plug-in-hybrid-t4-211': (1737, ('235/55 R18', '235/50 R19', '235/45 R20', '245/40 R21'), 'https://www.auto-data.net/en/volvo-xc40-1.5-recharge-plug-in-hybrid-t4-211hp-dcth-40926'),
         '1-5-recharge-plug-in-hybrid-t5-262': (1737, ('235/55 R18', '235/50 R19', '235/45 R20', '245/40 R21'), 'https://www.auto-data.net/en/volvo-xc40-1.5-recharge-plug-in-hybrid-t5-262hp-dcth-37835'),
@@ -1881,6 +3286,10 @@ RATTAD = {
         'recharge-82-kwh-single-motor-extended-range-252': (2001, ('235/50 R19',), 'https://www.auto-data.net/en/volvo-xc40-facelift-2022-recharge-82-kwh-252hp-single-motor-extended-range-47276'),
         'recharge-82-kwh-twin-motor-awd-awd-408': (2092, ('235/50 R19',), 'https://www.auto-data.net/en/volvo-xc40-facelift-2022-recharge-82-kwh-408hp-twin-motor-awd-47277'),
         'recharge-pure-electric-69-kwh-single-motor-231': (1955, ('235/50 R19', '235/45 R20'), 'https://www.auto-data.net/en/volvo-xc40-recharge-pure-electric-69-kwh-231hp-single-motor-45285'),
+        'recharge-pure-electric-78-kwh-twin-motor-awd-awd-408': (2113, ('235/50 R19', '235/45 R20'), 'https://www.auto-data.net/en/volvo-xc40-recharge-pure-electric-78-kwh-408hp-awd-twin-motor-37882'),
+    },
+    'volvo_xc40_p8': {
+        'recharge-82-kwh-twin-motor-awd-awd-408': (2092, ('235/50 R19',), 'https://www.auto-data.net/en/volvo-xc40-facelift-2022-recharge-82-kwh-408hp-twin-motor-awd-47277'),
         'recharge-pure-electric-78-kwh-twin-motor-awd-awd-408': (2113, ('235/50 R19', '235/45 R20'), 'https://www.auto-data.net/en/volvo-xc40-recharge-pure-electric-78-kwh-408hp-awd-twin-motor-37882'),
     },
     'volvo_xc60': {
@@ -1897,10 +3306,19 @@ RATTAD = {
     'volvo_xc90_1': {
         '4-4-v8-315': (2080, (), 'https://www.auto-data.net/en/volvo-xc90-facelift-2007-4.4-v8-315hp-9532'),
     },
+    'vw_amarok_2': {
+        '2-3-tsi-4motion-302': (None, ('255/70 R16', '255/70 R17', '255/65 R18', '255/55 R20', '275/45 R21'), 'https://www.auto-data.net/en/volkswagen-amarok-ii-2.3-tsi-302hp-4motion-automatic-48656'),
+        '3-0-tdi-v6-4motion-240': (2348, ('255/65 R18', '255/55 R20', '275/45 R21'), 'https://www.auto-data.net/en/volkswagen-amarok-ii-3.0-tdi-v6-240hp-4motion-automatic-48660'),
+        '3-0-tdi-v6-4motion-250': (2348, ('255/65 R18', '255/55 R20', '275/45 R21'), 'https://www.auto-data.net/en/volkswagen-amarok-ii-3.0-tdi-v6-240hp-4motion-automatic-48660'),
+    },
     'vw_arteon': {
         '1-4-tsi-ehybrid-218': (1723, ('245/45 R18', '245/40 R19'), 'https://www.auto-data.net/en/volkswagen-arteon-facelift-2020-1.4-tsi-218hp-ehybrid-dsg-41794'),
         '2-0-tsi-300': (1657, ('245/45 R18',), 'https://www.auto-data.net/en/volkswagen-arteon-facelift-2020-2.0-tsi-300hp-dsg-52096'),
         'r-2-0-tsi-4motion-320': (1703, ('245/45 R18',), 'https://www.auto-data.net/en/volkswagen-arteon-facelift-2020-r-2.0-tsi-320hp-4motion-dsg-41896'),
+    },
+    'vw_beetle_a4': {
+        '2-3-vr5-20v-170': (1340, ('205/55 R16',), 'https://www.auto-data.net/en/volkswagen-new-beetle-9c-2.3-vr5-20v-170hp-8811'),
+        'rsi-3-2-224': (1515, ('235/40 R18',), 'https://www.auto-data.net/en/volkswagen-new-beetle-9c-rsi-3.2-224hp-8812'),
     },
     'vw_bora': {
         '1-8-turbo-20v-150': (1298, ('195/65 R15',), 'https://www.auto-data.net/en/volkswagen-bora-1j2-1.8-turbo-20v-150hp-tiptronic-28215'),
@@ -1913,6 +3331,10 @@ RATTAD = {
     },
     'vw_caddy_5': {
         '1-5-tsi-ehybrid-150': (1797, ('205/60 R16', '215/55 R17', '225/45 R18'), 'https://www.auto-data.net/en/volkswagen-caddy-v-facelift-2026-1.5-tsi-150hp-ehybrid-dsg-57374'),
+    },
+    'vw_golf_1': {
+        'gti-1-6-110': (810, ('175/70 R13',), 'https://www.auto-data.net/en/volkswagen-golf-i-3-door-1.6-gti-110hp-8796'),
+        'gti-1-8-112': (None, ('185/60 R14',), 'https://www.auto-data.net/en/volkswagen-golf-i-3-door-1.8-gti-112hp-8798'),
     },
     'vw_golf_2': {
         '1-8-gti-16v-129': (1035, ('185/55 R15',), 'https://www.auto-data.net/en/volkswagen-golf-ii-3-door-1.8-gti-16v-139hp-8771'),
@@ -1985,10 +3407,23 @@ RATTAD = {
     'vw_id3': {
         'gtx-performance-84-kwh-326': (1925, ('215/45 R20',), 'https://www.auto-data.net/en/volkswagen-id.3-facelift-2023-gtx-performance-84-kwh-326hp-52414'),
     },
+    'vw_id_buzz': {
+        '84-kwh-286': (2425, ('235/60 R18', '235/55 R19', '235/50 R20', '235/45 R21'), 'https://www.auto-data.net/en/volkswagen-id.-buzz-84-kwh-286hp-52115'),
+        '91-kwh-long-286': (2561, ('235/60 R18', '235/55 R19', '235/50 R20', '235/45 R21'), 'https://www.auto-data.net/en/volkswagen-id.-buzz-long-91-kwh-286hp-52116'),
+        'gtx-84-kwh-4motion-340': (2577, ('235/50 R20', '235/45 R21'), 'https://www.auto-data.net/en/volkswagen-id.-buzz-gtx-84-kwh-340hp-4motion-52842'),
+        'gtx-91-kwh-long-4motion-340': (2705, ('235/50 R20', '235/45 R21'), 'https://www.auto-data.net/en/volkswagen-id.-buzz-long-gtx-91-kwh-340hp-4motion-52843'),
+    },
     'vw_jetta_2': {
         '1-8-16v-129': (1010, ('185/60 R14',), 'https://www.auto-data.net/en/volkswagen-jetta-ii-1.8-16v-139hp-9126'),
         '1-8-16v-139': (1010, ('185/60 R14',), 'https://www.auto-data.net/en/volkswagen-jetta-ii-1.8-16v-139hp-9126'),
         '2-0-i-16v-134': (1035, ('185/70 R14',), 'https://www.auto-data.net/en/volkswagen-jetta-ii-facelift-1987-2.0-i-16v-134hp-9132'),
+    },
+    'vw_jetta_5': {
+        '1-4-tsi-160': (1329, ('205/55 R16',), 'https://www.auto-data.net/en/volkswagen-jetta-v-1.4-tsi-160hp-9075'),
+        '1-4-tsi-170': (1329, ('205/55 R16',), 'https://www.auto-data.net/en/volkswagen-jetta-v-1.4-tsi-160hp-9075'),
+        '2-0-tdi-cr-170': (1418, ('205/55 R16',), 'https://www.auto-data.net/en/volkswagen-jetta-v-2.0-tdi-cr-170hp-44501'),
+        '2-0-tfsi-200': (1373, ('205/55 R16',), 'https://www.auto-data.net/en/volkswagen-jetta-v-2.0-tfsi-200hp-9084'),
+        '2-5-i-170': (None, ('205/55 R16',), 'https://www.auto-data.net/en/volkswagen-jetta-v-2.5i-170hp-46498'),
     },
     'vw_jetta_6': {
         '1-4-tsi-160': (1305, ('205/55 R16',), 'https://www.auto-data.net/en/volkswagen-jetta-vi-1.4-tsi-160hp-dsg-44518'),
@@ -1998,6 +3433,15 @@ RATTAD = {
         '2-0-tsi-210': (1378, ('225/45 R17',), 'https://www.auto-data.net/en/volkswagen-jetta-vi-2.0-tsi-210hp-dsg-44529'),
         '2-5-170': (1398, ('205/55 R16', '225/45 R17'), 'https://www.auto-data.net/en/volkswagen-jetta-vi-2.5-170hp-tiptronic-52075'),
         'gli-2-0-tsi-210': (1449, ('225/45 R17', '225/40 R18'), 'https://www.auto-data.net/en/volkswagen-jetta-vi-facelift-2014-gli-2.0-tsi-210hp-dsg-52085'),
+    },
+    'vw_multivan_t7': {
+        '1-5-tsi-136': (1941, ('215/65 R16', '235/55 R17', '235/50 R18'), 'https://www.auto-data.net/en/volkswagen-multivan-t7-1.5-tsi-136hp-dsg-45270'),
+        '2-0-tdi-150': (2043, ('215/65 R16', '235/55 R17', '235/50 R18'), 'https://www.auto-data.net/en/volkswagen-multivan-t7-2.0-tdi-150hp-dsg-45470'),
+        '2-0-tsi-204': (2002, ('215/65 R16', '235/55 R17', '235/50 R18'), 'https://www.auto-data.net/en/volkswagen-multivan-t7-2.0-tsi-204hp-dsg-45271'),
+    },
+    'vw_passat_b2': {
+        '1-9-115': (1025, ('175/70 R13',), 'https://www.auto-data.net/en/volkswagen-passat-b2-1.9-115hp-9006'),
+        '2-0-115': (910, ('175/70 R13',), 'https://www.auto-data.net/en/volkswagen-passat-b2-2.0-115hp-9007'),
     },
     'vw_passat_b3': {
         '2-8-vr6-174': (1325, ('205/50 R15',), 'https://www.auto-data.net/en/volkswagen-passat-b3-2.8-vr6-174hp-8972'),
@@ -2011,6 +3455,19 @@ RATTAD = {
     },
     'vw_passat_b7': {
         '3-6-v6-fsi-4motion-300': (1647, ('235/45 R17', '235/40 R18'), 'https://www.auto-data.net/en/volkswagen-passat-b7-3.6-v6-fsi-300hp-4motion-dsg-16825'),
+    },
+    'vw_passat_b9': {
+        '1-5-etsi-150': (1572, ('215/60 R16', '215/55 R17', '235/45 R18'), 'https://www.auto-data.net/en/volkswagen-passat-variant-b9-1.5-etsi-150hp-mild-hybrid-dsg-50500'),
+        '1-5-tsi-ehybrid-204': (1763, ('215/55 R17', '235/45 R18', '235/40 R19'), 'https://www.auto-data.net/en/volkswagen-passat-variant-b9-1.5-tsi-204hp-ehybrid-dsg-51384'),
+        '1-5-tsi-ehybrid-272': (1780, ('215/55 R17', '235/45 R18', '235/40 R19'), 'https://www.auto-data.net/en/volkswagen-passat-variant-b9-1.5-tsi-272hp-ehybrid-dsg-51385'),
+        '2-0-tsi-4motion-265': (1687, ('235/45 R18', '235/40 R19'), 'https://www.auto-data.net/en/volkswagen-passat-variant-b9-2.0-tsi-265hp-4motion-dsg-51734'),
+    },
+    'vw_passat_cc': {
+        '3-6-v6-fsi-4motion-300': (1707, ('235/45 R17',), 'https://www.auto-data.net/en/volkswagen-passat-cc-i-3.6-v6-fsi-300hp-4motion-dsg-8872'),
+    },
+    'vw_polo_2': {
+        '1-3-75': (780, ('155/70 R13',), 'https://www.auto-data.net/en/volkswagen-polo-ii-86c-1.3-cat-75hp-8487'),
+        '1-3-g40-116': (765, ('155/70 R13',), 'https://www.auto-data.net/en/volkswagen-polo-ii-classic-86c-1.3-g40-116hp-8506'),
     },
     'vw_polo_3': {
         '1-4-16v-100': (1025, ('185/60 R14',), 'https://www.auto-data.net/en/volkswagen-polo-iii-6n-1.4-16v-100hp-8468'),
@@ -2031,9 +3488,22 @@ RATTAD = {
         'gti-2-0-tsi-200': (1280, ('215/40 R17', '215/40 R18'), 'https://www.auto-data.net/en/volkswagen-polo-vi-gti-2.0-tsi-200hp-dsg-36023'),
         'gti-2-0-tsi-207': (1286, ('215/45 R17',), 'https://www.auto-data.net/en/volkswagen-polo-vi-facelift-2021-gti-2.0-tsi-207hp-dsg-44419'),
     },
+    'vw_scirocco_2': {
+        '1-8-16v-129': (970, ('185/60 R14',), 'https://www.auto-data.net/en/volkswagen-scirocco-ii-53b-1.8-16v-129hp-8829'),
+        '1-8-16v-139': (970, ('185/60 R14',), 'https://www.auto-data.net/en/volkswagen-scirocco-ii-53b-1.8-16v-129hp-8829'),
+    },
+    'vw_scirocco_3': {
+        'r-2-0-tsi-265': (1364, ('235/40 R18',), 'https://www.auto-data.net/en/volkswagen-scirocco-iii-r-2.0-tsi-265hp-dsg-44245'),
+        'r-2-0-tsi-280': (1364, ('235/40 R18',), 'https://www.auto-data.net/en/volkswagen-scirocco-iii-r-2.0-tsi-265hp-dsg-44245'),
+    },
     'vw_sharan_1': {
         '2-8-v6-204': (1945, ('215/55 R16',), 'https://www.auto-data.net/en/volkswagen-sharan-i-facelift-2000-2.8-v6-204hp-tiptronic-28906'),
         '2-8-vr6-174': (1835, ('205/60 R15',), 'https://www.auto-data.net/en/volkswagen-sharan-i-2.8-i-vr6-gl-174hp-9060'),
+    },
+    'vw_t3': {
+        '1-9-90': (1520, ('185/80 R14', '205/70 R14'), 'https://www.auto-data.net/en/volkswagen-caravelle-t3-1.9-90hp-automatic-49391'),
+        '2-1-112': (1520, ('185/80 R14', '205/70 R14'), 'https://www.auto-data.net/en/volkswagen-caravelle-t3-2.1-112hp-automatic-49400'),
+        '2-1-95': (1520, ('185/80 R14', '205/70 R14'), 'https://www.auto-data.net/en/volkswagen-caravelle-t3-2.1-95hp-automatic-49394'),
     },
     'vw_t5': {
         '2-0-tdi-180': (1820, ('215/60 R17', '235/55 R17', '255/45 R18'), 'https://www.auto-data.net/en/volkswagen-transporter-t5-facelift-2009-panel-van-2.0-tdi-180hp-l2h3-50201'),
@@ -2063,6 +3533,10 @@ RATTAD = {
         '2-0-tsi-4motion-204': (1644, ('215/65 R17', '235/55 R18', '235/50 R19', '255/45 R19', '235/45 R20', '255/40 R20'), 'https://www.auto-data.net/en/volkswagen-tiguan-iii-2.0-tsi-204hp-4motion-dsg-53690'),
         '2-0-tsi-4motion-265': (1678, ('255/40 R20',), 'https://www.auto-data.net/en/volkswagen-tiguan-iii-2.0-tsi-265hp-4motion-dsg-52496'),
     },
+    'vw_tiguan_allspace': {
+        '2-0-bitdi-4motion-240': (1805, ('235/55 R18',), 'https://www.auto-data.net/en/volkswagen-tiguan-ii-allspace-2.0-bitdi-240hp-scr-4motion-dsg-41179'),
+        '2-0-tsi-4motion-245': (1668, ('235/50 R19', '235/45 R20'), 'https://www.auto-data.net/en/volkswagen-tiguan-ii-allspace-facelift-2021-2.0-tsi-245hp-4motion-dsg-43466'),
+    },
     'vw_touareg_1': {
         '4-2-fsi-v8-4motion-350': (2332, ('255/55 R18', '275/45 R19', '275/40 R20'), 'https://www.auto-data.net/en/volkswagen-touareg-i-7l-facelift-2006-4.2-fsi-v8-350hp-4motion-tiptronic-8519'),
         '4-2-v8-4motion-310': (2580, ('235/65 R17', '255/55 R18', '275/45 R19', '275/40 R20'), 'https://www.auto-data.net/en/volkswagen-touareg-i-7l-4.2-i-v8-310hp-4motion-tiptronic-42005'),
@@ -2074,6 +3548,11 @@ RATTAD = {
         '3-0-tsi-v6-hybrid-4motion-380': (2240, ('255/55 R18', '265/50 R19', '275/45 R20'), 'https://www.auto-data.net/en/volkswagen-touareg-ii-7p-3.0-tsi-v6-380hp-hybrid-4motion-tiptronic-52318'),
         '4-2-fsi-v8-4motion-360': (2075, ('255/55 R18', '265/50 R19', '275/45 R20', '275/40 R21'), 'https://www.auto-data.net/en/volkswagen-touareg-ii-7p-4.2-fsi-v8-360hp-4motion-tiptronic-54932'),
         '4-2-v8-tdi-4motion-340': (2297, ('255/55 R18', '265/50 R19', '275/45 R20', '275/40 R21'), 'https://www.auto-data.net/en/volkswagen-touareg-ii-7p-4.2-tdi-v8-340hp-4motion-automatic-16867'),
+    },
+    'vw_touareg_3': {
+        '3-0-tsi-v6-ehybrid-4motion-381': (2360, ('235/65 R18', '255/55 R19', '285/45 R20', '285/40 R21'), 'https://www.auto-data.net/en/volkswagen-touareg-iii-cr-3.0-v6-tsi-381hp-ehybrid-4motion-tiptronic-41524'),
+        '4-0-v8-tdi-4motion-422': (2310, ('235/65 R18', '255/55 R19', '285/45 R20', '285/40 R21'), 'https://www.auto-data.net/en/volkswagen-touareg-iii-cr-4.0-v8-tdi-422hp-4motion-tiptronic-37134'),
+        'r-3-0-tsi-v6-ehybrid-4motion-462': (2533, ('285/45 R20', '285/40 R21'), 'https://www.auto-data.net/en/volkswagen-touareg-iii-cr-r-3.0-v6-tsi-462hp-ehybrid-4motion-tiptronic-41523'),
     },
     'vw_touran_1': {
         '1-4-tsi-170': (1492, ('205/55 R16',), 'https://www.auto-data.net/en/volkswagen-touran-i-facelift-2010-1.4-tsi-170hp-dsg-20501'),
@@ -2098,5 +3577,18 @@ RATTAD = {
     },
     'vw_vento': {
         '2-8-vr6-174': (1340, ('205/50 R15',), 'https://www.auto-data.net/en/volkswagen-vento-1hx0-2.8-vr6-174hp-automatic-28707'),
+    },
+    'xpeng_g6': {
+        'long-life-66-kwh-296': (1995, ('235/60 R18',), 'https://www.auto-data.net/en/xpeng-g6-long-life-66-kwh-296hp-electric-51594'),
+        'long-range-68-5-kwh-296': (2030, ('235/60 R18', '255/45 R20'), 'https://www.auto-data.net/en/xpeng-g6-facelift-2025-long-range-68.5-kwh-296hp-electric-55005'),
+        'performance-80-8-kwh-awd-487': (2220, ('255/45 R20',), 'https://www.auto-data.net/en/xpeng-g6-facelift-2025-performance-80.8-kwh-487hp-electric-awd-57370'),
+        'performance-87-5-kwh-awd-487': (2095, ('235/60 R18',), 'https://www.auto-data.net/en/xpeng-g6-performance-87.5-kwh-487hp-electric-4wd-51596'),
+        'standard-range-68-5-kwh-252': (2065, ('235/60 R18',), 'https://www.auto-data.net/en/xpeng-g6-facelift-2025-standard-range-68.5-kwh-252hp-electric-57369'),
+        'super-long-life-87-5-kwh-296': (2095, ('235/60 R18',), 'https://www.auto-data.net/en/xpeng-g6-super-long-life-87.5-kwh-296hp-electric-51595'),
+        'ultra-long-range-80-8-kwh-296': (2116, ('235/60 R18', '255/45 R20'), 'https://www.auto-data.net/en/xpeng-g6-facelift-2025-ultra-long-range-80.8-kwh-296hp-electric-55006'),
+    },
+    'xpeng_g9': {
+        'performance-98-kwh-awd-551': (None, ('255/45 R21',), 'https://www.auto-data.net/en/xpeng-g9-performance-98-kwh-551hp-bev-4wd-46706'),
+        'ultra-long-range-93-1-kwh-awd-575': (2378, ('255/45 R21',), 'https://www.auto-data.net/en/xpeng-g9-facelift-2025-ultra-long-range-93.1-kwh-575hp-electric-4wd-54991'),
     },
 }
