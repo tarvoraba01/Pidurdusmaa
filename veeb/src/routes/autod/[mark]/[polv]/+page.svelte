@@ -30,8 +30,9 @@
 		name: a.nimi + ' rehvimõõt ja pidurdusmaa',
 		description: desc,
 		url: BASE + path,
-		inLanguage: 'et',
-		about: { '@type': 'Car', name: a.nimi, brand: { '@type': 'Brand', name: a.make }, model: a.model }
+		inLanguage: 'et'
+		/* NB: mitte 'Car' / 'Vehicle' / 'Product' — Google peab neid tooteks ja
+		   nõuab hinda või arvustusi; ilma nendeta on see Search Console'is viga */
 	}}
 />
 
