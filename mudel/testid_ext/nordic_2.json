@@ -1,0 +1,1719 @@
+[
+ {
+  "test_id": "VIBILAGARE-2024-W-NORDIC-225-45R17",
+  "publication": "Vi Bilägare / Motor (NAF Norway)",
+  "year": 2024,
+  "season": "winter",
+  "size": "225/45 R17",
+  "car": "VW Golf",
+  "tester": "Joint Motor (NAF) / Vi Bilägare test; ice indoors (Arctic Falls), snow Älvsbyn, Sweden; asphalt/aquaplaning Tampere region, Finland",
+  "url": "https://www.motor.no/aktuelt/piggfrie-dekk-alle-tall-og-delresultater/288230",
+  "url_original": "https://www.motor.no/tester/motors-store-test-av-vinterdekk-2024/287550",
+  "disciplines": [
+   {
+    "id": "ice",
+    "surface": "ice",
+    "wet": false,
+    "v_from": 25,
+    "v_to": 5,
+    "temp_c": null,
+    "note": "ABS, indoor, -5 to -6 C"
+   },
+   {
+    "id": "snow",
+    "surface": "snow",
+    "wet": false,
+    "v_from": 35,
+    "v_to": 5,
+    "temp_c": null,
+    "note": "ABS, -6 to -9 C"
+   },
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": 80,
+    "v_to": 5,
+    "temp_c": null,
+    "note": "+13 to +15 C"
+   },
+   {
+    "id": "dry",
+    "surface": "asphalt",
+    "wet": false,
+    "v_from": 80,
+    "v_to": 5,
+    "temp_c": null,
+    "note": "+15 to +17 C"
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Michelin X-Ice Snow",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "ice": 10.69,
+     "snow": 12.5,
+     "wet": 39.1,
+     "dry": 31.57
+    },
+    "aqua_kmh": 64.7,
+    "note": "Results page lists brand only; model from Motor overview article 287550"
+   },
+   {
+    "name": "Nokian Hakkapeliitta R5",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "ice": 11.37,
+     "snow": 12.46,
+     "wet": 41.92,
+     "dry": 31.35
+    },
+    "aqua_kmh": 59.8,
+    "note": "Results page lists brand only; model from Motor overview article 287550"
+   },
+   {
+    "name": "Continental VikingContact 8",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "ice": 11.97,
+     "snow": 12.72,
+     "wet": 40.1,
+     "dry": 31.2
+    },
+    "aqua_kmh": 59.8,
+    "note": "Results page lists brand only; model from Motor overview article 287550"
+   },
+   {
+    "name": "Goodyear UltraGrip Ice 3",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "ice": 12.75,
+     "snow": 12.43,
+     "wet": 37.55,
+     "dry": 32.1
+    },
+    "aqua_kmh": 68.5,
+    "note": "Results page lists brand only; model from Motor overview article 287550"
+   },
+   {
+    "name": "Radar Dimax Ice",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "ice": 15.56,
+     "snow": 12.8,
+     "wet": 42.66,
+     "dry": 32.61
+    },
+    "aqua_kmh": 58.2,
+    "note": "Results page lists brand only; model from Motor overview article 287550"
+   },
+   {
+    "name": "Hankook Winter iCept iZ2 W616",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "ice": 15.68,
+     "snow": 12.73,
+     "wet": 40.36,
+     "dry": 32.37
+    },
+    "aqua_kmh": 62.4,
+    "note": "Results page lists brand only; model from Motor overview article 287550"
+   },
+   {
+    "name": "GreenMax Winter Ice i-15",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "ice": 18.38,
+     "snow": 12.98,
+     "wet": 42.48,
+     "dry": 32.72
+    },
+    "aqua_kmh": 63.3,
+    "note": "Results page lists brand only; model from Motor overview article 287550"
+   },
+   {
+    "name": "Michelin CrossClimate 2",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "ice": 18.39,
+     "snow": 13.28,
+     "wet": 27.49,
+     "dry": 25.85
+    },
+    "aqua_kmh": null,
+    "note": "All-season reference; results page labels it 'Helårsdekk'; model name from Motor overview article; aquaplaning not captured"
+   }
+  ]
+ },
+ {
+  "test_id": "VIBILAGARE-2023-W-NORDIC-225-45R17",
+  "publication": "Vi Bilägare / Motor (NAF Norway)",
+  "year": 2023,
+  "season": "winter",
+  "size": "225/45 R17",
+  "car": "VW Golf (ice/snow); VW Golf GTI for fuel",
+  "tester": "Joint Motor (NAF) / Vi Bilägare test (tyrereviews lists the studded part as Vi Bilägare 2023); Älvsbyn and Arctic Falls Indoor, Sweden; Tampere, Finland",
+  "url": "https://www.motor.no/tester/vinterdekktesten-2023-tallene-i-enkeltovelsene/256037",
+  "url_original": "https://www.motor.no/tester/motors-store-test-av-vinterdekk-2023/255678",
+  "disciplines": [
+   {
+    "id": "ice",
+    "surface": "ice",
+    "wet": false,
+    "v_from": 25,
+    "v_to": 5,
+    "temp_c": null,
+    "note": "ABS, indoor, -5 to -6 C"
+   },
+   {
+    "id": "snow",
+    "surface": "snow",
+    "wet": false,
+    "v_from": 35,
+    "v_to": 5,
+    "temp_c": null,
+    "note": "ABS, -8 to -12 C"
+   },
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": 80,
+    "v_to": 5,
+    "temp_c": null,
+    "note": "+10 to +15 C"
+   },
+   {
+    "id": "dry",
+    "surface": "asphalt",
+    "wet": false,
+    "v_from": 80,
+    "v_to": 5,
+    "temp_c": null,
+    "note": "+10 to +14 C"
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Michelin X-Ice Snow",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "ice": 12.09,
+     "snow": 12.21,
+     "wet": 38.4,
+     "dry": 30.96
+    },
+    "aqua_kmh": 65,
+    "note": "Results page lists brand only; model from Motor overview article 255678"
+   },
+   {
+    "name": "Continental VikingContact 7",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "ice": 12.32,
+     "snow": 12.34,
+     "wet": 39.31,
+     "dry": 30.32
+    },
+    "aqua_kmh": 62.7,
+    "note": "Results page lists brand only; model from Motor overview article 255678"
+   },
+   {
+    "name": "Nokian Hakkapeliitta R5",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "ice": 12.49,
+     "snow": 12.52,
+     "wet": 40.28,
+     "dry": 30.65
+    },
+    "aqua_kmh": 61.4,
+    "note": "Results page lists brand only; model from Motor overview article 255678"
+   },
+   {
+    "name": "Goodyear UltraGrip Ice 3",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "ice": 13.0,
+     "snow": 12.19,
+     "wet": 37.55,
+     "dry": 30.9
+    },
+    "aqua_kmh": 66,
+    "note": "Results page lists brand only; model from Motor overview article 255678"
+   },
+   {
+    "name": "Pirelli IceZero Asimmetrico",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "ice": 13.23,
+     "snow": 12.27,
+     "wet": 43.34,
+     "dry": 31.46
+    },
+    "aqua_kmh": 60.5,
+    "note": "Results page lists brand only; model from Motor overview article 255678"
+   },
+   {
+    "name": "Bridgestone Blizzak Ice",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "ice": 13.3,
+     "snow": 12.77,
+     "wet": 40.74,
+     "dry": 30.03
+    },
+    "aqua_kmh": 59.8,
+    "note": "Results page lists brand only; model from Motor overview article 255678"
+   },
+   {
+    "name": "Triangle Snowlink PL01",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "ice": 13.93,
+     "snow": 12.52,
+     "wet": 42.19,
+     "dry": 30.37
+    },
+    "aqua_kmh": 61,
+    "note": "Results page lists brand only; model from Motor overview article 255678"
+   },
+   {
+    "name": "Nokian Hakkapeliitta R2",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "ice": 14.04,
+     "snow": 12.73,
+     "wet": 40.88,
+     "dry": 29.23
+    },
+    "aqua_kmh": 56.6,
+    "note": "Used tyre reference (from 2015), labelled 'Bruktdekk'"
+   }
+  ]
+ },
+ {
+  "test_id": "VIBILAGARE-2023-W-STUDDED-225-45R17",
+  "publication": "Vi Bilägare / Motor (NAF Norway)",
+  "year": 2023,
+  "season": "winter",
+  "size": "225/45 R17",
+  "car": "VW Golf (ice/snow); VW Golf GTI for fuel",
+  "tester": "Joint Motor (NAF) / Vi Bilägare test (tyrereviews lists the studded part as Vi Bilägare 2023); Älvsbyn and Arctic Falls Indoor, Sweden; Tampere, Finland",
+  "url": "https://www.motor.no/tester/vinterdekktesten-2023-tallene-i-enkeltovelsene/256037",
+  "url_original": "https://tyrereviews.com/Tyre-Tests/2023-Studded-Tyre-Test.htm/Results-Grid",
+  "disciplines": [
+   {
+    "id": "ice",
+    "surface": "ice",
+    "wet": false,
+    "v_from": 25,
+    "v_to": 5,
+    "temp_c": null,
+    "note": "ABS, indoor, -5 to -6 C"
+   },
+   {
+    "id": "snow",
+    "surface": "snow",
+    "wet": false,
+    "v_from": 35,
+    "v_to": 5,
+    "temp_c": null,
+    "note": "ABS, -8 to -11 C"
+   },
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": 80,
+    "v_to": 5,
+    "temp_c": null,
+    "note": "+14 to +16 C"
+   },
+   {
+    "id": "dry",
+    "surface": "asphalt",
+    "wet": false,
+    "v_from": 80,
+    "v_to": 5,
+    "temp_c": null,
+    "note": "+15 to +17 C"
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Michelin X-Ice North 4",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 12.93,
+     "snow": 13.24,
+     "wet": 37.56,
+     "dry": 32.37
+    },
+    "aqua_kmh": 55.9,
+    "note": "Values match tyrereviews.com grid (which swaps wet/dry labels)"
+   },
+   {
+    "name": "Nokian Hakkapeliitta 10",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 12.77,
+     "snow": 12.96,
+     "wet": 38.58,
+     "dry": 32.74
+    },
+    "aqua_kmh": 55.1,
+    "note": "Values match tyrereviews.com grid (which swaps wet/dry labels)"
+   },
+   {
+    "name": "Goodyear UltraGrip Arctic 2",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 12.97,
+     "snow": 12.96,
+     "wet": 35.94,
+     "dry": 32.11
+    },
+    "aqua_kmh": 57.3,
+    "note": "Values match tyrereviews.com grid (which swaps wet/dry labels)"
+   },
+   {
+    "name": "Continental IceContact 3",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 17.14,
+     "snow": 12.98,
+     "wet": 37.87,
+     "dry": 32.77
+    },
+    "aqua_kmh": 55.2,
+    "note": "Values match tyrereviews.com grid (which swaps wet/dry labels)"
+   },
+   {
+    "name": "Falken Winterpeak F-Ice 1",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 14.6,
+     "snow": 12.85,
+     "wet": 36.98,
+     "dry": 33.32
+    },
+    "aqua_kmh": 59.1,
+    "note": "Values match tyrereviews.com grid (which swaps wet/dry labels)"
+   },
+   {
+    "name": "Hankook Winter iPike RS2 W429",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 15.87,
+     "snow": 12.82,
+     "wet": 35.85,
+     "dry": 32.82
+    },
+    "aqua_kmh": 56.8,
+    "note": "Snow value 12.82 from tyrereviews.com grid (Motor page value could not be read cleanly)"
+   },
+   {
+    "name": "Goodride IceMaster Spike Z-506",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 17.16,
+     "snow": 12.8,
+     "wet": 39.19,
+     "dry": 32.36
+    },
+    "aqua_kmh": 56.4,
+    "note": "Values match tyrereviews.com grid (which swaps wet/dry labels)"
+   },
+   {
+    "name": "Nokian Hakkapeliitta 8",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 19.03,
+     "snow": 13.06,
+     "wet": 37.02,
+     "dry": 31.4
+    },
+    "aqua_kmh": 56.5,
+    "note": "Used tyre reference (from 2015), labelled 'Bruktdekk'"
+   }
+  ]
+ },
+ {
+  "test_id": "VIBILAGARE-2022-W-NORDIC-235-55R18",
+  "publication": "Vi Bilägare / Motor (NAF Norway)",
+  "year": 2022,
+  "season": "winter",
+  "size": "235/55 R18",
+  "car": "Volvo XC40 (AWD for ice/snow, FWD for braking)",
+  "tester": "Joint Motor (NAF) / Vi Bilägare test (tyrereviews.com lists it as Vi Bilägare 2022); Älvsbyn and Arctic Falls Indoor, Sweden; Tampere, Finland",
+  "url": "https://www.motor.no/tester/vinterdekktesten-ovelse-for-ovelse/232473",
+  "url_original": "https://www.motor.no/tester/motors-store-test-av-vinterdekk-til-suv-2022/232282",
+  "disciplines": [
+   {
+    "id": "ice",
+    "surface": "ice",
+    "wet": false,
+    "v_from": 25,
+    "v_to": 5,
+    "temp_c": null,
+    "note": "ABS, indoor, -6 to -7 C"
+   },
+   {
+    "id": "snow",
+    "surface": "snow",
+    "wet": false,
+    "v_from": 35,
+    "v_to": 5,
+    "temp_c": null,
+    "note": "ABS; conditions printed as 'Innendørs, -6 til -7'"
+   },
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": 80,
+    "v_to": 5,
+    "temp_c": null,
+    "note": "sunny, +16 to +17 C"
+   },
+   {
+    "id": "dry",
+    "surface": "asphalt",
+    "wet": false,
+    "v_from": 80,
+    "v_to": 5,
+    "temp_c": null,
+    "note": "sunny, +14 to +16 C"
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Nokian Hakkapeliitta R5 SUV",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "ice": 12.89,
+     "snow": 10.94,
+     "wet": 39.51,
+     "dry": 34.77
+    },
+    "aqua_kmh": 60.3,
+    "note": "aqua = 15% slip speed, 7 mm water, +14 C; results page lists brand only, model from Motor overview 232282"
+   },
+   {
+    "name": "Michelin X-Ice Snow SUV",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "ice": 13.37,
+     "snow": 11.25,
+     "wet": 40.76,
+     "dry": 34.46
+    },
+    "aqua_kmh": 61.9,
+    "note": "aqua = 15% slip speed, 7 mm water, +14 C; results page lists brand only, model from Motor overview 232282"
+   },
+   {
+    "name": "Goodyear UltraGrip Ice 2",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "ice": 13.66,
+     "snow": 11.5,
+     "wet": 36.42,
+     "dry": 33.85
+    },
+    "aqua_kmh": 70.2,
+    "note": "aqua = 15% slip speed, 7 mm water, +14 C; results page lists brand only, model from Motor overview 232282"
+   },
+   {
+    "name": "Continental VikingContact 7",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "ice": 13.69,
+     "snow": 11.6,
+     "wet": 38.98,
+     "dry": 34.2
+    },
+    "aqua_kmh": 68.0,
+    "note": "aqua = 15% slip speed, 7 mm water, +14 C; results page lists brand only, model from Motor overview 232282"
+   },
+   {
+    "name": "Falken Winterpeak F-Snow 1",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "ice": 13.79,
+     "snow": 11.35,
+     "wet": 38.38,
+     "dry": 33.59
+    },
+    "aqua_kmh": 62.1,
+    "note": "aqua = 15% slip speed, 7 mm water, +14 C; results page lists brand only, model from Motor overview 232282"
+   },
+   {
+    "name": "Bridgestone Blizzak DM-V3",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "ice": 14.55,
+     "snow": 11.4,
+     "wet": 38.86,
+     "dry": 33.29
+    },
+    "aqua_kmh": 61.9,
+    "note": "aqua = 15% slip speed, 7 mm water, +14 C; results page lists brand only, model from Motor overview 232282"
+   },
+   {
+    "name": "Kumho WinterCraft WS51",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "ice": 15.61,
+     "snow": 11.56,
+     "wet": 38.29,
+     "dry": 35.12
+    },
+    "aqua_kmh": 70.6,
+    "note": "aqua = 15% slip speed, 7 mm water, +14 C; results page lists brand only, model from Motor overview 232282"
+   },
+   {
+    "name": "Mazzini Snowleopard LX",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "ice": 16.72,
+     "snow": 11.16,
+     "wet": 37.3,
+     "dry": 34.46
+    },
+    "aqua_kmh": 69.0,
+    "note": "aqua = 15% slip speed, 7 mm water, +14 C; results page lists brand only, model from Motor overview 232282"
+   }
+  ]
+ },
+ {
+  "test_id": "VIBILAGARE-2022-W-STUDDED-235-55R18",
+  "publication": "Vi Bilägare / Motor (NAF Norway)",
+  "year": 2022,
+  "season": "winter",
+  "size": "235/55 R18",
+  "car": "Volvo XC40 (AWD for ice/snow, FWD for braking)",
+  "tester": "Joint Motor (NAF) / Vi Bilägare test (tyrereviews.com lists it as Vi Bilägare 2022); Älvsbyn and Arctic Falls Indoor, Sweden; Tampere, Finland",
+  "url": "https://www.motor.no/tester/vinterdekktesten-ovelse-for-ovelse/232473",
+  "url_original": "https://www.tyrereviews.com/Article/2022-Studded-Winter-Tyre-Test.htm",
+  "disciplines": [
+   {
+    "id": "ice",
+    "surface": "ice",
+    "wet": false,
+    "v_from": 25,
+    "v_to": 5,
+    "temp_c": null,
+    "note": "ABS, indoor, -5 to -6 C"
+   },
+   {
+    "id": "snow",
+    "surface": "snow",
+    "wet": false,
+    "v_from": 35,
+    "v_to": 5,
+    "temp_c": null,
+    "note": "ABS; printed 'Inne, -6 til -7'"
+   },
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": 80,
+    "v_to": 5,
+    "temp_c": null,
+    "note": "drizzle, +8 to +10 C"
+   },
+   {
+    "id": "dry",
+    "surface": "asphalt",
+    "wet": false,
+    "v_from": 80,
+    "v_to": 5,
+    "temp_c": null,
+    "note": "sunny, +14 to +16 C"
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Goodyear UltraGrip Arctic 2",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 11.14,
+     "snow": 11.31,
+     "wet": 37.99,
+     "dry": 36.36
+    },
+    "aqua_kmh": 55.7,
+    "note": "aqua: overcast, +6 to +7 C"
+   },
+   {
+    "name": "Nokian Hakkapeliitta 10 SUV",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 11.62,
+     "snow": 11.15,
+     "wet": 39.22,
+     "dry": 35.98
+    },
+    "aqua_kmh": 54.6,
+    "note": "tyrereviews.com prints dry 35.95; aqua: overcast, +6 to +7 C"
+   },
+   {
+    "name": "Michelin X-Ice North 4 SUV",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 12.68,
+     "snow": 11.09,
+     "wet": 40.66,
+     "dry": 36.08
+    },
+    "aqua_kmh": 53.9,
+    "note": "aqua: overcast, +6 to +7 C"
+   },
+   {
+    "name": "Nordman 8 SUV",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 12.74,
+     "snow": 11.99,
+     "wet": 39.51,
+     "dry": 36.87
+    },
+    "aqua_kmh": 55.5,
+    "note": "aqua: overcast, +6 to +7 C"
+   },
+   {
+    "name": "Pirelli Scorpion Ice Zero 2",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 13.94,
+     "snow": 11.73,
+     "wet": 36.44,
+     "dry": 34.44
+    },
+    "aqua_kmh": 55.1,
+    "note": "aqua: overcast, +6 to +7 C"
+   },
+   {
+    "name": "Falken Winterpeak F-Ice 1",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 14.23,
+     "snow": 11.44,
+     "wet": 36.41,
+     "dry": 35.42
+    },
+    "aqua_kmh": 59.2,
+    "note": "Disqualified in Motor's overall ranking; aqua: overcast, +6 to +7 C"
+   },
+   {
+    "name": "Continental IceContact 3",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 14.4,
+     "snow": 11.73,
+     "wet": 37.32,
+     "dry": 36.71
+    },
+    "aqua_kmh": 58.7,
+    "note": "aqua: overcast, +6 to +7 C"
+   },
+   {
+    "name": "Maxxis Premitra Ice Nord 5 SUV",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 16.51,
+     "snow": 12.9,
+     "wet": 36.59,
+     "dry": 33.98
+    },
+    "aqua_kmh": 59.5,
+    "note": "aqua: overcast, +6 to +7 C"
+   }
+  ]
+ },
+ {
+  "test_id": "TEKNIKENSVARLD-2021-W-205-55R16",
+  "publication": "Teknikens Värld",
+  "year": 2021,
+  "season": "winter",
+  "size": "205/55 R16",
+  "car": null,
+  "tester": "Teknikens Värld per tyrereviews.com; mixed studded + non-studded + one central-European reference",
+  "url": "https://tyrereviews.com/Article/2021-Studless-and-Studded-Winter-Tyre-Test.htm",
+  "url_original": null,
+  "disciplines": [
+   {
+    "id": "ice",
+    "surface": "ice",
+    "wet": false,
+    "v_from": null,
+    "v_to": null,
+    "temp_c": null,
+    "note": "Speed range not printed on tyrereviews page (distance scale 36-57 m suggests a high start speed, not verified)"
+   },
+   {
+    "id": "snow",
+    "surface": "snow",
+    "wet": false,
+    "v_from": null,
+    "v_to": null,
+    "temp_c": null,
+    "note": "Speed range not printed on tyrereviews page"
+   },
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": null,
+    "v_to": null,
+    "temp_c": null,
+    "note": "Speed range not printed on tyrereviews page"
+   },
+   {
+    "id": "dry",
+    "surface": "asphalt",
+    "wet": false,
+    "v_from": null,
+    "v_to": null,
+    "temp_c": null,
+    "note": "Speed range not printed on tyrereviews page"
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Nokian Hakkapeliitta 10",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "dry": 31.4,
+     "wet": 35.9,
+     "snow": 51.5,
+     "ice": 36.4
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Bridgestone Noranza 001",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "dry": 31.5,
+     "wet": 36,
+     "snow": 51.9,
+     "ice": 39
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Goodyear UltraGrip Arctic 2",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "dry": 31.7,
+     "wet": 34.9,
+     "snow": 50.6,
+     "ice": 37.9
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Michelin X Ice North 4",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "dry": 31.1,
+     "wet": 37.3,
+     "snow": 51,
+     "ice": 38.8
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Hankook Winter i pike RS2",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "dry": 33.44,
+     "wet": 35.4,
+     "snow": 50.7,
+     "ice": 40.1
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Continental IceContact 3",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "dry": 31.5,
+     "wet": 33.7,
+     "snow": 51.4,
+     "ice": 40.9
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Pirelli Ice Zero 2",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "dry": 29.9,
+     "wet": 33.6,
+     "snow": 51.4,
+     "ice": 41.8
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Kumho WinterCraft Ice",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "dry": 32.7,
+     "wet": 37.3,
+     "snow": 52.1,
+     "ice": 42.2
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Westlake IceMaster Spike Z-506",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "dry": 31,
+     "wet": 34,
+     "snow": 52.5,
+     "ice": 43.3
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Michelin X Ice Snow",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "dry": 31.5,
+     "wet": 36.1,
+     "snow": 52.3,
+     "ice": 44.4
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Continental VikingContact 7",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "dry": 31.8,
+     "wet": 33.8,
+     "snow": 51.1,
+     "ice": 46
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Goodyear UltraGrip Ice 2",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "dry": 31.8,
+     "wet": 33.5,
+     "snow": 51.5,
+     "ice": 46.5
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Kumho WinterCraft Ice Wi51",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "dry": 31.5,
+     "wet": 33.8,
+     "snow": 52.1,
+     "ice": 48.8
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Nokian Hakkapeliitta R3",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "dry": 31.6,
+     "wet": 32.3,
+     "snow": 51,
+     "ice": 49.5
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Hankook Winter I cept iZ2 W616",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "dry": 31.5,
+     "wet": 34.4,
+     "snow": 52.3,
+     "ice": 51.7
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "CST Medallion Winter WCP1",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "dry": 29.4,
+     "wet": 28.9,
+     "snow": 54.5,
+     "ice": 57.2
+    },
+    "aqua_kmh": null,
+    "note": "Central-European winter tyre reference"
+   }
+  ]
+ },
+ {
+  "test_id": "MOOTTORI-2021-W-STUDDED-205-55R16",
+  "publication": "Moottori",
+  "year": 2021,
+  "season": "winter",
+  "size": "205/55 R16",
+  "car": null,
+  "tester": "Moottori (Autoliitto, Finland) per tyrereviews.com",
+  "url": "https://tyrereviews.com/Tyre-Tests/Results-Grid/2021-Nordic-Studded-Winter-Tyre-Test.htm",
+  "url_original": "https://www.tyrereviews.com/Article/2021-Nordic-Studded-Winter-Tyre-Test.htm",
+  "disciplines": [
+   {
+    "id": "ice",
+    "surface": "ice",
+    "wet": false,
+    "v_from": null,
+    "v_to": null,
+    "temp_c": null,
+    "note": "Speed range not printed on tyrereviews grid"
+   },
+   {
+    "id": "snow",
+    "surface": "snow",
+    "wet": false,
+    "v_from": null,
+    "v_to": null,
+    "temp_c": null,
+    "note": "Speed range not printed on tyrereviews grid"
+   },
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": null,
+    "v_to": null,
+    "temp_c": null,
+    "note": "Speed range not printed on tyrereviews grid"
+   },
+   {
+    "id": "dry",
+    "surface": "asphalt",
+    "wet": false,
+    "v_from": null,
+    "v_to": null,
+    "temp_c": null,
+    "note": "Speed range not printed on tyrereviews grid"
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Nokian Hakkapeliitta 10",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "dry": 32.57,
+     "wet": 37.21,
+     "snow": 15.26,
+     "ice": 12.51
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Michelin X Ice North 4",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "dry": 32.79,
+     "wet": 38.54,
+     "snow": 15.11,
+     "ice": 12.82
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Goodyear UltraGrip Arctic 2",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "dry": 32.91,
+     "wet": 35.86,
+     "snow": 15.23,
+     "ice": 12.22
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Nokian Nordman 8",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "dry": 32.86,
+     "wet": 38.81,
+     "snow": 15.18,
+     "ice": 13.16
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Continental IceContact 3",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "dry": 33.65,
+     "wet": 37.1,
+     "snow": 15.12,
+     "ice": 15.42
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Gislaved Nord Frost 200",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "dry": 31.3,
+     "wet": 37.76,
+     "snow": 15.26,
+     "ice": 16.56
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "BFGoodrich G Force Stud",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "dry": 30.77,
+     "wet": 36.77,
+     "snow": 14.89,
+     "ice": 18.37
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Sava Eskimo Stud",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "dry": 31.86,
+     "wet": 36.31,
+     "snow": 15.65,
+     "ice": 18.13
+    },
+    "aqua_kmh": null,
+    "note": ""
+   }
+  ]
+ },
+ {
+  "test_id": "VIBILAGARE-2026-S-205-55R16",
+  "publication": "Vi Bilägare / Motor (NAF Norway)",
+  "year": 2026,
+  "season": "summer",
+  "size": "205/55 R16",
+  "car": "VW Golf GTI (driving); VW Golf 1.5 eTSI (comfort and braking)",
+  "tester": "Motor and Vi Bilägare; test track near Madrid, Spain, November 2025",
+  "url": "https://www.motor.no/tester/sommerdekktesten-2026-se-alle-tall-og-delresultater/348059",
+  "url_original": "https://www.naf.no/bilhold/dekk/test-beste-sommerdekk-2026",
+  "disciplines": [
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": 100,
+    "v_to": 5,
+    "temp_c": null,
+    "note": "1.5 mm water depth"
+   },
+   {
+    "id": "dry",
+    "surface": "asphalt",
+    "wet": false,
+    "v_from": 110,
+    "v_to": 5,
+    "temp_c": null,
+    "note": ""
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Continental PremiumContact 7",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 35.4,
+     "dry": 41.8
+    },
+    "aqua_kmh": 84.6,
+    "note": "Results page lists brand only; model from NAF article; aqua = straight, 6 mm water"
+   },
+   {
+    "name": "Pirelli Cinturato C3",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 36.3,
+     "dry": 42.6
+    },
+    "aqua_kmh": 84.9,
+    "note": "Results page lists brand only; model from NAF article; aqua = straight, 6 mm water"
+   },
+   {
+    "name": "Falken Ziex ZE320",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 36.6,
+     "dry": 42.1
+    },
+    "aqua_kmh": 84.9,
+    "note": "Results page lists brand only; model from NAF article; aqua = straight, 6 mm water"
+   },
+   {
+    "name": "Nokian Hakka Blue 3",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 36.9,
+     "dry": 43.1
+    },
+    "aqua_kmh": 85.4,
+    "note": "Results page lists brand only; model from NAF article; aqua = straight, 6 mm water"
+   },
+   {
+    "name": "Bridgestone Turanza 6",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 37.2,
+     "dry": 44.0
+    },
+    "aqua_kmh": 84.2,
+    "note": "Results page lists brand only; model from NAF article; aqua = straight, 6 mm water"
+   },
+   {
+    "name": "Nexen N'Fera Primus SU1 Plus",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 37.6,
+     "dry": 44.4
+    },
+    "aqua_kmh": 85.7,
+    "note": "Results page lists brand only; model from NAF article; aqua = straight, 6 mm water"
+   },
+   {
+    "name": "Maxxis Premitra HP6",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 38.3,
+     "dry": 44.9
+    },
+    "aqua_kmh": 84.3,
+    "note": "Results page lists brand only; model from NAF article; aqua = straight, 6 mm water"
+   },
+   {
+    "name": "Michelin Primacy 5",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 38.8,
+     "dry": 44.8
+    },
+    "aqua_kmh": 85.0,
+    "note": "Results page lists brand only; model from NAF article; aqua = straight, 6 mm water"
+   },
+   {
+    "name": "Landsail Rapid Dragon",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 40.1,
+     "dry": 44.9
+    },
+    "aqua_kmh": 84.1,
+    "note": "Results page lists brand only; model from NAF article; aqua = straight, 6 mm water"
+   },
+   {
+    "name": "Linglong Ecomaster E",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 42.1,
+     "dry": 48.0
+    },
+    "aqua_kmh": 83.2,
+    "note": "Results page lists brand only; model from NAF article; aqua = straight, 6 mm water"
+   }
+  ]
+ },
+ {
+  "test_id": "VIBILAGARE-2025-S-235-55R19",
+  "publication": "Vi Bilägare / Motor (NAF Norway)",
+  "year": 2025,
+  "season": "summer",
+  "size": "235/55 R19",
+  "car": "Kia EV6 (braking/handling); Tesla Model Y (aquaplaning, consumption)",
+  "tester": "Motor and Vi Bilägare; outside Madrid, Spain, early November 2024",
+  "url": "https://www.motor.no/aktuelt/sommerdekktest-2025-alle-delresultatene/307973",
+  "url_original": "https://www.motor.no/aktuelt/sommerdekktest-2025-styr-unna-spesialdekkene/307937",
+  "disciplines": [
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": 100,
+    "v_to": 5,
+    "temp_c": null,
+    "note": "1.5 mm water depth; cloudy, 7-10 C"
+   },
+   {
+    "id": "dry",
+    "surface": "asphalt",
+    "wet": false,
+    "v_from": 110,
+    "v_to": 5,
+    "temp_c": null,
+    "note": "varying weather, 9-13 C"
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Nokian Hakka Black 3 SilentDrive",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 41.56,
+     "dry": 42.03
+    },
+    "aqua_kmh": 84.9,
+    "note": "aqua = straight, 6 mm water, cloudy 7 C"
+   },
+   {
+    "name": "Michelin Pilot Sport 4 SUV",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 42.72,
+     "dry": 43.92
+    },
+    "aqua_kmh": 91.7,
+    "note": "aqua = straight, 6 mm water, cloudy 7 C"
+   },
+   {
+    "name": "Pirelli Scorpion",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 42.89,
+     "dry": 41.95
+    },
+    "aqua_kmh": 86.6,
+    "note": "aqua = straight, 6 mm water, cloudy 7 C"
+   },
+   {
+    "name": "Continental PremiumContact 7",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 43.84,
+     "dry": 42.9
+    },
+    "aqua_kmh": 81.6,
+    "note": "aqua = straight, 6 mm water, cloudy 7 C"
+   },
+   {
+    "name": "Goodyear Eagle F1 Asymmetric 6",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 44.03,
+     "dry": 42.88
+    },
+    "aqua_kmh": 82.9,
+    "note": "aqua = straight, 6 mm water, cloudy 7 C"
+   },
+   {
+    "name": "Volvo OE eco tyre (model not named by Motor)",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 44.77,
+     "dry": 44.03
+    },
+    "aqua_kmh": 79.5,
+    "note": "Original-equipment tyre, deliberately unnamed in source; aqua = straight, 6 mm water, cloudy 7 C"
+   },
+   {
+    "name": "Volkswagen OE eco tyre (model not named by Motor)",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 47.13,
+     "dry": 44.35
+    },
+    "aqua_kmh": 81.0,
+    "note": "Original-equipment tyre, deliberately unnamed in source; aqua = straight, 6 mm water, cloudy 7 C"
+   },
+   {
+    "name": "Hifly Vigorous HP801",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 47.72,
+     "dry": 46.59
+    },
+    "aqua_kmh": 88.5,
+    "note": "aqua = straight, 6 mm water, cloudy 7 C"
+   }
+  ]
+ },
+ {
+  "test_id": "VIBILAGARE-2023-S-245-40R18",
+  "publication": "Vi Bilägare / Motor (NAF Norway)",
+  "year": 2023,
+  "season": "summer",
+  "size": "245/40 R18",
+  "car": "Audi A4 Avant (automatic)",
+  "tester": "Vi Bilägare, published by Motor; Hakka Ring (Nokian), Santa Cruz de la Zarza, Spain, early October 2022",
+  "url": "https://www.motor.no/tester/slik-var-resultatene-i-hver-disiplin-i-sommerdekktesten/243642",
+  "url_original": "https://www.naf.no/bilhold/dekk/sommerdekktest-2023",
+  "disciplines": [
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": 80,
+    "v_to": null,
+    "temp_c": null,
+    "note": "ABS from 80 km/h, 1.0 mm water, average of 8 stops, sunny 22-27 C; end speed not stated"
+   },
+   {
+    "id": "dry",
+    "surface": "asphalt",
+    "wet": false,
+    "v_from": 100,
+    "v_to": null,
+    "temp_c": null,
+    "note": "ABS from 100 km/h, average of 6 stops, sunny 19-24 C; end speed not stated"
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Nokian Hakka Black 3",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "wet": 24.4,
+     "dry": 33.2
+    },
+    "aqua_kmh": 81.2,
+    "note": "Results page lists brand only; model from NAF article; aqua = 15% slip speed, 7.0 mm water"
+   },
+   {
+    "name": "Hankook Ventus S1 Evo3 K127",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "wet": 24.7,
+     "dry": 34.4
+    },
+    "aqua_kmh": 80.2,
+    "note": "Results page lists brand only; model from NAF article; aqua = 15% slip speed, 7.0 mm water"
+   },
+   {
+    "name": "Falken Azenis FK520",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "wet": 24.9,
+     "dry": 33.8
+    },
+    "aqua_kmh": 82.3,
+    "note": "Results page lists brand only; model from NAF article; aqua = 15% slip speed, 7.0 mm water"
+   },
+   {
+    "name": "Michelin Pilot Sport 5",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "wet": 25.0,
+     "dry": 34.1
+    },
+    "aqua_kmh": 81.7,
+    "note": "Results page lists brand only; model from NAF article; aqua = 15% slip speed, 7.0 mm water"
+   },
+   {
+    "name": "Goodyear Eagle F1 Asymmetric 6",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "wet": 25.6,
+     "dry": 33.5
+    },
+    "aqua_kmh": 82.1,
+    "note": "Results page lists brand only; model from NAF article; aqua = 15% slip speed, 7.0 mm water"
+   },
+   {
+    "name": "Pirelli P-Zero PZ4 SC",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "wet": 26.2,
+     "dry": 33.7
+    },
+    "aqua_kmh": 80.0,
+    "note": "Results page lists brand only; model from NAF article; aqua = 15% slip speed, 7.0 mm water"
+   },
+   {
+    "name": "Bridgestone Potenza Sport",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "wet": 26.5,
+     "dry": 34.3
+    },
+    "aqua_kmh": 81.2,
+    "note": "Results page lists brand only; model from NAF article; aqua = 15% slip speed, 7.0 mm water"
+   },
+   {
+    "name": "Sunfull SF-888",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "wet": 27.3,
+     "dry": 36.5
+    },
+    "aqua_kmh": 80.0,
+    "note": "Results page lists brand only; model from NAF article; aqua = 15% slip speed, 7.0 mm water"
+   }
+  ]
+ },
+ {
+  "test_id": "MOTOR-2022-S-205-55R16",
+  "publication": "Motor (NAF Norway)",
+  "year": 2022,
+  "season": "summer",
+  "size": "205/55 R16",
+  "car": "VW Golf VI 1.4 TSI (manual), two cars",
+  "tester": "Motor / NAF",
+  "url": "https://www.motor.no/tester/dekktest-i-detalj-vat-og-torr-asfalt-rullemotstand-og-stoy/220036",
+  "url_original": "https://www.naf.no/bilhold/dekk/sommerdekktest-2022",
+  "disciplines": [
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": 80,
+    "v_to": null,
+    "temp_c": null,
+    "note": "ABS from 80 km/h, 1 mm water, average of at least 7 stops, sunny 19-22 C; end speed not stated"
+   },
+   {
+    "id": "dry",
+    "surface": "asphalt",
+    "wet": false,
+    "v_from": 100,
+    "v_to": null,
+    "temp_c": null,
+    "note": "ABS from 100 km/h, sunny 16-22 C; end speed not stated"
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Nokian Hakka Blue 3",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 28.6,
+     "dry": 35.1
+    },
+    "aqua_kmh": 81.8,
+    "note": "Results page lists brand only; model from NAF article"
+   },
+   {
+    "name": "Continental PremiumContact 6",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 29.8,
+     "dry": 34.2
+    },
+    "aqua_kmh": 81.2,
+    "note": "Results page lists brand only; model from NAF article"
+   },
+   {
+    "name": "Michelin Primacy 4",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 31.3,
+     "dry": 35.3
+    },
+    "aqua_kmh": 84.9,
+    "note": "Results page lists brand only; model from NAF article"
+   },
+   {
+    "name": "Toyo Proxes Comfort",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 31.7,
+     "dry": 35.0
+    },
+    "aqua_kmh": 80.7,
+    "note": "Results page lists brand only; model from NAF article"
+   },
+   {
+    "name": "Bridgestone Turanza T005",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 32.0,
+     "dry": 35.1
+    },
+    "aqua_kmh": 81.8,
+    "note": "Results page lists brand only; model from NAF article"
+   },
+   {
+    "name": "Goodyear EfficientGrip Performance 2",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 33.0,
+     "dry": 36.0
+    },
+    "aqua_kmh": 80.4,
+    "note": "Results page lists brand only; model from NAF article"
+   },
+   {
+    "name": "Nokian Hakka Green 3",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 33.7,
+     "dry": 37.5
+    },
+    "aqua_kmh": 79.4,
+    "note": "Printed as 'Nokian ECO'; Results page lists brand only; model from NAF article"
+   },
+   {
+    "name": "Continental EcoContact 6",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 34.2,
+     "dry": 36.3
+    },
+    "aqua_kmh": 77.7,
+    "note": "Printed as 'Conti ECO'; Results page lists brand only; model from NAF article"
+   },
+   {
+    "name": "Michelin e.Primacy",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 36.3,
+     "dry": 35.6
+    },
+    "aqua_kmh": 75.2,
+    "note": "Printed as 'Michelin ECO'; Results page lists brand only; model from NAF article"
+   },
+   {
+    "name": "Petlas Imperium PT515",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 38.2,
+     "dry": 37.9
+    },
+    "aqua_kmh": 78.4,
+    "note": "Results page lists brand only; model from NAF article"
+   }
+  ]
+ }
+]

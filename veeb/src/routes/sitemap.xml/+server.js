@@ -10,6 +10,7 @@ import {
 } from '$lib/server/andmed.js';
 import { ARTIKLID, artikliTee } from '$lib/artiklid.js';
 import { autod } from '$lib/server/autod.js';
+import { talveMoodud } from '$lib/server/talv.js';
 import { TOLGITUD } from '$lib/i18n.js';
 import RU_REHVID from '$lib/i18n/ru_rehvid.js';
 
@@ -64,6 +65,11 @@ export function GET() {
 	urls.push(['/autod/', '0.7']);
 	for (const m of autod().margid.values()) urls.push(['/autod/' + m.slug + '/', '0.6']);
 	for (const p of autod().polved.values()) urls.push(['/autod/' + p.mk + '/' + p.slug + '/', '0.6']);
+	/* „Parimad talverehvid <mõõt>“ (eesti ja vene keeles) */
+	for (const k of ['', '/ru']) {
+		urls.push([k + '/talverehvid/', '0.8']);
+		for (const x of talveMoodud()) urls.push([k + '/talverehvid/' + x.slug + '/', '0.8']);
+	}
 	/* vene keeles: artiklid, rehvilehed (nimekiri: scripts/ru-rehvid.mjs) */
 	urls.push(['/ru/teadmine/artiklid/', '0.5'], ['/ru/teadmine/pidurdusteekond-ja-peatumisteekond/', '0.6'], ['/ru/rehvid/', '0.6']);
 	for (const a of ARTIKLID) if (a.ru) urls.push(['/ru' + artikliTee(a), '0.6']);

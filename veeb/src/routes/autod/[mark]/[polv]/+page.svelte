@@ -127,6 +127,7 @@
 							</tbody>
 						</table>
 					</div>
+					{#if k === 'talv' && data.talvSlug}<p class="note"><a href={L('/talverehvid/' + data.talvSlug + '/')}>{t('Parimad talverehvid {m} — testid, naast ja lamell →', { m: data.pohimoot })}</a></p>{/if}
 					{#if data.pohimootSlug}<p class="note"><a href={L("/rehvid/" + data.pohimootSlug + "/")}>{t('Kõik rehvid mõõdus {moot} →', { moot: data.pohimoot })}</a></p>{/if}
 				</div>
 			{/if}

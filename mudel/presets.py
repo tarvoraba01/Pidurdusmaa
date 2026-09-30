@@ -392,7 +392,7 @@ _MAKE_BY_PREFIX = {
     "cupra_": "Cupra", "isuzu_": "Isuzu", "zeekr_": "Zeekr", "xpeng_": "Xpeng",
     "lynk_": "Lynk & Co", "omoda_": "Omoda", "jaecoo_": "Jaecoo",
     "leapmotor_": "Leapmotor", "smart_": "Smart", "ram_": "RAM", "mg3_": "MG", "yld_": "Ei leia oma autot",
-    "moskvich_": "Moskvitš", "gaz_": "GAZ", "zaz_": "ZAZ", "uaz_": "UAZ",
+    "moskvich_": "Moskvitš", "dodge_": "Dodge", "cadillac_": "Cadillac", "lancia_": "Lancia", "gaz_": "GAZ", "zaz_": "ZAZ", "uaz_": "UAZ",
     "vw": "Volkswagen", "passat": "Volkswagen", "audi": "Audi",
     "skoda": "Škoda", "toyota": "Toyota", "bmw": "BMW",
     "mb": "Mercedes-Benz", "nissan": "Nissan", "volvo": "Volvo",
@@ -442,6 +442,8 @@ _BODY_SMALL = {
     "chevrolet_aveo_t250", "chevrolet_spark_m200", "citroen_c3_1", "citroen_c3_4", "dacia_logan_3", "dacia_sandero_1", "fiat_panda_2", "fiat_uno", "ford_fiesta_3", "honda_jazz_1", "hyundai_i10_1", "kia_picanto_1", "kia_rio_2", "mazda_2_dy", "mitsu_colt_5", "mitsu_spacestar_1", "peugeot_106", "peugeot_205", "renault_clio_1", "renault_twingo_1", "renault_twingo_2", "toyota_aygo_2", "vw_polo_2",
     # 2026-09-29 üheksas ring
     "hyundai_accent_2", "opel_corsa_a", "suzuki_swift_2",
+    # 2026-09-30 kümnes ring
+    "audi_a2", "citroen_c2", "fiat_500_fl", "ford_fusion", "renault_thalia_1", "renault_thalia_2", "smart_fortwo_450", "smart_fortwo_451", "vw_lupo", "zaz_968m",
 }
 
 _BODY_SUV = {
@@ -501,6 +503,8 @@ _BODY_SUV = {
     "bmw_x2_u10", "ford_ranger_2", "honda_crv_1", "honda_hrv_1", "hyundai_santafe_sm", "jeep_cherokee_kj", "jeep_cherokee_xj", "jeep_gc_wj", "jeep_gc_zj", "jeep_wrangler_tj", "kia_sportage_1", "lr_disco_1", "lr_disco_2", "lr_disco_3", "lr_rr_p38", "mb_gle_w166", "mitsu_l200_3", "mitsu_outlander_1", "mitsu_pajero_2", "nissan_patrol_y61", "opel_frontera_b", "renault_koleos_1", "subaru_forester_sf", "suzuki_vitara_1", "toyota_lc_80", "vw_amarok_2",
     # 2026-09-29 üheksas ring
     "audi_q5_3", "mb_g_w463_1", "mg_hs_2", "nissan_murano_z50", "nissan_navara_d22", "suzuki_grandvitara_1", "toyota_hilux_6",
+    # 2026-09-30 kümnes ring
+    "cadillac_escalade_3", "cadillac_srx_2", "chevrolet_trax", "chrysler_pacifica_cs", "citroen_c_crosser", "dodge_durango_wd", "dodge_journey", "dodge_nitro", "fiat_freemont", "hyundai_galloper_2", "hyundai_terracan", "jeep_commander", "jeep_patriot", "jeep_wrangler_yj", "lr_defender_td5", "mb_glk_x204", "nissan_patrol_y60", "nissan_terrano_2", "opel_frontera_a", "peugeot_4007", "renault_symbioz", "vw_tayron",
 }
 _BODY_VAN = {
     "vw_transporter", "vw_caddy_3", "vw_t5", "ford_transit_custom",
@@ -535,6 +539,8 @@ _BODY_VAN = {
     "citroen_berlingo_1", "citroen_jumpy_1", "citroen_jumpy_3", "fiat_doblo_1", "fiat_doblo_3", "ford_cmax_2", "ford_galaxy_1", "ford_transit_connect_3", "kia_carens_3", "lada_largus", "mazda_premacy", "mb_b_w247", "opel_combo_c", "opel_zafira_life", "peugeot_expert_1", "peugeot_partner_1", "renault_espace_3", "renault_espace_4", "renault_espace_6", "renault_kangoo_1", "renault_scenic_1", "seat_alhambra_1", "vw_crafter_1", "vw_t3",
     # 2026-09-29 üheksas ring
     "citroen_jumper_2", "fiat_ducato_2", "ford_transit_6", "ford_transit_custom_2", "mb_sprinter_901", "mb_vito_w638", "opel_movano_a", "opel_movano_c", "peugeot_boxer_2", "renault_master_2", "renault_trafic_1", "vw_caddy_2",
+    # 2026-09-30 kümnes ring
+    "chrysler_pacifica_ru", "chrysler_voyager_3", "chrysler_voyager_5", "dodge_grand_caravan", "honda_frv", "hyundai_matrix", "kia_carnival_1", "kia_carnival_2", "lancia_voyager", "mb_r_w251", "mb_v_w638", "mb_viano_w639", "mitsu_grandis", "nissan_primastar", "toyota_previa_2",
 }
 
 

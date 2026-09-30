@@ -205,6 +205,15 @@ MOOTORID = {
             ('2.0 TFSI (40 TFSI)', 200, 147, 'b', '2018-2020', ''),
             ('2.0 TFSI (40 TFSI)', 207, 152, 'b', '2021-', ''),
         ]},
+    'audi_a2': {
+        'src': ['https://www.auto-data.net/en/audi-a2-typ-8z-generation-1142'],
+        'eng': [
+            ('1.4i 16V', 75, 55, 'b', '2000-2005', ''),
+            ('1.6 FSI', 110, 81, 'b', '2002-2005', ''),
+            ('1.2 TDI', 61, 45, 'd', '2000-2005', ''),
+            ('1.4 TDI', 75, 55, 'd', '2000-2005', ''),
+            ('1.4 TDI', 90, 66, 'd', '2003-2005', ''),
+        ]},
     'audi_a3': {
         'src': ['https://www.auto-data.net/en/audi-a3-sportback-8y-generation-7584', 'https://www.auto-data.net/en/audi-a3-sedan-8y-generation-7716', 'https://www.auto-data.net/en/audi-a3-sportback-8y-facelift-2024-generation-9912', 'https://www.auto-data.net/en/audi-a3-sedan-8y-facelift-2024-generation-9913'],
         'eng': [
@@ -687,6 +696,22 @@ MOOTORID = {
             ('4.0 TDI V8 (60 TDI)', 435, 320, 'd', '2019-2020', 'quattro'),
             ('60 TFSI e', 449, 330, 'p', '2019-2021', 'quattro'),
             ('60 TFSI e', 462, 340, 'p', '2022-', 'quattro'),
+        ]},
+    'audi_coupe_b3': {
+        'src': ['https://www.auto-data.net/en/audi-coupe-b3-89-generation-1090', 'https://www.auto-data.net/en/audi-coupe-b4-8c-generation-5226'],
+        'eng': [
+            ('1.8', 112, 82, 'b', '1989-1991', ''),
+            ('2.0 E', 113, 83, 'b', '1989-1990', ''),
+            ('2.0', 115, 85, 'b', '1990-1993', ''),
+            ('2.0 16V', 137, 101, 'b', '1992-1994', ''),
+            ('2.0 16V', 140, 103, 'b', '1992-1996', ''),
+            ('2.0 20V', 160, 118, 'b', '1990-1991', 'quattro'),
+            ('2.3 E', 133, 98, 'b', '1990-1994', ''),
+            ('2.3 E', 136, 100, 'b', '1988-1990', ''),
+            ('2.3 E 20V', 167, 123, 'b', '1990-1991', ''),
+            ('2.3 E 20V', 170, 125, 'b', '1988-1991', ''),
+            ('2.6 V6 E', 150, 110, 'b', '1992-1995', ''),
+            ('2.8 V6 E', 174, 128, 'b', '1991-1995', ''),
         ]},
     'audi_etron': {
         'src': ['https://www.auto-data.net/en/audi-e-tron-generation-6546', 'https://www.auto-data.net/en/audi-e-tron-sportback-generation-7424'],
@@ -1987,6 +2012,19 @@ MOOTORID = {
             ('82.5 kWh AWD', 530, 390, 'e', '2024-', 'AWD'),
             ('91.3 kWh AWD', 530, 390, 'e', '2024-', 'AWD'),
         ]},
+    'cadillac_escalade_3': {
+        'src': ['https://www.auto-data.net/en/cadillac-escalade-iii-generation-2489'],
+        'eng': [
+            ('6.2 V8 Vortec', 409, 301, 'b', '2007-2014', ''),
+            ('6.0 V8 Vortec Hybrid', 337, 248, 'h', '2009-2013', '4x4'),
+        ]},
+    'cadillac_srx_2': {
+        'src': ['https://www.auto-data.net/en/cadillac-srx-ii-generation-7186', 'https://www.auto-data.net/en/cadillac-srx-ii-facelift-2013-generation-7187'],
+        'eng': [
+            ('2.8T V6', 300, 221, 'b', '2009-2012', 'AWD'),
+            ('3.0 V6', 265, 195, 'b', '2009-2012', ''),
+            ('3.6 V6', 308, 227, 'b', '2012-2016', ''),
+        ]},
     'chevrolet_aveo_t250': {
         'src': ['https://www.auto-data.net/en/chevrolet-aveo-hatchback-generation-3144', 'https://www.auto-data.net/en/chevrolet-aveo-hatchback-3d-facelift-2008-generation-3145', 'https://www.auto-data.net/en/chevrolet-aveo-sedan-generation-3146'],
         'eng': [
@@ -2074,6 +2112,15 @@ MOOTORID = {
             ('3.0 CRD', 190, 140, 'd', '2011-2014', ''),
             ('3.0 CRD', 239, 176, 'd', '2011-2014', ''),
         ]},
+    'chrysler_300c_lx': {
+        'src': ['https://www.auto-data.net/en/chrysler-300-generation-3228', 'https://www.auto-data.net/en/chrysler-300-touring-generation-3229'],
+        'eng': [
+            ('2.7 V6', 181, 133, 'b', '2004-2010', ''),
+            ('3.5 V6', 253, 186, 'b', '2004-2010', ''),
+            ('5.7 V8', 340, 250, 'b', '2004-2010', ''),
+            ('SRT-8 6.1 V8', 425, 313, 'b', '2005-2010', ''),
+            ('3.0 CRD', 218, 160, 'd', '2006-2010', ''),
+        ]},
     'chrysler_300c_touring_lx': {
         'src': ['https://www.auto-data.net/en/chrysler-300-touring-generation-3229'],
         'eng': [
@@ -2085,14 +2132,57 @@ MOOTORID = {
             ('SRT-8 6.1 V8', 431, 317, 'b', '2005-2010', ''),
             ('3.0 CRD', 218, 160, 'd', '2006-2010', ''),
         ]},
-    'chrysler_300c_lx': {
-        'src': ['https://www.auto-data.net/en/chrysler-300-generation-3228', 'https://www.auto-data.net/en/chrysler-300-touring-generation-3229'],
+    'chrysler_pacifica_cs': {
+        'src': ['https://www.auto-data.net/en/chrysler-pacifica-generation-3234'],
         'eng': [
-            ('2.7 V6', 181, 133, 'b', '2004-2010', ''),
-            ('3.5 V6', 253, 186, 'b', '2004-2010', ''),
-            ('5.7 V8', 340, 250, 'b', '2004-2010', ''),
-            ('SRT-8 6.1 V8', 425, 313, 'b', '2005-2010', ''),
-            ('3.0 CRD', 218, 160, 'd', '2006-2010', ''),
+            ('3.5 V6', 253, 186, 'b', '2004-2008', ''),
+            ('3.8 V6', 218, 160, 'b', '2004-2008', ''),
+            ('4.0 V6', 256, 188, 'b', '2004-2008', ''),
+        ]},
+    'chrysler_pacifica_ru': {
+        'src': ['https://www.auto-data.net/en/chrysler-pacifica-generation-5596', 'https://www.auto-data.net/en/chrysler-pacifica-facelift-2021-generation-9362'],
+        'eng': [
+            ('3.6 Pentastar V6', 291, 214, 'b', '2016-2026', ''),
+            ('3.6 Pentastar V6 Plug-in Hybrid', 264, 194, 'p', '2016-2026', ''),
+        ]},
+    'chrysler_pt_cruiser': {
+        'src': ['https://www.auto-data.net/en/chrysler-pt-cruiser-generation-3250'],
+        'eng': [
+            ('1.6 i 16V', 115, 85, 'b', '2002-2010', ''),
+            ('2.0 i 16V', 141, 104, 'b', '2000-2010', ''),
+            ('2.0 i 16V', 150, 110, 'b', '2000-2010', ''),
+            ('2.4 i 16V', 150, 110, 'b', '2000-2010', ''),
+            ('2.4 i 16V Turbo', 182, 134, 'b', '2004-2010', ''),
+            ('2.4 i 16V Turbo', 220, 162, 'b', '2003-2010', ''),
+            ('2.2 CRD', 121, 89, 'd', '2002-2010', ''),
+            ('2.2 16V CRD', 150, 110, 'd', '2005-2010', ''),
+        ]},
+    'chrysler_sebring_jr': {
+        'src': ['https://www.auto-data.net/en/chrysler-sebring-sedan-jr-generation-3272'],
+        'eng': [
+            ('2.0 i 16V', 141, 104, 'b', '2000-2006', ''),
+            ('2.4 i 16V', 150, 110, 'b', '2001-2006', ''),
+            ('2.7 i V6 24V', 200, 147, 'b', '2000-2006', ''),
+        ]},
+    'chrysler_sebring_js': {
+        'src': ['https://www.auto-data.net/en/chrysler-sebring-sedan-js-generation-3271', 'https://www.auto-data.net/en/chrysler-sebring-convertible-js-generation-3270'],
+        'eng': [
+            ('2.0i', 156, 115, 'b', '2006-2010', ''),
+            ('2.4i 16V', 172, 127, 'b', '2006-2010', ''),
+            ('2.7i V6', 188, 138, 'b', '2006-2010', ''),
+            ('3.5i V6', 235, 173, 'b', '2006-2010', ''),
+            ('2.0 CRD', 140, 103, 'd', '2007-2010', ''),
+            ('2.2 CRD', 150, 110, 'd', '2006-2010', ''),
+        ]},
+    'chrysler_voyager_3': {
+        'src': ['https://www.auto-data.net/en/chrysler-voyager-iii-generation-3279'],
+        'eng': [
+            ('2.0', 133, 98, 'b', '1996-2000', ''),
+            ('2.4', 150, 110, 'b', '1996-2000', ''),
+            ('3.3 V6', 158, 116, 'b', '1995-2000', ''),
+            ('3.8', 166, 122, 'b', '1995-2000', 'AWD'),
+            ('3.8', 178, 131, 'b', '1995-2000', 'AWD'),
+            ('2.5 TD', 116, 85, 'd', '1995-2000', ''),
         ]},
     'chrysler_voyager_4': {
         'src': ['https://www.auto-data.net/en/chrysler-grand-voyager-iv-generation-3257', 'https://www.auto-data.net/en/chrysler-voyager-iv-generation-3278'],
@@ -2103,6 +2193,15 @@ MOOTORID = {
             ('3.8 i V6', 218, 160, 'b', '2001-2007', ''),
             ('2.5 CRD', 143, 105, 'd', '2001-2008', ''),
             ('2.8 CRD', 150, 110, 'd', '2004-2007', ''),
+        ]},
+    'chrysler_voyager_5': {
+        'src': ['https://www.auto-data.net/en/chrysler-grand-voyager-v-generation-3256', 'https://www.auto-data.net/en/chrysler-voyager-v-generation-3277'],
+        'eng': [
+            ('2.4i', 147, 108, 'b', '2007-2015', ''),
+            ('3.3i V6', 172, 127, 'b', '2007-2015', ''),
+            ('3.8i V6', 193, 142, 'b', '2008-2011', ''),
+            ('2.8 CRD', 150, 110, 'd', '2007-2016', ''),
+            ('2.8 CRD', 163, 120, 'd', '2008-2011', ''),
         ]},
     'citroen_berlingo_1': {
         'src': ['https://www.auto-data.net/en/citroen-berlingo-i-phase-i-1996-generation-5269', 'https://www.auto-data.net/en/citroen-berlingo-i-phase-ii-2002-generation-3334'],
@@ -2187,6 +2286,17 @@ MOOTORID = {
             ('1.0 VTi', 69, 51, 'b', '2014-2018', ''),
             ('1.0 VTi', 72, 53, 'b', '2018-2022', ''),
             ('1.2 PureTech', 82, 60, 'b', '2014-2018', ''),
+        ]},
+    'citroen_c2': {
+        'src': ['https://www.auto-data.net/en/citroen-c2-i-phase-i-2003-generation-5279', 'https://www.auto-data.net/en/citroen-c2-i-phase-ii-2008-generation-5280'],
+        'eng': [
+            ('1.1i', 60, 44, 'b', '2003-2009', ''),
+            ('1.4i', 73, 54, 'b', '2003-2009', ''),
+            ('1.4i 16V', 88, 65, 'b', '2005-2009', ''),
+            ('1.6i 16V', 109, 80, 'b', '2003-2008', ''),
+            ('VTS 1.6i 16V', 122, 90, 'b', '2004-2009', ''),
+            ('1.4 HDi', 68, 50, 'd', '2003-2009', ''),
+            ('VTS 1.6 HDi', 109, 80, 'd', '2007-2009', ''),
         ]},
     'citroen_c3_1': {
         'src': ['https://www.auto-data.net/en/citroen-c3-i-phase-i-2002-generation-3324', 'https://www.auto-data.net/en/citroen-c3-i-phase-ii-2005-generation-5286', 'https://www.auto-data.net/en/citroen-c3-i-x-tr-phase-i-2004-generation-5287'],
@@ -2422,6 +2532,15 @@ MOOTORID = {
             ('1.2 Hybrid e-DCS', 145, 107, 'h', '2025-', ''),
             ('1.6 Plug-in Hybrid', 181, 133, 'p', '2023-2025', ''),
             ('1.6 Plug-in Hybrid', 225, 165, 'p', '2021-2025', ''),
+        ]},
+    'citroen_c_elysee': {
+        'src': ['https://www.auto-data.net/en/citroen-c-elysee-ii-phase-i-2012-generation-3999', 'https://www.auto-data.net/en/citroen-c-elysee-ii-phase-ii-2016-generation-5292'],
+        'eng': [
+            ('1.2 VTi', 72, 53, 'b', '2012-2016', ''),
+            ('1.2 PureTech', 82, 60, 'b', '2015-2020', ''),
+            ('1.6 VTi', 115, 85, 'b', '2012-2020', ''),
+            ('1.6 HDi', 92, 68, 'd', '2012-2016', ''),
+            ('1.6 BlueHDi', 99, 73, 'd', '2015-2020', ''),
         ]},
     'citroen_jumpy_1': {
         'src': ['https://www.auto-data.net/en/citroen-jumpy-i-generation-4010', 'https://www.auto-data.net/en/citroen-jumpy-i-combi-generation-4011', 'https://www.auto-data.net/en/citroen-jumpy-i-facelift-2004-generation-9008', 'https://www.auto-data.net/en/citroen-jumpy-i-combi-facelift-2004-generation-9009'],
@@ -2742,6 +2861,76 @@ MOOTORID = {
             ('Electric 71 24.3 kWh', 71, 52, 'e', '2025-2026', ''),
             ('Electric 102 24.3 kWh', 102, 75, 'e', '2025-2026', ''),
             ('Electric 82 27.5 kWh', 82, 60, 'e', '2026+', ''),
+        ]},
+    'dodge_caliber': {
+        'src': ['https://www.auto-data.net/en/dodge-caliber-generation-682'],
+        'eng': [
+            ('1.8 16V', 150, 110, 'b', '2006-2011', ''),
+            ('2.0 16V', 159, 117, 'b', '2006-2010', ''),
+            ('2.4 16V', 174, 128, 'b', '2006-2007', ''),
+            ('SRT4 2.4 16V', 295, 217, 'b', '2008-2010', ''),
+            ('SRT4 2.4 16V', 303, 223, 'b', '2007', ''),
+            ('2.0 16V CRD', 140, 103, 'd', '2006-2010', ''),
+        ]},
+    'dodge_challenger_lc': {
+        'src': ['https://www.auto-data.net/en/dodge-challenger-iii-generation-704', 'https://www.auto-data.net/en/dodge-challenger-iii-facelift-2014-generation-6090'],
+        'eng': [
+            ('3.5 V6', 250, 184, 'b', '2009-2010', ''),
+            ('3.6 Pentastar V6', 305, 224, 'b', '2011-2023', ''),
+            ('5.7 HEMI V8', 372, 274, 'b', '2009-2023', ''),
+            ('5.7 HEMI V8', 375, 276, 'b', '2014-2023', ''),
+            ('SRT8 6.1 HEMI V8', 425, 313, 'b', '2008-2010', ''),
+            ('SRT8 6.4 HEMI V8', 470, 346, 'b', '2011-2014', ''),
+            ('R/T Scat Pack 6.4 HEMI V8', 485, 357, 'b', '2015-2023', ''),
+            ('SRT Hellcat 6.2 HEMI V8', 707, 520, 'b', '2015-2018', ''),
+            ('SRT Hellcat 6.2 HEMI V8', 717, 527, 'b', '2018-2023', ''),
+            ('SRT Hellcat Redeye 6.2 HEMI V8', 797, 586, 'b', '2018-2023', ''),
+            ('SRT Super Stock 6.2 HEMI V8', 807, 594, 'b', '2019-2023', ''),
+            ('SRT Demon 6.2 HEMI V8', 808, 594, 'b', '2017-2018', ''),
+            ('SRT Demon 170 6.2 HEMI V8', 900, 662, 'b', '2023', ''),
+        ]},
+    'dodge_charger_ld': {
+        'src': ['https://www.auto-data.net/en/dodge-charger-vii-ld-generation-674', 'https://www.auto-data.net/en/dodge-charger-vii-ld-facelift-2015-generation-6652', 'https://www.auto-data.net/en/dodge-charger-vii-ld-facelift-2019-generation-7516'],
+        'eng': [
+            ('3.6 Pentastar V6', 292, 215, 'b', '2015-2023', ''),
+            ('3.6 Pentastar V6', 296, 218, 'b', '2011-2014', ''),
+            ('3.6 Pentastar V6', 300, 221, 'b', '2019-2023', ''),
+            ('3.6 Pentastar V6', 305, 224, 'b', '2013-2014', ''),
+            ('5.7 HEMI V8', 370, 272, 'b', '2015-2023', ''),
+            ('5.7 HEMI V8', 375, 276, 'b', '2011-2014', ''),
+            ('6.2 HEMI V8 SRT Hellcat', 707, 520, 'b', '2015-2023', ''),
+            ('6.2 HEMI V8 SRT Hellcat Daytona', 717, 527, 'b', '2019-2023', ''),
+            ('6.2 V8 SRT Hellcat Redeye', 797, 586, 'b', '2020-2023', ''),
+            ('6.4 HEMI V8 SRT8 / SRT 392 / Scat Pack', 477, 351, 'b', '2012-2014', ''),
+            ('6.4 HEMI V8 SRT 392 / Scat Pack', 485, 357, 'b', '2015-2023', ''),
+        ]},
+    'dodge_durango_wd': {
+        'src': ['https://www.auto-data.net/en/dodge-durango-iii-wd-generation-6907', 'https://www.auto-data.net/en/dodge-durango-iii-wd-facelift-2014-generation-6092', 'https://www.auto-data.net/en/dodge-durango-iii-wd-facelift-2021-generation-8417'],
+        'eng': [
+            ('3.6 V6', 290, 213, 'b', '2010-2014', ''),
+            ('3.6 V6 Pentastar', 293, 215, 'b', '2014-2021', ''),
+            ('3.6 V6 Pentastar', 295, 217, 'b', '2021', ''),
+            ('5.7 V8 HEMI', 360, 265, 'b', '2010-2021', ''),
+            ('SRT 392 6.4 V8 HEMI', 475, 349, 'b', '2021', 'AWD'),
+            ('SRT 6.4 V8', 481, 354, 'b', '2018-2020', '4x4'),
+            ('Hellcat 6.2 HEMI V8', 710, 522, 'b', '2021', 'AWD'),
+        ]},
+    'dodge_journey': {
+        'src': ['https://www.auto-data.net/en/dodge-journey-generation-687', 'https://www.auto-data.net/en/dodge-journey-facelift-2010-generation-9355'],
+        'eng': [
+            ('2.4', 170, 125, 'b', '2008-2010', ''),
+            ('2.4', 173, 127, 'b', '2010-2020', ''),
+            ('2.7', 185, 136, 'b', '2008-2010', ''),
+            ('3.5 V6', 235, 173, 'b', '2009-2010', ''),
+            ('3.6 V6', 283, 208, 'b', '2010-2019', ''),
+            ('2.0 CRD', 140, 103, 'd', '2008-2010', ''),
+        ]},
+    'dodge_nitro': {
+        'src': ['https://www.auto-data.net/en/dodge-nitro-generation-688'],
+        'eng': [
+            ('3.7 V6', 213, 157, 'b', '2007-2011', ''),
+            ('4.0 V6', 258, 190, 'b', '2007-2011', ''),
+            ('2.8 CRD', 177, 130, 'd', '2007-2011', ''),
         ]},
     'fiat_500_312': {
         'src': ['https://www.auto-data.net/en/fiat-500-312-generation-3777', 'https://www.auto-data.net/en/fiat-500-c-312-generation-1629', 'https://www.auto-data.net/en/fiat-500-312-facelift-2015-generation-4565'],
@@ -3236,6 +3425,15 @@ MOOTORID = {
             ('1.0 EcoBoost Hybrid', 125, 92, 'h', '2020+', ''),
             ('1.0 EcoBoost Hybrid', 155, 114, 'h', '2020+', ''),
         ]},
+    'ford_fusion': {
+        'src': ['https://www.auto-data.net/en/ford-fusion-i-generation-1711', 'https://www.auto-data.net/en/ford-fusion-i-facelift-2005-generation-5612'],
+        'eng': [
+            ('1.2', 75, 55, 'b', '2002-2012', ''),
+            ('1.4 Duratec', 80, 59, 'b', '2002-2012', ''),
+            ('1.6 Duratec', 100, 74, 'b', '2002-2012', ''),
+            ('1.4 TDCi', 68, 50, 'd', '2002-2012', ''),
+            ('1.6 TDCi', 90, 66, 'd', '2002-2012', ''),
+        ]},
     'ford_galaxy_1': {
         'src': ['https://www.auto-data.net/en/ford-galaxy-i-generation-1735'],
         'eng': [
@@ -3410,6 +3608,34 @@ MOOTORID = {
             ('2.0 EcoBlue', 150, 110, 'd', '2019-2021', ''),
             ('2.0 EcoBlue', 190, 140, 'd', '2019-2021', ''),
             ('2.0 Hybrid', 187, 138, 'h', '2014-2022', ''),
+        ]},
+    'ford_mustang_s197': {
+        'src': ['https://www.auto-data.net/en/ford-mustang-v-generation-1713', 'https://www.auto-data.net/en/ford-mustang-v-facelift-2009-generation-8402', 'https://www.auto-data.net/en/ford-mustang-v-facelift-2012-generation-8403'],
+        'eng': [
+            ('3.7 V6', 305, 224, 'b', '2010-2014', ''),
+            ('4.0 V6', 205, 151, 'b', '2004-2005', ''),
+            ('4.0 V6', 212, 156, 'b', '2005-2009', ''),
+            ('4.0 V6', 210, 154, 'b', '2009-2010', ''),
+            ('GT 4.6 V8', 304, 224, 'b', '2004-2009', ''),
+            ('GT 4.6 V8', 315, 232, 'b', '2009-2010', ''),
+            ('GT 5.0 V8', 412, 303, 'b', '2010-2012', ''),
+            ('GT 5.0 V8', 420, 309, 'b', '2012-2014', ''),
+            ('Boss 302 5.0 V8', 444, 327, 'b', '2011-2013', ''),
+        ]},
+    'ford_mustang_s550': {
+        'src': ['https://www.auto-data.net/en/ford-mustang-vi-generation-4253', 'https://www.auto-data.net/en/ford-mustang-vi-facelift-2017-generation-5827'],
+        'eng': [
+            ('2.3 EcoBoost', 309, 227, 'b', '2015-2017', ''),
+            ('2.3 EcoBoost', 310, 228, 'b', '2017-2023', ''),
+            ('2.3 EcoBoost', 317, 233, 'b', '2015-2017', ''),
+            ('3.7 V6', 304, 224, 'b', '2015-2017', ''),
+            ('GT 5.0 Ti-VCT V8', 421, 310, 'b', '2015-2017', ''),
+            ('GT 5.0 V8', 426, 313, 'b', '2015-2017', ''),
+            ('GT/CS 5.0 V8', 450, 331, 'b', '2022-2023', ''),
+            ('GT / Mach 1 5.0 Ti-VCT V8', 460, 338, 'b', '2017-2023', ''),
+            ('Bullitt 5.0 Ti-VCT V8', 480, 353, 'b', '2018-2020', ''),
+            ('Shelby GT350 5.2 V8', 526, 387, 'b', '2017-2020', ''),
+            ('Shelby GT500 V8', 760, 559, 'b', '2019-2023', ''),
         ]},
     'ford_puma_2': {
         'src': ['https://www.auto-data.net/en/ford-puma-generation-7295', 'https://www.auto-data.net/en/ford-puma-facelift-2024-generation-9879'],
@@ -3596,10 +3822,21 @@ MOOTORID = {
             ('2.5 Duratec PHEV', 233, 171, 'p', '2024+', ''),
             ('E-Transit Custom 82.5 kWh', 218, 160, 'e', '2024+', ''),
         ]},
+    'gaz_21': {
+        'src': ['https://www.auto-data.net/en/gaz-21-generation-2937'],
+        'eng': [
+            ('2.4', 70, 51, 'b', '1956-1970', ''),
+            ('2.4 Automat', 80, 59, 'b', '1958-1959', ''),
+        ]},
     'gaz_24': {
         'src': ['https://www.auto-data.net/en/gaz-24-generation-2947'],
         'eng': [
             ('2.4', 95, 70, 'b', '1970-1986', ''),
+        ]},
+    'gaz_2410': {
+        'src': ['https://www.auto-data.net/en/gaz-2410-generation-2942'],
+        'eng': [
+            ('2.4', 100, 74, 'b', '1986-1992', ''),
         ]},
     'gaz_31029': {
         'src': ['https://www.auto-data.net/en/gaz-31029-generation-2933', 'https://www.auto-data.net/en/gaz-3110-generation-2929'],
@@ -3668,6 +3905,14 @@ MOOTORID = {
         'eng': [
             ('Type R 2.0 VTEC Turbo', 330, 243, 'b', '2022-2025', ''),
             ('2.0 i-MMD e:HEV', 184, 135, 'h', '2022-', ''),
+        ]},
+    'honda_civic_5': {
+        'src': ['https://www.auto-data.net/en/honda-civic-v-hatchback-generation-2634', 'https://www.auto-data.net/en/honda-civic-v-generation-2635'],
+        'eng': [
+            ('1.3 16V', 75, 55, 'b', '1991-1995', ''),
+            ('1.5', 90, 66, 'b', '1991-1995', ''),
+            ('1.6 ESi/VTEC', 125, 92, 'b', '1991-1995', ''),
+            ('1.6 VTi', 160, 118, 'b', '1991-1995', ''),
         ]},
     'honda_civic_6': {
         'src': ['https://www.auto-data.net/en/honda-civic-vi-hatchback-generation-2630', 'https://www.auto-data.net/en/honda-civic-vi-generation-2632', 'https://www.auto-data.net/en/honda-civic-vi-fastback-generation-2628'],
@@ -3758,6 +4003,14 @@ MOOTORID = {
             ('2.0 i-MMD e:HEV', 184, 135, 'h', '2023-', ''),
             ('2.0 i-MMD e:PHEV', 184, 135, 'p', '2023-', ''),
         ]},
+    'honda_frv': {
+        'src': ['https://www.auto-data.net/en/honda-fr-v-edix-generation-2653', 'https://www.auto-data.net/en/honda-fr-v-edix-facelift-2007-generation-7531'],
+        'eng': [
+            ('1.7 i 16V', 125, 92, 'b', '2004-2007', ''),
+            ('1.8 i-VTEC', 140, 103, 'b', '2007-2009', ''),
+            ('2.0 i-VTEC', 155, 114, 'b', '2004-2007', ''),
+            ('2.2 i-CTDi', 140, 103, 'd', '2004-2009', ''),
+        ]},
     'honda_hrv_1': {
         'src': ['https://www.auto-data.net/en/honda-hr-v-gh-generation-2660'],
         'eng': [
@@ -3824,6 +4077,22 @@ MOOTORID = {
             ('1.0 T-GDi', 100, 74, 'b', '2021+', ''),
             ('1.0 T-GDi', 120, 88, 'b', '2021-2024', ''),
             ('1.2 MPi', 84, 62, 'b', '2021-2023', ''),
+        ]},
+    'hyundai_coupe_gk': {
+        'src': ['https://www.auto-data.net/en/hyundai-coupe-ii-gk-generation-2991'],
+        'eng': [
+            ('1.6 i 16V', 105, 77, 'b', '2001-2009', ''),
+            ('2.0 i 16V', 136, 100, 'b', '2002-2006', ''),
+            ('2.0 i 16V', 143, 105, 'b', '2003-2009', ''),
+            ('2.7 i V6 24V', 167, 123, 'b', '2001-2007', ''),
+        ]},
+    'hyundai_galloper_2': {
+        'src': ['https://www.auto-data.net/en/hyundai-galloper-ii-generation-2960'],
+        'eng': [
+            ('3.0', 141, 104, 'b', '1998-2003', ''),
+            ('3.0 i V6', 161, 118, 'b', '1998-2003', ''),
+            ('2.5 TD', 99, 73, 'd', '2000-2003', ''),
+            ('2.5 TD', 105, 77, 'd', '1998-2003', ''),
         ]},
     'hyundai_getz': {
         'src': ['https://www.auto-data.net/en/hyundai-getz-generation-2975'],
@@ -4045,6 +4314,14 @@ MOOTORID = {
             ('Electric 42 kWh', 136, 100, 'e', '2018-2023', ''),
             ('Electric 67 kWh', 204, 150, 'e', '2018-2023', ''),
         ]},
+    'hyundai_matrix': {
+        'src': ['https://www.auto-data.net/en/hyundai-matrix-generation-2995'],
+        'eng': [
+            ('1.6', 103, 76, 'b', '2001-2005', ''),
+            ('1.8', 122, 90, 'b', '2001-2005', ''),
+            ('1.5 CRDi', 82, 60, 'd', '2001-2005', ''),
+            ('1.5 CRDi', 102, 75, 'd', '2005-2010', ''),
+        ]},
     'hyundai_santafe_cm': {
         'src': ['https://www.auto-data.net/en/hyundai-santa-fe-ii-cm-generation-2971', 'https://www.auto-data.net/en/hyundai-santa-fe-ii-cm-facelift-2009-generation-9340'],
         'eng': [
@@ -4090,6 +4367,31 @@ MOOTORID = {
             ('2.2 CRDi', 202, 149, 'd', '2020-2022', ''),
             ('1.6 T-GDi HEV', 230, 169, 'h', '2020-2023', ''),
             ('1.6 T-GDi PHEV', 265, 195, 'p', '2021-2023', '4WD'),
+        ]},
+    'hyundai_sonata_nf': {
+        'src': ['https://www.auto-data.net/en/hyundai-sonata-v-nf-generation-2985', 'https://www.auto-data.net/en/hyundai-sonata-v-nf-facelift-2008-generation-5468'],
+        'eng': [
+            ('2.0', 137, 101, 'b', '2006-2008', ''),
+            ('2.0', 144, 106, 'b', '2004-2007', ''),
+            ('2.0', 163, 120, 'b', '2008-2009', ''),
+            ('2.0', 165, 121, 'b', '2008-2009', ''),
+            ('2.4', 161, 118, 'b', '2005-2008', ''),
+            ('2.4', 177, 130, 'b', '2008-2009', ''),
+            ('2.7 V6', 172, 126, 'b', '2006-2008', ''),
+            ('3.3 V6', 235, 173, 'b', '2005-2008', ''),
+            ('3.3 V6', 250, 184, 'b', '2008-2009', ''),
+            ('2.0 VGT', 143, 105, 'd', '2006-2007', ''),
+            ('2.0 CRDi', 140, 103, 'd', '2006-2008', ''),
+            ('2.0 CRDi', 150, 110, 'd', '2008-2009', ''),
+        ]},
+    'hyundai_terracan': {
+        'src': ['https://www.auto-data.net/en/hyundai-terracan-generation-3002'],
+        'eng': [
+            ('3.5 V6', 195, 143, 'b', '2001-2006', ''),
+            ('3.5 V6', 200, 147, 'b', '2001-2006', ''),
+            ('2.5 TD', 100, 74, 'd', '2001-2006', ''),
+            ('2.9 DSL', 150, 110, 'd', '2001-2004', ''),
+            ('2.9 CRDi', 163, 120, 'd', '2004-2006', ''),
         ]},
     'hyundai_tucson_jm': {
         'src': ['https://www.auto-data.net/en/hyundai-tucson-i-generation-2973'],
@@ -4183,6 +4485,16 @@ MOOTORID = {
             ('EV320 90 kWh AWD', 320, 235, 'e', '2020-2021', 'AWD'),
             ('EV400 90 kWh AWD', 400, 294, 'e', '2018-2024', 'AWD'),
         ]},
+    'jaguar_stype': {
+        'src': ['https://www.auto-data.net/en/jaguar-s-type-ccx-generation-70'],
+        'eng': [
+            ('2.5 V6 24V', 200, 147, 'b', '2001-2007', ''),
+            ('3.0 V6 24V', 238, 175, 'b', '1998-2007', ''),
+            ('4.0 V8 32V', 276, 203, 'b', '1998-2002', ''),
+            ('4.2 V8 32V', 298, 219, 'b', '2001-2007', ''),
+            ('4.2 V8 32V Type R', 395, 291, 'b', '2001-2007', ''),
+            ('2.7 D', 207, 152, 'd', '2004-2007', ''),
+        ]},
     'jaguar_xe': {
         'src': ['https://www.auto-data.net/en/jaguar-xe-x760-generation-4531', 'https://www.auto-data.net/en/jaguar-xe-x760-facelift-2019-generation-6945', 'https://www.auto-data.net/en/jaguar-xe-x760-facelift-2020-generation-7947'],
         'eng': [
@@ -4217,6 +4529,39 @@ MOOTORID = {
             ('3.0d V6', 211, 155, 'd', '2010-2011', ''),
             ('3.0d V6', 240, 177, 'd', '2009-2015', ''),
             ('S 3.0d V6', 275, 202, 'd', '2009-2015', ''),
+        ]},
+    'jaguar_xj_x350': {
+        'src': ['https://www.auto-data.net/en/jaguar-xj-x350-generation-62', 'https://www.auto-data.net/en/jaguar-xj-x358-generation-7954'],
+        'eng': [
+            ('3.0 V6', 238, 175, 'b', '2003-2009', ''),
+            ('3.5 V8', 258, 190, 'b', '2003-2009', ''),
+            ('4.2 V8', 298, 219, 'b', '2004-2009', ''),
+            ('4.2 V8', 300, 221, 'b', '2003-2006', ''),
+            ('XJR 4.2 V8 supercharged', 395, 291, 'b', '2007-2009', ''),
+            ('XJR / Super V8 4.2 V8 supercharged', 400, 294, 'b', '2003-2006', ''),
+            ('2.7 D V6', 207, 152, 'd', '2006-2009', ''),
+        ]},
+    'jaguar_xj_x351': {
+        'src': ['https://www.auto-data.net/en/jaguar-xj-x351-generation-3878', 'https://www.auto-data.net/en/jaguar-xj-x351-facelift-2015-generation-4740'],
+        'eng': [
+            ('2.0 Turbo', 240, 177, 'b', '2012-2018', ''),
+            ('3.0 V6 Supercharged', 340, 250, 'b', '2012-2018', ''),
+            ('5.0 V8', 385, 283, 'b', '2009-2012', ''),
+            ('5.0 V8 Supercharged', 470, 346, 'b', '2009-2018', ''),
+            ('5.0 V8 Supercharged', 510, 375, 'b', '2009-2018', ''),
+            ('XJR 5.0 V8 Supercharged', 550, 405, 'b', '2013-2017', ''),
+            ('XJR 575 5.0 V8 Supercharged', 575, 423, 'b', '2017-2018', ''),
+            ('3.0d V6', 275, 202, 'd', '2009-2015', ''),
+            ('3.0d V6', 300, 221, 'd', '2015-2019', ''),
+        ]},
+    'jaguar_xtype': {
+        'src': ['https://www.auto-data.net/en/jaguar-x-type-x400-generation-60'],
+        'eng': [
+            ('2.1 V6', 156, 115, 'b', '2001-2009', ''),
+            ('2.5 V6', 196, 144, 'b', '2001-2009', ''),
+            ('3.0 V6', 231, 170, 'b', '2001-2009', ''),
+            ('2.0 D', 130, 96, 'd', '2003-2009', ''),
+            ('2.2 D', 155, 114, 'd', '2005-2009', ''),
         ]},
     'jeep_avenger': {
         'src': ['https://www.auto-data.net/en/jeep-avenger-generation-9018', 'https://www.auto-data.net/en/jeep-avenger-facelift-2026-generation-11260'],
@@ -4265,6 +4610,15 @@ MOOTORID = {
             ('4.0 i Sport', 192, 141, 'b', '1999-2001', ''),
             ('2.1 TD', 86, 63, 'd', '1988-1995', ''),
             ('2.5 TD', 115, 85, 'd', '1995-2001', ''),
+        ]},
+    'jeep_commander': {
+        'src': ['https://www.auto-data.net/en/jeep-commander-xk-generation-334'],
+        'eng': [
+            ('3.7 V6', 213, 157, 'b', '2006-2010', ''),
+            ('4.7 V8', 231, 170, 'b', '2006-2010', '4x4'),
+            ('5.7 V8 Hemi', 326, 240, 'b', '2006-2010', '4x4'),
+            ('5.7 V8 Hemi', 334, 246, 'b', '2006-2010', '4x4'),
+            ('3.0 V6 CRD', 218, 160, 'd', '2006-2010', '4x4'),
         ]},
     'jeep_compass_mk': {
         'src': ['https://www.auto-data.net/en/jeep-compass-i-mk-generation-343', 'https://www.auto-data.net/en/jeep-compass-i-mk-facelift-2011-generation-5574'],
@@ -4364,6 +4718,13 @@ MOOTORID = {
             ('5.9 V8', 249, 183, 'b', '1997-1998', ''),
             ('2.5 TD', 116, 85, 'd', '1996-1997', ''),
         ]},
+    'jeep_patriot': {
+        'src': ['https://www.auto-data.net/en/jeep-patriot-generation-338', 'https://en.wikipedia.org/wiki/Jeep_Patriot'],
+        'eng': [
+            ('2.4', 174, 128, 'b', '2007-2016', ''),
+            ('2.0 CRD', 140, 103, 'd', '2007-2010', ''),
+            ('2.2 CRD', 163, 120, 'd', '2011-', ''),
+        ]},
     'jeep_renegade': {
         'src': ['https://www.auto-data.net/en/jeep-renegade-generation-4576', 'https://www.auto-data.net/en/jeep-renegade-facelift-2018-generation-6429'],
         'eng': [
@@ -4417,6 +4778,12 @@ MOOTORID = {
             ('4.0', 192, 141, 'b', '2000-2006', '4x4'),
             ('Rubicon 4.0', 193, 142, 'b', '2003-2006', '4x4'),
         ]},
+    'jeep_wrangler_yj': {
+        'src': ['https://www.auto-data.net/en/jeep-wrangler-i-yj-generation-341'],
+        'eng': [
+            ('2.5 i', 121, 89, 'b', '1987-1995', ''),
+            ('4.0 i', 184, 135, 'b', '1987-1995', ''),
+        ]},
     'kia_carens_3': {
         'src': ['https://www.auto-data.net/en/kia-carens-ii-un-generation-614', 'https://www.auto-data.net/en/kia-carens-ii-un-facelift-2010-generation-11425'],
         'eng': [
@@ -4433,6 +4800,26 @@ MOOTORID = {
             ('1.7 CRDi', 115, 85, 'd', '2016', ''),
             ('1.7 CRDi', 136, 100, 'd', '2013-2015', ''),
             ('1.7 CRDi', 141, 104, 'd', '2016', ''),
+        ]},
+    'kia_carnival_1': {
+        'src': ['https://www.auto-data.net/en/kia-carnival-i-up-gq-generation-625', 'https://www.auto-data.net/en/kia-carnival-i-up-gq-facelift-2001-generation-624'],
+        'eng': [
+            ('2.5i V6', 150, 110, 'b', '2001-2006', ''),
+            ('2.5i V6 24V', 165, 121, 'b', '1999-2001', ''),
+            ('2.5i V6 24V', 175, 129, 'b', '1999-2006', ''),
+            ('2.9 TD', 126, 93, 'd', '1999-2001', ''),
+            ('2.9 TD', 130, 96, 'd', '2001-2005', ''),
+            ('2.9 TD', 135, 99, 'd', '1998-2001', ''),
+            ('2.9 CRDi', 144, 106, 'd', '2002-2006', ''),
+        ]},
+    'kia_carnival_2': {
+        'src': ['https://www.auto-data.net/en/kia-carnival-ii-vq-generation-6527', 'https://www.auto-data.net/en/kia-carnival-ii-vq-facelift-2010-generation-623'],
+        'eng': [
+            ('2.7 V6', 189, 139, 'b', '2006-2012', ''),
+            ('3.8 V6', 254, 187, 'b', '2010-2014', ''),
+            ('2.2 E-VGT', 197, 145, 'd', '2010-2014', ''),
+            ('2.9 CRDi', 170, 125, 'd', '2006-2010', ''),
+            ('2.9 CRDi', 185, 136, 'd', '2006-2010', ''),
         ]},
     'kia_ceed_cd': {
         'src': ['https://www.auto-data.net/en/kia-ceed-iii-generation-6538', 'https://www.auto-data.net/en/kia-ceed-iii-facelift-2021-generation-8610', 'https://www.auto-data.net/en/kia-ceed-iii-sportswagon-generation-6122', 'https://www.auto-data.net/en/kia-ceed-iii-sportswagon-facelift-2021-generation-8624'],
@@ -4785,6 +5172,11 @@ MOOTORID = {
             ('1.2', 64, 47, 'b', '1974-1988', ''),
             ('1.3', 70, 51, 'b', '1974-1983', ''),
         ]},
+    'lada_2103': {
+        'src': ['https://www.auto-data.net/en/lada-2103-generation-2829'],
+        'eng': [
+            ('1.5', 73, 54, 'b', '1972-1983', ''),
+        ]},
     'lada_2105': {
         'src': ['https://www.auto-data.net/en/lada-2105-generation-2864', 'https://www.auto-data.net/en/lada-21051-generation-2863', 'https://www.auto-data.net/en/lada-21055-generation-2862', 'https://www.auto-data.net/en/lada-21054-generation-2861', 'https://www.auto-data.net/en/lada-21053-generation-2860'],
         'eng': [
@@ -4921,6 +5313,26 @@ MOOTORID = {
             ('450h', 338, 249, 'h', '2012-2015', ''),
             ('450h', 345, 254, 'h', '2012-2019', ''),
         ]},
+    'lexus_gs_s160': {
+        'src': ['https://www.auto-data.net/en/lexus-gs-ii-generation-1364', 'https://www.auto-data.net/en/lexus-gs-ii-facelift-2000-generation-7038'],
+        'eng': [
+            ('GS 300', 220, 162, 'b', '2000-2005', ''),
+            ('GS 300', 222, 163, 'b', '1997-2000', ''),
+            ('GS 300', 225, 165, 'b', '1998-2000', ''),
+            ('GS 400 V8', 300, 221, 'b', '1997-2000', ''),
+            ('GS 430 V8', 283, 208, 'b', '2000-2005', ''),
+            ('GS 430 V8', 300, 221, 'b', '2000-2005', ''),
+        ]},
+    'lexus_gs_s190': {
+        'src': ['https://www.auto-data.net/en/lexus-gs-iii-generation-1363', 'https://www.auto-data.net/en/lexus-gs-iii-facelift-2008-generation-7046'],
+        'eng': [
+            ('300 3.0 V6', 245, 180, 'b', '2005-2007', ''),
+            ('300 3.0 V6', 249, 183, 'b', '2008-2011', ''),
+            ('350 3.5 V6', 307, 226, 'b', '2006-2011', ''),
+            ('430 4.3 V8', 279, 205, 'b', '2005-2007', ''),
+            ('460 4.6 V8', 347, 255, 'b', '2008-2011', ''),
+            ('450h 3.5 V6 hybrid', 339, 249, 'h', '2006-2011', ''),
+        ]},
     'lexus_is_xe10': {
         'src': ['https://www.auto-data.net/en/lexus-is-i-xe10-generation-1370', 'https://www.auto-data.net/en/lexus-is-i-sportcross-generation-1369'],
         'eng': [
@@ -5035,6 +5447,12 @@ MOOTORID = {
             ('3.0 D300', 299, 220, 'd', '2020+', ''),
             ('2.0 P400e', 404, 297, 'p', '2020-2024', ''),
             ('2.0 P300e', 300, 221, 'p', '2024+', ''),
+        ]},
+    'lr_defender_td5': {
+        'src': ['https://www.auto-data.net/en/land-rover-defender-110-generation-1203'],
+        'eng': [
+            ('2.5 TDi', 113, 83, 'd', '1995-1998', ''),
+            ('2.5 Td5', 122, 90, 'd', '1999-2001', ''),
         ]},
     'lr_disco_1': {
         'src': ['https://www.auto-data.net/en/land-rover-discovery-i-generation-1218'],
@@ -5657,6 +6075,17 @@ MOOTORID = {
             ('A 220 d', 190, 140, 'd', '2018+', ''),
             ('A 250 e', 218, 160, 'p', '2019+', ''),
         ]},
+    'mb_amg_gt_c190': {
+        'src': ['https://www.auto-data.net/en/mercedes-benz-amg-gt-c190-generation-4380', 'https://www.auto-data.net/en/mercedes-benz-amg-gt-c190-facelift-2017-generation-5416'],
+        'eng': [
+            ('AMG GT 4.0 V8', 462, 340, 'b', '2015-2017', ''),
+            ('AMG GT 4.0 V8', 476, 350, 'b', '2017-2021', ''),
+            ('AMG GT S 4.0 V8', 510, 375, 'b', '2015-2017', ''),
+            ('AMG GT S 4.0 V8', 522, 384, 'b', '2017-2021', ''),
+            ('AMG GT C 4.0 V8', 557, 410, 'b', '2017-2021', ''),
+            ('AMG GT R 4.0 V8', 585, 430, 'b', '2017-2021', ''),
+            ('AMG GT Black Series 4.0 V8', 730, 537, 'b', '2020-2021', ''),
+        ]},
     'mb_b180_w245': {
         'src': ['https://www.auto-data.net/en/mercedes-benz-b-class-w245-generation-2726', 'https://www.auto-data.net/en/mercedes-benz-b-class-w245-facelift-2008-generation-4115'],
         'eng': [
@@ -5855,6 +6284,31 @@ MOOTORID = {
             ('110 CDI', 95, 70, 'd', '2021-', ''),
             ('112 CDI', 116, 85, 'd', '2021-', ''),
         ]},
+    'mb_cl_c215': {
+        'src': ['https://www.auto-data.net/en/mercedes-benz-cl-c215-generation-2742', 'https://www.auto-data.net/en/mercedes-benz-cl-c215-facelift-2002-generation-7092'],
+        'eng': [
+            ('CL 500 V8', 306, 225, 'b', '1999-2006', ''),
+            ('AMG CL 55 V8', 360, 265, 'b', '2000-2002', ''),
+            ('AMG CL 55 V8', 500, 368, 'b', '2002-2006', ''),
+            ('CL 600 V12', 367, 270, 'b', '2000-2002', ''),
+            ('CL 600 V12', 500, 368, 'b', '2002-2006', ''),
+            ('AMG CL 65', 612, 450, 'b', '2003-2006', ''),
+            ('AMG CL 63 V12', 444, 327, 'b', '2001-2002', ''),
+        ]},
+    'mb_cl_c216': {
+        'src': ['https://www.auto-data.net/en/mercedes-benz-cl-c216-generation-2741', 'https://www.auto-data.net/en/mercedes-benz-cl-c216-facelift-2010-generation-4113'],
+        'eng': [
+            ('CL 500 V8', 388, 285, 'b', '2006-2010', ''),
+            ('CL 500 BlueEFFICIENCY V8', 435, 320, 'b', '2010-2013', ''),
+            ('CL 550 V8', 382, 281, 'b', '2006-2010', ''),
+            ('CL 550 V8', 429, 316, 'b', '2010-2013', '4MATIC'),
+            ('CL 600 V12', 517, 380, 'b', '2006-2013', ''),
+            ('AMG CL 63 V8', 525, 386, 'b', '2006-2010', ''),
+            ('AMG CL 63 V8', 544, 400, 'b', '2010-2013', ''),
+            ('AMG CL 63 Performance Package V8', 571, 420, 'b', '2010-2013', ''),
+            ('AMG CL 65 V12', 612, 450, 'b', '2007-2010', ''),
+            ('AMG CL 65 V12', 630, 463, 'b', '2010-2013', ''),
+        ]},
     'mb_cla_c117': {
         'src': ['https://www.auto-data.net/en/mercedes-benz-cla-coupe-c117-generation-4116', 'https://www.auto-data.net/en/mercedes-benz-cla-coupe-c117-facelift-2016-generation-4746', 'https://www.auto-data.net/en/mercedes-benz-cla-shooting-brake-x117-facelift-2016-generation-4747'],
         'eng': [
@@ -5885,6 +6339,37 @@ MOOTORID = {
             ('CLA 200 d', 150, 110, 'd', '2019-2025', ''),
             ('CLA 220 d', 190, 140, 'd', '2019-2025', ''),
             ('CLA 250 e', 218, 160, 'p', '2020-2025', ''),
+        ]},
+    'mb_clk_w208': {
+        'src': ['https://www.auto-data.net/en/mercedes-benz-clk-c208-generation-4809', 'https://www.auto-data.net/en/mercedes-benz-clk-c208-facelift-1999-generation-4811'],
+        'eng': [
+            ('CLK 200', 136, 100, 'b', '1997-2000', ''),
+            ('CLK 200 Kompressor', 192, 141, 'b', '1997-2000', ''),
+            ('CLK 200 Kompressor', 163, 120, 'b', '2000-2002', ''),
+            ('CLK 230 Kompressor', 193, 142, 'b', '1997-2000', ''),
+            ('CLK 230 Kompressor', 197, 145, 'b', '2000-2002', ''),
+            ('CLK 320', 218, 160, 'b', '1997-2002', ''),
+            ('CLK 430', 279, 205, 'b', '1998-2002', ''),
+            ('AMG CLK 55', 347, 255, 'b', '1999-2002', ''),
+        ]},
+    'mb_clk_w209': {
+        'src': ['https://www.auto-data.net/en/mercedes-benz-clk-c209-generation-4805', 'https://www.auto-data.net/en/mercedes-benz-clk-c209-facelift-2005-generation-4807'],
+        'eng': [
+            ('CLK 200 Kompressor', 163, 120, 'b', '2002-2006', ''),
+            ('CLK 200 Kompressor', 184, 135, 'b', '2006-2009', ''),
+            ('CLK 200 CGI', 170, 125, 'b', '2002-2005', ''),
+            ('CLK 240', 170, 125, 'b', '2002-2005', ''),
+            ('CLK 280', 231, 170, 'b', '2005-2009', ''),
+            ('CLK 320', 218, 160, 'b', '2002-2005', ''),
+            ('CLK 350', 272, 200, 'b', '2005-2009', ''),
+            ('CLK 500', 306, 225, 'b', '2002-2006', ''),
+            ('CLK 500', 388, 285, 'b', '2006-2009', ''),
+            ('AMG CLK 55', 367, 270, 'b', '2002-2006', ''),
+            ('AMG CLK 63', 481, 354, 'b', '2006-2009', ''),
+            ('AMG CLK 63 Black Series', 507, 373, 'b', '2007-2009', ''),
+            ('CLK 220 CDI', 150, 110, 'd', '2005-2009', ''),
+            ('CLK 270 CDI', 170, 125, 'd', '2002-2005', ''),
+            ('CLK 320 CDI', 224, 165, 'd', '2005-2009', ''),
         ]},
     'mb_cls_c218': {
         'src': ['https://www.auto-data.net/en/mercedes-benz-cls-coupe-c218-generation-3860', 'https://www.auto-data.net/en/mercedes-benz-cls-coupe-c218-facelift-2014-generation-4374'],
@@ -6337,6 +6822,25 @@ MOOTORID = {
             ('AMG GLE 53', 544, 400, 'p', '2023-2026', '4MATIC+'),
             ('AMG GLE 53', 585, 430, 'p', '2026', '4MATIC+'),
         ]},
+    'mb_glk_x204': {
+        'src': ['https://www.auto-data.net/en/mercedes-benz-glk-x204-generation-2744', 'https://www.auto-data.net/en/mercedes-benz-glk-x204-facelift-2012-generation-4128'],
+        'eng': [
+            ('GLK 200', 184, 135, 'b', '2013-2015', ''),
+            ('GLK 250', 211, 155, 'b', '2013-2015', ''),
+            ('GLK 280', 231, 170, 'b', '2008-2009', '4MATIC'),
+            ('GLK 300', 231, 170, 'b', '2009-2011', '4MATIC'),
+            ('GLK 350', 268, 197, 'b', '2009-2012', ''),
+            ('GLK 350', 272, 200, 'b', '2008-2011', '4MATIC'),
+            ('GLK 350', 302, 222, 'b', '2012-2015', ''),
+            ('GLK 350', 306, 225, 'b', '2011-2015', '4MATIC'),
+            ('GLK 200 CDI', 143, 105, 'd', '2010-2015', ''),
+            ('GLK 220 CDI', 170, 125, 'd', '2008-2015', ''),
+            ('GLK 250 CDI / BlueTEC', 204, 150, 'd', '2009-2015', '4MATIC'),
+            ('GLK 320 CDI', 224, 165, 'd', '2008-2009', '4MATIC'),
+            ('GLK 350 CDI', 224, 165, 'd', '2009-2010', '4MATIC'),
+            ('GLK 350 CDI', 231, 170, 'd', '2010-2012', '4MATIC'),
+            ('GLK 350 CDI', 265, 195, 'd', '2012-2015', '4MATIC'),
+        ]},
     'mb_gls_x166': {
         'src': ['https://www.auto-data.net/en/mercedes-benz-gls-x166-generation-4650', 'https://www.auto-data.net/en/mercedes-benz-gl-x166-generation-4126'],
         'eng': [
@@ -6405,6 +6909,23 @@ MOOTORID = {
             ('AMG ML 63', 523, 385, 'b', '2012-2015', '4MATIC'),
             ('ML 250 BlueTEC', 204, 150, 'd', '2011-2015', '4MATIC'),
             ('ML 350 BlueTEC', 258, 190, 'd', '2011-2015', '4MATIC'),
+        ]},
+    'mb_r_w251': {
+        'src': ['https://www.auto-data.net/en/mercedes-benz-r-class-w251-generation-3867', 'https://www.auto-data.net/en/mercedes-benz-r-class-w251-facelift-2010-generation-7138'],
+        'eng': [
+            ('R 280', 231, 170, 'b', '2007-2009', ''),
+            ('R 300', 231, 170, 'b', '2009-2010', ''),
+            ('R 300', 232, 171, 'b', '2010-2014', ''),
+            ('R 350', 272, 200, 'b', '2006-2012', ''),
+            ('R 350 BlueEFFICIENCY', 306, 225, 'b', '2011-2013', '4MATIC'),
+            ('R 500', 306, 225, 'b', '2005-2007', '4MATIC'),
+            ('R 500', 388, 285, 'b', '2007-2009', '4MATIC'),
+            ('AMG R 63', 510, 375, 'b', '2006-2007', '4MATIC'),
+            ('R 280 CDI', 190, 140, 'd', '2007-2009', ''),
+            ('R 300 CDI', 190, 140, 'd', '2009-2014', ''),
+            ('R 320 CDI', 224, 165, 'd', '2007-2009', '4MATIC'),
+            ('R 350 CDI', 224, 165, 'd', '2009-2010', '4MATIC'),
+            ('R 350 CDI', 265, 195, 'd', '2010-2014', '4MATIC'),
         ]},
     'mb_s320_w140': {
         'src': ['https://www.auto-data.net/en/mercedes-benz-s-class-w140-generation-2778', 'https://www.auto-data.net/en/mercedes-benz-s-class-w140-facelift-1994-generation-8615'],
@@ -6513,6 +7034,62 @@ MOOTORID = {
             ('S 450 e', 435, 320, 'p', '2026+', ''),
             ('S 580 e', 510, 375, 'p', '2021-2026', ''),
             ('S 580 e', 585, 430, 'p', '2026+', '4MATIC'),
+        ]},
+    'mb_sl_r129': {
+        'src': ['https://www.auto-data.net/en/mercedes-benz-sl-r129-generation-7878', 'https://www.auto-data.net/en/mercedes-benz-sl-r129-facelift-1995-generation-7879', 'https://www.auto-data.net/en/mercedes-benz-sl-r129-facelift-1998-generation-7880'],
+        'eng': [
+            ('SL 280', 193, 142, 'b', '1993-1998', ''),
+            ('SL 280', 204, 150, 'b', '1998-2001', ''),
+            ('300 SL', 190, 140, 'b', '1989-1993', ''),
+            ('300 SL-24', 231, 170, 'b', '1988-1993', ''),
+            ('SL 320', 224, 165, 'b', '1998-2001', ''),
+            ('SL 320', 231, 170, 'b', '1993-1998', ''),
+            ('SL 500 V8', 306, 225, 'b', '1998-2001', ''),
+            ('SL 500 V8', 320, 235, 'b', '1992-1998', ''),
+            ('500 SL V8', 326, 240, 'b', '1989-1992', ''),
+            ('AMG SL 55 V8', 354, 260, 'b', '1999-2001', ''),
+            ('AMG SL 60 V8', 381, 280, 'b', '1993-1998', ''),
+            ('SL 600 V12', 394, 290, 'b', '1992-2001', ''),
+            ('AMG SL 73 V12', 525, 386, 'b', '1999-2001', ''),
+        ]},
+    'mb_sl_r230': {
+        'src': ['https://www.auto-data.net/en/mercedes-benz-sl-r230-generation-7874', 'https://www.auto-data.net/en/mercedes-benz-sl-r230-facelift-2006-generation-7875', 'https://www.auto-data.net/en/mercedes-benz-sl-r230-facelift-2008-generation-7876'],
+        'eng': [
+            ('SL 280 V6', 231, 170, 'b', '2008-2011', ''),
+            ('SL 300 V6', 231, 170, 'b', '2009-2011', ''),
+            ('SL 350 V6', 245, 180, 'b', '2002-2006', ''),
+            ('SL 350 V6', 272, 200, 'b', '2006-2008', ''),
+            ('SL 350 V6', 316, 232, 'b', '2008-2011', ''),
+            ('SL 500 V8', 306, 225, 'b', '2001-2006', ''),
+            ('SL 500 V8', 388, 285, 'b', '2006-2011', ''),
+            ('AMG SL 55 V8', 476, 350, 'b', '2001-2006', ''),
+            ('AMG SL 55 V8', 517, 380, 'b', '2006-2008', ''),
+            ('SL 600 V12', 500, 368, 'b', '2003-2006', ''),
+            ('SL 600 V12', 517, 380, 'b', '2006-2011', ''),
+            ('AMG SL 63 V8', 525, 386, 'b', '2008-2011', ''),
+            ('AMG SL 65 V12', 612, 450, 'b', '2004-2010', ''),
+        ]},
+    'mb_slk_r170': {
+        'src': ['https://www.auto-data.net/en/mercedes-benz-slk-r170-generation-7883', 'https://www.auto-data.net/en/mercedes-benz-slk-r170-facelift-2000-generation-7884'],
+        'eng': [
+            ('SLK 200', 136, 100, 'b', '1996-2000', ''),
+            ('SLK 200 Kompressor', 163, 120, 'b', '2000-2004', ''),
+            ('SLK 200 Kompressor', 192, 141, 'b', '1996-2000', ''),
+            ('SLK 230 Kompressor', 193, 142, 'b', '1996-2000', ''),
+            ('SLK 230 Kompressor', 197, 145, 'b', '2000-2004', ''),
+            ('SLK 320 V6', 218, 160, 'b', '2000-2004', ''),
+            ('AMG SLK 32 V6', 354, 260, 'b', '2001-2004', ''),
+        ]},
+    'mb_slk_r171': {
+        'src': ['https://www.auto-data.net/en/mercedes-benz-slk-r171-generation-7885', 'https://www.auto-data.net/en/mercedes-benz-slk-r171-facelift-2008-generation-7887'],
+        'eng': [
+            ('SLK 200 Kompressor', 163, 120, 'b', '2003-2007', ''),
+            ('SLK 200 Kompressor', 184, 135, 'b', '2008-2011', ''),
+            ('SLK 280', 231, 170, 'b', '2005-2009', ''),
+            ('SLK 300', 231, 170, 'b', '2009-2011', ''),
+            ('SLK 350', 272, 200, 'b', '2004-2007', ''),
+            ('SLK 350', 305, 224, 'b', '2008-2011', ''),
+            ('AMG SLK 55', 360, 265, 'b', '2004-2011', ''),
         ]},
     'mb_sprinter_901': {
         'src': ['https://www.auto-data.net/en/mercedes-benz-sprinter-model-2944 (no 1995-2006 generation there)', 'https://en.wikipedia.org/wiki/Mercedes-Benz_Sprinter'],
@@ -6817,6 +7394,12 @@ MOOTORID = {
             ('3.0 V6 GTZ', 197, 145, 'b', '2000-2002', ''),
             ('2.0 TDI', 90, 66, 'd', '1996-2002', ''),
         ]},
+    'mitsu_grandis': {
+        'src': ['https://www.auto-data.net/en/mitsubishi-grandis-generation-3391'],
+        'eng': [
+            ('2.4 MIVEC', 165, 121, 'b', '2003-2011', ''),
+            ('2.0 DI-D', 136, 100, 'd', '2005-2011', ''),
+        ]},
     'mitsu_imiev': {
         'src': ['https://www.auto-data.net/en/mitsubishi-i-miev-generation-4265'],
         'eng': [
@@ -7118,6 +7701,13 @@ MOOTORID = {
             ('2.5 DTi', 174, 128, 'd', '2004-2010', ''),
             ('2.5 dCi', 190, 140, 'd', '2010-2013', ''),
         ]},
+    'nissan_patrol_y60': {
+        'src': ['https://www.auto-data.net/en/nissan-patrol-iv-5-door-y60-generation-8355', 'https://www.auto-data.net/en/nissan-patrol-iv-3-door-y60-generation-85'],
+        'eng': [
+            ('4.2', 170, 125, 'b', '1992-1995', '4x4'),
+            ('2.8 TD', 115, 85, 'd', '1987-1995', '4x4'),
+            ('4.2 D (Y60GR)', 116, 85, 'd', '1988-1995', ''),
+        ]},
     'nissan_patrol_y61': {
         'src': ['https://www.auto-data.net/en/nissan-patrol-v-5-door-y61-generation-83', 'https://www.auto-data.net/en/nissan-patrol-v-3-door-y61-generation-8971', 'https://www.auto-data.net/en/nissan-patrol-v-5-door-y61-facelift-2004-generation-8287', 'https://www.auto-data.net/en/nissan-patrol-v-3-door-y61-facelift-2004-generation-8286'],
         'eng': [
@@ -7165,6 +7755,13 @@ MOOTORID = {
             ('1.9 dCi', 120, 88, 'd', '2003-2007', ''),
             ('2.2 DTI', 126, 93, 'd', '2002-2007', ''),
             ('2.2 dCi', 138, 101, 'd', '2003-2007', ''),
+        ]},
+    'nissan_pulsar_c13': {
+        'src': ['https://www.auto-data.net/en/nissan-pulsar-c13-generation-4592'],
+        'eng': [
+            ('1.2 DIG-T', 115, 85, 'b', '2014-2018', ''),
+            ('1.6 DIG-T', 190, 140, 'b', '2015-2018', ''),
+            ('1.5 dCi', 110, 81, 'd', '2014-2018', ''),
         ]},
     'nissan_qashqai_j10': {
         'src': ['https://www.auto-data.net/en/nissan-qashqai-i-j10-generation-211', 'https://www.auto-data.net/en/nissan-qashqai-i-j10-facelift-2010-generation-3812'],
@@ -7221,6 +7818,22 @@ MOOTORID = {
             ('2.0 GTI-R', 230, 169, 'b', '1990-1995', '4x4'),
             ('2.0 D', 55, 40, 'd', '1990-1994', ''),
             ('2.0 D', 75, 55, 'd', '1990-1995', ''),
+        ]},
+    'nissan_terrano_2': {
+        'src': ['https://www.auto-data.net/en/nissan-terrano-ii-r20-generation-189'],
+        'eng': [
+            ('2.4', 116, 85, 'b', '1996-2004', ''),
+            ('2.4', 118, 87, 'b', '1996-2004', ''),
+            ('2.4', 124, 91, 'b', '1993-1996', ''),
+            ('2.7 TD', 100, 74, 'd', '1993-1996', ''),
+            ('2.7 TDi', 125, 92, 'd', '1996-2004', ''),
+            ('3.0 TDi', 154, 113, 'd', '2001-2004', ''),
+        ]},
+    'nissan_tiida_c11': {
+        'src': ['https://www.auto-data.net/en/nissan-tiida-hatchback-generation-201'],
+        'eng': [
+            ('1.6', 110, 81, 'b', '2004-2008', ''),
+            ('1.8', 126, 93, 'b', '2004-2008', ''),
         ]},
     'nissan_xtrail_t30': {
         'src': ['https://www.auto-data.net/en/nissan-x-trail-i-t30-generation-273', 'https://www.auto-data.net/en/nissan-x-trail-i-t30-facelift-2003-generation-5558'],
@@ -7577,6 +8190,15 @@ MOOTORID = {
             ('44 kWh', 113, 83, 'e', '2024-', ''),
             ('54 kWh Extended Range', 113, 83, 'e', '2025-', ''),
         ]},
+    'opel_frontera_a': {
+        'src': ['https://www.auto-data.net/en/opel-frontera-a-generation-568'],
+        'eng': [
+            ('2.2i', 136, 100, 'b', '1995-1998', ''),
+            ('2.4i', 125, 92, 'b', '1992-1995', ''),
+            ('2.3 TD', 100, 74, 'd', '1992-1995', '4x4'),
+            ('2.5 TDS', 115, 85, 'd', '1996-1998', '4x4'),
+            ('2.8 TDi', 113, 83, 'd', '1995-1996', '4x4'),
+        ]},
     'opel_frontera_b': {
         'src': ['https://www.auto-data.net/en/opel-frontera-b-generation-566', 'https://www.auto-data.net/en/opel-frontera-b-sport-generation-567'],
         'eng': [
@@ -7793,6 +8415,24 @@ MOOTORID = {
             ('2.2 DTI', 120, 88, 'd', '2000-2003', ''),
             ('2.5 TD', 131, 96, 'd', '1994-2000', ''),
             ('2.5 DTI', 150, 110, 'd', '2001-2003', ''),
+        ]},
+    'opel_signum': {
+        'src': ['https://www.auto-data.net/en/opel-signum-generation-572', 'https://www.auto-data.net/en/opel-signum-facelift-2005-generation-5165'],
+        'eng': [
+            ('1.8i 16V', 122, 90, 'b', '2003-2005', ''),
+            ('1.8i 16V', 140, 103, 'b', '2005-2008', ''),
+            ('2.0i 16V Turbo', 175, 129, 'b', '2003-2008', ''),
+            ('2.2i 16V', 155, 114, 'b', '2003-2008', ''),
+            ('2.8i V6 Turbo', 230, 169, 'b', '2005-2006', ''),
+            ('2.8i V6 Turbo', 250, 184, 'b', '2006-2008', ''),
+            ('3.2i V6', 211, 155, 'b', '2003-2005', ''),
+            ('1.9 CDTI', 100, 74, 'd', '2005-2008', ''),
+            ('1.9 CDTI', 120, 88, 'd', '2004-2008', ''),
+            ('1.9 CDTI', 150, 110, 'd', '2004-2008', ''),
+            ('2.0 DTI', 100, 74, 'd', '2003-2004', ''),
+            ('2.2 DTI', 125, 92, 'd', '2003-2004', ''),
+            ('3.0 V6 CDTI', 177, 130, 'd', '2003-2005', ''),
+            ('3.0 V6 CDTI', 184, 135, 'd', '2005-2008', ''),
         ]},
     'opel_vectra_a': {
         'src': ['https://www.auto-data.net/en/opel-vectra-a-generation-544', 'https://www.auto-data.net/en/opel-vectra-a-facelift-1992-generation-5167'],
@@ -8949,6 +9589,16 @@ MOOTORID = {
             ('E-Tech 1.2 Full Hybrid', 199, 146, 'h', '2023-2025', ''),
             ('E-Tech 1.2 Full Hybrid', 200, 147, 'h', '2025+', ''),
         ]},
+    'renault_fluence': {
+        'src': ['https://www.auto-data.net/en/renault-fluence-generation-2165', 'https://www.auto-data.net/en/renault-fluence-facelift-2012-generation-3961', 'https://www.auto-data.net/en/renault-fluence-z.e.-generation-8117'],
+        'eng': [
+            ('1.6 16V', 110, 81, 'b', '2009-2016', ''),
+            ('2.0 16V', 140, 103, 'b', '2009-2012', ''),
+            ('1.5 dCi', 90, 66, 'd', '2012-2016', ''),
+            ('1.5 dCi', 110, 81, 'd', '2009-2016', ''),
+            ('1.6 Energy dCi', 130, 96, 'd', '2012-2016', ''),
+            ('Z.E.', 95, 70, 'e', '2011-2014', ''),
+        ]},
     'renault_kadjar': {
         'src': ['https://www.auto-data.net/en/renault-kadjar-generation-4387', 'https://www.auto-data.net/en/renault-kadjar-facelift-2018-generation-6526'],
         'eng': [
@@ -9267,6 +9917,14 @@ MOOTORID = {
             ('1.7 Blue dCi', 120, 88, 'd', '2018-2020', ''),
             ('1.7 Blue dCi', 150, 110, 'd', '2018-2020', ''),
         ]},
+    'renault_symbioz': {
+        'src': ['https://www.auto-data.net/en/renault-symbioz-generation-10086'],
+        'eng': [
+            ('1.2 Eco-G', 122, 90, 'bg', '2026-', ''),
+            ('1.3 Mild Hybrid', 140, 103, 'h', '2025-', ''),
+            ('1.6 E-Tech Full Hybrid', 143, 105, 'h', '2024-2025', ''),
+            ('1.8 E-Tech Full Hybrid', 158, 116, 'h', '2025-', ''),
+        ]},
     'renault_talisman': {
         'src': ['https://www.auto-data.net/en/renault-talisman-generation-4655', 'https://www.auto-data.net/en/renault-talisman-facelift-2020-generation-7578'],
         'eng': [
@@ -9280,6 +9938,24 @@ MOOTORID = {
             ('1.7 Blue dCi', 150, 110, 'd', '2018-2022', ''),
             ('2.0 Blue dCi', 160, 118, 'd', '2018-2022', ''),
             ('2.0 Blue dCi', 200, 147, 'd', '2018-2022', ''),
+        ]},
+    'renault_thalia_1': {
+        'src': ['https://www.auto-data.net/en/renault-clio-symbol-i-generation-2133', 'https://www.auto-data.net/en/renault-symbol-i-facelift-2002-generation-2168'],
+        'eng': [
+            ('1.4', 75, 55, 'b', '1999-2008', ''),
+            ('1.4 16V', 98, 72, 'b', '1999-2008', ''),
+            ('1.6 16V', 107, 79, 'b', '2002-2008', ''),
+            ('1.5 dCi', 65, 48, 'd', '2002-2006', ''),
+        ]},
+    'renault_thalia_2': {
+        'src': ['https://www.auto-data.net/en/renault-symbol-ii-generation-2167'],
+        'eng': [
+            ('1.2 16V', 75, 55, 'b', '2008-2012', ''),
+            ('1.4 8V', 75, 55, 'b', '2008-2012', ''),
+            ('1.4 16V', 98, 72, 'b', '2008-2012', ''),
+            ('1.6 16V', 105, 77, 'b', '2008-2013', ''),
+            ('1.5 dCi', 65, 48, 'd', '2008-2012', ''),
+            ('1.5 dCi', 85, 63, 'd', '2008-2012', ''),
         ]},
     'renault_trafic_1': {
         'src': ['https://en.wikipedia.org/wiki/Renault_Trafic', 'https://de.wikipedia.org/wiki/Renault_Trafic'],
@@ -9503,6 +10179,38 @@ MOOTORID = {
             ('2.0 TDI', 115, 85, 'd', '2020-2023', ''),
             ('2.0 TDI', 150, 110, 'd', '2016-2024', ''),
             ('2.0 TDI', 190, 140, 'd', '2016-2018', '4Drive'),
+        ]},
+    'seat_cordoba_6k': {
+        'src': ['https://www.auto-data.net/en/seat-cordoba-i-generation-2901', 'https://www.auto-data.net/en/seat-cordoba-i-facelift-1999-generation-2897'],
+        'eng': [
+            ('1.0 i', 50, 37, 'b', '1999-2002', ''),
+            ('1.4 i', 60, 44, 'b', '1994-2002', ''),
+            ('1.4 i 16V', 75, 55, 'b', '1999-2002', ''),
+            ('1.4 i 16V', 101, 74, 'b', '1997-1999', ''),
+            ('1.6 i', 75, 55, 'b', '1997-2002', ''),
+            ('1.6 i', 101, 74, 'b', '1995-2002', ''),
+            ('1.8 i', 90, 66, 'b', '1993-1999', ''),
+            ('1.8 i 16V', 129, 95, 'b', '1994-1996', ''),
+            ('2.0 i', 115, 85, 'b', '1996-1999', ''),
+            ('1.9 D', 64, 47, 'd', '1993-1999', ''),
+            ('1.9 SDI', 64, 47, 'd', '1995-1999', ''),
+            ('1.9 D', 68, 50, 'd', '1993-1996', ''),
+            ('1.9 SDI', 68, 50, 'd', '1999-2002', ''),
+            ('1.9 TD', 75, 55, 'd', '1993-1996', ''),
+            ('1.9 TDI', 90, 66, 'd', '1996-2002', ''),
+            ('1.9 TDI', 110, 81, 'd', '1999-2002', ''),
+        ]},
+    'seat_cordoba_6l': {
+        'src': ['https://www.auto-data.net/en/seat-cordoba-ii-generation-2896'],
+        'eng': [
+            ('1.2 12V', 64, 47, 'b', '2002-2006', ''),
+            ('1.4 16V', 75, 55, 'b', '2002-2008', ''),
+            ('1.4 16V', 100, 74, 'b', '2005-2008', ''),
+            ('2.0', 115, 85, 'b', '2002-2008', ''),
+            ('1.4 TDI', 75, 55, 'd', '2002-2008', ''),
+            ('1.9 SDi', 64, 47, 'd', '2002-2008', ''),
+            ('1.9 TDI', 100, 74, 'd', '2002-2008', ''),
+            ('1.9 TDI', 130, 96, 'd', '2002-2008', ''),
         ]},
     'seat_ibiza_2': {
         'src': ['https://www.auto-data.net/en/seat-ibiza-ii-generation-2908', 'https://www.auto-data.net/en/seat-ibiza-ii-facelift-1999-generation-2907'],
@@ -10145,6 +10853,26 @@ MOOTORID = {
         'eng': [
             ('66 kWh', 272, 200, 'e', '2023+', ''),
         ]},
+    'smart_fortwo_450': {
+        'src': ['https://www.auto-data.net/en/smart-fortwo-coupe-c450-generation-3290'],
+        'eng': [
+            ('0.6i', 45, 33, 'b', '1998-2006', ''),
+            ('0.7i', 50, 37, 'b', '1998-2006', ''),
+            ('0.7i', 61, 45, 'b', '1999-2006', ''),
+            ('0.7i Brabus', 75, 55, 'b', '1999-2006', ''),
+            ('0.8d', 41, 30, 'd', '1999-2006', ''),
+        ]},
+    'smart_fortwo_451': {
+        'src': ['https://www.auto-data.net/en/smart-fortwo-ii-coupe-c451-generation-3287'],
+        'eng': [
+            ('1.0i', 61, 45, 'b', '2007-2014', ''),
+            ('1.0i', 71, 52, 'b', '2007-2014', ''),
+            ('1.0i', 84, 62, 'b', '2007-2014', ''),
+            ('Brabus 1.0i turbo', 98, 72, 'b', '2007-2014', ''),
+            ('0.8 cdi', 45, 33, 'd', '2007-2009', ''),
+            ('electric drive 17.6 kWh', 75, 55, 'e', '2012-2015', ''),
+            ('Brabus electric drive 17.6 kWh', 82, 60, 'e', '2012-2015', ''),
+        ]},
     'smart_fortwo_453': {
         'src': ['https://www.auto-data.net/en/smart-fortwo-iii-coupe-c453-generation-4860'],
         'eng': [
@@ -10327,6 +11055,12 @@ MOOTORID = {
             ('3.6R', 256, 188, 'b', '2009-2014', 'AWD'),
             ('2.0d', 150, 110, 'd', '2009-2014', 'AWD'),
         ]},
+    'subaru_legacy_bn': {
+        'src': ['https://www.auto-data.net/en/subaru-legacy-vi-generation-6449', 'https://www.auto-data.net/en/subaru-legacy-vi-facelift-2017-generation-6450'],
+        'eng': [
+            ('2.5i', 175, 129, 'b', '2014-2019', 'AWD'),
+            ('3.6R', 256, 188, 'b', '2014-2019', 'AWD'),
+        ]},
     'subaru_legacy_bp': {
         'src': ['https://www.auto-data.net/en/subaru-legacy-iv-generation-3611', 'https://www.auto-data.net/en/subaru-legacy-iv-station-wagon-generation-3612', 'https://www.auto-data.net/en/subaru-legacy-iv-facelift-2006-generation-6454', 'https://www.auto-data.net/en/subaru-legacy-iv-station-wagon-facelift-2006-generation-6455'],
         'eng': [
@@ -10338,6 +11072,13 @@ MOOTORID = {
             ('2.5i GT', 250, 184, 'b', '2006-2009', 'AWD'),
             ('3.0R', 245, 180, 'b', '2003-2009', 'AWD'),
             ('2.0d', 150, 110, 'd', '2008-2009', 'AWD'),
+        ]},
+    'subaru_levorg': {
+        'src': ['https://www.auto-data.net/en/subaru-levorg-generation-4660', 'https://www.auto-data.net/en/subaru-levorg-facelift-2019-generation-6072'],
+        'eng': [
+            ('1.6 GT', 170, 125, 'b', '2014-2020', 'AWD'),
+            ('2.0 GT', 150, 110, 'b', '2019-2020', 'AWD'),
+            ('2.0 GT-S', 268, 197, 'b', '2019-2020', 'AWD'),
         ]},
     'subaru_outback_bh': {
         'src': ['https://www.auto-data.net/en/subaru-outback-ii-be-bh-generation-3605'],
@@ -10450,6 +11191,14 @@ MOOTORID = {
         'eng': [
             ('1.5 ALLGRIP PRO', 102, 75, 'b', '2018+', 'ALLGRIP'),
             ('1.5 ALLGRIP PRO', 105, 77, 'b', '2023+', 'ALLGRIP'),
+        ]},
+    'suzuki_liana': {
+        'src': ['https://www.auto-data.net/en/suzuki-liana-wagon-i-generation-3715', 'https://www.auto-data.net/en/suzuki-liana-wagon-i-facelift-2004-generation-3713'],
+        'eng': [
+            ('1.3', 90, 66, 'b', '2001-2004', ''),
+            ('1.6', 103, 76, 'b', '2001-2004', ''),
+            ('1.6 Sport', 106, 78, 'b', '2003-2004', '4WD'),
+            ('1.6', 107, 79, 'b', '2004-2007', ''),
         ]},
     'suzuki_scross_2': {
         'src': ['https://www.auto-data.net/en/suzuki-s-cross-iii-generation-8714'],
@@ -10719,6 +11468,20 @@ MOOTORID = {
             ('73 kWh', 224, 165, 'e', '2025+', ''),
             ('73 kWh AWD', 343, 252, 'e', '2025+', 'AWD'),
         ]},
+    'toyota_camry_xv30': {
+        'src': ['https://www.auto-data.net/en/toyota-camry-v-xv30-generation-1011', 'https://www.auto-data.net/en/toyota-camry-v-xv30-facelift-2005-generation-5824'],
+        'eng': [
+            ('2.4', 152, 112, 'b', '2001-2004', ''),
+            ('2.4', 157, 115, 'b', '2001-2004', ''),
+            ('2.4', 160, 118, 'b', '2005', ''),
+            ('2.4', 154, 113, 'b', '2006', ''),
+            ('3.0 V6', 186, 137, 'b', '2001-2004', ''),
+            ('3.0 V6', 192, 141, 'b', '2001-2004', ''),
+            ('3.0 V6', 210, 154, 'b', '2004-2005', ''),
+            ('3.0 V6', 190, 140, 'b', '2006', ''),
+            ('3.3 V6', 225, 165, 'b', '2004-2005', ''),
+            ('3.3 V6', 210, 154, 'b', '2006', ''),
+        ]},
     'toyota_camry_xv40': {
         'src': ['https://www.auto-data.net/en/toyota-camry-vi-xv40-generation-1008', 'https://www.auto-data.net/en/toyota-camry-vi-xv40-facelift-2009-generation-5813'],
         'eng': [
@@ -10762,6 +11525,21 @@ MOOTORID = {
             ('2.0i 16V GTi', 175, 129, 'b', '1994-1998', ''),
             ('2.0 D', 73, 54, 'd', '1992-1997', '4WD'),
             ('2.0 TD', 83, 61, 'd', '1996-1998', ''),
+        ]},
+    'toyota_celica_t200': {
+        'src': ['https://www.auto-data.net/en/toyota-celica-t20-generation-767'],
+        'eng': [
+            ('1.8 i 16V', 116, 85, 'b', '1993-1999', ''),
+            ('2.0 16V', 170, 125, 'b', '1996-1999', ''),
+            ('2.0 i 16V', 175, 129, 'b', '1993-1999', ''),
+            ('2.0 Turbo GT-Four', 242, 178, 'b', '1994-1999', 'AWD'),
+        ]},
+    'toyota_celica_t230': {
+        'src': ['https://www.auto-data.net/en/toyota-celica-t23-generation-766'],
+        'eng': [
+            ('1.8 VT-i 16V', 143, 105, 'b', '1999-2006', ''),
+            ('1.8 i GT-R', 182, 134, 'b', '1999-2006', ''),
+            ('1.8 VVTL-i T-Sport', 192, 141, 'b', '2000-2002', ''),
         ]},
     'toyota_chr_1': {
         'src': ['https://www.auto-data.net/en/toyota-c-hr-i-generation-5212', 'https://www.auto-data.net/en/toyota-c-hr-i-facelift-2020-generation-7394'],
@@ -10979,6 +11757,13 @@ MOOTORID = {
             ('3.0 TD', 125, 92, 'd', '1996-1999', ''),
             ('3.0 TD', 145, 107, 'd', '2000-2002', ''),
             ('3.0 D-4D', 163, 120, 'd', '2000-2002', ''),
+        ]},
+    'toyota_previa_2': {
+        'src': ['https://www.auto-data.net/en/toyota-previa-generation-877'],
+        'eng': [
+            ('2.4 16V', 156, 115, 'b', '2000-2005', ''),
+            ('3.0 i V6 24V', 220, 162, 'b', '2000-2005', ''),
+            ('2.0 D-4D', 116, 85, 'd', '2000-2005', ''),
         ]},
     'toyota_prius_plus': {
         'src': ['https://www.auto-data.net/en/toyota-prius-generation-4086', 'https://www.auto-data.net/en/toyota-prius-facelift-2015-generation-4698'],
@@ -11256,6 +12041,30 @@ MOOTORID = {
             ('Recharge Extended Range Single Motor 82 kWh', 252, 185, 'e', '2022-', ''),
             ('Recharge Twin Motor AWD 78 kWh', 408, 300, 'e', '2021-2022', 'AWD'),
             ('Recharge Twin Motor AWD 82 kWh', 408, 300, 'e', '2022-', 'AWD'),
+        ]},
+    'volvo_c70_1': {
+        'src': ['https://en.wikipedia.org/wiki/Volvo_C70'],
+        'eng': [
+            ('2.0 T', 163, 120, 'b', '1999-2005', ''),
+            ('2.0 T5', 230, 169, 'b', '1998-2002', ''),
+            ('2.3 T5', 240, 177, 'b', '1997-2002', ''),
+            ('2.3 T5', 245, 180, 'b', '2002-2005', ''),
+            ('2.4 20V', 170, 125, 'b', '1997-2000', ''),
+            ('2.4 T', 193, 142, 'b', '1997-2002', ''),
+            ('2.4 T', 200, 147, 'b', '2002-2005', ''),
+        ]},
+    'volvo_c70_2': {
+        'src': ['https://en.wikipedia.org/wiki/Volvo_C70'],
+        'eng': [
+            ('2.4', 140, 103, 'b', '2005-2009', ''),
+            ('2.4i', 170, 125, 'b', '2005-2009', ''),
+            ('T5', 220, 162, 'b', '2005-2007', ''),
+            ('T5', 230, 169, 'b', '2007-2013', ''),
+            ('T5 Polestar', 253, 186, 'b', '2007-2013', ''),
+            ('2.0D', 136, 100, 'd', '2007-2009', ''),
+            ('D3', 150, 110, 'd', '2009-2013', ''),
+            ('D4', 177, 130, 'd', '2009-2013', ''),
+            ('D5', 180, 132, 'd', '2006-2009', ''),
         ]},
     'volvo_ex30': {
         'src': ['https://www.auto-data.net/en/volvo-ex30-generation-9517'],
@@ -11950,6 +12759,19 @@ MOOTORID = {
             ('2.0 BiTDI', 179, 132, 'd', '2017+', ''),
             ('e-Crafter 43 kWh', 136, 100, 'e', '2017+', ''),
         ]},
+    'vw_eos': {
+        'src': ['https://www.auto-data.net/en/volkswagen-eos-generation-1851', 'https://www.auto-data.net/en/volkswagen-eos-facelift-2010-generation-4332'],
+        'eng': [
+            ('1.4 TSI', 122, 90, 'b', '2007-2015', ''),
+            ('1.4 TSI', 160, 118, 'b', '2008-2015', ''),
+            ('1.6 FSI', 115, 85, 'b', '2006-2007', ''),
+            ('2.0 FSI', 150, 110, 'b', '2006-2008', ''),
+            ('2.0 TFSI', 200, 147, 'b', '2006-2009', ''),
+            ('2.0 TSI', 210, 154, 'b', '2009-2015', ''),
+            ('3.2 V6', 250, 184, 'b', '2006-2009', ''),
+            ('3.6 FSI V6', 260, 191, 'b', '2009-2010', ''),
+            ('2.0 TDI', 140, 103, 'd', '2006-2015', ''),
+        ]},
     'vw_golf_1': {
         'src': ['https://www.auto-data.net/en/volkswagen-golf-i-3-door-generation-1884', 'https://www.auto-data.net/en/volkswagen-golf-i-5-door-generation-8967'],
         'eng': [
@@ -12301,6 +13123,20 @@ MOOTORID = {
             ('2.0 TDI', 150, 110, 'd', '2014-2018', ''),
             ('1.4 TSI Hybrid', 170, 125, 'h', '2012-2016', ''),
         ]},
+    'vw_lupo': {
+        'src': ['https://www.auto-data.net/en/volkswagen-lupo-6x-generation-1852'],
+        'eng': [
+            ('1.0', 50, 37, 'b', '1998-2005', ''),
+            ('1.4', 60, 44, 'b', '1999-2005', ''),
+            ('1.4 16V', 75, 55, 'b', '1998-2005', ''),
+            ('1.4 16V', 100, 74, 'b', '1999-2005', ''),
+            ('1.4 FSI 16V', 105, 77, 'b', '2000-2005', ''),
+            ('1.6 16V GTI', 125, 92, 'b', '2001-2005', ''),
+            ('1.2 TDI', 61, 45, 'd', '1999-2005', ''),
+            ('1.2 TDI 3L', 61, 45, 'd', '1999-2005', ''),
+            ('1.4 TDI', 75, 55, 'd', '1999-2005', ''),
+            ('1.7 SDI', 60, 44, 'd', '1998-2005', ''),
+        ]},
     'vw_multivan_t7': {
         'src': ['https://www.auto-data.net/en/volkswagen-multivan-t7-generation-8578', 'https://www.auto-data.net/en/volkswagen-multivan-t7-long-generation-8741', 'https://www.auto-data.net/en/volkswagen-multivan-t7-facelift-2026-generation-11308'],
         'eng': [
@@ -12442,6 +13278,19 @@ MOOTORID = {
             ('2.0 TDI', 170, 125, 'd', '2010-2012', ''),
             ('2.0 TDI', 177, 130, 'd', '2013-2015', ''),
             ('2.0 TDI', 184, 135, 'd', '2015-2016', ''),
+        ]},
+    'vw_phaeton': {
+        'src': ['https://www.auto-data.net/en/volkswagen-phaeton-generation-1916', 'https://www.auto-data.net/en/volkswagen-phaeton-long-generation-4336', 'https://www.auto-data.net/en/volkswagen-phaeton-facelift-2010-generation-3792'],
+        'eng': [
+            ('3.2 V6', 241, 177, 'b', '2002-2008', ''),
+            ('3.6 V6 FSI', 280, 206, 'b', '2010-2015', '4MOTION'),
+            ('4.2 V8', 335, 246, 'b', '2003-2015', '4MOTION'),
+            ('6.0 W12', 420, 309, 'b', '2002-2005', ''),
+            ('6.0 W12', 450, 331, 'b', '2005-2011', '4MOTION'),
+            ('3.0 TDI', 224, 165, 'd', '2004-2006', ''),
+            ('3.0 V6 TDI', 240, 177, 'd', '2010-2013', '4MOTION'),
+            ('3.0 V6 TDI', 245, 180, 'd', '2013-2015', '4MOTION'),
+            ('5.0 V10 TDI', 313, 230, 'd', '2003-2006', '4MOTION'),
         ]},
     'vw_polo_2': {
         'src': ['https://www.auto-data.net/en/volkswagen-polo-ii-86c-generation-1860', 'https://www.auto-data.net/en/volkswagen-polo-ii-classic-86c-generation-1862'],
@@ -12646,6 +13495,17 @@ MOOTORID = {
             ('1.0 TSI', 110, 81, 'b', '2021-2024', ''),
             ('1.0 TSI', 116, 85, 'b', '2024+', ''),
             ('1.5 TSI', 150, 110, 'b', '2021+', ''),
+        ]},
+    'vw_tayron': {
+        'src': ['https://www.auto-data.net/en/volkswagen-tayron-ii-generation-10206'],
+        'eng': [
+            ('2.0 TSI', 204, 150, 'b', '2024+', '4MOTION'),
+            ('2.0 TSI', 265, 195, 'b', '2024+', '4MOTION'),
+            ('2.0 TDI', 150, 110, 'd', '2024+', ''),
+            ('2.0 TDI', 193, 142, 'd', '2024+', '4MOTION'),
+            ('1.5 eTSI mild hybrid', 150, 110, 'h', '2024+', ''),
+            ('1.5 TSI eHybrid', 204, 150, 'p', '2024+', ''),
+            ('1.5 TSI eHybrid', 272, 200, 'p', '2024+', ''),
         ]},
     'vw_tcross': {
         'src': ['https://www.auto-data.net/en/volkswagen-t-cross-generation-6789', 'https://www.auto-data.net/en/volkswagen-t-cross-facelift-2023-generation-9711'],
@@ -12882,6 +13742,11 @@ MOOTORID = {
             ('Long Range 79 kWh', 351, 258, 'e', '2025+', ''),
             ('Ultra Long Range 93.1 kWh', 351, 258, 'e', '2025+', ''),
             ('Ultra Long Range 93.1 kWh', 575, 423, 'e', '2025+', 'AWD'),
+        ]},
+    'zaz_968m': {
+        'src': ['https://www.auto-data.net/en/zaz-968m-generation-3026'],
+        'eng': [
+            ('1.2 V4', 42, 31, 'b', '1979-1994', ''),
         ]},
     'zeekr_001': {
         'src': ['https://en.wikipedia.org/wiki/Zeekr_001'],

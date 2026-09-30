@@ -1,0 +1,3980 @@
+[
+ {
+  "test_id": "AUTOBILD-2026-W-245-45R19",
+  "publication": "Auto Bild",
+  "year": 2026,
+  "season": "winter",
+  "size": "245/45 R19",
+  "car": "BMW 5er",
+  "tester": "Auto Bild braking qualifying (50 tyres); test sites in Finland and Rhineland-Palatinate per autobild.de",
+  "url": "https://www.reifenlab.de/autobild/winter/2026/245-45-r19/braking-distance",
+  "url_original": "https://www.autobild.de/produkttests/winterreifen-test-10811081.html",
+  "disciplines": [
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": 80,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "braking qualifying; start speed 80 km/h to standstill per autobild.de article (dated 21.09.2026)"
+   },
+   {
+    "id": "snow",
+    "surface": "snow",
+    "wet": false,
+    "v_from": 50,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "braking qualifying; from 50 km/h per autobild.de; tyres ranked 31-50 on wet were not braked on snow"
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Pirelli P Zero Winter 2",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 33.0,
+     "snow": 29.5
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Continental WinterContact TS 870 P",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 33.9,
+     "snow": 29.3
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Michelin Pilot Alpin 5",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 35.9,
+     "snow": 29.1
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Hankook Winter i*cept evo 4",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 36.3,
+     "snow": 29.2
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Bridgestone Blizzak 6",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 37.4,
+     "snow": 29.4
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Vredestein Wintrac Pro+",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 38.0,
+     "snow": 28.9
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Barum Polaris 6",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 38.0,
+     "snow": 29.1
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Kleber Krisalp HP3",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 38.3,
+     "snow": 29.0
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Goodyear UltraGrip Performance 3",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 37.9,
+     "snow": 29.4
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "BFGoodrich G-Force Winter 2",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 38.3,
+     "snow": 29.1
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Kumho WinterCraft WP52+",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 37.5,
+     "snow": 29.8
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Viking WinTech NewGen",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 38.3,
+     "snow": 29.2
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Semperit Speed-Grip 5",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 38.3,
+     "snow": 29.3
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "GT Radial WinterPro 2 Sport",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 39.2,
+     "snow": 29.6
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Lassa Competus Winter 2+",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 38.9,
+     "snow": 30.1
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Petlas Snowmaster 2 Sport",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 39.4,
+     "snow": 29.8
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Matador MP93 Nordicca",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 40.0,
+     "snow": 29.5
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Giti GitiWinter W2",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 39.7,
+     "snow": 29.9
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Firestone Winterhawk 4",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 40.4,
+     "snow": 29.2
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Maxxis Premitra Snow WP6",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 41.0,
+     "snow": 29.1
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Linglong Sport Master Winter",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 40.6,
+     "snow": 29.6
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Landsail Winter Lander",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 39.2,
+     "snow": 31.1
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Wanli Winter-Max A1 SW211",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 40.8,
+     "snow": 29.5
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Crosswind Grip Peak Winter",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 40.5,
+     "snow": 29.9
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Gripmax SureGrip Pro Winter",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 40.8,
+     "snow": 29.8
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Fulda Kristall Control HP2",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 41.0,
+     "snow": 29.8
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Ceat WinterDrive Sport",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 42.5,
+     "snow": 29.6
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Falken Eurowinter HS02 Pro",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 42.4,
+     "snow": 30.0
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Superia Bluewin UHP 2",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 42.7,
+     "snow": 29.8
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Nankang Winter Activa SV-3",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 42.6,
+     "snow": 30.0
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Radar Dimax Winter",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 43.1
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Milever Winter Max-A1 MW255",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 43.5
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Fortuna Gowin UHP 2",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 43.9
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Marshal MW 51",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 44.1
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Goodride ZuperSnow Z-507",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 44.6
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Sunny Wintermax NW211",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 44.7
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Davanti Wintoura +",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 45.1
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Westlake Z-507",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 45.1
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Tourador Winter Pro TSU2",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 45.7
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Star Performer Stratos UHP",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 46.0
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Starmaxx PolarMaxx Sport",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 46.1
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Tracmax Ice-Plus S210",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 46.7
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Minerva Snowpower 2 S210",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 47.1
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Leao Winter Defender UHP",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 47.5
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Tristar Snowpower 2",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 47.7
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Imperial Snowdragon 3",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 47.9
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Rotalla Ice-Plus S210",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 47.9
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Windforce Snowblazer UHP",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 49.3
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Royal Black Royal Winter UHP",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 49.7
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Triangle Snowlink PL02",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 50.6
+    },
+    "aqua_kmh": null,
+    "note": ""
+   }
+  ]
+ },
+ {
+  "test_id": "AUTOBILD-2026-A-225-45R17",
+  "publication": "Auto Bild",
+  "year": 2026,
+  "season": "allseason",
+  "size": "225/45 R17",
+  "car": "VW Golf",
+  "tester": "Auto Bild braking qualifying (30 tyres)",
+  "url": "https://www.autobild.de/produkttests/ganzjahresreifen-test-22172405.html",
+  "url_original": null,
+  "disciplines": [
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": 100,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "braking qualifying; 'auf nasser Fahrbahn aus 100 km/h' per article dated 21.09.2026; end speed not stated, to standstill assumed"
+   },
+   {
+    "id": "dry",
+    "surface": "asphalt",
+    "wet": false,
+    "v_from": 100,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "braking qualifying; 'auf trockener Fahrbahn ebenfalls aus 100 km/h'; end speed not stated, to standstill assumed"
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Bridgestone Turanza All Season 6",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "wet": 42.9,
+     "dry": 36.5
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Pirelli Cinturato All Season SF3",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "wet": 43.3,
+     "dry": 37.0
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Toyo Celsius 2",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "wet": 42.1,
+     "dry": 39.1
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Ceat 4 SeasonDrive X5",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "wet": 44.6,
+     "dry": 36.6
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Goodyear Vector All Season 4",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "wet": 43.4,
+     "dry": 37.9
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Vredestein Quatrac Pro 2",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "wet": 42.8,
+     "dry": 39.0
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Falken Euro All season AS 220",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "wet": 45.0,
+     "dry": 38.2
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Continental AllSeasonContact 2",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "wet": 44.1,
+     "dry": 39.7
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Nexen N'Blue 4Season 2",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "wet": 46.6,
+     "dry": 37.4
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Nokian Season Proof 2",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "wet": 44.9,
+     "dry": 39.6
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Firestone MultiSeason 2",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "wet": 44.5,
+     "dry": 40.1
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Michelin CrossClimate 3",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "wet": 46.3,
+     "dry": 38.6
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Kleber Quadraxer 3",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "wet": 46.7,
+     "dry": 38.5
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Uniroyal All Season Expert 3",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "wet": 45.0,
+     "dry": 40.7
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Dunlop All Season 2",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "wet": 44.6,
+     "dry": 41.2
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Cooper All Season",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "wet": 45.4,
+     "dry": 40.4
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "BF Goodrich Advantage All-Season",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "wet": 47.7,
+     "dry": 38.3
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Linglong Sport Master 4S",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "wet": 47.3,
+     "dry": 39.1
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Mastersteel All Weather 2",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "wet": 50.1,
+     "dry": 37.6
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "GT Radial ClimateActive",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "wet": 48.1,
+     "dry": 39.8
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Giti AllSeason AS2",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "wet": 48.7,
+     "dry": 39.6
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Tracmax X-Privilo All Season",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "wet": 52.9,
+     "dry": 41.3
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Berlin Tires All Season 2",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "wet": 53.5,
+     "dry": 41.5
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Sunny All Season Versat",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "wet": 56.5,
+     "dry": 39.8
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Black Arrow All Season Dart 4S",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "wet": 55.7,
+     "dry": 41.1
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Lanvigator Catchfors A/S II",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "wet": 57.6,
+     "dry": 39.9
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Autogreen All Season Versat AS2",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "wet": 58.3,
+     "dry": 40.4
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Goodride All Season Elite Z-401",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "wet": 60.5,
+     "dry": 41.1
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "WestLake All Season Elite Z-401",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "wet": 60.7,
+     "dry": 41.9
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Arivo Carlorful A/S",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "wet": 62.2,
+     "dry": 41.1
+    },
+    "aqua_kmh": null,
+    "note": ""
+   }
+  ]
+ },
+ {
+  "test_id": "AUTOBILD-2026-S-245-45R19",
+  "publication": "Auto Bild",
+  "year": 2026,
+  "season": "summer",
+  "size": "245/45 R19",
+  "car": "BMW 5er",
+  "tester": "Auto Bild braking qualifying (50 tyres; best 20 went to full test)",
+  "url": "https://www.reifenlab.de/autobild/summer/2026/245-45-r19/braking-distance",
+  "url_original": "https://www.autobild.de/produkttests/sommerreifen-test-5629291.html",
+  "disciplines": [
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": null,
+    "v_to": null,
+    "temp_c": null,
+    "note": "braking qualifying; start/end speed NOT stated on source page (Auto Bild summer qualifying is normally 80-0 wet - unverified)"
+   },
+   {
+    "id": "dry",
+    "surface": "asphalt",
+    "wet": false,
+    "v_from": null,
+    "v_to": null,
+    "temp_c": null,
+    "note": "braking qualifying; start/end speed NOT stated on source page (normally 100-0 - unverified)"
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Linglong Sport Master",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "wet": 25.2,
+     "dry": 33.9
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Hankook Ventus evo",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "wet": 27.0,
+     "dry": 32.8
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Nexen N'Fera Sport",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "wet": 27.1,
+     "dry": 33.9
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Kumho Ecsta Sport (PS72)",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "wet": 27.1,
+     "dry": 34.4
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Giti GitiSport S2+",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "wet": 27.2,
+     "dry": 34.3
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Continental PremiumContact 7",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 27.3,
+     "dry": 34.3
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Pirelli Cinturato (C3)",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 27.6,
+     "dry": 34.3
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Goodyear Eagle F1 Asymmetric 6",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "wet": 27.5,
+     "dry": 34.5
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Michelin Pilot Sport 5",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "wet": 27.7,
+     "dry": 34.4
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Nokian Powerproof 2",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 28.1,
+     "dry": 34.4
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Bridgestone Potenza Sport EVO",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "wet": 28.2,
+     "dry": 34.5
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "GT Radial SportActive 2 EVO",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "wet": 27.9,
+     "dry": 35.0
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Vredestein Ultrac Pro",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "wet": 28.8,
+     "dry": 34.2
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Falken Azenis FK520",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "wet": 27.8,
+     "dry": 35.3
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Maxxis Victra Sport 6",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "wet": 28.7,
+     "dry": 35.1
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Toyo Proxes Sport 2",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "wet": 29.5,
+     "dry": 34.6
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Dunlop Sport Maxx RT2",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "wet": 29.1,
+     "dry": 35.3
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Yokohama Advan Sport V107",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "wet": 30.6,
+     "dry": 34.1
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Kleber Dynaxer HP5",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 29.9,
+     "dry": 34.9
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Sava Intensa UHP 2",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "wet": 30.2,
+     "dry": 35.2
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Fulda SportControl 2",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "wet": 29.9,
+     "dry": 35.5
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Semperit Speed-Life 3",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "wet": 28.1,
+     "dry": 37.4
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Firestone Firehawk Sport",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "wet": 29.9,
+     "dry": 35.8
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Uniroyal RainSport 5",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "wet": 29.2,
+     "dry": 37.4
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Ceat SportDrive",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "wet": 30.5,
+     "dry": 36.2
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Delinte DS2",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "wet": 30.5,
+     "dry": 36.2
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "BF Goodrich Advantage 2",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "wet": 31.1,
+     "dry": 35.8
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Landspider Sportraxx UHP",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "wet": 31.0,
+     "dry": 36.0
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Cooper Zeon 4XS Sport",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "wet": 30.8,
+     "dry": 36.4
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Avon ZX7",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "wet": 31.2,
+     "dry": 36.9
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Radar Dimax R8+",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "wet": 30.2,
+     "dry": 37.9
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "CST Adreno AD-R9",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "wet": 31.6,
+     "dry": 36.8
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Gripmax SureGrip Pro Sport",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "wet": 33.2,
+     "dry": 36.8
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Landsail RapidDragon",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "wet": 32.8,
+     "dry": 37.1
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Minerva F205",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "wet": 33.0,
+     "dry": 38.0
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Viking ProTech NewGen",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 32.7,
+     "dry": 38.3
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Sportiva Performance 2",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "wet": 32.5,
+     "dry": 38.5
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Imperial EcoSport 2",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "wet": 33.0,
+     "dry": 38.6
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Tomason SportRace",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "wet": 34.0,
+     "dry": 37.6
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Tracmax X-Privilo TX-3",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "wet": 34.0,
+     "dry": 37.6
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Matador Hectorra 5",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "wet": 33.0,
+     "dry": 39.0
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Sentury Qirin 990",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "wet": 34.4,
+     "dry": 37.6
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Aplus A610",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 33.7,
+     "dry": 38.5
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Rotalla Setula S-Race RU01",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "wet": 34.5,
+     "dry": 37.8
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Momo Toprun M300 AS Sport",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "wet": 33.9,
+     "dry": 38.6
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Marshal MU12",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "wet": 35.4,
+     "dry": 38.6
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Nankang Green Sport Eco-2 plus",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 35.9,
+     "dry": 39.4
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Dynamo Street-H MU02",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "wet": 36.8,
+     "dry": 39.1
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Austone Athena SP-303",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "wet": 37.1,
+     "dry": 39.6
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "EP Tyres Accelera Phi",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "wet": 40.2,
+     "dry": 43.0
+    },
+    "aqua_kmh": null,
+    "note": ""
+   }
+  ]
+ },
+ {
+  "test_id": "AUTOZEITUNG-2026-S-235-45R18",
+  "publication": "Auto Zeitung",
+  "year": 2026,
+  "season": "summer",
+  "size": "235/45 R18",
+  "car": "Audi A5 TFSI 150 PS S tronic",
+  "tester": "Auto Zeitung, Goodyear proving ground near Mireval (FR) plus Goodyear/Pirelli labs",
+  "url": "https://www.autozeitung.de/sommerreifen-test-300353.html",
+  "url_original": null,
+  "disciplines": [
+   {
+    "id": "dry",
+    "surface": "asphalt",
+    "wet": false,
+    "v_from": 100,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "table row 'Bremsen, 100 - 0 km/h' (dry section); article dated 23.02.2026"
+   },
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": 100,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "table row 'Bremsen, 100-0 km/h' (wet section); values unusually long for summer tyres but confirmed twice as printed"
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Continental PremiumContact 7",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 32.8,
+     "wet": 53.2
+    },
+    "aqua_kmh": 82.8,
+    "note": "published as 'Continental Premium Contact 7'"
+   },
+   {
+    "name": "Goodyear Eagle F1 Asymmetric 6",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 33.2,
+     "wet": 56.2
+    },
+    "aqua_kmh": 80.8,
+    "note": ""
+   },
+   {
+    "name": "Pirelli Cinturato C3",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 33.0,
+     "wet": 56.4
+    },
+    "aqua_kmh": 80.7,
+    "note": ""
+   },
+   {
+    "name": "Firestone Roadhawk 2",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 34.4,
+     "wet": 60.9
+    },
+    "aqua_kmh": 82.6,
+    "note": ""
+   },
+   {
+    "name": "BF Goodrich Advantage 2",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 34.1,
+     "wet": 56.4
+    },
+    "aqua_kmh": 79.7,
+    "note": ""
+   },
+   {
+    "name": "Michelin Primacy 5",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 34.8,
+     "wet": 59.6
+    },
+    "aqua_kmh": 82.2,
+    "note": ""
+   },
+   {
+    "name": "Maxxis HP6 Premitra 6",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 34.9,
+     "wet": 61.9
+    },
+    "aqua_kmh": 80.5,
+    "note": ""
+   },
+   {
+    "name": "West Lake Z-007 Zuper Ace",
+    "category": "summer_uhp",
+    "label_wet": null,
+    "results": {
+     "dry": 35.7,
+     "wet": 64.2
+    },
+    "aqua_kmh": 81.6,
+    "note": ""
+   },
+   {
+    "name": "Laufenn S Fit EQ+ (LK01)",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 35.3,
+     "wet": 65.3
+    },
+    "aqua_kmh": 79.5,
+    "note": ""
+   },
+   {
+    "name": "Tercelo Sport D1",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "dry": 35.3,
+     "wet": 63.0
+    },
+    "aqua_kmh": 78.6,
+    "note": ""
+   }
+  ]
+ },
+ {
+  "test_id": "AUTOBILD-2025-W-215-55R17",
+  "publication": "Auto Bild allrad",
+  "year": 2025,
+  "season": "winter",
+  "size": "215/55 R17",
+  "car": "VW T-Roc",
+  "tester": "Auto Bild; snow: Hankook facility Ivalo (FI); wet/dry: Triwo test center Pferdsfeld (DE). Published on autobild.de as AUTO BILD 16.10.2025; thetirelab.com attributes it to Auto Bild allrad",
+  "url": "https://www.autobild.de/produkttests/winterreifen-test-215-55-r-17-28370519.html",
+  "url_original": null,
+  "disciplines": [
+   {
+    "id": "snow",
+    "surface": "snow",
+    "wet": false,
+    "v_from": 50,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "row 'Bremsen-Schnee (Bremsweg aus Tempo 50 in Meter)'"
+   },
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": 100,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "row 'Bremsen-Nässe (Bremsweg aus Tempo 100 in Meter)'"
+   },
+   {
+    "id": "dry",
+    "surface": "asphalt",
+    "wet": false,
+    "v_from": 100,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "row 'Bremsen-Trocken (Bremsweg aus Tempo 100 in Meter)'"
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Hankook Winter i*cept RS3",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "snow": 22.9,
+     "wet": 43.8,
+     "dry": 42.58
+    },
+    "aqua_kmh": 83.3,
+    "note": ""
+   },
+   {
+    "name": "Goodyear UltraGrip Performance 3",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "snow": 23.2,
+     "wet": 46.0,
+     "dry": 41.94
+    },
+    "aqua_kmh": 79.4,
+    "note": ""
+   },
+   {
+    "name": "Vredestein Wintrac Pro+",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "snow": 24.1,
+     "wet": 45.4,
+     "dry": 42.83
+    },
+    "aqua_kmh": 81.3,
+    "note": ""
+   },
+   {
+    "name": "Continental WinterContact TS 870 P",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "snow": 23.4,
+     "wet": 45.2,
+     "dry": 42.28
+    },
+    "aqua_kmh": 78.2,
+    "note": ""
+   },
+   {
+    "name": "Kumho Wintercraft WP52 Plus",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "snow": 23.8,
+     "wet": 45.1,
+     "dry": 41.06
+    },
+    "aqua_kmh": 77.8,
+    "note": ""
+   },
+   {
+    "name": "Michelin Alpin 7",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "snow": 23.3,
+     "wet": 47.5,
+     "dry": 42.28
+    },
+    "aqua_kmh": 77.5,
+    "note": ""
+   },
+   {
+    "name": "Bridgestone Blizzak 6",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "snow": 23.1,
+     "wet": 49.0,
+     "dry": 43.47
+    },
+    "aqua_kmh": 79.0,
+    "note": ""
+   },
+   {
+    "name": "Pirelli Cinturato Winter 2",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "snow": 23.3,
+     "wet": 49.3,
+     "dry": 42.59
+    },
+    "aqua_kmh": 77.4,
+    "note": ""
+   },
+   {
+    "name": "Falken Eurowinter HS02",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "snow": 24.7,
+     "wet": 45.5,
+     "dry": 41.57
+    },
+    "aqua_kmh": 81.9,
+    "note": ""
+   },
+   {
+    "name": "Linglong Sport Master Winter",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "snow": 24.7,
+     "wet": 50.8,
+     "dry": 42.98
+    },
+    "aqua_kmh": 74.9,
+    "note": ""
+   },
+   {
+    "name": "Leao Winter Defender HP",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "snow": 25.8,
+     "wet": 48.5,
+     "dry": 43.24
+    },
+    "aqua_kmh": 73.5,
+    "note": ""
+   },
+   {
+    "name": "TOMKET Snowroad Pro 3",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "snow": 26.2,
+     "wet": 53.5,
+     "dry": 44.34
+    },
+    "aqua_kmh": 75.4,
+    "note": ""
+   }
+  ]
+ },
+ {
+  "test_id": "AUTOBILD-2025-W-235-50R19",
+  "publication": "Auto Bild sportscars",
+  "year": 2025,
+  "season": "winter",
+  "size": "235/50 R19",
+  "car": "Audi Q3 Sportback 45 TFSI quattro (245 PS)",
+  "tester": "Auto Bild; snow/ice Vidsel (SE), wet/dry Aprilia (IT). autobild.de dated 11.10.2025; tyrereviews.com names it Auto Bild Sportscars",
+  "url": "https://www.autobild.de/produkttests/winterreifen-test-235-50-r-19-28358271.html",
+  "url_original": null,
+  "disciplines": [
+   {
+    "id": "snow",
+    "surface": "snow",
+    "wet": false,
+    "v_from": 50,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "row 'Bremsen-Schnee (Bremsweg aus Tempo 50 in Meter)'"
+   },
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": 100,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "row 'Bremsen-Nässe (Bremsweg aus Tempo 100 in Meter)'; tyrereviews.com also labels wet 100-0"
+   },
+   {
+    "id": "dry",
+    "surface": "asphalt",
+    "wet": false,
+    "v_from": 100,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "row 'Bremsen-Trocken (Bremsweg aus Tempo 100 in Meter)'"
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Bridgestone Blizzak 6",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "snow": 29.7,
+     "wet": 50.0,
+     "dry": 42.2
+    },
+    "aqua_kmh": 76.8,
+    "note": "tyrereviews.com prints dry 40.8 / snow 27.9 for this tyre; autobild.de values used"
+   },
+   {
+    "name": "Continental WinterContact TS 870 P",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "snow": 30.7,
+     "wet": 51.1,
+     "dry": 40.0
+    },
+    "aqua_kmh": 75.9,
+    "note": "tyrereviews.com prints snow 30.2; autobild.de value used"
+   },
+   {
+    "name": "Michelin Alpin 7",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "snow": 29.5,
+     "wet": 51.4,
+     "dry": 41.4
+    },
+    "aqua_kmh": 77.1,
+    "note": "tyrereviews.com prints snow 28.5; autobild.de value used"
+   },
+   {
+    "name": "Pirelli Scorpion Winter 2",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "snow": 31.1,
+     "wet": 49.8,
+     "dry": 40.8
+    },
+    "aqua_kmh": 76.1,
+    "note": "tyrereviews.com prints dry 42.2; autobild.de value used"
+   },
+   {
+    "name": "Goodyear UltraGrip Performance 3",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "snow": 30.2,
+     "wet": 51.4,
+     "dry": 41.2
+    },
+    "aqua_kmh": 73.1,
+    "note": ""
+   },
+   {
+    "name": "Hankook Winter i*cept evo3 X W330A",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "snow": 30.1,
+     "wet": 49.8,
+     "dry": 43.8
+    },
+    "aqua_kmh": 76.1,
+    "note": ""
+   },
+   {
+    "name": "Nokian Snowproof 2 SUV",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "snow": 31.5,
+     "wet": 53.9,
+     "dry": 45.3
+    },
+    "aqua_kmh": 79.7,
+    "note": ""
+   },
+   {
+    "name": "Giti Winter W2 SUV",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "snow": 31.9,
+     "wet": 51.3,
+     "dry": 44.7
+    },
+    "aqua_kmh": 72.8,
+    "note": ""
+   },
+   {
+    "name": "Falken EUROWINTER HS02PRO",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "snow": 31.5,
+     "wet": 54.2,
+     "dry": 45.6
+    },
+    "aqua_kmh": 67.4,
+    "note": ""
+   },
+   {
+    "name": "SUPERIA Bluewin UHP 3",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "snow": 31.9,
+     "wet": 64.5,
+     "dry": 43.8
+    },
+    "aqua_kmh": 61.2,
+    "note": ""
+   }
+  ]
+ },
+ {
+  "test_id": "AUTOBILD-2024-W-245-45R18",
+  "publication": "Auto Bild allrad",
+  "year": 2024,
+  "season": "winter",
+  "size": "245/45 R18",
+  "car": null,
+  "tester": "Auto Bild; snow Ivalo (FI), wet/dry braking Emsland (DE), handling Pferdsfeld (DE). tyrereviews.com names it Auto Bild AllRad",
+  "url": "https://www.autobild.de/produkttests/winterreifen-test-245-45-r18-14155009.html",
+  "url_original": null,
+  "disciplines": [
+   {
+    "id": "snow",
+    "surface": "snow",
+    "wet": false,
+    "v_from": 50,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "row 'Bremsen-Schnee (Bremsweg aus Tempo 50 in Meter)'"
+   },
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": null,
+    "v_to": null,
+    "temp_c": null,
+    "note": "row label on page reads 'aus Tempo 100', but values 31-36 m (shorter than dry) imply a lower start speed; page template label judged unreliable, speed left null"
+   },
+   {
+    "id": "dry",
+    "surface": "asphalt",
+    "wet": false,
+    "v_from": 100,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "row 'Bremsen-Trocken (Bremsweg aus Tempo 100 in Meter)'"
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Michelin Pilot Alpin 5",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "snow": 20.5,
+     "wet": 32.5,
+     "dry": 40.7
+    },
+    "aqua_kmh": 78.3,
+    "note": ""
+   },
+   {
+    "name": "Continental WinterContact TS 870 P",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "snow": 22.0,
+     "wet": 31.0,
+     "dry": 41.2
+    },
+    "aqua_kmh": 78.5,
+    "note": ""
+   },
+   {
+    "name": "Goodyear UG Performance 3",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "snow": 21.4,
+     "wet": 32.0,
+     "dry": 40.8
+    },
+    "aqua_kmh": 76.9,
+    "note": ""
+   },
+   {
+    "name": "Bridgestone Blizzak 6",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "snow": 21.3,
+     "wet": 32.4,
+     "dry": 42.5
+    },
+    "aqua_kmh": 75.2,
+    "note": "tyrereviews.com assigns several values differently between tyres; autobild.de (original) values used"
+   },
+   {
+    "name": "Hankook Winter i*cept evo3 W330",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "snow": 21.5,
+     "wet": 32.3,
+     "dry": 41.6
+    },
+    "aqua_kmh": 77.9,
+    "note": ""
+   },
+   {
+    "name": "Vredestein Wintrac Pro",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "snow": 21.6,
+     "wet": 34.8,
+     "dry": 42.7
+    },
+    "aqua_kmh": 73.4,
+    "note": "tyrereviews.com assigns several values differently between tyres; autobild.de (original) values used"
+   },
+   {
+    "name": "Kumho WinterCraft WP52",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "snow": 22.4,
+     "wet": 32.6,
+     "dry": 41.9
+    },
+    "aqua_kmh": 75.3,
+    "note": ""
+   },
+   {
+    "name": "Giti GitiWinter W2",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "snow": 21.6,
+     "wet": 33.5,
+     "dry": 42.6
+    },
+    "aqua_kmh": 81.0,
+    "note": "tyrereviews.com assigns several values differently between tyres; autobild.de (original) values used"
+   },
+   {
+    "name": "Pirelli P Zero Winter",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "snow": 23.3,
+     "wet": 34.1,
+     "dry": 43.0
+    },
+    "aqua_kmh": 71.7,
+    "note": "tyrereviews.com assigns several values differently between tyres; autobild.de (original) values used"
+   },
+   {
+    "name": "Falken Eurowinter HS02Pro",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "snow": 23.1,
+     "wet": 34.4,
+     "dry": 41.8
+    },
+    "aqua_kmh": 69.8,
+    "note": "tyrereviews.com assigns several values differently between tyres; autobild.de (original) values used"
+   },
+   {
+    "name": "Maxxis Premitra Snow WP6",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "snow": 21.8,
+     "wet": 35.6,
+     "dry": 43.3
+    },
+    "aqua_kmh": 81.2,
+    "note": "tyrereviews.com assigns several values differently between tyres; autobild.de (original) values used"
+   }
+  ]
+ },
+ {
+  "test_id": "AUTOBILD-2024-W-235-35R19",
+  "publication": "Auto Bild",
+  "year": 2024,
+  "season": "winter",
+  "size": "235/35 R19",
+  "car": "BMW M135i",
+  "tester": "Auto Bild (sports-car winter test)",
+  "url": "https://www.autobild.de/produkttests/winterreifen-test-235-35-r19-26490443.html",
+  "url_original": null,
+  "disciplines": [
+   {
+    "id": "snow",
+    "surface": "snow",
+    "wet": false,
+    "v_from": 50,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "row 'Bremsen-Schnee (Bremsweg aus Tempo 50 in Meter)'"
+   },
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": 100,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "row 'Bremsen-Nässe (Bremsweg aus Tempo 100 in Meter)'"
+   },
+   {
+    "id": "dry",
+    "surface": "asphalt",
+    "wet": false,
+    "v_from": 100,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "row 'Bremsen-Trocken (Bremsweg aus Tempo 100 in Meter)'"
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Michelin Pilot Alpin 5",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "snow": 30.2,
+     "wet": 51.3,
+     "dry": 41.8
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Goodyear UltraGrip Performance 3",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "snow": 31.6,
+     "wet": 49.3,
+     "dry": 41.5
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Continental WinterContact TS 870 P",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "snow": 31.5,
+     "wet": 51.5,
+     "dry": 43.2
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Dunlop Winter Sport 5",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "snow": 31.1,
+     "wet": 48.8,
+     "dry": 43.3
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Bridgestone Blizzak 6",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "snow": 30.8,
+     "wet": 48.2,
+     "dry": 44.3
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Hankook Winter i*cept evo3 W330",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "snow": 31.5,
+     "wet": 50.8,
+     "dry": 43.8
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Ceat WinterDrive Sport",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "snow": 31.8,
+     "wet": 57.8,
+     "dry": 42.1
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Radar Dimax Alpine",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "snow": 30.4,
+     "wet": 62.1,
+     "dry": 43.5
+    },
+    "aqua_kmh": null,
+    "note": ""
+   }
+  ]
+ },
+ {
+  "test_id": "AUTOBILD-2023-W-225-45R18-FINAL",
+  "publication": "Auto Bild",
+  "year": 2023,
+  "season": "winter",
+  "size": "225/45 R18",
+  "car": "BMW 3er",
+  "tester": "Auto Bild main test (final round after braking qualifying AUTOBILD-2023-W-225-45R18)",
+  "url": "https://www.autobild.de/produkttests/winterreifen-test-225-45-r-18-23160625.html",
+  "url_original": null,
+  "disciplines": [
+   {
+    "id": "dry",
+    "surface": "asphalt",
+    "wet": false,
+    "v_from": 100,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "row 'Bremsen-Trocken (Bremsweg aus Tempo 100 in Meter)'"
+   },
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": 100,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "row 'Bremsen-Nässe (Bremsweg aus Tempo 100 in Meter)'"
+   },
+   {
+    "id": "snow",
+    "surface": "snow",
+    "wet": false,
+    "v_from": 50,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "row 'Bremsen-Schnee (Bremsweg aus Tempo 50 in Meter)'"
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Michelin Pilot Alpin 5",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "dry": 41.4,
+     "wet": 49.8,
+     "snow": 32.0
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Goodyear UG Performance 3",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "dry": 43.5,
+     "wet": 52.1,
+     "snow": 32.1
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Continental WinterContact TS 870 P",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "dry": 54.6,
+     "wet": 54.6,
+     "snow": 30.5
+    },
+    "aqua_kmh": null,
+    "note": "dry 54.6 as printed (read twice); identical to its wet value and implausible - likely a source typo"
+   },
+   {
+    "name": "BF-Goodrich G-Force Winter 2",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "dry": 44.0,
+     "wet": 55.5,
+     "snow": 30.7
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Pirelli Cinturato Winter 2",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "dry": 44.4,
+     "wet": 54.6,
+     "snow": 30.7
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Hankook Winter i*cept evo3 W330",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "dry": 43.9,
+     "wet": 49.7,
+     "snow": 31.7
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Dunlop Winter Sport 5",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "dry": 43.6,
+     "wet": 52.4,
+     "snow": 31.8
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Vredestein Wintrac Pro",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "dry": 44.5,
+     "wet": 56.9,
+     "snow": 30.6
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Kleber Krisalp HP 3",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "dry": 45.6,
+     "wet": 54.6,
+     "snow": 29.3
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Bridgestone Blizzak LM005",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "dry": 43.1,
+     "wet": 49.0,
+     "snow": 32.2
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Uniroyal WinterExpert",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "dry": 47.1,
+     "wet": 54.7,
+     "snow": 30.7
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Laufenn I Fit+ LW31",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "dry": 44.8,
+     "wet": 54.9,
+     "snow": 30.6
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Toyo Observe S944",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "dry": 44.5,
+     "wet": 55.8,
+     "snow": 30.8
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Semperit Speed-Grip 5",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "dry": 46.6,
+     "wet": 56.1,
+     "snow": 31.3
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Falken Eurowinter HS02 PRO",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "dry": 44.1,
+     "wet": 56.2,
+     "snow": 31.3
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Debica Frigo HP2",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "dry": 46.8,
+     "wet": 57.7,
+     "snow": 30.1
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Firestone Winterhawk 4",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "dry": 46.5,
+     "wet": 53.0,
+     "snow": 31.0
+    },
+    "aqua_kmh": null,
+    "note": ""
+   }
+  ]
+ },
+ {
+  "test_id": "AUTOZEITUNG-2022-W-225-45R17",
+  "publication": "Auto Zeitung",
+  "year": 2022,
+  "season": "winter",
+  "size": "225/45 R17",
+  "car": "Audi A3",
+  "tester": "Auto Zeitung",
+  "url": "https://www.tyrereviews.com/Article/2022-Auto-Zeitung--Winter-Tyre-Test.htm",
+  "url_original": "https://www.autozeitung.de/winterreifen-test-2022-202485.html",
+  "disciplines": [
+   {
+    "id": "dry",
+    "surface": "asphalt",
+    "wet": false,
+    "v_from": 100,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "source heading 'Dry braking in meters (100 - 0 km/h)'"
+   },
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": 100,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "source heading 'Wet braking in meters (100 - 0 km/h)'"
+   },
+   {
+    "id": "snow",
+    "surface": "snow",
+    "wet": false,
+    "v_from": 50,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "source heading 'Snow braking in meters (50 - 0 km/h)'"
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Continental WinterContact TS 870",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "dry": 46.1,
+     "wet": 51.9,
+     "snow": 26.0
+    },
+    "aqua_kmh": 75.2,
+    "note": ""
+   },
+   {
+    "name": "Bridgestone Blizzak LM005",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "dry": 45.5,
+     "wet": 50.3,
+     "snow": 27.0
+    },
+    "aqua_kmh": 74.4,
+    "note": ""
+   },
+   {
+    "name": "Michelin Alpin 6",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "dry": 46.4,
+     "wet": 53.3,
+     "snow": 27.3
+    },
+    "aqua_kmh": 73.4,
+    "note": ""
+   },
+   {
+    "name": "Nokian Snowproof P",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "dry": 45.0,
+     "wet": 55.5,
+     "snow": 27.0
+    },
+    "aqua_kmh": 64.8,
+    "note": ""
+   },
+   {
+    "name": "Vredestein Wintrac Pro",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "dry": 46.3,
+     "wet": 53.6,
+     "snow": 27.0
+    },
+    "aqua_kmh": 71.4,
+    "note": ""
+   },
+   {
+    "name": "Fulda Kristall Control HP2",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "dry": 48.1,
+     "wet": 59.2,
+     "snow": 26.7
+    },
+    "aqua_kmh": 72.7,
+    "note": ""
+   },
+   {
+    "name": "Pirelli Cinturato Winter 2",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "dry": 45.8,
+     "wet": 55.8,
+     "snow": 28.1
+    },
+    "aqua_kmh": 72.6,
+    "note": ""
+   },
+   {
+    "name": "Giti GitiWinterW2",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "dry": 49.0,
+     "wet": 61.4,
+     "snow": 26.7
+    },
+    "aqua_kmh": 73.9,
+    "note": ""
+   }
+  ]
+ },
+ {
+  "test_id": "AUTOBILD-2021-W-235-55R18",
+  "publication": "Auto Bild",
+  "year": 2021,
+  "season": "winter",
+  "size": "235/55 R18",
+  "car": null,
+  "tester": "Auto Bild SUV winter test; wet/dry Bridgestone proving ground Rome (Dec), snow Arvidsjaur (SE, Jan)",
+  "url": "https://www.autobild.de/produkttests/winterreifen-test-235-55-r-18-20674021.html",
+  "url_original": null,
+  "disciplines": [
+   {
+    "id": "snow",
+    "surface": "snow",
+    "wet": false,
+    "v_from": 50,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "row 'Bremsen-Schnee (Bremsweg aus Tempo 50 in Meter)'"
+   },
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": null,
+    "v_to": null,
+    "temp_c": null,
+    "note": "row label on page reads 'aus Tempo 100', but values 41.6-52.6 m (mostly shorter than dry) imply a lower start speed; label judged unreliable, speed left null"
+   },
+   {
+    "id": "dry",
+    "surface": "asphalt",
+    "wet": false,
+    "v_from": 100,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "row 'Bremsen-Trocken (Bremsweg aus Tempo 100 in Meter)'"
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Bridgestone Blizzak LM005",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "snow": 25.9,
+     "wet": 42.7,
+     "dry": 45.3
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Vredestein Wintrac Pro+",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "snow": 26.0,
+     "wet": 41.6,
+     "dry": 44.8
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Continental ContiWinterContact TS 850 P",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "snow": 27.2,
+     "wet": 44.1,
+     "dry": 45.2
+    },
+    "aqua_kmh": null,
+    "note": "size printed on page as 235/65 R17 104H AO"
+   },
+   {
+    "name": "Hankook Winter i*cept evo3 X W330A",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "snow": 26.5,
+     "wet": 42.7,
+     "dry": 44.1
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Toyo Snowprox S 954",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "snow": 29.7,
+     "wet": 43.6,
+     "dry": 45.1
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Nokian WR SUV 4",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "snow": 27.6,
+     "wet": 45.8,
+     "dry": 44.6
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Tristar Snowpower",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "snow": 30.8,
+     "wet": 52.6,
+     "dry": 44.0
+    },
+    "aqua_kmh": null,
+    "note": ""
+   }
+  ]
+ },
+ {
+  "test_id": "AUTOBILD-2020-W-245-45R18",
+  "publication": "Auto Bild",
+  "year": 2020,
+  "season": "winter",
+  "size": "245/45 R18",
+  "car": "BMW 5er",
+  "tester": "Auto Bild braking qualifying (50 tyres)",
+  "url": "https://www.reifenlab.de/autobild/winter/2020/245-45-r18/braking-distance",
+  "url_original": null,
+  "disciplines": [
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": null,
+    "v_to": null,
+    "temp_c": null,
+    "note": "braking qualifying; start/end speed NOT stated on source page (Auto Bild winter qualifying is 80-0 in 2026 - unverified for this year)"
+   },
+   {
+    "id": "snow",
+    "surface": "snow",
+    "wet": false,
+    "v_from": null,
+    "v_to": null,
+    "temp_c": null,
+    "note": "braking qualifying; start speed NOT stated on source page (50 km/h in other Auto Bild qualifyings - unverified); tyres ranked 31-50 on wet were not braked on snow"
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Bridgestone Blizzak LM-005",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 30.3,
+     "snow": 24.5
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Michelin Pilot Alpin 5",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 31.9,
+     "snow": 24.3
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Semperit Speed-Grip 3",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 30.8,
+     "snow": 26.0
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Continental ContiWinterContact TS 850P",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 31.8,
+     "snow": 25.2
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Hankook Winter i*cept evo3 W330",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 32.3,
+     "snow": 25.0
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Vredestein Wintrac Pro",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 33.2,
+     "snow": 24.9
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Kleber KRISALP HP3",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 34.4,
+     "snow": 24.6
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "GoodYear UltraGrip Performance+",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 34.4,
+     "snow": 24.8
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Uniroyal MS plus 77",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 34.2,
+     "snow": 25.0
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Barum Polaris 5",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 35.2,
+     "snow": 24.9
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Nokian WR A4",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 34.6,
+     "snow": 25.5
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Dunlop Winter Sport 5",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 35.2,
+     "snow": 25.0
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Apollo Aspire XP Winter",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 35.1,
+     "snow": 25.3
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Giti GitiWinter W1",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 35.2,
+     "snow": 25.4
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Cooper WeatherMaster SA2+",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 34.6,
+     "snow": 26.1
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "General Altimax Winter 3",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 36.0,
+     "snow": 24.7
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Fulda Kristall Control HP2",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 36.3,
+     "snow": 24.5
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Laufenn I FIT Plus",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 36.2,
+     "snow": 24.8
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Pirelli Winter Sottozero 3",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 35.2,
+     "snow": 25.8
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Sava Eskimo HP2",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 36.3,
+     "snow": 25.1
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Yokohama BluEarth winter V905",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 35.4,
+     "snow": 26.1
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Fortune FSR901",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 36.3,
+     "snow": 25.3
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Nexen WinGuard Sport 2 WU7",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 36.5,
+     "snow": 25.1
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Goodride Z507",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 34.7,
+     "snow": 27.0
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Platin RP 60 Winter",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 37.0,
+     "snow": 25.2
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Westlake SW608",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 34.2,
+     "snow": 28.0
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Gislaved euro Frost 6",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 36.9,
+     "snow": 25.8
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Kumho WinterCraft WP71",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 35.7,
+     "snow": 28.0
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Toyo Snowprox S954",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 37.0,
+     "snow": 26.9
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Falken EuroWinter HS01",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 37.0,
+     "snow": 27.0
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Riken Snow",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 37.1
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Firestone Winterhawk 3",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 37.9
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "GT Radial Champiro WinterPro HP",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 38.3
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Fortuna Winter",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 38.4
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Zeetex WH 1000",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 38.7
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Infinity Ecozen",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 38.9
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Aeolus snowace 2 HP AW09",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 39.0
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Tomket Snowroad PRO 3",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 39.3
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Atlas Polarbear 2",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 39.6
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Radar Dimax Alpine",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 40.5
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Haida HD617",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 40.6
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Mazzini Snow Leopard",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 40.6
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Duraturn Mozzo Winter",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 40.7
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Nordexx Wintersafe",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 41.0
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Tracmax S210",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 41.1
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Imperial Snowdragon 3",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 41.4
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Wanli S 1083 Snow Grip",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 41.4
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Momo W2 North Pole",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 41.7
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Starmaxx W850",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 42.3
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Petlas Snowmaster W651",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 43.1
+    },
+    "aqua_kmh": null,
+    "note": ""
+   }
+  ]
+ },
+ {
+  "test_id": "AUTOBILD-2019-W-225-45R17",
+  "publication": "Auto Bild",
+  "year": 2019,
+  "season": "winter",
+  "size": "225/45 R17",
+  "car": "BMW 1er",
+  "tester": "Auto Bild braking qualifying (53 tyres)",
+  "url": "https://www.reifenlab.de/autobild/winter/2019/225-45-r17/braking-distance",
+  "url_original": null,
+  "disciplines": [
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": null,
+    "v_to": null,
+    "temp_c": null,
+    "note": "braking qualifying; start/end speed NOT stated on source page (Auto Bild winter qualifying is 80-0 in 2026 - unverified for this year)"
+   },
+   {
+    "id": "snow",
+    "surface": "snow",
+    "wet": false,
+    "v_from": null,
+    "v_to": null,
+    "temp_c": null,
+    "note": "braking qualifying; start speed NOT stated on source page (50 km/h in other Auto Bild qualifyings - unverified); tyres ranked 31-53 on wet were not braked on snow"
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Bridgestone Blizzak LM-005",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 29.2,
+     "snow": 24.6
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "GoodYear UltraGrip Performance+",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 30.6,
+     "snow": 24.3
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Michelin Alpin 6",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 30.4,
+     "snow": 24.7
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Semperit Speed-Grip 3",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 31.6,
+     "snow": 24.3
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Continental WinterContact TS 860",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 31.5,
+     "snow": 24.5
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Vredestein Wintrac Pro",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 30.8,
+     "snow": 25.2
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "BF Goodrich g-force Winter",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 32.0,
+     "snow": 24.2
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Kleber KRISALP HP3",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 32.2,
+     "snow": 24.0
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Apollo Aspire XP",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 31.2,
+     "snow": 25.1
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Kumho WinterCraft WP71",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 31.5,
+     "snow": 24.8
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Nokian WR Snowproof",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 32.2,
+     "snow": 24.6
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Hankook Winter i*cept RS2 W452",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 32.0,
+     "snow": 24.9
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Dunlop Winter Sport 5",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 32.9,
+     "snow": 24.3
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Uniroyal MS plus 77",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 32.8,
+     "snow": 24.6
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Nexen WinGuard Sport 2 WU7",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 33.0,
+     "snow": 24.7
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Pirelli Winter Sottozero 3",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 31.3,
+     "snow": 26.4
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Sava Eskimo HP2",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 33.6,
+     "snow": 24.1
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Fulda Kristall Control HP2",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 33.5,
+     "snow": 24.3
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Debica Frigo HP2",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 34.2,
+     "snow": 24.1
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Yokohama BluEarth winter V905",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 32.5,
+     "snow": 26.0
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Barum Polaris 5",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 33.9,
+     "snow": 25.0
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Maxxis WP-05 Arctictrekker",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 34.2,
+     "snow": 24.6
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Avon WV7",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 32.4,
+     "snow": 27.0
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Firestone Winterhawk 3",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 34.3,
+     "snow": 25.5
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Falken EuroWinter HS01",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 33.9,
+     "snow": 26.1
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Cooper WeatherMaster SA2+",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 31.9,
+     "snow": 28.3
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Toyo Snowprox S954",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 34.0,
+     "snow": 26.7
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Seiberling Winter",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 34.3,
+     "snow": 27.3
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Dayton DW 510Evo",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 33.4,
+     "snow": 28.7
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Imperial Snowdragon 3",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 33.9,
+     "snow": 31.7
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Paxaro Winter",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 34.4
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Mabor Winter-Jet 3",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 34.7
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Matador MP92 Sibir Snow",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 34.8
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Tyfoon Eurosnow 2",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 34.6
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "General Altimax Winter 3",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 34.9
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Gislaved euro Frost 6",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 35.1
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Linglong Green-Max Winter UHP",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 35.2
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Kenda Wintergen 2",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 35.3
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Giti GitiWinter Q1",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 35.6
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Cachland CH-W2002",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 35.7
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Viking WinTech",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 35.8
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Blacklion Snow Pioneer BM56",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 36.7
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Fortuna Winter-Max A1",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 36.9
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Sailun Iceblazer Alpine Evo",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 36.9
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "King Meiler Winter Tact WT84",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 37.4
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Duraturn Mozzo Winter",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 37.6
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Superia Bluewin UHP",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 37.7
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Profil Tyres Pro Snow Ultra",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 37.9
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Windforce Snowpower",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 38.5
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "A-plus A502",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 39.0
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Mazzini Snow Leopard",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 39.1
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Triangel Snow Lion TR 777",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 39.2
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Laufenn I Fit LW31",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 39.4
+    },
+    "aqua_kmh": null,
+    "note": ""
+   }
+  ]
+ }
+]

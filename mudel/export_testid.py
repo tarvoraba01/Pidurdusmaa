@@ -36,6 +36,15 @@ def model_index():
         bt = B._tok(m["mark"])
         if bt:
             idx[bt[0]].append((slug, bt, "".join(B._tok(m["nimi"]))))
+    # testitud rehvid (core.json), millel EPREL-i mudelit ei ole — nt naastrehvid
+    core = json.load(open(os.path.join(B.CORE, "core.json"), encoding="utf-8"))
+    for t in core.get("tyres", []):
+        slug = t.get("slug")
+        if not slug or slug in models:
+            continue
+        tk = B._tok(t["name"])
+        if len(tk) > 1:
+            idx[tk[0]].append((slug, tk[:1], "".join(tk[1:])))
     return idx
 
 
@@ -43,6 +52,9 @@ def match(idx, name):
     t = B._tok(name)
     if not t:
         return None
+    # „Nokian Tyres Snowproof 2“ → nokian snowproof 2
+    if len(t) > 2 and t[1] in ("tyres", "tires"):
+        t = t[:1] + t[2:]
     cands = []
     for slug, bt, rn in idx.get(B.BRAND_ALIAS.get(t[0], t[0]), []):
         model = t[len(bt):] if t[:len(bt)] == bt else t[1:]

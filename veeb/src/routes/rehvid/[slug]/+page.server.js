@@ -21,6 +21,7 @@ import {
 	extTests
 } from '$lib/server/andmed.js';
 import { autodMoodus } from '$lib/server/autod.js';
+import { talveMoot } from '$lib/server/talv.js';
 
 /* Kolm lehte ühe aadressimustri all — täpselt nagu PHP-s pm_ctx():
    /rehvid/205-55-r16/          → mõõdu leht
@@ -99,7 +100,8 @@ function mootLeht(size) {
 		cars,
 		autosid: koikAutod.length,
 		n: rows.length,
-		noindex: rows.length < SIZE_MIN_MODELS
+		noindex: rows.length < SIZE_MIN_MODELS,
+		talv: talveMoot(size.slug) ? size.slug : null
 	};
 }
 

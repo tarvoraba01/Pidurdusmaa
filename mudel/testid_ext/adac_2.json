@@ -1,0 +1,798 @@
+[
+ {
+  "test_id": "ADAC-2026-W-185-65R15",
+  "publication": "ADAC",
+  "year": 2026,
+  "season": "winter",
+  "size": "185/65 R15 88 T",
+  "car": "Skoda Fabia",
+  "tester": "ADAC (with partner clubs); 16 tyres",
+  "url": "https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/winterreifen/185-65-r15-2026/",
+  "url_original": null,
+  "disciplines": [
+   {
+    "id": "dry",
+    "surface": "asphalt",
+    "wet": false,
+    "v_from": 100,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "ADAC 'Bremsweg (100 - 0 km/h) trocken in m'; per-tyre values read from each tyre's ADAC detail page (url in tyre note)"
+   },
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": 80,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "ADAC 'Bremsweg (80 - 0 km/h) nasser Asphalt in m'; per-tyre values read from each tyre's ADAC detail page (url in tyre note)"
+   },
+   {
+    "id": "wet_concrete",
+    "surface": "concrete",
+    "wet": true,
+    "v_from": 80,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "ADAC 'Bremsweg (80 - 0 km/h) nasser Beton in m'; per-tyre values read from each tyre's ADAC detail page (url in tyre note)"
+   },
+   {
+    "id": "snow",
+    "surface": "snow",
+    "wet": false,
+    "v_from": 30,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "ADAC 'Bremsen Schnee (30 - 0 km/h) in m'; per-tyre values read from each tyre's ADAC detail page (url in tyre note)"
+   },
+   {
+    "id": "ice",
+    "surface": "ice",
+    "wet": false,
+    "v_from": 20,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "ADAC 'Bremsen Eis (20 - 0 km/h) in m'; per-tyre values read from each tyre's ADAC detail page (url in tyre note)"
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Continental WinterContact TS 870",
+    "category": "winter_central",
+    "label_wet": "B",
+    "results": {
+     "dry": 44.5,
+     "wet": 36.1,
+     "wet_concrete": 39.4,
+     "snow": 10.4,
+     "ice": 21.5
+    },
+    "aqua_kmh": null,
+    "note": "ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/winterreifen/185-65-r15-2026/continental-wintercontact-ts-870-id-5202/"
+   },
+   {
+    "name": "Michelin Alpin 7",
+    "category": "winter_central",
+    "label_wet": "B",
+    "results": {
+     "dry": 44.5,
+     "wet": 37.1,
+     "wet_concrete": 39.4,
+     "snow": 10.5,
+     "ice": 20.1
+    },
+    "aqua_kmh": null,
+    "note": "ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/winterreifen/185-65-r15-2026/michelin-alpin-7-id-5203/"
+   },
+   {
+    "name": "Hankook Winter i*cept RS3",
+    "category": "winter_central",
+    "label_wet": "B",
+    "results": {
+     "dry": 45.2,
+     "wet": 37.1,
+     "wet_concrete": 40.2,
+     "snow": 10.7,
+     "ice": 22.0
+    },
+    "aqua_kmh": null,
+    "note": "ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/winterreifen/185-65-r15-2026/hankook-winter-icept-rs3-id-5204/"
+   },
+   {
+    "name": "Linglong Sport Master Winter",
+    "category": "winter_central",
+    "label_wet": "B",
+    "results": {
+     "dry": 43.3,
+     "wet": 37.7,
+     "wet_concrete": 40.2,
+     "snow": 10.9,
+     "ice": 22.4
+    },
+    "aqua_kmh": null,
+    "note": "ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/winterreifen/185-65-r15-2026/linglong-sport-master-winter-id-5205/"
+   },
+   {
+    "name": "Optimo Winter Touring OW41",
+    "category": "winter_central",
+    "label_wet": "C",
+    "results": {
+     "dry": 44.6,
+     "wet": 39.1,
+     "wet_concrete": 42.1,
+     "snow": 10.7,
+     "ice": 21.5
+    },
+    "aqua_kmh": null,
+    "note": "ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/winterreifen/185-65-r15-2026/optimo-winter-touring-ow41-id-5206/"
+   },
+   {
+    "name": "Goodyear UltraGrip Performance 3",
+    "category": "winter_central",
+    "label_wet": "B",
+    "results": {
+     "dry": 44.2,
+     "wet": 36.5,
+     "wet_concrete": 40.1,
+     "snow": 10.1,
+     "ice": 22.6
+    },
+    "aqua_kmh": null,
+    "note": "ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/winterreifen/185-65-r15-2026/goodyear-ultragrip-performance-3-id-5207/"
+   },
+   {
+    "name": "GT Radial WinterPro2 Evo",
+    "category": "winter_central",
+    "label_wet": "B",
+    "results": {
+     "dry": 44.3,
+     "wet": 38.9,
+     "wet_concrete": 42.2,
+     "snow": 10.4,
+     "ice": 21.0
+    },
+    "aqua_kmh": null,
+    "note": "ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/winterreifen/185-65-r15-2026/gt-radial-winterpro2-evo-id-5208/"
+   },
+   {
+    "name": "Bridgestone Blizzak LM 005",
+    "category": "winter_central",
+    "label_wet": "A",
+    "results": {
+     "dry": 45.0,
+     "wet": 33.5,
+     "wet_concrete": 36.9,
+     "snow": 10.7,
+     "ice": 22.0
+    },
+    "aqua_kmh": null,
+    "note": "ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/winterreifen/185-65-r15-2026/bridgestone-blizzak-lm-005-id-5209/"
+   },
+   {
+    "name": "Nokian Tyres Snowproof 2",
+    "category": "winter_central",
+    "label_wet": "B",
+    "results": {
+     "dry": 44.3,
+     "wet": 38.5,
+     "wet_concrete": 41.7,
+     "snow": 10.3,
+     "ice": 21.2
+    },
+    "aqua_kmh": null,
+    "note": "ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/winterreifen/185-65-r15-2026/nokian-tyres-snowproof-2-id-5210/"
+   },
+   {
+    "name": "Vredestein Wintrac",
+    "category": "winter_central",
+    "label_wet": "B",
+    "results": {
+     "dry": 44.9,
+     "wet": 37.1,
+     "wet_concrete": 39.8,
+     "snow": 10.6,
+     "ice": 21.0
+    },
+    "aqua_kmh": null,
+    "note": "tested as 88 H; ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/winterreifen/185-65-r15-2026/vredestein-wintrac-id-5211/"
+   },
+   {
+    "name": "Barum Polaris 6",
+    "category": "winter_central",
+    "label_wet": "C",
+    "results": {
+     "dry": 47.4,
+     "wet": 39.8,
+     "wet_concrete": 44.6,
+     "snow": 10.0,
+     "ice": 20.2
+    },
+    "aqua_kmh": null,
+    "note": "ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/winterreifen/185-65-r15-2026/barum-polaris-6-id-5212/"
+   },
+   {
+    "name": "Kumho WinterCraft WP52+",
+    "category": "winter_central",
+    "label_wet": "B",
+    "results": {
+     "dry": 43.8,
+     "wet": 35.3,
+     "wet_concrete": 39.0,
+     "snow": 10.2,
+     "ice": 21.5
+    },
+    "aqua_kmh": null,
+    "note": "ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/winterreifen/185-65-r15-2026/kumho-wintercraft-wp52plus-id-5213/"
+   },
+   {
+    "name": "Viking WinTech NewGen",
+    "category": "winter_central",
+    "label_wet": "C",
+    "results": {
+     "dry": 48.4,
+     "wet": 39.8,
+     "wet_concrete": 44.1,
+     "snow": 10.2,
+     "ice": 19.6
+    },
+    "aqua_kmh": null,
+    "note": "ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/winterreifen/185-65-r15-2026/viking-wintech-newgen-id-5214/"
+   },
+   {
+    "name": "Sunny Winter-max NW611",
+    "category": "winter_central",
+    "label_wet": "C",
+    "results": {
+     "dry": 46.2,
+     "wet": 43.5,
+     "wet_concrete": 48.5,
+     "snow": 10.2,
+     "ice": 20.9
+    },
+    "aqua_kmh": null,
+    "note": "ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/winterreifen/185-65-r15-2026/sunny-winter-max-nw611-id-5215/"
+   },
+   {
+    "name": "Atlas Polarbear HP",
+    "category": "winter_central",
+    "label_wet": "C",
+    "results": {
+     "dry": 46.1,
+     "wet": 48.7,
+     "wet_concrete": 53.3,
+     "snow": 11.0,
+     "ice": 21.9
+    },
+    "aqua_kmh": null,
+    "note": "ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/winterreifen/185-65-r15-2026/atlas-polarbear-hp-id-5216/"
+   },
+   {
+    "name": "Rockblade Rock 868S",
+    "category": "winter_central",
+    "label_wet": "C",
+    "results": {
+     "dry": 46.4,
+     "wet": 51.4,
+     "wet_concrete": 56.0,
+     "snow": 10.2,
+     "ice": 19.4
+    },
+    "aqua_kmh": null,
+    "note": "tested as 88 H; ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/winterreifen/185-65-r15-2026/rockblade-rock-868s-id-5217/"
+   }
+  ]
+ },
+ {
+  "test_id": "ADAC-2026-W-225-50R17",
+  "publication": "ADAC",
+  "year": 2026,
+  "season": "winter",
+  "size": "225/50 R17 98 V",
+  "car": "Audi A4 Avant",
+  "tester": "ADAC (with partner clubs); 16 tyres",
+  "url": "https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/winterreifen/225-50-r17-2026/",
+  "url_original": null,
+  "disciplines": [
+   {
+    "id": "dry",
+    "surface": "asphalt",
+    "wet": false,
+    "v_from": 100,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "ADAC 'Bremsweg (100 - 0 km/h) trocken in m'; per-tyre values read from each tyre's ADAC detail page (url in tyre note)"
+   },
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": 80,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "ADAC 'Bremsweg (80 - 0 km/h) nasser Asphalt in m'; per-tyre values read from each tyre's ADAC detail page (url in tyre note)"
+   },
+   {
+    "id": "wet_concrete",
+    "surface": "concrete",
+    "wet": true,
+    "v_from": 80,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "ADAC 'Bremsweg (80 - 0 km/h) nasser Beton in m'; per-tyre values read from each tyre's ADAC detail page (url in tyre note)"
+   },
+   {
+    "id": "snow",
+    "surface": "snow",
+    "wet": false,
+    "v_from": 30,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "ADAC 'Bremsen Schnee (30 - 0 km/h) in m'; per-tyre values read from each tyre's ADAC detail page (url in tyre note)"
+   },
+   {
+    "id": "ice",
+    "surface": "ice",
+    "wet": false,
+    "v_from": 20,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "ADAC 'Bremsen Eis (20 - 0 km/h) in m'; per-tyre values read from each tyre's ADAC detail page (url in tyre note)"
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Pirelli Cinturato Winter 3",
+    "category": "winter_central",
+    "label_wet": "A",
+    "results": {
+     "dry": 44.4,
+     "wet": 34.7,
+     "wet_concrete": 38.5,
+     "snow": 9.9,
+     "ice": 18.1
+    },
+    "aqua_kmh": null,
+    "note": "ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/winterreifen/225-50-r17-2026/pirelli-cinturato-winter-3-id-5218/"
+   },
+   {
+    "name": "Continental WinterContact TS 870",
+    "category": "winter_central",
+    "label_wet": "B",
+    "results": {
+     "dry": 44.5,
+     "wet": 34.7,
+     "wet_concrete": 38.2,
+     "snow": 10.0,
+     "ice": 17.1
+    },
+    "aqua_kmh": null,
+    "note": "ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/winterreifen/225-50-r17-2026/continental-wintercontact-ts-870-id-5219/"
+   },
+   {
+    "name": "Goodyear UltraGrip Performance 3",
+    "category": "winter_central",
+    "label_wet": "C",
+    "results": {
+     "dry": 45.0,
+     "wet": 36.1,
+     "wet_concrete": 39.5,
+     "snow": 10.0,
+     "ice": 18.7
+    },
+    "aqua_kmh": null,
+    "note": "ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/winterreifen/225-50-r17-2026/goodyear-ultragrip-performance-3-id-5220/"
+   },
+   {
+    "name": "Michelin Alpin 7",
+    "category": "winter_central",
+    "label_wet": "B",
+    "results": {
+     "dry": 45.7,
+     "wet": 36.8,
+     "wet_concrete": 40.9,
+     "snow": 9.8,
+     "ice": 16.9
+    },
+    "aqua_kmh": null,
+    "note": "ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/winterreifen/225-50-r17-2026/michelin-alpin-7-id-5221/"
+   },
+   {
+    "name": "Bridgestone Blizzak 6",
+    "category": "winter_central",
+    "label_wet": "B",
+    "results": {
+     "dry": 45.9,
+     "wet": 35.1,
+     "wet_concrete": 38.5,
+     "snow": 10.0,
+     "ice": 17.9
+    },
+    "aqua_kmh": null,
+    "note": "ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/winterreifen/225-50-r17-2026/bridgestone-blizzak-6-id-5222/"
+   },
+   {
+    "name": "Hankook Winter i*cept RS3",
+    "category": "winter_central",
+    "label_wet": "B",
+    "results": {
+     "dry": 45.3,
+     "wet": 35.7,
+     "wet_concrete": 40.2,
+     "snow": 10.0,
+     "ice": 18.5
+    },
+    "aqua_kmh": null,
+    "note": "ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/winterreifen/225-50-r17-2026/hankook-winter-icept-rs3-id-5223/"
+   },
+   {
+    "name": "ESA+TECAR Supergrip Pro2",
+    "category": "winter_central",
+    "label_wet": "B",
+    "results": {
+     "dry": 46.8,
+     "wet": 35.8,
+     "wet_concrete": 40.5,
+     "snow": 10.0,
+     "ice": 17.6
+    },
+    "aqua_kmh": null,
+    "note": "ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/winterreifen/225-50-r17-2026/esaplustecar-supergrip-pro2-id-5224/"
+   },
+   {
+    "name": "Dunlop Winter",
+    "category": "winter_central",
+    "label_wet": "C",
+    "results": {
+     "dry": 45.2,
+     "wet": 38.0,
+     "wet_concrete": 42.0,
+     "snow": 9.7,
+     "ice": 17.9
+    },
+    "aqua_kmh": null,
+    "note": "ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/winterreifen/225-50-r17-2026/dunlop-winter-id-5225/"
+   },
+   {
+    "name": "Yokohama BluEarth Winter V906",
+    "category": "winter_central",
+    "label_wet": "B",
+    "results": {
+     "dry": 45.2,
+     "wet": 37.0,
+     "wet_concrete": 39.9,
+     "snow": 10.2,
+     "ice": 19.0
+    },
+    "aqua_kmh": null,
+    "note": "ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/winterreifen/225-50-r17-2026/yokohama-bluearth-winter-v906-id-5226/"
+   },
+   {
+    "name": "Vredestein Wintrac Pro+",
+    "category": "winter_central",
+    "label_wet": "B",
+    "results": {
+     "dry": 46.5,
+     "wet": 36.8,
+     "wet_concrete": 41.2,
+     "snow": 9.8,
+     "ice": 18.6
+    },
+    "aqua_kmh": null,
+    "note": "ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/winterreifen/225-50-r17-2026/vredestein-wintrac-proplus-id-5227/"
+   },
+   {
+    "name": "Falken Eurowinter HS02 Pro",
+    "category": "winter_central",
+    "label_wet": "B",
+    "results": {
+     "dry": 46.2,
+     "wet": 36.8,
+     "wet_concrete": 41.1,
+     "snow": 10.7,
+     "ice": 18.4
+    },
+    "aqua_kmh": null,
+    "note": "ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/winterreifen/225-50-r17-2026/falken-eurowinter-hs02-pro-id-5228/"
+   },
+   {
+    "name": "Toyo Tires Observe EWS1",
+    "category": "winter_central",
+    "label_wet": "B",
+    "results": {
+     "dry": 44.0,
+     "wet": 36.8,
+     "wet_concrete": 39.7,
+     "snow": 11.1,
+     "ice": 17.6
+    },
+    "aqua_kmh": null,
+    "note": "ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/winterreifen/225-50-r17-2026/toyo-tires-observe-ews1-id-5229/"
+   },
+   {
+    "name": "Tracmax Ice-Plus S210",
+    "category": "winter_central",
+    "label_wet": "C",
+    "results": {
+     "dry": 43.8,
+     "wet": 43.3,
+     "wet_concrete": 45.9,
+     "snow": 11.6,
+     "ice": 19.5
+    },
+    "aqua_kmh": null,
+    "note": "ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/winterreifen/225-50-r17-2026/tracmax-ice-plus-s210-id-5230/"
+   },
+   {
+    "name": "Aptany RW211",
+    "category": "winter_central",
+    "label_wet": "C",
+    "results": {
+     "dry": 48.9,
+     "wet": 43.7,
+     "wet_concrete": 48.9,
+     "snow": 9.5,
+     "ice": 18.2
+    },
+    "aqua_kmh": null,
+    "note": "ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/winterreifen/225-50-r17-2026/aptany-rw211-id-5231/"
+   },
+   {
+    "name": "Royal Black Royalwinter UHP",
+    "category": "winter_central",
+    "label_wet": "C",
+    "results": {
+     "dry": 45.2,
+     "wet": 43.8,
+     "wet_concrete": 47.8,
+     "snow": 10.5,
+     "ice": 17.0
+    },
+    "aqua_kmh": null,
+    "note": "ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/winterreifen/225-50-r17-2026/royal-black-royalwinter-uhp-id-5232/"
+   },
+   {
+    "name": "Sunwide Snowide",
+    "category": "winter_central",
+    "label_wet": "C",
+    "results": {
+     "dry": 48.5,
+     "wet": 46.3,
+     "wet_concrete": 50.9,
+     "snow": 9.4,
+     "ice": 16.5
+    },
+    "aqua_kmh": null,
+    "note": "ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/winterreifen/225-50-r17-2026/sunwide-snowide-id-5233/"
+   }
+  ]
+ },
+ {
+  "test_id": "ADAC-2024-W-205-55R16",
+  "publication": "ADAC",
+  "year": 2024,
+  "season": "winter",
+  "size": "205/55 R16 H",
+  "car": "VW Golf",
+  "tester": "ADAC (with partner clubs); 12 tyres",
+  "url": "https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/winterreifen/205-55-r16/",
+  "url_original": null,
+  "disciplines": [
+   {
+    "id": "dry",
+    "surface": "asphalt",
+    "wet": false,
+    "v_from": 100,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "ADAC 'Bremsweg (100 - 0 km/h) trocken in m'; per-tyre values read from each tyre's ADAC detail page (url in tyre note)"
+   },
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": 80,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "ADAC 'Bremsweg (80 - 0 km/h) nasser Asphalt in m'; per-tyre values read from each tyre's ADAC detail page (url in tyre note)"
+   },
+   {
+    "id": "wet_concrete",
+    "surface": "concrete",
+    "wet": true,
+    "v_from": 80,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "ADAC 'Bremsweg (80 - 0 km/h) nasser Beton in m'; per-tyre values read from each tyre's ADAC detail page (url in tyre note)"
+   },
+   {
+    "id": "snow",
+    "surface": "snow",
+    "wet": false,
+    "v_from": 30,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "ADAC 'Bremsen Schnee (30 - 0 km/h) in m'; per-tyre values read from each tyre's ADAC detail page (url in tyre note)"
+   },
+   {
+    "id": "ice",
+    "surface": "ice",
+    "wet": false,
+    "v_from": 20,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "ADAC 'Bremsen Eis (20 - 0 km/h) in m'; per-tyre values read from each tyre's ADAC detail page (url in tyre note)"
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Continental WinterContact TS 870",
+    "category": "winter_central",
+    "label_wet": "B",
+    "results": {
+     "dry": 44.7,
+     "wet": 35.1,
+     "wet_concrete": 38.5,
+     "snow": 9.9,
+     "ice": 18.3
+    },
+    "aqua_kmh": null,
+    "note": "ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/winterreifen/205-55-r16/continental-wintercontact-ts-870-id-4908/"
+   },
+   {
+    "name": "Goodyear UltraGrip Performance 3",
+    "category": "winter_central",
+    "label_wet": "B",
+    "results": {
+     "dry": 44.2,
+     "wet": 35.5,
+     "wet_concrete": 39.2,
+     "snow": 10.1,
+     "ice": 21.2
+    },
+    "aqua_kmh": null,
+    "note": "ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/winterreifen/205-55-r16/goodyear-ultragrip-performance-3-id-4909/"
+   },
+   {
+    "name": "Michelin Alpin 6",
+    "category": "winter_central",
+    "label_wet": "B",
+    "results": {
+     "dry": 45.5,
+     "wet": 35.4,
+     "wet_concrete": 39.1,
+     "snow": 10.3,
+     "ice": 20.8
+    },
+    "aqua_kmh": null,
+    "note": "ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/winterreifen/205-55-r16/michelin-alpin-6-id-4910/"
+   },
+   {
+    "name": "Hankook Winter i*cept RS3",
+    "category": "winter_central",
+    "label_wet": "B",
+    "results": {
+     "dry": 45.7,
+     "wet": 37.1,
+     "wet_concrete": 42.1,
+     "snow": 10.0,
+     "ice": 19.8
+    },
+    "aqua_kmh": null,
+    "note": "ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/winterreifen/205-55-r16/hankook-winter-icept-rs3-id-4911/"
+   },
+   {
+    "name": "Dunlop Winter Sport 5",
+    "category": "winter_central",
+    "label_wet": "B",
+    "results": {
+     "dry": 45.6,
+     "wet": 37.2,
+     "wet_concrete": 41.7,
+     "snow": 9.9,
+     "ice": 20.0
+    },
+    "aqua_kmh": null,
+    "note": "ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/winterreifen/205-55-r16/dunlop-winter-sport-5-id-4912/"
+   },
+   {
+    "name": "Nokian Tyres Snowproof 2",
+    "category": "winter_central",
+    "label_wet": "B",
+    "results": {
+     "dry": 44.1,
+     "wet": 36.4,
+     "wet_concrete": 41.0,
+     "snow": 10.2,
+     "ice": 21.6
+    },
+    "aqua_kmh": null,
+    "note": "ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/winterreifen/205-55-r16/nokian-tyres-snowproof-2-id-4913/"
+   },
+   {
+    "name": "Falken Eurowinter HS02",
+    "category": "winter_central",
+    "label_wet": "B",
+    "results": {
+     "dry": 43.3,
+     "wet": 35.9,
+     "wet_concrete": 40.2,
+     "snow": 11.0,
+     "ice": 19.4
+    },
+    "aqua_kmh": null,
+    "note": "ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/winterreifen/205-55-r16/falken-eurowinter-hs02-id-4914/"
+   },
+   {
+    "name": "Zeetex WH 1000",
+    "category": "winter_central",
+    "label_wet": "B",
+    "results": {
+     "dry": 46.0,
+     "wet": 39.7,
+     "wet_concrete": 44.3,
+     "snow": 11.0,
+     "ice": 20.0
+    },
+    "aqua_kmh": null,
+    "note": "ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/winterreifen/205-55-r16/zeetex-wh-1000-id-4915/"
+   },
+   {
+    "name": "GT Radial WinterPro2 Evo",
+    "category": "winter_central",
+    "label_wet": "B",
+    "results": {
+     "dry": 45.8,
+     "wet": 36.9,
+     "wet_concrete": 42.3,
+     "snow": 10.3,
+     "ice": 20.3
+    },
+    "aqua_kmh": null,
+    "note": "ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/winterreifen/205-55-r16/gt-radial-winterpro2-evo-id-4916/"
+   },
+   {
+    "name": "Vredestein Wintrac",
+    "category": "winter_central",
+    "label_wet": "B",
+    "results": {
+     "dry": 44.5,
+     "wet": 36.1,
+     "wet_concrete": 40.3,
+     "snow": 10.5,
+     "ice": 19.4
+    },
+    "aqua_kmh": null,
+    "note": "ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/winterreifen/205-55-r16/vredestein-wintrac-id-4917/"
+   },
+   {
+    "name": "Pirelli Cinturato Winter 2",
+    "category": "winter_central",
+    "label_wet": "B",
+    "results": {
+     "dry": 45.2,
+     "wet": 35.1,
+     "wet_concrete": 39.0,
+     "snow": 10.2,
+     "ice": 19.1
+    },
+    "aqua_kmh": null,
+    "note": "ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/winterreifen/205-55-r16/pirelli-cinturato-winter-2-id-4918/"
+   },
+   {
+    "name": "Winrun Winter-max A1 WR22",
+    "category": "winter_central",
+    "label_wet": "C",
+    "results": {
+     "dry": 46.5,
+     "wet": 40.7,
+     "wet_concrete": 46.6,
+     "snow": 10.1,
+     "ice": 19.4
+    },
+    "aqua_kmh": null,
+    "note": "ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/winterreifen/205-55-r16/winrun-winter-max-a1-wr22-id-4919/"
+   }
+  ]
+ }
+]

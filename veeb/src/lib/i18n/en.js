@@ -735,5 +735,7 @@ export default {
 "Tekniikan Maailma talverehvitest 2025": "Tekniikan Maailma winter tyre test 2025",
 "UTAC / Aftonbladet suve- ja aastaringsete rehvide test 2025": "UTAC / Aftonbladet summer and all-season tyre test 2025",
 "Vi Bilägare naastrehvitest 2010": "Vi Bilägare studded tyre test 2010",
-"Vi Bilägare naelutute talverehvide test 2010": "Vi Bilägare non-studded winter tyre test 2010"
+"Vi Bilägare naelutute talverehvide test 2010": "Vi Bilägare non-studded winter tyre test 2010",
+"Parimad talverehvid": "Best winter tyres",
+"Testid ja pidurdusmaa sinu mõõdus": "Tests and braking distance in your size"
 };

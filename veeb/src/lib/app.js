@@ -552,7 +552,7 @@
     korolla: 'corolla', kamri: 'camry', fokus: 'focus', korsa: 'corsa', vektra: 'vectra', insigniya: 'insignia', klio: 'clio',
     megan: 'megane', daster: 'duster', sid: 'ceed', sporteidzh: 'sportage', solyaris: 'solaris', tukson: 'tucson',
     autlender: 'outlander', lanser: 'lancer', padzhero: 'pajero', kashkai: 'qashqai', sivik: 'civic', akkord: 'accord',
-    autbek: 'outback', legasi: 'legacy', svift: 'swift', seriya: '', serii: '', klass: '', kupe: 'coupe', universal: ''
+    autbek: 'outback', legasi: 'legacy', svift: 'swift', dodzh: 'dodge', kadillak: 'cadillac', lanchiya: 'lancia', lanchia: 'lancia', zaporozhets: 'zaporozets', zaporozhec: 'zaporozets', seriya: '', serii: '', klass: '', kupe: 'coupe', universal: ''
   };
   var KYTUS = { b: _t('Bensiin'), bg: _t('Bensiin / gaas'), g: _t('Gaas'), d: _t('Diisel'), h: _t('Hübriid'), p: _t('Pistikhübriid'), e: _t('Elekter') };
   function vehSearch(sel, V, onPick) {

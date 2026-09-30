@@ -128,6 +128,8 @@ export function rehviIndeks(slug) {
 	if (SKU_RE.test(slug)) return { index: false, sitemap: false, canonical: null };
 	const ema = emamudel(slug);
 	if (ema) return { index: true, sitemap: false, canonical: ema };
+	/* ajakirjade testides mõõdetud rehv (testid_ext.json): lehel on päris mõõtmised → saidikaardis */
+	if (extTests(slug).length) return { index: true, sitemap: true, canonical: null };
 	if (n <= 2) return { index: false, sitemap: false, canonical: null };
 	return { index: true, sitemap: n >= SITEMAP_MUDEL_MIN_MOOTE, canonical: null };
 }

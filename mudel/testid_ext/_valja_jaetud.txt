@@ -1,0 +1,394 @@
+Välja jäetud testid (andmed kogutud 2026-09-30, aga lehele ei pane):
+- VIBILAGARE-2024-W-STUDDED-225-45R17: allika tabeli veerud olid segamini, alade järjestus tuletatud — ebakindel.
+- TM-2025-W-205-55R16: sama test on juba core.json-is (TM25) otse mõõtmistest.
+
+[
+ {
+  "test_id": "VIBILAGARE-2024-W-STUDDED-225-45R17",
+  "publication": "Vi Bilägare / Motor (NAF Norway)",
+  "year": 2024,
+  "season": "winter",
+  "size": "225/45 R17",
+  "car": "VW Golf",
+  "tester": "Vi Bilägare (per tyrereviews.com), same tyre line-up as Motor 2024 studded test; Älvsbyn/Arctic Falls, Sweden and Tampere, Finland",
+  "url": "https://tyrereviews.com/Tyre-Tests/2024-Studded-Tyre-Test.htm/Results-Grid",
+  "url_original": "https://www.motor.no/tester/motors-store-vinterdekktest-2024-piggdekk/287595",
+  "disciplines": [
+   {
+    "id": "ice",
+    "surface": "ice",
+    "wet": false,
+    "v_from": 25,
+    "v_to": 5,
+    "temp_c": null,
+    "note": "Speed range taken from Motor's non-studded results page of the same 2024 test (not printed on tyrereviews grid)"
+   },
+   {
+    "id": "snow",
+    "surface": "snow",
+    "wet": false,
+    "v_from": 35,
+    "v_to": 5,
+    "temp_c": null,
+    "note": "Speed range from Motor's same-test non-studded page"
+   },
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": 80,
+    "v_to": 5,
+    "temp_c": null,
+    "note": "Speed range from Motor's same-test non-studded page"
+   },
+   {
+    "id": "dry",
+    "surface": "asphalt",
+    "wet": false,
+    "v_from": 80,
+    "v_to": 5,
+    "temp_c": null,
+    "note": "Speed range from Motor's same-test non-studded page"
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Nokian Hakkapeliitta 10",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 11.73,
+     "snow": 12.41,
+     "wet": 37.22,
+     "dry": 33.14
+    },
+    "aqua_kmh": 63,
+    "note": "Column assignment of grid values cross-checked against best/worst values in tyrereviews article text"
+   },
+   {
+    "name": "Bridgestone Blizzak Spike 3",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 11.03,
+     "snow": 12.68,
+     "wet": 35.42,
+     "dry": 34.13
+    },
+    "aqua_kmh": 74,
+    "note": "Column assignment of grid values cross-checked against best/worst values in tyrereviews article text"
+   },
+   {
+    "name": "Michelin X Ice North 4",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 13.38,
+     "snow": 12.42,
+     "wet": 37.27,
+     "dry": 33.26
+    },
+    "aqua_kmh": 69.2,
+    "note": "Column assignment of grid values cross-checked against best/worst values in tyrereviews article text"
+   },
+   {
+    "name": "Goodyear UltraGrip Arctic 2",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 12.64,
+     "snow": 12.41,
+     "wet": 35.34,
+     "dry": 32.66
+    },
+    "aqua_kmh": 70.7,
+    "note": "Column assignment of grid values cross-checked against best/worst values in tyrereviews article text"
+   },
+   {
+    "name": "Continental IceContact 3",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 15.87,
+     "snow": 12.34,
+     "wet": 34.74,
+     "dry": 32.47
+    },
+    "aqua_kmh": 68.3,
+    "note": "Column assignment of grid values cross-checked against best/worst values in tyrereviews article text"
+   },
+   {
+    "name": "Nordman North 9",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 13.77,
+     "snow": 12.31,
+     "wet": 36.34,
+     "dry": 33.59
+    },
+    "aqua_kmh": 68.2,
+    "note": "Column assignment of grid values cross-checked against best/worst values in tyrereviews article text"
+   },
+   {
+    "name": "Nokian Hakkapeliitta R5",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "ice": 17.87,
+     "snow": 12.5,
+     "wet": 38.39,
+     "dry": 31.52
+    },
+    "aqua_kmh": 58.6,
+    "note": "Non-studded reference in studded group; Column assignment of grid values cross-checked against best/worst values in tyrereviews article text"
+   },
+   {
+    "name": "Mazzini Ice Leopard",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 17.54,
+     "snow": 12.94,
+     "wet": 34.3,
+     "dry": 32.29
+    },
+    "aqua_kmh": 71.1,
+    "note": "Column assignment of grid values cross-checked against best/worst values in tyrereviews article text"
+   }
+  ]
+ },
+ {
+  "test_id": "TM-2025-W-205-55R16",
+  "publication": "Tekniikan Maailma",
+  "year": 2025,
+  "season": "winter",
+  "size": "205/55 R16",
+  "car": "Volkswagen Golf",
+  "tester": "Tekniikan Maailma (via tyrereviews.com); mixed studded + non-studded group",
+  "url": "https://www.tyrereviews.com/Article/2025-Friction-and-Studded-Winter-Tyre-Test.htm",
+  "url_original": null,
+  "disciplines": [
+   {
+    "id": "ice",
+    "surface": "ice",
+    "wet": false,
+    "v_from": 50,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "Chart heading 'Ice braking in meters (50 - 0 km/h)'"
+   },
+   {
+    "id": "snow",
+    "surface": "snow",
+    "wet": false,
+    "v_from": 80,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "Chart heading 'Snow braking in meters (80 - 0 km/h)' as printed on tyrereviews"
+   },
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": 80,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "Chart heading 'Wet braking in meters (80 - 0 km/h)'"
+   },
+   {
+    "id": "dry",
+    "surface": "asphalt",
+    "wet": false,
+    "v_from": null,
+    "v_to": null,
+    "temp_c": null,
+    "note": "Speed range not printed on tyrereviews chart"
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Nokian Hakkapeliitta 10",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 33.9,
+     "snow": 50.3,
+     "wet": 37.3,
+     "dry": 32.4
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Bridgestone Blizzak Spike 3",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 32.3,
+     "snow": 50.6,
+     "wet": 36.3,
+     "dry": 33.4
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Kumho WinterCraft Ice",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 33.1,
+     "snow": 51.0,
+     "wet": 40.8,
+     "dry": 32.2
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Goodyear UltraGrip Arctic 2",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 36.9,
+     "snow": 50.1,
+     "wet": 36.0,
+     "dry": 31.9
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Michelin X Ice North 4",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 37.7,
+     "snow": 50.1,
+     "wet": 37.8,
+     "dry": 32.1
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Pirelli Ice Zero 2",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 41.6,
+     "snow": 49.9,
+     "wet": 34.3,
+     "dry": 31.6
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Continental IceContact 3",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 42.5,
+     "snow": 49.8,
+     "wet": 35.5,
+     "dry": 31.5
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Michelin X Ice Snow",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "ice": 45.6,
+     "snow": 49.9,
+     "wet": 41.1,
+     "dry": 32.2
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Continental VikingContact 8",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "ice": 47.1,
+     "snow": 49.6,
+     "wet": 39.5,
+     "dry": 31.4
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Falken Winterpeak F Snow 1",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "ice": 47.9,
+     "snow": 50.3,
+     "wet": 37.5,
+     "dry": 30.8
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Nokian Hakkapeliitta R5",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "ice": 47.9,
+     "snow": 49.5,
+     "wet": 37.9,
+     "dry": 30.8
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Goodyear UltraGrip Ice 3",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "ice": 50.2,
+     "snow": 49.8,
+     "wet": 37.7,
+     "dry": 31.5
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Radar Dimax Ice",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "ice": 53.3,
+     "snow": 50.2,
+     "wet": 39.4,
+     "dry": 32.6
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Hankook Winter i cept IZ3",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "ice": 53.5,
+     "snow": 50.4,
+     "wet": 37.5,
+     "dry": 31.3
+    },
+    "aqua_kmh": null,
+    "note": ""
+   }
+  ]
+ }
+]

@@ -145,7 +145,7 @@ _MUDEL2 = {("Golf", "Plus"), ("Passat", "CC"), ("Transit", "Custom"),
            ("Golf", "Sportsvan"), ("Tiguan", "Allspace"), ("Corolla", "Verso"),
            ("Proace", "City"), ("Q8", "e-tron"), ("e-tron", "GT"), ("A6", "allroad"),
            ("A4", "allroad"), ("C5", "X"), ("C4", "Cactus"), ("Seal", "U"),
-           ("300C", "Touring")}
+           ("300C", "Touring"), ("AMG", "GT"), ("PT", "Cruiser")}
 _MUDEL_NIMI = {"Cee'd": "Ceed"}
 # Üksikud read, mille nimi ei ütle põlvkonda/aastaid õigesti (vanad
 # üheaastased näidisread jms): võti -> (põlvkond, aastad, variant | None)
@@ -172,6 +172,42 @@ _VALIK_PARANDUS = {
     "toyota_carina_e": ("E", "1992-1997", None),
     "nissan_almera_n15": ("N15", "1995-2000", None), "nissan_almera_n15_abs": ("N15", "1995-2000", None),
     "mitsu_lancer_evo_x": ("X", "2007-2017", "Evolution"), "honda_civic_typer_fk8": ("X", "2017-2022", "Type-R FK8"),
+    # 2026-09-30 kümnes ring: mootori tähis (V6, TD, T) ei ole põlvkond; täpne mootor, mille andmed real on
+    "chrysler_pt_cruiser": ("", "2000-2010", "2.0 i 16V"),
+    "jaguar_xj_x351": ("X351", "2009-2019", "3.0d V6"),
+    "mb_sl_r230": ("R230", "2001-2012", None),
+    "renault_symbioz": ("", "2024+", "1.6 E-Tech Full Hybrid"),
+    "mb_amg_gt_c190": ("C190", "2014-2021", "AMG GT C 4.0 V8"),
+    "cadillac_srx_2": ("II", "2010-2016", None),
+    "chrysler_voyager_3": ("GS", "1995-2001", None),
+    "suzuki_liana": ("", "2001-2007", None),
+    "hyundai_sonata_nf": ("NF", "2004-2010", None),
+    "nissan_terrano_2": ("II", "1993-2006", "2.7 TD"),
+    "mb_slk_r170": ("R170", "1996-2004", "SLK 200 Kompressor"),
+    "mb_r_w251": ("W251", "2005-2013", "R 320 CDI"),
+    "hyundai_galloper_2": ("II", "1998-2003", None),
+    "mb_slk_r171": ("R171", "2004-2011", None),
+    "toyota_celica_t230": ("T230", "1999-2006", "1.8 VT-i 16V"),
+    "nissan_patrol_y60": ("Y60", "1987-1997", None),
+    "volvo_c70_1": ("I", "1997-2005", None),
+    "opel_frontera_a": ("A", "1991-1998", None),
+    "smart_fortwo_450": ("450", "1998-2007", "0.7i"),
+    "dodge_challenger_lc": ("LC", "2008-2023", None),
+    "smart_fortwo_451": ("451", "2007-2014", None),
+    "dodge_durango_wd": ("WD", "2011+", None),
+    "ford_mustang_s197": ("S197", "2004-2014", None),
+    "chrysler_pacifica_cs": ("CS", "2003-2008", None),
+    "toyota_camry_xv30": ("XV30", "2001-2006", None),
+    "ford_mustang_s550": ("S550", "2015-2023", None),
+    "chrysler_pacifica_ru": ("RU", "2016+", None),
+    "citroen_c2": ("", "2003-2009", "1.4i"),
+    "audi_a2": ("", "1999-2005", "1.4i 16V"),
+    "mb_clk_w209": ("W209", "2002-2009", None),
+    "dodge_charger_ld": ("LD", "2011-2023", None),
+    "lexus_gs_s160": ("S160", "1997-2005", None),
+    "mb_sl_r129": ("R129", "1989-2001", "500 SL V8"),
+    "cadillac_escalade_3": ("III", "2006-2014", None),
+    "dodge_grand_caravan": ("RT", "2008-2020", None),
 }
 
 

@@ -37,7 +37,7 @@
 	const cur = $derived.by(() => {
 		const p = base;
 		if (p === '/') return 'home';
-		if (p.startsWith('/rehvi-valimine') || p.startsWith('/vordle-rehve')) return 'valik';
+		if (p.startsWith('/rehvi-valimine') || p.startsWith('/vordle-rehve') || p.startsWith('/talverehvid')) return 'valik';
 		/* rehvid, testid ja margid on menüüs Teadmine all */
 		if (p.startsWith('/teadmine') || p.startsWith('/testid') || p.startsWith('/rehvid') || p.startsWith('/margid') || p.startsWith('/autod')) return 'teadmine';
 		return '';
@@ -137,6 +137,7 @@
 				>
 				<div class="dd-menu" role="menu">
 					{@html t("<a role=\"menuitem\" href=\"/rehvi-valimine/\" ><b>Vali rehv enda tingimustele</b><span>Mis on sulle oluline — näitame sobivaid</span></a > <a role=\"menuitem\" href=\"/vordle-rehve/\" ><b>Võrdle rehve kõrvuti</b><span>2–4 rehvi ühes tabelis</span></a >")}
+					<a role="menuitem" href={L('/talverehvid/')}><b>{t('Parimad talverehvid')}</b><span>{t('Testid ja pidurdusmaa sinu mõõdus')}</span></a>
 				</div>
 			</div>
 			<a href={lang === 'ru' ? '/ru/teadmine/artiklid/' : '/teadmine/'} aria-current={cur === 'teadmine' ? 'page' : undefined}>{t("Teadmine")}</a>
@@ -171,6 +172,7 @@
 					<h4>{t("Rehvi valimine")}</h4>
 					<a href={L('/rehvi-valimine/')}>{t("Vali rehv enda tingimustele")}</a>
 					<a href={L('/vordle-rehve/')}>{t("Võrdle rehve kõrvuti")}</a>
+					<a href={L('/talverehvid/')}>{t("Parimad talverehvid")}</a>
 				</div>
 				<div>
 					<h4>{t("Andmed")}</h4>
@@ -206,6 +208,7 @@
 					<li><a href={L('/')}>{t("Pidurdusmaa kalkulaator")}</a></li>
 					<li><a href={L('/rehvi-valimine/')}>{t("Rehvi valimine")}</a></li>
 					<li><a href={L('/vordle-rehve/')}>{t("Võrdle rehve")}</a></li>
+					<li><a href={L('/talverehvid/')}>{t("Parimad talverehvid")}</a></li>
 					<li><a href={L('/liiklusohutus/')}>{t("Liiklusohutuse kalkulaator")}</a></li>
 				</ul>
 			</div>

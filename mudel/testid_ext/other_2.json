@@ -1,0 +1,1687 @@
+[
+ {
+  "test_id": "ZaRulem-2022-W-195-65R15-studded",
+  "publication": "Za Rulem (За рулём)",
+  "year": 2022,
+  "season": "winter",
+  "size": "195/65 R15",
+  "car": "Volkswagen Golf",
+  "tester": "Za Rulem; ice/snow tests Feb 2022, Racelogic VBox measurement; asphalt on cold asphalt +4...+8 C",
+  "url": "https://www.zr.ru/d/story/e8/937448/shipovannye-shiny-195-65-r15.pdf",
+  "url_original": "https://www.zr.ru/content/articles/937447-kak-nashi-teryayut-shipy/",
+  "disciplines": [
+   {
+    "id": "ice",
+    "surface": "ice",
+    "wet": false,
+    "v_from": 30,
+    "v_to": 5,
+    "temp_c": null,
+    "note": "Studded test, 8 tyres. Year = 2022 test season (ice/snow testing Feb 2022); publication date not printed in the table"
+   },
+   {
+    "id": "snow",
+    "surface": "snow",
+    "wet": false,
+    "v_from": 40,
+    "v_to": 5,
+    "temp_c": null,
+    "note": ""
+   },
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": 60,
+    "v_to": 5,
+    "temp_c": null,
+    "note": "asphalt +4...+8 C per article part 2 (https://www.zr.ru/content/articles/937448-kak-nashi-teryayut-shipy-2/)"
+   },
+   {
+    "id": "dry",
+    "surface": "asphalt",
+    "wet": false,
+    "v_from": 80,
+    "v_to": 5,
+    "temp_c": null,
+    "note": "asphalt +4...+8 C per article part 2"
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Nokian Hakkapeliitta 10P",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 14.9,
+     "snow": 15.2,
+     "wet": 19.4,
+     "dry": 34.1
+    },
+    "aqua_kmh": null,
+    "note": "934 pts; 1st"
+   },
+   {
+    "name": "Michelin X-Ice North 4",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 16.0,
+     "snow": 15.4,
+     "wet": 19.7,
+     "dry": 33.2
+    },
+    "aqua_kmh": null,
+    "note": "915 pts; 2nd"
+   },
+   {
+    "name": "Nordman 8",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 15.9,
+     "snow": 15.5,
+     "wet": 20.2,
+     "dry": 35.2
+    },
+    "aqua_kmh": null,
+    "note": "891 pts; 3rd"
+   },
+   {
+    "name": "Cordiant Snow Cross 2",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 18.4,
+     "snow": 15.6,
+     "wet": 21.4,
+     "dry": 34.2
+    },
+    "aqua_kmh": null,
+    "note": "842 pts; 4th"
+   },
+   {
+    "name": "Pirelli Formula Ice",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 21.8,
+     "snow": 15.7,
+     "wet": 20.0,
+     "dry": 32.8
+    },
+    "aqua_kmh": null,
+    "note": "823 pts; 5th; table prints 'Formula Ice'"
+   },
+   {
+    "name": "Kormoran Stud 2",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 22.3,
+     "snow": 16.8,
+     "wet": 17.6,
+     "dry": 32.7
+    },
+    "aqua_kmh": null,
+    "note": "797 pts; 6th"
+   },
+   {
+    "name": "Kama Alga",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 25.8,
+     "snow": 15.4,
+     "wet": 21.6,
+     "dry": 33.5
+    },
+    "aqua_kmh": null,
+    "note": "778 pts; 7th"
+   },
+   {
+    "name": "GT Radial Ice Pro 3",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 22.2,
+     "snow": 15.7,
+     "wet": 19.7,
+     "dry": 34.4
+    },
+    "aqua_kmh": null,
+    "note": "777 pts; 8th"
+   }
+  ]
+ },
+ {
+  "test_id": "ZaRulem-2021-W-215-65R16-friction",
+  "publication": "Za Rulem (За рулём)",
+  "year": 2021,
+  "season": "winter",
+  "size": "215/65 R16",
+  "car": "Volkswagen Tiguan (front-wheel drive)",
+  "tester": "Za Rulem; Nokian Tyres test facilities: snow/ice in February (-5...-13 C), asphalt in April (+2...+7 C)",
+  "url": "https://www.zr.ru/d/story/ab/931499/neshipovannye-shiny-215-65-r16.pdf",
+  "url_original": "https://www.zr.ru/content/articles/931499-syurprizy-kholodnogo-treniya/",
+  "disciplines": [
+   {
+    "id": "ice",
+    "surface": "ice",
+    "wet": false,
+    "v_from": 30,
+    "v_to": 5,
+    "temp_c": null,
+    "note": "Non-studded (friction) SUV test, 7 tyres; ice/snow -5...-13 C (range stated in article). Year per zr.ru article series (2021), not printed in table"
+   },
+   {
+    "id": "snow",
+    "surface": "snow",
+    "wet": false,
+    "v_from": 40,
+    "v_to": 5,
+    "temp_c": null,
+    "note": "-5...-13 C (range stated in article)"
+   },
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": 60,
+    "v_to": 5,
+    "temp_c": null,
+    "note": "asphalt +2...+7 C (range stated in article)"
+   },
+   {
+    "id": "dry",
+    "surface": "asphalt",
+    "wet": false,
+    "v_from": 80,
+    "v_to": 5,
+    "temp_c": null,
+    "note": "asphalt +2...+7 C (range stated in article)"
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Continental VikingContact 7",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "ice": 14.6,
+     "snow": 15.5,
+     "wet": 20.2,
+     "dry": 31.0
+    },
+    "aqua_kmh": null,
+    "note": "928 pts; 1st"
+   },
+   {
+    "name": "Nokian Hakkapeliitta R3 SUV",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "ice": 15.3,
+     "snow": 15.2,
+     "wet": 18.2,
+     "dry": 30.4
+    },
+    "aqua_kmh": null,
+    "note": "919 pts; 2nd"
+   },
+   {
+    "name": "Hankook Winter i*cept IZ2",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "ice": 15.4,
+     "snow": 15.6,
+     "wet": 19.8,
+     "dry": 31.5
+    },
+    "aqua_kmh": null,
+    "note": "898 pts; 3rd-4th"
+   },
+   {
+    "name": "Michelin X-Ice Snow",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "ice": 15.4,
+     "snow": 15.4,
+     "wet": 20.2,
+     "dry": 31.5
+    },
+    "aqua_kmh": null,
+    "note": "898 pts; 3rd-4th"
+   },
+   {
+    "name": "Cordiant Winter Drive 2 SUV",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "ice": 14.5,
+     "snow": 15.3,
+     "wet": 20.3,
+     "dry": 32.0
+    },
+    "aqua_kmh": null,
+    "note": "885 pts; 5th"
+   },
+   {
+    "name": "Nordman RS2 SUV",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "ice": 15.8,
+     "snow": 15.4,
+     "wet": 19.6,
+     "dry": 31.7
+    },
+    "aqua_kmh": null,
+    "note": "883 pts; 6th"
+   },
+   {
+    "name": "Yokohama IceGuard IG60",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "ice": 15.9,
+     "snow": 15.4,
+     "wet": 20.1,
+     "dry": 32.4
+    },
+    "aqua_kmh": null,
+    "note": "865 pts; 7th"
+   }
+  ]
+ },
+ {
+  "test_id": "ZaRulem-2020-W-225-45R17-studded",
+  "publication": "Za Rulem (За рулём)",
+  "year": 2020,
+  "season": "winter",
+  "size": "225/45 R17",
+  "car": "Volkswagen Golf",
+  "tester": "Za Rulem; ice/snow at Nokian Tyres test facility, Finnish Lapland (test period -2...-25 C); published Nov 2020 issue",
+  "url": "https://www.zr.ru/d/story/e8/925928/shipovannye-shiny-225-45-r17.pdf",
+  "url_original": "https://www.zr.ru/content/articles/925928-225-45-r17-test-itogi/",
+  "disciplines": [
+   {
+    "id": "ice",
+    "surface": "ice",
+    "wet": false,
+    "v_from": 30,
+    "v_to": 5,
+    "temp_c": null,
+    "note": "Studded low-profile test, 7 tyres. Speed ranges from table/article; temps not stated per discipline"
+   },
+   {
+    "id": "snow",
+    "surface": "snow",
+    "wet": false,
+    "v_from": 40,
+    "v_to": 5,
+    "temp_c": null,
+    "note": ""
+   },
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": 60,
+    "v_to": 5,
+    "temp_c": null,
+    "note": ""
+   },
+   {
+    "id": "dry",
+    "surface": "asphalt",
+    "wet": false,
+    "v_from": 80,
+    "v_to": 5,
+    "temp_c": null,
+    "note": ""
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Michelin X-Ice North 4",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 14.1,
+     "snow": 16.0,
+     "wet": 21.2,
+     "dry": 33.6
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Nokian Hakkapeliitta 9",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 14.2,
+     "snow": 16.0,
+     "wet": 20.3,
+     "dry": 35.0
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Hankook Winter i*Pike RS2",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 15.6,
+     "snow": 16.0,
+     "wet": 20.6,
+     "dry": 34.9
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Nordman 7",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 15.4,
+     "snow": 16.3,
+     "wet": 22.0,
+     "dry": 35.0
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Yokohama IceGuard IG65",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 17.9,
+     "snow": 16.4,
+     "wet": 19.9,
+     "dry": 32.8
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Sailun Ice Blazer WST3",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 22.4,
+     "snow": 16.6,
+     "wet": 20.3,
+     "dry": 34.5
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Kumho WinterCraft ice Wi31",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 20.6,
+     "snow": 16.6,
+     "wet": 21.0,
+     "dry": 33.1
+    },
+    "aqua_kmh": null,
+    "note": ""
+   }
+  ]
+ },
+ {
+  "test_id": "ZaRulem-2019-W-195-65R15-friction",
+  "publication": "Za Rulem (За рулём)",
+  "year": 2019,
+  "season": "winter",
+  "size": "195/65 R15",
+  "car": "Skoda Octavia",
+  "tester": "Za Rulem; ice/snow at proving ground near Ivalo, Finnish Lapland (-30...-10 C); asphalt at AVTOVAZ proving ground, Togliatti (+5...+10 C)",
+  "url": "https://www.zr.ru/d/story/1d/919325/table.pdf",
+  "url_original": "https://www.zr.ru/content/articles/919325-frikcionnye-shiny-195-65-r15-test/",
+  "disciplines": [
+   {
+    "id": "ice",
+    "surface": "ice",
+    "wet": false,
+    "v_from": 30,
+    "v_to": 5,
+    "temp_c": null,
+    "note": "Non-studded (friction) test, 12 tyres; ice/snow -30...-10 C (range stated in article). Year per zr.ru article series (autumn 2019), not printed in table"
+   },
+   {
+    "id": "snow",
+    "surface": "snow",
+    "wet": false,
+    "v_from": 40,
+    "v_to": 5,
+    "temp_c": null,
+    "note": ""
+   },
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": 60,
+    "v_to": 5,
+    "temp_c": null,
+    "note": "asphalt +5...+10 C (range stated in article)"
+   },
+   {
+    "id": "dry",
+    "surface": "asphalt",
+    "wet": false,
+    "v_from": 80,
+    "v_to": 5,
+    "temp_c": null,
+    "note": "asphalt +5...+10 C (range stated in article)"
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Continental VikingContact 7",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "ice": 16.0,
+     "snow": 16.3,
+     "wet": 18.0,
+     "dry": 30.7
+    },
+    "aqua_kmh": null,
+    "note": "935 pts"
+   },
+   {
+    "name": "Nokian Hakkapeliitta R3",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "ice": 16.1,
+     "snow": 16.4,
+     "wet": 18.1,
+     "dry": 30.7
+    },
+    "aqua_kmh": null,
+    "note": "933 pts"
+   },
+   {
+    "name": "Pirelli Ice Zero FR",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "ice": 17.1,
+     "snow": 16.0,
+     "wet": 18.1,
+     "dry": 30.7
+    },
+    "aqua_kmh": null,
+    "note": "912 pts"
+   },
+   {
+    "name": "Hankook Winter i*cept iZ2",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "ice": 16.9,
+     "snow": 16.4,
+     "wet": 19.1,
+     "dry": 31.5
+    },
+    "aqua_kmh": null,
+    "note": "912 pts; table prints iZ with superscript 2"
+   },
+   {
+    "name": "Toyo Observe GSi-6",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "ice": 16.8,
+     "snow": 16.7,
+     "wet": 19.4,
+     "dry": 31.2
+    },
+    "aqua_kmh": null,
+    "note": "888 pts"
+   },
+   {
+    "name": "Gislaved Soft*Frost 200",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "ice": 17.8,
+     "snow": 16.5,
+     "wet": 19.3,
+     "dry": 31.6
+    },
+    "aqua_kmh": null,
+    "note": "875 pts"
+   },
+   {
+    "name": "Nordman RS2",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "ice": 18.5,
+     "snow": 16.9,
+     "wet": 20.1,
+     "dry": 32.3
+    },
+    "aqua_kmh": null,
+    "note": "875 pts"
+   },
+   {
+    "name": "Triangle SnowLink PL01",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "ice": 18.3,
+     "snow": 17.3,
+     "wet": 19.3,
+     "dry": 32.5
+    },
+    "aqua_kmh": null,
+    "note": "855 pts"
+   },
+   {
+    "name": "Viatti Brina",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "ice": 17.9,
+     "snow": 16.7,
+     "wet": 22.4,
+     "dry": 34.1
+    },
+    "aqua_kmh": null,
+    "note": "839 pts"
+   },
+   {
+    "name": "Roadstone WinGuard ice",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "ice": 19.5,
+     "snow": 17.3,
+     "wet": 21.1,
+     "dry": 32.6
+    },
+    "aqua_kmh": null,
+    "note": "819 pts"
+   },
+   {
+    "name": "Sailun Ice Blazer WSL2",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "ice": 19.9,
+     "snow": 17.8,
+     "wet": 18.4,
+     "dry": 32.5
+    },
+    "aqua_kmh": null,
+    "note": "800 pts"
+   },
+   {
+    "name": "Cachland CH-W2002",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "ice": 20.9,
+     "snow": 18.8,
+     "wet": 18.7,
+     "dry": 30.4
+    },
+    "aqua_kmh": null,
+    "note": "788 pts"
+   }
+  ]
+ },
+ {
+  "test_id": "ZaRulem-2023-S-195-65R15",
+  "publication": "Za Rulem (За рулём)",
+  "year": 2023,
+  "season": "summer",
+  "size": "195/65 R15",
+  "car": null,
+  "tester": "Za Rulem",
+  "url": "https://www.zr.ru/d/story/08/941576/test-letnie-shiny-195-65-r15.pdf",
+  "url_original": "https://www.zr.ru/content/articles/941576-letnie-shiny-195-65-r15-itogi-testa-2023/",
+  "disciplines": [
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": 80,
+    "v_to": 5,
+    "temp_c": null,
+    "note": "6 tyres; Nokian Hakka Blue 3 tested out of competition"
+   },
+   {
+    "id": "dry",
+    "surface": "asphalt",
+    "wet": false,
+    "v_from": 100,
+    "v_to": 5,
+    "temp_c": null,
+    "note": ""
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Nokian Hakka Blue 3",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 25.8,
+     "dry": 38.2
+    },
+    "aqua_kmh": null,
+    "note": "941 pts; out of competition"
+   },
+   {
+    "name": "Sailun Atrezzo Elite",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 27.5,
+     "dry": 40.7
+    },
+    "aqua_kmh": null,
+    "note": "880 pts"
+   },
+   {
+    "name": "Cordiant Comfort 2",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 28.1,
+     "dry": 41.2
+    },
+    "aqua_kmh": null,
+    "note": "875 pts"
+   },
+   {
+    "name": "Nordman SX3",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 29.3,
+     "dry": 42.1
+    },
+    "aqua_kmh": null,
+    "note": "875 pts"
+   },
+   {
+    "name": "Formula Energy",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 29.8,
+     "dry": 41.6
+    },
+    "aqua_kmh": null,
+    "note": "863 pts"
+   },
+   {
+    "name": "Viatti Strada 2",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 28.1,
+     "dry": 40.5
+    },
+    "aqua_kmh": null,
+    "note": "851 pts"
+   }
+  ]
+ },
+ {
+  "test_id": "ZaRulem-2023-S-215-65R16",
+  "publication": "Za Rulem (За рулём)",
+  "year": 2023,
+  "season": "summer",
+  "size": "215/65 R16",
+  "car": "Niva (permanent all-wheel drive), per article",
+  "tester": "Za Rulem",
+  "url": "https://www.zr.ru/d/story/4a/941898/547.pdf",
+  "url_original": "https://www.zr.ru/content/articles/941898-luchshie-letnie-shiny-215-65-r16/",
+  "disciplines": [
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": 80,
+    "v_to": 5,
+    "temp_c": null,
+    "note": "6 tyres; Nokian Tyres Hakka Blue 3 SUV tested out of competition"
+   },
+   {
+    "id": "dry",
+    "surface": "asphalt",
+    "wet": false,
+    "v_from": 100,
+    "v_to": 5,
+    "temp_c": null,
+    "note": ""
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Nokian Tyres Hakka Blue 3 SUV",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 27.3,
+     "dry": 38.6
+    },
+    "aqua_kmh": null,
+    "note": "951 pts; out of competition"
+   },
+   {
+    "name": "Nordman S2 SUV",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 27.4,
+     "dry": 40.7
+    },
+    "aqua_kmh": null,
+    "note": "930 pts"
+   },
+   {
+    "name": "Sailun Atrezzo Elite",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 27.8,
+     "dry": 39.9
+    },
+    "aqua_kmh": null,
+    "note": "913 pts"
+   },
+   {
+    "name": "Cordiant Comfort 2 SUV",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 28.1,
+     "dry": 40.8
+    },
+    "aqua_kmh": null,
+    "note": "899 pts"
+   },
+   {
+    "name": "Maxxis Premitra HP5",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 27.7,
+     "dry": 40.5
+    },
+    "aqua_kmh": null,
+    "note": "889 pts"
+   },
+   {
+    "name": "Viatti Bosco H/T V-238",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 27.4,
+     "dry": 40.8
+    },
+    "aqua_kmh": null,
+    "note": "871 pts"
+   }
+  ]
+ },
+ {
+  "test_id": "ZaRulem-2022-S-205-55R16",
+  "publication": "Za Rulem (За рулём)",
+  "year": 2022,
+  "season": "summer",
+  "size": "205/55 R16",
+  "car": "Volkswagen Golf",
+  "tester": "Za Rulem; Contidrom proving ground near Hannover, Germany (Aug-Sep 14...22 C; some tests late autumn +5 C)",
+  "url": "https://www.zr.ru/d/story/62/933730/letnie-shiny-205-55-r16.pdf",
+  "url_original": "https://www.zr.ru/content/articles/933729-letnie-shiny-205-55-r16-test-12-modelej",
+  "disciplines": [
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": 80,
+    "v_to": 5,
+    "temp_c": null,
+    "note": "12 tyres; temps not stated per discipline"
+   },
+   {
+    "id": "dry",
+    "surface": "asphalt",
+    "wet": false,
+    "v_from": 100,
+    "v_to": 5,
+    "temp_c": null,
+    "note": ""
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Nokian Hakka Blue 3",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 31.1,
+     "dry": 36.6
+    },
+    "aqua_kmh": null,
+    "note": "914 pts"
+   },
+   {
+    "name": "Continental PremiumContact 6",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 31.1,
+     "dry": 35.9
+    },
+    "aqua_kmh": null,
+    "note": "913 pts"
+   },
+   {
+    "name": "Bridgestone Turanza T005",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 33.0,
+     "dry": 35.8
+    },
+    "aqua_kmh": null,
+    "note": "902 pts"
+   },
+   {
+    "name": "Hankook Ventus Prime3 K125",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 34.1,
+     "dry": 36.5
+    },
+    "aqua_kmh": null,
+    "note": "875 pts; published as Ventus Prime³"
+   },
+   {
+    "name": "Pirelli Cinturato P7 C2",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 34.2,
+     "dry": 36.6
+    },
+    "aqua_kmh": null,
+    "note": "871 pts"
+   },
+   {
+    "name": "Kumho Ecsta HS51",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 35.2,
+     "dry": 37.1
+    },
+    "aqua_kmh": null,
+    "note": "868 pts"
+   },
+   {
+    "name": "Nordman SZ2",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 36.9,
+     "dry": 38.3
+    },
+    "aqua_kmh": null,
+    "note": "857 pts"
+   },
+   {
+    "name": "Nexen Nblue HD Plus",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 36.4,
+     "dry": 38.2
+    },
+    "aqua_kmh": null,
+    "note": "841 pts"
+   },
+   {
+    "name": "Yokohama BluEarth-GT AE51",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 36.3,
+     "dry": 38.4
+    },
+    "aqua_kmh": null,
+    "note": "834 pts"
+   },
+   {
+    "name": "Viatti Strada 2 V-134",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 36.5,
+     "dry": 39.4
+    },
+    "aqua_kmh": null,
+    "note": "824 pts"
+   },
+   {
+    "name": "Cordiant Comfort 2",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 35.6,
+     "dry": 38.8
+    },
+    "aqua_kmh": null,
+    "note": "823 pts"
+   },
+   {
+    "name": "Tigar High Performance",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 40.0,
+     "dry": 39.0
+    },
+    "aqua_kmh": null,
+    "note": "798 pts"
+   }
+  ]
+ },
+ {
+  "test_id": "ZaRulem-2021-S-185-65R15",
+  "publication": "Za Rulem (За рулём)",
+  "year": 2021,
+  "season": "summer",
+  "size": "185/65 R15",
+  "car": "Volkswagen Polo hatchback",
+  "tester": "Za Rulem; ATP Automotive Testing Papenburg (Germany) and Nokian Tyres test facility (Finland); main session September +17...+25 C, second session +8...+10 C",
+  "url": "https://www.zr.ru/d/story/3e/928062/letnie-shiny-185-65-r15.pdf",
+  "url_original": "https://www.zr.ru/content/articles/928062-letnie-shiny-185-65-r15-test-za-rulem/",
+  "disciplines": [
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": 80,
+    "v_to": 5,
+    "temp_c": null,
+    "note": "8 tyres; year per ZR summer-test digest (https://www.zr.ru/content/articles/934276-dajdzhest-testov-letnikh-shin/)"
+   },
+   {
+    "id": "dry",
+    "surface": "asphalt",
+    "wet": false,
+    "v_from": 100,
+    "v_to": 5,
+    "temp_c": null,
+    "note": ""
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Pirelli Cinturato P1 Verde",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 27.2,
+     "dry": 36.5
+    },
+    "aqua_kmh": null,
+    "note": "922 pts; 1st-2nd"
+   },
+   {
+    "name": "Hankook Kinergy Eco 2",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 27.5,
+     "dry": 36.7
+    },
+    "aqua_kmh": null,
+    "note": "922 pts; 1st-2nd"
+   },
+   {
+    "name": "Goodyear EfficientGrip Performance 2",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 27.0,
+     "dry": 35.9
+    },
+    "aqua_kmh": null,
+    "note": "920 pts"
+   },
+   {
+    "name": "Toyo Proxes Comfort",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 27.5,
+     "dry": 35.3
+    },
+    "aqua_kmh": null,
+    "note": "889 pts"
+   },
+   {
+    "name": "Delinte DS2",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 29.6,
+     "dry": 37.6
+    },
+    "aqua_kmh": null,
+    "note": "872 pts"
+   },
+   {
+    "name": "Goodyear EfficientGrip Compact",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 31.5,
+     "dry": 38.0
+    },
+    "aqua_kmh": null,
+    "note": "859 pts"
+   },
+   {
+    "name": "Aplus A606",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 33.3,
+     "dry": 38.9
+    },
+    "aqua_kmh": null,
+    "note": "856 pts"
+   },
+   {
+    "name": "Davanti DX390",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 32.0,
+     "dry": 39.0
+    },
+    "aqua_kmh": null,
+    "note": "850 pts"
+   }
+  ]
+ },
+ {
+  "test_id": "ZaRulem-2021-S-235-60R18",
+  "publication": "Za Rulem (За рулём)",
+  "year": 2021,
+  "season": "summer",
+  "size": "235/60 R18",
+  "car": null,
+  "tester": "Za Rulem",
+  "url": "https://www.zr.ru/d/story/84/928388/letnie-shiny-235-60-r18.pdf",
+  "url_original": "https://www.zr.ru/content/articles/928388-letnie-shiny-235-60-r18-test-za-rulem/",
+  "disciplines": [
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": 80,
+    "v_to": 5,
+    "temp_c": null,
+    "note": "10 SUV tyres; year per ZR summer-test digest"
+   },
+   {
+    "id": "wet_cold",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": 80,
+    "v_to": 5,
+    "temp_c": 8,
+    "note": "table row 'at +8 C'"
+   },
+   {
+    "id": "dry",
+    "surface": "asphalt",
+    "wet": false,
+    "v_from": 100,
+    "v_to": 5,
+    "temp_c": null,
+    "note": ""
+   },
+   {
+    "id": "dry_cold",
+    "surface": "asphalt",
+    "wet": false,
+    "v_from": 100,
+    "v_to": 5,
+    "temp_c": 8,
+    "note": "table row 'at +8 C'"
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Continental PremiumContact 6",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 27.4,
+     "wet_cold": 26.9,
+     "dry": 34.4,
+     "dry_cold": 33.8
+    },
+    "aqua_kmh": null,
+    "note": "925 pts"
+   },
+   {
+    "name": "Nokian Hakka Black 2 SUV",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 28.3,
+     "wet_cold": 27.5,
+     "dry": 34.8,
+     "dry_cold": 35.3
+    },
+    "aqua_kmh": null,
+    "note": "916 pts"
+   },
+   {
+    "name": "Toyo Proxes Sport SUV",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 25.7,
+     "wet_cold": 28.5,
+     "dry": 34.2,
+     "dry_cold": 36.4
+    },
+    "aqua_kmh": null,
+    "note": "910 pts"
+   },
+   {
+    "name": "Goodyear Eagle F1 Asymmetric 3 SUV",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 29.4,
+     "wet_cold": 29.5,
+     "dry": 35.0,
+     "dry_cold": 36.2
+    },
+    "aqua_kmh": null,
+    "note": "900 pts"
+   },
+   {
+    "name": "Viatti Bosco H/T",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 31.3,
+     "wet_cold": 28.9,
+     "dry": 38.1,
+     "dry_cold": 36.8
+    },
+    "aqua_kmh": null,
+    "note": "858 pts"
+   },
+   {
+    "name": "Landsail LS588 SUV",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 33.3,
+     "wet_cold": 27.6,
+     "dry": 36.7,
+     "dry_cold": 35.1
+    },
+    "aqua_kmh": null,
+    "note": "857 pts"
+   },
+   {
+    "name": "Zeetex SU1000 vfm",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 32.3,
+     "wet_cold": 29.0,
+     "dry": 37.5,
+     "dry_cold": 37.1
+    },
+    "aqua_kmh": null,
+    "note": "837 pts"
+   },
+   {
+    "name": "Triangle AdvanteX SUV TR259",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 35.2,
+     "wet_cold": 31.1,
+     "dry": 38.7,
+     "dry_cold": 36.2
+    },
+    "aqua_kmh": null,
+    "note": "837 pts"
+   },
+   {
+    "name": "Rapid Ecosaver",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 36.0,
+     "wet_cold": 29.5,
+     "dry": 40.6,
+     "dry_cold": 38.0
+    },
+    "aqua_kmh": null,
+    "note": "821 pts"
+   },
+   {
+    "name": "Centara Adventure A/T",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 36.3,
+     "wet_cold": 29.7,
+     "dry": 39.8,
+     "dry_cold": 38.0
+    },
+    "aqua_kmh": null,
+    "note": "809 pts; A/T pattern tyre"
+   }
+  ]
+ },
+ {
+  "test_id": "ZaRulem-2020-S-195-65R15",
+  "publication": "Za Rulem (За рулём)",
+  "year": 2020,
+  "season": "summer",
+  "size": "195/65 R15",
+  "car": "Skoda Octavia",
+  "tester": "Za Rulem; AVTOVAZ proving ground, Togliatti (+15...+30 C)",
+  "url": "https://www.zr.ru/d/story/60/922208/schina-leto-195-65-r15-2.pdf",
+  "url_original": "https://www.zr.ru/content/articles/922208-letnie-shiny-195-65-r15-bolshoj-test-za-rulem/",
+  "disciplines": [
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": 80,
+    "v_to": 5,
+    "temp_c": null,
+    "note": "16 tyres; year per ZR summer-test digest (https://www.zr.ru/content/articles/934276-dajdzhest-testov-letnikh-shin/)"
+   },
+   {
+    "id": "dry",
+    "surface": "asphalt",
+    "wet": false,
+    "v_from": 100,
+    "v_to": 5,
+    "temp_c": null,
+    "note": ""
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Continental PremiumContact 6",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 24.8,
+     "dry": 37.0
+    },
+    "aqua_kmh": null,
+    "note": "table prints brand only; model per article"
+   },
+   {
+    "name": "Hankook Ventus Prime 3",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 23.9,
+     "dry": 37.9
+    },
+    "aqua_kmh": null,
+    "note": "table prints brand only; model per article"
+   },
+   {
+    "name": "Nokian Hakka Green 2",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 24.8,
+     "dry": 38.5
+    },
+    "aqua_kmh": null,
+    "note": "table prints brand only; model per article"
+   },
+   {
+    "name": "Pirelli Cinturato P1 Verde",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 25.7,
+     "dry": 40.5
+    },
+    "aqua_kmh": null,
+    "note": "table prints brand only; model per article"
+   },
+   {
+    "name": "Dunlop SP Sport FM800",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 25.5,
+     "dry": 39.0
+    },
+    "aqua_kmh": null,
+    "note": "table prints brand only; model per article"
+   },
+   {
+    "name": "Yokohama BluEarth-Es ES32",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 25.6,
+     "dry": 40.3
+    },
+    "aqua_kmh": null,
+    "note": "table prints brand only; model per article"
+   },
+   {
+    "name": "Nordman SX2",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 27.0,
+     "dry": 40.7
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Toyo Proxes CF2",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 26.2,
+     "dry": 41.5
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Goodyear EfficientGrip Compact",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 27.1,
+     "dry": 41.2
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Nexen N'Blue HD Plus",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 25.9,
+     "dry": 40.9
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Kormoran Road Performance",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 27.2,
+     "dry": 41.1
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Compasal GrandEco",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 27.0,
+     "dry": 41.3
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Matador Hectorra 3",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 27.6,
+     "dry": 42.6
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Viatti Strada Asimmetrico",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 27.7,
+     "dry": 43.6
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Rapid P309",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 27.9,
+     "dry": 43.0
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Triangle AdvanteX TC101",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "wet": 29.6,
+     "dry": 44.5
+    },
+    "aqua_kmh": null,
+    "note": "all-season tyre, tested unscored"
+   }
+  ]
+ },
+ {
+  "test_id": "ZaRulem-2020-S-225-45R17",
+  "publication": "Za Rulem (За рулём)",
+  "year": 2020,
+  "season": "summer",
+  "size": "225/45 R17",
+  "car": null,
+  "tester": "Za Rulem",
+  "url": "https://www.zr.ru/d/story/e0/922592/letnie-shiny-225-45-r17.pdf",
+  "url_original": "https://www.zr.ru/content/articles/922592-letnie-shiny-225-45-r17-test-za-rulem/",
+  "disciplines": [
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": 80,
+    "v_to": 5,
+    "temp_c": null,
+    "note": "12 tyres; year per ZR summer-test digest (https://www.zr.ru/content/articles/934276-dajdzhest-testov-letnikh-shin/)"
+   },
+   {
+    "id": "dry",
+    "surface": "asphalt",
+    "wet": false,
+    "v_from": 100,
+    "v_to": 5,
+    "temp_c": null,
+    "note": ""
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Continental PremiumContact 6",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 24.7,
+     "dry": 38.3
+    },
+    "aqua_kmh": null,
+    "note": "948 pts"
+   },
+   {
+    "name": "Nokian Hakka Black 2",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 24.4,
+     "dry": 39.3
+    },
+    "aqua_kmh": null,
+    "note": "926 pts"
+   },
+   {
+    "name": "Goodyear Eagle F1 Asymmetric 5",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 25.5,
+     "dry": 38.6
+    },
+    "aqua_kmh": null,
+    "note": "922 pts"
+   },
+   {
+    "name": "Pirelli Cinturato P7",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 25.3,
+     "dry": 39.6
+    },
+    "aqua_kmh": null,
+    "note": "902 pts"
+   },
+   {
+    "name": "Nordman SZ",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 25.2,
+     "dry": 40.2
+    },
+    "aqua_kmh": null,
+    "note": "892 pts; wet/dry identical to Aplus A607 as read from PDF"
+   },
+   {
+    "name": "Aplus A607",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 25.2,
+     "dry": 40.2
+    },
+    "aqua_kmh": null,
+    "note": "891 pts; wet/dry identical to Nordman SZ as read from PDF"
+   },
+   {
+    "name": "Yokohama BluEarth-A AE-50",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 25.8,
+     "dry": 42.8
+    },
+    "aqua_kmh": null,
+    "note": "888 pts"
+   },
+   {
+    "name": "Toyo Proxes Sport",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 25.2,
+     "dry": 40.4
+    },
+    "aqua_kmh": null,
+    "note": "876 pts"
+   },
+   {
+    "name": "Dunlop SP Sport Maxx 050+",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 26.5,
+     "dry": 40.4
+    },
+    "aqua_kmh": null,
+    "note": "874 pts"
+   },
+   {
+    "name": "Cachland CH-861",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 26.7,
+     "dry": 40.6
+    },
+    "aqua_kmh": null,
+    "note": "861 pts"
+   },
+   {
+    "name": "Tigar UHP",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 27.9,
+     "dry": 41.2
+    },
+    "aqua_kmh": null,
+    "note": "831 pts"
+   },
+   {
+    "name": "Viatti Strada Asimmetrico",
+    "category": "summer",
+    "label_wet": null,
+    "results": {
+     "wet": 28.4,
+     "dry": 44.4
+    },
+    "aqua_kmh": null,
+    "note": "831 pts"
+   }
+  ]
+ }
+]

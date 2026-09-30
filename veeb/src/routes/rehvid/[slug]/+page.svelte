@@ -104,6 +104,7 @@
 					<a class="btn" style="width:100%;margin-top:var(--sp-2)" href={L("/vordle-rehve/") + "?moot=" + data.size.m}
 						>{t("Võrdle selle mõõdu rehve")}</a
 					>
+					{#if data.talv}<a class="btn" style="width:100%;margin-top:var(--sp-2)" href={L('/talverehvid/' + data.talv + '/')}>{t('Parimad talverehvid {m}', { m: data.size.label })}</a>{/if}
 					{#if data.cars.length}
 						<h3
 							style="font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:var(--sp-6) 0 var(--sp-2)"
@@ -219,16 +220,16 @@
 										<tr class={x.pos === 1 ? 'best' : ''}>
 											<td><a href="/testid/{x.src_slug}/">{t(x.src_nimi)}</a></td>
 											<td>{tl(x)}</td>
-											<td class="n"><b>{num(x.m)} m</b></td>
+											<td class="n"><b>{num(x.m)} {t('m')}</b></td>
 											<td class="n">{x.pos ? x.pos + ' / ' + x.n : '–'}</td>
-											<td class="n">{x.best != null ? num(x.best) + ' m' : '–'}</td>
+											<td class="n">{x.best != null ? num(x.best) + ' ' + t('m') : '–'}</td>
 										</tr>
 									{/each}
 									{#if data.aqua}
 										<tr>
 											<td>{t(data.aqua.nimi)}</td>
 											<td>{t("akvaplaneerimise kiirus (suurem = parem)")}</td>
-											<td class="n"><b>{num(data.aqua.kmh)} km/h</b></td>
+											<td class="n"><b>{num(data.aqua.kmh)} {t('km/h')}</b></td>
 											<td class="n">–</td>
 											<td class="n">–</td>
 										</tr>
@@ -259,9 +260,9 @@
 											<td>{#if x.src.url}<a href={x.src.url} rel="nofollow noopener" target="_blank">{x.src.pub} {x.src.year}</a>{:else}{x.src.pub} {x.src.year}{/if}</td>
 											<td>{x.src.size || ''}</td>
 											<td>{t(x.d)} {Math.round(x.v0)}→{Math.round(x.v1)} {t('km/h')}</td>
-											<td class="n"><b>{num(x.m)} m</b></td>
+											<td class="n"><b>{num(x.m)} {t('m')}</b></td>
 											<td class="n">{x.pos} / {x.n}</td>
-											<td class="n">{num(x.best)} m</td>
+											<td class="n">{num(x.best)} {t('m')}</td>
 										</tr>
 									{/each}
 								</tbody>
@@ -418,15 +419,15 @@
 										<td
 											class="n"
 											style={r.x.m < r.y.m ? 'font-weight:700;box-shadow:inset 0 -3px 0 var(--yellow)' : ''}
-											>{num(r.x.m)} m</td
+											>{num(r.x.m)} {t('m')}</td
 										>
 										<td
 											class="n"
 											style={r.y.m < r.x.m ? 'font-weight:700;box-shadow:inset 0 -3px 0 var(--yellow)' : ''}
-											>{num(r.y.m)} m</td
+											>{num(r.y.m)} {t('m')}</td
 										>
 										<td class="n"
-											>{(r.d > 0 ? '+' : '') + num(r.d)} m
+											>{(r.d > 0 ? '+' : '') + num(r.d)} {t('m')}
 											<span class="note">({pctVahe(r.d, r.x.m, r.y.m)}%)</span></td
 										>
 									</tr>
