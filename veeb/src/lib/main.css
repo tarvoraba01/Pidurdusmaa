@@ -442,6 +442,9 @@ table.t a:hover{text-decoration:underline}
 .prose h3{font-size:19px;margin:var(--sp-8) 0 var(--sp-2)}
 .prose p,.prose li{color:#2a2f38}
 .prose a{text-decoration-color:var(--yellow);text-decoration-thickness:2px;text-underline-offset:3px}
+.prose figure{margin:var(--sp-6) 0 var(--sp-8)}
+.prose figure img{display:block;width:100%;height:auto;border-radius:var(--r);border:1px solid var(--line)}
+.prose figcaption{margin-top:var(--sp-2);font-size:14px;color:var(--muted)}
 
 /* võrdlusleht */
 .cmp-layout{display:grid;grid-template-columns:320px minmax(0,1fr);gap:var(--sp-8);align-items:start}

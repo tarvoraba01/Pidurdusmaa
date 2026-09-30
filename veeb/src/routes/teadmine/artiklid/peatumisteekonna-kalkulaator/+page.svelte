@@ -11,6 +11,11 @@
 	const SISU = `<p><strong>Kui pika maa pealt auto peatub?</strong> Uue tasuta kalkulaatoriga saad seda ise järele proovida: muuda kiirust, reaktsiooniaega, teeolusid ja rehve ning vaata kohe, kuidas peatumisteekond muutub. Pane kaks olukorda kõrvuti ja näed, millise kiirusega jõuab auto sinna, kus teine juba seisab.</p>
 <p><a class="btn yel" href="${K}">Ava kalkulaator →</a></p>
 
+<figure>
+<a href="${K}#b=1&amp;b.kiirus=70&amp;takistus=29"><img src="/img/artiklid/peatumisteekonna-kalkulaator-1600.webp" srcset="/img/artiklid/peatumisteekonna-kalkulaator-800.webp 800w, /img/artiklid/peatumisteekonna-kalkulaator-1600.webp 1600w" sizes="(max-width: 800px) 100vw, 760px" width="1600" height="925" decoding="async" alt="Kalkulaator: märjal asfaldil peatub auto 50 km/h pealt 28,1 meetriga ja 70 km/h pealt 47,1 meetriga; joonisel reageerimis- ja pidurdusteekond ning takistus 29 meetri kaugusel."></a>
+<figcaption>50 ja 70 km/h märjal asfaldil kõrvuti. Takistus on seal, kus 50 km/h auto peatub — 70 km/h auto jõuab sinna veel üle 60 km/h kiirusega.</figcaption>
+</figure>
+
 <h2>Mida sellega teha saab</h2>
 <ul>
 <li><strong>Kiirus ja reaktsiooniaeg</strong> — näed eraldi, kui palju sõidab auto enne pidurdamist ja kui palju pidurdades.</li>
