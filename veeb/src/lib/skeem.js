@@ -29,17 +29,18 @@ export const WEBSITE = {
 };
 
 /** Veebitööriist (kalkulaator, rehvi valimine, võrdlus). */
-export function tooriist(name, path, description) {
+export function tooriist(name, path, description, lang = 'et') {
+	const tee = lang === 'et' ? path : '/' + lang + path;
 	return {
 		'@type': 'WebApplication',
-		'@id': BASE + path + '#tooriist',
+		'@id': BASE + tee + '#tooriist',
 		name,
-		url: BASE + path,
+		url: BASE + tee,
 		description,
 		applicationCategory: 'UtilitiesApplication',
 		operatingSystem: 'Any',
-		browserRequirements: 'Vajab JavaScripti',
-		inLanguage: 'et',
+		browserRequirements: { et: 'Vajab JavaScripti', ru: 'Требуется JavaScript', en: 'Requires JavaScript' }[lang],
+		inLanguage: lang,
 		isAccessibleForFree: true,
 		offers: { '@type': 'Offer', price: '0', priceCurrency: 'EUR' },
 		publisher: { '@id': ORG_ID }

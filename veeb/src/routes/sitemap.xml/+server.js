@@ -10,6 +10,7 @@ import {
 } from '$lib/server/andmed.js';
 import { ARTIKLID, artikliTee } from '$lib/artiklid.js';
 import { autod } from '$lib/server/autod.js';
+import { TOLGITUD } from '$lib/i18n.js';
 
 export const prerender = true;
 
@@ -42,6 +43,8 @@ export function GET() {
 		['/kasutustingimused/', '0.3'],
 		['/privaatsus/', '0.3']
 	];
+	/* vene ja inglise versioonid (tööriistalehed, vt $lib/i18n.js) */
+	for (const k of ['ru', 'en']) for (const p of TOLGITUD) urls.push(['/' + k + p, p === '/' ? '0.8' : '0.6']);
 
 	for (const s of core().sizes) {
 		if (sizeModelCount(s.m) >= SIZE_MIN_MODELS) urls.push(['/rehvid/' + s.slug + '/', '0.7']);

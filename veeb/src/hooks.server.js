@@ -11,3 +11,13 @@ export async function init() {
 	kustutaVanad();
 	setInterval(kustutaVanad, 864e5).unref();
 }
+
+/* Vene ja inglise lehel <html lang="ru|en"> (app.html-is on "et") */
+import { langOf } from '$lib/i18n.js';
+export async function handle({ event, resolve }) {
+	const lang = langOf(event.url.pathname);
+	if (lang === 'et') return resolve(event);
+	return resolve(event, {
+		transformPageChunk: ({ html }) => html.replace('<html lang="et">', '<html lang="' + lang + '">')
+	});
+}

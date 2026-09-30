@@ -1,19 +1,41 @@
 <script>
 	import { onMount } from 'svelte';
 	import { page } from '$app/state';
-	import { afterNavigate } from '$app/navigation';
+	import { afterNavigate, beforeNavigate } from '$app/navigation';
+	import { setContext } from 'svelte';
+	import { tr, langOf, baseOf, linkLang, TOLGITUD, KEELED, KEEL_NIMI } from '$lib/i18n.js';
 	import { version } from '$app/environment';
 	import Icon from '$lib/Icon.svelte';
 	import Nousolek from '$lib/Nousolek.svelte';
 	import { GA4_ID, GSC_VERIFY } from '$lib/seaded.js';
 	import '$lib/main.css';
 
-	let { children } = $props();
+	let { children, data } = $props();
+
+	/* Keel tuleb aadressist (/ru/, /en/); sõnastiku laeb +layout.js */
+	const lang = $derived(data?.lang || 'et');
+	const dict = $derived(data?.dict || null);
+	const t = (s) => tr(lang, dict, s);
+	const L = (p) => linkLang(lang, p);
+	setContext('i18n', {
+		get lang() {
+			return lang;
+		},
+		get dict() {
+			return dict;
+		}
+	});
+	const base = $derived(baseOf(page.url.pathname));
+	/* keelevahetus: tõlgitud leht → sama leht teises keeles, muu → keele avaleht */
+	/* aadressi päring (nt ?rehvid=…) läheb keelevahetusel kaasa; eelrenderdatud
+	   lehel on see teada alles brauseris */
+	let otsing = $state('');
+	const keeleLink = (k) => (TOLGITUD.includes(base) ? linkLang(k, base) + otsing : k === 'et' ? base : '/' + k + '/');
 
 	/* Aktiivne menüüpunkt aadressi järgi — sama loogika, mis oli
 	   pm_nav_current() PHP-poolel. */
 	const cur = $derived.by(() => {
-		const p = page.url.pathname;
+		const p = base;
 		if (p === '/') return 'home';
 		if (p.startsWith('/rehvi-valimine') || p.startsWith('/vordle-rehve')) return 'valik';
 		/* rehvid, testid ja margid on menüüs Teadmine all */
@@ -23,20 +45,21 @@
 
 	/* /liiklusohutus/ on neutraalne tööriist (kõigile; ka Transpordiamet, autokoolid):
 	   ei menüüd, poode ega rehvivalikut — ainult logo ja õiguslikud lingid. */
-	const neutraal = $derived(page.url.pathname.startsWith('/liiklusohutus'));
+	const neutraal = $derived(base.startsWith('/liiklusohutus'));
 
 	onMount(async () => {
 		/* Avalehel logo / „Pidurdusmaa“ peale vajutus = lehe värskendus
 		   (tulemus ja valikud nullitakse, leht algusest). Mujal tavaline
 		   kiire üleminek. Ctrl/Cmd-klõps (uus vaheleht) jääb puutumata. */
 		document.addEventListener('click', (e) => {
-			const a = e.target instanceof Element ? e.target.closest('a[href="/"]') : null;
-			if (!a || location.pathname !== '/' || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+			const kodu = linkLang(langOf(location.pathname), '/');
+			const a = e.target instanceof Element ? e.target.closest('a[href="' + kodu + '"]') : null;
+			if (!a || location.pathname !== kodu || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
 			e.preventDefault();
 			e.stopPropagation();
 			try { history.scrollRestoration = 'manual'; } catch {}
 			window.scrollTo(0, 0);
-			location.href = '/';
+			location.href = kodu;
 		}, true);
 		window.PM_DEFER = true;
 		window.PM_CFG = {
@@ -53,9 +76,23 @@
 			contactMail: 'rabarvo@hotmail.com',
 			track: '/api/logi'
 		};
+		/* app.js loeb tõlked ja keele käivitumisel (vt _t app.js-is) */
+		window.PM_LANG = lang;
+		window.PM_I18N = dict;
 		await import('$lib/engine.js');
 		await import('$lib/app.js');
 		window.PM?.initPage();
+	});
+
+	/* Keele vahetus = täielik lehe laadimine: app.js loeb keele ja tõlked
+	   ainult korra, käivitumisel. Sama keele sees kiire üleminek. */
+	beforeNavigate(({ to, cancel, willUnload }) => {
+		if (willUnload || !to?.url || typeof window === 'undefined') return;
+		if (to.url.origin !== location.origin) return;
+		if (langOf(to.url.pathname) !== langOf(location.pathname)) {
+			cancel();
+			location.href = to.url.href;
+		}
 	});
 
 	/* SPA-navigeerimisel ei tule DOMContentLoaded'i — käivitame ise.
@@ -63,6 +100,7 @@
 	   ainult järgmised, muidu loeks GA esimest lehte kaks korda. */
 	afterNavigate(({ type }) => {
 		if (typeof window === 'undefined') return;
+		otsing = location.search;
 		window.PM?.initPage();
 		if (type !== 'enter') window.PM_LEHEVAADE?.();
 	});
@@ -72,21 +110,21 @@
 	{#if GSC_VERIFY}<meta name="google-site-verification" content={GSC_VERIFY} />{/if}
 </svelte:head>
 
-<a class="skip" href="#sisu">Liigu sisu juurde</a>
+<a class="skip" href="#sisu">{t("Liigu sisu juurde")}</a>
 
 {#if neutraal}
 <header class="site-header">
 	<div class="wrap">
-		<a class="logo" href="/" aria-label="Pidurdusmaa.ee avaleht"><b>PIDURDUSMAA</b><em>.ee</em></a>
-		<span class="neutraal-silt">Liiklusohutus</span>
+		{@html t("<a class=\"logo\" href=\"/\" aria-label=\"Pidurdusmaa.ee avaleht\"><b>PIDURDUSMAA</b><em>.ee</em></a> <span class=\"neutraal-silt\">Liiklusohutus</span>")}
+		<nav class="keeled" aria-label={t("Keel")}>{#each KEELED as k (k)}<a href={keeleLink(k)} onclick={(e) => TOLGITUD.includes(base) && (e.currentTarget.href = linkLang(k, base) + location.search)} hreflang={k} lang={k} title={KEEL_NIMI[k]} aria-current={k === lang ? 'true' : undefined} data-sveltekit-reload>{k.toUpperCase()}</a>{/each}</nav>
 	</div>
 </header>
 {:else}
 <header class="site-header">
 	<div class="wrap">
-		<a class="logo" href="/" aria-label="Pidurdusmaa.ee avaleht"><b>PIDURDUSMAA</b><em>.ee</em></a>
-		<nav class="nav" aria-label="Peamenüü">
-			<a href="/" aria-current={cur === 'home' ? 'page' : undefined}>Pidurdusmaa</a>
+		<a class="logo" href={L('/')} aria-label={t("Pidurdusmaa.ee avaleht")}><b>PIDURDUSMAA</b><em>.ee</em></a>
+		<nav class="nav" aria-label={t("Peamenüü")}>
+			<a href={L('/')} aria-current={cur === 'home' ? 'page' : undefined}>Pidurdusmaa</a>
 			<div class="dd" data-dd>
 				<button
 					type="button"
@@ -94,57 +132,54 @@
 					aria-expanded="false"
 					aria-haspopup="true"
 					aria-current={cur === 'valik' ? 'page' : undefined}
-					>Rehvi valimine <Icon name="chev" /></button
+					>{t("Rehvi valimine")} <Icon name="chev" /></button
 				>
 				<div class="dd-menu" role="menu">
-					<a role="menuitem" href="/rehvi-valimine/"
-						><b>Vali rehv enda tingimustele</b><span>Mis on sulle oluline — näitame sobivaid</span></a
-					>
-					<a role="menuitem" href="/vordle-rehve/"
-						><b>Võrdle rehve kõrvuti</b><span>2–4 rehvi ühes tabelis</span></a
-					>
+					{@html t("<a role=\"menuitem\" href=\"/rehvi-valimine/\" ><b>Vali rehv enda tingimustele</b><span>Mis on sulle oluline — näitame sobivaid</span></a > <a role=\"menuitem\" href=\"/vordle-rehve/\" ><b>Võrdle rehve kõrvuti</b><span>2–4 rehvi ühes tabelis</span></a >")}
 				</div>
 			</div>
-			<a href="/teadmine/" aria-current={cur === 'teadmine' ? 'page' : undefined}>Teadmine</a>
+			<a href="/teadmine/" aria-current={cur === 'teadmine' ? 'page' : undefined}>{t("Teadmine")}</a>
 		</nav>
 		<div class="hdr-right">
-			<a class="cmp-link" href="/vordle-rehve/" data-cmp-pill>
-				<Icon name="heart" /><span>Võrdlus (<span data-cmp-n>0</span>)</span>
+			<nav class="keeled" aria-label={t("Keel")}>{#each KEELED as k (k)}<a href={keeleLink(k)} onclick={(e) => TOLGITUD.includes(base) && (e.currentTarget.href = linkLang(k, base) + location.search)} hreflang={k} lang={k} title={KEEL_NIMI[k]} aria-current={k === lang ? 'true' : undefined} data-sveltekit-reload>{k.toUpperCase()}</a>{/each}</nav>
+			<a class="cmp-link" href={L('/vordle-rehve/')} data-cmp-pill>
+				<Icon name="heart" /><span>{@html t("Võrdlus (<span data-cmp-n>0</span>)")}</span>
 			</a>
 			<button
 				class="burger"
 				type="button"
 				aria-controls="pm-panel"
 				aria-expanded="false"
-				aria-label="Menüü"
+				aria-label={t("Menüü")}
 				data-burger><Icon name="menu" /></button
 			>
 		</div>
 	</div>
 	<div class="panel-menu" id="pm-panel" hidden>
 		<div class="wrap">
+			<nav class="keeled pm-keeled" aria-label={t("Keel")}>{#each KEELED as k (k)}<a href={keeleLink(k)} onclick={(e) => TOLGITUD.includes(base) && (e.currentTarget.href = linkLang(k, base) + location.search)} hreflang={k} lang={k} aria-current={k === lang ? 'true' : undefined} data-sveltekit-reload>{KEEL_NIMI[k]}</a>{/each}</nav>
 			<div class="pm-cols">
 				<div>
 					<h4>Pidurdusmaa</h4>
-					<a href="/">Pidurdusmaa kalkulaator</a>
-					<a href="/teadmine/pidurdusteekond-ja-peatumisteekond/">Pidurdus- ja peatumisteekond</a>
-					<a href="/teadmine/kuidas-pidurdusmaa-arvutatakse/">Kuidas arvutatakse</a>
-					<a href="/liiklusohutus/">Liiklusohutuse kalkulaator</a>
+					<a href={L('/')}>{t("Pidurdusmaa kalkulaator")}</a>
+					<a href="/teadmine/pidurdusteekond-ja-peatumisteekond/">{t("Pidurdus- ja peatumisteekond")}</a>
+					<a href="/teadmine/kuidas-pidurdusmaa-arvutatakse/">{t("Kuidas arvutatakse")}</a>
+					<a href={L('/liiklusohutus/')}>{t("Liiklusohutuse kalkulaator")}</a>
 				</div>
 				<div>
-					<h4>Rehvi valimine</h4>
-					<a href="/rehvi-valimine/">Vali rehv enda tingimustele</a>
-					<a href="/vordle-rehve/">Võrdle rehve kõrvuti</a>
+					<h4>{t("Rehvi valimine")}</h4>
+					<a href={L('/rehvi-valimine/')}>{t("Vali rehv enda tingimustele")}</a>
+					<a href={L('/vordle-rehve/')}>{t("Võrdle rehve kõrvuti")}</a>
 				</div>
 				<div>
-					<h4>Andmed</h4>
-					<a href="/autod/">Autod ja rehvimõõdud</a>
-					<a href="/rehvid/">Rehvid</a>
-					<a href="/testid/">Sõltumatud testid</a>
-					<a href="/teadmine/">Teadmine</a>
-					<a href="/teadmine/artiklid/">Artiklid</a>
-					<a href="/teadmine/rehvimargis/">EL-i rehvimärgis</a>
-					<a href="/kontakt/">Kontakt</a>
+					<h4>{t("Andmed")}</h4>
+					<a href="/autod/">{t("Autod ja rehvimõõdud")}</a>
+					<a href="/rehvid/">{t("Rehvid")}</a>
+					<a href="/testid/">{t("Sõltumatud testid")}</a>
+					<a href="/teadmine/">{t("Teadmine")}</a>
+					<a href="/teadmine/artiklid/">{t("Artiklid")}</a>
+					<a href="/teadmine/rehvimargis/">{t("EL-i rehvimärgis")}</a>
+					<a href="/kontakt/">{t("Kontakt")}</a>
 				</div>
 			</div>
 		</div>
@@ -159,55 +194,54 @@
 		{#if !neutraal}
 		<div class="ft">
 			<div>
-				<a class="logo" href="/"><b>PIDURDUSMAA</b><em>.ee</em></a>
+				<a class="logo" href={L('/')}><b>PIDURDUSMAA</b><em>.ee</em></a>
 				<p>
-					Sa ei pea teadma, milline rehv on hea. Näitame, kuidas need erinevad — päris andmete
-					järgi, ja ütleme otse, kui andmeid ei ole.
+					{t("Sa ei pea teadma, milline rehv on hea. Näitame, kuidas need erinevad — päris andmete järgi, ja ütleme otse, kui andmeid ei ole.")}
 				</p>
 			</div>
 			<div>
-				<h4>Tööriistad</h4>
+				<h4>{t("Tööriistad")}</h4>
 				<ul>
-					<li><a href="/">Pidurdusmaa kalkulaator</a></li>
-					<li><a href="/rehvi-valimine/">Rehvi valimine</a></li>
-					<li><a href="/vordle-rehve/">Võrdle rehve</a></li>
-					<li><a href="/liiklusohutus/">Liiklusohutuse kalkulaator</a></li>
+					<li><a href={L('/')}>{t("Pidurdusmaa kalkulaator")}</a></li>
+					<li><a href={L('/rehvi-valimine/')}>{t("Rehvi valimine")}</a></li>
+					<li><a href={L('/vordle-rehve/')}>{t("Võrdle rehve")}</a></li>
+					<li><a href={L('/liiklusohutus/')}>{t("Liiklusohutuse kalkulaator")}</a></li>
 				</ul>
 			</div>
 			<div>
-				<h4>Andmed</h4>
+				<h4>{t("Andmed")}</h4>
 				<ul>
-					<li><a href="/autod/">Autod</a></li>
-					<li><a href="/rehvid/">Rehvid</a></li>
-					<li><a href="/testid/">Sõltumatud testid</a></li>
-					<li><a href="/teadmine/kuidas-pidurdusmaa-arvutatakse/">Kuidas arvutatakse</a></li>
-					<li><a href="/margid/">Rehvimargid</a></li>
-					<li><a href="/teadmine/">Teadmine</a></li>
-					<li><a href="/teadmine/artiklid/">Artiklid</a></li>
-					<li><a href="/meist/">Meist</a></li>
-					<li><a href="/teadmine/partnerid/">Partnerid</a></li>
-					<li><a href="/kontakt/">Kontakt</a></li>
+					<li><a href="/autod/">{t("Autod")}</a></li>
+					<li><a href="/rehvid/">{t("Rehvid")}</a></li>
+					<li><a href="/testid/">{t("Sõltumatud testid")}</a></li>
+					<li><a href="/teadmine/kuidas-pidurdusmaa-arvutatakse/">{t("Kuidas arvutatakse")}</a></li>
+					<li><a href="/margid/">{t("Rehvimargid")}</a></li>
+					<li><a href="/teadmine/">{t("Teadmine")}</a></li>
+					<li><a href="/teadmine/artiklid/">{t("Artiklid")}</a></li>
+					<li><a href="/meist/">{t("Meist")}</a></li>
+					<li><a href="/teadmine/partnerid/">{t("Partnerid")}</a></li>
+					<li><a href="/kontakt/">{t("Kontakt")}</a></li>
 				</ul>
 			</div>
 			<div>
-				<h4>Allikad</h4>
+				<h4>{t("Allikad")}</h4>
 				<ul>
-					<li>EL-i tooteregister EPREL</li>
-					<li>ADAC, Tekniikan Maailma, UTAC, Vi Bilägare</li>
-					<li>UNECE R117</li>
+					<li>{t("EL-i tooteregister EPREL")}</li>
+					<li>{t("ADAC, Tekniikan Maailma, UTAC, Vi Bilägare")}</li>
+					<li>{t("UNECE R117")}</li>
 				</ul>
 			</div>
 		</div>
 		{/if}
 		<div class="ft-b">
-			<span>© {new Date().getFullYear()} Rabarvo OÜ · {#if neutraal}<a href="/">Pidurdusmaa.ee</a> — rehvide pidurdusmaa sinu autoga{:else}Pidurdusmaa.ee{/if}</span>
+			<span>© {new Date().getFullYear()} Rabarvo OÜ · {#if neutraal}<a href={L('/')}>Pidurdusmaa.ee</a> {t("— rehvide pidurdusmaa sinu autoga")}{:else}Pidurdusmaa.ee{/if}</span>
 			<span
-				>Tulemused on arvutatud hinnangud — mitte mõõtmised ega garantii.
-				<a href="/kasutustingimused/">Kasutustingimused ja vastutus</a> ·
-				<a href="/privaatsus/">Privaatsus</a>{#if GA4_ID}
+				>{t("Tulemused on arvutatud hinnangud — mitte mõõtmised ega garantii.")}
+				<a href="/kasutustingimused/">{t("Kasutustingimused ja vastutus")}</a> ·
+				<a href="/privaatsus/">{t("Privaatsus")}</a>{#if GA4_ID}
 					·
 					<button type="button" class="linkbtn" onclick={() => window.PM_KUPSISED?.()}
-						>Küpsiste seaded</button
+						>{t("Küpsiste seaded")}</button
 					>{/if}</span
 			>
 		</div>

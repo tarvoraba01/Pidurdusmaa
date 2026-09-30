@@ -1,7 +1,12 @@
 <script>
 	/* Lehe pealkiri, kirjeldus, canonical, OG ja JSON-LD ühest kohast —
 	   sama roll, mis oli inc/seo.php-l. */
+	import { getContext } from 'svelte';
+	import { TOLGITUD, KEELED, OG_LOCALE, linkLang } from '$lib/i18n.js';
 	const BASE = 'https://pidurdusmaa.ee';
+	/* keel (vt +layout.svelte): vene/inglise lehel on aadress /ru/… või /en/… */
+	const i18n = getContext('i18n');
+	const lang = $derived(i18n?.lang || 'et');
 	let {
 		title,
 		desc,
@@ -24,7 +29,10 @@
 	const abs = (u) => (/^https?:\/\//.test(String(u)) ? String(u) : BASE + '/' + String(u).replace(/^\//, ''));
 	/* JSON-LD läheb HTML-i sisse — sulgev script-silt tekstis lõpetaks sildi enneaegu, seepärast < → \u003c */
 	const ld = (o) => JSON.stringify(o).replace(/</g, '\\u003c');
-	const url = $derived(abs(path));
+	const alus = $derived('/' + String(path).replace(/^\//, ''));
+	const url = $derived(abs(linkLang(lang, alus)));
+	/* tõlgitud lehel: hreflang-viited kõigile keeleversioonidele */
+	const keeled = $derived(!noindex && !canonical && TOLGITUD.includes(alus) ? KEELED : []);
 	/* tootjavariandi leht viitab emamudelile (vt andmed.js rehviIndeks) */
 	const canon = $derived(canonical ? abs(canonical) : url);
 	const img = $derived(abs(image));
@@ -37,7 +45,7 @@
 						'@type': 'ListItem',
 						position: i + 1,
 						name: c[0],
-						item: c[1].startsWith('http') ? c[1] : BASE + c[1]
+						item: c[1].startsWith('http') ? c[1] : BASE + linkLang(lang, c[1])
 					}))
 				}
 			: null
@@ -54,7 +62,9 @@
 	<meta property="og:title" content={title} />
 	<meta property="og:description" content={desc} />
 	<meta property="og:url" content={canon} />
-	<meta property="og:locale" content="et_EE" />
+	<meta property="og:locale" content={OG_LOCALE[lang]} />
+	{#each keeled as k (k)}<link rel="alternate" hreflang={k} href={abs(linkLang(k, alus))} />{/each}
+	{#if keeled.length}<link rel="alternate" hreflang="x-default" href={abs(alus)} />{/if}
 	<meta property="og:image" content={img} />
 	<meta property="og:image:type" content="image/png" />
 	<meta property="og:image:width" content="1200" />

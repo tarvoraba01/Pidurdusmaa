@@ -20,6 +20,7 @@ import {
 	markSlug,
 	extTests
 } from '$lib/server/andmed.js';
+import { autodMoodus } from '$lib/server/autod.js';
 
 /* Kolm lehte ühe aadressimustri all — täpselt nagu PHP-s pm_ctx():
    /rehvid/205-55-r16/          → mõõdu leht
@@ -86,10 +87,9 @@ function mootLeht(size) {
 	const klassid = {};
 	for (const r of rows) klassid[r[4]] = (klassid[r[4]] || 0) + 1;
 
-	const cars = core()
-		.vehicles.filter((v) => String(v.oemSize || '').toUpperCase().replace(/[/ ]/g, '') === size.m)
-		.slice(0, 12)
-		.map((v) => v.name);
+	/* autod, millel see on tehasemõõt → lingid autolehtedele */
+	const koikAutod = autodMoodus(size.m);
+	const cars = koikAutod.slice(0, 24);
 
 	return {
 		liik: 'moot',
@@ -97,6 +97,7 @@ function mootLeht(size) {
 		grupid,
 		klassid: Object.keys(klassid).sort().map((g) => [g, klassid[g]]),
 		cars,
+		autosid: koikAutod.length,
 		n: rows.length,
 		noindex: rows.length < SIZE_MIN_MODELS
 	};
@@ -177,6 +178,13 @@ function rehvLeht(t) {
 		/* ühe mõõdu kohta võib olla mitu rida (koormusindeks, tootjavariant AO/MO/XL) */
 		mootudeArv: new Set(sizes.map((z) => z.m)).size,
 		mootudUnik: sizes.filter((z, i) => sizes.findIndex((y) => y.m === z.m) === i),
+		/* autod, mille PÕHImõõt on selle rehvi mõõtude hulgas */
+		sobib: (() => {
+			const nahtud = new Set(), out = [];
+			for (const z of sizes) for (const c of autodMoodus(z.m)) if (c.pohi && !nahtud.has(c.url)) { nahtud.add(c.url); out.push({ ...c, moot: z.label }); }
+			out.sort((a, b) => b.aasta - a.aasta || a.nimi.localeCompare(b.nimi, 'et'));
+			return { n: out.length, list: out.slice(0, 12) };
+		})(),
 		tests,
 		ext,
 		aqua,

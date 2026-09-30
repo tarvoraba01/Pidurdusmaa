@@ -149,3 +149,29 @@ export function polveLeht(p) {
 		katNimi: { suvi: KAT_NIMI.SUMMER_TOURING, talv: KAT_NIMI.WINTER_NORDIC, aastaring: KAT_NIMI.ALL_SEASON }
 	};
 }
+
+let _moodus = null;
+/** mõõt (nt 20555R16) → autolehed, millel see on tehasemõõt.
+ *  pohi = põlvkonna põhimõõt (kõige tavalisem), muidu üks tehase mõõtudest. */
+export function autodMoodus(mootN) {
+	if (!_moodus) {
+		_moodus = new Map();
+		const M = mootoridJson();
+		for (const p of autod().polved.values()) {
+			const pohi = norm(p.rows[0].oemSize);
+			const koik = new Set();
+			for (const v of p.rows) {
+				for (const z of v.oemSizes && v.oemSizes.length ? v.oemSizes : [v.oemSize]) koik.add(norm(z));
+				for (const e of M[v.key] || []) for (const z of (e[5] && e[5].s) || []) koik.add(norm(z));
+			}
+			koik.delete('');
+			for (const m of koik) {
+				if (!_moodus.has(m)) _moodus.set(m, []);
+				_moodus.get(m).push({ nimi: polveNimi(p), url: '/autod/' + p.mk + '/' + p.slug + '/', pohi: m === pohi, aasta: p.aasta });
+			}
+		}
+		for (const list of _moodus.values())
+			list.sort((a, b) => (b.pohi ? 1 : 0) - (a.pohi ? 1 : 0) || b.aasta - a.aasta || a.nimi.localeCompare(b.nimi, 'et'));
+	}
+	return _moodus.get(norm(mootN)) || [];
+}

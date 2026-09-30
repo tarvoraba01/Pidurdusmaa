@@ -85,11 +85,12 @@
 						<h3
 							style="font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:var(--sp-6) 0 var(--sp-2)"
 						>
-							Tehase mõõt näiteks
+							Tehasemõõt {data.autosid} autol
 						</h3>
 						<ul class="note" style="margin:0;padding-left:var(--sp-5)">
-							{#each data.cars as c}<li>{c}</li>{/each}
+							{#each data.cars as c (c.url)}<li><a href={c.url}>{c.nimi}</a>{#if !c.pohi}<span style="color:var(--muted)"> · lisamõõt</span>{/if}</li>{/each}
 						</ul>
+						{#if data.autosid > data.cars.length}<p class="note">…ja veel {data.autosid - data.cars.length}. <a href="/autod/">Kõik autod</a></p>{/if}
 					{/if}
 				</div>
 			</aside>
@@ -339,6 +340,17 @@
 						<p class="srcline">
 							Andmebaasis on praegu ainult osa mõõtudest. Mudel võib olla müügil ka teistes.
 						</p>
+					{/if}
+					{#if data.sobib.n}
+						<h3
+							style="font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:var(--sp-6) 0 var(--sp-2)"
+						>
+							Sobib näiteks autodele
+						</h3>
+						<ul class="note" style="margin:0;padding-left:var(--sp-5)">
+							{#each data.sobib.list as c (c.url)}<li><a href={c.url}>{c.nimi}</a> · {c.moot}</li>{/each}
+						</ul>
+						{#if data.sobib.n > data.sobib.list.length}<p class="srcline">Kokku {data.sobib.n} autot, mille tehase põhimõõt on selle rehvi mõõtude hulgas.</p>{/if}
 					{/if}
 				</div>
 			</aside>

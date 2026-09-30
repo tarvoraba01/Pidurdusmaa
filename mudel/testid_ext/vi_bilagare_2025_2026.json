@@ -1,0 +1,83 @@
+[
+  {
+    "test_id": "VIBILAGARE-2025-W-NORDIC-235-60R18",
+    "publication": "Vi Bilägare",
+    "year": 2025,
+    "season": "winter",
+    "size": "235/60 R18",
+    "car": "Volvo XC60 B4 AWD (ice/snow/wet/dry); VW Tiguan for aquaplaning and fuel",
+    "tester": "Vi Bilägare (also published by Motor/NAF Norway and Tuulilasi); ice and snow at Älvsbyn, Sweden, late Feb; dry and wet asphalt Älvsbyn mid-May; ice indoors",
+    "url": "https://www.motor.no/aktuelt/vinterdekktesten-2025-alle-resultatene/328115",
+    "url_original": null,
+    "disciplines": [
+      {"id": "ice", "surface": "ice", "wet": false, "v_from": 25, "v_to": 5, "temp_c": null, "note": "ABS, indoor ice, -5 to -6 C, average of 12 stops in 5 runs"},
+      {"id": "snow", "surface": "snow", "wet": false, "v_from": 35, "v_to": 5, "temp_c": null, "note": "ABS, cloudy -6 to -8 C, average of 12 stops in 2 runs"},
+      {"id": "wet", "surface": "asphalt", "wet": true, "v_from": 100, "v_to": 5, "temp_c": null, "note": "1 mm water film, +2 to +4 C, average of 2 runs"},
+      {"id": "dry", "surface": "asphalt", "wet": false, "v_from": 100, "v_to": 0, "temp_c": null, "note": "+9 to +15 C, average of 6 stops; Motor prints this as 'stop from 100 km/h' (tyrereviews.com labels 100-0) while its wet table is labelled 100-5, so end speed is not explicit"}
+    ],
+    "tyres": [
+      {"name": "Continental VikingContact 8", "category": "winter_nordic", "label_wet": null, "results": {"ice": 11.7, "snow": 12.17, "wet": 50.3, "dry": 44.41}, "aqua_kmh": 67.1, "note": "Ice 11.7 per Motor; tyrereviews.com prints 11.76 for the same tyre"},
+      {"name": "Pirelli Ice Friction", "category": "winter_nordic", "label_wet": null, "results": {"ice": 11.87, "snow": 12.01, "wet": 48.85, "dry": 43.63}, "aqua_kmh": 70.2, "note": ""},
+      {"name": "Goodyear UltraGrip Ice 3", "category": "winter_nordic", "label_wet": null, "results": {"ice": 11.99, "snow": 12.14, "wet": 50.35, "dry": 45.75}, "aqua_kmh": 67.5, "note": ""},
+      {"name": "Nokian Hakkapeliitta R5 SUV", "category": "winter_nordic", "label_wet": null, "results": {"ice": 11.97, "snow": 12.04, "wet": 46.49, "dry": 45.62}, "aqua_kmh": 66.2, "note": "Ice 11.97 per Motor; tyrereviews.com prints 11.92 for the same tyre"},
+      {"name": "Michelin X-Ice Snow SUV", "category": "winter_nordic", "label_wet": null, "results": {"ice": 11.7, "snow": 12.1, "wet": 52.76, "dry": 47.03}, "aqua_kmh": 64.7, "note": ""},
+      {"name": "Nordman North RS3 SUV", "category": "winter_nordic", "label_wet": null, "results": {"ice": 11.77, "snow": 12.24, "wet": 53.29, "dry": 44.96}, "aqua_kmh": 64.8, "note": ""},
+      {"name": "Hankook Winter i*cept IZ3 X", "category": "winter_nordic", "label_wet": null, "results": {"ice": 12.85, "snow": 12.11, "wet": 52.81, "dry": 45.13}, "aqua_kmh": 65.8, "note": ""},
+      {"name": "Maxtrek Trek M7 Plus", "category": "winter_nordic", "label_wet": null, "results": {"ice": 14.7, "snow": 12.04, "wet": 53.78, "dry": 47.36}, "aqua_kmh": 66.2, "note": ""}
+    ]
+  },
+  {
+    "test_id": "VIBILAGARE-2025-W-STUDDED-235-60R18",
+    "publication": "Vi Bilägare",
+    "year": 2025,
+    "season": "winter",
+    "size": "235/60 R18",
+    "car": "Volvo XC60 B4 AWD (ice/snow/wet/dry); VW Tiguan for aquaplaning and fuel",
+    "tester": "Vi Bilägare (also published by Motor/NAF Norway and Tuulilasi); ice and snow at Älvsbyn, Sweden, late Feb; dry and wet asphalt Älvsbyn mid-May; ice indoors",
+    "url": "https://www.motor.no/aktuelt/vinterdekktesten-2025-alle-resultatene/328115",
+    "url_original": "https://www.vibilagare.se/test/dacktest/test-av-dubbdack-2025-har-ar-basta-vinterdacket",
+    "disciplines": [
+      {"id": "ice", "surface": "ice", "wet": false, "v_from": 25, "v_to": 5, "temp_c": null, "note": "ABS, indoor ice, -5 to -6 C, average of 12 stops in 3 runs"},
+      {"id": "snow", "surface": "snow", "wet": false, "v_from": 35, "v_to": 5, "temp_c": null, "note": "ABS, cloudy -1 to -9 C, average of 12 stops in 5 runs"},
+      {"id": "wet", "surface": "asphalt", "wet": true, "v_from": 100, "v_to": 5, "temp_c": null, "note": "1 mm water film, cloudy +2 to +3 C"},
+      {"id": "dry", "surface": "asphalt", "wet": false, "v_from": 100, "v_to": 0, "temp_c": null, "note": "+5 to +8 C, average of 6 stops; Motor prints this as 'stop from 100 km/h' while its wet table is labelled 100-5, so end speed is not explicit"}
+    ],
+    "tyres": [
+      {"name": "Nokian Hakkapeliitta 10 SUV", "category": "winter_studded", "label_wet": null, "results": {"ice": 11.49, "snow": 11.35, "wet": 49.69, "dry": 46.11}, "aqua_kmh": 66.0, "note": ""},
+      {"name": "Goodyear UltraGrip Arctic 2 SUV", "category": "winter_studded", "label_wet": null, "results": {"ice": 12.38, "snow": 11.23, "wet": 47.9, "dry": 46.99}, "aqua_kmh": 69.4, "note": ""},
+      {"name": "Michelin X-Ice North 4 SUV", "category": "winter_studded", "label_wet": null, "results": {"ice": 14.19, "snow": 11.24, "wet": 50.73, "dry": 47.21}, "aqua_kmh": 68.6, "note": ""},
+      {"name": "Continental IceContact 3", "category": "winter_studded", "label_wet": null, "results": {"ice": 15.93, "snow": 11.13, "wet": 48.04, "dry": 45.0}, "aqua_kmh": 68.1, "note": ""},
+      {"name": "Pirelli Scorpion IceZero 2", "category": "winter_studded", "label_wet": null, "results": {"ice": 17.76, "snow": 11.19, "wet": 46.97, "dry": 45.75}, "aqua_kmh": 71.5, "note": ""},
+      {"name": "Nexen WinGuard WinSpike 3", "category": "winter_studded", "label_wet": null, "results": {"ice": 16.75, "snow": 11.82, "wet": 46.54, "dry": 45.26}, "aqua_kmh": 70.5, "note": ""},
+      {"name": "Goodride IceMaster Spike Z-506", "category": "winter_studded", "label_wet": null, "results": {"ice": 17.8, "snow": 11.38, "wet": 48.5, "dry": 45.89}, "aqua_kmh": 67.8, "note": ""},
+      {"name": "Triangle IceLynk TI501", "category": "winter_studded", "label_wet": null, "results": {"ice": 25.48, "snow": 11.36, "wet": 43.25, "dry": 44.3}, "aqua_kmh": 68.8, "note": "Ice traction described as almost non-existent"}
+    ]
+  },
+  {
+    "test_id": "VIBILAGARE-2026-W-STUDDED-215-65R17",
+    "publication": "Vi Bilägare",
+    "year": 2026,
+    "season": "winter",
+    "size": "215/65 R17",
+    "car": "VW Tiguan (ice/snow); VW Tiguan R and Skoda Kodiaq (dry/wet asphalt)",
+    "tester": "Vi Bilägare (also published by Motor/NAF Norway); ice and snow on tracks outside Älvsbyn, Sweden, late Feb 2026; dry and wet asphalt at Tampere, Finland, late April 2026",
+    "url": "https://www.tyrereviews.com/Tyre-Tests/2026-Vi-Bilagare-Studded-Tyre-Test.htm",
+    "url_original": "https://www.motor.no/tester/vinterdekktesten-2026-piggdekk-og-piggfrie-her-er-alle-tallene/367211",
+    "disciplines": [
+      {"id": "ice", "surface": "ice", "wet": false, "v_from": 25, "v_to": 5, "temp_c": null, "note": "ice braking as printed on tyrereviews.com"},
+      {"id": "snow", "surface": "snow", "wet": false, "v_from": 35, "v_to": 5, "temp_c": null, "note": "snow braking as printed on tyrereviews.com"},
+      {"id": "wet", "surface": "asphalt", "wet": true, "v_from": 100, "v_to": 5, "temp_c": null, "note": "wet braking as printed on tyrereviews.com"},
+      {"id": "dry", "surface": "asphalt", "wet": false, "v_from": 100, "v_to": 5, "temp_c": null, "note": "dry braking as printed on tyrereviews.com"}
+    ],
+    "tyres": [
+      {"name": "Nokian Hakkapeliitta 01", "category": "winter_studded", "label_wet": null, "results": {"ice": 10.81, "snow": 14.14, "wet": 56.06, "dry": 52.55}, "aqua_kmh": 69.0, "note": "Test winner"},
+      {"name": "Michelin X Ice North 4", "category": "winter_studded", "label_wet": null, "results": {"ice": 11.39, "snow": 13.94, "wet": 60.95, "dry": 52.28}, "aqua_kmh": 67.9, "note": ""},
+      {"name": "Goodyear UltraGrip Arctic 2", "category": "winter_studded", "label_wet": null, "results": {"ice": 12.42, "snow": 14.27, "wet": 55.19, "dry": 51.17}, "aqua_kmh": 68.4, "note": ""},
+      {"name": "Pirelli Ice Zero 2", "category": "winter_studded", "label_wet": null, "results": {"ice": 15.19, "snow": 14.26, "wet": 54.06, "dry": 51.3}, "aqua_kmh": 73.5, "note": ""},
+      {"name": "Nordman North 9 SUV", "category": "winter_studded", "label_wet": null, "results": {"ice": 13.78, "snow": 14.05, "wet": 59.94, "dry": 53.64}, "aqua_kmh": 68.7, "note": ""},
+      {"name": "Nankang Ice Activa Grip 2 SUV", "category": "winter_studded", "label_wet": null, "results": {"ice": 14.22, "snow": 13.93, "wet": 63.52, "dry": 54.03}, "aqua_kmh": 59.8, "note": ""},
+      {"name": "Kumho WinterCraft Ice Wi32", "category": "winter_studded", "label_wet": null, "results": {"ice": 17.64, "snow": 14.27, "wet": 61.84, "dry": 52.48}, "aqua_kmh": 63.0, "note": ""},
+      {"name": "Bridgestone Blizzak Spike 3", "category": "winter_studded", "label_wet": null, "results": {"ice": 8.28, "snow": 14.62, "wet": 58.44, "dry": 55.38}, "aqua_kmh": 65.3, "note": "Disqualified from the classification by Vi Bilägare for stud protrusion above the legal limit; measured values still published"}
+    ]
+  }
+]

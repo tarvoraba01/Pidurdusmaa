@@ -1,4 +1,8 @@
 <script>
+	import { useT, useLang } from '$lib/i18n.js';
+	const t = useT();
+	const keel = useLang();
+	const LOC = { et: 'et-EE', ru: 'ru-RU', en: 'en-GB' }[keel.lang] || 'et-EE';
 	/* Liiklusohutuse kalkulaator (/liiklusohutus/).
 	   Sama arvutusmootor mis põhilehel (engine.js), aga neutraalne:
 	   ei poode, hindu, rehvisoovitusi ega kasutusloo jälgimist.
@@ -13,45 +17,45 @@
 	let viga = $state('');
 
 	const KAT = [
-		['SUMMER_TOURING', 'Suverehv'],
-		['SUMMER_UHP', 'Suverehv, sportlik'],
-		['ALL_SEASON', 'Aastaringne rehv'],
-		['WINTER_CENTRAL', 'Talverehv, Kesk-Euroopa'],
-		['WINTER_NORDIC', 'Talverehv, Põhjamaade (lamell)'],
-		['WINTER_STUDDED', 'Naastrehv']
+		['SUMMER_TOURING', t('Suverehv')],
+		['SUMMER_UHP', t('Suverehv, sportlik')],
+		['ALL_SEASON', t('Aastaringne rehv')],
+		['WINTER_CENTRAL', t('Talverehv, Kesk-Euroopa')],
+		['WINTER_NORDIC', t('Talverehv, Põhjamaade (lamell)')],
+		['WINTER_STUDDED', t('Naastrehv')]
 	];
 	const PIND = [
-		['ASPHALT', 'Asfalt'],
-		['CONCRETE', 'Betoon'],
-		['GRAVEL', 'Kruus'],
-		['SNOW_PACKED', 'Tallatud lumi'],
-		['SNOW_LOOSE', 'Kohev lumi'],
-		['ICE', 'Jää']
+		['ASPHALT', t('Asfalt')],
+		['CONCRETE', t('Betoon')],
+		['GRAVEL', t('Kruus')],
+		['SNOW_PACKED', t('Tallatud lumi')],
+		['SNOW_LOOSE', t('Kohev lumi')],
+		['ICE', t('Jää')]
 	];
 	const VESI = [
-		[0, 'Kuiv'],
-		[0.2, 'Niiske'],
-		[1, 'Märg'],
-		[3, 'Väga märg'],
-		[5, 'Lombid']
+		[0, t('Kuiv')],
+		[0.2, t('Niiske')],
+		[1, t('Märg')],
+		[3, t('Väga märg')],
+		[5, t('Lombid')]
 	];
 	const TEKST = [
-		['COARSE_NEW', 'Uus, kare'],
-		['NORMAL', 'Tavaline'],
-		['WORN_SMOOTH', 'Kulunud, roopad'],
-		['POLISHED', 'Poleeritud']
+		['COARSE_NEW', t('Uus, kare')],
+		['NORMAL', t('Tavaline')],
+		['WORN_SMOOTH', t('Kulunud, roopad')],
+		['POLISHED', t('Poleeritud')]
 	];
 	const PIDUR = [
-		[1, 'Korras'],
-		[0.85, 'Nõrgenenud (~85 %)'],
-		[0.65, 'Selgelt vigane (~65 %)'],
-		[0.45, 'Kriitiline (~45 %)']
+		[1, t('Korras')],
+		[0.85, t('Nõrgenenud (~85 %)')],
+		[0.65, t('Selgelt vigane (~65 %)')],
+		[0.45, t('Kriitiline (~45 %)')]
 	];
 	const REAKT = [
-		[0.7, 'valmis pidurdama'],
-		[1.0, 'tavaline arvestus'],
-		[1.5, 'ootamatu oht'],
-		[2.0, 'väsinud / hajevil']
+		[0.7, t('valmis pidurdama')],
+		[1.0, t('tavaline arvestus')],
+		[1.5, t('ootamatu oht')],
+		[2.0, t('väsinud / hajevil')]
 	];
 	const ASF = { ASPHALT: 1, CONCRETE: 1 };
 	const TALV = { ALL_SEASON: 1, WINTER_CENTRAL: 1, WINTER_NORDIC: 1, WINTER_STUDDED: 1 };
@@ -101,7 +105,7 @@
 			core = d;
 			loeAadressist();
 		} catch (e) {
-			viga = 'Andmed ei laadinud. Proovi lehte värskendada.';
+			viga = t('Andmed ei laadinud. Proovi lehte värskendada.');
 		}
 		document.addEventListener('fullscreenchange', () => {
 			if (!document.fullscreenElement) esitlus = false;
@@ -122,7 +126,7 @@
 		rows.forEach((v) => (n[v.yearLabel] = (n[v.yearLabel] || 0) + 1));
 		return rows
 			.sort((a, b) => alg(b) - alg(a))
-			.map((v) => [v.key, v.yearLabel + (n[v.yearLabel] > 1 && v.variant && v.variant !== '—' ? ' · ' + v.variant : '')]);
+			.map((v) => [v.key, v.yearLabel + (n[v.yearLabel] > 1 && v.variant && v.variant !== '—' ? ' · ' + v.variant.replace(' hj (', ' ' + t('hj') + ' (') : '')]);
 	});
 
 	function auto(s) {
@@ -185,8 +189,8 @@
 	const kukkumine = (kmh) => (kmh / 3.6) ** 2 / (2 * 9.81);
 
 	/* ------------------------------------------------------ vormindus */
-	const f1 = (x) => (Math.round(x * 10) / 10).toLocaleString('et-EE', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
-	const f0 = (x) => Math.round(x).toLocaleString('et-EE');
+	const f1 = (x) => (Math.round(x * 10) / 10).toLocaleString(LOC, { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+	const f0 = (x) => Math.round(x).toLocaleString(LOC);
 	const m = (x) => (x >= 100 ? f0(x) : f1(x));
 
 	/* ------------------------------------------------------ muutmine */
@@ -345,155 +349,155 @@
 	{#if viga}<p class="lo-viga">{viga}</p>{/if}
 
 	<div class="lo-top">
-		<div class="lo-naited" aria-label="Näidisvõrdlused">
-			<span class="lo-lbl">Valmis võrdlused:</span>
-			<button type="button" onclick={() => naide('kiirus')}>50 vs 70 km/h</button>
-			<button type="button" onclick={() => naide('telefon')}>Tähelepanelik vs hajevil</button>
-			<button type="button" onclick={() => naide('muster')}>Uus vs kulunud rehv</button>
-			<button type="button" onclick={() => naide('vesi')}>Märg vs lombid</button>
-			<button type="button" onclick={() => naide('lumi')}>Suverehv lumel</button>
-			<button type="button" onclick={() => naide('jaa')}>Jää −10 °C vs 0 °C</button>
+		<div class="lo-naited" aria-label={t("Näidisvõrdlused")}>
+			<span class="lo-lbl">{t("Valmis võrdlused:")}</span>
+			<button type="button" onclick={() => naide('kiirus')}>{t("50 vs 70 km/h")}</button>
+			<button type="button" onclick={() => naide('telefon')}>{t("Tähelepanelik vs hajevil")}</button>
+			<button type="button" onclick={() => naide('muster')}>{t("Uus vs kulunud rehv")}</button>
+			<button type="button" onclick={() => naide('vesi')}>{t("Märg vs lombid")}</button>
+			<button type="button" onclick={() => naide('lumi')}>{t("Suverehv lumel")}</button>
+			<button type="button" onclick={() => naide('jaa')}>{t("Jää −10 °C vs 0 °C")}</button>
 		</div>
 		<div class="lo-tools">
-			<button type="button" class="lo-tool" onclick={kopeeri}>{kopeeritud ? 'Link kopeeritud' : 'Kopeeri link'}</button>
-			<button type="button" class="lo-tool" aria-pressed={esitlus} onclick={esitlusrezim}>{esitlus ? 'Välju esitlusest' : 'Esitlusrežiim'}</button>
+			<button type="button" class="lo-tool" onclick={kopeeri}>{kopeeritud ? t('Link kopeeritud') : t('Kopeeri link')}</button>
+			<button type="button" class="lo-tool" aria-pressed={esitlus} onclick={esitlusrezim}>{esitlus ? t('Välju esitlusest') : t('Esitlusrežiim')}</button>
 		</div>
 	</div>
 
 	<div class="lo-grid">
 		<!-- ================= SISENDID ================= -->
-		<section class="lo-in" aria-label="Olukord">
+		<section class="lo-in" aria-label={t("Olukord")}>
 			<div class="lo-tabs">
-				<div class="lo-tablist" role="tablist" aria-label="Olukord">
-					<button type="button" role="tab" aria-selected={muuda === 'A'} class="t-a" onclick={() => (muuda = 'A')}>Olukord A</button>
+				<div class="lo-tablist" role="tablist" aria-label={t("Olukord")}>
+					<button type="button" role="tab" aria-selected={muuda === 'A'} class="t-a" onclick={() => (muuda = 'A')}>{t("Olukord A")}</button>
 					{#if B}
-						<button type="button" role="tab" aria-selected={muuda === 'B'} class="t-b" onclick={() => (muuda = 'B')}>Olukord B</button>
+						<button type="button" role="tab" aria-selected={muuda === 'B'} class="t-b" onclick={() => (muuda = 'B')}>{t("Olukord B")}</button>
 					{/if}
 				</div>
 				{#if B}
-					<button type="button" class="lo-x" onclick={eemaldaB} aria-label="Eemalda olukord B">×</button>
+					<button type="button" class="lo-x" onclick={eemaldaB} aria-label={t("Eemalda olukord B")}>×</button>
 				{:else}
-					<button type="button" class="lo-add" onclick={lisaB}>+ Lisa võrdlus</button>
+					<button type="button" class="lo-add" onclick={lisaB}>{t("+ Lisa võrdlus")}</button>
 				{/if}
 			</div>
 
 			<fieldset>
-				<legend>Kiirus ja juht</legend>
+				<legend>{t("Kiirus ja juht")}</legend>
 				<label class="lo-row" for="lo-kiirus">
-					<span>Kiirus</span>
-					<b class="lo-val">{S.kiirus} km/h</b>
+					<span>{t("Kiirus")}</span>
+					<b class="lo-val">{S.kiirus} {t("km/h")}</b>
 				</label>
 				<input id="lo-kiirus" class="slider" type="range" min="10" max="150" step="5" bind:value={S.kiirus} style="--p:{((S.kiirus - 10) / 140) * 100}%" />
 				<label class="lo-row" for="lo-reakt">
-					<span>Reaktsiooniaeg</span>
-					<b class="lo-val">{f1(S.reakt)} s</b>
+					<span>{t("Reaktsiooniaeg")}</span>
+					<b class="lo-val">{f1(S.reakt)} {t("s")}</b>
 				</label>
 				<input id="lo-reakt" class="slider" type="range" min="0" max="3" step="0.1" bind:value={S.reakt} style="--p:{(S.reakt / 3) * 100}%" />
 				<div class="lo-chips">
-					{#each REAKT as [t, n]}
-						<button type="button" aria-pressed={Math.abs(S.reakt - t) < 0.05} onclick={() => (S.reakt = t)}>{f1(t)} s <small>{n}</small></button>
+					{#each REAKT as [rt, n]}
+						<button type="button" aria-pressed={Math.abs(S.reakt - rt) < 0.05} onclick={() => (S.reakt = rt)}>{f1(rt)} {t("s")} <small>{n}</small></button>
 					{/each}
 				</div>
 			</fieldset>
 
 			<fieldset>
-				<legend>Tee</legend>
+				<legend>{t("Tee")}</legend>
 				<div class="lo-seg lo-seg6">
 					{#each PIND as [k, n]}
 						<button type="button" aria-pressed={S.pind === k} onclick={() => setPind(S, k)}>{n}</button>
 					{/each}
 				</div>
 				{#if ASF[S.pind]}
-					<span class="lo-sub">Vesi teel</span>
+					<span class="lo-sub">{t("Vesi teel")}</span>
 					<div class="lo-seg lo-seg5">
 						{#each VESI as [w, n]}
-							<button type="button" aria-pressed={Math.abs(S.vesi - w) < 0.01} onclick={() => setVesi(S, w)}>{n}<small>{String(w).replace('.', ',')} mm</small></button>
+							<button type="button" aria-pressed={Math.abs(S.vesi - w) < 0.01} onclick={() => setVesi(S, w)}>{n}<small>{String(w).replace('.', ',')} {t("mm")}</small></button>
 						{/each}
 					</div>
-					<label class="lo-row" for="lo-tekst"><span>Teekate</span></label>
+					<label class="lo-row" for="lo-tekst"><span>{t("Teekate")}</span></label>
 					<select id="lo-tekst" class="lo-sel" bind:value={S.tekst}>
 						{#each TEKST as [k, n]}<option value={k}>{n}</option>{/each}
 					</select>
 				{/if}
 				{#if S.pind === 'ICE'}
-					<label class="lo-row" for="lo-jaa"><span>Jää</span></label>
+					<label class="lo-row" for="lo-jaa"><span>{t("Jää")}</span></label>
 					<select id="lo-jaa" class="lo-sel" bind:value={S.jaa}>
-						<option value="tee">Tavaline teejää (rööpad, liiv, karedus)</option>
-						<option value="sile">Sile jää (kiilasjää, must jää)</option>
+						<option value="tee">{t("Tavaline teejää (rööpad, liiv, karedus)")}</option>
+						<option value="sile">{t("Sile jää (kiilasjää, must jää)")}</option>
 					</select>
 				{/if}
 				<label class="lo-row" for="lo-temp">
-					<span>Teepinna temperatuur</span>
+					<span>{t("Teepinna temperatuur")}</span>
 					<b class="lo-val">{S.temp > 0 ? '+' : ''}{S.temp} °C</b>
 				</label>
 				<input id="lo-temp" class="slider" type="range" min={tMin} max={tMax} step="1" bind:value={S.temp} style="--p:{((S.temp - tMin) / (tMax - tMin)) * 100}%" />
 				<label class="lo-row" for="lo-kalle">
-					<span>Tee kalle</span>
-					<b class="lo-val">{S.kalle === 0 ? 'tasane' : (S.kalle < 0 ? 'allamäge ' : 'ülesmäge ') + Math.abs(S.kalle) + ' %'}</b>
+					<span>{t("Tee kalle")}</span>
+					<b class="lo-val">{S.kalle === 0 ? t('tasane') : (S.kalle < 0 ? t('allamäge ') : t('ülesmäge ')) + Math.abs(S.kalle) + ' %'}</b>
 				</label>
 				<input id="lo-kalle" class="slider" type="range" min="-12" max="12" step="1" bind:value={S.kalle} style="--p:{((S.kalle + 12) / 24) * 100}%" />
 			</fieldset>
 
 			<fieldset>
-				<legend>Rehvid</legend>
-				<label class="lo-row" for="lo-kat"><span>Rehvi tüüp</span></label>
+				<legend>{t("Rehvid")}</legend>
+				<label class="lo-row" for="lo-kat"><span>{t("Rehvi tüüp")}</span></label>
 				<select id="lo-kat" class="lo-sel" bind:value={S.kat}>
 					{#each KAT as [k, n]}<option value={k}>{n}</option>{/each}
 				</select>
 				{#if S.kat !== 'WINTER_STUDDED'}
-					<span class="lo-sub">Märghaarde klass (EL-i rehvimärgis)</span>
+					<span class="lo-sub">{t("Märghaarde klass (EL-i rehvimärgis)")}</span>
 					<div class="lo-seg lo-seg5">
 						{#each ['A', 'B', 'C', 'D', 'E'] as k}
 							<button type="button" aria-pressed={S.klass === k} onclick={() => (S.klass = k)}>{k}</button>
 						{/each}
 					</div>
 				{/if}
-				<span class="lo-sub">Rehvi seisukord</span>
+				<span class="lo-sub">{t("Rehvi seisukord")}</span>
 				<div class="lo-seg lo-seg3">
-					<button type="button" aria-pressed={S.muster === 8 && S.vanus === 1} onclick={() => seisund(S, 'uus')}>Uus</button>
-					<button type="button" aria-pressed={S.muster === 4.5 && S.vanus === 6} onclick={() => seisund(S, 'kesk')}>Keskmiselt kulunud</button>
-					<button type="button" aria-pressed={S.vanus === 10 && (S.muster === 1.6 || S.muster === 3)} onclick={() => seisund(S, 'piir')}>Seaduse piiril</button>
+					<button type="button" aria-pressed={S.muster === 8 && S.vanus === 1} onclick={() => seisund(S, 'uus')}>{t("Uus")}</button>
+					<button type="button" aria-pressed={S.muster === 4.5 && S.vanus === 6} onclick={() => seisund(S, 'kesk')}>{t("Keskmiselt kulunud")}</button>
+					<button type="button" aria-pressed={S.vanus === 10 && (S.muster === 1.6 || S.muster === 3)} onclick={() => seisund(S, 'piir')}>{t("Seaduse piiril")}</button>
 				</div>
 				<label class="lo-row" for="lo-muster">
-					<span>Mustrisügavus</span>
-					<b class="lo-val" class:lo-halb={S.muster < (TALV[S.kat] ? 3 : 1.6)}>{f1(S.muster)} mm</b>
+					<span>{t("Mustrisügavus")}</span>
+					<b class="lo-val" class:lo-halb={S.muster < (TALV[S.kat] ? 3 : 1.6)}>{f1(S.muster)} {t("mm")}</b>
 				</label>
 				<input id="lo-muster" class="slider" type="range" min="0.5" max="8" step="0.5" bind:value={S.muster} style="--p:{((S.muster - 0.5) / 7.5) * 100}%" />
 				<label class="lo-row" for="lo-vanus">
-					<span>Rehvi vanus</span>
-					<b class="lo-val">{S.vanus} {S.vanus === 1 ? 'aasta' : 'aastat'}</b>
+					<span>{t("Rehvi vanus")}</span>
+					<b class="lo-val">{S.vanus} {S.vanus === 1 ? t('aasta') : S.vanus < 5 && keel.lang === 'ru' ? 'года' : t('aastat')}</b>
 				</label>
 				<input id="lo-vanus" class="slider" type="range" min="0" max="15" step="1" bind:value={S.vanus} style="--p:{(S.vanus / 15) * 100}%" />
 				<label class="lo-row" for="lo-rohk">
-					<span>Rehvirõhk</span>
-					<b class="lo-val">{S.rohk === 0 ? 'soovituslik' : (S.rohk > 0 ? '+' : '−') + f1(Math.abs(S.rohk)) + ' bar'}</b>
+					<span>{t("Rehvirõhk")}</span>
+					<b class="lo-val">{S.rohk === 0 ? t('soovituslik') : (S.rohk > 0 ? '+' : '−') + f1(Math.abs(S.rohk)) + ' bar'}</b>
 				</label>
 				<input id="lo-rohk" class="slider" type="range" min="-1" max="0.6" step="0.1" bind:value={S.rohk} style="--p:{((S.rohk + 1) / 1.6) * 100}%" />
 			</fieldset>
 
 			<fieldset>
-				<legend>Auto</legend>
-				<label class="lo-row" for="lo-mk"><span>Mark</span></label>
+				<legend>{t("Auto")}</legend>
+				<label class="lo-row" for="lo-mk"><span>{t("Mark")}</span></label>
 				<select id="lo-mk" class="lo-sel" bind:value={S.mk} onchange={() => { S.md = mudelid[0] || ''; S.veh = polved[0]?.[0] || ''; S.abs = 'auto'; }}>
-					<option value="">Tüüpauto (mark pole oluline)</option>
+					<option value="">{t("Tüüpauto (mark pole oluline)")}</option>
 					{#each margid as mk}<option value={mk}>{mk}</option>{/each}
 				</select>
 				{#if !S.mk}
-					<label class="lo-row" for="lo-tyyp"><span>Auto tüüp</span></label>
+					<label class="lo-row" for="lo-tyyp"><span>{t("Auto tüüp")}</span></label>
 					<select id="lo-tyyp" class="lo-sel" bind:value={S.tyyp}>
-						{#each tyybid as v}<option value={v.key}>{v.name}</option>{/each}
+						{#each tyybid as v}<option value={v.key}>{t(v.name)}</option>{/each}
 					</select>
 				{:else}
 					<div class="lo-two">
 						<div>
-							<label class="lo-row" for="lo-md"><span>Mudel</span></label>
+							<label class="lo-row" for="lo-md"><span>{t("Mudel")}</span></label>
 							<select id="lo-md" class="lo-sel" bind:value={S.md} onchange={() => { S.veh = polved[0]?.[0] || ''; S.abs = 'auto'; }}>
-								<option value="">Vali</option>
+								<option value="">{t("Vali")}</option>
 								{#each mudelid as md}<option value={md}>{md}</option>{/each}
 							</select>
 						</div>
 						<div>
-							<label class="lo-row" for="lo-veh"><span>Põlvkond</span></label>
+							<label class="lo-row" for="lo-veh"><span>{t("Põlvkond")}</span></label>
 							<select id="lo-veh" class="lo-sel" bind:value={S.veh} disabled={!S.md} onchange={() => (S.abs = 'auto')}>
 								{#each polved as [k, n]}<option value={k}>{n}</option>{/each}
 							</select>
@@ -505,22 +509,22 @@
 					<label class="lo-row" for="lo-abs"><span>ABS</span></label>
 					<select id="lo-abs" class="lo-sel" bind:value={S.abs}>
 						{#if v.absOpt}
-							<option value="auto">ABS-ita (oli lisavarustus)</option>
-							<option value="jah">ABS-iga</option>
+							<option value="auto">{t("ABS-ita (oli lisavarustus)")}</option>
+							<option value="jah">{t("ABS-iga")}</option>
 						{:else if v.absClass === 'NONE'}
-							<option value="auto">ABS-ita (autol ABS-i ei olnud)</option>
+							<option value="auto">{t("ABS-ita (autol ABS-i ei olnud)")}</option>
 						{:else}
-							<option value="auto">ABS-iga</option>
-							<option value="ei">ABS-ita (rattad lukustuvad)</option>
+							<option value="auto">{t("ABS-iga")}</option>
+							<option value="ei">{t("ABS-ita (rattad lukustuvad)")}</option>
 						{/if}
 					</select>
 				{/if}
 				<label class="lo-row" for="lo-laad">
-					<span>Koormus (juht, reisijad, pagas)</span>
-					<b class="lo-val">{S.laad} kg</b>
+					<span>{t("Koormus (juht, reisijad, pagas)")}</span>
+					<b class="lo-val">{S.laad} {t("kg")}</b>
 				</label>
 				<input id="lo-laad" class="slider" type="range" min="75" max="600" step="25" bind:value={S.laad} style="--p:{((S.laad - 75) / 525) * 100}%" />
-				<label class="lo-row" for="lo-pidur"><span>Pidurite seisukord</span></label>
+				<label class="lo-row" for="lo-pidur"><span>{t("Pidurite seisukord")}</span></label>
 				<select id="lo-pidur" class="lo-sel" bind:value={S.pidur}>
 					{#each PIDUR as [k, n]}<option value={k}>{n}</option>{/each}
 				</select>
@@ -528,9 +532,9 @@
 		</section>
 
 		<!-- ================= TULEMUS ================= -->
-		<section class="lo-out" aria-live="polite" aria-label="Tulemus" bind:this={outEl}>
+		<section class="lo-out" aria-live="polite" aria-label={t("Tulemus")} bind:this={outEl}>
 			{#if !core}
-				<p class="lo-laeb">Laadin arvutusmudelit…</p>
+				<p class="lo-laeb">{t("Laadin arvutusmudelit…")}</p>
 			{:else}
 				<div class="lo-resgrid" class:two={!!B}>
 				{#each [['A', RA], ...(B ? [['B', RB]] : [])] as [n, x]}
@@ -538,23 +542,23 @@
 						<div class="lo-res-h">
 							<span class="lo-tag">{n}</span>
 							{#if x && x.err}
-								<span class="lo-err">Seda olukorda ei saa arvutada: {x.err}</span>
+								<span class="lo-err">{t("Seda olukorda ei saa arvutada:")} {x.err}</span>
 							{:else if x && x.r}
-								<span class="lo-res-sub">{(n === 'A' ? A : B).kiirus} km/h · {PIND.find((p) => p[0] === (n === 'A' ? A : B).pind)[1].toLowerCase()} · {x.veh.name}</span>
+								<span class="lo-res-sub">{(n === 'A' ? A : B).kiirus} {t("km/h ·")} {PIND.find((p) => p[0] === (n === 'A' ? A : B).pind)[1].toLowerCase()} · {t(x.veh.name)}</span>
 							{/if}
 						</div>
 						{#if x && x.r}
 							{#if !x.r.stopped}
-								<p class="lo-big lo-nostop">Auto ei peatu</p>
-								<p class="lo-note">Selle kalde ja haardega ei suuda rehvid autot peatada — auto libiseb edasi.</p>
+								<p class="lo-big lo-nostop">{t("Auto ei peatu")}</p>
+								<p class="lo-note">{t("Selle kalde ja haardega ei suuda rehvid autot peatada — auto libiseb edasi.")}</p>
 							{:else}
-								<p class="lo-big">{m(x.r.totalDistanceM)} <small>m</small></p>
-								<p class="lo-kokku">peatumisteekond</p>
+								<p class="lo-big">{m(x.r.totalDistanceM)} <small>{t("m")}</small></p>
+								<p class="lo-kokku">{t("peatumisteekond")}</p>
 								<dl class="lo-split">
-									<div><dt>Reageerimisteekond</dt><dd>{m(x.r.reactionM)} m</dd></div>
-									<div><dt>Pidurdusteekond</dt><dd>{m(x.r.distanceM)} m</dd></div>
-									<div><dt>Aeg seisuni</dt><dd>{f1(x.r.timeS)} s</dd></div>
-									<div><dt>Tõenäoline vahemik</dt><dd>{m(x.r.lowM)}–{m(x.r.highM)} m</dd></div>
+									<div><dt>{t("Reageerimisteekond")}</dt><dd>{m(x.r.reactionM)} {t("m")}</dd></div>
+									<div><dt>{t("Pidurdusteekond")}</dt><dd>{m(x.r.distanceM)} {t("m")}</dd></div>
+									<div><dt>{t("Aeg seisuni")}</dt><dd>{f1(x.r.timeS)} {t("s")}</dd></div>
+									<div><dt>{t("Tõenäoline vahemik")}</dt><dd>{m(x.r.lowM)}–{m(x.r.highM)} {t("m")}</dd></div>
 								</dl>
 							{/if}
 							{#if x.r.warnings.length}
@@ -569,27 +573,27 @@
 
 				<div class="lo-actions">
 					{#if !B}
-						<button type="button" class="lo-addb" onclick={lisaB}>+ Lisa võrdlus: olukord B</button>
+						<button type="button" class="lo-addb" onclick={lisaB}>{t("+ Lisa võrdlus: olukord B")}</button>
 					{:else}
-						<span>Muudad:</span>
+						<span>{t("Muudad:")}</span>
 						<button type="button" class="lo-sw" aria-pressed={muuda === 'A'} onclick={() => (muuda = 'A')}>A</button>
 						<button type="button" class="lo-sw lo-sw-b" aria-pressed={muuda === 'B'} onclick={() => (muuda = 'B')}>B</button>
-						<button type="button" class="lo-rm" onclick={eemaldaB}>Eemalda B</button>
+						<button type="button" class="lo-rm" onclick={eemaldaB}>{t("Eemalda B")}</button>
 					{/if}
 				</div>
 
 				{#if stsenaariumid.length}
 					<figure class="lo-fig" bind:clientWidth={figW}>
-						<svg width={W} viewBox="0 0 {W} {60 + stsenaariumid.length * 70}" role="img" aria-label="Peatumisteekond teel meetrites">
+						<svg width={W} viewBox="0 0 {W} {60 + stsenaariumid.length * 70}" role="img" aria-label={t("Peatumisteekond teel meetrites")}>
 							<defs>
 								<pattern id="lo-hatch" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
 									<rect width="10" height="10" fill="#3a3f49" />
 									<line x1="0" y1="0" x2="0" y2="10" stroke="#5c6370" stroke-width="4" />
 								</pattern>
 							</defs>
-							{#each tikid as t}
-								<line x1={X(t)} x2={X(t)} y1="18" y2={40 + stsenaariumid.length * 70} class="lo-grid-l" />
-								<text x={X(t)} y="10" class="lo-tick">{t} m</text>
+							{#each tikid as tk}
+								<line x1={X(tk)} x2={X(tk)} y1="18" y2={40 + stsenaariumid.length * 70} class="lo-grid-l" />
+								<text x={X(tk)} y="10" class="lo-tick">{tk} {t("m")}</text>
 							{/each}
 							{#each stsenaariumid as [n, x], i}
 								{@const y = 30 + i * 70}
@@ -599,38 +603,38 @@
 								<rect x={X(x.r.reactionM)} y={y + 10} width={Math.max(0, X(kokku) - X(x.r.reactionM))} height="28" class={n === 'A' ? 'lo-bar-a' : 'lo-bar-b'} rx="3" />
 								{#if x.r.stopped}
 									<line x1={X(kokku)} x2={X(kokku)} y1={y + 4} y2={y + 44} class="lo-stop" />
-									<text x={Math.min(X(kokku) + 6, W - 4)} y={y + 58} class="lo-endlbl" text-anchor={X(kokku) > W - 70 ? 'end' : 'start'}>{m(kokku)} m</text>
+									<text x={Math.min(X(kokku) + 6, W - 4)} y={y + 58} class="lo-endlbl" text-anchor={X(kokku) > W - 70 ? 'end' : 'start'}>{m(kokku)} {t("m")}</text>
 								{/if}
 								{#if X(x.r.reactionM) - X(0) > 96}
-									<text x={(X(0) + X(x.r.reactionM)) / 2} y={y + 30} class="lo-inlbl">reageerimine</text>
+									<text x={(X(0) + X(x.r.reactionM)) / 2} y={y + 30} class="lo-inlbl">{t("reageerimine")}</text>
 								{/if}
 								{#if X(kokku) - X(x.r.reactionM) > 90}
-									<text x={(X(x.r.reactionM) + X(kokku)) / 2} y={y + 30} class="lo-inlbl lo-dark">pidurdamine</text>
+									<text x={(X(x.r.reactionM) + X(kokku)) / 2} y={y + 30} class="lo-inlbl lo-dark">{t("pidurdamine")}</text>
 								{/if}
 							{/each}
 							{#if takistus > 0}
 								<line x1={X(takistus)} x2={X(takistus)} y1="18" y2={40 + stsenaariumid.length * 70} class="lo-obst" />
-								<text x={X(takistus) - 4} y={36 + stsenaariumid.length * 70} class="lo-obstlbl" text-anchor="end">takistus</text>
+								<text x={X(takistus) - 4} y={36 + stsenaariumid.length * 70} class="lo-obstlbl" text-anchor="end">{t("takistus")}</text>
 							{/if}
 						</svg>
-						<figcaption><span class="lo-key lo-key-r"></span> reageerimisteekond (auto sõidab täiskiirusel) <span class="lo-key lo-key-p"></span> pidurdusteekond</figcaption>
+						<figcaption>{@html t("<span class=\"lo-key lo-key-r\"></span> reageerimisteekond (auto sõidab täiskiirusel) <span class=\"lo-key lo-key-p\"></span> pidurdusteekond")}</figcaption>
 					</figure>
 				{/if}
 
 				<div class="lo-obst-in">
-					<label for="lo-tak">Takistus tee peal (nt teele jooksev laps) kaugusel</label>
+					<label for="lo-tak">{t("Takistus tee peal (nt teele jooksev laps) kaugusel")}</label>
 					<div class="lo-obst-row">
 						<input id="lo-tak" type="number" min="0" max="500" step="1" bind:value={takistus} placeholder="0" />
-						<span>m</span>
-						{#if takistus > 0}<button type="button" class="lo-tool" onclick={() => (takistus = 0)}>Eemalda</button>{/if}
+						<span>{t("m")}</span>
+						{#if takistus > 0}<button type="button" class="lo-tool" onclick={() => (takistus = 0)}>{t("Eemalda")}</button>{/if}
 					</div>
 					{#each tak as [n, v]}
 						<p class="lo-impact" class:ok={v === 0}>
 							<span class="lo-tag sm" class:lo-tag-b={n === 'B'}>{n}</span>
 							{#if v === 0}
-								Peatub enne takistust.
+								{t("Peatub enne takistust.")}
 							{:else}
-								Jõuab takistuseni kiirusega <b>{f0(v)} km/h</b> — löök nagu kukkudes {f1(kukkumine(v))} m kõrguselt.
+								{t("Jõuab takistuseni kiirusega")} <b>{f0(v)} {t("km/h")}</b> {t("— löök nagu kukkudes")} {f1(kukkumine(v))} {t("m kõrguselt.")}
 							{/if}
 						</p>
 					{/each}
@@ -639,10 +643,10 @@
 				{#if vordlus}
 					<div class="lo-cmp">
 						<p>
-							<b>{vordlus.Pk}</b> vajab peatumiseks <b>{m(vordlus.vahe)} m</b> rohkem.
+							<b>{vordlus.Pk}</b> {t("vajab peatumiseks")} <b>{m(vordlus.vahe)} {t("m")}</b> {t("rohkem.")}
 							{#if vordlus.v > 0.5}
-								Kohas, kus <b>{vordlus.L}</b> juba seisab ({m(vordlus.koht)} m), sõidab <b>{vordlus.Pk}</b> veel
-								<b>{f0(vordlus.v)} km/h</b> — see on sama löök, nagu kukuks auto {f1(kukkumine(vordlus.v))} m kõrguselt.
+								{t("Kohas, kus")} <b>{vordlus.L}</b> {t("juba seisab (")}{m(vordlus.koht)} {t("m), sõidab")} <b>{vordlus.Pk}</b> {t("veel")}
+								<b>{f0(vordlus.v)} {t("km/h")}</b> {t("— see on sama löök, nagu kukuks auto")} {f1(kukkumine(vordlus.v))} {t("m kõrguselt.")}
 							{/if}
 						</p>
 					</div>
@@ -653,18 +657,18 @@
 
 	{#if core && !esitlus}
 		<div class="lo-mini" class:peidus={tulemusNahtav}>
-			<button type="button" class="lo-mini-res" onclick={naitaTulemust} aria-label="Näita tulemust">
-				<span class="lo-tag sm">A</span><b>{RA?.r ? (RA.r.stopped ? m(RA.r.totalDistanceM) + ' m' : 'ei peatu') : '—'}</b>
-				{#if B}<span class="lo-tag sm lo-tag-b">B</span><b>{RB?.r ? (RB.r.stopped ? m(RB.r.totalDistanceM) + ' m' : 'ei peatu') : '—'}</b>{/if}
-				<span class="lo-mini-up">Tulemus ↑</span>
+			<button type="button" class="lo-mini-res" onclick={naitaTulemust} aria-label={t("Näita tulemust")}>
+				<span class="lo-tag sm">A</span><b>{RA?.r ? (RA.r.stopped ? m(RA.r.totalDistanceM) + ' m' : t('ei peatu')) : '—'}</b>
+				{#if B}<span class="lo-tag sm lo-tag-b">B</span><b>{RB?.r ? (RB.r.stopped ? m(RB.r.totalDistanceM) + ' m' : t('ei peatu')) : '—'}</b>{/if}
+				<span class="lo-mini-up">{t("Tulemus ↑")}</span>
 			</button>
 			{#if B}
-				<div class="lo-mini-sw" role="group" aria-label="Mida muudad">
+				<div class="lo-mini-sw" role="group" aria-label={t("Mida muudad")}>
 					<button type="button" aria-pressed={muuda === 'A'} onclick={() => (muuda = 'A')}>A</button>
 					<button type="button" class="b" aria-pressed={muuda === 'B'} onclick={() => (muuda = 'B')}>B</button>
 				</div>
 			{:else}
-				<button type="button" class="lo-mini-add" onclick={lisaB}>+ Võrdle</button>
+				<button type="button" class="lo-mini-add" onclick={lisaB}>{t("+ Võrdle")}</button>
 			{/if}
 		</div>
 	{/if}
@@ -872,6 +876,22 @@
 		color: #cfe6ff;
 		white-space: nowrap;
 	}
+	.lo-in,
+	.lo-out {
+		min-width: 0;
+	}
+	.lo-in fieldset {
+		min-width: 0;
+	}
+	.lo-seg button {
+		min-width: 0;
+		overflow-wrap: anywhere;
+	}
+	.lo-tabs [role='tab'],
+	.lo-add {
+		min-width: 0;
+		overflow-wrap: anywhere;
+	}
 	.lo-in {
 		background: var(--lo-card);
 		border: 1px solid var(--line);
@@ -1006,13 +1026,13 @@
 		padding: 4px;
 	}
 	.lo-seg3 {
-		grid-template-columns: repeat(3, 1fr);
+		grid-template-columns: repeat(3, minmax(0, 1fr));
 	}
 	.lo-seg5 {
-		grid-template-columns: repeat(5, 1fr);
+		grid-template-columns: repeat(5, minmax(0, 1fr));
 	}
 	.lo-seg6 {
-		grid-template-columns: repeat(3, 1fr);
+		grid-template-columns: repeat(3, minmax(0, 1fr));
 	}
 	.lo-seg button {
 		border: 0;

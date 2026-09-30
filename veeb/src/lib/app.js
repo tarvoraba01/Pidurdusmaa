@@ -20,6 +20,20 @@
   'use strict';
 
   var CFG = window.PM_CFG || {};
+  /* Keel: eesti on põhikeel. Vene/inglise lehel (/ru/, /en/) annab
+     +layout.svelte sõnastiku (PM_I18N), võti = eestikeelne lähtetekst.
+     Tõlge puudub → eestikeelne tekst. Analüütika sildid jäävad eesti keelde. */
+  var LANG = window.PM_LANG || 'et';
+  var I18N = LANG !== 'et' ? window.PM_I18N || null : null;
+  var LHOME = LANG === 'et' ? (CFG.home || '/') : (CFG.home || '/') + LANG + '/';
+  var DEC = LANG === 'en' ? '.' : ',';
+  var HREF_T = /href="(\/(?:rehvi-valimine\/|vordle-rehve\/|liiklusohutus\/)?)(?=["?#])/g;
+  function _t(s) {
+    if (!I18N) return s;
+    var v = I18N[s];
+    if (v == null || v === '') return s;
+    return v.indexOf('href="/') >= 0 ? v.replace(HREF_T, function (m, p) { return 'href="/' + LANG + p; }) : v;
+  }
   /* Märgise klassi esindusväärtus. Nominaalne keskpunkt on varuvariant;
      kui sellest klassist ja rehvitüübist on mõõdetud rehve (core.gClass,
      vt pidurdus/kalibreeri_gklass.py), kasutame nende MEDIAANI. Ilma
@@ -44,20 +58,20 @@
   var GMID = GNOM;
   var EKAT = ['SUMMER_TOURING', 'ALL_SEASON', 'WINTER_CENTRAL', 'WINTER_NORDIC'];
   var CATNAME = {
-    SUMMER_UHP: 'Suverehv (sportlik)', SUMMER_TOURING: 'Suverehv', ALL_SEASON: 'Aastaringne rehv',
-    WINTER_CENTRAL: 'Talverehv (Kesk-Euroopa)', WINTER_NORDIC: 'Talverehv (Põhjamaade)', WINTER_STUDDED: 'Naastrehv'
+    SUMMER_UHP: _t('Suverehv (sportlik)'), SUMMER_TOURING: _t('Suverehv'), ALL_SEASON: _t('Aastaringne rehv'),
+    WINTER_CENTRAL: _t('Talverehv (Kesk-Euroopa)'), WINTER_NORDIC: _t('Talverehv (Põhjamaade)'), WINTER_STUDDED: _t('Naastrehv')
   };
   /* NB: sama tabel on functions.php-s (PM_CONDS) ja metoodika tekstis. */
   var COND = {
-    wet:  { surface: 'ASPHALT', waterMm: 1.0, tempC: 10, label: 'märg asfalt', short: 'Märg' },
-    dry:  { surface: 'ASPHALT', waterMm: 0.0, tempC: 15, label: 'kuiv asfalt', short: 'Kuiv' },
-    snow: { surface: 'SNOW_PACKED', waterMm: 0.0, tempC: -5, label: 'tallatud lumi', short: 'Lumi' },
-    ice:  { surface: 'ICE', waterMm: 0.0, tempC: -5, label: 'jää', short: 'Jää' }
+    wet:  { surface: 'ASPHALT', waterMm: 1.0, tempC: 10, et: 'märg asfalt', label: _t('märg asfalt'), short: _t('Märg') },
+    dry:  { surface: 'ASPHALT', waterMm: 0.0, tempC: 15, et: 'kuiv asfalt', label: _t('kuiv asfalt'), short: _t('Kuiv') },
+    snow: { surface: 'SNOW_PACKED', waterMm: 0.0, tempC: -5, et: 'tallatud lumi', label: _t('tallatud lumi'), short: _t('Lumi') },
+    ice:  { surface: 'ICE', waterMm: 0.0, tempC: -5, et: 'jää', label: _t('jää'), short: _t('Jää') }
   };
   var SEASON = {
-    summer: { label: 'Suvi', long: 'suverehvid', yks: 'suverehv', osa: 'suverehvi', pp: 'suverehve', tested: ['SUMMER_TOURING', 'SUMMER_UHP'], eprel: [0] },
-    all:    { label: 'Aastaringne', long: 'aastaringsed rehvid', yks: 'aastaringne rehv', osa: 'aastaringset rehvi', pp: 'aastaringseid rehve', tested: ['ALL_SEASON'], eprel: [1] },
-    winter: { label: 'Talv', long: 'talverehvid', yks: 'talverehv', osa: 'talverehvi', pp: 'talverehve', tested: ['WINTER_CENTRAL', 'WINTER_NORDIC', 'WINTER_STUDDED'], eprel: [2, 3] }
+    summer: { label: _t('Suvi'), et: 'suverehvid', long: _t('suverehvid'), yks: _t('suverehv'), osa: _t('suverehvi'), pp: _t('suverehve'), tested: ['SUMMER_TOURING', 'SUMMER_UHP'], eprel: [0] },
+    all:    { label: _t('Aastaringne'), et: 'aastaringsed rehvid', long: _t('aastaringsed rehvid'), yks: _t('aastaringne rehv'), osa: _t('aastaringset rehvi'), pp: _t('aastaringseid rehve'), tested: ['ALL_SEASON'], eprel: [1] },
+    winter: { label: _t('Talv'), et: 'talverehvid', long: _t('talverehvid'), yks: _t('talverehv'), osa: _t('talverehvi'), pp: _t('talverehve'), tested: ['WINTER_CENTRAL', 'WINTER_NORDIC', 'WINTER_STUDDED'], eprel: [2, 3] }
   };
   var DEFAULT_VEH = 'vw_golf_8';
   var FLAG = { GUESS: 1, CONFLICT: 2, SNOW: 4, ICE: 8 };
@@ -65,7 +79,7 @@
   /* ------------------------------------------------------------ abivahendid */
   function $(s, r) { return (r || document).querySelector(s); }
   function $$(s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); }
-  function fmt(n, d) { return (d == null ? n.toFixed(1) : n.toFixed(d)).replace('.', ','); }
+  function fmt(n, d) { return (d == null ? n.toFixed(1) : n.toFixed(d)).replace('.', DEC); }
   /* vahe protsendina parimast: alla 10% ühe komakohaga, muidu täisarv */
   function pct(diff, base) {
     var v = 100 * diff / base;
@@ -89,7 +103,7 @@
       function (_, pre, a, b) { return pre + a + b.toLowerCase(); });
   }
   function grade(g) {
-    return /^[A-E]$/.test(g || '') ? '<span class="gr ' + g + '">' + g + '</span>' : '<span class="gr x">–</span>';
+    return /^[A-E]$/.test(g || '') ? _t('<span class="gr ') + g + '">' + g + '</span>' : '<span class="gr x">–</span>';
   }
   /* Brauserisse jäetakse ainult kaks asja ja ainult selle vahelehe ajaks
      (sessionStorage — kaob, kui vaheleht suletakse): valitud auto ja
@@ -177,7 +191,7 @@
         case 'kriteerium': {
           var g = v.split('=')[0], val = v.slice(g.length + 1);
           var sildid = GA_SILDID[g] || {};
-          var tekst = val ? val.split('+').map(function (x) { return sildid[x] || x; }).join(' + ') : '(tühi)';
+          var tekst = val ? val.split('+').map(function (x) { return sildid[x] || x; }).join(' + ') : _t('(tühi)');
           if (GA_KRIT[g]) p[GA_KRIT[g]] = tekst;
           break;
         }
@@ -237,6 +251,13 @@
       .then(function (r) { return r.json(); })
       .then(function (d) {
         core = d;
+        /* „Ei leia oma autot“ tüüpautod: nimi tõlgitakse, mark (võti) jääb */
+        if (I18N) d.vehicles.forEach(function (v) {
+          if (v.variant) v.variant = hjT(v.variant);
+          if (v.make !== 'Ei leia oma autot') return;
+          ['name', 'model', 'yearLabel', 'variant'].forEach(function (f) { if (v[f]) v[f] = _t(v[f]); });
+        });
+        if (I18N) Object.keys(d.sources || {}).forEach(function (k) { var x = d.sources[k]; if (x.nimi) x.nimi = _t(x.nimi); });
         core.vehByKey = {};
         d.vehicles.forEach(function (v) { core.vehByKey[v.key] = v; });
         /* vanad ABS-iga paariread (<võti>_abs): nüüd baasrida + ABS-i tuli põlemas */
@@ -263,6 +284,8 @@
   /* rea mootorid -> valikud, mis kasutavad selle rea andmeid.
      kirje: [silt, kütus, aastad, slug, jrk] */
   var mootoridP = null;
+  /* mootori silt „1.0 TSI · 110 hj (81 kW)“: hj → л.с. / hp */
+  function hjT(x) { return I18N && x ? String(x).replace(/ hj \(/, ' ' + _t('hj') + ' (') : x; }
   function laeMootorid() {
     if (mootoridP) return mootoridP;
     mootoridP = fetch(CFG.data + 'mootorid.json?v=' + encodeURIComponent(CFG.ver || ''), { credentials: 'same-origin' })
@@ -273,7 +296,7 @@
           var v = core.vehByKey[k];
           if (!v || v.virt) return;
           m[k].forEach(function (e) {
-            var x = Object.assign({}, v, { key: v.key + '~' + e[3], variant: e[0], fuel: e[1],
+            var x = Object.assign({}, v, { key: v.key + '~' + e[3], variant: hjT(e[0]), fuel: e[1],
               engYears: e[2], engOrd: e[4], virt: 1,
               name: [v.make.split(' /')[0], v.model, v.gen, e[0].split(' · ')[0]].filter(Boolean).join(' ') + ' (' + (e[2] || v.years) + ')' });
             /* mootori enda tühimass ja tehase rehvimõõdud (nt GTI 225/45 R17,
@@ -318,7 +341,7 @@
              size: pretty(r.m), gSource: 'label' };
   }
   function classTyre(g, cat, m) {
-    return { key: 'c:' + g + cat, name: 'Klass ' + g, category: cat, wetGripIndex: gmid(g, cat),
+    return { key: 'c:' + g + cat, name: _t('Klass ') + g, category: cat, wetGripIndex: gmid(g, cat),
              treadDepthMm: 8, treadDepthNewMm: 8, pressureBar: null, loadCapacityKg: null,
              ageYears: 1, studded: false, size: pretty(m), gSource: 'label' };
   }
@@ -405,7 +428,7 @@
     var q = [];
     if (l && l.length) q.push('rehvid=' + l.map(function (x) { return x.id; }).join(','));
     if (extra) Object.keys(extra).forEach(function (k) { if (extra[k]) q.push(k + '=' + encodeURIComponent(extra[k])); });
-    return CFG.home + 'vordle-rehve/' + (q.length ? '?' + q.join('&') : '');
+    return LHOME + 'vordle-rehve/' + (q.length ? '?' + q.join('&') : '');
   }
 
   /* ------------------------------------------------------------ auto valija
@@ -421,8 +444,8 @@
       var grp = null;
       el.innerHTML = '<option value="">' + esc(ph) + '</option>' + list.map(function (o) {
         var h = '';
-        if (o[2] !== undefined && o[2] !== grp) { h = (grp !== null ? '</optgroup>' : '') + (o[2] ? '<optgroup label="' + esc(o[2]) + '">' : ''); grp = o[2]; }
-        return h + '<option value="' + esc(o[0]) + '">' + esc(o[1]) + '</option>';
+        if (o[2] !== undefined && o[2] !== grp) { h = (grp !== null ? '</optgroup>' : '') + (o[2] ? _t('<optgroup label="') + esc(o[2]) + '">' : ''); grp = o[2]; }
+        return h + _t('<option value="') + esc(o[0]) + '">' + esc(o[1]) + '</option>';
       }).join('') + (grp ? '</optgroup>' : '');
       el.disabled = !list.length;
       if (list.length === 1) el.value = list[0][0];
@@ -432,15 +455,15 @@
     var makes = uniq(V.map(function (v) { return [v.make, v.make]; })).filter(function (m) { return m[0] !== GEN; })
       .sort(function (a, b) { return a[1].localeCompare(b[1], 'et'); });
     /* üldised tüüpautod nimekirja lõppu, selge sildiga */
-    if (V.some(function (v) { return v.make === GEN; })) makes.push([GEN, '— Ei leia oma autot? Vali tüüp —']);
-    opts(sel.make, makes, 'Vali mark');
+    if (V.some(function (v) { return v.make === GEN; })) makes.push([GEN, _t('— Ei leia oma autot? Vali tüüp —')]);
+    opts(sel.make, makes, _t('Vali mark'));
     sel.make.value = '';
     function fill(from) {
       var mk = sel.make.value, md = sel.model.value, yr = sel.year.value;
       if (from === 'make') {
         var models = uniq(V.filter(function (v) { return v.make === mk; }).map(function (v) { return [v.model, v.model]; }))
           .sort(function (a, b) { return a[1].localeCompare(b[1], 'et', { numeric: true }); });
-        opts(sel.model, mk ? models : [], mk ? 'Vali mudel' : '—');
+        opts(sel.model, mk ? models : [], mk ? _t('Vali mudel') : '—');
         md = sel.model.value; from = 'model';
       }
       if (from === 'model') {
@@ -448,7 +471,7 @@
         var alg = function (l) { var m = /\((\d{4})/.exec(l[0]); return m ? +m[1] : 0; };
         var yrs = uniq(V.filter(function (v) { return v.make === mk && v.model === md; }).map(function (v) { return [v.yearLabel, v.yearLabel]; }))
           .sort(function (a, b) { return alg(b) - alg(a); });
-        opts(sel.year, md ? yrs : [], md ? 'Vali aasta' : '—');
+        opts(sel.year, md ? yrs : [], md ? _t('Vali aasta') : '—');
         yr = sel.year.value; from = 'year';
       }
       if (from === 'year') taidaMootorid();
@@ -461,8 +484,8 @@
       var jrk = function (v) { return v.engOrd != null ? v.engOrd : 1e3; };
       var mitmeKytusega = rows.some(function (v) { return v.fuel && v.fuel !== rows[0].fuel; });
       var vars = rows.slice().sort(function (a, b) { return jrk(a) - jrk(b); })
-        .map(function (v) { return [v.key, v.variant === '—' ? 'Standard' : v.variant, mitmeKytusega ? (KYTUS[v.fuel] || 'Muu') : undefined]; });
-      opts(sel.variant, yr ? vars : [], yr ? 'Vali mootor' : '—');
+        .map(function (v) { return [v.key, v.variant === '—' ? _t('Standard') : v.variant, mitmeKytusega ? (KYTUS[v.fuel] || _t('Muu')) : undefined]; });
+      opts(sel.variant, yr ? vars : [], yr ? _t('Vali mootor') : '—');
       /* mitu mootorit: vaikimisi põlvkonna põhirida (selle andmed on
          põlvkonna tüüpilised), kasutaja saab mootori ise vahetada */
       if (yr && first && !sel.variant.value) sel.variant.value = first.key;
@@ -504,16 +527,16 @@
     bemm: 'bmw', ziguli: 'lada', zhiguli: 'lada', zigul: 'lada', vaz: 'lada', moskvich: 'moskvits', moskvitch: 'moskvits',
     shkoda: 'skoda', citroen: 'citroen', alfa: 'alfa', chevy: 'chevrolet', landrover: 'land rover'
   };
-  var KYTUS = { b: 'Bensiin', bg: 'Bensiin / gaas', g: 'Gaas', d: 'Diisel', h: 'Hübriid', p: 'Pistikhübriid', e: 'Elekter' };
+  var KYTUS = { b: _t('Bensiin'), bg: _t('Bensiin / gaas'), g: _t('Gaas'), d: _t('Diisel'), h: _t('Hübriid'), p: _t('Pistikhübriid'), e: _t('Elekter') };
   function vehSearch(sel, V, onPick) {
     var dark = sel.make.classList.contains('sel');
     var host = sel.make.parentNode;
     var wrap = document.createElement('div');
     wrap.className = 'vs' + (dark ? ' vs-dark' : '');
     var lid = 'vs' + Math.random().toString(36).slice(2, 7);
-    wrap.innerHTML = '<input type="search" class="' + esc(sel.make.className) + ' vs-in" placeholder="Otsi autot, nt Golf 4 või Passat 2005" ' +
-      'autocomplete="off" spellcheck="false" role="combobox" aria-expanded="false" aria-autocomplete="list" aria-controls="' + lid + '" aria-label="Otsi autot">' +
-      '<ul class="vs-list" id="' + lid + '" role="listbox" hidden></ul>';
+    wrap.innerHTML = _t('<input type="search" class="') + esc(sel.make.className) + _t(' vs-in" placeholder="Otsi autot, nt Golf 4 või Passat 2005" ') +
+      _t('autocomplete="off" spellcheck="false" role="combobox" aria-expanded="false" aria-autocomplete="list" aria-controls="') + lid + _t('" aria-label="Otsi autot">') +
+      _t('<ul class="vs-list" id="') + lid + _t('" role="listbox" hidden></ul>');
     host.parentNode.insertBefore(wrap, host);
     var inp = $('input', wrap), list = $('ul', wrap), hits = [], act = -1;
 
@@ -553,10 +576,10 @@
     }
     function show() {
       list.innerHTML = hits.length ? hits.map(function (v, i) {
-        return '<li role="option" id="' + lid + '-' + i + '" data-i="' + i + '" aria-selected="' + (i === act) + '">' +
+        return _t('<li role="option" id="') + lid + '-' + i + _t('" data-i="') + i + _t('" aria-selected="') + (i === act) + '">' +
           '<b>' + esc(v.make + ' ' + v.model) + '</b> ' + esc((v.yearLabel || '') + (v.variant && v.variant !== '—' ? ' · ' + v.variant : '')) +
           ' <span class="vs-m">' + esc(v.oemSize || '') + '</span></li>';
-      }).join('') : (inp.value.trim().length > 1 ? '<li class="vs-none" role="presentation">Ei leidnud. Proovi ainult marki või mudelit, või vali allpool.</li>' : '');
+      }).join('') : (inp.value.trim().length > 1 ? _t('<li class="vs-none" role="presentation">Ei leidnud. Proovi ainult marki või mudelit, või vali allpool.</li>') : '');
       var open = !!list.innerHTML;
       list.hidden = !open;
       inp.setAttribute('aria-expanded', open ? 'true' : 'false');
@@ -593,14 +616,14 @@
     if (fab.length) {
       /* KÕIK selle põlvkonna tehasemõõdud, mitte ainult üks: enamikul
          autodel on neid 2-4 ja kasutaja teab oma oma rehvi küljelt. */
-      h += '<optgroup label="' + esc(veh.model + ' tehasemõõdud') + '">' + fab.map(function (m) {
+      h += _t('<optgroup label="') + esc(veh.model + _t(' tehasemõõdud')) + '">' + fab.map(function (m) {
         var known = core.eprelSizes.indexOf(m) >= 0;
-        return '<option value="' + esc(m) + '">' + esc(pretty(m)) + (m === oem ? ' · levinuim' : '') +
-          (known ? '' : ' (märgise andmed puuduvad)') + '</option>';
+        return _t('<option value="') + esc(m) + '">' + esc(pretty(m)) + (m === oem ? _t(' · levinuim') : '') +
+          (known ? '' : _t(' (märgise andmed puuduvad)')) + '</option>';
       }).join('') + '</optgroup>';
     }
-    h += '<optgroup label="' + (fab.length ? 'Muu mõõt' : 'Rehvimõõt') + '">' + list.filter(function (s) { return fab.indexOf(s.m) < 0; }).map(function (s) {
-      return '<option value="' + esc(s.m) + '">' + esc(s.label) + ' · ' + s.n + ' rehvi</option>';
+    h += _t('<optgroup label="') + (fab.length ? _t('Muu mõõt') : _t('Rehvimõõt')) + '">' + list.filter(function (s) { return fab.indexOf(s.m) < 0; }).map(function (s) {
+      return _t('<option value="') + esc(s.m) + '">' + esc(s.label) + ' · ' + s.n + _t(' rehvi</option>');
     }).join('') + '</optgroup>';
     el.innerHTML = h;
     el.value = current && $('option[value="' + current + '"]', el) ? current : (oem || '20555R16');
@@ -631,12 +654,12 @@
       var id = el.id || ('sp' + Math.random().toString(36).slice(2, 7));
       var cls = el.className;
       var f = function (k, t, ml, i) {
-        return '<label class="sp-f"><span class="sp-l">' + t + '</span><input class="' + esc(cls) + ' sp-in" id="' + esc(id + (i ? '-' + k : '')) +
-          '" data-sp="' + k + '" list="' + esc(id + '-dl-' + k) + '" inputmode="' + (k === 'r' ? 'text' : 'numeric') + '" maxlength="' + ml +
-          '" autocomplete="off" spellcheck="false"><datalist id="' + esc(id + '-dl-' + k) + '"></datalist></label>';
+        return '<label class="sp-f"><span class="sp-l">' + t + _t('</span><input class="') + esc(cls) + _t(' sp-in" id="') + esc(id + (i ? '-' + k : '')) +
+          _t('" data-sp="') + k + _t('" list="') + esc(id + '-dl-' + k) + _t('" inputmode="') + (k === 'r' ? 'text' : 'numeric') + _t('" maxlength="') + ml +
+          _t('" autocomplete="off" spellcheck="false"><datalist id="') + esc(id + '-dl-' + k) + '"></datalist></label>';
       };
-      box.innerHTML = '<div class="sp-row">' + f('w', 'Laius', 3, 0) + '<span class="sp-sep" aria-hidden="true">/</span>' +
-        f('p', 'Kõrgus', 2, 1) + '<span class="sp-sep" aria-hidden="true">R</span>' + f('r', 'Velg', 3, 2) + '</div>' +
+      box.innerHTML = '<div class="sp-row">' + f('w', _t('Laius'), 3, 0) + '<span class="sp-sep" aria-hidden="true">/</span>' +
+        f('p', _t('Kõrgus'), 2, 1) + '<span class="sp-sep" aria-hidden="true">R</span>' + f('r', _t('Velg'), 3, 2) + '</div>' +
         '<p class="sp-msg" data-sp-msg aria-live="polite"></p>';
       /* vana silt (for="f-size") osutab nüüd laiuse lahtrile */
       if (el.id) el.id = el.id + '-kogu';
@@ -659,11 +682,11 @@
         msg.textContent = '';
         lists();
         if (w.length < 3 || p.length < 2 || r.length < 2) {
-          if (lopp && (w || p || r)) msg.textContent = 'Kirjuta kõik kolm: nt 205 / 55 R 16.';
+          if (lopp && (w || p || r)) msg.textContent = _t('Kirjuta kõik kolm: nt 205 / 55 R 16.');
           return;
         }
         var v = w + p + 'R' + r;
-        if (!box._koik[v]) { msg.textContent = 'Mõõtu ' + w + '/' + p + ' R' + r + ' andmebaasis veel pole.'; return; }
+        if (!box._koik[v]) { msg.textContent = _t('Mõõtu ') + w + '/' + p + ' R' + r + _t(' andmebaasis veel pole.'); return; }
         if (!$('option[value="' + v + '"]', el)) {
           var g = $$('optgroup', el).pop() || el;
           var o = document.createElement('option'); o.value = v; o.textContent = pretty(v);
@@ -701,7 +724,7 @@
       var lists = function () {
         var w = inp.w.value, p = inp.p.value, o = box._opts;
         var uniq = function (a) { return a.filter(function (x, i) { return a.indexOf(x) === i; }).sort(function (a, b) { return parseInt(a, 10) - parseInt(b, 10) || a.localeCompare(b); }); };
-        var dl = function (k, vals) { $('#' + CSS.escape(inp[k].getAttribute('list')), box).innerHTML = vals.map(function (v) { return '<option value="' + esc(v) + '">'; }).join(''); };
+        var dl = function (k, vals) { $('#' + CSS.escape(inp[k].getAttribute('list')), box).innerHTML = vals.map(function (v) { return _t('<option value="') + esc(v) + '">'; }).join(''); };
         dl('w', uniq(o.map(function (x) { return x.w; })));
         dl('p', uniq(o.filter(function (x) { return x.w === w; }).map(function (x) { return x.p; })));
         dl('r', uniq(o.filter(function (x) { return x.w === w && x.p === p; }).map(function (x) { return x.r; })));
@@ -746,7 +769,7 @@
     function recalc() {
       loadSize(S.size);
       if (goMsg && S.veh) goMsg.hidden = true;
-      if (shown) { goLabel('Arvuta uuesti'); goBtn.classList.add('stale'); }
+      if (shown) { goLabel(_t('Arvuta uuesti')); goBtn.classList.add('stale'); }
     }
 
     /* ---- 5. Sinu praegune rehv (valikuline) */
@@ -769,15 +792,15 @@
         /* testitud rehvid, mida sinu mõõdus EPREL-is ei ole (nt naastrehvid) */
         core.tyres.forEach(function (t) {
           if (tested[t.key] || !sobib(t.name)) return;
-          out.push({ t: t.key, n: t.name, s: tyypSilt(t.category) + ' · test mõõdus ' + t.size });
+          out.push({ t: t.key, n: t.name, s: tyypSilt(t.category) + _t(' · test mõõdus ') + t.size });
         });
         return out.slice(0, 8);
       }
       function naita() {
         list.innerHTML = hits.length ? hits.map(function (h, i) {
-          return '<li role="option" id="own-o' + i + '" data-i="' + i + '" aria-selected="' + (i === act) + '"><b>' + esc(h.n) + '</b>' +
+          return _t('<li role="option" id="own-o') + i + _t('" data-i="') + i + _t('" aria-selected="') + (i === act) + '"><b>' + esc(h.n) + '</b>' +
             (h.g ? ' ' + grade(h.g) : '') + ' <span class="own-t">' + esc(h.s) + '</span></li>';
-        }).join('') : (inp.value.trim().length > 1 ? '<li class="vs-none" role="presentation">Mõõdus ' + esc(pretty(S.size)) + ' sellist rehvi ei leidnud. Kontrolli mõõtu või kirjuta ainult mudeli nimi.</li>' : '');
+        }).join('') : (inp.value.trim().length > 1 ? _t('<li class="vs-none" role="presentation">Mõõdus ') + esc(pretty(S.size)) + _t(' sellist rehvi ei leidnud. Kontrolli mõõtu või kirjuta ainult mudeli nimi.</li>') : '');
         var open = !!list.innerHTML;
         list.hidden = !open; inp.setAttribute('aria-expanded', open ? 'true' : 'false');
         if (act >= 0) inp.setAttribute('aria-activedescendant', 'own-o' + act); else inp.removeAttribute('aria-activedescendant');
@@ -787,7 +810,7 @@
         S.minu = h.e ? { e: h.e, n: h.n } : { t: h.t, n: h.n };
         valitudNimi = inp.value = h.n;
         hits = []; act = -1; naita(); list.hidden = true;
-        vihje(h.s ? h.s.charAt(0).toUpperCase() + h.s.slice(1) + ' — võrdleme sama hooaja rehvidega.' : '');
+        vihje(h.s ? h.s.charAt(0).toUpperCase() + h.s.slice(1) + _t(' — võrdleme sama hooaja rehvidega.') : '');
         Track('oma_rehv', h.n);
         recalc();
       }
@@ -824,12 +847,12 @@
          siis arvutatakse teise tehasemõõduga ja seda öeldakse välja */
       paintAbs(veh);
       var hint = !veh ? '' : veh.oemTyp
-        ? 'levinuim tehasemõõt ' + veh.oemTyp + ' · arvutame ' + veh.oemSize + ' järgi'
-        : 'levinuim tehasemõõt ' + veh.oemSize;
+        ? _t('levinuim tehasemõõt ') + veh.oemTyp + _t(' · arvutame ') + veh.oemSize + _t(' järgi')
+        : _t('levinuim tehasemõõt ') + veh.oemSize;
       /* link auto lehele (/autod/<mark>/<mudel-põlvkond>/), sama slug mis serveris */
       var al = veh && veh.make && veh.model && veh.make !== 'Ei leia oma autot'
         ? '/autod/' + slugA(veh.make.split(' /')[0]) + '/' + slugA(veh.model + ' ' + veh.yearLabel) + '/' : '';
-      $('[data-veh-hint]', root).innerHTML = esc(hint) + (al ? ' · <a href="' + esc(al) + '">auto leht</a>' : '');
+      $('[data-veh-hint]', root).innerHTML = esc(hint) + (al ? _t(' · <a href="') + esc(al) + _t('">auto leht</a>') : '');
     });
     S.size = sizeOptions(sizeSel, null, S.size);
 
@@ -845,10 +868,10 @@
       absBtn.dataset.st = st;
       absBtn.setAttribute('aria-pressed', on ? 'true' : 'false');
       absBtn.setAttribute('aria-disabled', st === 'opt' ? 'false' : 'true');
-      absBtn.title = st === 'std' ? 'ABS on selle auto standardvarustus.'
-        : st === 'none' ? 'Sellel autol ABS-i ei olnud.'
-        : 'ABS oli selle auto lisavarustus. Kui armatuuril süttib käivitamisel hetkeks ABS-tuli, on sinu autol ABS. Vajuta tulele, kui sul on ABS.';
-      if (absTxt) absTxt.textContent = on ? 'ABS olemas' : st === 'none' ? 'ABS-i pole' : 'Kas on ABS?';
+      absBtn.title = st === 'std' ? _t('ABS on selle auto standardvarustus.')
+        : st === 'none' ? _t('Sellel autol ABS-i ei olnud.')
+        : _t('ABS oli selle auto lisavarustus. Kui armatuuril süttib käivitamisel hetkeks ABS-tuli, on sinu autol ABS. Vajuta tulele, kui sul on ABS.');
+      if (absTxt) absTxt.textContent = on ? _t('ABS olemas') : st === 'none' ? _t('ABS-i pole') : _t('Kas on ABS?');
     }
     if (absBtn) absBtn.addEventListener('click', function () {
       if (!S.veh || absBtn.dataset.st !== 'opt') return;
@@ -866,7 +889,7 @@
       if (veh) {
         var fab = (veh.oemSizes && veh.oemSizes.length ? veh.oemSizes.map(norm) : [norm(veh.oemSize)]);
         var on = fab.indexOf(S.size) >= 0;
-        sizeTag.textContent = on ? '✓ Tehasemõõt' : 'Ei ole selle auto tehasemõõt (tehases: ' + fab.map(pretty).join(', ') + ')';
+        sizeTag.textContent = on ? _t('✓ Tehasemõõt') : _t('Ei ole selle auto tehasemõõt (tehases: ') + fab.map(pretty).join(', ') + ')';
         sizeTag.className = 'size-note' + (on ? '' : ' warn');
       }
     }
@@ -893,8 +916,8 @@
       speedIn.value = S.speed; speedNum.value = S.speed;
       speedIn.style.setProperty('--p', (100 * (S.speed - lo) / (hi - lo)) + '%');
       capNote.hidden = S.speed <= moodetud;
-      if (!capNote.hidden) capNote.textContent = (S.cond === 'snow' ? 'Lumel' : S.cond === 'ice' ? 'Jääl' : 'Sellel pinnal') +
-        ' on pidurdusmaa mõõdetud kuni ' + moodetud + ' km/h. Kiirematel arvutame valemist edasi — veapiir on suurem.';
+      if (!capNote.hidden) capNote.textContent = (S.cond === 'snow' ? _t('Lumel') : S.cond === 'ice' ? _t('Jääl') : _t('Sellel pinnal')) +
+        _t(' on pidurdusmaa mõõdetud kuni ') + moodetud + _t(' km/h. Kiirematel arvutame valemist edasi — veapiir on suurem.');
     }
     speedIn.addEventListener('input', function () { S.speed = +speedIn.value; paintSpeed(); save(); recalc(); });
     speedNum.addEventListener('change', function () {
@@ -905,7 +928,7 @@
       b.setAttribute('aria-pressed', b.dataset.cond === S.cond ? 'true' : 'false');
       b.addEventListener('click', function () {
         S.cond = b.dataset.cond;
-        Track('pind', COND[S.cond].label);
+        Track('pind', COND[S.cond].et);
         $$('[data-cond]', root).forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
         paintSpeed(); save(); recalc();
       });
@@ -953,10 +976,10 @@
       }
       if (goMsg) goMsg.hidden = true;
       var av = S.veh ? core.vehByKey[S.veh] : null;
-      Track('arvuta', (av ? av.make + ' ' + av.model : 'tüüpauto') + ' · ' + pretty(S.size) + ' · ' + S.speed + ' km/h · ' + COND[S.cond].label);
+      Track('arvuta', (av ? av.make + ' ' + av.model : 'tüüpauto') + ' · ' + pretty(S.size) + ' · ' + S.speed + ' km/h · ' + COND[S.cond].et);
       loadSize(S.size).then(function (rows) {
         Result.show(Object.assign({}, S), rows);
-        shown = true; goLabel('Arvuta pidurdusmaa'); goBtn.classList.remove('stale');
+        shown = true; goLabel(_t('Arvuta pidurdusmaa')); goBtn.classList.remove('stale');
         var res = $('#tulemus');
         if (!res) return;
         res.hidden = false;
@@ -978,11 +1001,11 @@
   /* ------------------------------------------------------------ tulemus */
   /* ---- SINU REHV (valikuline): EPREL-i rida sinu mõõdus või testitud rehv */
   var KAT_HOOAEG = { 0: 'summer', 1: 'all', 2: 'winter', 3: 'winter' };
-  var KAT_SILT = { 0: 'suverehv', 1: 'aastaringne', 2: 'Kesk-Euroopa talverehv', 3: 'Põhjamaade talverehv' };
+  var KAT_SILT = { 0: _t('suverehv'), 1: _t('aastaringne'), 2: _t('Kesk-Euroopa talverehv'), 3: _t('Põhjamaade talverehv') };
   function tyypHooaeg(cat) { return /^SUMMER/.test(cat) ? 'summer' : cat === 'ALL_SEASON' ? 'all' : 'winter'; }
   function tyypSilt(cat) {
-    return { SUMMER_UHP: 'sportlik suverehv', SUMMER_TOURING: 'suverehv', ALL_SEASON: 'aastaringne', WINTER_CENTRAL: 'Kesk-Euroopa talverehv',
-             WINTER_NORDIC: 'Põhjamaade talverehv', WINTER_STUDDED: 'naastrehv' }[cat] || '';
+    return { SUMMER_UHP: _t('sportlik suverehv'), SUMMER_TOURING: _t('suverehv'), ALL_SEASON: _t('aastaringne'), WINTER_CENTRAL: _t('Kesk-Euroopa talverehv'),
+             WINTER_NORDIC: _t('Põhjamaade talverehv'), WINTER_STUDDED: _t('naastrehv') }[cat] || '';
   }
   /* minu = { e: slug } (märgisega rehv sinu mõõdus) või { t: key } (testitud rehv) */
   function minuLeia(minu, eprelRows) {
@@ -1024,7 +1047,7 @@
         rows.push({ id: 'o', kind: 'own', name: M.nimi, d: rm.distanceM, r: rm, own: true, hooaeg: M.hooaeg,
           pids: M.r ? [M.r.slug + '@' + S.size] : [], label: M.r ? M.r.g : null, t: measuredM ? mt : null,
           est: !measuredM && ck !== 'wet',
-          sub: 'Sinu rehv · ' + M.silt + (measuredM ? ' · haare sõltumatust testist' : ck === 'wet' && M.r ? ' · märgise klass ' + M.r.g : ' · rehvitüübi keskmine (märgis ei ütle ' + COND[ck].label + ' kohta midagi)') });
+          sub: _t('Sinu rehv · ') + M.silt + (measuredM ? _t(' · haare sõltumatust testist') : ck === 'wet' && M.r ? _t(' · märgise klass ') + M.r.g : _t(' · rehvitüübi keskmine (märgis ei ütle ') + COND[ck].label + _t(' kohta midagi)')) });
       }
       core.tyres.forEach(function (t) {
         if (t.key === minuT) return;
@@ -1039,7 +1062,7 @@
         var r = calc(onCar(t, S.size), veh, cond);
         var srcs = uniqSrc(t.tests), er = eprelByTest[t.key];
         rows.push({ id: 't:' + t.key, kind: 'test', name: t.name, d: r.distanceM, r: r, t: t, pids: er ? [er.slug + '@' + S.size] : [],
-          sub: 'Sõltumatu test' + (srcs.length ? ' · ' + srcs.map(srcName).join(', ') : ''),
+          sub: _t('Sõltumatu test') + (srcs.length ? ' · ' + srcs.map(srcName).join(', ') : ''),
           sizeNote: norm(t.size) !== S.size ? t.size : null, label: er ? er.g : null, slug: t.slug, other: !avail });
       });
       /* märgis sinu mõõdus */
@@ -1053,8 +1076,8 @@
           var r = calc(classTyre(g, cat, S.size), veh, cond);
           rows.push({ id: 'c:' + k, kind: 'class', g: g, cat: cat, n: list.length, d: r.distanceM, r: r, members: list,
             pids: list.map(function (x) { return x.slug + '@' + S.size; }),
-            name: 'Märgise klass ' + g + (sea.eprel.length > 1 ? ' · ' + (cat === 'WINTER_NORDIC' ? 'Põhjamaade' : 'Kesk-Euroopa') : ''),
-            sub: list.length + ' rehvimudelit sinu mõõdus, nt ' + list.slice(0, 2).map(function (x) { return x.mark + ' ' + x.name; }).join(', ') });
+            name: _t('Märgise klass ') + g + (sea.eprel.length > 1 ? ' · ' + (cat === 'WINTER_NORDIC' ? _t('Põhjamaade') : _t('Kesk-Euroopa')) : ''),
+            sub: list.length + _t(' rehvimudelit sinu mõõdus, nt ') + list.slice(0, 2).map(function (x) { return x.mark + ' ' + x.name; }).join(', ') });
         });
       } else {
         /* märgis ei ütle kuiva/lume/jää kohta midagi: üks kategooria keskmise rida */
@@ -1064,8 +1087,8 @@
         Object.keys(cats).forEach(function (c) {
           var r = calc(classTyre('C', c, S.size), veh, cond);
           rows.push({ id: 'k:' + c, kind: 'cat', cat: c, n: cats[c], d: r.distanceM, r: r, pids: [],
-            name: CATNAME[c] + ' — kategooria keskmine',
-            sub: (cats[c] ? cats[c] + ' märgisega rehvimudelit sinu mõõdus · ' : '') + 'märgis ei ütle ' + COND[ck].label + ' kohta midagi' });
+            name: CATNAME[c] + _t(' — kategooria keskmine'),
+            sub: (cats[c] ? cats[c] + _t(' märgisega rehvimudelit sinu mõõdus · ') : '') + _t('märgis ei ütle ') + COND[ck].label + _t(' kohta midagi') });
         });
       }
       rows.sort(function (a, b) { return a.d - b.d; });
@@ -1116,27 +1139,27 @@
         $$('[data-rp]').forEach(function (e) {
           var x = rowsAll.filter(function (r) { return r.id === e.dataset.rp; })[0], c = x && cheapest(x.pids || [], h);
           e.textContent = c ? (x.kind === 'class' ? 'al ' : '') + Math.round(c.hind) + ' €' : '';
-          e.title = c ? (x.kind === 'class' ? 'Soodsaim selle klassi rehv: ' : 'Soodsaim hind: ') + eur(c.hind) : '';
+          e.title = c ? (x.kind === 'class' ? _t('Soodsaim selle klassi rehv: ') : _t('Soodsaim hind: ')) + eur(c.hind) : '';
         });
         var mb = $('[data-r-mbars]', el);
         if (mb) mb.classList.toggle('has-prices', !!$('.mbar .p:not(:empty)', mb));
         if (!box) return;
-        if (!avail) { box.innerHTML = '<span class="pl">Hinnad müüjatelt</span> <span class="none">pole hetkel saadaval</span> ' + tip(PRICE_T); return; }
+        if (!avail) { box.innerHTML = _t('<span class="pl">Hinnad müüjatelt</span> <span class="none">pole hetkel saadaval</span> ') + tip(PRICE_T); return; }
         if (cur.kind === 'test' || cur.kind === 'own') {
           var id = (cur.pids || [])[0];
-          box.innerHTML = '<span class="pl">' + esc(cur.name) + ' — hinnad</span>' + (id ? priceHtml(h[id], true) : '<span class="none">Seda rehvi sinu mõõdus müüjatelt ei leitud</span>');
+          box.innerHTML = '<span class="pl">' + esc(cur.name) + _t(' — hinnad</span>') + (id ? priceHtml(h[id], true) : _t('<span class="none">Seda rehvi sinu mõõdus müüjatelt ei leitud</span>'));
         } else if (cur.kind === 'class' && valitud(cur)) {
           var vm = valitud(cur), vid = vm.slug + '@' + size;
-          box.innerHTML = '<span class="pl">' + esc(vm.mark + ' ' + vm.name) + ' — hinnad</span> ' + priceHtml(h[vid], true) +
-            '<a class="more" href="' + CFG.home + 'rehvid/' + esc(vm.slug) + '/">Rehvi leht →</a>';
+          box.innerHTML = '<span class="pl">' + esc(vm.mark + ' ' + vm.name) + _t(' — hinnad</span> ') + priceHtml(h[vid], true) +
+            _t('<a class="more" href="') + CFG.home + 'rehvid/' + esc(vm.slug) + _t('/">Rehvi leht →</a>');
         } else if (cur.kind === 'class') {
           var top = cur.members.filter(function (m) { return !eriLiik(m); }).map(function (m) { var id = m.slug + '@' + size; return h[id] && h[id].length ? { m: m, r: h[id][0] } : null; })
             .filter(Boolean).sort(function (a, b) { return a.r.hind - b.r.hind; }).slice(0, 3);
-          box.innerHTML = '<span class="pl">Soodsaimad klassi ' + cur.g + ' rehvid</span> ' + (top.length ? '<ul class="sellers">' + top.map(function (t) {
-            return '<li><span><a href="' + CFG.home + 'rehvid/' + esc(t.m.slug) + '/">' + esc(t.m.mark + ' ' + t.m.name) + '</a> <small>' + esc(t.r.myyja) + '</small></span>' +
-              (t.r.url ? '<a class="buy" href="' + esc(t.r.url) + '" target="_blank" rel="nofollow sponsored noopener" data-pood="' + esc(t.r.myyja) + '" data-rehv="' + esc(t.m.mark + ' ' + t.m.name) + '">' + eur(t.r.hind) + '</a>' : '<b>' + eur(t.r.hind) + '</b>') + '</li>';
-          }).join('') + '</ul>' + AFF : '<span class="none">Hindu selles klassis veel pole</span>');
-        } else box.innerHTML = '<span class="pl">Hinnad</span> <span class="none">vali rehv, et näha müüjaid</span>';
+          box.innerHTML = _t('<span class="pl">Soodsaimad klassi ') + cur.g + _t(' rehvid</span> ') + (top.length ? '<ul class="sellers">' + top.map(function (t) {
+            return _t('<li><span><a href="') + CFG.home + 'rehvid/' + esc(t.m.slug) + '/">' + esc(t.m.mark + ' ' + t.m.name) + '</a> <small>' + esc(t.r.myyja) + '</small></span>' +
+              (t.r.url ? _t('<a class="buy" href="') + esc(t.r.url) + _t('" target="_blank" rel="nofollow sponsored noopener" data-pood="') + esc(t.r.myyja) + _t('" data-rehv="') + esc(t.m.mark + ' ' + t.m.name) + '">' + eur(t.r.hind) + '</a>' : '<b>' + eur(t.r.hind) + '</b>') + '</li>';
+          }).join('') + '</ul>' + AFF : _t('<span class="none">Hindu selles klassis veel pole</span>'));
+        } else box.innerHTML = _t('<span class="pl">Hinnad</span> <span class="none">vali rehv, et näha müüjaid</span>');
       });
     }
     /* klassi rehvid: üks rida mudeli kohta; järjestus = mida soovitame */
@@ -1178,58 +1201,58 @@
       var o = liikmed(cur), L = o.list, m0 = valitud(cur), LIM = 4;
       var shown = pickAll ? L : L.slice(0, LIM);
       if (m0 && shown.indexOf(m0) < 0) shown = shown.slice(0, LIM - 1).concat([m0]);
-      var miks = o.hind(L[0]) != null ? 'soodsaim' : L[0].tested ? 'testitud' : 'vaikseim';
-      return '<li class="mpick"><p class="mp-h">Klassi ' + esc(cur.g) + ' rehvid sinu mõõdus <small>— märjal pidurdavad ühtviisi, vahe on müras, kütusekulus ja hinnas</small></p>' +
-        '<ul class="mp-list' + (pickAll ? ' all' : '') + '">' + shown.map(function (m) {
+      var miks = o.hind(L[0]) != null ? _t('soodsaim') : L[0].tested ? _t('testitud') : _t('vaikseim');
+      return _t('<li class="mpick"><p class="mp-h">Klassi ') + esc(cur.g) + _t(' rehvid sinu mõõdus <small>— märjal pidurdavad ühtviisi, vahe on müras, kütusekulus ja hinnas</small></p>') +
+        _t('<ul class="mp-list') + (pickAll ? ' all' : '') + '">' + shown.map(function (m) {
           var on = m0 && m.slug === m0.slug, p = o.hind(m);
           var tr = m.tested ? rowsAll.filter(function (x) { return x.id === 't:' + m.tested; })[0] : null;
-          var meta = [eriLiik(m).toLowerCase(), onRft(m) ? 'run-flat' : '', m.db ? m.db + ' dB' : '', m.f ? 'kütus ' + m.f : '', tr ? 'testis ' + fmt(tr.d) + ' m' : m.tested ? 'testitud' : ''].filter(Boolean).join(' · ');
-          return '<li><button type="button" class="mp" data-pick="' + esc(m.slug) + '" aria-pressed="' + !!on + '">' +
+          var meta = [eriLiik(m).toLowerCase(), onRft(m) ? 'run-flat' : '', m.db ? m.db + ' dB' : '', m.f ? _t('kütus ') + m.f : '', tr ? _t('testis ') + fmt(tr.d) + _t(' m') : m.tested ? _t('testitud') : ''].filter(Boolean).join(' · ');
+          return _t('<li><button type="button" class="mp" data-pick="') + esc(m.slug) + _t('" aria-pressed="') + !!on + '">' +
             '<span class="mp-n">' + esc(m.mark + ' ' + m.name) + (m === L[0] ? ' <em>' + miks + '</em>' : '') + '</span>' +
             '<span class="mp-m">' + esc(meta) + '</span>' +
             '<span class="mp-p">' + (p != null ? eur(p) : '') + '</span></button></li>';
         }).join('') + '</ul>' +
-        (L.length > LIM ? '<button type="button" class="linkbtn mp-all" data-mp-all>' + (pickAll ? 'Näita vähem' : 'Näita kõiki ' + L.length) + '</button>' : '') +
+        (L.length > LIM ? '<button type="button" class="linkbtn mp-all" data-mp-all>' + (pickAll ? _t('Näita vähem') : _t('Näita kõiki ') + L.length) + '</button>' : '') +
         '</li>';
     }
     function row(x, best, max, compact) {
       var dd = x.d - best;
       if (compact) {
-        var nm = x.kind === 'class' ? 'Klass ' + x.g + ' · ' + x.n + ' rehvi' : x.kind === 'cat' ? (CATNAME[x.cat] + ', keskmine') : x.name;
-        return '<li><button type="button" class="mbar' + (x.kind === 'class' ? ' mcls' : '') + (x.kind === 'own' ? ' own' : '') + '" data-row="' + esc(x.id) + '" aria-pressed="' + (x.id === sel) + '"' +
-          (x.kind === 'class' ? ' aria-expanded="' + (x.id === avatud) + '"' : '') + ' title="' + esc(x.kind === 'class' ? 'EL-i märgise märghaardumise klass ' + x.g + ' — vajuta, et näha selle klassi rehve' : (x.sub || '')) + '">' +
+        var nm = x.kind === 'class' ? _t('Klass ') + x.g + ' · ' + x.n + _t(' rehvi') : x.kind === 'cat' ? (CATNAME[x.cat] + _t(', keskmine')) : x.name;
+        return _t('<li><button type="button" class="mbar') + (x.kind === 'class' ? ' mcls' : '') + (x.kind === 'own' ? ' own' : '') + _t('" data-row="') + esc(x.id) + _t('" aria-pressed="') + (x.id === sel) + '"' +
+          (x.kind === 'class' ? ' aria-expanded="' + (x.id === avatud) + '"' : '') + ' title="' + esc(x.kind === 'class' ? _t('EL-i märgise märghaardumise klass ') + x.g + _t(' — vajuta, et näha selle klassi rehve') : (x.sub || '')) + '">' +
           '<span class="n">' + esc(nm) + '</span>' +
-          '<span class="t" aria-hidden="true"><span style="width:' + (100 * x.d / max).toFixed(1) + '%"></span></span>' +
-          '<span class="v">' + fmt(x.d) + ' m</span>' +
-          '<span class="d">' + (dd < 0.05 ? '' : '+' + fmt(dd) + ' m <i>' + pct(dd, best) + '</i>') + '</span>' +
-          '<span class="p" data-rp="' + esc(x.id) + '"></span></button></li>';
+          _t('<span class="t" aria-hidden="true"><span style="width:') + (100 * x.d / max).toFixed(1) + '%"></span></span>' +
+          '<span class="v">' + fmt(x.d) + _t(' m</span>') +
+          '<span class="d">' + (dd < 0.05 ? '' : '+' + fmt(dd) + _t(' m <i>') + pct(dd, best) + '</i>') + '</span>' +
+          _t('<span class="p" data-rp="') + esc(x.id) + '"></span></button></li>';
       }
-      var sub = '<small>' + esc(x.sub) + (x.kind === 'test' && x.sizeNote ? ' · mõõt ' + esc(x.sizeNote) : '') + '</small>';
+      var sub = '<small>' + esc(x.sub) + (x.kind === 'test' && x.sizeNote ? _t(' · mõõt ') + esc(x.sizeNote) : '') + '</small>';
       var badge = x.kind === 'class' ? grade(x.g) : (x.label ? grade(x.label) : '');
-      return '<li><button type="button" class="bar" data-row="' + esc(x.id) + '" aria-pressed="' + (x.id === sel) + '">' +
-        '<span class="bn">' + badge + '<span>' + esc(x.name) + (x.other ? ' <small style="color:#92400e">· pole sinu mõõdus</small>' : '') + '<br>' + sub + '</span></span>' +
-        '<span class="bd">' + fmt(x.d) + ' m<small class="bp" data-rp="' + esc(x.id) + '"></small></span>' +
-        '<span class="bx' + (dd < 0.05 ? ' zero' : '') + '">' + (dd < 0.05 ? 'parim' : '+' + fmt(dd) + ' m<small>' + pct(dd, best) + '</small>') + '</span>' +
-        '<span class="tr" aria-hidden="true"><span class="' + (x.kind === 'test' ? '' : 'band') + '" style="width:' + (100 * x.d / max).toFixed(1) + '%"></span></span>' +
+      return _t('<li><button type="button" class="bar" data-row="') + esc(x.id) + _t('" aria-pressed="') + (x.id === sel) + '">' +
+        '<span class="bn">' + badge + '<span>' + esc(x.name) + (x.other ? _t(' <small style="color:#92400e">· pole sinu mõõdus</small>') : '') + '<br>' + sub + '</span></span>' +
+        '<span class="bd">' + fmt(x.d) + _t(' m<small class="bp" data-rp="') + esc(x.id) + '"></small></span>' +
+        _t('<span class="bx') + (dd < 0.05 ? ' zero' : '') + '">' + (dd < 0.05 ? _t('parim') : '+' + fmt(dd) + _t(' m<small>') + pct(dd, best) + '</small>') + '</span>' +
+        _t('<span class="tr" aria-hidden="true"><span class="') + (x.kind === 'test' ? '' : 'band') + _t('" style="width:') + (100 * x.d / max).toFixed(1) + '%"></span></span>' +
         '</button></li>';
     }
     /* sinu rehv vs parim sama hooaja valik (+ suverehv lumel/jääl) */
     function minuVordlus(cur, rows, out, S, react) {
-      if (out.minu && out.minu.puudu) return '<span class="own-cmp">Rehvi ' + esc(out.minu.nimi || '') + ' mõõdus ' + esc(pretty(S.size)) + ' ei ole — näitame tüüpilist rehvi.</span>';
+      if (out.minu && out.minu.puudu) return _t('<span class="own-cmp">Rehvi ') + esc(out.minu.nimi || '') + _t(' mõõdus ') + esc(pretty(S.size)) + _t(' ei ole — näitame tüüpilist rehvi.</span>');
       if (!cur || cur.kind !== 'own') return '';
       var muud = rows.filter(function (x) { return x.kind !== 'own'; });
       var h = '';
       if (muud.length) {
         var b = muud[0], vahe = cur.d - b.d;
-        var bn = b.kind === 'class' ? b.g + '-klassi märgisega rehv' : b.kind === 'cat' ? CATNAME[b.cat].toLowerCase() + ' (keskmine)' : b.name;
+        var bn = b.kind === 'class' ? b.g + _t('-klassi märgisega rehv') : b.kind === 'cat' ? CATNAME[b.cat].toLowerCase() + _t(' (keskmine)') : b.name;
         /* alla 5% vahe on mudeli veapiiri sees — ära soovita vahetust */
-        h = vahe < 0.5 ? '<span class="own-cmp">Sinu rehv on selles võrdluses parim.</span>'
-          : vahe / cur.d < 0.05 ? '<span class="own-cmp">Sinu rehv on parimate hulgas: vahe parimaga (' + esc(bn) + ') on ' + fmt(vahe) + ' m, see on veapiiri sees.</span>'
-          : '<span class="own-cmp">Parim valik: <b>' + esc(bn) + '</b> — peatub <b>' + fmt(vahe) + ' m</b> varem.</span>';
+        h = vahe < 0.5 ? _t('<span class="own-cmp">Sinu rehv on selles võrdluses parim.</span>')
+          : vahe / cur.d < 0.05 ? _t('<span class="own-cmp">Sinu rehv on parimate hulgas: vahe parimaga (') + esc(bn) + _t(') on ') + fmt(vahe) + _t(' m, see on veapiiri sees.</span>')
+          : _t('<span class="own-cmp">Parim valik: <b>') + esc(bn) + _t('</b> — peatub <b>') + fmt(vahe) + _t(' m</b> varem.</span>');
       }
       if (cur.hooaeg === 'summer' && (S.cond === 'snow' || S.cond === 'ice')) {
         var w = calc(classTyre('C', 'WINTER_NORDIC', S.size), out.veh, out.cond).distanceM;
-        h += '<span class="own-cmp">Suverehv ' + (S.cond === 'snow' ? 'lumel' : 'jääl') + ': Põhjamaade talverehviga oleks umbes <b>' + fmt(w + react) + ' m</b>.</span>';
+        h += _t('<span class="own-cmp">Suverehv ') + (S.cond === 'snow' ? _t('lumel') : _t('jääl')) + _t(': Põhjamaade talverehviga oleks umbes <b>') + fmt(w + react) + _t(' m</b>.</span>');
       }
       return h;
     }
@@ -1240,17 +1263,17 @@
       var cur = rowsAll.filter(function (r) { return r.id === sel; })[0];
       var ck = S.cond, c = COND[ck];
       var detail = $('[data-r-detail]');
-      $('[data-r-range]', el).textContent = S.speed + ' km/h → 0 km/h';
+      $('[data-r-range]', el).textContent = S.speed + _t(' km/h → 0 km/h');
       if (detail) {
-        $('[data-r-range2]', detail).textContent = S.speed + ' → 0 km/h';
+        $('[data-r-range2]', detail).textContent = S.speed + _t(' → 0 km/h');
         $('[data-r-cond]', detail).textContent = c.label;
       }
       var va = $('[data-r-valik]', el);
-      if (va) va.href = CFG.home + 'rehvi-valimine/?' + [S.veh ? 'auto=' + encodeURIComponent(S.veh) : '', 'moot=' + S.size, 'hooaeg=' + S.resSeason].filter(Boolean).join('&');
+      if (va) va.href = LHOME + 'rehvi-valimine/?' + [S.veh ? 'auto=' + encodeURIComponent(S.veh) : '', 'moot=' + S.size, 'hooaeg=' + S.resSeason].filter(Boolean).join('&');
 
       if (!cur) {
         $('[data-r-big]', el).textContent = '—';
-        $('[data-r-whoshort]', el).textContent = 'Selle valiku kohta andmeid ei ole.';
+        $('[data-r-whoshort]', el).textContent = _t('Selle valiku kohta andmeid ei ole.');
         $('[data-r-mbars]', el).innerHTML = '';
         if (detail) { $('[data-r-bars]', detail).innerHTML = ''; $('[data-r-big2]', detail).textContent = '—'; }
         return;
@@ -1267,12 +1290,12 @@
       var react = rmode === 'stop' ? S.speed / 3.6 * rt : 0;
       $$('[data-r-mode]', el).forEach(function (b) { b.setAttribute('aria-pressed', String(b.dataset.rMode === rmode)); });
       $('[data-r-lbl]', el).textContent = rmode === 'stop'
-        ? 'Peatumisteekond · märkamisest kuni seisuni'
-        : 'Pidurdusteekond · pidur põhjas kuni seisuni';
+        ? _t('Peatumisteekond · märkamisest kuni seisuni')
+        : _t('Pidurdusteekond · pidur põhjas kuni seisuni');
       var spl = $('[data-r-split]', el);
       spl.hidden = rmode !== 'stop';
       $('[data-r-rt]', el).value = String(rt);
-      $('[data-r-splittxt]', el).innerHTML = 'Reageerimisteekond <b>' + fmt(react) + ' m</b> + pidurdusteekond <b>' + fmt(r.distanceM) + ' m</b>';
+      $('[data-r-splittxt]', el).innerHTML = _t('Reageerimisteekond <b>') + fmt(react) + _t(' m</b> + pidurdusteekond <b>') + fmt(r.distanceM) + _t(' m</b>');
       $('[data-r-big]', el).textContent = fmt(r.distanceM + react);
       if (!el._rbound) {
         el._rbound = true;
@@ -1290,9 +1313,9 @@
         });
       }
       var vm = valitud(cur);
-      var whoShort = cur.kind === 'own' ? cur.name + ' (sinu rehv)' : cur.kind === 'class' ? (vm ? vm.mark + ' ' + vm.name + (vmT ? ' (sõltumatu test)' : ' (' + cur.g + '-klassi märgis)') : cur.g + '-klassi märgise rehviga') : cur.kind === 'cat' ? CATNAME[cur.cat] + ' — keskmine' : cur.name;
+      var whoShort = cur.kind === 'own' ? cur.name + _t(' (sinu rehv)') : cur.kind === 'class' ? (vm ? vm.mark + ' ' + vm.name + (vmT ? _t(' (sõltumatu test)') : ' (' + cur.g + _t('-klassi märgis)')) : cur.g + _t('-klassi märgise rehviga')) : cur.kind === 'cat' ? CATNAME[cur.cat] + _t(' — keskmine') : cur.name;
       $('[data-r-whoshort]', el).innerHTML = esc(whoShort) + ' · ' + esc(c.label) + '<br>' +
-        (out.vehDefault ? 'auto valimata — arvutatud VW Golf 8 järgi' : esc(out.veh.name)) + ' · vahemik ' + fmt(r.lowM + react) + '–' + fmt(r.highM + react) + ' m' +
+        (out.vehDefault ? _t('auto valimata — arvutatud VW Golf 8 järgi') : esc(out.veh.name)) + _t(' · vahemik ') + fmt(r.lowM + react) + '–' + fmt(r.highM + react) + _t(' m') +
         minuVordlus(cur, rows, out, S, react);
 
       /* kompaktsed ribad: 5 rida, valitud alati sees */
@@ -1315,53 +1338,53 @@
       if (detail) {
         $('[data-r-big2]', detail).textContent = fmt(r.distanceM + react);
         $('[data-r-cats]', detail).innerHTML = Object.keys(SEASON).map(function (k) {
-          return '<button type="button" data-rs="' + k + '" aria-pressed="' + (k === S.resSeason) + '">' + SEASON[k].label + '</button>';
+          return _t('<button type="button" data-rs="') + k + _t('" aria-pressed="') + (k === S.resSeason) + '">' + SEASON[k].label + '</button>';
         }).join('');
         $$('[data-rs]', detail).forEach(function (b) { b.addEventListener('click', function () { S.resSeason = b.dataset.rs; S._userSeason = true; sel = null; render(); }); });
         var rx = $('[data-r-react]', detail), react1 = S.speed / 3.6 * rt;
         if (rx) rx.innerHTML = rmode === 'stop'
-          ? 'Peatumisteekond = reageerimisteekond <b>' + fmt(react) + ' m</b> (' + String(rt).replace('.', ',') + ' s, auto sõidab veel täiskiirusel) + pidurdusteekond <b>' + fmt(r.distanceM) + ' m</b>.'
-          : 'See on pidurdusteekond: arv algab hetkest, kui pidur on põhjas. Koos ' + String(rt).replace('.', ',') + ' s reaktsiooniajaga oleks peatumisteekond <b>' + fmt(r.distanceM + react1) + ' m</b> (+' + fmt(react1) + ' m).';
-        $('[data-r-band]', detail).innerHTML = 'Tõenäoline vahemik <b>' + fmt(r.lowM + react) + '–' + fmt(r.highM + react) + ' m</b> (±' + Math.round(r.sigmaRel * 100) + '%)';
+          ? _t('Peatumisteekond = reageerimisteekond <b>') + fmt(react) + _t(' m</b> (') + String(rt).replace('.', DEC) + _t(' s, auto sõidab veel täiskiirusel) + pidurdusteekond <b>') + fmt(r.distanceM) + _t(' m</b>.')
+          : _t('See on pidurdusteekond: arv algab hetkest, kui pidur on põhjas. Koos ') + String(rt).replace('.', DEC) + _t(' s reaktsiooniajaga oleks peatumisteekond <b>') + fmt(r.distanceM + react1) + _t(' m</b> (+') + fmt(react1) + _t(' m).');
+        $('[data-r-band]', detail).innerHTML = _t('Tõenäoline vahemik <b>') + fmt(r.lowM + react) + '–' + fmt(r.highM + react) + _t(' m</b> (±') + Math.round(r.sigmaRel * 100) + '%)';
         var who = '<b>' + esc(cur.name) + '</b>';
-        if (cur.kind === 'own') who += '<span class="src">Sinu rehv. ' + esc(cur.sub.replace(/^Sinu rehv · /, '')) + '.</span>';
-        else if (cur.kind === 'test') who += '<span class="src">Haare tuleb sõltumatu testi mõõdetud tulemusest' + (cur.sizeNote ? ' (testi mõõt ' + esc(cur.sizeNote) + '; sinu mõõdus võib märgise klass erineda)' : '') + '.</span>';
+        if (cur.kind === 'own') who += _t('<span class="src">Sinu rehv. ') + esc(cur.sub.indexOf(_t('Sinu rehv · ')) === 0 ? cur.sub.slice(_t('Sinu rehv · ').length) : cur.sub) + '.</span>';
+        else if (cur.kind === 'test') who += _t('<span class="src">Haare tuleb sõltumatu testi mõõdetud tulemusest') + (cur.sizeNote ? _t(' (testi mõõt ') + esc(cur.sizeNote) + _t('; sinu mõõdus võib märgise klass erineda)') : '') + '.</span>';
         else if (cur.kind === 'class') {
           var gn = gmidN(cur.g, cur.cat);
-          who += '<span class="src">Märgise klass ' + cur.g + ' · ' + cur.n + ' rehvimudelit sinu mõõdus. Haare on ' +
-            (gn ? 'selle klassi <b>' + gn + ' mõõdetud rehvi mediaan</b>' : 'klassi nominaalne keskpunkt') +
-            '. Sama klassi rehvid on mudelis võrdsed; päris elus erinevad nad ±3–4%.</span>';
+          who += _t('<span class="src">Märgise klass ') + cur.g + ' · ' + cur.n + _t(' rehvimudelit sinu mõõdus. Haare on ') +
+            (gn ? _t('selle klassi <b>') + gn + _t(' mõõdetud rehvi mediaan</b>') : _t('klassi nominaalne keskpunkt')) +
+            _t('. Sama klassi rehvid on mudelis võrdsed; päris elus erinevad nad ±3–4%.</span>');
         }
-        else who += '<span class="src">EL-i märgis ei ütle ' + esc(c.label) + ' haarde kohta midagi, seetõttu on see kategooria keskmine.</span>';
+        else who += _t('<span class="src">EL-i märgis ei ütle ') + esc(c.label) + _t(' haarde kohta midagi, seetõttu on see kategooria keskmine.</span>');
         $('[data-r-who]', detail).innerHTML = who;
-        var meta = '<span class="pill calc">Arvutatud hinnang</span>';
-        meta += out.vehDefault ? '<span class="pill warn">Auto valimata: VW Golf 8</span>' : '<span class="pill">' + esc(out.veh.name) + '</span>';
+        var meta = _t('<span class="pill calc">Arvutatud hinnang</span>');
+        meta += out.vehDefault ? _t('<span class="pill warn">Auto valimata: VW Golf 8</span>') : '<span class="pill">' + esc(out.veh.name) + '</span>';
         meta += '<span class="pill">' + esc(pretty(S.size)) + '</span>';
-        if (cur.kind === 'own') meta += '<span class="pill">Sinu rehv</span>';
-        if (cur.kind === 'test' || (cur.kind === 'own' && cur.t)) meta += '<span class="pill test">Sõltumatu test</span>';
-        if (cur.kind === 'class') meta += '<span class="pill off">Ametlik märgis</span>';
+        if (cur.kind === 'own') meta += _t('<span class="pill">Sinu rehv</span>');
+        if (cur.kind === 'test' || (cur.kind === 'own' && cur.t)) meta += _t('<span class="pill test">Sõltumatu test</span>');
+        if (cur.kind === 'class') meta += _t('<span class="pill off">Ametlik märgis</span>');
         $('[data-r-meta]', detail).innerHTML = meta;
         var sea = SEASON[S.resSeason], LIM = 10, shown = showAll ? rows : rows.slice(0, LIM);
         if (!showAll && shown.indexOf(cur) < 0) shown = shown.slice(0, LIM - 1).concat([cur]);
-        $('[data-r-sub]', detail).textContent = 'Sama auto, sama kiirus ja teeolud — ainult rehv on erinev. ' + (ck === 'wet'
-          ? 'Testitud rehvid eraldi, märgisega rehvid klassi kaupa.'
-          : 'Eraldi ridadel ainult rehvid, mille ' + c.label + ' tulemus on päriselt mõõdetud.');
+        $('[data-r-sub]', detail).textContent = _t('Sama auto, sama kiirus ja teeolud — ainult rehv on erinev. ') + (ck === 'wet'
+          ? _t('Testitud rehvid eraldi, märgisega rehvid klassi kaupa.')
+          : _t('Eraldi ridadel ainult rehvid, mille ') + c.label + _t(' tulemus on päriselt mõõdetud.'));
         $('[data-r-bars]', detail).innerHTML = shown.map(function (x) { return row(x, best, max, false); }).join('');
         var more = $('[data-r-more]', detail);
         more.hidden = rows.length <= LIM;
-        more.textContent = showAll ? 'Näita vähem' : 'Näita kõiki (' + rows.length + ')';
+        more.textContent = showAll ? _t('Näita vähem') : _t('Näita kõiki (') + rows.length + ')';
         more.onclick = function () { showAll = !showAll; render(); };
         var cmpA = $('[data-r-cmp]', detail);
         if (cmpA) cmpA.href = cmpUrl(null, { auto: S.veh, moot: S.size, hooaeg: S.resSeason });
         var notes = [];
-        if (!S._eprel.length) notes.push('Mõõdu ' + pretty(S.size) + ' märgiseandmeid pole veel andmebaasis — näidatakse ainult testitud rehve.');
-        if (!out.nSeason && S._eprel.length) notes.push('Selles mõõdus ei ole andmebaasis ühtegi märgisega ' + sea.osa + '.');
-        if (rows.some(function (x) { return x.sizeNote && !x.other; })) notes.push('Testitud rehvid on mõõdetud testi mõõdus; märk nime ees on sama mudeli ametlik klass SINU mõõdus. Need võivad erineda — see on veapiiris sees.');
-        if (S.showOther) notes.push('Näidatakse ka testitud rehve, mida sinu mõõdus andmebaasis ei ole — neid ei pruugi sinu autole saada.');
+        if (!S._eprel.length) notes.push(_t('Mõõdu ') + pretty(S.size) + _t(' märgiseandmeid pole veel andmebaasis — näidatakse ainult testitud rehve.'));
+        if (!out.nSeason && S._eprel.length) notes.push(_t('Selles mõõdus ei ole andmebaasis ühtegi märgisega ') + sea.osa + '.');
+        if (rows.some(function (x) { return x.sizeNote && !x.other; })) notes.push(_t('Testitud rehvid on mõõdetud testi mõõdus; märk nime ees on sama mudeli ametlik klass SINU mõõdus. Need võivad erineda — see on veapiiris sees.'));
+        if (S.showOther) notes.push(_t('Näidatakse ka testitud rehve, mida sinu mõõdus andmebaasis ei ole — neid ei pruugi sinu autole saada.'));
         (r.warnings || []).slice(0, 2).forEach(function (w) { if (!/mõõdust .* tehasemõõt/.test(w)) notes.push(w); });
         $('[data-r-note]', detail).innerHTML = (notes.length ? '<div class="note-box">' + notes.map(esc).join('<br>') + '</div>' : '') +
           (out.hiddenOther || S.showOther ? '<button type="button" class="btn sm" style="margin-top:var(--sp-3)" data-r-other>' +
-            (S.showOther ? 'Näita ainult sinu mõõdus saadaolevaid' : 'Näita ka ' + out.hiddenOther + ' testitud rehvi teistest mõõtudest') + '</button>' : '');
+            (S.showOther ? _t('Näita ainult sinu mõõdus saadaolevaid') : _t('Näita ka ') + out.hiddenOther + _t(' testitud rehvi teistest mõõtudest')) + '</button>' : '');
         var ob = $('[data-r-other]', detail);
         if (ob) ob.onclick = function () { S.showOther = !S.showOther; render(); };
       }
@@ -1381,7 +1404,7 @@
           var open = detail.hidden;
           detail.hidden = !open;
           tg.setAttribute('aria-expanded', open ? 'true' : 'false');
-          tg.textContent = open ? 'Peida üksikasjad' : 'Kõik rehvid ja üksikasjad';
+          tg.textContent = open ? _t('Peida üksikasjad') : _t('Kõik rehvid ja üksikasjad');
         });
       }
     }
@@ -1425,34 +1448,34 @@
   /* Omadused, mida saab kaaluda. `ok:false` = andmeid ei ole; neid näidatakse,
      aga nad ei mõjuta midagi ja kasutajale öeldakse see otse. */
   var PROPS = [
-    { k: 'wet',   n: 'Märgpidamine',   d: 'Kui hästi rehv märjal teel haarab.', src: 'Ametlik märgis', ok: true },
-    { k: 'wetb',  n: 'Märgpidurdus',   d: 'Arvutatud pidurdusmaa märjal sinu autoga, ilma reaktsiooniajata. Tuleb märghaardest.', src: 'Arvutus', ok: true },
-    { k: 'dryb',  n: 'Kuivpidurdus',   d: 'Arvutatud sinu autoga. Testitud rehvidel mõõdetud haardest, teistel tuletatud (≈).', src: 'Arvutus', ok: true },
-    { k: 'aqua',  n: 'Vesiliug',       d: 'Pidurdusmaa uue rehviga, kui teel on sügav vesi (roopad, lombid), 90→0 sinu autoga. Testitud rehvidel mõõdetud ujumiskiirusest, teistel tuletatud (≈).', src: 'Arvutus', ok: true },
-    { k: 'noise', n: 'Müra',           d: 'Rehvimärgise müra detsibellides.', src: 'Ametlik märgis', ok: true },
-    { k: 'rr',    n: 'Veeretakistus',  d: 'Mõju kütuse- või energiakulule.', src: 'Ametlik märgis', ok: true },
-    { k: 'winter',n: 'Talvised omadused', d: 'Pidurdusmaa lumel ja jääl 50→0 sinu autoga. Testitud rehvidel mõõdetud haardest, teistel rehvitüübi järgi (≈). Juures lume- ja jäämärk märgiselt.', src: 'Arvutus + test', ok: true },
-    { k: 'price', n: 'Hind',           d: 'Soodsaim hind müüjatelt sinu mõõdus. Rehv, mille hinda pole, jääb selle koha pealt arvestamata.', src: 'Müüjad', ok: true }
+    { k: 'wet',   n: _t('Märgpidamine'),   d: _t('Kui hästi rehv märjal teel haarab.'), src: _t('Ametlik märgis'), ok: true },
+    { k: 'wetb',  n: _t('Märgpidurdus'),   d: _t('Arvutatud pidurdusmaa märjal sinu autoga, ilma reaktsiooniajata. Tuleb märghaardest.'), src: _t('Arvutus'), ok: true },
+    { k: 'dryb',  n: _t('Kuivpidurdus'),   d: _t('Arvutatud sinu autoga. Testitud rehvidel mõõdetud haardest, teistel tuletatud (≈).'), src: _t('Arvutus'), ok: true },
+    { k: 'aqua',  n: _t('Vesiliug'),       d: _t('Pidurdusmaa uue rehviga, kui teel on sügav vesi (roopad, lombid), 90→0 sinu autoga. Testitud rehvidel mõõdetud ujumiskiirusest, teistel tuletatud (≈).'), src: _t('Arvutus'), ok: true },
+    { k: 'noise', n: _t('Müra'),           d: _t('Rehvimärgise müra detsibellides.'), src: _t('Ametlik märgis'), ok: true },
+    { k: 'rr',    n: _t('Veeretakistus'),  d: _t('Mõju kütuse- või energiakulule.'), src: _t('Ametlik märgis'), ok: true },
+    { k: 'winter',n: _t('Talvised omadused'), d: _t('Pidurdusmaa lumel ja jääl 50→0 sinu autoga. Testitud rehvidel mõõdetud haardest, teistel rehvitüübi järgi (≈). Juures lume- ja jäämärk märgiselt.'), src: _t('Arvutus + test'), ok: true },
+    { k: 'price', n: _t('Hind'),           d: _t('Soodsaim hind müüjatelt sinu mõõdus. Rehv, mille hinda pole, jääb selle koha pealt arvestamata.'), src: _t('Müüjad'), ok: true }
   ];
   /* RUN-FLAT: EPREL-is eraldi välja ei ole — tuvastame mudeli nimest
      (RFT, SSR, DriveGuard, ZP, MOE, ROF, HRS …). Pidurdusse see ei lähe. */
   var RFT_RE = /(^|[^a-z0-9])(rft|p-rft|run ?-?flat|runflat|ssr|zps?|rof|emt|dsst|hrs|xrp|driveguard|moe|r-f|rsc)([^a-z0-9]|$)/i;
   function onRft(r) { return RFT_RE.test(String(r.name || '')); }
-  var RFT_T = 'Run-flat (RFT): pärast torget saab edasi sõita, tavaliselt kuni 80 km, kiirusega kuni 80 km/h. Tuvastatud mudeli nimest (RFT, SSR, DriveGuard, ZP, MOE jt).';
+  var RFT_T = _t('Run-flat (RFT): pärast torget saab edasi sõita, tavaliselt kuni 80 km, kiirusega kuni 80 km/h. Tuvastatud mudeli nimest (RFT, SSR, DriveGuard, ZP, MOE jt).');
   /* ERIREHVID: rajarehvid / poolslikid, maastiku (M/T) ja haagise rehvid.
      Igapäevaseks sõiduks need ei sobi — vaikimisi soovitustest väljas,
      linnukesega saab lisada. Tuvastame mudeli nimest. */
   var ERI = [
-    ['Rajarehv', /cup\s?2|p\s?zero\s?trofeo|pzero\s?trofeo|\btrofeo\b|r888|proxes\s?(r1r|rr)\b|(^|[^a-z0-9])(ar-?1|cr-?s|ns-?2r)([^a-z0-9]|$)|advan\s?a0(48|50|52)|\ba0(48|50|52)\b|re-?71\s?rs|re-?12d|potenza\s?race|direzza\s?03g|sport\s?maxx\s?race|ventus\s?(rs-?4|td)\b|\bz2(14|21|22|32)\b|ecsta\s?v7\d0|\bv7(00|20|30)\b|\bv70a\b|595\s?rs|fz-?201|rt-?615|rt-?660|supercar\s?3r|forcecontact|\b123s\b|651\s?sport|gredge|\b07rs\b|tempesta\s?p1|semi-?slick/i],
-    ['Maastikurehv', /\bmud\b|grappler|\bm\s?\/\s?t\b|\bmt(\s?[-\/]?\s?\d+|\/r)?\b|\bstt\b|\bbaja\b|deegan/i],
-    ['Haagiserehv', /trailer|\bkargo\b/i]
+    [_t('Rajarehv'), /cup\s?2|p\s?zero\s?trofeo|pzero\s?trofeo|\btrofeo\b|r888|proxes\s?(r1r|rr)\b|(^|[^a-z0-9])(ar-?1|cr-?s|ns-?2r)([^a-z0-9]|$)|advan\s?a0(48|50|52)|\ba0(48|50|52)\b|re-?71\s?rs|re-?12d|potenza\s?race|direzza\s?03g|sport\s?maxx\s?race|ventus\s?(rs-?4|td)\b|\bz2(14|21|22|32)\b|ecsta\s?v7\d0|\bv7(00|20|30)\b|\bv70a\b|595\s?rs|fz-?201|rt-?615|rt-?660|supercar\s?3r|forcecontact|\b123s\b|651\s?sport|gredge|\b07rs\b|tempesta\s?p1|semi-?slick/i],
+    [_t('Maastikurehv'), /\bmud\b|grappler|\bm\s?\/\s?t\b|\bmt(\s?[-\/]?\s?\d+|\/r)?\b|\bstt\b|\bbaja\b|deegan/i],
+    [_t('Haagiserehv'), /trailer|\bkargo\b/i]
   ];
   function eriLiik(r) {
     var n = String(r.name || '');
     for (var i = 0; i < ERI.length; i++) if (ERI[i][1].test(n)) return ERI[i][0];
     return '';
   }
-  var ERI_T = 'Rajarehvid ja poolslikid, maastiku- (M/T) ja haagiserehvid. Igapäevaseks sõiduks need ei sobi, seepärast on nad vaikimisi peidetud. Tuvastatud mudeli nimest.';
+  var ERI_T = _t('Rajarehvid ja poolslikid, maastiku- (M/T) ja haagiserehvid. Igapäevaseks sõiduks need ei sobi, seepärast on nad vaikimisi peidetud. Tuvastatud mudeli nimest.');
   /* hind rehvi omaduseks: soodsaim müüja selles mõõdus (Prices.size vastusest) */
   function lisaHind(x, h) {
     var rr = h && h[x.r.slug + '@' + x.r.m], v = rr && rr.length ? rr[0].hind : null;
@@ -1493,27 +1516,27 @@
     P.wet = { v: r.g, show: grade(r.g), src: 'off', score: FG[r.g] };
     var sim = simul(t, r, veh);
     var wb = { distanceM: sim.wb };
-    P.wetb = { v: wb.distanceM, show: fmt(wb.distanceM) + ' m', src: 'calc', score: -wb.distanceM,
-               sub: t ? 'haare testist (mõõt ' + t.size + ')' : 'klassi ' + r.g + (gmidN(r.g, r.cat) ? ' mõõdetud keskmine' : ' keskpunkt') };
+    P.wetb = { v: wb.distanceM, show: fmt(wb.distanceM) + _t(' m'), src: 'calc', score: -wb.distanceM,
+               sub: t ? _t('haare testist (mõõt ') + t.size + ')' : _t('klassi ') + r.g + (gmidN(r.g, r.cat) ? _t(' mõõdetud keskmine') : _t(' keskpunkt')) };
     var tw = t ? pick(t.tests, 'ASPHALT', true) : null, td = t ? pick(t.tests, 'ASPHALT', false) : null;
     /* Mõõdetud testitulemus on väike rida arvutuse all — kõik rehvid saavad
        sama protokolli järgi (90→0, sinu auto) arvutatud väärtuse. */
-    if (tw) P.wetb.sub += ' · testis ' + fmt(tw.m) + ' m (' + srcLine(tw) + ')';
+    if (tw) P.wetb.sub += _t(' · testis ') + fmt(tw.m) + _t(' m (') + srcLine(tw) + ')';
     var db = { distanceM: sim.db }, dEst = !(t && t.muDry != null);
-    P.dryb = { v: db.distanceM, show: est(fmt(db.distanceM) + ' m', dEst), src: dEst ? 'est' : 'calc', score: -db.distanceM,
-               sub: dEst ? 'rehvitüübi keskmine' : 'haare testist' + (td ? ' · testis ' + fmt(td.m) + ' m (' + srcLine(td) + ')' : '') };
+    P.dryb = { v: db.distanceM, show: est(fmt(db.distanceM) + _t(' m'), dEst), src: dEst ? 'est' : 'calc', score: -db.distanceM,
+               sub: dEst ? _t('rehvitüübi keskmine') : _t('haare testist') + (td ? _t(' · testis ') + fmt(td.m) + _t(' m (') + srcLine(td) + ')' : '') };
     /* VESILIUG = pidurdusmaa sügavas vees (3 mm, roopad/lombid), 90→0.
        Testitud rehvil nihutatakse mudeli ujumiskiirust mõõdetu järgi:
        ADAC-i protokollis (mudelis 7,8 mm vett) annab mudel 65 mõõdetud
        ujumiskiiruse vastu mediaanvea 0,7% ja keskmise vea 3,8%. */
     var dd = { distanceM: sim.dd }, aEst = sim.aEst;
-    P.aqua = { v: dd.distanceM, show: est(fmt(dd.distanceM) + ' m', aEst), src: aEst ? 'est' : 'calc', score: -dd.distanceM,
-               sub: aEst ? 'rehvitüübi ja laiuse järgi' : 'testis hakkas ujuma ' + fmt(t.aqua.kmh) + ' km/h juures (' + ((core.sources[t.aqua.src] || {}).nimi || 'test') + ')' };
+    P.aqua = { v: dd.distanceM, show: est(fmt(dd.distanceM) + _t(' m'), aEst), src: aEst ? 'est' : 'calc', score: -dd.distanceM,
+               sub: aEst ? _t('rehvitüübi ja laiuse järgi') : _t('testis hakkas ujuma ') + fmt(t.aqua.kmh) + _t(' km/h juures (') + ((core.sources[t.aqua.src] || {}).nimi || 'test') + ')' };
     P.noise = r.db ? { v: r.db, show: r.db + ' dB' + (r.nk ? ' (' + r.nk + ')' : ''), src: 'off', score: -r.db } : null;
     P.rr = r.f ? { v: r.f, show: grade(r.f), src: 'off', score: FG[r.f] } : null;
     var ws = [];
-    if (r.flags & FLAG.SNOW) ws.push('lumemärk');
-    if (r.flags & FLAG.ICE) ws.push('jäämärk');
+    if (r.flags & FLAG.SNOW) ws.push(_t('lumemärk'));
+    if (r.flags & FLAG.ICE) ws.push(_t('jäämärk'));
     var ts = t ? pick(t.tests, 'SNOW_PACKED') : null, ti = t ? pick(t.tests, 'ICE') : null;
     /* TALV = arvutatud pidurdusmaa lumel + jääl 50→0 sinu autoga (sama mudel,
        mis kalkulaatoris). Testitud rehvil mõõdetud haardest, teistel rehvi
@@ -1521,19 +1544,19 @@
     var sb = { distanceM: sim.sb }, ib = { distanceM: sim.ib };
     var wEst = !(t && t.muSnow != null && t.muIce != null);
     P.winter = { v: sb.distanceM + ib.distanceM,
-                 show: est('lumi ' + fmt(sb.distanceM) + ' m · jää ' + fmt(ib.distanceM) + ' m', wEst), src: wEst ? 'est' : 'calc',
+                 show: est(_t('lumi ') + fmt(sb.distanceM) + _t(' m · jää ') + fmt(ib.distanceM) + _t(' m'), wEst), src: wEst ? 'est' : 'calc',
                  score: -(sb.distanceM + ib.distanceM),
-                 sub: [ws.length ? ws.join(' + ') : 'lume- ja jäämärk puudub', ts ? 'testis lumi ' + fmt(ts.m) + ' m' : '', ti ? 'jää ' + fmt(ti.m) + ' m' : ''].filter(Boolean).join(' · ') };
+                 sub: [ws.length ? ws.join(' + ') : _t('lume- ja jäämärk puudub'), ts ? _t('testis lumi ') + fmt(ts.m) + _t(' m') : '', ti ? _t('jää ') + fmt(ti.m) + _t(' m') : ''].filter(Boolean).join(' · ') };
     return P;
   }
-  var EST_T = 'Tuletatud meie valemist — selle rehvi kohta sõltumatut mõõtmist ei ole. Võta suunana, mitte 100% täpse numbrina.';
-  var CALC_T = 'Arvutatud tulemus meie mudelist sinu autoga. Hinnang, mitte mõõtmine — viga on tavaliselt paar meetrit.';
-  function est(txt, on) { return on ? '<span class="est" tabindex="0" data-tip="' + EST_T + '">≈</span>' + txt : txt; }
-  function tip(t) { return '<span class="tip" tabindex="0" data-tip="' + esc(t) + '" aria-label="' + esc(t) + '">i</span>'; }
+  var EST_T = _t('Tuletatud meie valemist — selle rehvi kohta sõltumatut mõõtmist ei ole. Võta suunana, mitte 100% täpse numbrina.');
+  var CALC_T = _t('Arvutatud tulemus meie mudelist sinu autoga. Hinnang, mitte mõõtmine — viga on tavaliselt paar meetrit.');
+  function est(txt, on) { return on ? _t('<span class="est" tabindex="0" data-tip="') + EST_T + '">≈</span>' + txt : txt; }
+  function tip(t) { return _t('<span class="tip" tabindex="0" data-tip="') + esc(t) + _t('" aria-label="') + esc(t) + '">i</span>'; }
   /* ---- HINNAD müüjatelt. Teema hindu ei tea: küsib serverist
      (CFG.prices → /wp-json/pm/v1/hinnad), kuhu müüjate API-ühendus need
      annab. Kui ühendust pole või päring ebaõnnestub, näidatakse seda otse. */
-  var PRICE_T = 'Siia tulevad rehvimüüjate hinnad otse nende süsteemist. Ühendus müüjatega on töös. Hind mõjutab rehvide järjestust ainult siis, kui valid ise „Soodne hind“.';
+  var PRICE_T = _t('Siia tulevad rehvimüüjate hinnad otse nende süsteemist. Ühendus müüjatega on töös. Hind mõjutab rehvide järjestust ainult siis, kui valid ise „Soodne hind“.');
   var Prices = {
     get: function (ids) {
       if (!CFG.prices || !ids.length) return Promise.resolve({ available: false });
@@ -1552,18 +1575,18 @@
     }
     return sizePrices[m];
   };
-  function eur(v) { return (+v).toFixed(2).replace('.', ',') + ' €'; }
-  function priceSlot(id) { return '<div class="pv" data-price="' + esc(id) + '"><span class="none">Laen hindu…</span></div>'; }
+  function eur(v) { return (+v).toFixed(2).replace('.', DEC) + ' €'; }
+  function priceSlot(id) { return _t('<div class="pv" data-price="') + esc(id) + _t('"><span class="none">Laen hindu…</span></div>'); }
   /* partnerlinkide märge — ainult siis, kui poelingid päriselt ekraanil on */
-  var AFF = '<p class="aff">Poelingid võivad olla partnerlingid — sinu hind ja meie järjestus ei muutu. <a href="' + '/teadmine/partnerid/">Loe lähemalt</a></p>';
+  var AFF = _t('<p class="aff">Poelingid võivad olla partnerlingid — sinu hind ja meie järjestus ei muutu. <a href="') + _t('/teadmine/partnerid/">Loe lähemalt</a></p>');
   function priceHtml(rows, avail) {
     if (rows && rows.length) {
       return '<ul class="sellers">' + rows.slice(0, 4).map(function (r) {
-        var name = r.url ? '<a href="' + esc(r.url) + '" target="_blank" rel="nofollow sponsored noopener" data-pood="' + esc(r.myyja) + '">' + esc(r.myyja) + '</a>' : esc(r.myyja);
-        return '<li><span>' + name + (r.laos === false ? ' <small>tellimisel</small>' : '') + '</span><b>' + eur(r.hind) + '</b></li>';
-      }).join('') + '</ul>' + (rows.length > 4 ? '<p class="more">+' + (rows.length - 4) + ' müüjat veel</p>' : '') + AFF;
+        var name = r.url ? _t('<a href="') + esc(r.url) + _t('" target="_blank" rel="nofollow sponsored noopener" data-pood="') + esc(r.myyja) + '">' + esc(r.myyja) + '</a>' : esc(r.myyja);
+        return '<li><span>' + name + (r.laos === false ? _t(' <small>tellimisel</small>') : '') + '</span><b>' + eur(r.hind) + '</b></li>';
+      }).join('') + '</ul>' + (rows.length > 4 ? '<p class="more">+' + (rows.length - 4) + _t(' müüjat veel</p>') : '') + AFF;
     }
-    return '<span class="none">' + (avail ? 'Selle rehvi hinda müüjatelt hetkel pole' : 'Hinnad pole hetkel saadaval') + '</span> ' + tip(PRICE_T);
+    return '<span class="none">' + (avail ? _t('Selle rehvi hinda müüjatelt hetkel pole') : _t('Hinnad pole hetkel saadaval')) + '</span> ' + tip(PRICE_T);
   }
   function fillPrices(box) {
     var els = $$('[data-price]', box);
@@ -1579,7 +1602,7 @@
   }
   function srcLine(x) {
     var s = core.sources[x.src] || {};
-    return (s.tegija ? s.tegija.replace(/ \(.*\)/, '') + ' ' + s.aasta : x.src) + ', ' + x.v0 + '→' + x.v1 + ' km/h, ' + (s.moot || '');
+    return (s.tegija ? s.tegija.replace(/ \(.*\)/, '') + ' ' + s.aasta : x.src) + ', ' + x.v0 + '→' + x.v1 + _t(' km/h, ') + (s.moot || '');
   }
 
   /* Kaks lehte, üks loogika:
@@ -1633,7 +1656,7 @@
       b.setAttribute('aria-pressed', b.dataset.season === S.season ? 'true' : 'false');
       b.addEventListener('click', function () {
         S.season = b.dataset.season;
-        Track('hooaeg', SEASON[S.season].long);
+        Track('hooaeg', SEASON[S.season].et);
         $$('[data-season]', root).forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
         save(); draw();
       });
@@ -1647,9 +1670,9 @@
       all: { wetb: 2, winter: 2, dryb: 1 }
     };
     var HOOAEG_TXT = {
-      summer: 'parimad märjal ja kuival teel pidurdamisel',
-      winter: 'parimad lumel ja jääl pidurdamisel',
-      all: 'parimad märjal, lumel ja jääl pidurdamisel'
+      summer: _t('parimad märjal ja kuival teel pidurdamisel'),
+      winter: _t('parimad lumel ja jääl pidurdamisel'),
+      all: _t('parimad märjal, lumel ja jääl pidurdamisel')
     };
     /* ---- küsimused (ainult valik) */
     function weights() {
@@ -1675,10 +1698,10 @@
     var prio = $('[data-prio]', root);
     if (prio) {
       prio.innerHTML = PROPS.map(function (p) {
-        return '<div class="prio-item' + (p.ok ? '' : ' na') + '"><span class="pn">' + esc(p.n) + '</span>' +
-          '<span class="lvl" role="group" aria-label="' + esc(p.n) + ' tähtsus">' + [1, 2, 3].map(function (l) {
-            return '<button type="button" data-w="' + p.k + '" data-l="' + l + '"' + (p.ok ? '' : ' disabled') + ' aria-label="tähtsus ' + l + '"></button>';
-          }).join('') + '</span><span class="pd">' + esc(p.d) + (p.ok ? '' : ' <b>Andmed puuduvad.</b>') + '</span></div>';
+        return _t('<div class="prio-item') + (p.ok ? '' : ' na') + '"><span class="pn">' + esc(p.n) + '</span>' +
+          _t('<span class="lvl" role="group" aria-label="') + esc(p.n) + _t(' tähtsus">') + [1, 2, 3].map(function (l) {
+            return _t('<button type="button" data-w="') + p.k + _t('" data-l="') + l + '"' + (p.ok ? '' : ' disabled') + _t(' aria-label="tähtsus ') + l + '"></button>';
+          }).join('') + '</span><span class="pd">' + esc(p.d) + (p.ok ? '' : _t(' <b>Andmed puuduvad.</b>')) + '</span></div>';
       }).join('');
       $$('[data-w]', prio).forEach(function (b) {
         b.addEventListener('click', function () {
@@ -1700,8 +1723,8 @@
       var used = Object.keys(w).filter(function (k) { return w[k] > 0 && PROP[k] && PROP[k].ok; });
       var miss = Object.keys(w).filter(function (k) { return w[k] > 0 && PROP[k] && !PROP[k].ok; });
       var box = $('[data-ct-out]', root);
-      if (box) box.innerHTML = (used.length ? '<p class="note" style="margin:0">Arvestan: ' + used.map(function (k) { return '<b>' + esc(PROP[k].n.toLowerCase()) + '</b>' + (w[k] > 1 ? ' ×' + w[k] : ''); }).join(', ') + '</p>' : '<p class="note" style="margin:0">Vali ülal, mis sulle oluline on — järjestus muutub kohe.</p>') +
-        (miss.length ? '<div class="note-box" style="margin-top:var(--sp-3)">' + miss.map(function (k) { return PROP[k].n; }).join(', ') + ': usaldusväärsed andmed puuduvad — seda ei saa arvestada, ja me ei hakka seda arvama.</div>' : '');
+      if (box) box.innerHTML = (used.length ? _t('<p class="note" style="margin:0">Arvestan: ') + used.map(function (k) { return '<b>' + esc(PROP[k].n.toLowerCase()) + '</b>' + (w[k] > 1 ? ' ×' + w[k] : ''); }).join(', ') + '</p>' : _t('<p class="note" style="margin:0">Vali ülal, mis sulle oluline on — järjestus muutub kohe.</p>')) +
+        (miss.length ? '<div class="note-box" style="margin-top:var(--sp-3)">' + miss.map(function (k) { return PROP[k].n; }).join(', ') + _t(': usaldusväärsed andmed puuduvad — seda ei saa arvestada, ja me ei hakka seda arvama.</div>') : '');
       if (reset) reset.hidden = !used.length && !miss.length;
     }
     paintQ();
@@ -1712,19 +1735,19 @@
       var order = Object.keys(w).filter(function (k) { return w[k] > 0; }).sort(function (a, b) { return w[b] - w[a]; });
       if (!order.length) order = ['wet', 'noise'];
       order.forEach(function (k) {
-        if (k === 'wet' && r.g) out.push('Märghaardumine <b>' + r.g + '</b>' + (r.g === stats.bestG ? ' — parim klass selles mõõdus' : ''));
-        if (k === 'wetb' && P.wetb) out.push('Märgpidurdus sinu autoga <b>' + P.wetb.show + '</b>' + (P.wetb.v <= stats.bestWetb + 0.05 ? ' — lühim selles nimekirjas' : ' (+' + fmt(P.wetb.v - stats.bestWetb) + ' m ehk ' + pct(P.wetb.v - stats.bestWetb, stats.bestWetb) + ' parimast)'));
-        if (k === 'dryb' && P.dryb) out.push('Kuivpidurdus sinu autoga <b>' + P.dryb.show + '</b>');
+        if (k === 'wet' && r.g) out.push(_t('Märghaardumine <b>') + r.g + '</b>' + (r.g === stats.bestG ? _t(' — parim klass selles mõõdus') : ''));
+        if (k === 'wetb' && P.wetb) out.push(_t('Märgpidurdus sinu autoga <b>') + P.wetb.show + '</b>' + (P.wetb.v <= stats.bestWetb + 0.05 ? _t(' — lühim selles nimekirjas') : ' (+' + fmt(P.wetb.v - stats.bestWetb) + _t(' m ehk ') + pct(P.wetb.v - stats.bestWetb, stats.bestWetb) + _t(' parimast)')));
+        if (k === 'dryb' && P.dryb) out.push(_t('Kuivpidurdus sinu autoga <b>') + P.dryb.show + '</b>');
         if (k === 'noise' && r.db) {
           var louder = stats.dbs.filter(function (d) { return d > r.db; }).length, qp = Math.round(100 * louder / stats.dbs.length);
-          out.push('Müra <b>' + r.db + ' dB</b>' + (qp >= 50 ? ' — vaiksem kui ' + qp + '% selle mõõdu rehvidest' : ''));
+          out.push(_t('Müra <b>') + r.db + ' dB</b>' + (qp >= 50 ? _t(' — vaiksem kui ') + qp + _t('% selle mõõdu rehvidest') : ''));
         }
-        if (k === 'rr' && r.f) out.push('Veeretakistus <b>' + r.f + '</b>' + (r.f === stats.bestF ? ' — parim klass selles mõõdus' : ''));
-        if (k === 'winter') out.push(P.winter.v ? 'Talvemärgid: <b>' + P.winter.show + '</b>' : 'Lume- ja jäämärk <b>puudub</b>');
-        if (k === 'aqua' && P.aqua) out.push('Pidurdusmaa sügavas vees <b>' + P.aqua.show + '</b>');
-        if (k === 'price' && P.price) out.push('Hind alates <b>' + P.price.show + '</b>' + (P.price.v <= stats.minHind + 0.005 ? ' — soodsaim selles nimekirjas' : ' (+' + eur(P.price.v - stats.minHind) + ' soodsaimast)'));
+        if (k === 'rr' && r.f) out.push(_t('Veeretakistus <b>') + r.f + '</b>' + (r.f === stats.bestF ? _t(' — parim klass selles mõõdus') : ''));
+        if (k === 'winter') out.push(P.winter.v ? _t('Talvemärgid: <b>') + P.winter.show + '</b>' : _t('Lume- ja jäämärk <b>puudub</b>'));
+        if (k === 'aqua' && P.aqua) out.push(_t('Pidurdusmaa sügavas vees <b>') + P.aqua.show + '</b>');
+        if (k === 'price' && P.price) out.push(_t('Hind alates <b>') + P.price.show + '</b>' + (P.price.v <= stats.minHind + 0.005 ? _t(' — soodsaim selles nimekirjas') : ' (+' + eur(P.price.v - stats.minHind) + _t(' soodsaimast)')));
       });
-      if (r.tested) out.push('Sõltumatult testitud');
+      if (r.tested) out.push(_t('Sõltumatult testitud'));
       return out.slice(0, 4);
     }
 
@@ -1766,9 +1789,9 @@
       sortBar = document.createElement('div');
       sortBar.className = 'sortbar';
       sortBar.setAttribute('role', 'group');
-      sortBar.setAttribute('aria-label', 'Järjesta');
-      sortBar.innerHTML = '<span>Järjesta:</span><button type="button" data-sort="fit" aria-pressed="true">Sobivus</button>' +
-        '<button type="button" data-sort="price" aria-pressed="false">Hind</button>';
+      sortBar.setAttribute('aria-label', _t('Järjesta'));
+      sortBar.innerHTML = _t('<span>Järjesta:</span><button type="button" data-sort="fit" aria-pressed="true">Sobivus</button>') +
+        _t('<button type="button" data-sort="price" aria-pressed="false">Hind</button>');
       head.parentNode.insertBefore(sortBar, head.nextSibling);
       $$('[data-sort]', sortBar).forEach(function (b) {
         b.addEventListener('click', function () {
@@ -1788,8 +1811,8 @@
       rows.forEach(function (r) { n[r.mark] = (n[r.mark] || 0) + 1; });
       var names = Object.keys(n).sort(function (a, b) { return a.localeCompare(b, 'et'); });
       if (brandVal && names.indexOf(brandVal) < 0) brandVal = '';
-      brandSel.innerHTML = '<option value="">Kõik margid (' + names.length + ')</option>' +
-        names.map(function (m) { return '<option value="' + esc(m) + '"' + (m === brandVal ? ' selected' : '') + '>' + esc(m) + ' · ' + n[m] + '</option>'; }).join('');
+      brandSel.innerHTML = _t('<option value="">Kõik margid (') + names.length + ')</option>' +
+        names.map(function (m) { return _t('<option value="') + esc(m) + '"' + (m === brandVal ? ' selected' : '') + '>' + esc(m) + ' · ' + n[m] + '</option>'; }).join('');
       brandSel.value = brandVal;
     }
     var joonisNr = 0;
@@ -1815,23 +1838,23 @@
       var a = autoMoodud(), sel = $('[data-f=size]', root);
       var mood = a.m.filter(function (m) { return m !== S.size && core.eprelSizes.indexOf(m) >= 0; });
       if (!a.m.length) {
-        if (S.rft === 'only' && sel) box.innerHTML = '<p class="note alt-h">Vali auto — näitame, millistes selle tehasemõõtudes run-flat rehve on.</p>';
+        if (S.rft === 'only' && sel) box.innerHTML = _t('<p class="note alt-h">Vali auto — näitame, millistes selle tehasemõõtudes run-flat rehve on.</p>');
         return;
       }
       if (!mood.length) return;
-      box.innerHTML = '<p class="note alt-h">Otsin ' + esc(a.nimi) + ' teistest tehasemõõtudest…</p>';
+      box.innerHTML = _t('<p class="note alt-h">Otsin ') + esc(a.nimi) + _t(' teistest tehasemõõtudest…</p>');
       Promise.all(mood.map(loadSize)).then(function (res) {
         if (nr !== joonisNr) return;
         var leitud = mood.map(function (m, i) {
           return { m: m, n: res[i].filter(function (r) { return cats.indexOf(r.catNr) >= 0 && (!S.rft || (S.rft === 'only') === onRft(r)); }).length };
         }).filter(function (x) { return x.n; }).sort(function (x, y) { return y.n - x.n; });
         if (!leitud.length) {
-          box.innerHTML = '<p class="note alt-h">Ka ' + esc(a.nimi) + ' teistes tehasemõõtudes ' + (S.rft === 'only' ? 'run-flat ' : '') + SEASON[S.season].pp + ' meil praegu ei ole.</p>';
+          box.innerHTML = _t('<p class="note alt-h">Ka ') + esc(a.nimi) + _t(' teistes tehasemõõtudes ') + (S.rft === 'only' ? 'run-flat ' : '') + SEASON[S.season].pp + _t(' meil praegu ei ole.</p>');
           return;
         }
-        box.innerHTML = '<p class="alt-h"><b>' + esc(a.nimi) + '</b> tehasemõõdud, kus on ' + (S.rft === 'only' ? 'run-flat ' : '') + SEASON[S.season].pp + ':</p>' +
+        box.innerHTML = '<p class="alt-h"><b>' + esc(a.nimi) + _t('</b> tehasemõõdud, kus on ') + (S.rft === 'only' ? 'run-flat ' : '') + SEASON[S.season].pp + ':</p>' +
           '<div class="alt-sz">' + leitud.map(function (x) {
-            return '<button type="button" class="btn sm" data-alt="' + esc(x.m) + '">' + esc(pretty(x.m)) + ' <span>' + x.n + (x.n === 1 ? ' rehv' : ' rehvi') + '</span></button>';
+            return _t('<button type="button" class="btn sm" data-alt="') + esc(x.m) + '">' + esc(pretty(x.m)) + ' <span>' + x.n + (x.n === 1 ? _t(' rehv') : _t(' rehvi')) + '</span></button>';
           }).join('') + '</div>';
         $$('[data-alt]', box).forEach(function (b) {
           b.addEventListener('click', function () {
@@ -1859,7 +1882,7 @@
       if (peidusKast && peidusKast.hidden && window.MutationObserver) { ootel = true; return; }
       var joonis = ++joonisNr;
       if (!listEl) { drawTable(); return; }
-      listEl.innerHTML = '<p class="note">Laen…</p>';
+      listEl.innerHTML = _t('<p class="note">Laen…</p>');
       Promise.all([loadSize(S.size), Prices.size(S.size)]).then(function (res) {
         var rows = res[0], hd = res[1] || {}, hOn = !!hd.available, h = hd.hinnad || {};
         var veh = core.vehByKey[S.veh] || core.vehByKey[DEFAULT_VEH];
@@ -1914,7 +1937,7 @@
         if (sortBar) {
           var hb = $('[data-sort=price]', sortBar);
           hb.disabled = !hOn;
-          hb.title = hOn ? 'Soodsaim hind enne' : 'Poodide hindu veel ei ole';
+          hb.title = hOn ? _t('Soodsaim hind enne') : _t('Poodide hindu veel ei ole');
           if (!hOn && sortBy === 'price') { sortBy = 'fit'; $$('[data-sort]', sortBar).forEach(function (x) { x.setAttribute('aria-pressed', String(x.dataset.sort === 'fit')); }); }
         }
         if (sortBy === 'price' && hOn) {
@@ -1926,31 +1949,31 @@
           });
         }
         viimaneN = list.length;
-        if (head) head.innerHTML = '<b>' + list.length + '</b> ' + (list.length === 1 ? SEASON[S.season].yks : SEASON[S.season].osa) + ' mõõdus <b>' + esc(pretty(S.size)) + '</b>' +
-          (S.rft ? (S.rft === 'only' ? ' · ainult run-flat' : ' · ilma run-flatita') : '') +
-          (sortBy === 'price' && hOn ? ' · soodsaim hind enne' : valis && ws.length ? ' · järjestatud sinu valikute järgi' : mode === 'valik' ? ' · ' + HOOAEG_TXT[S.season] : ' · järjestatud märghaardumise klassi järgi') +
-          (hindPuudu ? '<br><small class="note">Poodide hindu veel ei ole — hinda järjestuses praegu ei arvestata.</small>' : '') +
-          (eriN ? '<label class="eri-t"><input type="checkbox" data-eri' + (S.eri ? ' checked' : '') + '> Näita ka rajarehve ja muid erirehve (' + eriN + ') ' + tip(ERI_T) + '</label>' : '');
+        if (head) head.innerHTML = '<b>' + list.length + '</b> ' + (list.length === 1 ? SEASON[S.season].yks : SEASON[S.season].osa) + _t(' mõõdus <b>') + esc(pretty(S.size)) + '</b>' +
+          (S.rft ? (S.rft === 'only' ? _t(' · ainult run-flat') : _t(' · ilma run-flatita')) : '') +
+          (sortBy === 'price' && hOn ? _t(' · soodsaim hind enne') : valis && ws.length ? _t(' · järjestatud sinu valikute järgi') : mode === 'valik' ? ' · ' + HOOAEG_TXT[S.season] : _t(' · järjestatud märghaardumise klassi järgi')) +
+          (hindPuudu ? _t('<br><small class="note">Poodide hindu veel ei ole — hinda järjestuses praegu ei arvestata.</small>') : '') +
+          (eriN ? _t('<label class="eri-t"><input type="checkbox" data-eri') + (S.eri ? ' checked' : '') + _t('> Näita ka rajarehve ja muid erirehve (') + eriN + ') ' + tip(ERI_T) + '</label>' : '');
         if (!list.length) {
-          Track('tulemusi_null', pretty(S.size) + ' · ' + SEASON[S.season].long + (brandVal ? ' · ' + brandVal : '') + (qq ? ' · otsing "' + q.value.trim() + '"' : ''));
+          Track('tulemusi_null', pretty(S.size) + ' · ' + SEASON[S.season].et + (brandVal ? ' · ' + brandVal : '') + (qq ? ' · otsing "' + q.value.trim() + '"' : ''));
           listEl.innerHTML = '<div class="box"><p style="margin:0">' + (rows.length ? (S.rft === 'only' && !brandVal && !qq
-              ? 'Selles mõõdus meil praegu run-flat ' + SEASON[S.season].pp + ' ei ole.'
-              : 'Selles mõõdus ei ole andmebaasis ühtegi ' + (S.rft === 'only' ? 'run-flat ' : '') + SEASON[S.season].osa + (brandVal ? ' margilt ' + esc(brandVal) : '') + (qq ? ' selle otsinguga' : '') + '.') :
-            'Mõõdu ' + esc(pretty(S.size)) + ' märgiseandmed pole veel andmebaasis. Hetkel on korjatud ' + core.eprelSizes.length + ' mõõtu.') + '</p>' +
+              ? _t('Selles mõõdus meil praegu run-flat ') + SEASON[S.season].pp + _t(' ei ole.')
+              : _t('Selles mõõdus ei ole andmebaasis ühtegi ') + (S.rft === 'only' ? 'run-flat ' : '') + SEASON[S.season].osa + (brandVal ? _t(' margilt ') + esc(brandVal) : '') + (qq ? _t(' selle otsinguga') : '') + '.') :
+            _t('Mõõdu ') + esc(pretty(S.size)) + _t(' märgiseandmed pole veel andmebaasis. Hetkel on korjatud ') + core.eprelSizes.length + _t(' mõõtu.')) + '</p>' +
             (!brandVal && !qq ? '<div data-alt-sizes></div>' : '') + '</div>';
           if (!brandVal && !qq) altSizes($('[data-alt-sizes]', listEl), cats, joonis);
           drawTable(); return;
         }
         var LIM = mode === 'valik' ? 20 : 30;
         listEl.innerHTML = list.slice(0, LIM).map(function (x, i) { return card(x, i, mode === 'valik' ? reasons(x, stats, sortBy === 'price' && hOn ? Object.assign({}, w, { price: 9 }) : w) : null); }).join('') +
-          (list.length > LIM ? '<p class="note">Näidatakse ' + LIM + ' esimest ' + list.length + '-st.' + (mode === 'valik' ? ' Muuda valikuid, et järjestust muuta.' : ' Täpsusta otsingut.') + '</p>' : '');
+          (list.length > LIM ? _t('<p class="note">Näidatakse ') + LIM + _t(' esimest ') + list.length + _t('-st.') + (mode === 'valik' ? _t(' Muuda valikuid, et järjestust muuta.') : _t(' Täpsusta otsingut.')) + '</p>' : '');
         fillPrices(listEl);
         $$('[data-add]', listEl).forEach(function (b) {
           b.addEventListener('click', function () {
             var on = cmp.toggle({ id: b.dataset.add, n: b.dataset.n });
             Track(on ? 'vordlusse' : 'vordlusest_ara', b.dataset.n);
             b.setAttribute('aria-pressed', on ? 'true' : 'false');
-            b.textContent = on ? '✓ Võrdluses' : '+ Võrdle';
+            b.textContent = on ? _t('✓ Võrdluses') : _t('+ Võrdle');
             b.closest('.rcard').classList.toggle('on', on);
             drawTable();
           });
@@ -1960,26 +1983,26 @@
     }
     function prop(label, p, k) {
       if (!p) return '<div class="rp"><div class="l">' + esc(label) + '</div><div class="v none">' + '–' + '</div></div>';
-      var pill = { off: 'Ametlik', test: 'Test', calc: 'Arvutus', est: 'Tuletatud' }[p.src];
+      var pill = { off: _t('Ametlik'), test: _t('Test'), calc: _t('Arvutus'), est: _t('Tuletatud') }[p.src];
       return '<div class="rp"><div class="l">' + esc(label) + (p.src === 'calc' || p.src === 'est' ? ' ' + tip(CALC_T) : '') + '</div><div class="v">' + p.show + '</div><div class="srcd">' + pill + (p.sub ? ' · ' + esc(p.sub) : '') + '</div></div>';
     }
     function card(x, i, why) {
       var r = x.r, id = r.slug + '@' + r.m, on = cmp.has(id);
-      return '<article class="rcard' + (on ? ' on' : '') + '"><div>' +
-        '<div class="b">' + (why ? '<span class="rank">' + (i + 1) + '</span>' : '') + (r.tested ? '<span style="color:var(--tested)">Sõltumatult testitud</span>' : '<span style="color:var(--muted)">EL-i märgis</span>') +
+      return _t('<article class="rcard') + (on ? ' on' : '') + '"><div>' +
+        '<div class="b">' + (why ? '<span class="rank">' + (i + 1) + '</span>' : '') + (r.tested ? _t('<span style="color:var(--tested)">Sõltumatult testitud</span>') : _t('<span style="color:var(--muted)">EL-i märgis</span>')) +
           (onRft(r) ? '<span class="rft-b">Run-flat ' + tip(RFT_T) + '</span>' : '') +
           (eriLiik(r) ? '<span class="rft-b eri-b">' + esc(eriLiik(r)) + ' ' + tip(ERI_T) + '</span>' : '') + '</div>' +
-        '<h3><a href="' + CFG.home + 'rehvid/' + esc(r.slug) + '/"><span class="mk">' + esc(r.mark) + '</span> ' + esc(r.name) + '</a></h3></div>' +
-        '<div style="display:flex;gap:var(--sp-2);align-items:center;flex-wrap:wrap;justify-content:flex-end">' + (x.fit != null ? '<span class="fit" title="Sinu valitud omaduste põhjal selles nimekirjas — mitte üldine hinne">Sobivus sinu valikute põhjal ' + x.fit + '%</span>' : '') +
-        '<button type="button" class="add-btn" data-add="' + esc(id) + '" data-n="' + esc(r.mark + ' ' + r.name) + '" aria-pressed="' + on + '">' + (on ? '✓ Võrdluses' : '+ Võrdle') + '</button></div>' +
+        _t('<h3><a href="') + CFG.home + 'rehvid/' + esc(r.slug) + '/"><span class="mk">' + esc(r.mark) + '</span> ' + esc(r.name) + '</a></h3></div>' +
+        '<div style="display:flex;gap:var(--sp-2);align-items:center;flex-wrap:wrap;justify-content:flex-end">' + (x.fit != null ? _t('<span class="fit" title="Sinu valitud omaduste põhjal selles nimekirjas — mitte üldine hinne">Sobivus sinu valikute põhjal ') + x.fit + '%</span>' : '') +
+        _t('<button type="button" class="add-btn" data-add="') + esc(id) + _t('" data-n="') + esc(r.mark + ' ' + r.name) + _t('" aria-pressed="') + on + '">' + (on ? _t('✓ Võrdluses') : _t('+ Võrdle')) + '</button></div>' +
         (why && why.length ? '<ul class="why-list">' + why.map(function (t) { return '<li>' + t + '</li>'; }).join('') + '</ul>' : '') +
         '<div class="props">' +
-        prop('Märgpidamine', x.P.wet, 'wet') + prop('Märgpidurdus 90→0', x.P.wetb, 'wetb') +
-        prop('Kuivpidurdus 90→0', x.P.dryb, 'dryb') + prop('Müra', x.P.noise, 'noise') + prop('Veeretakistus', x.P.rr, 'rr') +
-        prop('Talv', x.P.winter, 'winter') +
+        prop(_t('Märgpidamine'), x.P.wet, 'wet') + prop(_t('Märgpidurdus 90→0'), x.P.wetb, 'wetb') +
+        prop(_t('Kuivpidurdus 90→0'), x.P.dryb, 'dryb') + prop(_t('Müra'), x.P.noise, 'noise') + prop(_t('Veeretakistus'), x.P.rr, 'rr') +
+        prop(_t('Talv'), x.P.winter, 'winter') +
         '</div>' +
-        '<div class="price"><div class="pl">Hind müüjatelt</div>' + priceSlot(id) + '</div>' +
-        (x.miss && x.miss.length ? '<p class="note" style="grid-column:1/-1;margin:0">Sobivuses arvestamata: ' + esc(x.miss.join(', ')) + '</p>' : '') + '</article>';
+        _t('<div class="price"><div class="pl">Hind müüjatelt</div>') + priceSlot(id) + '</div>' +
+        (x.miss && x.miss.length ? _t('<p class="note" style="grid-column:1/-1;margin:0">Sobivuses arvestamata: ') + esc(x.miss.join(', ')) + '</p>' : '') + '</article>';
     }
 
     /* ---- valitud rehvide tabel + alumine riba */
@@ -1991,15 +2014,15 @@
       if (tray) {
         tray.hidden = !sel.length;
         $('[data-tray-chips]', tray).innerHTML = sel.map(function (p) {
-          return '<span class="chip">' + esc(p.n) + ' <button type="button" data-trm="' + esc(p.id) + '" aria-label="Eemalda">×</button></span>';
+          return '<span class="chip">' + esc(p.n) + _t(' <button type="button" data-trm="') + esc(p.id) + _t('" aria-label="Eemalda">×</button></span>');
         }).join('');
         $$('[data-trm]', tray).forEach(function (b) { b.addEventListener('click', function () { cmp.toggle({ id: b.dataset.trm }); draw(); }); });
         var go = $('[data-tray-go]', tray);
-        if (go) { go.href = mode === 'valik' ? cmpUrl(sel, { auto: S.veh }) : '#vordlus'; go.textContent = mode === 'valik' ? 'Võrdle kõrvuti (' + sel.length + ') →' : 'Vaata võrdlust ↓'; }
+        if (go) { go.href = mode === 'valik' ? cmpUrl(sel, { auto: S.veh }) : '#vordlus'; go.textContent = mode === 'valik' ? _t('Võrdle kõrvuti (') + sel.length + ') →' : _t('Vaata võrdlust ↓'); }
       }
       if (!tblBox) return;
       if (sel.length < 2) {
-        tblBox.innerHTML = mode === 'vordle' ? '<div class="box empty-cmp"><h2>' + (sel.length ? 'Lisa veel vähemalt üks rehv' : 'Vali võrdlemiseks 2–4 rehvi') + '</h2><p class="note" style="margin:0">Otsi allpool rehvi ja vajuta „+ Võrdle“. Või <a href="' + CFG.home + 'rehvi-valimine/">lase rehvi valimisel</a> sobivad välja pakkuda.</p></div>' : '';
+        tblBox.innerHTML = mode === 'vordle' ? '<div class="box empty-cmp"><h2>' + (sel.length ? _t('Lisa veel vähemalt üks rehv') : _t('Vali võrdlemiseks 2–4 rehvi')) + _t('</h2><p class="note" style="margin:0">Otsi allpool rehvi ja vajuta „+ Võrdle“. Või <a href="') + LHOME + _t('rehvi-valimine/">lase rehvi valimisel</a> sobivad välja pakkuda.</p></div>') : '';
         return;
       }
       var sizes = {}; sel.forEach(function (p) { var m = p.id.split('@')[1]; if (m) sizes[m] = 1; });
@@ -2011,25 +2034,25 @@
         }).filter(Boolean);
         if (items.length < 2) { tblBox.innerHTML = ''; return; }
         var ROWS = [
-          ['Märghaare', null],
-          ['Märghaardumise klass', 'wet', 'max', 'Ametlik'],
-          ['Märgpidurdus 90→0 (sinu auto)', 'wetb', 'max', 'Arvutus'],
-          ['Vesiliug: 90→0 sügava veega teel', 'aqua', 'max', 'Arvutus', 'Uus rehv (8 mm muster). Teel on 3 mm vett — nagu roobastes või suures lombis. Siis hakkab rehv vee peal ujuma ja pidurdusmaa kasvab. Arvutatud tulemus, mitte mõõtmine.'],
-          ['Kuiv ja talv', null],
-          ['Kuivpidurdus 90→0 (sinu auto)', 'dryb', 'max', 'Arvutus'],
-          ['Talvemärgid', 'winter', null, 'Ametlik'],
-          ['Märgis', null],
-          ['Müra', 'noise', 'max', 'Ametlik'],
-          ['Veeretakistus', 'rr', 'max', 'Ametlik'],
+          [_t('Märghaare'), null],
+          [_t('Märghaardumise klass'), 'wet', 'max', 'Ametlik'],
+          [_t('Märgpidurdus 90→0 (sinu auto)'), 'wetb', 'max', 'Arvutus'],
+          [_t('Vesiliug: 90→0 sügava veega teel'), 'aqua', 'max', 'Arvutus', _t('Uus rehv (8 mm muster). Teel on 3 mm vett — nagu roobastes või suures lombis. Siis hakkab rehv vee peal ujuma ja pidurdusmaa kasvab. Arvutatud tulemus, mitte mõõtmine.')],
+          [_t('Kuiv ja talv'), null],
+          [_t('Kuivpidurdus 90→0 (sinu auto)'), 'dryb', 'max', 'Arvutus'],
+          [_t('Talvemärgid'), 'winter', null, 'Ametlik'],
+          [_t('Märgis'), null],
+          [_t('Müra'), 'noise', 'max', 'Ametlik'],
+          [_t('Veeretakistus'), 'rr', 'max', 'Ametlik'],
           ['Run-flat', 'rft'],
-          ['Hind', null],
-          ['Hind müüjatelt', 'price']
+          [_t('Hind'), null],
+          [_t('Hind müüjatelt'), 'price']
         ];
-        var h = '<div class="cmp-table" id="vordlus"><h2>Valitud rehvid</h2><p class="note">Kollane joon = parim selles reas. Sama auto: ' + esc(veh.name) + '. <span class="est">≈</span> = tuletatud meie valemist, selle rehvi kohta mõõtmist ei ole. Hõljuta hiirt märgi peal.</p><div class="tbl-wrap"><table class="cmp"><thead><tr><th scope="col">Omadus</th>' +
-          items.map(function (x) { return '<th scope="col"><a href="' + CFG.home + 'rehvid/' + esc(x.r.slug) + '/">' + esc(x.r.mark + ' ' + x.r.name) + '</a><span class="s" style="font-weight:500;color:var(--muted);display:block;font-size:12px">' + esc(pretty(x.r.m)) + ' · <button type="button" class="linkbtn" style="font-size:12px" data-xrm="' + esc(x.r.slug + '@' + x.r.m) + '">eemalda</button></span></th>'; }).join('') + '</tr></thead><tbody>';
+        var h = _t('<div class="cmp-table" id="vordlus"><h2>Valitud rehvid</h2><p class="note">Kollane joon = parim selles reas. Sama auto: ') + esc(veh.name) + _t('. <span class="est">≈</span> = tuletatud meie valemist, selle rehvi kohta mõõtmist ei ole. Hõljuta hiirt märgi peal.</p><div class="tbl-wrap"><table class="cmp"><thead><tr><th scope="col">Omadus</th>') +
+          items.map(function (x) { return _t('<th scope="col"><a href="') + CFG.home + 'rehvid/' + esc(x.r.slug) + '/">' + esc(x.r.mark + ' ' + x.r.name) + '</a><span class="s" style="font-weight:500;color:var(--muted);display:block;font-size:12px">' + esc(pretty(x.r.m)) + _t(' · <button type="button" class="linkbtn" style="font-size:12px" data-xrm="') + esc(x.r.slug + '@' + x.r.m) + _t('">eemalda</button></span></th>'); }).join('') + '</tr></thead><tbody>';
         ROWS.forEach(function (row) {
-          if (!row[1]) { h += '<tr class="grp"><th colspan="' + (items.length + 1) + '">' + esc(row[0]) + '</th></tr>'; return; }
-          if (row[1] === 'rft') { h += '<tr><th scope="row">Run-flat ' + tip(RFT_T) + '</th>' + items.map(function (x) { return '<td>' + (onRft(x.r) ? 'Jah' : 'Ei') + '</td>'; }).join('') + '</tr>'; return; }
+          if (!row[1]) { h += _t('<tr class="grp"><th colspan="') + (items.length + 1) + '">' + esc(row[0]) + '</th></tr>'; return; }
+          if (row[1] === 'rft') { h += '<tr><th scope="row">Run-flat ' + tip(RFT_T) + '</th>' + items.map(function (x) { return '<td>' + (onRft(x.r) ? _t('Jah') : _t('Ei')) + '</td>'; }).join('') + '</tr>'; return; }
           if (row[1] === 'price') { h += '<tr class="price-row"><th scope="row">' + esc(row[0]) + '</th>' + items.map(function (x) { return '<td>' + priceSlot(x.r.slug + '@' + x.r.m) + '</td>'; }).join('') + '</tr>'; return; }
           var k = row[1], vals = items.map(function (x) { return x.P[k] && x.P[k].score != null ? x.P[k].score : null; });
           var present = vals.filter(function (v) { return v != null; });
@@ -2041,13 +2064,13 @@
             var extra = '';
             if ((k === 'wetb' || k === 'dryb' || k === 'aqua') && bestV != null && vals[i] != null && vals[i] < bestV) {
               var bestM = -bestV, diff = p.v - bestM;
-              if (diff > 0.05) extra = ' <span class="pct">+' + fmt(diff) + ' m · ' + pct(diff, bestM) + '</span>';
+              if (diff > 0.05) extra = ' <span class="pct">+' + fmt(diff) + _t(' m · ') + pct(diff, bestM) + '</span>';
             }
             return '<td' + (win ? ' class="win"' : '') + '><span class="v">' + p.show + '</span>' + extra + (p.sub ? '<span class="s">' + esc(p.sub) + '</span>' : '') + '</td>';
           }).join('') + '</tr>';
         });
         h += '</tbody></table></div>';
-        h += '<p class="swipe-hint">Libista, et näha kõiki →</p><div class="swipe">' + items.map(function (x) {
+        h += _t('<p class="swipe-hint">Libista, et näha kõiki →</p><div class="swipe">') + items.map(function (x) {
           return '<div class="sc"><h3>' + esc(x.r.mark + ' ' + x.r.name) + '</h3><dl>' + ROWS.map(function (row) {
             if (!row[1]) return '<dt class="g">' + esc(row[0]) + '</dt>';
             if (row[1] === 'price') return '<dt>' + esc(row[0]) + '</dt><dd>' + priceSlot(x.r.slug + '@' + x.r.m) + '</dd>';
@@ -2074,9 +2097,9 @@
     var ck = 'wet', speed = 90;
     var myVeh = store.get('veh', null);
     var veh = core.vehByKey[myVeh] || core.vehByKey[DEFAULT_VEH];
-    $('[data-tw-veh]', root).textContent = veh.name + (core.vehByKey[myVeh] ? '' : ' (vali oma auto avalehel)');
+    $('[data-tw-veh]', root).textContent = veh.name + (core.vehByKey[myVeh] ? '' : _t(' (vali oma auto avalehel)'));
     if (sizes.length) {
-      sSel.innerHTML = sizes.map(function (z) { return '<option value="' + esc(z.m) + '">' + esc(pretty(z.m)) + ' · klass ' + esc(z.g) + '</option>'; }).join('');
+      sSel.innerHTML = sizes.map(function (z) { return _t('<option value="') + esc(z.m) + '">' + esc(pretty(z.m)) + _t(' · klass ') + esc(z.g) + '</option>'; }).join('');
       var oem = norm(veh.oemSize); if ($('option[value="' + oem + '"]', sSel)) sSel.value = oem;
     } else sSel.closest('.fld').hidden = true;
     $$('[data-tw-cond]', root).forEach(function (b) {
@@ -2088,17 +2111,17 @@
       var t = tested ? Object.assign({}, core.tyreByKey[tested]) : null;
       var mSel = z ? z.m : norm(veh.oemSize);
       var tyre = t ? onCar(t, mSel) : (z ? { key: 'w', name: 'x', category: root.dataset.cat, wetGripIndex: gmid(z.g, root.dataset.cat), treadDepthMm: 8, treadDepthNewMm: 8, pressureBar: null, loadCapacityKg: null, ageYears: 1, studded: false, size: pretty(z.m), gSource: 'label' } : null);
-      if (!tyre) { out.innerHTML = '<p class="note">Andmed puuduvad.</p>'; return; }
+      if (!tyre) { out.innerHTML = _t('<p class="note">Andmed puuduvad.</p>'); return; }
       var cond = condObj(ck, speed), r = calc(tyre, veh, cond);
       var cat = tyre.category, m = z ? z.m : norm(veh.oemSize);
       var a = calc(classTyre('A', cat, m), veh, cond).distanceM, e = calc(classTyre('E', cat, m), veh, cond).distanceM;
       var knows = ck === 'wet' || (ck === 'dry' && t && t.muDry != null) || (ck === 'snow' && t && t.muSnow != null) || (ck === 'ice' && t && t.muIce != null);
-      out.innerHTML = '<p class="res-big" style="font-size:72px;margin:var(--sp-2) 0">' + (knows ? '' : '<span class="est" tabindex="0" style="font-size:20px;height:30px;min-width:30px;vertical-align:14px" data-tip="' + EST_T + '">≈</span>') + '<span class="hl">' + fmt(r.distanceM) + '</span><small>m</small></p>' +
-        '<p class="res-band">' + speed + ' → 0 km/h, ' + COND[ck].label + ' · vahemik <b>' + fmt(r.lowM) + '–' + fmt(r.highM) + ' m</b> · ilma reaktsiooniajata</p>' +
-        (ck === 'wet' ? '<p class="note">Võrdluseks samas mõõdus: A-klassi märgisega rehv ' + fmt(a) + ' m, E-klassi ' + fmt(e) + ' m.' +
-          (t ? ' Selle rehvi haare tuleb testi mõõtmisest (' + esc(t.size) + '), mitte klassist — seepärast võib ta klassi tüüpilisest erineda.' : '') + '</p>' : '') +
-        (knows ? '' : '<div class="note-box"><span class="est">≈</span>Tuletatud meie mudelist (' + COND[ck].label + '): kasutame rehvitüübi keskmist haaret, sest selle rehvi kohta sõltumatut mõõtmist ei ole.</div>') +
-        '<div class="res-meta"><span class="pill calc">Arvutatud hinnang</span>' + (t ? '<span class="pill test">Haare testist</span>' : '<span class="pill off">Märgise klass</span>') + '</div>';
+      out.innerHTML = '<p class="res-big" style="font-size:72px;margin:var(--sp-2) 0">' + (knows ? '' : _t('<span class="est" tabindex="0" style="font-size:20px;height:30px;min-width:30px;vertical-align:14px" data-tip="') + EST_T + '">≈</span>') + '<span class="hl">' + fmt(r.distanceM) + _t('</span><small>m</small></p>') +
+        '<p class="res-band">' + speed + _t(' → 0 km/h, ') + COND[ck].label + _t(' · vahemik <b>') + fmt(r.lowM) + '–' + fmt(r.highM) + _t(' m</b> · ilma reaktsiooniajata</p>') +
+        (ck === 'wet' ? _t('<p class="note">Võrdluseks samas mõõdus: A-klassi märgisega rehv ') + fmt(a) + _t(' m, E-klassi ') + fmt(e) + _t(' m.') +
+          (t ? _t(' Selle rehvi haare tuleb testi mõõtmisest (') + esc(t.size) + _t('), mitte klassist — seepärast võib ta klassi tüüpilisest erineda.') : '') + '</p>' : '') +
+        (knows ? '' : _t('<div class="note-box"><span class="est">≈</span>Tuletatud meie mudelist (') + COND[ck].label + _t('): kasutame rehvitüübi keskmist haaret, sest selle rehvi kohta sõltumatut mõõtmist ei ole.</div>')) +
+        _t('<div class="res-meta"><span class="pill calc">Arvutatud hinnang</span>') + (t ? _t('<span class="pill test">Haare testist</span>') : _t('<span class="pill off">Märgise klass</span>')) + '</div>';
     }
     go();
     var addB = $('[data-tw-add]');
@@ -2124,29 +2147,29 @@
     form.addEventListener('submit', function (e) {
       e.preventDefault();
       var f = new FormData(form), v = function (k) { return String(f.get(k) || '').trim(); };
-      if (!v('nimi')) { say('Palun kirjuta oma nimi.'); form.nimi.focus(); return; }
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v('email'))) { say('Palun kontrolli e-posti aadressi — sellele vastame.'); form.email.focus(); return; }
-      if (v('sonum').length < 5) { say('Palun kirjuta sõnum.'); form.sonum.focus(); return; }
+      if (!v('nimi')) { say(_t('Palun kirjuta oma nimi.')); form.nimi.focus(); return; }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v('email'))) { say(_t('Palun kontrolli e-posti aadressi — sellele vastame.')); form.email.focus(); return; }
+      if (v('sonum').length < 5) { say(_t('Palun kirjuta sõnum.')); form.sonum.focus(); return; }
       /* robotikontroll: kui vidin on lehel, peab luba olemas olema */
       var tsId = form.getAttribute('data-ts-id');
-      if ($('.ts', form) && !v('cf-turnstile-response')) { say('Oota hetk — robotikontroll pole veel valmis. Kui vormi all on kast, märgi see.'); return; }
+      if ($('.ts', form) && !v('cf-turnstile-response')) { say(_t('Oota hetk — robotikontroll pole veel valmis. Kui vormi all on kast, märgi see.')); return; }
       var topic = form.teema.options[form.teema.selectedIndex].text;
       if (!CFG.contact) {
-        var body = 'Teema: ' + topic + '\nNimi: ' + v('nimi') + '\nE-post: ' + v('email') + (v('firma') ? '\nEttevõte: ' + v('firma') : '') + '\n\n' + v('sonum');
+        var body = 'Teema: ' + topic + '\nNimi: ' + v('nimi') + '\nE-post: ' + v('email') + (v('firma') ? _t('\nEttevõte: ') + v('firma') : '') + '\n\n' + v('sonum');
         location.href = 'mailto:' + (CFG.contactMail || '') + '?subject=' + encodeURIComponent('[Pidurdusmaa.ee] ' + topic + ' — ' + v('nimi')) + '&body=' + encodeURIComponent(body);
-        say('Avasime kirja sinu e-posti programmis — vajuta seal „Saada“.', true);
+        say(_t('Avasime kirja sinu e-posti programmis — vajuta seal „Saada“.'), true);
         return;
       }
       go.disabled = true; go.textContent = 'Saadan…';
       fetch(CFG.contact, { method: 'POST', credentials: 'same-origin', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(Object.fromEntries(f)) })
         .then(function (r) { return r.json().catch(function () { return { ok: false }; }); })
         .then(function (d) {
-          if (d && d.ok) { form.reset(); say('Aitäh! Kiri on saadetud — vastame e-postile.', true); }
-          else say((d && d.msg) || 'Saatmine ebaõnnestus. Proovi hiljem uuesti.');
+          if (d && d.ok) { form.reset(); say(_t('Aitäh! Kiri on saadetud — vastame e-postile.'), true); }
+          else say((d && d.msg) || _t('Saatmine ebaõnnestus. Proovi hiljem uuesti.'));
         })
-        .catch(function () { say('Ühendus katkes. Proovi uuesti.'); })
+        .catch(function () { say(_t('Ühendus katkes. Proovi uuesti.')); })
         .then(function () {
-          go.disabled = false; go.textContent = 'Saada kiri →';
+          go.disabled = false; go.textContent = _t('Saada kiri →');
           /* luba kehtib ühe saatmise — järgmise jaoks uus */
           if (tsId !== null && window.turnstile) try { window.turnstile.reset(tsId); } catch (e) {}
         });
@@ -2172,7 +2195,7 @@
       if (t.scrollWidth > t.clientWidth + 1 && !t.hasAttribute('tabindex')) {
         var h = t.closest('.box, .cmp-table'); h = h && $('h2', h);
         t.setAttribute('tabindex', '0'); t.setAttribute('role', 'region');
-        t.setAttribute('aria-label', (h ? h.textContent.trim() + ' — ' : '') + 'tabel, keri külgsuunas');
+        t.setAttribute('aria-label', (h ? h.textContent.trim() + ' — ' : '') + _t('tabel, keri külgsuunas'));
       }
     });
   }
@@ -2191,15 +2214,15 @@
       .then(function (d) {
         if (!d || !d.pilt) return;
         var img = new Image();
-        img.alt = 'Rehvi pilt';
+        img.alt = _t('Rehvi pilt');
         img.decoding = 'async';
         img.onload = function () {
           box.innerHTML = '';
           box.classList.add('has-photo');
-          box.setAttribute('aria-label', 'Rehvi pilt');
+          box.setAttribute('aria-label', _t('Rehvi pilt'));
           box.appendChild(img);
           var cap = $('[data-rehv-pilt-allkiri]');
-          if (cap) cap.textContent = 'Pilt: rehvimüüja';
+          if (cap) cap.textContent = _t('Pilt: rehvimüüja');
         };
         img.src = d.pilt;
       })
@@ -2244,7 +2267,7 @@
       setTimeout(tablesA11y, 300);
     }).catch(function (e) {
       $$('[data-calc],[data-cmp-page],[data-tw]').forEach(function (x) {
-        x.insertAdjacentHTML('afterbegin', '<p class="note-box" style="margin:var(--sp-4)">Andmete laadimine ebaõnnestus. Proovi lehte värskendada.</p>');
+        x.insertAdjacentHTML('afterbegin', _t('<p class="note-box" style="margin:var(--sp-4)">Andmete laadimine ebaõnnestus. Proovi lehte värskendada.</p>'));
       });
       if (window.console) console.error(e);
     });

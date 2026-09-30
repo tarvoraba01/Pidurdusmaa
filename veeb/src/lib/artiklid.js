@@ -4,6 +4,13 @@
  * leht ja Teadmine leht loevad nimekirja siit. */
 export const ARTIKLID = [
 	{
+		slug: 'talverehvide-testid-2026',
+		title: 'Talverehvide testid 2025–2026: mida mõõtmised näitavad',
+		desc: 'Jääl üle kahe korra pikem pidurdusmaa, märjal 15 meetrit vahet, lumel alla meetri. Viimaste talverehvitestide mõõdetud pidurdusmaad ühest kohast.',
+		kuupaev: '2026-09-30',
+		silt: 'Testid'
+	},
+	{
 		slug: 'peatumisteekonna-kalkulaator',
 		title: 'Uus tasuta kalkulaator: kui pika maa pealt auto peatub?',
 		desc: 'Muuda kiirust, reaktsiooniaega, teeolusid ja rehve ning vaata kohe, kuidas peatumisteekond muutub. Kaks olukorda kõrvuti — tasuta ja ilma reklaamita.',

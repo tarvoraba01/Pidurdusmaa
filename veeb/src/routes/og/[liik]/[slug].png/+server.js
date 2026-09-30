@@ -28,7 +28,7 @@ import {
 export const prerender = true;
 
 export function entries() {
-	const out = [{ liik: 'sait', slug: 'avaleht' }, { liik: 'sait', slug: 'liiklusohutus' }, { liik: 'sait', slug: 'peatumisteekonna-kalkulaator' }];
+	const out = [{ liik: 'sait', slug: 'avaleht' }, { liik: 'sait', slug: 'liiklusohutus' }, { liik: 'sait', slug: 'peatumisteekonna-kalkulaator' }, { liik: 'sait', slug: 'talverehvide-testid-2026' }];
 	for (const s of core().sizes) if (sizeModelCount(s.m) >= SIZE_MIN_MODELS) out.push({ liik: 'm', slug: s.slug });
 	const rehvid = new Set([...Object.keys(models()), ...core().tyres.map((t) => t.slug).filter(Boolean)]);
 	for (const slug of rehvid) if (rehviIndeks(slug).sitemap) out.push({ liik: 'r', slug });
@@ -82,6 +82,14 @@ function andmed(liik, slug) {
 				num(core().vehicles.length, 0) + ' autot',
 				'Tasuta'
 			]
+		};
+	}
+	if (liik === 'sait' && slug === 'talverehvide-testid-2026') {
+		return {
+			kicker: 'Testid',
+			pealkiri: 'Talverehvide testid 2025–2026',
+			alapealkiri: 'Jääl üle kahe korra pikem pidurdusmaa',
+			sildid: ['Mõõdetud meetrid', 'Jää, lumi, märg']
 		};
 	}
 	if (liik === 'sait' && (slug === 'liiklusohutus' || slug === 'peatumisteekonna-kalkulaator')) {

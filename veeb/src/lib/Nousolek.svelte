@@ -1,4 +1,6 @@
 <script>
+	import { useT } from '$lib/i18n.js';
+	const t = useT();
 	/* Küpsiste nõusolek ja Google Analytics 4.
 	 *
 	 * EL-is (ePrivacy + GDPR) tohib analüütikaküpsiseid panna AINULT pärast
@@ -110,17 +112,14 @@
 </script>
 
 {#if naita}
-	<div class="kps" role="region" aria-label="Küpsiste nõusolek">
+	<div class="kps" role="region" aria-label={t("Küpsiste nõusolek")}>
 		<div class="kps-in">
 			<p>
-				<b>Statistika küpsised.</b> Tahame näha, milliseid lehti ja arvutusi kasutatakse, et lehte
-				paremaks teha. Selleks kasutame Google Analyticsit, mis paneb su brauserisse küpsise. Reklaami
-				me ei näita ega jaga andmeid reklaami jaoks.
-				<a href="/privaatsus/">Loe lähemalt</a>
+				{@html t("<b>Statistika küpsised.</b> Tahame näha, milliseid lehti ja arvutusi kasutatakse, et lehte paremaks teha. Selleks kasutame Google Analyticsit, mis paneb su brauserisse küpsise. Reklaami me ei näita ega jaga andmeid reklaami jaoks. <a href=\"/privaatsus/\">Loe lähemalt</a>")}
 			</p>
 			<div class="kps-b">
-				<button type="button" class="btn" onclick={keeldun}>Ainult vajalikud</button>
-				<button type="button" class="btn dark" onclick={noustun}>Nõustun</button>
+				<button type="button" class="btn" onclick={keeldun}>{t("Ainult vajalikud")}</button>
+				<button type="button" class="btn dark" onclick={noustun}>{t("Nõustun")}</button>
 			</div>
 		</div>
 	</div>

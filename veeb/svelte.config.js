@@ -12,10 +12,10 @@ export default {
       /* /liiklusohutus/#kiirus=70&… — aadressi lõpp on kalkulaatori olek,
          mitte lehe sees olev ankur. Muudel lehtedel on puuduv ankur viga. */
       handleMissingId: ({ path, id, message }) => {
-        if (path.startsWith('/liiklusohutus') && id.includes('=')) return;
+        if (/^\/(ru\/|en\/)?liiklusohutus/.test(path) && id.includes('=')) return;
         throw new Error(message);
       },
-      entries: ['*']
+      entries: ['*', '/ru/', '/en/', '/ru/rehvi-valimine/', '/en/rehvi-valimine/', '/ru/vordle-rehve/', '/en/vordle-rehve/', '/ru/liiklusohutus/', '/en/liiklusohutus/']
     }
   }
 };
