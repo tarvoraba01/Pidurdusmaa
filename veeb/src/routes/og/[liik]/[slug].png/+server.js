@@ -34,6 +34,9 @@ export function entries() {
 	for (const slug of rehvid) if (rehviIndeks(slug).sitemap) out.push({ liik: 'r', slug });
 	for (const [a, b] of vsPairs()) out.push({ liik: 'vs', slug: a + '-vs-' + b });
 	for (const p of autod().polved.values()) out.push({ liik: 'auto', slug: p.mk + '--' + p.slug });
+	/* vene/inglise lehtede pildid (vt ogLang $lib/i18n.js-is) */
+	for (const k of ['ru', 'en']) for (const x of ['avaleht', 'liiklusohutus']) out.push({ liik: 'sait', slug: x + '.' + k });
+	for (const p of autod().polved.values()) out.push({ liik: 'auto', slug: p.mk + '--' + p.slug + '.ru' });
 	return out;
 }
 
@@ -143,8 +146,45 @@ function andmed(liik, slug) {
 	return null;
 }
 
-export function GET({ params }) {
-	const d = andmed(params.liik, params.slug);
+/* Vene/inglise tekstid (ainult pildid, mida vene/inglise lehed kasutavad) */
+function andmedKeel(liik, slug, lang) {
+	const ru = lang === 'ru';
+	if (liik === 'auto') {
+		const p = autod().polved.get(String(slug).replace('--', '/'));
+		if (!p) return null;
+		const d = polveLeht(p);
+		const m90 = d.pidurdus.find((x) => x.id === 'marg')?.r?.[90]?.peatumine;
+		const n = d.mootorid.length;
+		return ru
+			? { kicker: p.make, pealkiri: p.model + ' ' + p.yearLabel,
+				alapealkiri: 'Размер шин ' + d.pohimoot + (m90 ? ' · на мокрой дороге с 90 км/ч ~' + Math.round(m90) + ' м' : ''),
+				sildid: ['Двигателей: ' + n, 'Лучшие шины', 'Тормозной путь'] }
+			: null;
+	}
+	if (liik === 'sait' && slug === 'avaleht') {
+		const nR = num(Object.keys(models()).length, 0), nA = num(core().vehicles.length, 0);
+		return ru
+			? { kicker: 'Калькулятор тормозного пути', pealkiri: 'Как быстро остановится ваш автомобиль?',
+				alapealkiri: 'Реальные данные шин: маркировка ЕС и независимые тесты', sildid: [nR + ' моделей шин', nA + ' авто', 'Бесплатно'] }
+			: { kicker: 'Braking distance calculator', pealkiri: 'How quickly does your car stop?',
+				alapealkiri: 'Real tyre data: EU label and independent tests', sildid: [nR.replace(/\s/g, ',') + ' tyre models', nA.replace(/\s/g, ',') + ' cars', 'Free'] };
+	}
+	if (liik === 'sait' && slug === 'liiklusohutus') {
+		return ru
+			? { kicker: 'Безопасность движения', pealkiri: 'С какого расстояния остановится автомобиль?',
+				alapealkiri: 'Скорость, реакция, дорога и шины — две ситуации рядом', sildid: ['Бесплатно', 'Без рекламы', 'Ссылкой можно поделиться'] }
+			: { kicker: 'Road safety', pealkiri: 'How far does it take a car to stop?',
+				alapealkiri: 'Speed, reaction time, road and tyres — two scenarios side by side', sildid: ['Free', 'No ads', 'Shareable link'] };
+	}
+	return null;
+}
+
+export async function GET({ params }) {
+	/* Anna sündmuste tsüklile hetk: resvg vabastab eelmiste piltide mälu (≈3 MB
+	   pildi kohta) alles siis — muidu jookseb ~2000 pildiga ehitus mälust välja */
+	await new Promise((r) => setImmediate(r));
+	const k = /\.(ru|en)$/.exec(params.slug);
+	const d = k ? andmedKeel(params.liik, params.slug.slice(0, -3), k[1]) : andmed(params.liik, params.slug);
 	if (!d) error(404, 'Pilti ei ole');
 	return new Response(ogPilt(d), {
 		headers: { 'Content-Type': 'image/png', 'Cache-Control': 'public, max-age=86400' }

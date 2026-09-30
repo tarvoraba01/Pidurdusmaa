@@ -4,8 +4,28 @@
  * Fondid on samad, mis lehel (Inter, Barlow Condensed), aga TTF-kujul,
  * sest resvg ei loe woff2-te. Nõukogude ja Balti tähed (š, ž, õ) on
  * latin-ext failis; resvg otsib puuduva tähe ise teisest failist.
+ * inter-latin-500/800.ttf on liidetud (latin + latin-ext + kirillitsa), et vene
+ * teksti numbrid ja tähed tuleksid samast fondist. Pealkirja kirillitsa: Roboto Condensed.
  */
 import { Resvg } from '@resvg/resvg-js';
+import v8 from 'node:v8';
+import vm from 'node:vm';
+
+/* Iga Resvg hoiab ~3 MB fonte Rusti poolel mälus, kuni JS-i prügikoristus
+   objekti vabastab — JS-i hunnik on väike, nii et koristus ei käivitu ise ja
+   ~2000 pildi ehitusel sai mälu otsa. Käivitame koristuse ise iga 50 pildi järel
+   (koos routes/og GET-i setImmediate'iga, mis laseb vabastamisel toimuda). */
+let _gc = null;
+try {
+	v8.setFlagsFromString('--expose-gc');
+	_gc = vm.runInNewContext('gc');
+} catch {
+	/* pole saadaval — jääb tavaline koristus */
+}
+let _loendur = 0;
+function koristaVahel() {
+	if (_gc && ++_loendur % 50 === 0) _gc();
+}
 import { readdirSync } from 'node:fs';
 import { join } from 'node:path';
 
@@ -45,9 +65,11 @@ function esc(s) {
 		.replace(/"/g, '&quot;');
 }
 
-/* Barlow Condensed 700 suurtähtedega: keskmine tähelaius ~0,42 em (mõõdetud) */
+/* Barlow Condensed 700 suurtähtedega: keskmine tähelaius ~0,42 em (mõõdetud);
+   vene tekstil Roboto Condensed (Barlow'l kirillitsat pole), laiem ~0,55 em */
+const KYR = /[\u0400-\u04FF]/;
 function murra(tekst, px, laius, maxRidu) {
-	const perRida = Math.max(8, Math.floor(laius / (px * 0.42)));
+	const perRida = Math.max(8, Math.floor(laius / (px * (KYR.test(tekst) ? 0.55 : 0.42))));
 	const sonad = String(tekst).toUpperCase().split(/\s+/);
 	const read = [];
 	let rida = '';
@@ -79,7 +101,7 @@ export function ogPilt({ kicker = '', pealkiri, alapealkiri = '', sildid = [] })
 	const yPeal = 262;
 	const reaKorgus = Math.round(px * 0.98);
 	const pealSvg = read
-		.map((r, i) => `<text x="80" y="${yPeal + i * reaKorgus}" font-family="Barlow Condensed" font-weight="700" font-size="${px}" fill="#ffffff">${esc(r)}</text>`)
+		.map((r, i) => `<text x="80" y="${yPeal + i * reaKorgus}" font-family="${KYR.test(pealkiri) ? 'Roboto Condensed' : 'Barlow Condensed'}" font-weight="700" font-size="${px}" fill="#ffffff">${esc(r)}</text>`)
 		.join('');
 	const yAla = yPeal + (read.length - 1) * reaKorgus + 64;
 
@@ -112,6 +134,7 @@ ${siltSvg}
 <rect x="0" y="${H - 14}" width="${W}" height="14" fill="${KOLLANE}"/>
 </svg>`;
 
+	koristaVahel();
 	const r = new Resvg(svg, {
 		font: { fontFiles: fondid(), loadSystemFonts: false, defaultFontFamily: 'Inter' },
 		fitTo: { mode: 'width', value: W }

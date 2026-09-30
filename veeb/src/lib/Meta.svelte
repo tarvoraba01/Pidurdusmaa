@@ -2,7 +2,7 @@
 	/* Lehe pealkiri, kirjeldus, canonical, OG ja JSON-LD ühest kohast —
 	   sama roll, mis oli inc/seo.php-l. */
 	import { getContext } from 'svelte';
-	import { TOLGITUD, KEELED, OG_LOCALE, linkLang } from '$lib/i18n.js';
+	import { KEELED, OG_LOCALE, linkLang, onTolgitud, ogLang } from '$lib/i18n.js';
 	const BASE = 'https://pidurdusmaa.ee';
 	/* keel (vt +layout.svelte): vene/inglise lehel on aadress /ru/… või /en/… */
 	const i18n = getContext('i18n');
@@ -32,10 +32,14 @@
 	const alus = $derived('/' + String(path).replace(/^\//, ''));
 	const url = $derived(abs(linkLang(lang, alus)));
 	/* tõlgitud lehel: hreflang-viited kõigile keeleversioonidele */
-	const keeled = $derived(!noindex && !canonical && TOLGITUD.includes(alus) ? KEELED : []);
+	const keeled = $derived.by(() => {
+		if (noindex || canonical) return [];
+		const k = KEELED.filter((x) => onTolgitud(x, alus));
+		return k.length > 1 ? k : [];
+	});
 	/* tootjavariandi leht viitab emamudelile (vt andmed.js rehviIndeks) */
 	const canon = $derived(canonical ? abs(canonical) : url);
-	const img = $derived(abs(image));
+	const img = $derived(abs(ogLang(lang, image)));
 	const crumbLd = $derived(
 		crumbs.length > 1
 			? {

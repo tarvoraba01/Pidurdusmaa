@@ -517,15 +517,27 @@
   /* ------------------------------------------------------------ auto otsing
    * Kirjuta „golf 4“, „passat 2005“, „mersu w124“, „žiguli“ — pakub autosid.
    * Valik täidab mark/mudel/aasta/variant valikud (need jäävad alles). */
+  /* vene tähed ladina tähtedeks (гольф → golf, шкода → shkoda); edasi AUTO_SYN */
+  var KYRILL = { а: 'a', б: 'b', в: 'v', г: 'g', д: 'd', е: 'e', ё: 'e', ж: 'zh', з: 'z', и: 'i', й: 'i', к: 'k', л: 'l', м: 'm', н: 'n', о: 'o', п: 'p', р: 'r', с: 's', т: 't', у: 'u', ф: 'f', х: 'h', ц: 'ts', ч: 'ch', ш: 'sh', щ: 'sch', ъ: '', ы: 'y', ь: '', э: 'e', ю: 'yu', я: 'ya' };
   function lihtne(t) {
-    return String(t || '').normalize('NFKD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9+]+/g, ' ').trim();
+    return String(t || '').toLowerCase().replace(/[а-яё]/g, function (c) { return KYRILL[c]; }).normalize('NFKD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9+]+/g, ' ').trim();
   }
   var ROOMA = { i: 1, ii: 2, iii: 3, iv: 4, v: 5, vi: 6, vii: 7, viii: 8, ix: 9, x: 10 };
   var ROOMA_T = ['', 'i', 'ii', 'iii', 'iv', 'v', 'vi', 'vii', 'viii', 'ix', 'x'];
   var AUTO_SYN = {
     vw: 'volkswagen', folks: 'volkswagen', mersu: 'mercedes', merc: 'mercedes', mb: 'mercedes', benz: 'mercedes',
     bemm: 'bmw', ziguli: 'lada', zhiguli: 'lada', zigul: 'lada', vaz: 'lada', moskvich: 'moskvits', moskvitch: 'moskvits',
-    shkoda: 'skoda', citroen: 'citroen', alfa: 'alfa', chevy: 'chevrolet', landrover: 'land rover'
+    shkoda: 'skoda', citroen: 'citroen', alfa: 'alfa', chevy: 'chevrolet', landrover: 'land rover',
+    /* venekeelne otsing (pärast lihtne() translit'it): мерседес, тойота, октавия … */
+    mersedes: 'mercedes', mers: 'mercedes', folksvagen: 'volkswagen', foltsvagen: 'volkswagen',
+    toiota: 'toyota', bmv: 'bmw', reno: 'renault', pezho: 'peugeot', sitroen: 'citroen', hendai: 'hyundai', hundai: 'hyundai',
+    hiundai: 'hyundai', hendee: 'hyundai', hyundai: 'hyundai', mitsubisi: 'mitsubishi', dachiya: 'dacia', leksus: 'lexus',
+    porshe: 'porsche', kupra: 'cupra', dzhip: 'jeep', yaguar: 'jaguar', lend: 'land', shevrole: 'chevrolet', kraisler: 'chrysler',
+    ssangiong: 'ssangyong', tuareg: 'touareg', oktaviya: 'octavia', oktavia: 'octavia', fabiya: 'fabia', kodiak: 'kodiaq',
+    korolla: 'corolla', kamri: 'camry', fokus: 'focus', korsa: 'corsa', vektra: 'vectra', insigniya: 'insignia', klio: 'clio',
+    megan: 'megane', daster: 'duster', sid: 'ceed', sporteidzh: 'sportage', solyaris: 'solaris', tukson: 'tucson',
+    autlender: 'outlander', lanser: 'lancer', padzhero: 'pajero', kashkai: 'qashqai', sivik: 'civic', akkord: 'accord',
+    autbek: 'outback', legasi: 'legacy', svift: 'swift', seriya: '', serii: '', klass: '', kupe: 'coupe', universal: ''
   };
   var KYTUS = { b: _t('Bensiin'), bg: _t('Bensiin / gaas'), g: _t('Gaas'), d: _t('Diisel'), h: _t('Hübriid'), p: _t('Pistikhübriid'), e: _t('Elekter') };
   function vehSearch(sel, V, onPick) {
@@ -553,7 +565,7 @@
     });
 
     function otsi(q) {
-      var toks = lihtne(q).split(' ').filter(Boolean).map(function (t) { return AUTO_SYN[t] || t; });
+      var toks = lihtne(q).split(' ').filter(Boolean).map(function (t) { return AUTO_SYN[t] != null ? AUTO_SYN[t] : t; }).filter(Boolean);
       if (!toks.length) return [];
       var out = [];
       idx.forEach(function (x) {
@@ -851,7 +863,7 @@
         : _t('levinuim tehasemõõt ') + veh.oemSize;
       /* link auto lehele (/autod/<mark>/<mudel-põlvkond>/), sama slug mis serveris */
       var al = veh && veh.make && veh.model && veh.make !== 'Ei leia oma autot'
-        ? '/autod/' + slugA(veh.make.split(' /')[0]) + '/' + slugA(veh.model + ' ' + veh.yearLabel) + '/' : '';
+        ? (LANG === 'ru' ? '/ru' : '') + '/autod/' + slugA(veh.make.split(' /')[0]) + '/' + slugA(veh.model + ' ' + veh.yearLabel) + '/' : '';
       $('[data-veh-hint]', root).innerHTML = esc(hint) + (al ? _t(' · <a href="') + esc(al) + _t('">auto leht</a>') : '');
     });
     S.size = sizeOptions(sizeSel, null, S.size);

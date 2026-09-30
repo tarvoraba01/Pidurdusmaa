@@ -33,7 +33,7 @@
 <p>Iga testitud rehvi mõõdetud tulemused on rehvi lehel, näiteks ${R('continental-vikingcontact-8', 'Continental VikingContact 8')} või ${R('pirelli-ice-zero-2', 'Pirelli Ice Zero 2')}. Oma auto ja rehviga saad pidurdusmaa arvutada <a href="/">kalkulaatoris</a>.</p>
 
 <h2>Mis on veel tulemas</h2>
-<p>2026. aasta sügisel on ilmunud ka <strong>ADAC</strong> (185/65 R15 ja 225/50 R17) ja <strong>Tekniikan Maailma</strong> (205/55 R16) talvetestid. Lisame nende pidurdusmaad andmebaasi ja siia artiklisse, kui mõõdetud meetrid on avalikud.</p>
+<p>2026. aasta sügisel on ilmunud ka <strong>ADAC</strong> (185/65 R15 ja 225/50 R17) ja <strong>Tekniikan Maailma</strong> (205/55 R16) talvetestid. <strong>ADAC 2026, 225/50 R17</strong> (16 rehvi): märjal asfaldil 80 km/h pealt peatusid parimad, Continental WinterContact TS 870 ja Pirelli Cinturato Winter 3, umbes 35 meetriga; nõrgim, Sunwide Snowide, vajas ligi 12 meetrit rohkem. Rehvide kaupa mõõdetud meetreid ADAC avalikult ei näita (ainult hinded) ja Tekniikan Maailma test on tasuline — seepärast neid andmebaasis veel ei ole. Lisame need, kui mõõtmised avalikuks tulevad.</p>
 <p class="note">Allikad: Vi Bilägare / Motor (NAF), Tekniikan Maailma, ADAC. Numbrid nii, nagu need on avaldatud; testid on tehtud eri autode, mõõtude ja tingimustega, nii et eri testide meetreid omavahel otse võrrelda ei saa.</p>`;
 </script>
 

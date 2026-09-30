@@ -12,6 +12,15 @@ export const OG_LOCALE = { et: 'et_EE', ru: 'ru_RU', en: 'en_GB' };
 /** Lehed, millel on vene ja inglise versioon (tee ilma keele eesliiteta). */
 export const TOLGITUD = ['/', '/rehvi-valimine/', '/vordle-rehve/', '/liiklusohutus/'];
 
+/* Lisaks: terved harud, mis on tõlgitud ainult mõnes keeles (autolehed vene keeles) */
+const HARUD = { ru: ['/autod/'], en: [] };
+
+/** Kas see (keeleta) tee on antud keeles olemas? */
+export function onTolgitud(lang, p) {
+	if (!lang || lang === 'et') return true;
+	return TOLGITUD.includes(p) || (HARUD[lang] || []).some((h) => p.startsWith(h));
+}
+
 /** Aadressi keel: /ru/... → 'ru', /en/... → 'en', muu → 'et'. */
 export function langOf(pathname) {
 	const m = /^\/(ru|en)(\/|$)/.exec(pathname || '');
@@ -27,7 +36,7 @@ export function baseOf(pathname) {
 export function linkLang(lang, path) {
 	if (!lang || lang === 'et') return path;
 	const [p, rest] = splitPath(path);
-	return TOLGITUD.includes(p) ? '/' + lang + p + rest : path;
+	return onTolgitud(lang, p) ? '/' + lang + p + rest : path;
 }
 function splitPath(path) {
 	const i = path.search(/[?#]/);
@@ -35,19 +44,34 @@ function splitPath(path) {
 }
 
 /* Tõlgitud HTML-i sees olevad lingid tõlgitud lehtedele saavad keele eesliite */
-const HREF = /href="(\/(?:rehvi-valimine\/|vordle-rehve\/|liiklusohutus\/)?)(?=["?#])/g;
+const HREF = /href="(\/[^"?#]*)(?=["?#])/g;
 
 /** Tõlge: sõnastikus olemas → tõlge, muidu eestikeelne lähtetekst. */
 export function tr(lang, dict, s) {
 	if (!lang || lang === 'et' || typeof s !== 'string') return s;
 	const v = (dict && dict[s]) || s;
-	return v.indexOf('href="/') >= 0 ? v.replace(HREF, (m, p) => 'href="/' + lang + p) : v;
+	return v.indexOf('href="/') >= 0 ? v.replace(HREF, (m, p) => (onTolgitud(lang, p) ? 'href="/' + lang + p : m)) : v;
+}
+
+/** Tõlge kohatäidetega: tf(lang, dict, 'Mõõt {m}', { m: '205/55 R16' }) */
+export function tf(lang, dict, s, vars) {
+	return String(tr(lang, dict, s)).replace(/\{(\w+)\}/g, (m, k) => (vars && vars[k] != null ? vars[k] : m));
+}
+
+/** Jagamispilt keeles: /og/sait/avaleht.png → /og/sait/avaleht.ru.png (kui on tehtud) */
+export function ogLang(lang, image) {
+	if (!lang || lang === 'et') return image;
+	const m = /^\/og\/(sait|auto)\/(.+)\.png$/.exec(image || '');
+	if (!m) return image;
+	if (m[1] === 'sait' && !['avaleht', 'liiklusohutus'].includes(m[2])) return image;
+	if (m[1] === 'auto' && lang !== 'ru') return image;
+	return '/og/' + m[1] + '/' + m[2] + '.' + lang + '.png';
 }
 
 /** Komponendis: const t = useT(); … {t('Eestikeelne tekst')} */
 export function useT() {
 	const c = getContext('i18n');
-	const f = (s) => (c ? tr(c.lang, c.dict, s) : s);
+	const f = (s, vars) => (vars ? tf(c ? c.lang : 'et', c ? c.dict : null, s, vars) : c ? tr(c.lang, c.dict, s) : s);
 	return f;
 }
 

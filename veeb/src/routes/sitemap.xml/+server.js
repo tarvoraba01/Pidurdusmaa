@@ -63,6 +63,10 @@ export function GET() {
 	urls.push(['/autod/', '0.7']);
 	for (const m of autod().margid.values()) urls.push(['/autod/' + m.slug + '/', '0.6']);
 	for (const p of autod().polved.values()) urls.push(['/autod/' + p.mk + '/' + p.slug + '/', '0.6']);
+	/* autolehed vene keeles (/ru/autod/…) */
+	urls.push(['/ru/autod/', '0.5']);
+	for (const m of autod().margid.values()) urls.push(['/ru/autod/' + m.slug + '/', '0.5']);
+	for (const p of autod().polved.values()) urls.push(['/ru/autod/' + p.mk + '/' + p.slug + '/', '0.5']);
 
 	const xml =
 		'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +

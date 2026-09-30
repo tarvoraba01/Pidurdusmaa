@@ -3,7 +3,7 @@
 	import { page } from '$app/state';
 	import { afterNavigate, beforeNavigate } from '$app/navigation';
 	import { setContext } from 'svelte';
-	import { tr, langOf, baseOf, linkLang, TOLGITUD, KEELED, KEEL_NIMI } from '$lib/i18n.js';
+	import { tr, langOf, baseOf, linkLang, onTolgitud, KEELED, KEEL_NIMI } from '$lib/i18n.js';
 	import { version } from '$app/environment';
 	import Icon from '$lib/Icon.svelte';
 	import Nousolek from '$lib/Nousolek.svelte';
@@ -30,7 +30,7 @@
 	/* aadressi päring (nt ?rehvid=…) läheb keelevahetusel kaasa; eelrenderdatud
 	   lehel on see teada alles brauseris */
 	let otsing = $state('');
-	const keeleLink = (k) => (TOLGITUD.includes(base) ? linkLang(k, base) + otsing : k === 'et' ? base : '/' + k + '/');
+	const keeleLink = (k) => (onTolgitud(k, base) ? linkLang(k, base) + otsing : '/' + k + '/');
 
 	/* Aktiivne menüüpunkt aadressi järgi — sama loogika, mis oli
 	   pm_nav_current() PHP-poolel. */
@@ -116,7 +116,7 @@
 <header class="site-header">
 	<div class="wrap">
 		{@html t("<a class=\"logo\" href=\"/\" aria-label=\"Pidurdusmaa.ee avaleht\"><b>PIDURDUSMAA</b><em>.ee</em></a> <span class=\"neutraal-silt\">Liiklusohutus</span>")}
-		<nav class="keeled" aria-label={t("Keel")}>{#each KEELED as k (k)}<a href={keeleLink(k)} onclick={(e) => TOLGITUD.includes(base) && (e.currentTarget.href = linkLang(k, base) + location.search)} hreflang={k} lang={k} title={KEEL_NIMI[k]} aria-current={k === lang ? 'true' : undefined} data-sveltekit-reload>{k.toUpperCase()}</a>{/each}</nav>
+		<nav class="keeled" aria-label={t("Keel")}>{#each KEELED as k (k)}<a href={keeleLink(k)} onclick={(e) => onTolgitud(k, base) && (e.currentTarget.href = linkLang(k, base) + location.search)} hreflang={k} lang={k} title={KEEL_NIMI[k]} aria-current={k === lang ? 'true' : undefined} data-sveltekit-reload>{k.toUpperCase()}</a>{/each}</nav>
 	</div>
 </header>
 {:else}
@@ -141,7 +141,7 @@
 			<a href="/teadmine/" aria-current={cur === 'teadmine' ? 'page' : undefined}>{t("Teadmine")}</a>
 		</nav>
 		<div class="hdr-right">
-			<nav class="keeled" aria-label={t("Keel")}>{#each KEELED as k (k)}<a href={keeleLink(k)} onclick={(e) => TOLGITUD.includes(base) && (e.currentTarget.href = linkLang(k, base) + location.search)} hreflang={k} lang={k} title={KEEL_NIMI[k]} aria-current={k === lang ? 'true' : undefined} data-sveltekit-reload>{k.toUpperCase()}</a>{/each}</nav>
+			<nav class="keeled" aria-label={t("Keel")}>{#each KEELED as k (k)}<a href={keeleLink(k)} onclick={(e) => onTolgitud(k, base) && (e.currentTarget.href = linkLang(k, base) + location.search)} hreflang={k} lang={k} title={KEEL_NIMI[k]} aria-current={k === lang ? 'true' : undefined} data-sveltekit-reload>{k.toUpperCase()}</a>{/each}</nav>
 			<a class="cmp-link" href={L('/vordle-rehve/')} data-cmp-pill>
 				<Icon name="heart" /><span>{@html t("Võrdlus (<span data-cmp-n>0</span>)")}</span>
 			</a>
@@ -157,7 +157,7 @@
 	</div>
 	<div class="panel-menu" id="pm-panel" hidden>
 		<div class="wrap">
-			<nav class="keeled pm-keeled" aria-label={t("Keel")}>{#each KEELED as k (k)}<a href={keeleLink(k)} onclick={(e) => TOLGITUD.includes(base) && (e.currentTarget.href = linkLang(k, base) + location.search)} hreflang={k} lang={k} aria-current={k === lang ? 'true' : undefined} data-sveltekit-reload>{KEEL_NIMI[k]}</a>{/each}</nav>
+			<nav class="keeled pm-keeled" aria-label={t("Keel")}>{#each KEELED as k (k)}<a href={keeleLink(k)} onclick={(e) => onTolgitud(k, base) && (e.currentTarget.href = linkLang(k, base) + location.search)} hreflang={k} lang={k} aria-current={k === lang ? 'true' : undefined} data-sveltekit-reload>{KEEL_NIMI[k]}</a>{/each}</nav>
 			<div class="pm-cols">
 				<div>
 					<h4>Pidurdusmaa</h4>
@@ -173,7 +173,7 @@
 				</div>
 				<div>
 					<h4>{t("Andmed")}</h4>
-					<a href="/autod/">{t("Autod ja rehvimõõdud")}</a>
+					<a href={L('/autod/')}>{t("Autod ja rehvimõõdud")}</a>
 					<a href="/rehvid/">{t("Rehvid")}</a>
 					<a href="/testid/">{t("Sõltumatud testid")}</a>
 					<a href="/teadmine/">{t("Teadmine")}</a>
@@ -211,7 +211,7 @@
 			<div>
 				<h4>{t("Andmed")}</h4>
 				<ul>
-					<li><a href="/autod/">{t("Autod")}</a></li>
+					<li><a href={L('/autod/')}>{t("Autod")}</a></li>
 					<li><a href="/rehvid/">{t("Rehvid")}</a></li>
 					<li><a href="/testid/">{t("Sõltumatud testid")}</a></li>
 					<li><a href="/teadmine/kuidas-pidurdusmaa-arvutatakse/">{t("Kuidas arvutatakse")}</a></li>
