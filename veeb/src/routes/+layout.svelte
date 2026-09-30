@@ -17,7 +17,7 @@
 		if (p === '/') return 'home';
 		if (p.startsWith('/rehvi-valimine') || p.startsWith('/vordle-rehve')) return 'valik';
 		/* rehvid, testid ja margid on menüüs Teadmine all */
-		if (p.startsWith('/teadmine') || p.startsWith('/testid') || p.startsWith('/rehvid') || p.startsWith('/margid')) return 'teadmine';
+		if (p.startsWith('/teadmine') || p.startsWith('/testid') || p.startsWith('/rehvid') || p.startsWith('/margid') || p.startsWith('/autod')) return 'teadmine';
 		return '';
 	});
 
@@ -138,6 +138,7 @@
 				</div>
 				<div>
 					<h4>Andmed</h4>
+					<a href="/autod/">Autod ja rehvimõõdud</a>
 					<a href="/rehvid/">Rehvid</a>
 					<a href="/testid/">Sõltumatud testid</a>
 					<a href="/teadmine/">Teadmine</a>
@@ -176,6 +177,7 @@
 			<div>
 				<h4>Andmed</h4>
 				<ul>
+					<li><a href="/autod/">Autod</a></li>
 					<li><a href="/rehvid/">Rehvid</a></li>
 					<li><a href="/testid/">Sõltumatud testid</a></li>
 					<li><a href="/teadmine/kuidas-pidurdusmaa-arvutatakse/">Kuidas arvutatakse</a></li>

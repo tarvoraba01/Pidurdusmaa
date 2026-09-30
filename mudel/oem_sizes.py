@@ -83,6 +83,7 @@ OEM_SIZES = {
     'chevrolet_lacetti': ('185/65 R14', ['175/70 R14', '185/65 R14', '195/55 R15', '195/50 R16'], 'kinnitatud', 'https://club.autodoc.co.uk/tyres/chevrolet/lacetti/lacetti-j200', 'Hatchback J200 table; saloon/estate variants of same generation share the platform.'),
     'chevrolet_spark_m300': ('155/70 R14', ['155/80 R13', '155/70 R14'], 'kinnitatud', 'https://www.vehiclesizes.com/cars/chevrolet/spark/spark-iii-hatchback-2010/', ''),
     'chrysler_300c_lx': ('225/60 R18', ['215/65 R17', '225/60 R18', '245/45 R20'], 'kinnitatud', 'https://tiresize.com/tires/Chrysler/300C/', 'SRT8 on eri mõõduga ees ja taga (245/45 R20 / 255/45 R20) — seda siin ei ole.'),
+    'chrysler_300c_touring_lx': ('225/60 R18', ['215/65 R17', '225/60 R18', '245/45 R20'], 'kinnitatud', 'https://www.auto-data.net/en/chrysler-300-touring-3.0-24v-crd-218hp-14692', 'Samad mõõdud mis sedaanil (LX).'),
     'chrysler_300c_ld': ('225/60 R18', ['215/65 R17', '225/60 R18', '235/55 R19', '245/45 R20'], 'kinnitatud', 'https://s3.amazonaws.com/chryslermedia.iconicweb.com/mediasite/specs/2012_CH_300_SP.pdf', '235/55 R19 on nelikveo standardmõõt (300C AWD).'),
     'chrysler_voyager_4': ('215/65 R16', ['215/65 R16'], 'kinnitatud', 'https://club.autodoc.co.uk/tyres/chrysler/voyager/voyager-iv-rg-rs', 'Only one factory size approved across all engine variants.'),
     'citroen_berlingo_2': ('205/65 R15', ['205/65 R15', '215/55 R16'], 'kinnitatud', 'https://www.vehiclesizes.com/cars/citroen/berlingo/berlingo-ii-phase-i-2008-minivan-2009/', ''),

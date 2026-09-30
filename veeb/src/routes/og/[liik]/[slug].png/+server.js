@@ -8,6 +8,7 @@
  */
 import { error } from '@sveltejs/kit';
 import { ogPilt } from '$lib/server/ogpilt.js';
+import { autod, polveLeht } from '$lib/server/autod.js';
 import {
 	core,
 	models,
@@ -32,6 +33,7 @@ export function entries() {
 	const rehvid = new Set([...Object.keys(models()), ...core().tyres.map((t) => t.slug).filter(Boolean)]);
 	for (const slug of rehvid) if (rehviIndeks(slug).sitemap) out.push({ liik: 'r', slug });
 	for (const [a, b] of vsPairs()) out.push({ liik: 'vs', slug: a + '-vs-' + b });
+	for (const p of autod().polved.values()) out.push({ liik: 'auto', slug: p.mk + '--' + p.slug });
 	return out;
 }
 
@@ -58,6 +60,18 @@ function mootmine(tested) {
 }
 
 function andmed(liik, slug) {
+	if (liik === 'auto') {
+		const p = autod().polved.get(String(slug).replace('--', '/'));
+		if (!p) return null;
+		const d = polveLeht(p);
+		const m90 = d.pidurdus.find((x) => x.id === 'marg')?.r?.[90]?.peatumine;
+		return {
+			kicker: p.make,
+			pealkiri: p.model + ' ' + p.yearLabel,
+			alapealkiri: 'Rehvimõõt ' + d.pohimoot + (m90 ? ' · märjal 90 km/h pealt ~' + Math.round(m90) + ' m' : ''),
+			sildid: [d.mootorid.length + (d.mootorid.length === 1 ? ' mootor' : ' mootorit'), 'Parimad rehvid', 'Pidurdusmaa']
+		};
+	}
 	if (liik === 'sait' && slug === 'avaleht') {
 		return {
 			kicker: 'Pidurdusmaa kalkulaator',

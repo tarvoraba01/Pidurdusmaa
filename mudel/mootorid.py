@@ -2062,7 +2062,7 @@ MOOTORID = {
             ('1.2', 82, 60, 'b', '2009-2015', ''),
         ]},
     'chrysler_300c_ld': {
-        'src': ['https://www.auto-data.net/en/chrysler-300-ii-generation-5007', 'https://www.auto-data.net/en/chrysler-300-ii-facelift-2015-generation-5008'],
+        'src': ['https://www.auto-data.net/en/chrysler-300-ii-generation-5007', 'https://www.auto-data.net/en/chrysler-300-ii-facelift-2015-generation-5008', 'https://en.wikipedia.org/wiki/Chrysler_300'],
         'eng': [
             ('3.6 V6', 286, 210, 'b', '2011-2021', ''),
             ('3.6 V6', 292, 215, 'b', '2011-2014', ''),
@@ -2071,6 +2071,19 @@ MOOTORID = {
             ('5.7 V8', 363, 267, 'b', '2011-2023', ''),
             ('SRT8 6.4 V8', 470, 346, 'b', '2012-2014', ''),
             ('SRT 6.4 V8', 476, 350, 'b', '2015-2021', ''),
+            ('3.0 CRD', 190, 140, 'd', '2011-2014', ''),
+            ('3.0 CRD', 239, 176, 'd', '2011-2014', ''),
+        ]},
+    'chrysler_300c_touring_lx': {
+        'src': ['https://www.auto-data.net/en/chrysler-300-touring-generation-3229'],
+        'eng': [
+            ('2.7 V6', 193, 142, 'b', '2004-2010', ''),
+            ('3.5 V6', 249, 183, 'b', '2004-2010', ''),
+            ('3.5 V6', 249, 183, 'b', '2004-2010', 'AWD'),
+            ('5.7 V8', 340, 250, 'b', '2004-2010', ''),
+            ('5.7 V8', 340, 250, 'b', '2004-2010', 'AWD'),
+            ('SRT-8 6.1 V8', 431, 317, 'b', '2005-2010', ''),
+            ('3.0 CRD', 218, 160, 'd', '2006-2010', ''),
         ]},
     'chrysler_300c_lx': {
         'src': ['https://www.auto-data.net/en/chrysler-300-generation-3228', 'https://www.auto-data.net/en/chrysler-300-touring-generation-3229'],

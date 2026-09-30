@@ -727,6 +727,8 @@ EE_VEHICLES += [
     # otsitud. Mass, Cd ja mõõdud tootja andmetest (2012 Chrysler 300
     # ametlik spetsifikatsioonileht; ultimatespecs 300C 5.7).
     ("chrysler_300c_lx","Chrysler 300C LX (2004-2010)",       1915, 0.34, 1.881, 1.483, 3.048, 2.4, "225/60 R18", A.MODERN, 1.22, "rõhk hinnang"),
+    # Touring = universaal. auto-data 3.0 CRD: sedaan 1840 kg, Touring 1875 kg (+35 kg)
+    ("chrysler_300c_touring_lx","Chrysler 300C Touring LX (2004-2010)", 1950, 0.34, 1.880, 1.475, 3.048, 2.4, "225/60 R18", A.MODERN, 1.22, "rõhk hinnang; mass sedaan +35 kg (auto-data)"),
     ("chrysler_300c_ld","Chrysler 300C LD (2011-2023)",       1962, 0.32, 1.902, 1.492, 3.052, 2.4, "225/60 R18", A.MODERN, 1.26, "rõhk hinnang"),
 ]
 

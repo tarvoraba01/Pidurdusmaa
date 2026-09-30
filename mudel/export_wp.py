@@ -144,7 +144,8 @@ _MUDEL2 = {("Golf", "Plus"), ("Passat", "CC"), ("Transit", "Custom"),
            ("Sealion", "7"), ("Ioniq", "5"), ("Ioniq", "6"), ("Ioniq", "9"),
            ("Golf", "Sportsvan"), ("Tiguan", "Allspace"), ("Corolla", "Verso"),
            ("Proace", "City"), ("Q8", "e-tron"), ("e-tron", "GT"), ("A6", "allroad"),
-           ("A4", "allroad"), ("C5", "X"), ("C4", "Cactus"), ("Seal", "U")}
+           ("A4", "allroad"), ("C5", "X"), ("C4", "Cactus"), ("Seal", "U"),
+           ("300C", "Touring")}
 _MUDEL_NIMI = {"Cee'd": "Ceed"}
 # Üksikud read, mille nimi ei ütle põlvkonda/aastaid õigesti (vanad
 # üheaastased näidisread jms): võti -> (põlvkond, aastad, variant | None)

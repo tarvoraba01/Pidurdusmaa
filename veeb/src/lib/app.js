@@ -202,10 +202,13 @@
        vaja). Nimi = eesmärk (Goal) Plausible'is, props = kohandatud
        omadused. Plausible'is tuleb samad nimed lisada Goals alla. */
     var PLAUS = { arvuta: 'Arvutus', arvuta_ilma_autota: 'Arvutus', auto: 'Auto valitud', poe_klikk: 'Poe klikk',
-      partner_klikk: 'Partneri klikk', vordlusse: 'Rehv võrdlusse', otsing: 'Otsing', oma_rehv: 'Oma rehv valitud' };
+      partner_klikk: 'Partneri klikk', vordlusse: 'Rehv võrdlusse', otsing: 'Otsing', oma_rehv: 'Oma rehv valitud',
+      vaheleht: 'Avaleht: rehvi valimine', naita_rehve: 'Näita sobivaid rehve' };
     function plaus(r) {
       var nimi = PLAUS[r.e];
       if (!nimi || typeof window.plausible !== 'function') return;
+      /* avalehe sakk: loeme ainult "Leia sobiv rehv" avamist, mitte tagasi kalkulaatorisse */
+      if (r.e === 'vaheleht' && r.v !== 'rehvi valimine') return;
       try {
         var p = gaParam(r), props = {};
         if (r.e === 'arvuta') { props.teeolu = p.teeolu; props.kiirus = p.kiirus; props.auto = p.auto; }
@@ -326,6 +329,9 @@
   }
   /* ABS oli lisavarustus: kasutaja linnuke "autol on ABS" (auto kaupa,
      sessionStorage) vahetab ABS-klassi ja pidurite võimekuse (core: absOpt). */
+  function slugA(t) {
+    return String(t || '').normalize('NFKD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+  }
   /* ABS on auto (põlvkonna rea), mitte mootori omadus: <rida>~<mootor> -> <rida> */
   function absKey(key) { return String(key || '').split('~')[0]; }
   function absOn(key) { var a = store.get('abs', {}); return !!(a && a[absKey(key)]); }
@@ -718,6 +724,8 @@
     S.tab = 'calc';
     var qsc = new URLSearchParams(location.search);
     if (qsc.get('moot')) S.size = qsc.get('moot');
+    /* autolehelt (/autod/…): ?auto=<rea võti> valib auto kohe ära */
+    if (qsc.get('auto') && core.vehByKey[qsc.get('auto')]) S.veh = qsc.get('auto');
     /* artiklite lingid: /?olud=snow&kiirus=50#kalkulaator */
     if (COND[qsc.get('olud')]) S.cond = qsc.get('olud');
     var qKiirus = +qsc.get('kiirus');
@@ -815,9 +823,13 @@
       /* oemTyp: levinuim mõõt, mille kohta märgise andmeid veel pole —
          siis arvutatakse teise tehasemõõduga ja seda öeldakse välja */
       paintAbs(veh);
-      $('[data-veh-hint]', root).textContent = !veh ? '' : veh.oemTyp
+      var hint = !veh ? '' : veh.oemTyp
         ? 'levinuim tehasemõõt ' + veh.oemTyp + ' · arvutame ' + veh.oemSize + ' järgi'
         : 'levinuim tehasemõõt ' + veh.oemSize;
+      /* link auto lehele (/autod/<mark>/<mudel-põlvkond>/), sama slug mis serveris */
+      var al = veh && veh.make && veh.model && veh.make !== 'Ei leia oma autot'
+        ? '/autod/' + slugA(veh.make.split(' /')[0]) + '/' + slugA(veh.model + ' ' + veh.yearLabel) + '/' : '';
+      $('[data-veh-hint]', root).innerHTML = esc(hint) + (al ? ' · <a href="' + esc(al) + '">auto leht</a>' : '');
     });
     S.size = sizeOptions(sizeSel, null, S.size);
 
@@ -920,6 +932,7 @@
     function smooth() { return matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'; }
     var goV = $('[data-go-valik]', root);
     if (goV) goV.addEventListener('click', function () {
+      Track('naita_rehve', 'avaleht');
       var t = $('#sobivad'); if (t) t.scrollIntoView({ behavior: smooth(), block: 'start' });
     });
     /* tulemuse riba nupp „Rehvi valimine“ avab avalehel sama vahelehe */

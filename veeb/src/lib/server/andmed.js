@@ -42,6 +42,8 @@ export const core = () =>
 	json('core.json') || { vehicles: [], tyres: [], sources: {}, sizes: [] };
 export const models = () => json('models.json') || {};
 export const model = (slug) => models()[slug] || null;
+/** mootorid.json: { reaVõti: [[silt, kütus, aastad, slug, jrk, oma?], …] } (export_wp) */
+export const mootoridJson = () => json('mootorid.json') || {};
 
 /** EPREL-i read ühes mõõdus: [slug, mark, nimi, katNr, märg, kütus, dB, müraKl, lipud, testKey] */
 export function eprelSize(mootN) {

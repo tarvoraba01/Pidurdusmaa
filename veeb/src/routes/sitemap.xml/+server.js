@@ -9,6 +9,7 @@ import {
 	MARK_MIN_SAIDIKAART
 } from '$lib/server/andmed.js';
 import { ARTIKLID, artikliTee } from '$lib/artiklid.js';
+import { autod } from '$lib/server/autod.js';
 
 export const prerender = true;
 
@@ -55,6 +56,10 @@ export function GET() {
 	}
 	for (const [a, b] of vsPairs()) urls.push(['/rehvid/' + a + '-vs-' + b + '/', '0.5']);
 	for (const code of Object.keys(core().sources)) urls.push(['/testid/' + code.toLowerCase() + '/', '0.5']);
+	/* autod: indeks, margid, põlvkonnad */
+	urls.push(['/autod/', '0.7']);
+	for (const m of autod().margid.values()) urls.push(['/autod/' + m.slug + '/', '0.6']);
+	for (const p of autod().polved.values()) urls.push(['/autod/' + p.mk + '/' + p.slug + '/', '0.6']);
 
 	const xml =
 		'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +

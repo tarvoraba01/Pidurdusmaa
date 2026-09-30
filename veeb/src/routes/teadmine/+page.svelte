@@ -9,6 +9,7 @@
 		['/teadmine/rehvimargis/', 'info', 'EL-i rehvimärgis', 'Mida tähendavad märghaarde, veeretakistuse ja müra klassid.']
 	];
 	const ANDMED = [
+		['/autod/', 'road', 'Autod', 'Iga mudeli tehase rehvimõõdud, mootorid ja pidurdusmaa.'],
 		['/rehvid/', 'tyre', 'Rehvid', 'Kõik rehvid märgise andmete ja testitulemustega.'],
 		['/testid/', 'test', 'Sõltumatud testid', 'ADAC, Tekniikan Maailma jt — mõõdetud pidurdusmaad.'],
 		['/margid/', 'scale', 'Rehvimargid', 'Tootjad ja nende rehvid ühest kohast.']
@@ -88,8 +89,8 @@
 		</section>
 
 		<section class="tm-sec" aria-labelledby="tm-and">
-			<h2 id="tm-and">Rehvid ja testid</h2>
-			<div class="tm-grid tm-grid3">
+			<h2 id="tm-and">Autod, rehvid ja testid</h2>
+			<div class="tm-grid">
 				{#each ANDMED as [href, ic, t, d] (href)}
 					<a class="tm-card" {href}>
 						<span class="tm-ic"><Icon name={ic} /></span>
