@@ -75,7 +75,7 @@ function andmed(liik, slug) {
 			kicker: slug === 'liiklusohutus' ? 'Liiklusohutus' : 'Uus tasuta kalkulaator',
 			pealkiri: 'Kui pika maa pealt auto peatub?',
 			alapealkiri: 'Kiirus, reaktsiooniaeg, teeolud ja rehvid — kaks olukorda kõrvuti',
-			sildid: ['Tasuta', 'Ilma reklaamita', 'Autokoolidele']
+			sildid: ['Tasuta', 'Ilma reklaamita', 'Jagatav link']
 		};
 	}
 	if (liik === 'm') {

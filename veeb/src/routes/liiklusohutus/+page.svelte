@@ -4,15 +4,15 @@
 	import { ORG, graph, tooriist } from '$lib/skeem.js';
 
 	const KIRJ =
-		'Tasuta peatumisteekonna kalkulaator autokoolidele ja liiklusohutuse õppeks: kiirus, reaktsiooniaeg, teeolud ja rehvid, kaks olukorda kõrvuti. Ilma reklaamita.';
-	const jsonld = graph(tooriist('Pidurdusmaa kalkulaator liiklusohutuse õppeks', '/liiklusohutus/', KIRJ), ORG);
+		'Tasuta peatumisteekonna kalkulaator: vaata, kuidas kiirus, reaktsiooniaeg, teeolud ja rehvid muudavad peatumismaad. Kaks olukorda kõrvuti, ilma reklaamita.';
+	const jsonld = graph(tooriist('Peatumisteekonna kalkulaator', '/liiklusohutus/', KIRJ), ORG);
 </script>
 
-<Meta title="Peatumisteekonna kalkulaator liiklusohutuse õppeks" desc={KIRJ} path="liiklusohutus/" {jsonld} image="/og/sait/liiklusohutus.png" />
+<Meta title="Peatumisteekonna kalkulaator" desc={KIRJ} path="liiklusohutus/" {jsonld} image="/og/sait/liiklusohutus.png" />
 
 <section class="lo-hero">
 	<div class="wrap">
-		<p class="lo-kick">Tasuta õppevahend · autokoolidele ja liiklusohutuse tööks</p>
+		<p class="lo-kick">Liiklusohutus · tasuta, ilma reklaamita</p>
 		<h1>Kui pika maa pealt auto peatub?</h1>
 		<p>
 			Muuda kiirust, reaktsiooniaega, teeolusid ja rehvide seisukorda ning vaata kohe, kuidas
@@ -31,7 +31,7 @@
 <section class="lo-info">
 	<div class="wrap lo-cols">
 		<div>
-			<h2>Kuidas tunnis kasutada</h2>
+			<h2>Mida proovida</h2>
 			<ul>
 				<li>
 					<b>Kiirus.</b> Vali „50 vs 70 km/h“. Takistus on pandud kohta, kus 50 km/h auto peatub — vaata,
@@ -47,7 +47,7 @@
 				</li>
 				<li>
 					<b>Esitlus.</b> „Esitlusrežiim“ avab kalkulaatori täisekraanil. „Kopeeri link“ salvestab kõik
-					valikud aadressi sisse — saad tunni jaoks olukorrad ette valmistada.
+					valikud aadressi sisse — saad olukorra kellelegi saata või esitluseks ette valmistada.
 				</li>
 			</ul>
 		</div>
@@ -78,8 +78,8 @@
 				<li>VTI (Rootsi), Statens vegvesen (Norra), Maanteeamet — haardetegur sõiduteede jääl</li>
 			</ul>
 			<p class="lo-small">
-				Tööriist on tasuta kasutamiseks koolides, autokoolides ja liiklusohutuse töös. Lehel ei ole
-				reklaami, hindu ega poode.
+				Tööriist on tasuta kõigile — juhtidele, lapsevanematele, koolidele ja autokoolidele. Lehel ei
+				ole reklaami, hindu ega poode.
 			</p>
 		</div>
 	</div>

@@ -21,7 +21,7 @@
 		return '';
 	});
 
-	/* /liiklusohutus/ on neutraalne õppevahend (Transpordiamet, autokoolid):
+	/* /liiklusohutus/ on neutraalne tööriist (kõigile; ka Transpordiamet, autokoolid):
 	   ei menüüd, poode ega rehvivalikut — ainult logo ja õiguslikud lingid. */
 	const neutraal = $derived(page.url.pathname.startsWith('/liiklusohutus'));
 
@@ -129,7 +129,7 @@
 					<a href="/">Pidurdusmaa kalkulaator</a>
 					<a href="/teadmine/pidurdusteekond-ja-peatumisteekond/">Pidurdus- ja peatumisteekond</a>
 					<a href="/teadmine/kuidas-pidurdusmaa-arvutatakse/">Kuidas arvutatakse</a>
-					<a href="/liiklusohutus/">Liiklusohutuse kalkulaator (autokoolidele)</a>
+					<a href="/liiklusohutus/">Liiklusohutuse kalkulaator</a>
 				</div>
 				<div>
 					<h4>Rehvi valimine</h4>

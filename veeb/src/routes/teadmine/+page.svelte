@@ -38,9 +38,9 @@
 	<div class="wrap">
 		<a class="tm-feat" href="/liiklusohutus/">
 			<span class="tm-eyebrow">Tööriist</span>
-			<span class="tm-feat-t">Peatumisteekonna kalkulaator liiklusohutuse õppeks</span>
+			<span class="tm-feat-t">Peatumisteekonna kalkulaator</span>
 			<span class="tm-feat-d">Kiirus, reaktsiooniaeg, teeolud ja rehvid — kaks olukorda kõrvuti.</span>
-			<span class="tm-tags"><span>Autokoolidele</span><span>Esitlusrežiim</span><span>Tasuta, ilma reklaamita</span></span>
+			<span class="tm-tags"><span>Jagatav link</span><span>Esitlusrežiim</span><span>Tasuta, ilma reklaamita</span></span>
 			<span class="tm-go"><Icon name="arrow" /></span>
 		</a>
 
