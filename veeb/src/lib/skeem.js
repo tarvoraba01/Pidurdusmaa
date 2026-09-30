@@ -57,14 +57,14 @@ export const AUTOR = AUTOR_NIMI
 export const autorRef = () => (AUTOR ? { '@id': AUTOR_ID } : { '@id': ORG_ID });
 
 /** Artikli JSON-LD (Article + autor), ühine kõigile Teadmine-lehtedele. */
-export function artikkel({ path, title, desc, uuendatud, avaldatud }) {
+export function artikkel({ path, title, desc, uuendatud, avaldatud, lang = 'et' }) {
 	return [
 		{
 			'@type': 'Article',
 			'@id': BASE + path + '#artikkel',
 			headline: title,
 			description: desc,
-			inLanguage: 'et',
+			inLanguage: lang,
 			datePublished: avaldatud || uuendatud,
 			dateModified: uuendatud,
 			author: autorRef(),

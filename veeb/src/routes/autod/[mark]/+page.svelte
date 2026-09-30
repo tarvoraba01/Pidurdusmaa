@@ -1,14 +1,16 @@
 <script>
 	import Meta from '$lib/Meta.svelte';
-	import { useT, useLang } from '$lib/i18n.js';
+	import { useT, useLang, autoNimi } from '$lib/i18n.js';
 	const t = useT();
-	const L = useLang().L;
+	const keel = useLang();
+	const L = keel.L;
+	const an = (s) => autoNimi(keel.lang, s);
 	let { data } = $props();
 	const m = $derived(data.mark);
 	const path = $derived('/autod/' + m.slug + '/');
 	const desc = $derived(
 		t('{nimi}: {mudelid} mudelit, {n} põlvkonda — tehase rehvimõõdud, mootorid ja pidurdusmaa.', { nimi: m.nimi, mudelid: data.mudelid.length, n: data.n }) +
-			' ' + data.mudelid.slice(0, 4).map((x) => x.model).join(', ') + '.'
+			' ' + data.mudelid.slice(0, 4).map((x) => an(x.model)).join(', ') + '.'
 	);
 </script>
 
@@ -30,13 +32,13 @@
 	<div class="wrap">
 		{#each data.mudelid as x (x.model)}
 			<div class="box">
-				<h2>{m.nimi} {x.model}</h2>
+				<h2>{m.nimi} {an(x.model)}</h2>
 				<div class="tbl-wrap">
 					<table class="t">
 						<thead><tr><th>{t('Põlvkond')}</th><th>{t('Tehase põhimõõt')}</th></tr></thead>
 						<tbody>
 							{#each x.polved as p (p.slug)}
-								<tr><td><a href={L('/autod/' + m.slug + '/' + p.slug + '/')}>{p.nimi}</a></td><td>{p.moot}</td></tr>
+								<tr><td><a href={L('/autod/' + m.slug + '/' + p.slug + '/')}>{an(p.nimi)}</a></td><td>{p.moot}</td></tr>
 							{/each}
 						</tbody>
 					</table>

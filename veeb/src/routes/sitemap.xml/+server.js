@@ -11,6 +11,7 @@ import {
 import { ARTIKLID, artikliTee } from '$lib/artiklid.js';
 import { autod } from '$lib/server/autod.js';
 import { TOLGITUD } from '$lib/i18n.js';
+import RU_REHVID from '$lib/i18n/ru_rehvid.js';
 
 export const prerender = true;
 
@@ -63,6 +64,10 @@ export function GET() {
 	urls.push(['/autod/', '0.7']);
 	for (const m of autod().margid.values()) urls.push(['/autod/' + m.slug + '/', '0.6']);
 	for (const p of autod().polved.values()) urls.push(['/autod/' + p.mk + '/' + p.slug + '/', '0.6']);
+	/* vene keeles: artiklid, rehvilehed (nimekiri: scripts/ru-rehvid.mjs) */
+	urls.push(['/ru/teadmine/artiklid/', '0.5'], ['/ru/teadmine/pidurdusteekond-ja-peatumisteekond/', '0.6'], ['/ru/rehvid/', '0.6']);
+	for (const a of ARTIKLID) if (a.ru) urls.push(['/ru' + artikliTee(a), '0.6']);
+	for (const slug of RU_REHVID) urls.push(['/ru/rehvid/' + slug + '/', '0.5']);
 	/* autolehed vene keeles (/ru/autod/…) */
 	urls.push(['/ru/autod/', '0.5']);
 	for (const m of autod().margid.values()) urls.push(['/ru/autod/' + m.slug + '/', '0.5']);

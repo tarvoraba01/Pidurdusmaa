@@ -1,13 +1,15 @@
 <script>
 	import Meta from '$lib/Meta.svelte';
 	import { BASE } from '$lib/skeem.js';
-	import { useT, useLang } from '$lib/i18n.js';
+	import { useT, useLang, autoNimi } from '$lib/i18n.js';
 	/* Tekstid: eesti keel on lähtetekst, vene tõlge $lib/i18n/ru.js (/ru/autod/…) */
 	const t = useT();
 	const keel = useLang();
 	const L = keel.L;
 	let { data } = $props();
-	const a = $derived(data.auto);
+	const an = (s) => autoNimi(keel.lang, s);
+	/* vene keeles E-klass → E-Класс jne (ainult nähtav nimi; mk/slug jäävad) */
+	const a = $derived({ ...data.auto, nimi: an(data.auto.nimi), model: an(data.auto.model), yearLabel: an(data.auto.yearLabel) });
 	const path = $derived('/autod/' + a.mk + '/' + a.slug + '/');
 	const DEC = keel.lang === 'en' ? '.' : ',';
 	const f1 = (x) => (x == null ? '–' : (Math.round(x * 10) / 10).toFixed(1).replace('.', DEC));
@@ -73,7 +75,7 @@
 			<ul class="ad-moodud">
 				{#each data.moodud as z (z.m)}
 					<li class:pohi={z.pohi}>
-						{#if z.slug}<a href="/rehvid/{z.slug}/">{z.label}</a>{:else}{z.label}{/if}
+						{#if z.slug}<a href={L("/rehvid/" + z.slug + "/")}>{z.label}</a>{:else}{z.label}{/if}
 						{#if z.pohi}<span class="pill">{t('põhimõõt')}</span>{/if}
 					</li>
 				{/each}
@@ -115,7 +117,7 @@
 								{#each list as r (r.slug)}
 									<tr>
 										<td
-											><a href="/rehvid/{r.slug}/">{r.nimi}</a>{#if r.testitud}
+											><a href={L("/rehvid/" + r.slug + "/")}>{r.nimi}</a>{#if r.testitud}
 												<span class="pill test" style="margin-left:var(--sp-2)">{t('testitud')}</span>{/if}</td
 										>
 										<td>{r.g || '–'}</td>
@@ -125,7 +127,7 @@
 							</tbody>
 						</table>
 					</div>
-					{#if data.pohimootSlug}<p class="note"><a href="/rehvid/{data.pohimootSlug}/">{t('Kõik rehvid mõõdus {moot} →', { moot: data.pohimoot })}</a></p>{/if}
+					{#if data.pohimootSlug}<p class="note"><a href={L("/rehvid/" + data.pohimootSlug + "/")}>{t('Kõik rehvid mõõdus {moot} →', { moot: data.pohimoot })}</a></p>{/if}
 				</div>
 			{/if}
 		{/each}
@@ -155,7 +157,7 @@
 			<div class="box">
 				<h2>{t('Teised põlvkonnad')}</h2>
 				<ul class="ad-muud">
-					{#each data.muudPolved as p (p.slug)}<li><a href={L('/autod/' + a.mk + '/' + p.slug + '/')}>{p.nimi}</a></li>{/each}
+					{#each data.muudPolved as p (p.slug)}<li><a href={L('/autod/' + a.mk + '/' + p.slug + '/')}>{an(p.nimi)}</a></li>{/each}
 				</ul>
 			</div>
 		{/if}

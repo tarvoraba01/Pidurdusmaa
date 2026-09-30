@@ -1,4 +1,10 @@
 <script>
+	import { useT, useLang, autoNimi } from '$lib/i18n.js';
+	/* Tekstid: eesti keel on lähtetekst, vene tõlge $lib/i18n/ru.js (/ru/rehvid/…) */
+	const t = useT();
+	const keel = useLang();
+	const L = keel.L;
+	const an = (s) => autoNimi(keel.lang, s);
 	import Meta from '$lib/Meta.svelte';
 	import Grade from '$lib/Grade.svelte';
 	import How from '$lib/How.svelte';
@@ -6,7 +12,25 @@
 	import { KAT_NIMI, CONDS, num, pretty, testLabel } from '$lib/util.js';
 
 	let { data } = $props();
-	const KAT = { 0: 'Suverehvid', 1: 'Aastaringsed rehvid', 2: 'Talverehvid (Kesk-Euroopa)', 3: 'Talverehvid (Põhjamaade)' };
+	const KAT = { 0: t('Suverehvid'), 1: t('Aastaringsed rehvid'), 2: t('Talverehvid (Kesk-Euroopa)'), 3: t('Talverehvid (Põhjamaade)') };
+
+	/* „märg asfalt, 80→0 km/h“ → tõlgitud pind + kiirus */
+	function tl(x) {
+		const s = testLabel(x);
+		const i = s.indexOf(', ');
+		return i < 0 ? t(s) : t(s.slice(0, i)) + s.slice(i).replace('km/h', t('km/h'));
+	}
+	/* otsingutulemuse kirjeldus: eesti keeles serverist, muidu tükkidest tõlgitult */
+	const kirjeldus = $derived.by(() => {
+		if (keel.lang === 'et' || !data.descOsad || !data.tyre) return data.desc;
+		const o = data.descOsad;
+		const osad = [];
+		if (o.testid) osad.push(t('sõltumatu testi pidurdusmaad'));
+		if (o.g) osad.push(t('märjal haardumise klass {g}', { g: o.g }));
+		if (o.db) osad.push(t('müra {db} dB', { db: o.db }));
+		if (o.n) osad.push(t(o.n === 1 ? '{n} mõõt' : '{n} mõõtu', { n: o.n }));
+		return data.tyre.name + (o.fraas ? ' — ' + t(o.fraas).charAt(0).toLowerCase() + t(o.fraas).slice(1) : '') + (osad.length ? ': ' + osad.join(', ') : '') + '. ' + t('Vaata, kui pikk on pidurdusmaa sinu autoga.');
+	});
 
 	function pctVahe(d, x, y) {
 		const p = (100 * d) / Math.min(x, y);
@@ -16,28 +40,27 @@
 
 {#if data.liik === 'moot'}
 	<Meta
-		title="Rehvid {data.size.label} — {data.n} rehvimudelit märgise andmetega"
-		desc="Kõik {data.size.label} mõõdus rehvid EL-i rehvimärgise järgi: märghaardumise klass, veeretakistus ja müra. Võrdle ja vaata, kui palju muutub pidurdusmaa."
+		title={t('Rehvid {m} — {n} rehvimudelit märgise andmetega', { m: data.size.label, n: data.n })}
+		desc={t('Kõik {m} mõõdus rehvid EL-i rehvimärgise järgi: märghaardumise klass, veeretakistus ja müra. Võrdle ja vaata, kui palju muutub pidurdusmaa.', { m: data.size.label })}
 		path="rehvid/{data.size.slug}/"
 		image={data.noindex ? undefined : `/og/m/${data.size.slug}.png`}
 		noindex={data.noindex}
-		crumbs={[['Avaleht', '/'], ['Rehvid', '/rehvid/'], [data.size.label, '/rehvid/' + data.size.slug + '/']]}
+		crumbs={[[t('Avaleht'), '/'], [t('Rehvid'), '/rehvid/'], [data.size.label, '/rehvid/' + data.size.slug + '/']]}
 	/>
 
 	<section class="page-hero">
 		<div class="wrap">
 			<div class="crumbs">
-				<a href="/">Avaleht</a><span>/</span><a href="/rehvid/">Rehvid</a><span>/</span>{data.size
+				<a href={L("/")}>{t("Avaleht")}</a><span>/</span><a href={L("/rehvid/")}>{t("Rehvid")}</a><span>/</span>{data.size
 					.label}
 			</div>
-			<h1>Rehvid {data.size.label}</h1>
+			<h1>{t("Rehvid")} {data.size.label}</h1>
 			<p>
-				{data.n} rehvimudelit EL-i rehvimärgise andmetega. Märghaardumise klass ütleb, kui lühikeseks
-				jääb pidurdusmaa märjal teel — ja klass on selle mõõdu oma, mitte mudeli üldine.
+				{data.n} {t("rehvimudelit EL-i rehvimärgise andmetega. Märghaardumise klass ütleb, kui lühikeseks jääb pidurdusmaa märjal teel — ja klass on selle mõõdu oma, mitte mudeli üldine.")}
 			</p>
 			<div class="pills">
 				{#each data.klassid as [g, n] (g)}
-					<span class="pill"><Grade {g} /> {n} rehvi</span>
+					<span class="pill"><Grade {g} /> {n} {t("rehvi")}</span>
 				{/each}
 			</div>
 		</div>
@@ -49,21 +72,21 @@
 				{#each data.grupid as gr (gr.ci)}
 					<div class="box">
 						<h2>{KAT[gr.ci] ?? ''}</h2>
-						<p class="sub">{gr.list.length} mudelit · järjestatud märghaardumise klassi, siis müra järgi</p>
+						<p class="sub">{gr.list.length} {t("mudelit · järjestatud märghaardumise klassi, siis müra järgi")}</p>
 						<div class="tbl-wrap">
 							<table class="t">
 								<thead>
-									<tr><th>Rehv</th><th>Märghaare</th><th>Veeretakistus</th><th class="n">Müra</th><th>Test</th></tr>
+									<tr><th>{t("Rehv")}</th><th>{t("Märghaare")}</th><th>{t("Veeretakistus")}</th><th class="n">{t("Müra")}</th><th>{t("Test")}</th></tr>
 								</thead>
 								<tbody>
 									{#each gr.list as r, ri (r.slug + '#' + ri)}
 										<tr>
-											<td><a href="/rehvid/{r.slug}/">{r.nimi}</a></td>
+											<td><a href={L("/rehvid/" + r.slug + "/")}>{r.nimi}</a></td>
 											<td><Grade g={r.g} /></td>
 											<td><Grade g={r.f} /></td>
 											<td class="n">{r.db ? r.db + ' dB' : '–'}</td>
 											<td
-												>{#if r.tested}<span class="pill test">Testitud</span>{:else}<span class="note">–</span>{/if}</td
+												>{#if r.tested}<span class="pill test">{t("Testitud")}</span>{:else}<span class="note">–</span>{/if}</td
 											>
 										</tr>
 									{/each}
@@ -75,41 +98,41 @@
 			</div>
 			<aside class="side">
 				<div class="box">
-					<h2 style="font-size:22px">Pidurdusmaa selles mõõdus</h2>
-					<p class="note">Arvuta, kui palju muudab märghaardumise klass sinu auto pidurdusmaad.</p>
-					<a class="btn yel" style="width:100%" href="/?moot={data.size.m}">Arvuta selle mõõduga →</a>
-					<a class="btn" style="width:100%;margin-top:var(--sp-2)" href="/vordle-rehve/?moot={data.size.m}"
-						>Võrdle selle mõõdu rehve</a
+					<h2 style="font-size:22px">{t("Pidurdusmaa selles mõõdus")}</h2>
+					<p class="note">{t("Arvuta, kui palju muudab märghaardumise klass sinu auto pidurdusmaad.")}</p>
+					<a class="btn yel" style="width:100%" href={L("/") + "?moot=" + data.size.m}>{t("Arvuta selle mõõduga →")}</a>
+					<a class="btn" style="width:100%;margin-top:var(--sp-2)" href={L("/vordle-rehve/") + "?moot=" + data.size.m}
+						>{t("Võrdle selle mõõdu rehve")}</a
 					>
 					{#if data.cars.length}
 						<h3
 							style="font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:var(--sp-6) 0 var(--sp-2)"
 						>
-							Tehasemõõt {data.autosid} autol
+							{t("Tehasemõõt")} {data.autosid} {t("autol")}
 						</h3>
 						<ul class="note" style="margin:0;padding-left:var(--sp-5)">
-							{#each data.cars as c (c.url)}<li><a href={c.url}>{c.nimi}</a>{#if !c.pohi}<span style="color:var(--muted)"> · lisamõõt</span>{/if}</li>{/each}
+							{#each data.cars as c (c.url)}<li><a href={L(c.url)}>{an(c.nimi)}</a>{#if !c.pohi}<span style="color:var(--muted)"> {t("· lisamõõt")}</span>{/if}</li>{/each}
 						</ul>
-						{#if data.autosid > data.cars.length}<p class="note">…ja veel {data.autosid - data.cars.length}. <a href="/autod/">Kõik autod</a></p>{/if}
+						{#if data.autosid > data.cars.length}<p class="note">{t("…ja veel")} {data.autosid - data.cars.length}. <a href={L("/autod/")}>{t("Kõik autod")}</a></p>{/if}
 					{/if}
 				</div>
 			</aside>
 		</div>
 	</div>
 {:else if data.liik === 'rehv'}
-	{@const t = data.tyre}
+	{@const ty = data.tyre}
 	<Meta
-		title="{t.name} — pidurdusmaa, märgis ja testid"
-		desc={data.desc}
-		path="rehvid/{t.slug}/"
+		title={ty.name + t(' — pidurdusmaa, märgis ja testid')}
+		desc={kirjeldus}
+		path="rehvid/{ty.slug}/"
 		canonical={data.canonical}
-		image={data.ogPilt ? `/og/r/${t.slug}.png` : undefined}
+		image={data.ogPilt ? `/og/r/${ty.slug}.png` : undefined}
 		noindex={data.noindex}
 		crumbs={[
-			['Avaleht', '/'],
-			['Rehvid', '/rehvid/'],
-			...(t.brandSlug ? [[t.brand, '/margid/' + t.brandSlug + '/']] : []),
-			[t.name, '/rehvid/' + t.slug + '/']
+			[t('Avaleht'), '/'],
+			[t('Rehvid'), '/rehvid/'],
+			...(ty.brandSlug ? [[ty.brand, '/margid/' + ty.brandSlug + '/']] : []),
+			[ty.name, '/rehvid/' + ty.slug + '/']
 		]}
 		jsonld={{
 			'@context': 'https://schema.org',
@@ -117,36 +140,36 @@
 			   või hinnangut, meil neid lehel pole (Search Console'i kriitiline viga).
 			   Kui kunagi on lehel päris hinnad, võib Producti + offers tagasi panna. */
 			'@type': 'WebPage',
-			name: t.name + ' — pidurdusmaa, märgis ja testid',
-			description: data.desc,
-			url: 'https://pidurdusmaa.ee/rehvid/' + t.slug + '/',
-			inLanguage: 'et',
-			about: { '@type': 'Brand', name: t.brand }
+			name: ty.name + t(' — pidurdusmaa, märgis ja testid'),
+			description: kirjeldus,
+			url: 'https://pidurdusmaa.ee' + L('/rehvid/' + ty.slug + '/'),
+			inLanguage: keel.lang,
+			about: { '@type': 'Brand', name: ty.brand }
 		}}
 	/>
 
 	<section class="page-hero">
 		<div class="wrap">
 			<div class="crumbs">
-				<a href="/">Avaleht</a><span>/</span><a href="/rehvid/">Rehvid</a><span>/</span>{#if t.brandSlug}<a
-						href="/margid/{t.brandSlug}/">{t.brand}</a
-					><span>/</span>{/if}{t.name}
+				<a href={L("/")}>{t("Avaleht")}</a><span>/</span><a href={L("/rehvid/")}>{t("Rehvid")}</a><span>/</span>{#if ty.brandSlug}<a
+						href="/margid/{ty.brandSlug}/">{ty.brand}</a
+					><span>/</span>{/if}{ty.name}
 			</div>
 			<p class="eyebrow" style="color:var(--muted-d)">
-				{#if t.brandSlug}<a href="/margid/{t.brandSlug}/" style="color:inherit">{t.brand}</a>{:else}{t.brand}{/if}
+				{#if ty.brandSlug}<a href="/margid/{ty.brandSlug}/" style="color:inherit">{ty.brand}</a>{:else}{ty.brand}{/if}
 			</p>
-			<h1>{t.name}</h1>
+			<h1>{ty.name}</h1>
 			<p>
-				{KAT_NIMI[t.cat] ?? ''}
-				{#if t.oletus}
-					· <span title="Märgisel on lumemärk, aga nimi ei ütle, kas talverehv või aastaringne rehv"
-						>tüüp tuletatud</span
+				{t(KAT_NIMI[ty.cat] ?? '')}
+				{#if ty.oletus}
+					· <span title={t("Märgisel on lumemärk, aga nimi ei ütle, kas talverehv või aastaringne rehv")}
+						>{t("tüüp tuletatud")}</span
 					>
 				{/if}
 			</p>
 			<div class="pills">
-				{#if data.sizes.length}<span class="pill off">EL-i märgis · {data.mootudeArv} {data.mootudeArv === 1 ? 'mõõt' : 'mõõtu'}</span>{/if}
-				{#if data.tests.length || data.ext.length}<span class="pill test">Sõltumatult testitud</span>{/if}
+				{#if data.sizes.length}<span class="pill off">{t("EL-i märgis ·")} {data.mootudeArv} {data.mootudeArv === 1 ? t('mõõt') : t('mõõtu')}</span>{/if}
+				{#if data.tests.length || data.ext.length}<span class="pill test">{t("Sõltumatult testitud")}</span>{/if}
 			</div>
 		</div>
 	</section>
@@ -157,45 +180,45 @@
 				<div
 					class="box"
 					data-tw
-					data-slug={t.slug}
-					data-name={t.name}
-					data-cat={t.cat}
-					data-tested={t.testedKey}
+					data-slug={ty.slug}
+					data-name={ty.name}
+					data-cat={ty.cat}
+					data-tested={ty.testedKey}
 					data-sizes={JSON.stringify(data.sizes.map((z) => ({ m: z.m, g: z.g })))}
 				>
-					<h2>Pidurdusmaa sinu autoga</h2>
-					<p class="sub">Auto: <span data-tw-veh>…</span></p>
+					<h2>{t("Pidurdusmaa sinu autoga")}</h2>
+					<p class="sub">{@html t("Auto: <span data-tw-veh>…</span>")}</p>
 					<div style="display:flex;gap:var(--sp-3);flex-wrap:wrap;align-items:center">
 						<div class="fld">
-							<select class="lsel" data-tw-size aria-label="Rehvimõõt" style="min-width:220px"></select>
+							<select class="lsel" data-tw-size aria-label={t("Rehvimõõt")} style="min-width:220px"></select>
 						</div>
-						<div class="lseg" role="group" aria-label="Teeolud">
+						<div class="lseg" role="group" aria-label={t("Teeolud")}>
 							{#each Object.entries(CONDS) as [k, c] (k)}
 								<button type="button" data-tw-cond={k} aria-pressed={k === 'wet' ? 'true' : 'false'}
-									>{c[0]}</button
+									>{t(c[0])}</button
 								>
 							{/each}
 						</div>
 					</div>
-					<div data-tw-out><p class="note">Arvutan…</p></div>
+					<div data-tw-out><p class="note">{t("Arvutan…")}</p></div>
 				</div>
 
 				{#if data.tests.length}
 					<div class="box">
-						<h2>Sõltumatud testid</h2>
+						<h2>{t("Sõltumatud testid")}</h2>
 						<p class="sub">
-							Mõõdetud tulemused. Koht = järjekoht samas testis samal pinnal (1 = lühim pidurdusmaa).
+							{t("Mõõdetud tulemused. Koht = järjekoht samas testis samal pinnal (1 = lühim pidurdusmaa).")}
 						</p>
 						<div class="tbl-wrap">
 							<table class="t">
 								<thead>
-									<tr><th>Test</th><th>Pind ja kiirus</th><th class="n">Tulemus</th><th class="n">Koht</th><th class="n">Parim</th></tr>
+									<tr><th>{t("Test")}</th><th>{t("Pind ja kiirus")}</th><th class="n">{t("Tulemus")}</th><th class="n">{t("Koht")}</th><th class="n">{t("Parim")}</th></tr>
 								</thead>
 								<tbody>
 									{#each data.tests as x, xi (xi)}
 										<tr class={x.pos === 1 ? 'best' : ''}>
-											<td><a href="/testid/{x.src_slug}/">{x.src_nimi}</a></td>
-											<td>{testLabel(x)}</td>
+											<td><a href="/testid/{x.src_slug}/">{t(x.src_nimi)}</a></td>
+											<td>{tl(x)}</td>
 											<td class="n"><b>{num(x.m)} m</b></td>
 											<td class="n">{x.pos ? x.pos + ' / ' + x.n : '–'}</td>
 											<td class="n">{x.best != null ? num(x.best) + ' m' : '–'}</td>
@@ -203,8 +226,8 @@
 									{/each}
 									{#if data.aqua}
 										<tr>
-											<td>{data.aqua.nimi}</td>
-											<td>akvaplaneerimise kiirus (suurem = parem)</td>
+											<td>{t(data.aqua.nimi)}</td>
+											<td>{t("akvaplaneerimise kiirus (suurem = parem)")}</td>
 											<td class="n"><b>{num(data.aqua.kmh)} km/h</b></td>
 											<td class="n">–</td>
 											<td class="n">–</td>
@@ -214,30 +237,28 @@
 							</table>
 						</div>
 						<p class="srcline">
-							Test: {t.testSize}. Sama rehv võib teises mõõdus olla veidi teistsugune.
+							{t("Test:")} {ty.testSize}{t(". Sama rehv võib teises mõõdus olla veidi teistsugune.")}
 						</p>
 					</div>
 				{/if}
 
 				{#if data.ext.length}
 					<div class="box">
-						<h2>Ajakirjade testid</h2>
+						<h2>{t("Ajakirjade testid")}</h2>
 						<p class="sub">
-							Avaldatud pidurdusmaad (Auto Bild, auto motor und sport, Auto Zeitung, ADAC, Za Rulem jt).
-							Koht = järjekoht samas testis samal pinnal (1 = lühim). Testid on eri mõõtudes, autodel ja
-							tingimustes, seega võrdle numbreid ainult sama testi sees.
+							{t("Avaldatud pidurdusmaad (Auto Bild, auto motor und sport, Auto Zeitung, ADAC, Za Rulem jt). Koht = järjekoht samas testis samal pinnal (1 = lühim). Testid on eri mõõtudes, autodel ja tingimustes, seega võrdle numbreid ainult sama testi sees.")}
 						</p>
 						<div class="tbl-wrap">
 							<table class="t">
 								<thead>
-									<tr><th>Test</th><th>Mõõt</th><th>Katse</th><th class="n">Tulemus</th><th class="n">Koht</th><th class="n">Parim</th></tr>
+									<tr><th>{t("Test")}</th><th>{t("Mõõt")}</th><th>{t("Katse")}</th><th class="n">{t("Tulemus")}</th><th class="n">{t("Koht")}</th><th class="n">{t("Parim")}</th></tr>
 								</thead>
 								<tbody>
 									{#each data.ext as x, xi (xi)}
 										<tr class={x.pos === 1 ? 'best' : ''}>
 											<td>{#if x.src.url}<a href={x.src.url} rel="nofollow noopener" target="_blank">{x.src.pub} {x.src.year}</a>{:else}{x.src.pub} {x.src.year}{/if}</td>
 											<td>{x.src.size || ''}</td>
-											<td>{x.d} {Math.round(x.v0)}→{Math.round(x.v1)} km/h</td>
+											<td>{t(x.d)} {Math.round(x.v0)}→{Math.round(x.v1)} {t('km/h')}</td>
 											<td class="n"><b>{num(x.m)} m</b></td>
 											<td class="n">{x.pos} / {x.n}</td>
 											<td class="n">{num(x.best)} m</td>
@@ -247,30 +268,28 @@
 							</table>
 						</div>
 						<p class="srcline">
-							Neid tulemusi lehe arvutus ei kasuta: meie kontroll näitas, et teises mõõdus tehtud test ei ennusta
-							märja tee pidurdust paremini kui sinu mõõdu EL-i märgis. Need on siin mõõdetud faktina.
+							{t("Neid tulemusi lehe arvutus ei kasuta: meie kontroll näitas, et teises mõõdus tehtud test ei ennusta märja tee pidurdust paremini kui sinu mõõdu EL-i märgis. Need on siin mõõdetud faktina.")}
 						</p>
 					</div>
 				{/if}
 
 				{#if data.sizes.length}
 					<div class="box">
-						<h2>EL-i rehvimärgis</h2>
+						<h2>{t("EL-i rehvimärgis")}</h2>
 						<p class="sub">
-							Ametlikud andmed EL-i tooteregistrist EPREL, mõõdu kaupa. Klass on mõõdupõhine.
-							<a href="/teadmine/rehvimargis/">Mida klassid tähendavad?</a>
+							{@html t("Ametlikud andmed EL-i tooteregistrist EPREL, mõõdu kaupa. Klass on mõõdupõhine. <a href=\"/teadmine/rehvimargis/\">Mida klassid tähendavad?</a>")}
 						</p>
 						<div class="tbl-wrap">
 							<table class="t">
 								<thead>
-									<tr><th>Mõõt</th><th>Märghaardumine</th><th>Veeretakistus</th><th class="n">Müra</th><th>Talv</th><th>Koormus / kiirus</th></tr>
+									<tr><th>{t("Mõõt")}</th><th>{t("Märghaardumine")}</th><th>{t("Veeretakistus")}</th><th class="n">{t("Müra")}</th><th>{t("Talv")}</th><th>{t("Koormus / kiirus")}</th></tr>
 								</thead>
 								<tbody>
 									{#each data.sizes as z, zi (z.m + '#' + zi)}
 										<tr>
 											<td
-												>{#if z.slug}<a href="/rehvid/{z.slug}/">{z.label}</a>{:else}{z.label}{/if}{#if z.v}
-													<span class="note" title="Tootja variant (nt autotootja märgistus AO, MO või tugevdatud XL)"
+												>{#if z.slug}<a href={L("/rehvid/" + z.slug + "/")}>{z.label}</a>{:else}{z.label}{/if}{#if z.v}
+													<span class="note" title={t("Tootja variant (nt autotootja märgistus AO, MO või tugevdatud XL)")}
 														>{z.v}</span
 													>{/if}</td
 											>
@@ -279,15 +298,15 @@
 												{#if z.gAll && z.gAll.length > 1}
 													<span
 														class="note"
-														title="Eri koormus-/kiirusindeksiga variandid on eri klassiga; näidatud halvim"
-														>(variandid: {z.gAll.join(', ')})</span
+														title={t("Eri koormus-/kiirusindeksiga variandid on eri klassiga; näidatud halvim")}
+														>{t("(variandid:")} {z.gAll.join(', ')})</span
 													>
 												{/if}
 											</td>
 											<td><Grade g={z.f} /></td>
 											<td class="n">{z.db ? z.db + ' dB' + (z.nk ? ' (' + z.nk + ')' : '') : '–'}</td>
 											<td
-												>{[z.snow ? 'lumemärk' : '', z.ice ? 'jäämärk' : '']
+												>{[z.snow ? t('lumemärk') : '', z.ice ? t('jäämärk') : '']
 													.filter(Boolean)
 													.join(' + ') || '–'}</td
 											>
@@ -302,13 +321,13 @@
 
 				{#if data.vs.length}
 					<div class="box">
-						<h2>Võrdle samas testis</h2>
-						<p class="sub">Rehvid, mis olid samas testis naabrid — sama auto, sama päev.</p>
+						<h2>{t("Võrdle samas testis")}</h2>
+						<p class="sub">{t("Rehvid, mis olid samas testis naabrid — sama auto, sama päev.")}</p>
 						<div class="grid-cards">
 							{#each data.vs as v (v.url)}
 								<a class="tcard" href={v.url}
 									><span class="b">vs</span><h3>{v.name}</h3><span class="meta"
-										>Mõõdetud pidurdusmaad kõrvuti →</span
+										>{t("Mõõdetud pidurdusmaad kõrvuti →")}</span
 									></a
 								>
 							{/each}
@@ -319,38 +338,38 @@
 
 			<aside class="side">
 				<div class="box">
-					<div class="tyre-img" role="img" aria-label="Rehvi illustratsioon" data-rehv-pilt={t.slug}>
+					<div class="tyre-img" role="img" aria-label={t("Rehvi illustratsioon")} data-rehv-pilt={ty.slug}>
 						<TyreArt />
 					</div>
-					<p class="srcline" style="text-align:center" data-rehv-pilt-allkiri>Illustratsioon.</p>
+					<p class="srcline" style="text-align:center" data-rehv-pilt-allkiri>{t("Illustratsioon.")}</p>
 					{#if data.sizes.length}
 						<button type="button" class="btn yel" style="width:100%;margin-top:var(--sp-4)" data-tw-add
-							>Võrdle seda rehvi →</button
+							>{t("Võrdle seda rehvi →")}</button
 						>
 						<h3
 							style="font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:var(--sp-6) 0 var(--sp-2)"
 						>
-							Mõõdud andmebaasis
+							{t("Mõõdud andmebaasis")}
 						</h3>
 						<div class="sizes-list">
 							{#each data.mootudUnik as z (z.m)}
-								{#if z.slug}<a href="/rehvid/{z.slug}/">{z.label}</a>{/if}
+								{#if z.slug}<a href={L("/rehvid/" + z.slug + "/")}>{z.label}</a>{/if}
 							{/each}
 						</div>
 						<p class="srcline">
-							Andmebaasis on praegu ainult osa mõõtudest. Mudel võib olla müügil ka teistes.
+							{t("Andmebaasis on praegu ainult osa mõõtudest. Mudel võib olla müügil ka teistes.")}
 						</p>
 					{/if}
 					{#if data.sobib.n}
 						<h3
 							style="font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:var(--sp-6) 0 var(--sp-2)"
 						>
-							Sobib näiteks autodele
+							{t("Sobib näiteks autodele")}
 						</h3>
 						<ul class="note" style="margin:0;padding-left:var(--sp-5)">
-							{#each data.sobib.list as c (c.url)}<li><a href={c.url}>{c.nimi}</a> · {c.moot}</li>{/each}
+							{#each data.sobib.list as c (c.url)}<li><a href={L(c.url)}>{an(c.nimi)}</a> · {c.moot}</li>{/each}
 						</ul>
-						{#if data.sobib.n > data.sobib.list.length}<p class="srcline">Kokku {data.sobib.n} autot, mille tehase põhimõõt on selle rehvi mõõtude hulgas.</p>{/if}
+						{#if data.sobib.n > data.sobib.list.length}<p class="srcline">{t("Kokku")} {data.sobib.n} {t("autot, mille tehase põhimõõt on selle rehvi mõõtude hulgas.")}</p>{/if}
 					{/if}
 				</div>
 			</aside>
@@ -359,14 +378,13 @@
 	<How />
 {:else}
 	<Meta
-		title="{data.a.name} vs {data.b.name} — mõõdetud pidurdusmaad"
-		desc="Kaks rehvi samas sõltumatus testis, sama auto ja sama päev: {data.a.name} ja {data.b
-			.name}. Pidurdusmaad märjal, kuival ja muudel pindadel."
+		title={data.a.name + ' vs ' + data.b.name + t(' — mõõdetud pidurdusmaad')}
+		desc={t('Kaks rehvi samas sõltumatus testis, sama auto ja sama päev: {a} ja {b}. Pidurdusmaad märjal, kuival ja muudel pindadel.', { a: data.a.name, b: data.b.name })}
 		path="rehvid/{data.a.slug}-vs-{data.b.slug}/"
 		image="/og/vs/{data.a.slug}-vs-{data.b.slug}.png"
 		crumbs={[
-			['Avaleht', '/'],
-			['Rehvid', '/rehvid/'],
+			[t('Avaleht'), '/'],
+			[t('Rehvid'), '/rehvid/'],
 			[data.a.name + ' vs ' + data.b.name, '/rehvid/' + data.a.slug + '-vs-' + data.b.slug + '/']
 		]}
 	/>
@@ -374,12 +392,11 @@
 	<section class="page-hero">
 		<div class="wrap">
 			<div class="crumbs">
-				<a href="/">Avaleht</a><span>/</span><a href="/rehvid/">Rehvid</a><span>/</span>Võrdlus
+				<a href={L("/")}>{t("Avaleht")}</a><span>/</span><a href={L("/rehvid/")}>{t("Rehvid")}</a><span>/</span>{t("Võrdlus")}
 			</div>
 			<h1>{data.a.name} <span style="color:var(--yellow)">vs</span> {data.b.name}</h1>
 			<p>
-				Mõlemad rehvid olid samas sõltumatus testis — sama auto, sama rada, sama päev. Siin on ainult
-				mõõdetud tulemused.
+				{t("Mõlemad rehvid olid samas sõltumatus testis — sama auto, sama rada, sama päev. Siin on ainult mõõdetud tulemused.")}
 			</p>
 		</div>
 	</section>
@@ -387,17 +404,17 @@
 		<div class="wrap">
 			{#each data.plokid as p, pi (pi)}
 				<div class="box">
-					<h2>{p.src.nimi}</h2>
-					<p class="sub">{p.src.moot} · {p.src.auto} · {p.src.tegija}</p>
+					<h2>{t(p.src.nimi)}</h2>
+					<p class="sub">{p.src.moot} · {p.src.auto} · {t(p.src.tegija)}</p>
 					<div class="tbl-wrap">
 						<table class="t">
 							<thead>
-								<tr><th>Pind ja kiirus</th><th class="n">{data.a.name}</th><th class="n">{data.b.name}</th><th class="n">Vahe</th></tr>
+								<tr><th>{t("Pind ja kiirus")}</th><th class="n">{data.a.name}</th><th class="n">{data.b.name}</th><th class="n">{t("Vahe")}</th></tr>
 							</thead>
 							<tbody>
 								{#each p.read as r, rj (rj)}
 									<tr>
-										<td>{testLabel(r.x)}</td>
+										<td>{tl(r.x)}</td>
 										<td
 											class="n"
 											style={r.x.m < r.y.m ? 'font-weight:700;box-shadow:inset 0 -3px 0 var(--yellow)' : ''}
@@ -418,17 +435,16 @@
 						</table>
 					</div>
 					<p class="srcline">
-						Allikas: <a href={p.src.kajastus} rel="nofollow noopener">{p.src.nimi}</a>. Vahe = teine
-						miinus esimene, protsent lühemast; lühem on parem.
+						{t("Allikas:")} <a href={p.src.kajastus} rel="nofollow noopener">{t(p.src.nimi)}</a>{t(". Vahe = teine miinus esimene, protsent lühemast; lühem on parem.")}
 					</p>
 				</div>
 			{/each}
 			<div class="box">
-				<h2>Rehvide lehed</h2>
-				<p>Märgise andmed kõigis mõõtudes ja arvutatud pidurdusmaa sinu autoga.</p>
+				<h2>{t("Rehvide lehed")}</h2>
+				<p>{t("Märgise andmed kõigis mõõtudes ja arvutatud pidurdusmaa sinu autoga.")}</p>
 				<p>
-					<a class="btn" href="/rehvid/{data.a.slug}/">{data.a.name} →</a>
-					<a class="btn" href="/rehvid/{data.b.slug}/">{data.b.name} →</a>
+					<a class="btn" href={L("/rehvid/" + data.a.slug + "/")}>{data.a.name} →</a>
+					<a class="btn" href={L("/rehvid/" + data.b.slug + "/")}>{data.b.name} →</a>
 				</p>
 			</div>
 		</div>

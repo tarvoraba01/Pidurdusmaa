@@ -193,6 +193,14 @@ function rehvLeht(t) {
 		noindex: !(tests.length || ext.length || sizes.length) || !ix.index,
 		canonical: ix.canonical ? 'rehvid/' + ix.canonical + '/' : null,
 		desc: kirjeldus(t, sizes, tests),
+		/* sama kirjeldus tükkidena — vene lehel pannakse see kokku tõlgitult */
+		descOsad: {
+			fraas: KAT_FRAAS[t.cat] || '',
+			testid: !!tests.length,
+			g: vahemik(sizes.map((z) => z.g), (a, b) => String(a).localeCompare(String(b))),
+			db: vahemik(sizes.map((z) => z.db), (a, b) => a - b),
+			n: new Set(sizes.map((z) => z.m)).size
+		},
 		ogPilt: ix.sitemap
 	};
 }

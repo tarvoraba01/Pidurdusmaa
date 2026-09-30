@@ -1,5 +1,5 @@
 <script>
-	import { useT, useLang } from '$lib/i18n.js';
+	import { useT, useLang, autoNimi } from '$lib/i18n.js';
 	const t = useT();
 	const keel = useLang();
 	const LOC = { et: 'et-EE', ru: 'ru-RU', en: 'en-GB' }[keel.lang] || 'et-EE';
@@ -416,7 +416,7 @@
 					</div>
 					<label class="lo-row" for="lo-tekst"><span>{t("Teekate")}</span></label>
 					<select id="lo-tekst" class="lo-sel" bind:value={S.tekst}>
-						{#each TEKST as [k, n]}<option value={k}>{n}</option>{/each}
+						{#each TEKST as [k, n]}<option value={k}>{autoNimi(keel.lang, n)}</option>{/each}
 					</select>
 				{/if}
 				{#if S.pind === 'ICE'}
@@ -442,7 +442,7 @@
 				<legend>{t("Rehvid")}</legend>
 				<label class="lo-row" for="lo-kat"><span>{t("Rehvi tüüp")}</span></label>
 				<select id="lo-kat" class="lo-sel" bind:value={S.kat}>
-					{#each KAT as [k, n]}<option value={k}>{n}</option>{/each}
+					{#each KAT as [k, n]}<option value={k}>{autoNimi(keel.lang, n)}</option>{/each}
 				</select>
 				{#if S.kat !== 'WINTER_STUDDED'}
 					<span class="lo-sub">{t("Märghaarde klass (EL-i rehvimärgis)")}</span>
@@ -493,13 +493,13 @@
 							<label class="lo-row" for="lo-md"><span>{t("Mudel")}</span></label>
 							<select id="lo-md" class="lo-sel" bind:value={S.md} onchange={() => { S.veh = polved[0]?.[0] || ''; S.abs = 'auto'; }}>
 								<option value="">{t("Vali")}</option>
-								{#each mudelid as md}<option value={md}>{md}</option>{/each}
+								{#each mudelid as md}<option value={md}>{autoNimi(keel.lang, md)}</option>{/each}
 							</select>
 						</div>
 						<div>
 							<label class="lo-row" for="lo-veh"><span>{t("Põlvkond")}</span></label>
 							<select id="lo-veh" class="lo-sel" bind:value={S.veh} disabled={!S.md} onchange={() => (S.abs = 'auto')}>
-								{#each polved as [k, n]}<option value={k}>{n}</option>{/each}
+								{#each polved as [k, n]}<option value={k}>{autoNimi(keel.lang, n)}</option>{/each}
 							</select>
 						</div>
 					</div>
@@ -526,7 +526,7 @@
 				<input id="lo-laad" class="slider" type="range" min="75" max="600" step="25" bind:value={S.laad} style="--p:{((S.laad - 75) / 525) * 100}%" />
 				<label class="lo-row" for="lo-pidur"><span>{t("Pidurite seisukord")}</span></label>
 				<select id="lo-pidur" class="lo-sel" bind:value={S.pidur}>
-					{#each PIDUR as [k, n]}<option value={k}>{n}</option>{/each}
+					{#each PIDUR as [k, n]}<option value={k}>{autoNimi(keel.lang, n)}</option>{/each}
 				</select>
 			</fieldset>
 		</section>
@@ -544,7 +544,7 @@
 							{#if x && x.err}
 								<span class="lo-err">{t("Seda olukorda ei saa arvutada:")} {x.err}</span>
 							{:else if x && x.r}
-								<span class="lo-res-sub">{(n === 'A' ? A : B).kiirus} {t("km/h ·")} {PIND.find((p) => p[0] === (n === 'A' ? A : B).pind)[1].toLowerCase()} · {t(x.veh.name)}</span>
+								<span class="lo-res-sub">{(n === 'A' ? A : B).kiirus} {t("km/h ·")} {PIND.find((p) => p[0] === (n === 'A' ? A : B).pind)[1].toLowerCase()} · {autoNimi(keel.lang, t(x.veh.name))}</span>
 							{/if}
 						</div>
 						{#if x && x.r}

@@ -4,6 +4,7 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
+    "prebuild": "node scripts/ru-rehvid.mjs",
     "dev": "vite dev",
     "build": "vite build",
     "preview": "vite preview",

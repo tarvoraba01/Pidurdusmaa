@@ -79,6 +79,7 @@
 		/* app.js loeb tõlked ja keele käivitumisel (vt _t app.js-is) */
 		window.PM_LANG = lang;
 		window.PM_I18N = dict;
+		window.PM_LINK = (p) => linkLang(lang, p);
 		await import('$lib/engine.js');
 		await import('$lib/app.js');
 		window.PM?.initPage();
@@ -138,7 +139,7 @@
 					{@html t("<a role=\"menuitem\" href=\"/rehvi-valimine/\" ><b>Vali rehv enda tingimustele</b><span>Mis on sulle oluline — näitame sobivaid</span></a > <a role=\"menuitem\" href=\"/vordle-rehve/\" ><b>Võrdle rehve kõrvuti</b><span>2–4 rehvi ühes tabelis</span></a >")}
 				</div>
 			</div>
-			<a href="/teadmine/" aria-current={cur === 'teadmine' ? 'page' : undefined}>{t("Teadmine")}</a>
+			<a href={lang === 'ru' ? '/ru/teadmine/artiklid/' : '/teadmine/'} aria-current={cur === 'teadmine' ? 'page' : undefined}>{t("Teadmine")}</a>
 		</nav>
 		<div class="hdr-right">
 			<nav class="keeled" aria-label={t("Keel")}>{#each KEELED as k (k)}<a href={keeleLink(k)} onclick={(e) => onTolgitud(k, base) && (e.currentTarget.href = linkLang(k, base) + location.search)} hreflang={k} lang={k} title={KEEL_NIMI[k]} aria-current={k === lang ? 'true' : undefined} data-sveltekit-reload>{k.toUpperCase()}</a>{/each}</nav>
@@ -162,7 +163,7 @@
 				<div>
 					<h4>Pidurdusmaa</h4>
 					<a href={L('/')}>{t("Pidurdusmaa kalkulaator")}</a>
-					<a href="/teadmine/pidurdusteekond-ja-peatumisteekond/">{t("Pidurdus- ja peatumisteekond")}</a>
+					<a href={L('/teadmine/pidurdusteekond-ja-peatumisteekond/')}>{t("Pidurdus- ja peatumisteekond")}</a>
 					<a href="/teadmine/kuidas-pidurdusmaa-arvutatakse/">{t("Kuidas arvutatakse")}</a>
 					<a href={L('/liiklusohutus/')}>{t("Liiklusohutuse kalkulaator")}</a>
 				</div>
@@ -174,10 +175,10 @@
 				<div>
 					<h4>{t("Andmed")}</h4>
 					<a href={L('/autod/')}>{t("Autod ja rehvimõõdud")}</a>
-					<a href="/rehvid/">{t("Rehvid")}</a>
+					<a href={L('/rehvid/')}>{t("Rehvid")}</a>
 					<a href="/testid/">{t("Sõltumatud testid")}</a>
 					<a href="/teadmine/">{t("Teadmine")}</a>
-					<a href="/teadmine/artiklid/">{t("Artiklid")}</a>
+					<a href={L('/teadmine/artiklid/')}>{t("Artiklid")}</a>
 					<a href="/teadmine/rehvimargis/">{t("EL-i rehvimärgis")}</a>
 					<a href="/kontakt/">{t("Kontakt")}</a>
 				</div>
@@ -212,12 +213,12 @@
 				<h4>{t("Andmed")}</h4>
 				<ul>
 					<li><a href={L('/autod/')}>{t("Autod")}</a></li>
-					<li><a href="/rehvid/">{t("Rehvid")}</a></li>
+					<li><a href={L('/rehvid/')}>{t("Rehvid")}</a></li>
 					<li><a href="/testid/">{t("Sõltumatud testid")}</a></li>
 					<li><a href="/teadmine/kuidas-pidurdusmaa-arvutatakse/">{t("Kuidas arvutatakse")}</a></li>
 					<li><a href="/margid/">{t("Rehvimargid")}</a></li>
 					<li><a href="/teadmine/">{t("Teadmine")}</a></li>
-					<li><a href="/teadmine/artiklid/">{t("Artiklid")}</a></li>
+					<li><a href={L('/teadmine/artiklid/')}>{t("Artiklid")}</a></li>
 					<li><a href="/meist/">{t("Meist")}</a></li>
 					<li><a href="/teadmine/partnerid/">{t("Partnerid")}</a></li>
 					<li><a href="/kontakt/">{t("Kontakt")}</a></li>

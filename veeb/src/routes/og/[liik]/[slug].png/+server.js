@@ -8,6 +8,7 @@
  */
 import { error } from '@sveltejs/kit';
 import { ogPilt } from '$lib/server/ogpilt.js';
+import { autoNimi } from '$lib/i18n.js';
 import { autod, polveLeht } from '$lib/server/autod.js';
 import {
 	core,
@@ -28,7 +29,7 @@ import {
 export const prerender = true;
 
 export function entries() {
-	const out = [{ liik: 'sait', slug: 'avaleht' }, { liik: 'sait', slug: 'liiklusohutus' }, { liik: 'sait', slug: 'peatumisteekonna-kalkulaator' }, { liik: 'sait', slug: 'talverehvide-testid-2026' }];
+	const out = [{ liik: 'sait', slug: 'avaleht' }, { liik: 'sait', slug: 'liiklusohutus' }, { liik: 'sait', slug: 'peatumisteekonna-kalkulaator' }, { liik: 'sait', slug: 'talverehvide-testid-2026' }, { liik: 'sait', slug: 'millal-talverehvid-alla' }];
 	for (const s of core().sizes) if (sizeModelCount(s.m) >= SIZE_MIN_MODELS) out.push({ liik: 'm', slug: s.slug });
 	const rehvid = new Set([...Object.keys(models()), ...core().tyres.map((t) => t.slug).filter(Boolean)]);
 	for (const slug of rehvid) if (rehviIndeks(slug).sitemap) out.push({ liik: 'r', slug });
@@ -36,6 +37,7 @@ export function entries() {
 	for (const p of autod().polved.values()) out.push({ liik: 'auto', slug: p.mk + '--' + p.slug });
 	/* vene/inglise lehtede pildid (vt ogLang $lib/i18n.js-is) */
 	for (const k of ['ru', 'en']) for (const x of ['avaleht', 'liiklusohutus']) out.push({ liik: 'sait', slug: x + '.' + k });
+	out.push({ liik: 'sait', slug: 'millal-talverehvid-alla.ru' });
 	for (const p of autod().polved.values()) out.push({ liik: 'auto', slug: p.mk + '--' + p.slug + '.ru' });
 	return out;
 }
@@ -85,6 +87,14 @@ function andmed(liik, slug) {
 				num(core().vehicles.length, 0) + ' autot',
 				'Tasuta'
 			]
+		};
+	}
+	if (liik === 'sait' && slug === 'millal-talverehvid-alla') {
+		return {
+			kicker: 'Talverehvid 2026/2027',
+			pealkiri: 'Millal talverehvid alla?',
+			alapealkiri: 'Naastrehvid 15.10, talverehvid kohustuslikud 1.12',
+			sildid: ['Kuupäevad', '3 mm reegel', 'Pidurdusmaad']
 		};
 	}
 	if (liik === 'sait' && slug === 'talverehvide-testid-2026') {
@@ -156,7 +166,7 @@ function andmedKeel(liik, slug, lang) {
 		const m90 = d.pidurdus.find((x) => x.id === 'marg')?.r?.[90]?.peatumine;
 		const n = d.mootorid.length;
 		return ru
-			? { kicker: p.make, pealkiri: p.model + ' ' + p.yearLabel,
+			? { kicker: p.make, pealkiri: autoNimi('ru', p.model + ' ' + p.yearLabel),
 				alapealkiri: 'Размер шин ' + d.pohimoot + (m90 ? ' · на мокрой дороге с 90 км/ч ~' + Math.round(m90) + ' м' : ''),
 				sildid: ['Двигателей: ' + n, 'Лучшие шины', 'Тормозной путь'] }
 			: null;
@@ -168,6 +178,10 @@ function andmedKeel(liik, slug, lang) {
 				alapealkiri: 'Реальные данные шин: маркировка ЕС и независимые тесты', sildid: [nR + ' моделей шин', nA + ' авто', 'Бесплатно'] }
 			: { kicker: 'Braking distance calculator', pealkiri: 'How quickly does your car stop?',
 				alapealkiri: 'Real tyre data: EU label and independent tests', sildid: [nR.replace(/\s/g, ',') + ' tyre models', nA.replace(/\s/g, ',') + ' cars', 'Free'] };
+	}
+	if (liik === 'sait' && slug === 'millal-talverehvid-alla' && ru) {
+		return { kicker: 'Зимние шины 2026/2027', pealkiri: 'Когда менять шины на зимние?',
+			alapealkiri: 'Шипы с 15.10, зимние шины обязательны с 1.12', sildid: ['Сроки', 'Правило 3 мм', 'Тормозной путь'] };
 	}
 	if (liik === 'sait' && slug === 'liiklusohutus') {
 		return ru

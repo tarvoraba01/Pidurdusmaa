@@ -4,11 +4,28 @@
  * leht ja Teadmine leht loevad nimekirja siit. */
 export const ARTIKLID = [
 	{
+		slug: 'millal-talverehvid-alla',
+		title: 'Millal talverehvid alla? Kuupäevad 2026/2027 ja reeglid',
+		desc: 'Naastrehvid on lubatud 15. oktoobrist, talverehvid kohustuslikud 1. detsembrist. Kõik kuupäevad, 3 mm reegel ja pidurdusmaa numbrid: millal vahetada.',
+		kuupaev: '2026-09-30',
+		silt: 'Talverehvid',
+		ru: {
+			title: 'Когда менять шины на зимние в Эстонии? Сроки 2026/2027 и правила',
+			desc: 'Шипованные шины разрешены с 15 октября, зимние обязательны с 1 декабря. Все сроки, правило 3 мм и тормозной путь: когда пора менять.',
+			silt: 'Зимние шины'
+		}
+	},
+	{
 		slug: 'talverehvide-testid-2026',
 		title: 'Talverehvide testid 2025–2026: mida mõõtmised näitavad',
 		desc: 'Jääl üle kahe korra pikem pidurdusmaa, märjal 15 meetrit vahet, lumel alla meetri. Viimaste talverehvitestide mõõdetud pidurdusmaad ühest kohast.',
 		kuupaev: '2026-09-30',
-		silt: 'Testid'
+		silt: 'Testid',
+		ru: {
+			title: 'Тесты зимних шин 2025–2026: что показывают измерения',
+			desc: 'На льду тормозной путь более чем вдвое длиннее, на мокром — 15 метров разницы, на снегу меньше метра. Измеренный тормозной путь из последних тестов зимних шин.',
+			silt: 'Тесты'
+		}
 	},
 	{
 		slug: 'peatumisteekonna-kalkulaator',
@@ -22,7 +39,12 @@ export const ARTIKLID = [
 		title: 'Talverehvi valimine: mida numbrid ütlevad',
 		desc: 'Suverehv lumel, Põhjamaade vs Kesk-Euroopa talverehv, naast vs lamell, mustri sügavus ja millal vahetada — pidurdusmaad meetrites.',
 		kuupaev: '2026-09-26',
-		silt: 'Talverehvid'
+		silt: 'Talverehvid',
+		ru: {
+			title: 'Как выбрать зимнюю шину: что говорят цифры',
+			desc: 'Летняя шина на снегу, северная и европейская зимняя шина, шипы или «липучка», глубина протектора и когда менять — тормозной путь в метрах.',
+			silt: 'Зимние шины'
+		}
 	}
 ];
 
