@@ -24,7 +24,8 @@
 		target: '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5.5"/><circle cx="12" cy="12" r="2"/>',
 		check: '<path d="m5 12 4.5 4.5L19 7"/>',
 		menu: '<path d="M4 7h16M4 12h16M4 17h16"/>',
-		close: '<path d="M6 6l12 12M18 6 6 18"/>'
+		close: '<path d="M6 6l12 12M18 6 6 18"/>',
+		calendar: '<rect x="3.5" y="5" width="17" height="15" rx="2"/><path d="M3.5 10h17M8 3v4M16 3v4"/>'
 	};
 </script>
 

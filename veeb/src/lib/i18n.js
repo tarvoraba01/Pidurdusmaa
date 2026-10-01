@@ -25,6 +25,7 @@ const TAPSED = {
 		'/rehvid/',
 		'/teadmine/artiklid/',
 		'/teadmine/pidurdusteekond-ja-peatumisteekond/',
+		'/teadmine/rehvivahetus/',
 		...ARTIKLID.filter((a) => a.ru).map((a) => a.ruTee || artikliTee(a))
 	]),
 	en: new Set()

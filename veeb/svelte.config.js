@@ -15,7 +15,7 @@ export default {
         if (/^\/(ru\/|en\/)?liiklusohutus/.test(path) && id.includes('=')) return;
         throw new Error(message);
       },
-      entries: ['*', '/ru/', '/en/', '/ru/rehvi-valimine/', '/en/rehvi-valimine/', '/ru/vordle-rehve/', '/en/vordle-rehve/', '/ru/liiklusohutus/', '/en/liiklusohutus/', '/ru/autod/']
+      entries: ['*', '/ru/', '/en/', '/ru/rehvi-valimine/', '/en/rehvi-valimine/', '/ru/vordle-rehve/', '/en/vordle-rehve/', '/ru/liiklusohutus/', '/en/liiklusohutus/', '/ru/autod/', '/ru/teadmine/rehvivahetus/']
     }
   }
 };

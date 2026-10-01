@@ -22,7 +22,7 @@
 
 	const TA = 'https://www.transpordiamet.ee/uudised/homsest-lubatud-kasutada-naastrehve';
 
-	const SISU = `<div class="note-box"><strong>Lühidalt, hooaeg 2026/2027.</strong> Naastrehvid on lubatud <strong>15. oktoobrist 2026 kuni 31. märtsini 2027</strong>. Talverehvid on kohustuslikud <strong>1. detsembrist 2026 kuni 1. märtsini 2027</strong>. Talverehvi muster peab olema sügavam kui <strong>3 mm</strong>.</div>
+	const SISU = `<div class="note-box"><strong>Lühidalt, hooaeg 2026/2027.</strong> Naastrehvid on lubatud <strong>15. oktoobrist 2026 kuni 31. märtsini 2027</strong>. Talverehvid on kohustuslikud <strong>1. detsembrist 2026 kuni 1. märtsini 2027</strong>. Talverehvi muster peab olema sügavam kui <strong>3 mm</strong>. Lühike kokkuvõte: <a href="/teadmine/rehvivahetus/">Rehvivahetus — kõik kuupäevad</a>.</div>
 
 <h2>Kuupäevad</h2>
 ${tabel(
@@ -83,7 +83,7 @@ ${tabel(
 </ul>
 <p class="note">Kuupäevad: Transpordiamet. Pidurdusmaad on arvutatud hinnangud (VW Golf 8, 205/55 R16, uued rehvid, ilma reaktsiooniajata), mitte mõõtmised. <a href="/teadmine/kuidas-pidurdusmaa-arvutatakse/">Kuidas pidurdusmaa arvutatakse</a>.</p>`;
 
-	const SISU_RU = `<div class="note-box"><strong>Коротко, сезон 2026/2027.</strong> Шипованные шины разрешены <strong>с 15 октября 2026 по 31 марта 2027</strong>. Зимние шины обязательны <strong>с 1 декабря 2026 по 1 марта 2027</strong>. Глубина протектора зимней шины должна быть больше <strong>3 мм</strong>.</div>
+	const SISU_RU = `<div class="note-box"><strong>Коротко, сезон 2026/2027.</strong> Шипованные шины разрешены <strong>с 15 октября 2026 по 31 марта 2027</strong>. Зимние шины обязательны <strong>с 1 декабря 2026 по 1 марта 2027</strong>. Глубина протектора зимней шины должна быть больше <strong>3 мм</strong>. Кратко: <a href="/teadmine/rehvivahetus/">Смена резины — все сроки</a>.</div>
 
 <h2>Сроки</h2>
 ${tabel(

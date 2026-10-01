@@ -138,6 +138,7 @@
 				<div class="dd-menu" role="menu">
 					{@html t("<a role=\"menuitem\" href=\"/rehvi-valimine/\" ><b>Vali rehv enda tingimustele</b><span>Mis on sulle oluline — näitame sobivaid</span></a > <a role=\"menuitem\" href=\"/vordle-rehve/\" ><b>Võrdle rehve kõrvuti</b><span>2–4 rehvi ühes tabelis</span></a >")}
 					<a role="menuitem" href={L('/talverehvid/')}><b>{t('Parimad talverehvid')}</b><span>{t('Testid ja pidurdusmaa sinu mõõdus')}</span></a>
+					<a role="menuitem" href={L('/teadmine/rehvivahetus/')}><b>{t('Rehvivahetus')}</b><span>{t('Millal talve- ja suverehvid alla')}</span></a>
 				</div>
 			</div>
 			<a href={lang === 'ru' ? '/ru/teadmine/artiklid/' : '/teadmine/'} aria-current={cur === 'teadmine' ? 'page' : undefined}>{t("Teadmine")}</a>
@@ -173,6 +174,7 @@
 					<a href={L('/rehvi-valimine/')}>{t("Vali rehv enda tingimustele")}</a>
 					<a href={L('/vordle-rehve/')}>{t("Võrdle rehve kõrvuti")}</a>
 					<a href={L('/talverehvid/')}>{t("Parimad talverehvid")}</a>
+					<a href={L('/teadmine/rehvivahetus/')}>{t("Rehvivahetus")}</a>
 				</div>
 				<div>
 					<h4>{t("Andmed")}</h4>
@@ -209,6 +211,7 @@
 					<li><a href={L('/rehvi-valimine/')}>{t("Rehvi valimine")}</a></li>
 					<li><a href={L('/vordle-rehve/')}>{t("Võrdle rehve")}</a></li>
 					<li><a href={L('/talverehvid/')}>{t("Parimad talverehvid")}</a></li>
+					<li><a href={L('/teadmine/rehvivahetus/')}>{t("Rehvivahetus")}</a></li>
 					<li><a href={L('/liiklusohutus/')}>{t("Liiklusohutuse kalkulaator")}</a></li>
 				</ul>
 			</div>

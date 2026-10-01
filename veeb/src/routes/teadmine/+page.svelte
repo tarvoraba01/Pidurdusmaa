@@ -5,6 +5,7 @@
 	import { ARTIKLID, artikliTee, kuup } from '$lib/artiklid.js';
 
 	const POHI = [
+		['/teadmine/rehvivahetus/', 'calendar', 'Rehvivahetus', 'Millal talverehvid ja suverehvid alla: kuupäevad ja nõuded.'],
 		['/teadmine/pidurdusteekond-ja-peatumisteekond/', 'road', 'Pidurdus- ja peatumisteekond', 'Valem, reaktsiooniaeg ja näited eri kiirustel.'],
 		['/teadmine/rehvimargis/', 'info', 'EL-i rehvimärgis', 'Mida tähendavad märghaarde, veeretakistuse ja müra klassid.']
 	];

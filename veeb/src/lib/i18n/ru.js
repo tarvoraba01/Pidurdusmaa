@@ -823,6 +823,8 @@ export default {
 "Vali mark: iga mudeli põlvkonna kohta näed tehase rehvimõõte, mootoreid, pidurdusmaad ja parimaid rehve selles mõõdus.": "Выберите марку: для каждого поколения модели — заводские размеры шин, двигатели, тормозной путь и лучшие шины этого размера.",
 "{mudelid} mudelit · {n} põlvkonda": "моделей: {mudelid} · поколений: {n}",
 "Võrdlus": "Сравнение",
+"Rehvivahetus": "Смена резины",
+"Millal talve- ja suverehvid alla": "Когда ставить зимнюю и летнюю резину",
 "Parimad talverehvid": "Лучшие зимние шины",
 "Testid ja pidurdusmaa sinu mõõdus": "Тесты и тормозной путь в вашем размере",
 "Parimad talverehvid {m}": "Лучшие зимние шины {m}",
