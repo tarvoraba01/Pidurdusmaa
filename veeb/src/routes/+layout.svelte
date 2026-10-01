@@ -159,33 +159,45 @@
 		</div>
 	</div>
 	<div class="panel-menu" id="pm-panel" hidden>
-		<div class="wrap">
-			<nav class="keeled pm-keeled" aria-label={t("Keel")}>{#each KEELED as k (k)}<a href={keeleLink(k)} onclick={(e) => onTolgitud(k, base) && (e.currentTarget.href = linkLang(k, base) + location.search)} hreflang={k} lang={k} aria-current={k === lang ? 'true' : undefined} data-sveltekit-reload>{KEEL_NIMI[k]}</a>{/each}</nav>
-			<div class="pm-cols">
-				<div>
-					<h4>Pidurdusmaa</h4>
-					<a href={L('/')}>{t("Pidurdusmaa kalkulaator")}</a>
-					<a href={L('/teadmine/pidurdusteekond-ja-peatumisteekond/')}>{t("Pidurdus- ja peatumisteekond")}</a>
-					<a href="/teadmine/kuidas-pidurdusmaa-arvutatakse/">{t("Kuidas arvutatakse")}</a>
-					<a href={L('/liiklusohutus/')}>{t("Liiklusohutuse kalkulaator")}</a>
+		<div class="wrap pm">
+			<!-- peamised tööriistad: suured kaardid -->
+			<div class="pm-tiles">
+				<a class="pm-tile" href={L('/')}><Icon name="gauge" /><b>{t("Pidurdusmaa kalkulaator")}</b><span>{t("Kui kiiresti sinu auto peatub")}</span></a>
+				<a class="pm-tile" href={L('/rehvi-valimine/')}><Icon name="target" /><b>{t("Vali rehv")}</b><span>{t("Sobivad rehvid sinu tingimustele")}</span></a>
+				<a class="pm-tile" href={L('/talverehvid/')}><Icon name="snow" /><b>{t("Parimad talverehvid")}</b><span>{t("Testid ja pidurdusmaa sinu mõõdus")}</span></a>
+				<a class="pm-tile" href={L('/teadmine/rehvivahetus/')}><Icon name="calendar" /><b>{t("Rehvivahetus")}</b><span>{t("Millal talve- ja suverehvid alla")}</span></a>
+			</div>
+
+			<section class="pm-sek">
+				<h4>{t("Liiklusohutus")}</h4>
+				<div class="pm-chips">
+					<a href={L('/liiklusohutus/')}><Icon name="road" />{t("Peatumisteekond")}</a>
+					<a href={L('/liiklusohutus/pimedas/')}><Icon name="moon" />{t("Pimedas")}</a>
+					<a href={L('/liiklusohutus/pikivahe/')}><Icon name="gap" />{t("Pikivahe")}</a>
+					<a href={L('/liiklusohutus/kurv/')}><Icon name="curve" />{t("Kurv ja rehvid")}</a>
 				</div>
-				<div>
-					<h4>{t("Rehvi valimine")}</h4>
-					<a href={L('/rehvi-valimine/')}>{t("Vali rehv enda tingimustele")}</a>
-					<a href={L('/vordle-rehve/')}>{t("Võrdle rehve kõrvuti")}</a>
-					<a href={L('/talverehvid/')}>{t("Parimad talverehvid")}</a>
-					<a href={L('/teadmine/rehvivahetus/')}>{t("Rehvivahetus")}</a>
-				</div>
-				<div>
-					<h4>{t("Andmed")}</h4>
-					<a href={L('/autod/')}>{t("Autod ja rehvimõõdud")}</a>
-					<a href={L('/rehvid/')}>{t("Rehvid")}</a>
-					<a href="/testid/">{t("Sõltumatud testid")}</a>
-					<a href="/teadmine/">{t("Teadmine")}</a>
-					<a href={L('/teadmine/artiklid/')}>{t("Artiklid")}</a>
-					<a href="/teadmine/rehvimargis/">{t("EL-i rehvimärgis")}</a>
-					<a href="/kontakt/">{t("Kontakt")}</a>
-				</div>
+			</section>
+
+			<div class="pm-two">
+				<section class="pm-sek">
+					<h4>{t("Otsi")}</h4>
+					<a class="pm-row" href={L('/autod/')}><Icon name="car" />{t("Autod ja rehvimõõdud")}</a>
+					<a class="pm-row" href={L('/rehvid/')}><Icon name="tyre" />{t("Rehvid")}</a>
+					<a class="pm-row" href={L('/vordle-rehve/')}><Icon name="compare" />{t("Võrdle rehve kõrvuti")}</a>
+					<a class="pm-row" href="/testid/"><Icon name="test" />{t("Sõltumatud testid")}</a>
+				</section>
+				<section class="pm-sek">
+					<h4>{t("Loe")}</h4>
+					<a class="pm-row" href={lang === 'ru' ? '/ru/teadmine/artiklid/' : '/teadmine/'}><Icon name="book" />{t("Teadmine")}</a>
+					<a class="pm-row" href={L('/teadmine/pidurdusteekond-ja-peatumisteekond/')}><Icon name="info" />{t("Pidurdus- ja peatumisteekond")}</a>
+					<a class="pm-row" href="/teadmine/rehvimargis/"><Icon name="info" />{t("EL-i rehvimärgis")}</a>
+					<a class="pm-row" href="/teadmine/kuidas-pidurdusmaa-arvutatakse/"><Icon name="info" />{t("Kuidas arvutatakse")}</a>
+				</section>
+			</div>
+
+			<div class="pm-alla">
+				<nav class="keeled pm-keeled" aria-label={t("Keel")}>{#each KEELED as k (k)}<a href={keeleLink(k)} onclick={(e) => onTolgitud(k, base) && (e.currentTarget.href = linkLang(k, base) + location.search)} hreflang={k} lang={k} aria-current={k === lang ? 'true' : undefined} data-sveltekit-reload>{KEEL_NIMI[k]}</a>{/each}</nav>
+				<a class="pm-kontakt" href="/kontakt/">{t("Kontakt")}</a>
 			</div>
 		</div>
 	</div>

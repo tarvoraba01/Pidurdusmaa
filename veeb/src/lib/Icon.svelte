@@ -25,6 +25,10 @@
 		check: '<path d="m5 12 4.5 4.5L19 7"/>',
 		menu: '<path d="M4 7h16M4 12h16M4 17h16"/>',
 		close: '<path d="M6 6l12 12M18 6 6 18"/>',
+		moon: '<path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5Z"/>',
+		curve: '<path d="M5 21v-6a8 8 0 0 1 8-8h6"/><path d="m16 4 3 3-3 3"/>',
+		book: '<path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5v-15Z"/><path d="M4 20.5A2.5 2.5 0 0 0 6.5 23H20v-5"/>',
+		gap: '<rect x="4" y="2.5" width="7" height="7" rx="1.5"/><rect x="4" y="14.5" width="7" height="7" rx="1.5"/><path d="M17 6v12M15 6h4M15 18h4"/>',
 		calendar: '<rect x="3.5" y="5" width="17" height="15" rx="2"/><path d="M3.5 10h17M8 3v4M16 3v4"/>'
 	};
 </script>
