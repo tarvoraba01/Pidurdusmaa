@@ -119,15 +119,34 @@
 		return Math.floor(lo);
 	}
 	/* Auto käitumine pidurdamisel ($lib/kaitumine.js): kurv ja rehvid ees/taga */
+	/* kurvid tavaliste sõnadega; raadius (m) ainult arvutuseks ja väikese vihjena */
 	const KURV = [
-		[0, t('Sirge tee')],
-		[200, t('Lai kurv (R 200 m)')],
-		[100, t('Kurv (R 100 m)')],
-		[50, t('Järsk kurv (R 50 m)')],
-		[25, t('Ristmik, ringtee (R 25 m)')]
+		[0, t('Sirge tee'), ''],
+		[300, t('Lauge kurv'), t('nagu maanteel, kus saab sõita 90 km/h')],
+		[150, t('Tavaline kurv'), t('maantee kurv, enne mida kiirust veidi vähendad')],
+		[75, t('Järsk kurv'), t('märk „Ohtlik kurv“, linnatänav')],
+		[30, t('Väga järsk'), t('pööre ristmikul, ringtee')]
 	];
-	let kurv = $state(100);
-	let kulu = $state('piir');
+	let kurv = $state(75);
+	/* Kurvi tööriista oma sisendid (ei sõltu olukorrast A) */
+	const KR_PIND = [
+		['kuiv', t('Kuiv'), { surface: 'ASPHALT', waterMm: 0, tempC: 15 }],
+		['marg', t('Märg'), { surface: 'ASPHALT', waterMm: 1, tempC: 10 }],
+		['lumi', t('Lumi'), { surface: 'SNOW_PACKED', waterMm: 0, tempC: -5 }],
+		['jaa', t('Jää'), { surface: 'ICE', waterMm: 0, tempC: -5 }]
+	];
+	const KR_KAT = [
+		['SUMMER_TOURING', t('Suverehv')],
+		['WINTER_NORDIC', t('Talverehv (lamell)')],
+		['WINTER_STUDDED', t('Naastrehv')]
+	];
+	const KR_AUTO = [
+		['yld_vaike', t('Väikeauto')],
+		['yld_kompakt', t('Kompaktauto')],
+		['yld_maastur', t('Maastur')],
+		['yld_kaubik', t('Kaubik')]
+	];
+	let KR = $state({ kiirus: 75, pind: 'marg', kat: 'SUMMER_TOURING', esi: 8, taga: 2, auto: 'yld_kompakt' });
 	/* Pikivahe ($lib/pikivahe.js): eesolev auto pidurdab järsult või peatub kohe */
 	let ees = $state('pidurdab');
 	let esitlus = $state(false);
@@ -254,6 +273,15 @@
 		return 0;
 	}
 	const kukkumine = (kmh) => (kmh / 3.6) ** 2 / (2 * 9.81);
+	/* Löögi võrdlus inimese kukkumisega (sama kiirus maandudes): h = v²/2g.
+	   Korrus: 1. korrus maapinnal, iga korrus ~3 m. */
+	function look(kmh) {
+		const h = kukkumine(kmh);
+		const hs = h >= 10 ? f0(h) : f1(h);
+		return h >= 3
+			? t('Löök on sama, nagu kukuks inimene {h} m kõrguselt — umbes {k}. korruse aknast.', { h: hs, k: Math.round(h / 3) + 1 })
+			: t('Löök on sama, nagu kukuks inimene {h} m kõrguselt.', { h: hs });
+	}
 
 	/* ------------------------------------------------------ vormindus */
 	const f1 = (x) => (Math.round(x * 10) / 10).toLocaleString(LOC, { minimumFractionDigits: 1, maximumFractionDigits: 1 });
@@ -359,7 +387,15 @@
 			if (h.get('takistus')) takistus = +h.get('takistus') || 0;
 			if (NAHT.some((n) => n[0] === h.get('naeb'))) naeb = h.get('naeb');
 			if (h.has('kurv') && KURV.some((k) => k[0] === +h.get('kurv'))) kurv = +h.get('kurv');
-			if (h.get('kulu') === 'kesk') kulu = 'kesk';
+			if (h.get('kr')) {
+				const [ki, pi, ka, es, ta, au] = h.get('kr').split('~');
+				if (+ki >= 10 && +ki <= 150) KR.kiirus = +ki;
+				if (KR_PIND.some((x) => x[0] === pi)) KR.pind = pi;
+				if (KR_KAT.some((x) => x[0] === ka)) KR.kat = ka;
+				if (+es >= 1 && +es <= 9) KR.esi = +es;
+				if (+ta >= 1 && +ta <= 9) KR.taga = +ta;
+				if (KR_AUTO.some((x) => x[0] === au)) KR.auto = au;
+			}
 			if (h.get('ees') === 'seisab') ees = 'seisab';
 		} catch {}
 	}
@@ -373,8 +409,10 @@
 		}
 		if (takistus) h.set('takistus', String(takistus));
 		if (naeb) h.set('naeb', naeb);
-		if (kurv !== 100) h.set('kurv', String(kurv));
-		if (kulu !== 'piir') h.set('kulu', kulu);
+		if (vaade === 'kurv') {
+			if (kurv !== 75) h.set('kurv', String(kurv));
+			h.set('kr', [KR.kiirus, KR.pind, KR.kat, KR.esi, KR.taga, KR.auto].join('~'));
+		}
 		if (ees !== 'pidurdab') h.set('ees', ees);
 		const q = h.toString();
 		try {
@@ -428,31 +466,73 @@
 		return [1, 2, 3, 4].map((sek) => [sek, pikivahe(x.r.trace, +A.kiirus, sek, +A.reakt, ees)]);
 	});
 
-	/* rehvid ees/taga: uus 8 mm vs kulunud (seaduse piir või keskmiselt kulunud) */
-	const kuluMm = $derived(kulu === 'kesk' ? 4.5 : TALV[A.kat] ? 3.0 : 1.6);
-	const ktRead = $derived.by(() => {
-		if (!core || !P) return [];
-		const x = sisend(A);
-		if (!x) return [];
-		const T = (mm) => ({ ...x.tyre, treadDepthMm: mm });
-		const uus = T(8), vana = T(kuluMm);
+	/* Kurvi tööriist: oma auto, tee, rehvid ja mustrisügavus ees/taga */
+	const kr = $derived.by(() => {
+		if (!core || !P) return null;
+		const veh = core.byKey[KR.auto];
+		if (!veh) return null;
+		const pind = KR_PIND.find((x) => x[0] === KR.pind)[2];
+		const tyre = (mm) => ({
+			key: 'x', name: 'x', category: KR.kat, wetGripIndex: G({ klass: 'C', kat: KR.kat }),
+			treadDepthMm: mm, treadDepthNewMm: 8, ageYears: 1, pressureBar: null, loadCapacityKg: null,
+			studded: KR.kat === 'WINTER_STUDDED', size: veh.oemSize, gSource: 'label'
+		});
+		const cond = { speedKmh: +KR.kiirus, texture: 'NORMAL', payloadKg: 75, gradientPct: 0, reactionTimeS: 1, brakeCondition: 1, iceRoad: true, ...pind };
+		const k = (f, r) => kaitumine(P, { veh, cond, tyreF: tyre(f), tyreR: tyre(r), R: kurv });
 		try {
-			return [
-				['koik', t('Kõik neli uued'), uus, uus],
-				['ees', t('Uued ees, kulunud taga'), uus, vana],
-				['taga', t('Uued taga, kulunud ees'), vana, uus],
-				['vana', t('Kõik neli kulunud'), vana, vana]
-			].map(([id, nimi, f, r]) => [id, nimi, kaitumine(P, { veh: x.veh, cond: x.cond, tyreF: f, tyreR: r, R: kurv })]);
+			return {
+				sinu: k(KR.esi, KR.taga),
+				vahetatud: KR.esi !== KR.taga ? k(KR.taga, KR.esi) : null,
+				uued: KR.esi !== 8 || KR.taga !== 8 ? k(8, 8) : null
+			};
 		} catch {
-			return [];
+			return null;
 		}
+	});
+	const krPiir = $derived(TALV[KR.kat] ? 3 : 1.6);
+	function krOtsus(r) {
+		if (!kurv) return ['ok', t('Sirgel teel püsib auto otse ja peatub')];
+		if (r.kaotus === 'taga') return ['halb', t('Tagaosa libiseb välja — auto pöörab ringi (ülejuhitavus)')];
+		if (r.kaotus === 'esi') return ['halb', t('Esirattad libisevad — auto ei pööra ja sõidab kurvist välja (alajuhitavus)')];
+		if (Math.min(r.varuTaga, r.varuEsi) < 0.15)
+			return r.varuTaga <= r.varuEsi ? ['hoiatus', t('Peatub, aga tagaosa on libisemise piiril')] : ['hoiatus', t('Peatub, aga esirattad on haarde piiril')];
+		return ['ok', t('Püsib kurvis ja peatub')];
+	}
+	/* skemaatiline pealtvaade: tee kaar, auto teekond, peatus või libisemine */
+	const krJoon = $derived.by(() => {
+		const r = kr?.sinu;
+		if (!r) return null;
+		const W = 420, H = 300, x0 = 90, y0 = 285;
+		const Rpx = { 300: 520, 150: 330, 75: 210, 30: 120 }[kurv] || 0;
+		const lopp = r.kaotus ? Math.max(r.kaotusM ?? 0, 0) : r.peatumineM;
+		const pikkus = Math.max(40, (r.kaotus ? (r.kaotusM ?? 0) * 1.6 + 25 : r.peatumineM * 1.15));
+		const skaala = 300 / pikkus; // px meetri kohta
+		const P = (sPx) => {
+			if (!Rpx) return [x0 + 110, y0 - sPx, -Math.PI / 2];
+			const th = sPx / Rpx; // paremale pöörav kaar, keskpunkt (x0+Rpx, y0)
+			return [x0 + Rpx - Rpx * Math.cos(th), y0 - Rpx * Math.sin(th), -Math.PI / 2 + th];
+		};
+		const tee = [], kulg = [];
+		for (let i = 0; i <= 60; i++) tee.push(P((i / 60) * 340));
+		const sL = lopp * skaala;
+		for (let i = 0; i <= 40; i++) kulg.push(P((i / 40) * sL));
+		const [lx, ly, la] = P(sL);
+		let jatk = null;
+		if (r.kaotus === 'esi') jatk = [[lx, ly], [lx + Math.cos(la) * 120, ly + Math.sin(la) * 120]];
+		if (r.kaotus === 'taga') {
+			jatk = [];
+			let x = lx, y = ly; for (let i = 0; i <= 24; i++) { const a = la - (i / 24) * 1.1; x += Math.cos(a) * 4.2; y += Math.sin(a) * 4.2; jatk.push([x, y]); }
+		}
+		const pts = (a) => a.map((p) => p[0].toFixed(1) + ',' + p[1].toFixed(1)).join(' ');
+		const auto = r.kaotus === 'taga' ? [jatk[jatk.length - 1][0], jatk[jatk.length - 1][1], la + 2.4] : r.kaotus === 'esi' ? [jatk[1][0], jatk[1][1], la] : [lx, ly, la];
+		return { W, H, tee: pts(tee), kulg: pts(kulg), jatk: jatk ? pts(jatk) : null, auto: [auto[0], auto[1], (auto[2] * 180) / Math.PI + 90], kaotus: r.kaotus, stop: [lx, ly] };
 	});
 </script>
 
 <div class="lo" class:proj={esitlus} bind:this={juur}>
 	{#if viga}<p class="lo-viga">{viga}</p>{/if}
 
-	<nav class="lo-tabs" aria-label={t('Kalkulaatorid')}>
+	<nav class="lo-vaated" aria-label={t('Kalkulaatorid')}>
 		{#each VAATED as [id, tee, nimi] (id)}
 			<a href={keel.L(tee)} aria-current={vaade === id ? 'page' : undefined} onclick={(e) => (e.currentTarget.href = keel.L(tee) + location.hash)}>{nimi}</a>
 		{/each}
@@ -487,6 +567,52 @@
 
 	<div class="lo-grid">
 		<!-- ================= SISENDID ================= -->
+		{#if vaade === 'kurv'}
+		<section class="lo-in" aria-label={t('Olukord')}>
+			<fieldset>
+				<legend>{t('Kurv')}</legend>
+				<div class="lo-kurvid">
+					{#each KURV as [r, nimi, vihje] (r)}
+						<button type="button" aria-pressed={kurv === r} onclick={() => (kurv = r)}>
+							<svg viewBox="0 0 40 40" aria-hidden="true"><path d={r === 0 ? 'M20 38 L20 2' : r === 300 ? 'M12 38 Q14 10 34 4' : r === 150 ? 'M10 38 Q10 12 36 8' : r === 75 ? 'M8 38 Q8 16 36 14' : 'M8 38 Q8 24 36 24'} /></svg>
+							<span><b>{nimi}</b>{#if vihje}<small>{vihje}</small>{/if}</span>
+						</button>
+					{/each}
+				</div>
+			</fieldset>
+			<fieldset>
+				<legend>{t('Kiirus ja tee')}</legend>
+				<label class="lo-row" for="kr-kiirus"><span>{t('Kiirus')}</span><b class="lo-val">{KR.kiirus} {t('km/h')}</b></label>
+				<input id="kr-kiirus" class="slider" type="range" min="20" max="130" step="5" bind:value={KR.kiirus} style="--p:{((KR.kiirus - 20) / 110) * 100}%" />
+				<div class="lo-seg lo-seg4">
+					{#each KR_PIND as [k, n] (k)}
+						<button type="button" aria-pressed={KR.pind === k} onclick={() => (KR.pind = k)}>{n}</button>
+					{/each}
+				</div>
+			</fieldset>
+			<fieldset>
+				<legend>{t('Rehvid')}</legend>
+				<div class="lo-seg lo-seg3">
+					{#each KR_KAT as [k, n] (k)}
+						<button type="button" aria-pressed={KR.kat === k} onclick={() => (KR.kat = k)}>{n}</button>
+					{/each}
+				</div>
+				<label class="lo-row" for="kr-esi"><span>{t('Esirehvide muster')}</span><b class="lo-val" class:lo-halb={KR.esi < krPiir}>{f1(KR.esi)} {t('mm')}</b></label>
+				<input id="kr-esi" class="slider" type="range" min="1" max="8" step="0.5" bind:value={KR.esi} style="--p:{((KR.esi - 1) / 7) * 100}%" />
+				<label class="lo-row" for="kr-taga"><span>{t('Tagarehvide muster')}</span><b class="lo-val" class:lo-halb={KR.taga < krPiir}>{f1(KR.taga)} {t('mm')}</b></label>
+				<input id="kr-taga" class="slider" type="range" min="1" max="8" step="0.5" bind:value={KR.taga} style="--p:{((KR.taga - 1) / 7) * 100}%" />
+				<p class="lo-kr-vihje">{t('Uus rehv 8 mm. Seaduse piir: suverehv 1,6 mm, talverehv 3 mm.')}</p>
+			</fieldset>
+			<fieldset>
+				<legend>{t('Auto')}</legend>
+				<div class="lo-seg lo-seg2">
+					{#each KR_AUTO as [k, n] (k)}
+						<button type="button" aria-pressed={KR.auto === k} onclick={() => (KR.auto = k)}>{n}</button>
+					{/each}
+				</div>
+			</fieldset>
+		</section>
+		{:else}
 		<section class="lo-in" aria-label={t("Olukord")}>
 			<div class="lo-tabs">
 				<div class="lo-tablist" role="tablist" aria-label={t("Olukord")}>
@@ -651,6 +777,7 @@
 				</select>
 			</fieldset>
 		</section>
+		{/if}
 
 		<!-- ================= TULEMUS ================= -->
 		{#if vaade === 'pikivahe'}
@@ -705,62 +832,52 @@
 		</section>
 		{/if}
 		{:else if vaade === 'kurv'}
-		{#if !core}<p class="lo-laeb">{t("Laadin arvutusmudelit…")}</p>{:else if ktRead.length}
+		{#if !core}<p class="lo-laeb">{t("Laadin arvutusmudelit…")}</p>{:else if kr}
+		{@const ots = krOtsus(kr.sinu)}
 		<section class="lo-kt lo-side" aria-labelledby="lo-kt-h">
-			<h2 id="lo-kt-h">{t('Auto käitumine pidurdamisel')}</h2>
-			<p class="lo-kt-sub">
-				{t('Olukord A, äkkpidurdus {v} km/h pealt', { v: A.kiirus })} · {PIND.find((p) => p[0] === A.pind)[1].toLowerCase()}.
-				{t('Kurvis kulub osa rehvi haardest pööramisele ja pidurdades kandub auto koormus esisillale — tagarattad jäävad kergemaks.')}
-			</p>
-			<div class="lo-kt-ctl">
-				<div class="lo-kt-seg" role="group" aria-label={t('Tee')}>
-					{#each KURV as [r, nimi] (r)}
-						<button type="button" aria-pressed={kurv === r} onclick={() => (kurv = r)}>{nimi}</button>
-					{/each}
-				</div>
-				<div class="lo-kt-seg" role="group" aria-label={t('Kulunud rehv')}>
-					<span>{t('Kulunud rehv:')}</span>
-					<button type="button" aria-pressed={kulu === 'piir'} onclick={() => (kulu = 'piir')}>{t('seaduse piiril')} ({f1(TALV[A.kat] ? 3 : 1.6)} {t('mm')})</button>
-					<button type="button" aria-pressed={kulu === 'kesk'} onclick={() => (kulu = 'kesk')}>{t('keskmiselt kulunud')} (4,5 {t('mm')})</button>
-				</div>
+			<h2 id="lo-kt-h">{t('Äkkpidurdus kurvis')}</h2>
+			<p class="lo-kt-sub">{t('Sõidad {v} km/h, ees {e} mm ja taga {r} mm mustriga rehvid. Kurvis tuleb ootamatult takistus ja pidurdad täiest jõust (reageerimisaeg 1 s).', { v: KR.kiirus, e: f1(KR.esi), r: f1(KR.taga) })}</p>
+			<div class="lo-kr-tulemus lo-kt-{ots[0]}">
+				<p class="lo-kr-ots">{ots[1]}</p>
+				<dl class="lo-kr-nr">
+					{#if kurv}<div><dt>{t('Selle kurvi piirkiirus')}</dt><dd>{f0(kr.sinu.piirKmh)} {t('km/h')}</dd></div>{/if}
+					<div><dt>{t('Peatumisteekond')}</dt><dd>{kr.sinu.peatumineM != null ? m(kr.sinu.peatumineM) + ' ' + t('m') : t('ei peatu kurvis')}</dd></div>
+					{#if kr.sinu.kaotus}<div><dt>{t('Haare kaob')}</dt><dd>{kr.sinu.kaotusM ? t('{m} m pärast, kiirusel {k} km/h', { m: f0(kr.sinu.kaotusM), k: f0(kr.sinu.kaotusKmh) }) : t('kohe kurvi sisenedes')}</dd></div>{/if}
+				</dl>
+				{#if kurv && !kr.sinu.kaotus}<p class="lo-kt-varu">{t('Haardevaru kurvi hoidmiseks: ees {e} %, taga {r} %', { e: f0(kr.sinu.varuEsi * 100), r: f0(kr.sinu.varuTaga * 100) })}</p>{/if}
+				{#if kurv && kr.sinu.kaotus && KR.kiirus > kr.sinu.piirKmh}<p class="lo-kt-varu">{t('Kiirus on selle kurvi jaoks liiga suur ka ilma pidurdamata.')}</p>{/if}
 			</div>
-			<div class="tbl-wrap">
-				<table class="lo-kt-t">
-					<thead>
-						<tr>
-							<th>{t('Rehvid')}</th>
-							{#if kurv}<th class="n">{t('Kurvi piirkiirus')}</th>{/if}
-							<th class="n">{t('Peatumisteekond')}</th>
-							<th>{t('Mis juhtub')}</th>
-						</tr>
-					</thead>
-					<tbody>
-						{#each ktRead as [id, nimi, r] (id)}
-							{@const ots = !kurv
-								? ['ok', t('Sirgel teel püsib auto otse')]
-								: r.kaotus === 'taga'
-									? ['halb', t('Tagaosa libiseb välja — auto pöörab ringi (ülejuhitavus)')]
-									: r.kaotus === 'esi'
-										? ['halb', t('Esirattad libisevad — auto ei pööra ja sõidab kurvist välja (alajuhitavus)')]
-										: r.varuTaga < 0.15
-											? ['hoiatus', t('Peatub, aga tagaosa on libisemise piiril')]
-											: r.varuEsi < 0.15
-												? ['hoiatus', t('Peatub, aga esirattad on haarde piiril')]
-												: ['ok', t('Püsib kurvis ja peatub')]}
-							<tr>
-								<td class="lo-kt-nimi"><b>{nimi}</b></td>
-								{#if kurv}<td class="n nw" data-l={t('Kurvi piirkiirus')}>{f0(r.piirKmh)} {t('km/h')}</td>{/if}
-								<td class="n nw" data-l={t('Peatumisteekond')}>{r.peatumineM != null ? m(r.peatumineM) + ' ' + t('m') : '—'}</td>
-								<td class="lo-kt-ots">
-									<span class="lo-kt-o lo-kt-{ots[0]}">{ots[1]}</span>
-									{#if kurv && !r.kaotus}<small class="lo-kt-varu">{t('Haardevaru kurvi hoidmiseks: ees {e} %, taga {r} %', { e: f0(r.varuEsi * 100), r: f0(r.varuTaga * 100) })}</small>{/if}
-									{#if r.kaotus && A.kiirus > r.piirKmh}<small class="lo-kt-varu">{t('Kiirus on selle kurvi jaoks liiga suur ka ilma pidurdamata.')}</small>{/if}
-								</td>
-							</tr>
-						{/each}
-					</tbody>
-				</table>
-			</div>
+			{#if krJoon}
+				<figure class="lo-kr-fig">
+					<svg viewBox="0 0 {krJoon.W} {krJoon.H}" role="img" aria-label={t('Auto teekond pealtvaates')}>
+						<polyline points={krJoon.tee} class="kr-tee" />
+						<polyline points={krJoon.tee} class="kr-joon" />
+						<polyline points={krJoon.kulg} class="kr-kulg" />
+						{#if krJoon.jatk}<polyline points={krJoon.jatk} class="kr-jatk" />{/if}
+						{#if !krJoon.kaotus}<circle cx={krJoon.stop[0]} cy={krJoon.stop[1]} r="7" class="kr-stop" />{/if}
+						<g transform="translate({krJoon.auto[0]} {krJoon.auto[1]}) rotate({krJoon.auto[2]})"><rect x="-9" y="-16" width="18" height="32" rx="5" class="kr-auto" class:halb={!!krJoon.kaotus} /><rect x="-6" y="-12" width="12" height="7" rx="2" class="kr-klaas" /></g>
+					</svg>
+					<figcaption>{t('Skeem pealtvaates, mitte mõõtkavas.')}</figcaption>
+				</figure>
+			{/if}
+			{#if kr.vahetatud || kr.uued}
+				<h3 class="lo-kr-h3">{t('Võrdle')}</h3>
+				<div class="tbl-wrap">
+					<table class="lo-kt-t">
+						<thead><tr><th>{t('Rehvid')}</th><th class="n">{t('Peatumisteekond')}</th><th>{t('Mis juhtub')}</th></tr></thead>
+						<tbody>
+							{#each [[t('Sinu valik: ees {e} mm, taga {r} mm', { e: f1(KR.esi), r: f1(KR.taga) }), kr.sinu], ...(kr.vahetatud ? [[t('Rehvid vahetatud: ees {e} mm, taga {r} mm', { e: f1(KR.taga), r: f1(KR.esi) }), kr.vahetatud]] : []), ...(kr.uued ? [[t('Kõik neli uued (8 mm)'), kr.uued]] : [])] as [nimi, r], i (i)}
+								{@const o = krOtsus(r)}
+								<tr>
+									<td class="lo-kt-nimi"><b>{nimi}</b></td>
+									<td class="n nw" data-l={t('Peatumisteekond')}>{r.peatumineM != null ? m(r.peatumineM) + ' ' + t('m') : '—'}</td>
+									<td class="lo-kt-ots"><span class="lo-kt-o lo-kt-{o[0]}">{o[1]}</span></td>
+								</tr>
+							{/each}
+						</tbody>
+					</table>
+				</div>
+			{/if}
 			<p class="lo-kt-note">
 				{t('Paremad rehvid pane tagasillale: kui tagarattad kaotavad haarde, pöörab auto ringi ja seda on palju raskem päästa kui otse sõitvat autot. Nii soovitavad ka ADAC, TCS ja ÖAMTC oma katsete põhjal.')}
 				{t('Lihtsustatud füüsikamudel: rehvi haare tuleb samast mudelist mis kalkulaatoris, pidurdusjõud jaguneb umbes 72 % ette ja 28 % taha, kurv on ühtlane. ESP-d mudel ei arvesta — ESP aitab autot hoida, aga haaret juurde ei tee.')}
@@ -873,7 +990,7 @@
 							{#if v === 0}
 								{t("Peatub enne takistust.")}
 							{:else}
-								{t("Jõuab takistuseni kiirusega")} <b>{f0(v)} {t("km/h")}</b> {t("— löök nagu kukkudes")} {f1(kukkumine(v))} {t("m kõrguselt.")}
+								{t("Jõuab takistuseni kiirusega")} <b>{f0(v)} {t("km/h")}</b>. {look(v)}
 							{/if}
 						</p>
 					{/each}
@@ -889,9 +1006,9 @@
 					<div class="lo-cmp">
 						<p>
 							<b>{vordlus.Pk}</b> {t("vajab peatumiseks")} <b>{m(vordlus.vahe)} {t("m")}</b> {t("rohkem.")}
-							{#if vordlus.v > 0.5}
+							{#if vordlus.v > 0.5 && !(takistus > 0)}
 								{t("Kohas, kus")} <b>{vordlus.L}</b> {t("juba seisab (")}{m(vordlus.koht)} {t("m), sõidab")} <b>{vordlus.Pk}</b> {t("veel")}
-								<b>{f0(vordlus.v)} {t("km/h")}</b> {t("— see on sama löök, nagu kukuks auto")} {f1(kukkumine(vordlus.v))} {t("m kõrguselt.")}
+								<b>{f0(vordlus.v)} {t("km/h")}</b>. {look(vordlus.v)}
 							{/if}
 						</p>
 					</div>
@@ -1752,14 +1869,14 @@
 		margin-top: 0;
 		align-self: start;
 	}
-	.lo-tabs {
+	.lo-vaated {
 		display: flex;
 		gap: var(--sp-2);
 		flex-wrap: wrap;
 		margin-bottom: var(--sp-5);
 		border-bottom: 1px solid var(--line);
 	}
-	.lo-tabs a {
+	.lo-vaated a {
 		padding: var(--sp-3) var(--sp-4);
 		font-weight: 700;
 		font-size: 16px;
@@ -1768,10 +1885,10 @@
 		border-bottom: 3px solid transparent;
 		margin-bottom: -1px;
 	}
-	.lo-tabs a:hover {
+	.lo-vaated a:hover {
 		color: var(--text);
 	}
-	.lo-tabs a[aria-current='page'] {
+	.lo-vaated a[aria-current='page'] {
 		color: var(--text);
 		border-bottom-color: var(--yellow);
 	}
@@ -1785,12 +1902,12 @@
 		border-color: var(--yellow);
 	}
 	@media (max-width: 640px) {
-		.lo-tabs {
+		.lo-vaated {
 			flex-wrap: nowrap;
 			overflow-x: auto;
 			gap: 0;
 		}
-		.lo-tabs a {
+		.lo-vaated a {
 			white-space: nowrap;
 			padding: var(--sp-3);
 			font-size: 15px;
@@ -1838,5 +1955,153 @@
 			color: var(--muted);
 			font-weight: 500;
 		}
+	}
+	.lo-kurvid {
+		display: grid;
+		gap: var(--sp-2);
+	}
+	.lo-kurvid button {
+		display: flex;
+		align-items: center;
+		gap: var(--sp-3);
+		text-align: left;
+		border: 1px solid var(--line);
+		background: var(--paper-2);
+		border-radius: 12px;
+		padding: var(--sp-2) var(--sp-3);
+		font: inherit;
+		cursor: pointer;
+		color: var(--text);
+	}
+	.lo-kurvid button[aria-pressed='true'] {
+		background: var(--yellow-soft);
+		border-color: var(--yellow);
+	}
+	.lo-kurvid svg {
+		width: 34px;
+		height: 34px;
+		flex: none;
+	}
+	.lo-kurvid path {
+		fill: none;
+		stroke: #6b7280;
+		stroke-width: 5;
+		stroke-linecap: round;
+	}
+	.lo-kurvid button[aria-pressed='true'] path {
+		stroke: var(--text);
+	}
+	.lo-kurvid span {
+		display: flex;
+		flex-direction: column;
+	}
+	.lo-kurvid small {
+		color: var(--muted);
+		font-size: 12.5px;
+	}
+	.lo-seg4 {
+		grid-template-columns: repeat(4, 1fr) !important;
+	}
+	.lo-seg3 {
+		grid-template-columns: repeat(3, 1fr) !important;
+	}
+	.lo-seg2 {
+		grid-template-columns: repeat(2, 1fr) !important;
+	}
+	.lo-kr-vihje {
+		font-size: 13px;
+		color: var(--muted);
+		margin: var(--sp-2) 0 0;
+	}
+	.lo-kr-tulemus {
+		border-left: 6px solid currentColor;
+		background: var(--paper-2);
+		border-radius: 12px;
+		padding: var(--sp-4) var(--sp-5);
+		margin-bottom: var(--sp-4);
+	}
+	.lo-kr-ots {
+		margin: 0 0 var(--sp-3);
+		font-weight: 800;
+		font-size: 20px;
+	}
+	.lo-kr-nr {
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--sp-3) var(--sp-8);
+		margin: 0;
+		color: var(--text);
+	}
+	.lo-kr-nr dt {
+		font-size: 13px;
+		color: var(--muted);
+	}
+	.lo-kr-nr dd {
+		margin: 0;
+		font-weight: 700;
+		font-size: 22px;
+		font-variant-numeric: tabular-nums;
+	}
+	.lo-kr-fig {
+		margin: 0 0 var(--sp-4);
+		background: #e9ecef;
+		border-radius: 12px;
+		padding: var(--sp-2);
+	}
+	.lo-kr-fig svg {
+		width: 100%;
+		max-height: 320px;
+		display: block;
+	}
+	.lo-kr-fig figcaption {
+		font-size: 12.5px;
+		color: var(--muted);
+		text-align: right;
+		padding: 0 var(--sp-2);
+	}
+	.kr-tee {
+		fill: none;
+		stroke: #4b5563;
+		stroke-width: 46;
+		stroke-linecap: butt;
+	}
+	.kr-joon {
+		fill: none;
+		stroke: #f3f4f6;
+		stroke-width: 2;
+		stroke-dasharray: 10 10;
+	}
+	.kr-kulg {
+		fill: none;
+		stroke: var(--yellow);
+		stroke-width: 5;
+		stroke-linecap: round;
+	}
+	.kr-jatk {
+		fill: none;
+		stroke: var(--bad);
+		stroke-width: 5;
+		stroke-dasharray: 8 6;
+		stroke-linecap: round;
+	}
+	.kr-stop {
+		fill: var(--good);
+		stroke: #fff;
+		stroke-width: 2;
+	}
+	.kr-auto {
+		fill: #1f2937;
+		stroke: #fff;
+		stroke-width: 1.5;
+	}
+	.kr-auto.halb {
+		fill: var(--bad);
+	}
+	.kr-klaas {
+		fill: #93c5fd;
+	}
+	.lo-kr-h3 {
+		margin: var(--sp-4) 0 var(--sp-2);
+		font-size: 16px;
 	}
 </style>

@@ -89,7 +89,7 @@ export function kaitumine(P, o) {
 	const sReakt = v0 * (o.reactionS ?? cond.reactionTimeS ?? 1);
 	/* reageerimise ajal sõidab auto kurvis täiskiirusel */
 	const alg = hetk(v0, 0);
-	let s = 0, v = v0, t = 0, maxF = alg.uF, maxR = alg.uR, kaotus = alg.kaotus, kaotusKmh = alg.kaotus ? v0 * 3.6 : null;
+	let s = 0, v = v0, t = 0, maxF = alg.uF, maxR = alg.uR, kaotus = alg.kaotus, kaotusKmh = alg.kaotus ? v0 * 3.6 : null, kaotusM = alg.kaotus ? 0 : null;
 	const dt = 0.005;
 	if (!kaotus) {
 		while (v > 0.05 && t < 60) {
@@ -97,7 +97,7 @@ export function kaitumine(P, o) {
 			const x = hetk(v, ramp);
 			if (x.uF > maxF) maxF = x.uF;
 			if (x.uR > maxR) maxR = x.uR;
-			if (x.kaotus) { kaotus = x.kaotus; kaotusKmh = v * 3.6; break; }
+			if (x.kaotus) { kaotus = x.kaotus; kaotusKmh = v * 3.6; kaotusM = sReakt + s; break; }
 			const drag = (0.5 * 1.2 * (veh.cdaM2 || 0.7) * v * v) / m + (C.crr || 0.012) * g;
 			v -= (x.ax + drag) * dt;
 			s += Math.max(0, v) * dt;
@@ -110,6 +110,7 @@ export function kaitumine(P, o) {
 		piirSild,
 		kaotus, //               null | 'taga' | 'esi'
 		kaotusKmh,
+		kaotusM, //               kui kaugel (m) haare kaob; 0 = juba kurvi sisenedes
 		peatumineM: kaotus ? null : sReakt + s,
 		reaktM: sReakt,
 		varuEsi: Math.max(0, 1 - maxF), // väikseim haardevaru pidurduse ajal (esisild on ABS-iga piiril)
