@@ -44,6 +44,15 @@
 					{@html t("<b>Rehvid ja ilm.</b> Mustrisügavus loeb eriti märjal teel; suverehv lumel ja sulav jää nulli lähedal on kõige ohtlikumad olukorrad.")}
 				</li>
 				<li>
+					{@html t("<b>Pimedas.</b> Vali „Jalakäija pimedas“: tumedates riietes helkurita jalakäijat märkab juht lähitulede valgel alles umbes 30 m kauguselt. Vaata, millise kiirusega jõuad veel peatuda.")}
+				</li>
+				<li>
+					{@html t("<b>Pikivahe.</b> Kui eesolev auto pidurdab järsult, kas 1, 2 või 3 sekundit vahet on piisav? Kui reageerimisaeg on pikivahest pikem, tuleb kokkupõrge.")}
+				</li>
+				<li>
+					{@html t("<b>Kurv ja rehvid.</b> „Auto käitumine pidurdamisel“ näitab, mis juhtub kurvis, kui paremad rehvid on ees või taga.")}
+				</li>
+				<li>
 					{@html t("<b>Esitlus.</b> „Esitlusrežiim“ avab kalkulaatori täisekraanil. „Kopeeri link“ salvestab kõik valikud aadressi sisse — saad olukorra kellelegi saata või esitluseks ette valmistada.")}
 				</li>
 			</ul>
@@ -67,6 +76,8 @@
 					{t("Green, M. (2000). „How long does it take to stop?“ Transportation Human Factors 2(3) — reaktsiooniaeg: valmis juht u 0,7 s, ootamatu oht u 1,25–1,5 s")}
 				</li>
 				<li>{t("VTI (Rootsi), Statens vegvesen (Norra), Maanteeamet — haardetegur sõiduteede jääl")}</li>
+				<li>{t("Transpordiamet (2025) — jalakäija nähtavus pimedas helkuriga ja ilma")}</li>
+				<li>{t("ADAC, TCS, ÖAMTC — paremad rehvid tagasillale (katsed märjal teel)")}</li>
 			</ul>
 			<p class="lo-small">
 				{t("Tööriist on tasuta kõigile — juhtidele, lapsevanematele, koolidele ja autokoolidele. Lehel ei ole reklaami, hindu ega poode.")}
