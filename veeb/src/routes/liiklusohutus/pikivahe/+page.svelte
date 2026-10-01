@@ -10,7 +10,7 @@
 	const jsonld = graph(tooriist(t('Pikivahe kalkulaator'), '/liiklusohutus/pikivahe/', KIRJ, keel.lang), ORG);
 </script>
 
-<Meta title={t('Pikivahe kalkulaator: kas 2 sekundit on piisav?')} desc={KIRJ} path="liiklusohutus/pikivahe/" {jsonld} image="/og/sait/liiklusohutus.png" />
+<Meta title={t('Pikivahe kalkulaator: kas 2 sekundit on piisav?')} desc={KIRJ} path="liiklusohutus/pikivahe/" {jsonld} image="/og/sait/liiklus-pikivahe.png" />
 
 <LiiklusLeht kick={t('Liiklusohutus · pikivahe')} h1={t('Kas pikivahe on piisav?')} lead={t('Eesolev auto pidurdab järsult või peatub hetkega. Vaata, kas jõuad peatuda, ja kui ei, siis millise kiirusega sõidad talle sisse.')} vaade="pikivahe">
 	<div>

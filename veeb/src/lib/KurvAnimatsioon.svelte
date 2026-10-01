@@ -136,7 +136,7 @@
 		const k = n[0] > q[0] ? Math.max(0, Math.min(1, (Math.min(tSim, tLopp) - q[0]) / (n[0] - q[0]))) : 0;
 		let dp = n[3] - q[3];
 		dp = Math.atan2(Math.sin(dp), Math.cos(dp));
-		return { i, x: q[1] + (n[1] - q[1]) * k, y: q[2] + (n[2] - q[2]) * k, psi: q[3] + dp * k, kmh: q[4] + (n[4] - q[4]) * k, faas: q[7], useF: q[5], useR: q[6], t: Math.min(tSim, tLopp) };
+		return { i, x: q[1] + (n[1] - q[1]) * k, y: q[2] + (n[2] - q[2]) * k, psi: q[3] + dp * k, kmh: q[4] + (n[4] - q[4]) * k, faas: q[7], useF: q[5], useR: q[6], lukk: q[9] || 0, t: Math.min(tSim, tLopp) };
 	});
 	const libiseb = $derived(hetk && hetk.faas < 3 && hetk.kmh > 4 && Math.max(hetk.useF, hetk.useR) > 0.97);
 
@@ -249,8 +249,9 @@
 			if (sim.teelt) return t('Teelt väljas');
 			return sim.ringi ? t('Seisab, auto pöördus ringi') : t('Seisab');
 		}
+		if (hetk.faas === 2 && hetk.lukk & 1 && hetk.kmh > 4) return t('Rattad lukus — auto ei pööra!');
 		if (libiseb) return hetk.faas === 2 && hetk.useR > 0.97 && hetk.useR >= hetk.useF ? t('Tagaosa libiseb!') : t('Libiseb!');
-		if (hetk.faas === 2) return t('Pidurdad (ABS)');
+		if (hetk.faas === 2) return sim.abs ? t('Pidurdad (ABS)') : t('Pidurdad (ABS-ita)');
 		if (hetk.faas === 1) return t('Märkad ohtu, reageerid…');
 		return sim.tee.sirge ? t('Sõidad') : t('Sõidad kurvi');
 	});

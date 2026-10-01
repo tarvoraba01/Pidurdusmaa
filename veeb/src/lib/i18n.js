@@ -91,11 +91,20 @@ export function ogLang(lang, image) {
 	if (!lang || lang === 'et') return image;
 	const m = /^\/og\/(sait|auto)\/(.+)\.png$/.exec(image || '');
 	if (!m) return image;
-	if (m[1] === 'sait' && !['avaleht', 'liiklusohutus', 'millal-talverehvid-alla'].includes(m[2])) return image;
-	if (m[1] === 'sait' && m[2] === 'millal-talverehvid-alla' && lang !== 'ru') return image;
+	if (m[1] === 'sait' && !(OG_KEELED[m[2]] || []).includes(lang)) return image;
 	if (m[1] === 'auto' && lang !== 'ru') return image;
 	return '/og/' + m[1] + '/' + m[2] + '.' + lang + '.png';
 }
+/* millistes keeltes on saidi pilt tehtud (vt routes/og) */
+const OG_KEELED = {
+	avaleht: ['ru', 'en'],
+	liiklusohutus: ['ru', 'en'],
+	'liiklus-kurv': ['ru', 'en'],
+	'liiklus-pimedas': ['ru', 'en'],
+	'liiklus-pikivahe': ['ru', 'en'],
+	'millal-talverehvid-alla': ['ru'],
+	rehvivahetus: ['ru']
+};
 
 /** Automudeli nimi vene keeles: E-klass → E-Класс, 3-seeria → 3 серии, kaubik → фургон.
  *  NB: ainult kuvamiseks — aadressid (slug) tehakse alati eestikeelsest nimest. */

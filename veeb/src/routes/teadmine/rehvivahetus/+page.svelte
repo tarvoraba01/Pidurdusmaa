@@ -98,7 +98,7 @@
 			author: autorRef(),
 			publisher: { '@id': ORG_ID },
 			mainEntityOfPage: BASE + L(PATH),
-			image: BASE + '/og/sait/avaleht.png'
+			image: BASE + (ru ? '/og/sait/rehvivahetus.ru.png' : '/og/sait/rehvivahetus.png')
 		},
 		...(AUTOR ? [AUTOR] : []),
 		{
@@ -138,6 +138,7 @@
 	desc={DESC}
 	path="teadmine/rehvivahetus/"
 	ogType="article"
+	image="/og/sait/rehvivahetus.png"
 	crumbs={[
 		[ru ? 'Главная' : 'Avaleht', '/'],
 		[ru ? 'Знания' : 'Teadmine', '/teadmine/'],

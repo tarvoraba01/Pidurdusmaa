@@ -8,7 +8,7 @@
  */
 
 /** trace → ajatelg: [[t s, teekond m, kiirus m/s], …] */
-function ajatelg(trace) {
+export function ajatelg(trace) {
 	const out = [[0, trace[0][0], trace[0][1] / 3.6]];
 	for (let i = 1; i < trace.length; i++) {
 		const [s0, v0] = trace[i - 1], [s1, v1] = trace[i];
@@ -18,7 +18,7 @@ function ajatelg(trace) {
 	}
 	return out;
 }
-function hetkel(tl, t) {
+export function hetkel(tl, t) {
 	if (t <= 0) return [0, tl[0][2]];
 	for (let i = 1; i < tl.length; i++) {
 		if (tl[i][0] >= t) {

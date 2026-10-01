@@ -36,7 +36,9 @@ export function entries() {
 	for (const [a, b] of vsPairs()) out.push({ liik: 'vs', slug: a + '-vs-' + b });
 	for (const p of autod().polved.values()) out.push({ liik: 'auto', slug: p.mk + '--' + p.slug });
 	/* vene/inglise lehtede pildid (vt ogLang $lib/i18n.js-is) */
-	for (const k of ['ru', 'en']) for (const x of ['avaleht', 'liiklusohutus']) out.push({ liik: 'sait', slug: x + '.' + k });
+	for (const x of ['liiklus-kurv', 'liiklus-pimedas', 'liiklus-pikivahe', 'rehvivahetus']) out.push({ liik: 'sait', slug: x });
+	for (const k of ['ru', 'en']) for (const x of ['avaleht', 'liiklusohutus', 'liiklus-kurv', 'liiklus-pimedas', 'liiklus-pikivahe']) out.push({ liik: 'sait', slug: x + '.' + k });
+	out.push({ liik: 'sait', slug: 'rehvivahetus.ru' });
 	out.push({ liik: 'sait', slug: 'millal-talverehvid-alla.ru' });
 	for (const p of autod().polved.values()) out.push({ liik: 'auto', slug: p.mk + '--' + p.slug + '.ru' });
 	return out;
@@ -107,12 +109,14 @@ function andmed(liik, slug) {
 	}
 	if (liik === 'sait' && (slug === 'liiklusohutus' || slug === 'peatumisteekonna-kalkulaator')) {
 		return {
-			kicker: slug === 'liiklusohutus' ? 'Liiklusohutus' : 'Uus tasuta kalkulaator',
+			pilt: 'peatumine',
+			kicker: slug === 'liiklusohutus' ? 'Liiklusohutus · peatumisteekond' : 'Uus tasuta kalkulaator',
 			pealkiri: 'Kui pika maa pealt auto peatub?',
-			alapealkiri: 'Kiirus, reaktsiooniaeg, teeolud ja rehvid — kaks olukorda kõrvuti',
-			sildid: ['Tasuta', 'Ilma reklaamita', 'Jagatav link']
+			alapealkiri: 'Kiirus, reaktsioon, tee ja rehvid',
+			sildid: ['Kaks olukorda kõrvuti', 'Tasuta']
 		};
 	}
+	if (liik === 'sait' && TEEMA[slug]) return TEEMA[slug].et;
 	if (liik === 'm') {
 		const s = sizeBySlug(slug);
 		if (!s) return null;
@@ -156,9 +160,34 @@ function andmed(liik, slug) {
 	return null;
 }
 
+/* Tööriistade ja teemalehtede pildid: oma pealkiri ja teemajoonis paremal */
+const AASTA = (() => { const d = new Date(); return d.getMonth() + 1 >= 5 ? d.getFullYear() : d.getFullYear() - 1; })();
+const TEEMA = {
+	'liiklus-kurv': {
+		et: { pilt: 'kurv', kicker: 'Liiklusohutus · kurv', pealkiri: 'Pidurdamine kurvis', alapealkiri: 'Paremad rehvid ees või taga?', sildid: ['Animatsioon', '92 olukorda'] },
+		ru: { pilt: 'kurv', kicker: 'Безопасность · поворот', pealkiri: 'Торможение в повороте', alapealkiri: 'Лучшие шины спереди или сзади?', sildid: ['Анимация', '92 ситуации'] },
+		en: { pilt: 'kurv', kicker: 'Road safety · bends', pealkiri: 'Braking in a bend', alapealkiri: 'Better tyres on the front or rear?', sildid: ['Animation', '92 scenarios'] }
+	},
+	'liiklus-pimedas': {
+		et: { pilt: 'pimedas', kicker: 'Liiklusohutus · pimedas', pealkiri: 'Kas jõuad jalakäija ees peatuda?', alapealkiri: 'Helkur, tumedad riided, kaugtuled', sildid: ['Ohutu kiirus', 'Tasuta'] },
+		ru: { pilt: 'pimedas', kicker: 'Безопасность · темнота', pealkiri: 'Успеете остановиться перед пешеходом?', alapealkiri: 'Световозвращатель, тёмная одежда', sildid: ['Безопасная скорость', 'Бесплатно'] },
+		en: { pilt: 'pimedas', kicker: 'Road safety · darkness', pealkiri: 'Can you stop for the pedestrian?', alapealkiri: 'Reflector, dark clothes, high beam', sildid: ['Safe speed', 'Free'] }
+	},
+	'liiklus-pikivahe': {
+		et: { pilt: 'pikivahe', kicker: 'Liiklusohutus · pikivahe', pealkiri: 'Kas 2 sekundit on piisav?', alapealkiri: 'Kui eesolev auto järsult pidurdab', sildid: ['1–4 sekundit', 'Tasuta'] },
+		ru: { pilt: 'pikivahe', kicker: 'Безопасность · дистанция', pealkiri: 'Хватит ли 2 секунд?', alapealkiri: 'Если машина впереди резко тормозит', sildid: ['1–4 секунды', 'Бесплатно'] },
+		en: { pilt: 'pikivahe', kicker: 'Road safety · following distance', pealkiri: 'Is 2 seconds enough?', alapealkiri: 'When the car ahead brakes hard', sildid: ['1–4 seconds', 'Free'] }
+	},
+	rehvivahetus: {
+		et: { pilt: 'kalender', kicker: 'Rehvivahetus ' + AASTA, pealkiri: 'Millal talverehvid alla?', alapealkiri: 'Talverehvid kohustuslikud 1.12–1.03', sildid: ['Naast 15.10–31.03', 'Seadus'] },
+		ru: { pilt: 'kalender', kicker: 'Смена резины ' + AASTA, pealkiri: 'Когда ставить зимние шины?', alapealkiri: 'Зимние шины обязательны 1.12–1.03', sildid: ['Шипы 15.10–31.03', 'Закон'] }
+	}
+};
+
 /* Vene/inglise tekstid (ainult pildid, mida vene/inglise lehed kasutavad) */
 function andmedKeel(liik, slug, lang) {
 	const ru = lang === 'ru';
+	if (liik === 'sait' && TEEMA[slug]) return TEEMA[slug][lang] || null;
 	if (liik === 'auto') {
 		const p = autod().polved.get(String(slug).replace('--', '/'));
 		if (!p) return null;
@@ -185,10 +214,10 @@ function andmedKeel(liik, slug, lang) {
 	}
 	if (liik === 'sait' && slug === 'liiklusohutus') {
 		return ru
-			? { kicker: 'Безопасность движения', pealkiri: 'С какого расстояния остановится автомобиль?',
-				alapealkiri: 'Скорость, реакция, дорога и шины — две ситуации рядом', sildid: ['Бесплатно', 'Без рекламы', 'Ссылкой можно поделиться'] }
-			: { kicker: 'Road safety', pealkiri: 'How far does it take a car to stop?',
-				alapealkiri: 'Speed, reaction time, road and tyres — two scenarios side by side', sildid: ['Free', 'No ads', 'Shareable link'] };
+			? { pilt: 'peatumine', kicker: 'Безопасность · остановочный путь', pealkiri: 'С какого расстояния остановится автомобиль?',
+				alapealkiri: 'Скорость, реакция, дорога и шины', sildid: ['Две ситуации рядом', 'Бесплатно'] }
+			: { pilt: 'peatumine', kicker: 'Road safety · stopping distance', pealkiri: 'How far does it take a car to stop?',
+				alapealkiri: 'Speed, reaction, road and tyres', sildid: ['Two scenarios side by side', 'Free'] };
 	}
 	return null;
 }

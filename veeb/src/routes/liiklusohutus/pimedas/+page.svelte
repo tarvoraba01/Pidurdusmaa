@@ -10,7 +10,7 @@
 	const jsonld = graph(tooriist(t('Nähtavuse kalkulaator pimedas'), '/liiklusohutus/pimedas/', KIRJ, keel.lang), ORG);
 </script>
 
-<Meta title={t('Nähtavus pimedas: kas jõuad jalakäija ees peatuda?')} desc={KIRJ} path="liiklusohutus/pimedas/" {jsonld} image="/og/sait/liiklusohutus.png" />
+<Meta title={t('Nähtavus pimedas: kas jõuad jalakäija ees peatuda?')} desc={KIRJ} path="liiklusohutus/pimedas/" {jsonld} image="/og/sait/liiklus-pimedas.png" />
 
 <LiiklusLeht kick={t('Liiklusohutus · pimedas')} h1={t('Kas jõuad pimedas peatuda?')} lead={t('Vali, kuidas jalakäija on riietatud ja mis tuled põlevad. Näed, kas auto jõuab enne teda peatuda, ja suurimat kiirust, millega see veel õnnestub.')} vaade="pimedas">
 	<div>

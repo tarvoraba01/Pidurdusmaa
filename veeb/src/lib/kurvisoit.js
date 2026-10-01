@@ -58,7 +58,7 @@ export function tee(R) {
 
 /**
  * @param P Pidurdus (engine.js)
- * @param o { veh, cond, tyreF, tyreR, R (m; 0 = sirge), reactionS, rada (true → salvesta teekond) }
+ * @param o { veh, cond, tyreF, tyreR, R (m; 0 = sirge), reactionS, abs (false → ABS-ita, rattad lukustuvad), rada (true → salvesta teekond) }
  * @returns tulemus: vt lõppu
  */
 export function kurviSoit(P, o) {
@@ -69,7 +69,13 @@ export function kurviSoit(P, o) {
 	const f0 = o.f0 ?? 0.6;
 	const a = Lw * (1 - f0), b = Lw * f0; // raskuskeskmest esi- ja tagasillani
 	const Iz = m * a * b;
-	const tBuild = P.CAL.brakeBuildup[veh.absClass] ?? 0.2;
+	const abs = o.abs !== false;
+	const tBuild = P.CAL.brakeBuildup[abs ? veh.absClass : 'NONE'] ?? 0.2;
+	/* lukus ratas libiseb: haare on väiksem (mootori kalibratsioon: ABS-ita ~0,74 vs ABS-iga ~0,94
+	   haardest) ja jõud on alati libisemisele vastu — rool ei mõju */
+	const LUKK = ((P.CAL.absEff.NONE || 0.74) / (P.CAL.absEff[veh.absClass] || 0.94)) * Math.tanh(1.4);
+	const aPidur = (veh.brakeCapacityG || 1.2) * g;
+	const PAANIKA = 1.3; // äkkpidurdusel vajutab juht pedaali rohkem, kui rehv jaksab
 	const reakt = o.reactionS ?? 1;
 	const v0 = cond.speedKmh / 3.6;
 	/* külgjäikus (1/rad, koormuse kohta); tagasild jäigem → auto kergelt alajuhitav nagu päris autod */
@@ -98,6 +104,15 @@ export function kurviSoit(P, o) {
 		const F = muV * N * Math.tanh(s);
 		return [-Math.sign(u || 1) * (F * sx) / s, (-F * sy) / s, Math.tanh(s)];
 	}
+
+	/* lukus ratas: jõud libisemise vastassuunas, suurus = lukus haare */
+	function lukus(u, w, N, muV) {
+		const sp = Math.hypot(u, w);
+		if (sp < 0.05) return [0, 0, 1];
+		const F = LUKK * muV * N;
+		return [(-F * u) / sp, (-F * w) / sp, 1];
+	}
+	let lukkFKmh = null, lukkRKmh = null;
 
 	/* algus: 30 m enne kurvi, otse ja ühtlase kiirusega; takistust näed kurvi sees */
 	const s0 = -Math.min(35, Math.max(18, v0 * 1.4));
@@ -149,13 +164,25 @@ export function kurviSoit(P, o) {
 		const sxF = pidurdab
 			? (sy) => Math.min(SXABS * ramp, Math.sqrt(Math.max(0.09, SXTOT * SXTOT - sy * sy)))
 			: () => -Math.max(0, Math.min(0.4, (v0 - vx) * 0.3)); // hoiab kiirust
-		const [FxFw, FyFw, useF] = sild(uF, wF, NF, muF, CYF, sxF);
+		/* ABS-ita: paanikas pidurdus lukustab esirattad, kui pidurijõud ületab haarde;
+		   tagarattad lukustuvad, kui nende osa (~28 %, rõhuregulaator vähendab umbes poole võrra)
+		   ületab tagasilla haarde — pidurdades on tagasild kerge */
+		const lukkF = pidurdab && !abs && ramp * PAANIKA * aPidur * 0.72 * m > muF * NF;
+		const uR = vx, wR = vy - b * r;
+		let FxFw, FyFw, useF, FxR, FyR, useR;
+		if (lukkF) [FxFw, FyFw, useF] = lukus(uF, wF, NF, muF);
+		else [FxFw, FyFw, useF] = sild(uF, wF, NF, muF, CYF, !abs && pidurdab ? () => Math.min(1.2, ramp * 1.2) : sxF);
 		fxF = Math.abs(FxFw);
 		/* tagasild */
-		const uR = vx, wR = vy - b * r;
-		const ebd = pidurdab ? Math.min(1.2, Math.atanh(Math.min(0.85, (kR * fxF) / (muR * NR)))) : 0;
-		const sxR = (sy) => Math.min(ebd, Math.sqrt(Math.max(0, SXR * SXR - sy * sy)));
-		const [FxR, FyR, useR] = sild(uR, wR, NR, muR, CYR, sxR);
+		const lukkR = pidurdab && !abs && ramp * PAANIKA * aPidur * 0.28 * 0.5 * m > muR * NR;
+		if (lukkR) [FxR, FyR, useR] = lukus(uR, wR, NR, muR);
+		else {
+			const ebd = pidurdab ? Math.min(1.2, Math.atanh(Math.min(0.85, (kR * fxF) / (muR * NR)))) : 0;
+			const sxR = abs ? (sy) => Math.min(ebd, Math.sqrt(Math.max(0, SXR * SXR - sy * sy))) : () => ebd;
+			[FxR, FyR, useR] = sild(uR, wR, NR, muR, CYR, sxR);
+		}
+		if (lukkF && lukkFKmh === null) lukkFKmh = v * 3.6;
+		if (lukkR && lukkRKmh === null) lukkRKmh = v * 3.6;
 		/* keresse teljestikku */
 		const FxF = FxFw * cd - FyFw * sd, FyF = FxFw * sd + FyFw * cd;
 		const drag = (0.5 * 1.2 * (veh.cdaM2 || 0.7) * v * vx) + (P.CAL.crr || 0.012) * m * g * Math.sign(vx) * Math.min(1, Math.abs(vx));
@@ -190,7 +217,7 @@ export function kurviSoit(P, o) {
 			}
 		}
 		if (rada && t >= jargmine) {
-			rada.push([t, x, y, psi, v * 3.6, useF, useR, pidurdab ? 2 : tNae !== null ? 1 : 0, d]);
+			rada.push([t, x, y, psi, v * 3.6, useF, useR, pidurdab ? 2 : tNae !== null ? 1 : 0, d, (lukkF ? 1 : 0) + (lukkR ? 2 : 0)]);
 			jargmine += rec;
 		}
 		/* lõpp: seisab, või on teelt üle 2 m väljas */
@@ -229,8 +256,11 @@ export function kurviSoit(P, o) {
 		maxUseF,
 		maxUseR,
 		maxBeta: (maxBeta * 180) / Math.PI,
+		abs,
+		lukkFKmh,
+		lukkRKmh,
 		/* piiril: auto jõuab keskjoonele lähemale kui 40 cm, libiseb külg ees üle 6° või tagarattad on haarde piiril */
-		tulemus: teelt ? (ringi ? 'ringi_teelt' : 'teelt') : ringi ? 'ringi' : vastu ? 'vastu' : maxD > 0.45 || maxBeta > 0.1 || maxUseR > 0.95 ? 'piiril' : 'ok'
+		tulemus: teelt ? (ringi ? 'ringi_teelt' : 'teelt') : ringi ? 'ringi' : vastu ? 'vastu' : maxD > 0.45 || maxBeta > 0.1 || (abs && maxUseR > 0.95) ? 'piiril' : 'ok'
 	};
 }
 

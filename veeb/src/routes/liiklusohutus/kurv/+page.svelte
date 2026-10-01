@@ -10,7 +10,7 @@
 	const jsonld = graph(tooriist(t('Kurvis pidurdamise kalkulaator'), '/liiklusohutus/kurv/', KIRJ, keel.lang), ORG);
 </script>
 
-<Meta title={t('Pidurdamine kurvis: paremad rehvid ees või taga?')} desc={KIRJ} path="liiklusohutus/kurv/" {jsonld} image="/og/sait/liiklusohutus.png" />
+<Meta title={t('Pidurdamine kurvis: paremad rehvid ees või taga?')} desc={KIRJ} path="liiklusohutus/kurv/" {jsonld} image="/og/sait/liiklus-kurv.png" />
 
 <LiiklusLeht kick={t('Liiklusohutus · kurv ja rehvid')} h1={t('Pidurdamine kurvis')} lead={t('Vali kurv, kiirus, teeolud ja rehvid ning vaata animatsioonist, mis juhtub äkkpidurdusel: kas auto peatub oma rajal, kandub vastassuunavööndisse, pöörab ringi või sõidab teelt välja.')} vaade="kurv">
 	<div>
