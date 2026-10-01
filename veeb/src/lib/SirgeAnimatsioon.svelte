@@ -54,14 +54,17 @@
 			for (const a of tee.autod) for (const q of a.rada) { if (q[1] - 5 < x0) x0 = q[1] - 5; if (q[1] > x1) x1 = q[1]; }
 			if (tee.jk) x1 = Math.max(x1, tee.jk.x);
 		}
-		x0 = Math.max(x0, x1 - 400) - 4;
-		x1 += 8;
+		x0 = Math.max(x0, x1 - 400);
+		/* varu servades, et sildid („märkad jalakäijat“, „jalakäija“) mahuksid ära */
+		const varu = 6 + (x1 - x0) * 0.09;
+		x0 -= varu;
+		x1 += varu;
 		const n = stseen.teed.length;
 		const y0 = -LAI / 2 - 6, y1 = yTee(n - 1) + LAI / 2 + 6;
 		let w = x1 - x0, h = y1 - y0;
 		if (w / h < AR) w = h * AR; else h = w / AR;
 		/* HUD on üleval vasakul: tee veidi allapoole */
-		const yld = { x: (x0 + x1) / 2, y: (y0 + y1) / 2 - (w / AR) * 0.1, w };
+		const yld = { x: (x0 + x1) / 2, y: (y0 + y1) / 2, w };
 		/* puud ja postid tee ääres */
 		const puud = [], postid = [];
 		const A0 = x0 - 200, A1 = x1 + 200;
@@ -171,7 +174,9 @@
 
 	/* ---------- joonistamine ---------- */
 	const H = $derived(cam.w / AR);
-	const vb = $derived(`${(cam.x - cam.w / 2).toFixed(2)} ${(cam.y - H / 2).toFixed(2)} ${cam.w.toFixed(2)} ${H.toFixed(2)}`);
+	/* HUD on üleval vasakul: tee veidi allapoole (nihe sõltub praegusest vaatest) */
+	const camY = $derived(cam.y - H * 0.1);
+	const vb = $derived(`${(cam.x - cam.w / 2).toFixed(2)} ${(camY - H / 2).toFixed(2)} ${cam.w.toFixed(2)} ${H.toFixed(2)}`);
 	const fs = $derived(cam.w / (AR < 1.5 ? 32 : 42));
 	const autoSuur = $derived(Math.max(1, cam.w / 120));
 	const pts = (a) => a.map((p) => p[0].toFixed(2) + ',' + p[1].toFixed(2)).join(' ');
@@ -317,7 +322,7 @@
 					</g>
 				{/each}
 				<!-- mõõtkava -->
-				<g transform="translate({cam.x - cam.w / 2 + fs * 0.9} {cam.y + H / 2 - fs * 0.9})">
+				<g transform="translate({cam.x - cam.w / 2 + fs * 0.9} {camY + H / 2 - fs * 0.9})">
 					<rect x={-fs * 0.4} y={-fs * 1.5} width={mootkava + fs * 0.8} height={fs * 2.1} rx={fs * 0.3} fill="#fff" opacity=".82" />
 					<path d="M0 0H{mootkava}M0 {-fs * 0.3}V0M{mootkava} {-fs * 0.3}V0" stroke="#111" stroke-width={fs * 0.09} fill="none" />
 					<text x={mootkava / 2} y={-fs * 0.45} font-size={fs * 0.8} text-anchor="middle" fill="#111">{mootkava} {t('m')}</text>
