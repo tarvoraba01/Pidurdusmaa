@@ -671,6 +671,7 @@ export default {
 "Menüü": "Menu",
 "Autod ja rehvimõõdud": "Cars and tyre sizes",
 "Sõltumatud testid": "Independent tests",
+"Artiklid": "Articles",
 "Pidurdus- ja peatumisteekond": "Braking and stopping distance",
 "EL-i rehvimärgis": "EU tyre label",
 "Kontakt": "Contact",
@@ -681,7 +682,6 @@ export default {
 "Andmed": "Data",
 "Autod": "Cars",
 "Rehvimargid": "Tyre brands",
-"Artiklid": "Articles",
 "Meist": "About us",
 "Partnerid": "Partners",
 "EL-i tooteregister EPREL": "EU product register EPREL",
@@ -932,5 +932,6 @@ export default {
 "Sobivad rehvid sinu tingimustele": "Tyres for your conditions",
 "Liiklusohutus": "Road safety",
 "Otsi": "Find",
-"Loe": "Read"
+"Loe": "Read",
+"Rehvid ja pidurdamine lihtsalt lahti seletatud": "Tyres and braking explained simply"
 };

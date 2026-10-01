@@ -164,7 +164,7 @@
 			<div class="pm-tiles">
 				<a class="pm-tile" href={L('/')}><Icon name="gauge" /><b>{t("Pidurdusmaa kalkulaator")}</b><span>{t("Kui kiiresti sinu auto peatub")}</span></a>
 				<a class="pm-tile" href={L('/rehvi-valimine/')}><Icon name="target" /><b>{t("Vali rehv")}</b><span>{t("Sobivad rehvid sinu tingimustele")}</span></a>
-				<a class="pm-tile" href={L('/talverehvid/')}><Icon name="snow" /><b>{t("Parimad talverehvid")}</b><span>{t("Testid ja pidurdusmaa sinu mõõdus")}</span></a>
+				<a class="pm-tile" href={lang === 'ru' ? '/ru/teadmine/artiklid/' : '/teadmine/'}><Icon name="book" /><b>{t("Teadmine")}</b><span>{t("Rehvid ja pidurdamine lihtsalt lahti seletatud")}</span></a>
 				<a class="pm-tile" href={L('/teadmine/rehvivahetus/')}><Icon name="calendar" /><b>{t("Rehvivahetus")}</b><span>{t("Millal talve- ja suverehvid alla")}</span></a>
 			</div>
 
@@ -184,11 +184,12 @@
 					<a class="pm-row" href={L('/autod/')}><Icon name="car" />{t("Autod ja rehvimõõdud")}</a>
 					<a class="pm-row" href={L('/rehvid/')}><Icon name="tyre" />{t("Rehvid")}</a>
 					<a class="pm-row" href={L('/vordle-rehve/')}><Icon name="compare" />{t("Võrdle rehve kõrvuti")}</a>
+					<a class="pm-row" href={L('/talverehvid/')}><Icon name="snow" />{t("Parimad talverehvid")}</a>
 					<a class="pm-row" href="/testid/"><Icon name="test" />{t("Sõltumatud testid")}</a>
 				</section>
 				<section class="pm-sek">
 					<h4>{t("Loe")}</h4>
-					<a class="pm-row" href={lang === 'ru' ? '/ru/teadmine/artiklid/' : '/teadmine/'}><Icon name="book" />{t("Teadmine")}</a>
+					{#if lang !== 'ru'}<a class="pm-row" href={L('/teadmine/artiklid/')}><Icon name="book" />{t("Artiklid")}</a>{/if}
 					<a class="pm-row" href={L('/teadmine/pidurdusteekond-ja-peatumisteekond/')}><Icon name="info" />{t("Pidurdus- ja peatumisteekond")}</a>
 					<a class="pm-row" href="/teadmine/rehvimargis/"><Icon name="info" />{t("EL-i rehvimärgis")}</a>
 					<a class="pm-row" href="/teadmine/kuidas-pidurdusmaa-arvutatakse/"><Icon name="info" />{t("Kuidas arvutatakse")}</a>
