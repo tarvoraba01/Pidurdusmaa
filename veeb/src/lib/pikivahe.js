@@ -32,30 +32,30 @@ function hetkel(tl, t) {
 }
 
 /**
- * @param trace  pidurdusjälg (reaktsioonita) stoppingDistance'ist
- * @param kmh    mõlema auto kiirus
- * @param vaheS  pikivahe sekundites
- * @param reaktS sinu reageerimisaeg
- * @param ees    'pidurdab' — eesolev auto pidurdab nagu sina; 'seisab' — peatub kohe
+ * @param traceF  sinu pidurdusjälg (reaktsioonita) stoppingDistance'ist
+ * @param kmh     sinu kiirus
+ * @param vaheS   pikivahe sekundites (sinu kiiruse järgi)
+ * @param reaktS  sinu reageerimisaeg
+ * @param ees     'pidurdab' — eesolev auto pidurdab järsult; 'seisab' — peatub kohe
+ * @param traceL  eesoleva auto pidurdusjälg (kui puudub, pidurdab ta nagu sina)
  */
-export function pikivahe(trace, kmh, vaheS, reaktS, ees = 'pidurdab') {
+export function pikivahe(traceF, kmh, vaheS, reaktS, ees = 'pidurdab', traceL = null) {
 	const v = kmh / 3.6;
 	const vaheM = v * vaheS;
-	const tl = ajatelg(trace);
-	const tLopp = tl[tl.length - 1][0] + reaktS + 1;
+	const tf = ajatelg(traceF);
+	const tl = traceL ? ajatelg(traceL) : tf;
+	const tLopp = Math.max(tl[tl.length - 1][0], tf[tf.length - 1][0] + reaktS) + 1;
 	const eesKoht = ees === 'seisab' ? vaheM : vaheM + tl[tl.length - 1][1];
-	let kiirusEesKohas = null;
 	for (let t = 0; t <= tLopp; t += 0.005) {
 		const [sL, vL] = ees === 'seisab' ? [0, 0] : hetkel(tl, t);
 		const xL = vaheM + sL;
 		let xF, vF;
-		if (t < reaktS) { xF = v * t; vF = v; } else { const [s, vv] = hetkel(tl, t - reaktS); xF = v * reaktS + s; vF = vv; }
-		if (kiirusEesKohas === null && xF >= eesKoht) kiirusEesKohas = vF * 3.6;
+		if (t < reaktS) { xF = v * t; vF = v; } else { const [s, vv] = hetkel(tf, t - reaktS); xF = v * reaktS + s; vF = vv; }
 		if (xF >= xL) {
-			return { vaheM, kokkuporge: true, loogKmh: Math.max(0, (vF - vL) * 3.6), sinuKmh: vF * 3.6, temaKmh: vL * 3.6, kiirusEesKohas: vF * 3.6 };
+			return { vaheM, kokkuporge: true, loogKmh: Math.max(0, (vF - vL) * 3.6), sinuKmh: vF * 3.6, temaKmh: vL * 3.6 };
 		}
 		if (vF <= 0 && t > reaktS) break;
 	}
-	const [sF] = hetkel(tl, tLopp);
-	return { vaheM, kokkuporge: false, jaabM: eesKoht - (v * reaktS + sF), kiirusEesKohas: 0 };
+	const [sF] = hetkel(tf, tLopp);
+	return { vaheM, kokkuporge: false, jaabM: eesKoht - (v * reaktS + sF) };
 }

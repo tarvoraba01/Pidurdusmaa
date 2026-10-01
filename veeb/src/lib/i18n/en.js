@@ -853,5 +853,9 @@ export default {
 "nagu maanteel, kus saab sõita 90 km/h": "like on a main road you can take at 90 km/h",
 "pööre ristmikul, ringtee": "turn at a junction, roundabout",
 "{m} m pärast, kiirusel {k} km/h": "after {m} m, at {k} km/h",
-"Äkkpidurdus kurvis": "Emergency braking in a bend"
+"Äkkpidurdus kurvis": "Emergency braking in a bend",
+"Sina": "You",
+"+ Eesolev auto erineb": "+ Car ahead is different",
+"Sõidad {v} km/h teise auto taga. Tema ({b} km/h) pidurdab järsult oma auto ja rehvidega (vasakul „Eesolev auto“), sina reageerid {r} s pärast. Kas jõuad peatuda?": "You are doing {v} km/h behind another car. It ({b} km/h) brakes hard with its own car and tyres (“Car ahead” on the left); you react after {r} s. Can you stop in time?",
+"Eesoleva auto saad muuta vasakul („+ Eesolev auto erineb“): näiteks uute rehvidega auto pidurdab lühemalt ja kulunud rehvidega sina jõuad talle sisse ka 2 sekundi vahega.": "You can change the car ahead on the left (“+ Car ahead is different”): for example, a car on new tyres stops shorter, and on worn tyres you hit it even with a 2-second gap."
 };

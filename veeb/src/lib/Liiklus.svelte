@@ -459,11 +459,17 @@
 	);
 	const vmaxid = $derived(NAEB && core && P ? [['A', A], ...(B ? [['B', B]] : [])].map(([n, s]) => [n, vMax(s, takistus)]) : []);
 
+	/* Pikivahe: A = sina; B (kui lisatud) = eesolev auto oma kiiruse, rehvide ja autoga */
 	const pvRead = $derived.by(() => {
 		if (!core || !P) return [];
 		const x = arvuta({ ...A, reakt: 0 });
 		if (!x || !x.r || !x.r.stopped || !x.r.trace || x.r.trace.length < 2) return [];
-		return [1, 2, 3, 4].map((sek) => [sek, pikivahe(x.r.trace, +A.kiirus, sek, +A.reakt, ees)]);
+		let tL = null;
+		if (B) {
+			const y = arvuta({ ...B, reakt: 0 });
+			if (y && y.r && y.r.stopped && y.r.trace && y.r.trace.length > 1) tL = y.r.trace;
+		}
+		return [1, 2, 3, 4].map((sek) => [sek, pikivahe(x.r.trace, +A.kiirus, sek, +A.reakt, ees, tL)]);
 	});
 
 	/* Kurvi tööriist: oma auto, tee, rehvid ja mustrisügavus ees/taga */
@@ -616,15 +622,15 @@
 		<section class="lo-in" aria-label={t("Olukord")}>
 			<div class="lo-tabs">
 				<div class="lo-tablist" role="tablist" aria-label={t("Olukord")}>
-					<button type="button" role="tab" aria-selected={muuda === 'A'} class="t-a" onclick={() => (muuda = 'A')}>{t("Olukord A")}</button>
+					<button type="button" role="tab" aria-selected={muuda === 'A'} class="t-a" onclick={() => (muuda = 'A')}>{vaade === 'pikivahe' ? t('Sina') : t("Olukord A")}</button>
 					{#if B}
-						<button type="button" role="tab" aria-selected={muuda === 'B'} class="t-b" onclick={() => (muuda = 'B')}>{t("Olukord B")}</button>
+						<button type="button" role="tab" aria-selected={muuda === 'B'} class="t-b" onclick={() => (muuda = 'B')}>{vaade === 'pikivahe' ? t('Eesolev auto') : t("Olukord B")}</button>
 					{/if}
 				</div>
 				{#if B}
 					<button type="button" class="lo-x" onclick={eemaldaB} aria-label={t("Eemalda olukord B")}>×</button>
 				{:else}
-					<button type="button" class="lo-add" onclick={lisaB}>{t("+ Lisa võrdlus")}</button>
+					<button type="button" class="lo-add" onclick={lisaB}>{vaade === 'pikivahe' ? t('+ Eesolev auto erineb') : t("+ Lisa võrdlus")}</button>
 				{/if}
 			</div>
 
@@ -785,7 +791,7 @@
 		<section class="lo-kt lo-pv lo-side" aria-labelledby="lo-pv-h">
 			<h2 id="lo-pv-h">{t('Pikivahe')}</h2>
 			<p class="lo-kt-sub">
-				{#if ees === 'seisab'}{t('Sõidad {v} km/h teise auto taga. Tema peatub hetkega (sõidab millelegi otsa), sina reageerid {r} s pärast ja pidurdad. Kas jõuad peatuda?', { v: A.kiirus, r: f1(A.reakt) })}{:else}{t('Sõidad {v} km/h teise auto taga. Tema pidurdab järsult, sina reageerid {r} s pärast ja pidurdad sama autoga samal teel. Kas jõuad peatuda?', { v: A.kiirus, r: f1(A.reakt) })}{/if}
+				{#if ees === 'seisab'}{t('Sõidad {v} km/h teise auto taga. Tema peatub hetkega (sõidab millelegi otsa), sina reageerid {r} s pärast ja pidurdad. Kas jõuad peatuda?', { v: A.kiirus, r: f1(A.reakt) })}{:else}{#if B}{t('Sõidad {v} km/h teise auto taga. Tema ({b} km/h) pidurdab järsult oma auto ja rehvidega (vasakul „Eesolev auto“), sina reageerid {r} s pärast. Kas jõuad peatuda?', { v: A.kiirus, b: B.kiirus, r: f1(A.reakt) })}{:else}{t('Sõidad {v} km/h teise auto taga. Tema pidurdab järsult, sina reageerid {r} s pärast ja pidurdad sama autoga samal teel. Kas jõuad peatuda?', { v: A.kiirus, r: f1(A.reakt) })}{/if}{/if}
 			</p>
 			<div class="lo-kt-ctl">
 				<div class="lo-kt-seg" role="group" aria-label={t('Eesolev auto')}>
@@ -828,6 +834,7 @@
 			</div>
 			<p class="lo-kt-note">
 				{t('Levinud rusikareegel on vähemalt 2 sekundit, märjal ja libedal teel rohkem. Kui sinu reageerimisaeg on pikem kui pikivahe, sõidad eesolevale autole sisse ka siis, kui pidurdate täpselt ühtemoodi. Muuda vasakul kiirust, reageerimisaega ja teeolusid.')}
+				{#if !B}{t('Eesoleva auto saad muuta vasakul („+ Eesolev auto erineb“): näiteks uute rehvidega auto pidurdab lühemalt ja kulunud rehvidega sina jõuad talle sisse ka 2 sekundi vahega.')}{/if}
 			</p>
 		</section>
 		{/if}
