@@ -3,7 +3,7 @@
 	const t = useT();
 	const keel = useLang();
 	import Meta from '$lib/Meta.svelte';
-	import Liiklus from '$lib/Liiklus.svelte';
+	import LiiklusLeht from '$lib/LiiklusLeht.svelte';
 	import { ORG, graph, tooriist } from '$lib/skeem.js';
 
 	const KIRJ =
@@ -13,24 +13,13 @@
 
 <Meta title={t("Peatumisteekonna kalkulaator")} desc={KIRJ} path="liiklusohutus/" {jsonld} image="/og/sait/liiklusohutus.png" />
 
-<section class="lo-hero">
-	<div class="wrap">
-		<p class="lo-kick">{t("Liiklusohutus · tasuta, ilma reklaamita")}</p>
-		<h1>{t("Kui pika maa pealt auto peatub?")}</h1>
-		<p>
-			{t("Muuda kiirust, reaktsiooniaega, teeolusid ja rehvide seisukorda ning vaata kohe, kuidas peatumisteekond muutub. Pane kaks olukorda kõrvuti ja näe, millise kiirusega jõuab auto sinna, kus teine juba seisab.")}
-		</p>
-	</div>
-</section>
+<LiiklusLeht
+	kick={t("Liiklusohutus · tasuta, ilma reklaamita")}
+	h1={t("Kui pika maa pealt auto peatub?")}
+	lead={t("Muuda kiirust, reaktsiooniaega, teeolusid ja rehvide seisukorda ning vaata kohe, kuidas peatumisteekond muutub. Pane kaks olukorda kõrvuti ja näe, millise kiirusega jõuab auto sinna, kus teine juba seisab.")}
+	vaade="peatumine"
+>
 
-<section class="lo-bg">
-	<div class="wrap">
-		<Liiklus />
-	</div>
-</section>
-
-<section class="lo-info">
-	<div class="wrap lo-cols">
 		<div>
 			<h2>{t("Mida proovida")}</h2>
 			<ul>
@@ -83,80 +72,4 @@
 				{t("Tööriist on tasuta kõigile — juhtidele, lapsevanematele, koolidele ja autokoolidele. Lehel ei ole reklaami, hindu ega poode.")}
 			</p>
 		</div>
-	</div>
-</section>
-
-<style>
-	.lo-hero {
-		background: var(--ink);
-		color: var(--on-d);
-		padding: var(--sp-10) 0 var(--sp-8);
-	}
-	.lo-kick {
-		color: var(--yellow);
-		font-weight: 700;
-		font-size: 13px;
-		letter-spacing: 0.14em;
-		text-transform: uppercase;
-		margin: 0 0 var(--sp-3);
-	}
-	.lo-hero h1 {
-		font-family: var(--display);
-		font-weight: 700;
-		font-size: clamp(40px, 5.4vw, 68px);
-		line-height: 0.95;
-		text-transform: uppercase;
-		margin: 0 0 var(--sp-3);
-		text-wrap: balance;
-	}
-	:global(:lang(ru)) .lo-hero h1 {
-		font-size: clamp(28px, 7.4vw, 60px);
-	}
-	.lo-hero p:last-child {
-		color: #cfd4db;
-		font-size: 18px;
-		max-width: 760px;
-		margin: 0;
-	}
-	.lo-bg {
-		background: var(--paper-2);
-	}
-	.lo-info {
-		background: #fff;
-		padding: var(--sp-10) 0 var(--sp-12);
-		border-top: 1px solid var(--line);
-	}
-	.lo-cols {
-		display: grid;
-		grid-template-columns: repeat(3, 1fr);
-		gap: var(--sp-8);
-	}
-	@media (max-width: 900px) {
-		.lo-cols {
-			grid-template-columns: 1fr;
-		}
-	}
-	.lo-info h2 {
-		font-family: var(--display);
-		font-weight: 700;
-		text-transform: uppercase;
-		font-size: 26px;
-		margin: 0 0 var(--sp-3);
-	}
-	.lo-info ul {
-		padding-left: 18px;
-		margin: 0;
-		display: grid;
-		gap: var(--sp-2);
-	}
-	.lo-info p {
-		max-width: 65ch;
-	}
-	.lo-src {
-		font-size: 14.5px;
-	}
-	.lo-small {
-		font-size: 14px;
-		color: var(--muted);
-	}
-</style>
+</LiiklusLeht>

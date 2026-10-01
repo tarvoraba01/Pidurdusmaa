@@ -3,6 +3,16 @@
 	const t = useT();
 	const keel = useLang();
 	const LOC = { et: 'et-EE', ru: 'ru-RU', en: 'en-GB' }[keel.lang] || 'et-EE';
+	/* Neli eraldi tööriista, sama vasak paneel (olukord A/B). Vahekaart = eraldi leht;
+	   olukord liigub aadressi #… kaudu ühest tööriistast teise kaasa. */
+	let { vaade = 'peatumine' } = $props();
+	const VAATED = [
+		['peatumine', '/liiklusohutus/', t('Peatumisteekond')],
+		['pimedas', '/liiklusohutus/pimedas/', t('Pimedas')],
+		['pikivahe', '/liiklusohutus/pikivahe/', t('Pikivahe')],
+		['kurv', '/liiklusohutus/kurv/', t('Kurv ja rehvid')]
+	];
+	const teeVaade = $derived(vaade === 'peatumine' || vaade === 'pimedas');
 	/* Liiklusohutuse kalkulaator (/liiklusohutus/).
 	   Sama arvutusmootor mis põhilehel (engine.js), aga neutraalne:
 	   ei poode, hindu, rehvisoovitusi ega kasutusloo jälgimist.
@@ -153,6 +163,7 @@
 			d.vehicles.forEach((v) => (d.byKey[v.key] = v));
 			core = d;
 			loeAadressist();
+			if (vaade === 'pimedas' && !naeb) setNaeb('tume');
 		} catch (e) {
 			viga = t('Andmed ei laadinud. Proovi lehte värskendada.');
 		}
@@ -441,7 +452,21 @@
 <div class="lo" class:proj={esitlus} bind:this={juur}>
 	{#if viga}<p class="lo-viga">{viga}</p>{/if}
 
+	<nav class="lo-tabs" aria-label={t('Kalkulaatorid')}>
+		{#each VAATED as [id, tee, nimi] (id)}
+			<a href={keel.L(tee)} aria-current={vaade === id ? 'page' : undefined} onclick={(e) => (e.currentTarget.href = keel.L(tee) + location.hash)}>{nimi}</a>
+		{/each}
+	</nav>
+
 	<div class="lo-top">
+		{#if vaade === 'pimedas'}
+			<div class="lo-naited lo-naeb-top" role="group" aria-label={t('Jalakäija pimedas')}>
+				<span class="lo-lbl">{t('Jalakäija pimedas — kust juht teda märkab:')}</span>
+				{#each NAHT as [id, d, nimi] (id)}
+					<button type="button" aria-pressed={naeb === id} onclick={() => setNaeb(id)}>{nimi} <small>~{d} {t('m')}</small></button>
+				{/each}
+			</div>
+		{:else if vaade === 'peatumine'}
 		<div class="lo-naited" aria-label={t("Näidisvõrdlused")}>
 			<span class="lo-lbl">{t("Valmis võrdlused:")}</span>
 			<button type="button" onclick={() => naide('kiirus')}>{t("50 vs 70 km/h")}</button>
@@ -451,6 +476,9 @@
 			<button type="button" onclick={() => naide('lumi')}>{t("Suverehv lumel")}</button>
 			<button type="button" onclick={() => naide('jaa')}>{t("Jää −10 °C vs 0 °C")}</button>
 		</div>
+		{:else}
+			<div></div>
+		{/if}
 		<div class="lo-tools">
 			<button type="button" class="lo-tool" onclick={kopeeri}>{kopeeritud ? t('Link kopeeritud') : t('Kopeeri link')}</button>
 			<button type="button" class="lo-tool" aria-pressed={esitlus} onclick={esitlusrezim}>{esitlus ? t('Välju esitlusest') : t('Esitlusrežiim')}</button>
@@ -625,6 +653,121 @@
 		</section>
 
 		<!-- ================= TULEMUS ================= -->
+		{#if vaade === 'pikivahe'}
+		{#if !core}<p class="lo-laeb">{t("Laadin arvutusmudelit…")}</p>{:else if pvRead.length}
+		<section class="lo-kt lo-pv lo-side" aria-labelledby="lo-pv-h">
+			<h2 id="lo-pv-h">{t('Pikivahe')}</h2>
+			<p class="lo-kt-sub">
+				{#if ees === 'seisab'}{t('Sõidad {v} km/h teise auto taga. Tema peatub hetkega (sõidab millelegi otsa), sina reageerid {r} s pärast ja pidurdad. Kas jõuad peatuda?', { v: A.kiirus, r: f1(A.reakt) })}{:else}{t('Sõidad {v} km/h teise auto taga. Tema pidurdab järsult, sina reageerid {r} s pärast ja pidurdad sama autoga samal teel. Kas jõuad peatuda?', { v: A.kiirus, r: f1(A.reakt) })}{/if}
+			</p>
+			<div class="lo-kt-ctl">
+				<div class="lo-kt-seg" role="group" aria-label={t('Eesolev auto')}>
+					<span>{t('Eesolev auto:')}</span>
+					<button type="button" aria-pressed={ees === 'pidurdab'} onclick={() => (ees = 'pidurdab')}>{t('pidurdab järsult')}</button>
+					<button type="button" aria-pressed={ees === 'seisab'} onclick={() => (ees = 'seisab')}>{t('peatub kohe (sõidab millelegi otsa)')}</button>
+				</div>
+			</div>
+			<div class="tbl-wrap">
+				<table class="lo-kt-t">
+					<thead>
+						<tr>
+							<th>{t('Pikivahe')}</th>
+							<th class="n">{t('Vahe meetrites')}</th>
+							<th>{t('Mis juhtub')}</th>
+						</tr>
+					</thead>
+					<tbody>
+						{#each pvRead as [sek, x] (sek)}
+							{@const napp = x.kokkuporge && x.loogKmh < 2}
+							<tr>
+								<td class="nw lo-kt-nimi"><b>{sek} {t('s')}</b></td>
+								<td class="n nw" data-l={t('Vahe meetrites')}>{f0(x.vaheM)} {t('m')}</td>
+								<td class="lo-kt-ots">
+									{#if napp}
+										<span class="lo-kt-o lo-kt-hoiatus">{t('Peatud vahetult tema taga — varu ei jää')}</span>
+									{:else if x.kokkuporge}
+										<span class="lo-kt-o lo-kt-halb">{t('Kokkupõrge {k} km/h', { k: f0(x.loogKmh) })}</span>
+										<small class="lo-kt-varu">
+											{#if x.temaKmh > 1}{t('Sinu kiirus {s} km/h, eesoleval autol veel {e} km/h.', { s: f0(x.sinuKmh), e: f0(x.temaKmh) })}{:else}{t('Eesolev auto juba seisab, sina sõidad veel {s} km/h.', { s: f0(x.sinuKmh) })}{/if}
+										</small>
+									{:else}
+										<span class="lo-kt-o lo-kt-ok">{t('Peatud {m} m tema taga', { m: m(x.jaabM) })}</span>
+									{/if}
+								</td>
+							</tr>
+						{/each}
+					</tbody>
+				</table>
+			</div>
+			<p class="lo-kt-note">
+				{t('Levinud rusikareegel on vähemalt 2 sekundit, märjal ja libedal teel rohkem. Kui sinu reageerimisaeg on pikem kui pikivahe, sõidad eesolevale autole sisse ka siis, kui pidurdate täpselt ühtemoodi. Muuda vasakul kiirust, reageerimisaega ja teeolusid.')}
+			</p>
+		</section>
+		{/if}
+		{:else if vaade === 'kurv'}
+		{#if !core}<p class="lo-laeb">{t("Laadin arvutusmudelit…")}</p>{:else if ktRead.length}
+		<section class="lo-kt lo-side" aria-labelledby="lo-kt-h">
+			<h2 id="lo-kt-h">{t('Auto käitumine pidurdamisel')}</h2>
+			<p class="lo-kt-sub">
+				{t('Olukord A, äkkpidurdus {v} km/h pealt', { v: A.kiirus })} · {PIND.find((p) => p[0] === A.pind)[1].toLowerCase()}.
+				{t('Kurvis kulub osa rehvi haardest pööramisele ja pidurdades kandub auto koormus esisillale — tagarattad jäävad kergemaks.')}
+			</p>
+			<div class="lo-kt-ctl">
+				<div class="lo-kt-seg" role="group" aria-label={t('Tee')}>
+					{#each KURV as [r, nimi] (r)}
+						<button type="button" aria-pressed={kurv === r} onclick={() => (kurv = r)}>{nimi}</button>
+					{/each}
+				</div>
+				<div class="lo-kt-seg" role="group" aria-label={t('Kulunud rehv')}>
+					<span>{t('Kulunud rehv:')}</span>
+					<button type="button" aria-pressed={kulu === 'piir'} onclick={() => (kulu = 'piir')}>{t('seaduse piiril')} ({f1(TALV[A.kat] ? 3 : 1.6)} {t('mm')})</button>
+					<button type="button" aria-pressed={kulu === 'kesk'} onclick={() => (kulu = 'kesk')}>{t('keskmiselt kulunud')} (4,5 {t('mm')})</button>
+				</div>
+			</div>
+			<div class="tbl-wrap">
+				<table class="lo-kt-t">
+					<thead>
+						<tr>
+							<th>{t('Rehvid')}</th>
+							{#if kurv}<th class="n">{t('Kurvi piirkiirus')}</th>{/if}
+							<th class="n">{t('Peatumisteekond')}</th>
+							<th>{t('Mis juhtub')}</th>
+						</tr>
+					</thead>
+					<tbody>
+						{#each ktRead as [id, nimi, r] (id)}
+							{@const ots = !kurv
+								? ['ok', t('Sirgel teel püsib auto otse')]
+								: r.kaotus === 'taga'
+									? ['halb', t('Tagaosa libiseb välja — auto pöörab ringi (ülejuhitavus)')]
+									: r.kaotus === 'esi'
+										? ['halb', t('Esirattad libisevad — auto ei pööra ja sõidab kurvist välja (alajuhitavus)')]
+										: r.varuTaga < 0.15
+											? ['hoiatus', t('Peatub, aga tagaosa on libisemise piiril')]
+											: r.varuEsi < 0.15
+												? ['hoiatus', t('Peatub, aga esirattad on haarde piiril')]
+												: ['ok', t('Püsib kurvis ja peatub')]}
+							<tr>
+								<td class="lo-kt-nimi"><b>{nimi}</b></td>
+								{#if kurv}<td class="n nw" data-l={t('Kurvi piirkiirus')}>{f0(r.piirKmh)} {t('km/h')}</td>{/if}
+								<td class="n nw" data-l={t('Peatumisteekond')}>{r.peatumineM != null ? m(r.peatumineM) + ' ' + t('m') : '—'}</td>
+								<td class="lo-kt-ots">
+									<span class="lo-kt-o lo-kt-{ots[0]}">{ots[1]}</span>
+									{#if kurv && !r.kaotus}<small class="lo-kt-varu">{t('Haardevaru kurvi hoidmiseks: ees {e} %, taga {r} %', { e: f0(r.varuEsi * 100), r: f0(r.varuTaga * 100) })}</small>{/if}
+									{#if r.kaotus && A.kiirus > r.piirKmh}<small class="lo-kt-varu">{t('Kiirus on selle kurvi jaoks liiga suur ka ilma pidurdamata.')}</small>{/if}
+								</td>
+							</tr>
+						{/each}
+					</tbody>
+				</table>
+			</div>
+			<p class="lo-kt-note">
+				{t('Paremad rehvid pane tagasillale: kui tagarattad kaotavad haarde, pöörab auto ringi ja seda on palju raskem päästa kui otse sõitvat autot. Nii soovitavad ka ADAC, TCS ja ÖAMTC oma katsete põhjal.')}
+				{t('Lihtsustatud füüsikamudel: rehvi haare tuleb samast mudelist mis kalkulaatoris, pidurdusjõud jaguneb umbes 72 % ette ja 28 % taha, kurv on ühtlane. ESP-d mudel ei arvesta — ESP aitab autot hoida, aga haaret juurde ei tee.')}
+			</p>
+		</section>
+		{/if}
+		{:else}
 		<section class="lo-out" aria-live="polite" aria-label={t("Tulemus")} bind:this={outEl}>
 			{#if !core}
 				<p class="lo-laeb">{t("Laadin arvutusmudelit…")}</p>
@@ -721,12 +864,6 @@
 						<span>{t("m")}</span>
 						{#if takistus > 0}<button type="button" class="lo-tool" onclick={() => { takistus = 0; naeb = ''; }}>{t("Eemalda")}</button>{/if}
 					</div>
-					<div class="lo-naeb" role="group" aria-label={t('Jalakäija pimedas')}>
-						<span class="lo-naeb-l">{t('Jalakäija pimedas — kust juht teda märkab:')}</span>
-						{#each NAHT as [id, d, nimi] (id)}
-							<button type="button" aria-pressed={naeb === id} onclick={() => setNaeb(id)}>{nimi} <small>~{d} {t('m')}</small></button>
-						{/each}
-					</div>
 					{#if NAEB}
 						<p class="lo-naeb-t">{t('Pimedas märkab juht jalakäijat alles umbes')} <b>{NAEB[1]} {t('m')}</b> {t('kauguselt (Transpordiamet). Takistus on pandud sinna.')}</p>
 					{/if}
@@ -761,123 +898,10 @@
 				{/if}
 			{/if}
 		</section>
+		{/if}
 	</div>
 
-	{#if core && pvRead.length}
-		<section class="lo-kt lo-pv" aria-labelledby="lo-pv-h">
-			<h2 id="lo-pv-h">{t('Pikivahe')}</h2>
-			<p class="lo-kt-sub">
-				{#if ees === 'seisab'}{t('Sõidad {v} km/h teise auto taga. Tema peatub hetkega (sõidab millelegi otsa), sina reageerid {r} s pärast ja pidurdad. Kas jõuad peatuda?', { v: A.kiirus, r: f1(A.reakt) })}{:else}{t('Sõidad {v} km/h teise auto taga. Tema pidurdab järsult, sina reageerid {r} s pärast ja pidurdad sama autoga samal teel. Kas jõuad peatuda?', { v: A.kiirus, r: f1(A.reakt) })}{/if}
-			</p>
-			<div class="lo-kt-ctl">
-				<div class="lo-kt-seg" role="group" aria-label={t('Eesolev auto')}>
-					<span>{t('Eesolev auto:')}</span>
-					<button type="button" aria-pressed={ees === 'pidurdab'} onclick={() => (ees = 'pidurdab')}>{t('pidurdab järsult')}</button>
-					<button type="button" aria-pressed={ees === 'seisab'} onclick={() => (ees = 'seisab')}>{t('peatub kohe (sõidab millelegi otsa)')}</button>
-				</div>
-			</div>
-			<div class="tbl-wrap">
-				<table class="lo-kt-t">
-					<thead>
-						<tr>
-							<th>{t('Pikivahe')}</th>
-							<th class="n">{t('Vahe meetrites')}</th>
-							<th>{t('Mis juhtub')}</th>
-						</tr>
-					</thead>
-					<tbody>
-						{#each pvRead as [sek, x] (sek)}
-							{@const napp = x.kokkuporge && x.loogKmh < 2}
-							<tr>
-								<td class="nw lo-kt-nimi"><b>{sek} {t('s')}</b></td>
-								<td class="n nw" data-l={t('Vahe meetrites')}>{f0(x.vaheM)} {t('m')}</td>
-								<td class="lo-kt-ots">
-									{#if napp}
-										<span class="lo-kt-o lo-kt-hoiatus">{t('Peatud vahetult tema taga — varu ei jää')}</span>
-									{:else if x.kokkuporge}
-										<span class="lo-kt-o lo-kt-halb">{t('Kokkupõrge {k} km/h', { k: f0(x.loogKmh) })}</span>
-										<small class="lo-kt-varu">
-											{#if x.temaKmh > 1}{t('Sinu kiirus {s} km/h, eesoleval autol veel {e} km/h.', { s: f0(x.sinuKmh), e: f0(x.temaKmh) })}{:else}{t('Eesolev auto juba seisab, sina sõidad veel {s} km/h.', { s: f0(x.sinuKmh) })}{/if}
-										</small>
-									{:else}
-										<span class="lo-kt-o lo-kt-ok">{t('Peatud {m} m tema taga', { m: m(x.jaabM) })}</span>
-									{/if}
-								</td>
-							</tr>
-						{/each}
-					</tbody>
-				</table>
-			</div>
-			<p class="lo-kt-note">
-				{t('Levinud rusikareegel on vähemalt 2 sekundit, märjal ja libedal teel rohkem. Kui sinu reageerimisaeg on pikem kui pikivahe, sõidad eesolevale autole sisse ka siis, kui pidurdate täpselt ühtemoodi. Muuda vasakul kiirust, reageerimisaega ja teeolusid.')}
-			</p>
-		</section>
-	{/if}
-
-	{#if core && ktRead.length}
-		<section class="lo-kt" aria-labelledby="lo-kt-h">
-			<h2 id="lo-kt-h">{t('Auto käitumine pidurdamisel')}</h2>
-			<p class="lo-kt-sub">
-				{t('Olukord A, äkkpidurdus {v} km/h pealt', { v: A.kiirus })} · {PIND.find((p) => p[0] === A.pind)[1].toLowerCase()}.
-				{t('Kurvis kulub osa rehvi haardest pööramisele ja pidurdades kandub auto koormus esisillale — tagarattad jäävad kergemaks.')}
-			</p>
-			<div class="lo-kt-ctl">
-				<div class="lo-kt-seg" role="group" aria-label={t('Tee')}>
-					{#each KURV as [r, nimi] (r)}
-						<button type="button" aria-pressed={kurv === r} onclick={() => (kurv = r)}>{nimi}</button>
-					{/each}
-				</div>
-				<div class="lo-kt-seg" role="group" aria-label={t('Kulunud rehv')}>
-					<span>{t('Kulunud rehv:')}</span>
-					<button type="button" aria-pressed={kulu === 'piir'} onclick={() => (kulu = 'piir')}>{t('seaduse piiril')} ({f1(TALV[A.kat] ? 3 : 1.6)} {t('mm')})</button>
-					<button type="button" aria-pressed={kulu === 'kesk'} onclick={() => (kulu = 'kesk')}>{t('keskmiselt kulunud')} (4,5 {t('mm')})</button>
-				</div>
-			</div>
-			<div class="tbl-wrap">
-				<table class="lo-kt-t">
-					<thead>
-						<tr>
-							<th>{t('Rehvid')}</th>
-							{#if kurv}<th class="n">{t('Kurvi piirkiirus')}</th>{/if}
-							<th class="n">{t('Peatumisteekond')}</th>
-							<th>{t('Mis juhtub')}</th>
-						</tr>
-					</thead>
-					<tbody>
-						{#each ktRead as [id, nimi, r] (id)}
-							{@const ots = !kurv
-								? ['ok', t('Sirgel teel püsib auto otse')]
-								: r.kaotus === 'taga'
-									? ['halb', t('Tagaosa libiseb välja — auto pöörab ringi (ülejuhitavus)')]
-									: r.kaotus === 'esi'
-										? ['halb', t('Esirattad libisevad — auto ei pööra ja sõidab kurvist välja (alajuhitavus)')]
-										: r.varuTaga < 0.15
-											? ['hoiatus', t('Peatub, aga tagaosa on libisemise piiril')]
-											: r.varuEsi < 0.15
-												? ['hoiatus', t('Peatub, aga esirattad on haarde piiril')]
-												: ['ok', t('Püsib kurvis ja peatub')]}
-							<tr>
-								<td class="lo-kt-nimi"><b>{nimi}</b></td>
-								{#if kurv}<td class="n nw" data-l={t('Kurvi piirkiirus')}>{f0(r.piirKmh)} {t('km/h')}</td>{/if}
-								<td class="n nw" data-l={t('Peatumisteekond')}>{r.peatumineM != null ? m(r.peatumineM) + ' ' + t('m') : '—'}</td>
-								<td class="lo-kt-ots">
-									<span class="lo-kt-o lo-kt-{ots[0]}">{ots[1]}</span>
-									{#if kurv && !r.kaotus}<small class="lo-kt-varu">{t('Haardevaru kurvi hoidmiseks: ees {e} %, taga {r} %', { e: f0(r.varuEsi * 100), r: f0(r.varuTaga * 100) })}</small>{/if}
-									{#if r.kaotus && A.kiirus > r.piirKmh}<small class="lo-kt-varu">{t('Kiirus on selle kurvi jaoks liiga suur ka ilma pidurdamata.')}</small>{/if}
-								</td>
-							</tr>
-						{/each}
-					</tbody>
-				</table>
-			</div>
-			<p class="lo-kt-note">
-				{t('Paremad rehvid pane tagasillale: kui tagarattad kaotavad haarde, pöörab auto ringi ja seda on palju raskem päästa kui otse sõitvat autot. Nii soovitavad ka ADAC, TCS ja ÖAMTC oma katsete põhjal.')}
-				{t('Lihtsustatud füüsikamudel: rehvi haare tuleb samast mudelist mis kalkulaatoris, pidurdusjõud jaguneb umbes 72 % ette ja 28 % taha, kurv on ühtlane. ESP-d mudel ei arvesta — ESP aitab autot hoida, aga haaret juurde ei tee.')}
-			</p>
-		</section>
-	{/if}
-
-	{#if core && !esitlus}
+	{#if core && !esitlus && teeVaade}
 		<div class="lo-mini" class:peidus={tulemusNahtav}>
 			<button type="button" class="lo-mini-res" onclick={naitaTulemust} aria-label={t("Näita tulemust")}>
 				<span class="lo-tag sm">A</span><b>{RA?.r ? (RA.r.stopped ? m(RA.r.totalDistanceM) + ' m' : t('ei peatu')) : '—'}</b>
@@ -1724,8 +1748,53 @@
 		color: var(--muted);
 		font-size: 13px;
 	}
-	.lo-pv {
-		margin-top: var(--sp-6);
+	.lo-kt.lo-side {
+		margin-top: 0;
+		align-self: start;
+	}
+	.lo-tabs {
+		display: flex;
+		gap: var(--sp-2);
+		flex-wrap: wrap;
+		margin-bottom: var(--sp-5);
+		border-bottom: 1px solid var(--line);
+	}
+	.lo-tabs a {
+		padding: var(--sp-3) var(--sp-4);
+		font-weight: 700;
+		font-size: 16px;
+		color: var(--muted);
+		text-decoration: none;
+		border-bottom: 3px solid transparent;
+		margin-bottom: -1px;
+	}
+	.lo-tabs a:hover {
+		color: var(--text);
+	}
+	.lo-tabs a[aria-current='page'] {
+		color: var(--text);
+		border-bottom-color: var(--yellow);
+	}
+	.lo-naeb-top button small {
+		color: var(--muted);
+		margin-left: 4px;
+		font-weight: 500;
+	}
+	.lo-naeb-top button[aria-pressed='true'] {
+		background: var(--yellow);
+		border-color: var(--yellow);
+	}
+	@media (max-width: 640px) {
+		.lo-tabs {
+			flex-wrap: nowrap;
+			overflow-x: auto;
+			gap: 0;
+		}
+		.lo-tabs a {
+			white-space: nowrap;
+			padding: var(--sp-3);
+			font-size: 15px;
+		}
 	}
 	.lo-kt-note {
 		margin: var(--sp-4) 0 0;
