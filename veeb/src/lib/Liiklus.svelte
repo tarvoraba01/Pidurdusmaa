@@ -21,7 +21,9 @@
 	   (#...), nii et lingi saab jagada või tunniks ette valmistada. */
 	import { onMount } from 'svelte';
 	import { version } from '$app/environment';
-	import { kaitumine } from '$lib/kaitumine.js';
+	import { kaitumine, esiOsa } from '$lib/kaitumine.js';
+	import { kurviSoit, RADA } from '$lib/kurvisoit.js';
+	import KurvAnimatsioon from '$lib/KurvAnimatsioon.svelte';
 	import { pikivahe } from '$lib/pikivahe.js';
 
 	let core = $state(null);
@@ -146,7 +148,7 @@
 		['yld_maastur', t('Maastur')],
 		['yld_kaubik', t('Kaubik')]
 	];
-	let KR = $state({ kiirus: 75, pind: 'marg', kat: 'SUMMER_TOURING', esi: 8, taga: 2, auto: 'yld_kompakt' });
+	let KR = $state({ kiirus: 80, pind: 'marg', kat: 'SUMMER_TOURING', esi: 8, taga: 2, auto: 'yld_kompakt' });
 	/* Pikivahe ($lib/pikivahe.js): eesolev auto pidurdab järsult või peatub kohe */
 	let ees = $state('pidurdab');
 	let esitlus = $state(false);
@@ -472,66 +474,99 @@
 		return [1, 2, 3, 4].map((sek) => [sek, pikivahe(x.r.trace, +A.kiirus, sek, +A.reakt, ees, tL)]);
 	});
 
-	/* Kurvi tööriist: oma auto, tee, rehvid ja mustrisügavus ees/taga */
-	const kr = $derived.by(() => {
-		if (!core || !P) return null;
+	/* Kurvi tööriist: oma auto, tee, rehvid ja mustrisügavus ees/taga.
+	   Auto liikumine arvutatakse ajas ($lib/kurvisoit.js), piirkiirus $lib/kaitumine.js-ist. */
+	function krSisend(pind, kmh) {
 		const veh = core.byKey[KR.auto];
 		if (!veh) return null;
-		const pind = KR_PIND.find((x) => x[0] === KR.pind)[2];
 		const tyre = (mm) => ({
 			key: 'x', name: 'x', category: KR.kat, wetGripIndex: G({ klass: 'C', kat: KR.kat }),
 			treadDepthMm: mm, treadDepthNewMm: 8, ageYears: 1, pressureBar: null, loadCapacityKg: null,
 			studded: KR.kat === 'WINTER_STUDDED', size: veh.oemSize, gSource: 'label'
 		});
-		const cond = { speedKmh: +KR.kiirus, texture: 'NORMAL', payloadKg: 75, gradientPct: 0, reactionTimeS: 1, brakeCondition: 1, iceRoad: true, ...pind };
-		const k = (f, r) => kaitumine(P, { veh, cond, tyreF: tyre(f), tyreR: tyre(r), R: kurv });
+		const cond = { speedKmh: kmh, texture: 'NORMAL', payloadKg: 75, gradientPct: 0, reactionTimeS: 1, brakeCondition: 1, iceRoad: true, ...KR_PIND.find((x) => x[0] === pind)[2] };
+		return { veh, cond, tyre, f0: esiOsa(veh) };
+	}
+	function krSoit(pind, kmh, esi, taga, rada = false) {
+		const x = krSisend(pind, kmh);
+		return x && kurviSoit(P, { veh: x.veh, cond: x.cond, tyreF: x.tyre(esi), tyreR: x.tyre(taga), R: kurv, f0: x.f0, rada });
+	}
+	const kr = $derived.by(() => {
+		if (!core || !P) return null;
 		try {
+			const x = krSisend(KR.pind, +KR.kiirus);
+			if (!x) return null;
+			const sinu = krSoit(KR.pind, +KR.kiirus, KR.esi, KR.taga, true);
+			sinu.piirKmh = kurv ? kaitumine(P, { veh: x.veh, cond: x.cond, tyreF: x.tyre(KR.esi), tyreR: x.tyre(KR.taga), R: kurv }).piirKmh : Infinity;
 			return {
-				sinu: k(KR.esi, KR.taga),
-				vahetatud: KR.esi !== KR.taga ? k(KR.taga, KR.esi) : null,
-				uued: KR.esi !== 8 || KR.taga !== 8 ? k(8, 8) : null
+				sinu,
+				vahetatud: KR.esi !== KR.taga ? krSoit(KR.pind, +KR.kiirus, KR.taga, KR.esi) : null,
+				uued: KR.esi !== 8 || KR.taga !== 8 ? krSoit(KR.pind, +KR.kiirus, 8, 8) : null
 			};
-		} catch {
+		} catch (e) {
+			console.error(e);
 			return null;
 		}
 	});
 	const krPiir = $derived(TALV[KR.kat] ? 3 : 1.6);
+	/* lühike ja pikk kirjeldus iga tulemuse kohta; värv: ok | hoiatus | halb */
 	function krOtsus(r) {
-		if (!kurv) return ['ok', t('Sirgel teel püsib auto otse ja peatub')];
-		if (r.kaotus === 'taga') return ['halb', t('Tagaosa libiseb välja — auto pöörab ringi (ülejuhitavus)')];
-		if (r.kaotus === 'esi') return ['halb', t('Esirattad libisevad — auto ei pööra ja sõidab kurvist välja (alajuhitavus)')];
-		if (Math.min(r.varuTaga, r.varuEsi) < 0.15)
-			return r.varuTaga <= r.varuEsi ? ['hoiatus', t('Peatub, aga tagaosa on libisemise piiril')] : ['hoiatus', t('Peatub, aga esirattad on haarde piiril')];
-		return ['ok', t('Püsib kurvis ja peatub')];
-	}
-	/* skemaatiline pealtvaade: tee kaar, auto teekond, peatus või libisemine */
-	const krJoon = $derived.by(() => {
-		const r = kr?.sinu;
-		if (!r) return null;
-		const W = 420, H = 300, x0 = 90, y0 = 285;
-		const Rpx = { 300: 520, 150: 330, 75: 210, 30: 120 }[kurv] || 0;
-		const lopp = r.kaotus ? Math.max(r.kaotusM ?? 0, 0) : r.peatumineM;
-		const pikkus = Math.max(40, (r.kaotus ? (r.kaotusM ?? 0) * 1.6 + 25 : r.peatumineM * 1.15));
-		const skaala = 300 / pikkus; // px meetri kohta
-		const P = (sPx) => {
-			if (!Rpx) return [x0 + 110, y0 - sPx, -Math.PI / 2];
-			const th = sPx / Rpx; // paremale pöörav kaar, keskpunkt (x0+Rpx, y0)
-			return [x0 + Rpx - Rpx * Math.cos(th), y0 - Rpx * Math.sin(th), -Math.PI / 2 + th];
-		};
-		const tee = [], kulg = [];
-		for (let i = 0; i <= 60; i++) tee.push(P((i / 60) * 340));
-		const sL = lopp * skaala;
-		for (let i = 0; i <= 40; i++) kulg.push(P((i / 40) * sL));
-		const [lx, ly, la] = P(sL);
-		let jatk = null;
-		if (r.kaotus === 'esi') jatk = [[lx, ly], [lx + Math.cos(la) * 120, ly + Math.sin(la) * 120]];
-		if (r.kaotus === 'taga') {
-			jatk = [];
-			let x = lx, y = ly; for (let i = 0; i <= 24; i++) { const a = la - (i / 24) * 1.1; x += Math.cos(a) * 4.2; y += Math.sin(a) * 4.2; jatk.push([x, y]); }
+		switch (r.tulemus) {
+			case 'ok': return ['ok', kurv ? t('Püsib oma sõidurajal ja peatub') : t('Sirgel teel püsib auto otse ja peatub')];
+			case 'piiril': return ['hoiatus', t('Peatub oma rajal, aga haarde piiril')];
+			case 'vastu': return ['halb', t('Auto kandub vastassuunavööndisse')];
+			case 'ringi': return ['halb', t('Tagaosa libiseb välja — auto pöörab ringi (ülejuhitavus)')];
+			case 'teelt': return ['halb', r.teeltPool === 'sisse' ? t('Auto libiseb kurvi sisekülje poole teelt välja') : t('Esirattad libisevad — auto ei pööra ja sõidab kurvist välja (alajuhitavus)')];
+			default: return ['halb', t('Tagaosa libiseb välja — auto pöörab ringi ja paiskub teelt välja')];
 		}
-		const pts = (a) => a.map((p) => p[0].toFixed(1) + ',' + p[1].toFixed(1)).join(' ');
-		const auto = r.kaotus === 'taga' ? [jatk[jatk.length - 1][0], jatk[jatk.length - 1][1], la + 2.4] : r.kaotus === 'esi' ? [jatk[1][0], jatk[1][1], la] : [lx, ly, la];
-		return { W, H, tee: pts(tee), kulg: pts(kulg), jatk: jatk ? pts(jatk) : null, auto: [auto[0], auto[1], (auto[2] * 180) / Math.PI + 90], kaotus: r.kaotus, stop: [lx, ly] };
+	}
+	const KR_TUL = [
+		['ok', t('Peatub oma rajal')],
+		['piiril', t('Haarde piiril')],
+		['vastu', t('Vastassuunavööndisse')],
+		['ringi', t('Pöörab ringi')],
+		['teelt', t('Teelt välja')]
+	];
+	const krLyhi = (x) => (x === 'ringi_teelt' ? t('Pöörab ringi ja teelt välja') : KR_TUL.find((k) => k[0] === x)?.[1] || '');
+	/* üle keskjoone (m): auto vasak külg vastassuunarajal */
+	const ylekesk = (r) => Math.max(0, r.maxNihe + 0.9 - RADA / 2);
+
+	/* Kõik kiirused × teeolud (4 × 23 arvutust) — arvutatakse osade kaupa, et leht ei hanguks */
+	const KR_KIIRUSED = Array.from({ length: 23 }, (_, i) => 20 + i * 5);
+	let kaart = $state(null);
+	let kaartVoti = '';
+	$effect(() => {
+		if (!core || !P) return;
+		const voti = [kurv, KR.kat, KR.esi, KR.taga, KR.auto].join('|');
+		kaartVoti = voti;
+		const read = {};
+		let i = 0, katkes = false;
+		const tee = () => {
+			if (katkes || voti !== kaartVoti) return;
+			const p = KR_PIND[i][0];
+			read[p] = KR_KIIRUSED.map((v) => {
+				try { return krSoit(p, v, KR.esi, KR.taga).tulemus; } catch { return null; }
+			});
+			i++;
+			kaart = { voti, valmis: i >= KR_PIND.length, read: { ...read } };
+			if (i < KR_PIND.length) setTimeout(tee, 0);
+		};
+		const id = setTimeout(tee, 60);
+		return () => { katkes = true; clearTimeout(id); };
+	});
+	/* lühikokkuvõte valitud teeolude reast */
+	const kaartKokku = $derived.by(() => {
+		const rida = kaart?.read?.[KR.pind];
+		if (!rida || !kurv) return null;
+		let rajal = null;
+		for (let i = 0; i < rida.length; i++) { if (rida[i] === 'ok' || rida[i] === 'piiril') rajal = KR_KIIRUSED[i]; else break; }
+		const esim = (f) => { const i = rida.findIndex(f); return i >= 0 ? KR_KIIRUSED[i] : null; };
+		return {
+			rajal,
+			vastu: esim((x) => x !== 'ok' && x !== 'piiril'),
+			ringi: esim((x) => x === 'ringi' || x === 'ringi_teelt'),
+			teelt: esim((x) => x === 'teelt' || x === 'ringi_teelt')
+		};
 	});
 </script>
 
@@ -841,43 +876,67 @@
 		{:else if vaade === 'kurv'}
 		{#if !core}<p class="lo-laeb">{t("Laadin arvutusmudelit…")}</p>{:else if kr}
 		{@const ots = krOtsus(kr.sinu)}
+		{@const r = kr.sinu}
 		<section class="lo-kt lo-side" aria-labelledby="lo-kt-h">
 			<h2 id="lo-kt-h">{t('Äkkpidurdus kurvis')}</h2>
 			<p class="lo-kt-sub">{t('Sõidad {v} km/h, ees {e} mm ja taga {r} mm mustriga rehvid. Kurvis tuleb ootamatult takistus ja pidurdad täiest jõust (reageerimisaeg 1 s).', { v: KR.kiirus, e: f1(KR.esi), r: f1(KR.taga) })}</p>
 			<div class="lo-kr-tulemus lo-kt-{ots[0]}">
 				<p class="lo-kr-ots">{ots[1]}</p>
 				<dl class="lo-kr-nr">
-					{#if kurv}<div><dt>{t('Selle kurvi piirkiirus')}</dt><dd>{f0(kr.sinu.piirKmh)} {t('km/h')}</dd></div>{/if}
-					<div><dt>{t('Peatumisteekond')}</dt><dd>{kr.sinu.peatumineM != null ? m(kr.sinu.peatumineM) + ' ' + t('m') : t('ei peatu kurvis')}</dd></div>
-					{#if kr.sinu.kaotus}<div><dt>{t('Haare kaob')}</dt><dd>{kr.sinu.kaotusM ? t('{m} m pärast, kiirusel {k} km/h', { m: f0(kr.sinu.kaotusM), k: f0(kr.sinu.kaotusKmh) }) : t('kohe kurvi sisenedes')}</dd></div>{/if}
+					{#if kurv}<div><dt>{t('Selle kurvi piirkiirus')}</dt><dd>{f0(r.piirKmh)} {t('km/h')}</dd></div>{/if}
+					<div><dt>{t('Peatumisteekond')}</dt><dd>{r.peatumineM != null ? m(r.peatumineM) + ' ' + t('m') : t('ei peatu teel')}</dd></div>
+					{#if r.teelt}
+						<div><dt>{t('Sõidab teelt välja')}</dt><dd>{f0(r.teeltKmh)} {t('km/h')}</dd></div>
+					{:else if r.vastu}
+						<div><dt>{t('Vastassuunavööndis')}</dt><dd>{t('kuni {m} m üle keskjoone', { m: f1(ylekesk(r)) })}</dd></div>
+					{/if}
+					{#if r.ringi && !r.teelt}
+						<div><dt>{t('Lõpus')}</dt><dd>{Math.abs(r.lopuSuund) > 135 ? t('seisab vastassuunas') : t('seisab {d}° viltu', { d: f0(Math.abs(r.lopuSuund)) })}</dd></div>
+					{/if}
 				</dl>
-				{#if kurv && !kr.sinu.kaotus}<p class="lo-kt-varu">{t('Haardevaru kurvi hoidmiseks: ees {e} %, taga {r} %', { e: f0(kr.sinu.varuEsi * 100), r: f0(kr.sinu.varuTaga * 100) })}</p>{/if}
-				{#if kurv && kr.sinu.kaotus && KR.kiirus > kr.sinu.piirKmh}<p class="lo-kt-varu">{t('Kiirus on selle kurvi jaoks liiga suur ka ilma pidurdamata.')}</p>{/if}
+				{#if r.teelt}<p class="lo-kt-varu">{t('Kui teeservas on puu, post või kraav:')} {look(r.teeltKmh)}</p>{/if}
+				{#if r.vastu && !r.teelt}<p class="lo-kt-varu">{t('Kui sel hetkel tuleb vastu auto, on see laupkokkupõrge: sina sõidad {k} km/h ja tema tuleb omakorda vastu.', { k: f0(r.vastuKmh) })}</p>{/if}
+				{#if kurv && KR.kiirus > r.piirKmh}<p class="lo-kt-varu">{t('Kiirus on selle kurvi jaoks liiga suur ka ilma pidurdamata.')}</p>{/if}
 			</div>
-			{#if krJoon}
-				<figure class="lo-kr-fig">
-					<svg viewBox="0 0 {krJoon.W} {krJoon.H}" role="img" aria-label={t('Auto teekond pealtvaates')}>
-						<polyline points={krJoon.tee} class="kr-tee" />
-						<polyline points={krJoon.tee} class="kr-joon" />
-						<polyline points={krJoon.kulg} class="kr-kulg" />
-						{#if krJoon.jatk}<polyline points={krJoon.jatk} class="kr-jatk" />{/if}
-						{#if !krJoon.kaotus}<circle cx={krJoon.stop[0]} cy={krJoon.stop[1]} r="7" class="kr-stop" />{/if}
-						<g transform="translate({krJoon.auto[0]} {krJoon.auto[1]}) rotate({krJoon.auto[2]})"><rect x="-9" y="-16" width="18" height="32" rx="5" class="kr-auto" class:halb={!!krJoon.kaotus} /><rect x="-6" y="-12" width="12" height="7" rx="2" class="kr-klaas" /></g>
-					</svg>
-					<figcaption>{t('Skeem pealtvaates, mitte mõõtkavas.')}</figcaption>
-				</figure>
+			<KurvAnimatsioon sim={r} pind={KR.pind} {t} {LOC} />
+
+			<h3 class="lo-kr-h3">{t('Kõik kiirused ja teeolud')}</h3>
+			<p class="lo-kr-alam">{t('Sama kurv, auto ja rehvid. Iga ruut on eraldi arvutus — klõpsa, et seda vaadata.')}</p>
+			<div class="kk-wrap">
+				<div class="kk" class:kk-vana={!kaart || kaart.voti !== [kurv, KR.kat, KR.esi, KR.taga, KR.auto].join('|')} style="--n:{KR_KIIRUSED.length}">
+					<span class="kk-nurk"></span>
+					{#each KR_KIIRUSED as v (v)}<span class="kk-v" class:kk-v-on={v % 10 === 0}>{v % 10 === 0 ? v : ''}</span>{/each}
+					{#each KR_PIND as [p, nimi] (p)}
+						<span class="kk-rida" class:kk-rida-on={KR.pind === p}>{nimi}</span>
+						{#each KR_KIIRUSED as v, i (v)}
+							{@const x = kaart?.read?.[p]?.[i]}
+							<button type="button" class="kk-c kk-{x || 'tyhi'}" aria-pressed={KR.pind === p && +KR.kiirus === v} aria-label="{nimi}, {v} {t('km/h')}: {x ? krLyhi(x) : '…'}" title="{nimi}, {v} {t('km/h')}: {x ? krLyhi(x) : '…'}" onclick={() => { KR.pind = p; KR.kiirus = v; }}>{#if x === 'ringi' || x === 'ringi_teelt'}<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M7.6 3.2A3.2 3.2 0 1 0 8.2 5.6M7.9 1.4v2h-2" /></svg>{/if}</button>
+						{/each}
+					{/each}
+				</div>
+			</div>
+			<div class="kk-leg">
+				{#each KR_TUL as [k, n] (k)}<span><i class="kk-c kk-{k}">{#if k === 'ringi'}<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M7.6 3.2A3.2 3.2 0 1 0 8.2 5.6M7.9 1.4v2h-2" /></svg>{/if}</i>{n}</span>{/each}
+			</div>
+			{#if kaartKokku}
+				<p class="lo-kr-kokku">
+					{#if kaartKokku.rajal}{t('Sellel teel jääd selles kurvis oma rajale kuni {v} km/h.', { v: kaartKokku.rajal })}{:else}{t('Sellel teel ei püsi auto selles kurvis oma rajal ühelgi kiirusel alates 20 km/h.')}{/if}
+					{#if kaartKokku.ringi}{' '}{t('Alates {v} km/h pöörab auto ringi.', { v: kaartKokku.ringi })}{/if}
+					{#if kaartKokku.teelt}{' '}{t('Alates {v} km/h sõidab auto teelt välja.', { v: kaartKokku.teelt })}{/if}
+				</p>
 			{/if}
+
 			{#if kr.vahetatud || kr.uued}
 				<h3 class="lo-kr-h3">{t('Võrdle')}</h3>
 				<div class="tbl-wrap">
 					<table class="lo-kt-t">
 						<thead><tr><th>{t('Rehvid')}</th><th class="n">{t('Peatumisteekond')}</th><th>{t('Mis juhtub')}</th></tr></thead>
 						<tbody>
-							{#each [[t('Sinu valik: ees {e} mm, taga {r} mm', { e: f1(KR.esi), r: f1(KR.taga) }), kr.sinu], ...(kr.vahetatud ? [[t('Rehvid vahetatud: ees {e} mm, taga {r} mm', { e: f1(KR.taga), r: f1(KR.esi) }), kr.vahetatud]] : []), ...(kr.uued ? [[t('Kõik neli uued (8 mm)'), kr.uued]] : [])] as [nimi, r], i (i)}
-								{@const o = krOtsus(r)}
+							{#each [[t('Sinu valik: ees {e} mm, taga {r} mm', { e: f1(KR.esi), r: f1(KR.taga) }), kr.sinu], ...(kr.vahetatud ? [[t('Rehvid vahetatud: ees {e} mm, taga {r} mm', { e: f1(KR.taga), r: f1(KR.esi) }), kr.vahetatud]] : []), ...(kr.uued ? [[t('Kõik neli uued (8 mm)'), kr.uued]] : [])] as [nimi, rr], i (i)}
+								{@const o = krOtsus(rr)}
 								<tr>
 									<td class="lo-kt-nimi"><b>{nimi}</b></td>
-									<td class="n nw" data-l={t('Peatumisteekond')}>{r.peatumineM != null ? m(r.peatumineM) + ' ' + t('m') : '—'}</td>
+									<td class="n nw" data-l={t('Peatumisteekond')}>{rr.peatumineM != null ? m(rr.peatumineM) + ' ' + t('m') : '—'}</td>
 									<td class="lo-kt-ots"><span class="lo-kt-o lo-kt-{o[0]}">{o[1]}</span></td>
 								</tr>
 							{/each}
@@ -887,7 +946,7 @@
 			{/if}
 			<p class="lo-kt-note">
 				{t('Paremad rehvid pane tagasillale: kui tagarattad kaotavad haarde, pöörab auto ringi ja seda on palju raskem päästa kui otse sõitvat autot. Nii soovitavad ka ADAC, TCS ja ÖAMTC oma katsete põhjal.')}
-				{t('Lihtsustatud füüsikamudel: rehvi haare tuleb samast mudelist mis kalkulaatoris, pidurdusjõud jaguneb umbes 72 % ette ja 28 % taha, kurv on ühtlane. ESP-d mudel ei arvesta — ESP aitab autot hoida, aga haaret juurde ei tee.')}
+				{t('Lihtsustatud sõidukimudel: rehvi haare tuleb samast mudelist mis kalkulaatoris, pidurdades kandub koormus esisillale, ABS hoiab esirattad haarde piiril ja tagasild pidurdab umbes 28 %. Juht hoiab rooli oma raja keskel, aga libisemist päästa ei oska. ESP-d mudel ei arvesta — ESP aitab autot hoida, aga haaret juurde ei tee.')}
 			</p>
 		</section>
 		{/if}
@@ -2049,66 +2108,121 @@
 		font-size: 22px;
 		font-variant-numeric: tabular-nums;
 	}
-	.lo-kr-fig {
-		margin: 0 0 var(--sp-4);
-		background: #e9ecef;
-		border-radius: 12px;
-		padding: var(--sp-2);
-	}
-	.lo-kr-fig svg {
-		width: 100%;
-		max-height: 320px;
-		display: block;
-	}
-	.lo-kr-fig figcaption {
-		font-size: 12.5px;
-		color: var(--muted);
-		text-align: right;
-		padding: 0 var(--sp-2);
-	}
-	.kr-tee {
-		fill: none;
-		stroke: #4b5563;
-		stroke-width: 46;
-		stroke-linecap: butt;
-	}
-	.kr-joon {
-		fill: none;
-		stroke: #f3f4f6;
-		stroke-width: 2;
-		stroke-dasharray: 10 10;
-	}
-	.kr-kulg {
-		fill: none;
-		stroke: var(--yellow);
-		stroke-width: 5;
-		stroke-linecap: round;
-	}
-	.kr-jatk {
-		fill: none;
-		stroke: var(--bad);
-		stroke-width: 5;
-		stroke-dasharray: 8 6;
-		stroke-linecap: round;
-	}
-	.kr-stop {
-		fill: var(--good);
-		stroke: #fff;
-		stroke-width: 2;
-	}
-	.kr-auto {
-		fill: #1f2937;
-		stroke: #fff;
-		stroke-width: 1.5;
-	}
-	.kr-auto.halb {
-		fill: var(--bad);
-	}
-	.kr-klaas {
-		fill: #93c5fd;
-	}
 	.lo-kr-h3 {
-		margin: var(--sp-4) 0 var(--sp-2);
+		margin: var(--sp-6) 0 var(--sp-2);
 		font-size: 16px;
+	}
+	.lo-kr-alam {
+		margin: 0 0 var(--sp-3);
+		font-size: 14px;
+		color: var(--muted);
+	}
+	.lo-kr-kokku {
+		margin: var(--sp-3) 0 0;
+		font-size: 14.5px;
+	}
+	/* kõik kiirused × teeolud */
+	.kk-wrap {
+		overflow-x: auto;
+		padding-bottom: 2px;
+	}
+	.kk {
+		display: grid;
+		grid-template-columns: max-content repeat(var(--n), minmax(14px, 1fr));
+		gap: 3px;
+		align-items: center;
+		min-width: 420px;
+		transition: opacity 0.2s;
+	}
+	.kk.kk-vana {
+		opacity: 0.55;
+	}
+	.kk-v {
+		font-size: 11.5px;
+		color: var(--muted);
+		text-align: center;
+		font-variant-numeric: tabular-nums;
+		white-space: nowrap;
+		overflow: visible;
+		width: 0;
+		justify-self: center;
+		display: flex;
+		justify-content: center;
+	}
+	.kk-rida {
+		font-size: 13px;
+		font-weight: 600;
+		padding-right: var(--sp-2);
+		color: var(--muted);
+	}
+	.kk-rida-on {
+		color: var(--text);
+	}
+	.kk-c {
+		display: inline-grid;
+		place-items: center;
+		height: 26px;
+		border: 0;
+		padding: 0;
+		border-radius: 4px;
+		cursor: pointer;
+		background: var(--paper-3);
+		color: #fff;
+	}
+	button.kk-c:hover {
+		filter: brightness(1.08);
+		outline: 2px solid var(--ink);
+		outline-offset: -1px;
+	}
+	button.kk-c[aria-pressed='true'] {
+		outline: 3px solid var(--ink);
+		outline-offset: 1px;
+		position: relative;
+		z-index: 1;
+	}
+	.kk-c svg {
+		width: 11px;
+		height: 11px;
+		fill: none;
+		stroke: currentColor;
+		stroke-width: 1.6;
+		stroke-linecap: round;
+	}
+	.kk-ok {
+		background: #2f9e5b;
+	}
+	.kk-piiril {
+		background: #e8b931;
+	}
+	.kk-vastu {
+		background: #ec7a2c;
+	}
+	.kk-ringi {
+		background: #d63a3a;
+	}
+	.kk-teelt,
+	.kk-ringi_teelt {
+		background: #7a1f2b;
+	}
+	.kk-ringi_teelt {
+		color: #ffb4b4;
+	}
+	.kk-leg {
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--sp-1) var(--sp-4);
+		margin-top: var(--sp-3);
+		font-size: 13px;
+		color: var(--muted);
+	}
+	.kk-leg span {
+		display: inline-flex;
+		align-items: center;
+		gap: 6px;
+	}
+	.kk-leg .kk-c {
+		width: 16px;
+		height: 16px;
+		cursor: default;
 	}
 </style>

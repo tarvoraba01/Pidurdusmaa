@@ -12,10 +12,11 @@
 
 <Meta title={t('Pidurdamine kurvis: paremad rehvid ees või taga?')} desc={KIRJ} path="liiklusohutus/kurv/" {jsonld} image="/og/sait/liiklusohutus.png" />
 
-<LiiklusLeht kick={t('Liiklusohutus · kurv ja rehvid')} h1={t('Pidurdamine kurvis')} lead={t('Vali kurv ja vaata, mis juhtub äkkpidurdusel, kui uued rehvid on ees, taga või kõigil ratastel.')} vaade="kurv">
+<LiiklusLeht kick={t('Liiklusohutus · kurv ja rehvid')} h1={t('Pidurdamine kurvis')} lead={t('Vali kurv, kiirus, teeolud ja rehvid ning vaata animatsioonist, mis juhtub äkkpidurdusel: kas auto peatub oma rajal, kandub vastassuunavööndisse, pöörab ringi või sõidab teelt välja.')} vaade="kurv">
 	<div>
 		<h2>{t('Kuidas see töötab')}</h2>
 		<p>{t('Kurvis kulub osa rehvi haardest auto pööramisele. Pidurdades kandub koormus esisillale ja tagarattad jäävad kergemaks — kui taga on kulunud rehvid, kaotab tagaosa haarde esimesena ja auto pöörab ringi. Kui kulunud on esirehvid, auto ei pööra ja sõidab kurvist otse välja.')}</p>
+		<p>{t('Auto liikumine arvutatakse iga 2 millisekundi järel: rehvide haare, koormuse ülekanne, ABS ja juhi roolimine. Tabelis „Kõik kiirused ja teeolud“ on sama kurv läbi arvutatud 23 kiirusel ja neljal teel — kokku 92 olukorda.')}</p>
 	</div>
 	<div>
 		<h2>{t('Allikad')}</h2>
