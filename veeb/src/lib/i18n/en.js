@@ -418,6 +418,7 @@ export default {
 "Rehvi seisukord": "Tyre condition",
 "Kulunud muster juhib vett halvemini. Sügavas vees kordades.": "A worn tread clears water less well. In deep water, many times worse.",
 "8 mm → 3 mm, märg 90 km/h:": "8 mm → 3 mm, wet 90 km/h:",
+"Peatumisteekond": "Stopping distance",
 "Rehvi valimine": "Tyre finder",
 "Sinu tingimustele sobivad rehvid": "Tyres that suit your conditions",
 "Mark": "Make",
@@ -457,7 +458,6 @@ export default {
 "Tulemused: <span data-r-range>90 km/h → 0 km/h</span>": "Results: <span data-r-range>90 km/h → 0 km/h</span>",
 "Mida näidata": "What to show",
 "Pidurdusteekond": "Braking distance",
-"Peatumisteekond": "Stopping distance",
 "Reaktsiooniaeg": "Reaction time",
 "0,5 s · valmis pidurdama": "0.5 s · ready to brake",
 "1 s · tavaline": "1 s · normal",
@@ -933,5 +933,13 @@ export default {
 "Liiklusohutus": "Road safety",
 "Otsi": "Find",
 "Loe": "Read",
-"Rehvid ja pidurdamine lihtsalt lahti seletatud": "Tyres and braking explained simply"
+"Rehvid ja pidurdamine lihtsalt lahti seletatud": "Tyres and braking explained simply",
+"Proovi ise": "Try it yourself",
+"Vaata, mis juhtub päriselt": "See what really happens",
+"Neli simulaatorit samast mudelist: muuda kiirust, teeolusid ja rehve ning vaata animatsioonist, mis juhtub.": "Four simulators built on the same model: change the speed, road and tyres and watch what happens in the animation.",
+"Kui palju pikem on peatumine, kui sõidad 10 km/h kiiremini?": "How much longer does it take to stop at 10 km/h faster?",
+"Kas jõuad peatuda, kui jalakäija on tumedates riietes?": "Can you stop in time for a pedestrian in dark clothes?",
+"Kas 2 sekundit vahet on ikka piisav?": "Is a 2-second gap really enough?",
+"Mis juhtub äkkpidurdusel kurvis, ABS-iga ja ilma?": "What happens when you brake hard in a bend — with and without ABS?",
+"Proovi": "Try it"
 };

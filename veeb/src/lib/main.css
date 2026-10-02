@@ -413,6 +413,19 @@ dialog.how::backdrop{background:rgba(10,11,13,.6);backdrop-filter:blur(2px)}
 .factor p{margin:0;color:var(--muted);font-size:15px}
 .factor .fx{margin-top:var(--sp-4);font-size:13.5px;font-weight:600;color:var(--text);display:flex;gap:var(--sp-2);align-items:center;flex-wrap:wrap}
 .factor .fx b{font-family:var(--display);font-size:20px;white-space:nowrap}
+.sim{margin-top:var(--sp-12);background:var(--ink);color:#fff;border-radius:var(--r-lg);padding:var(--sp-8);display:grid;gap:var(--sp-6)}
+.sim-h .eyebrow{color:var(--yellow)}
+.sim-h h2{font-family:var(--display);font-size:clamp(28px,4vw,40px);text-transform:uppercase;line-height:1.05;margin:var(--sp-2) 0;color:#fff}
+.sim-h p{margin:0;color:var(--muted-d);max-width:60ch}
+.sim-g{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--sp-3)}
+.sim-c{display:flex;flex-direction:column;gap:6px;padding:var(--sp-5);border-radius:var(--r);background:#181b21;border:1px solid #23272f;color:#fff;text-decoration:none}
+.sim-c svg{width:28px;height:28px;color:var(--yellow);margin-bottom:var(--sp-1)}
+.sim-c b{font-size:17px}
+.sim-c span{font-size:14px;line-height:1.4;color:var(--muted-d);flex:1}
+.sim-c em{font-style:normal;font-weight:700;font-size:14px;color:var(--yellow);margin-top:var(--sp-2)}
+.sim-c:hover,.sim-c:focus-visible{border-color:var(--yellow);background:#1d2027}
+@media (max-width:900px){.sim-g{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.sim{padding:var(--sp-5);margin-top:var(--sp-8)}.sim-c{padding:var(--sp-4)}.sim-c b{font-size:15.5px}.sim-c span{font-size:13px}}
 .split{display:grid;grid-template-columns:1fr 1fr;gap:var(--sp-12);align-items:center}
 .prop-demo{background:#fff;border:1px solid var(--line);border-radius:var(--r-lg);padding:var(--sp-6);box-shadow:var(--shadow)}
 .prop-demo h3{margin:0 0 2px;font-size:18px}

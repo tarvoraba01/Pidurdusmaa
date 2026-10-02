@@ -196,6 +196,21 @@
 						</p>
 					</div>
 				</div>
+
+				<!-- liiklusohutuse simulaatorid: proovi ise läbi -->
+				<div class="sim">
+					<div class="sim-h">
+						<span class="eyebrow">{t("Proovi ise")}</span>
+						<h2>{t("Vaata, mis juhtub päriselt")}</h2>
+						<p>{t("Neli simulaatorit samast mudelist: muuda kiirust, teeolusid ja rehve ning vaata animatsioonist, mis juhtub.")}</p>
+					</div>
+					<div class="sim-g">
+						<a class="sim-c" href={keel.L('/liiklusohutus/')}><Icon name="road" /><b>{t("Peatumisteekond")}</b><span>{t("Kui palju pikem on peatumine, kui sõidad 10 km/h kiiremini?")}</span><em>{t("Proovi")} →</em></a>
+						<a class="sim-c" href={keel.L('/liiklusohutus/pimedas/')}><Icon name="moon" /><b>{t("Pimedas")}</b><span>{t("Kas jõuad peatuda, kui jalakäija on tumedates riietes?")}</span><em>{t("Proovi")} →</em></a>
+						<a class="sim-c" href={keel.L('/liiklusohutus/pikivahe/')}><Icon name="gap" /><b>{t("Pikivahe")}</b><span>{t("Kas 2 sekundit vahet on ikka piisav?")}</span><em>{t("Proovi")} →</em></a>
+						<a class="sim-c" href={keel.L('/liiklusohutus/kurv/')}><Icon name="curve" /><b>{t("Kurv ja rehvid")}</b><span>{t("Mis juhtub äkkpidurdusel kurvis, ABS-iga ja ilma?")}</span><em>{t("Proovi")} →</em></a>
+					</div>
+				</div>
 			</div>
 		</section>
 	{/if}
