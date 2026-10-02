@@ -5,17 +5,17 @@
 	import { onMount, untrack } from 'svelte';
 	import { RADA } from '$lib/kurvisoit.js';
 
-	let { sim, pind = 'kuiv', auto = 'yld_kompakt', t, LOC = 'et-EE' } = $props();
+	let { sim, pind = 'kuiv', auto = 'sedaan', t, LOC = 'et-EE' } = $props();
 
 	/* auto pealtvaates valitud tüübi järgi (m): pikkus, laius, nurgad, esi- ja tagasilla koht,
 	   tuuleklaasi ja tagaklaasi koht; maasturil katuseraamid, kaubikul kaubaruumi ribid */
 	const AUTOD = {
-		yld_vaike: { L: 3.9, W: 1.7, rx: 0.55, fa: 1.2, ra: -1.25, ws: 0.55, rw: -1.3 },
-		yld_kompakt: { L: 4.4, W: 1.8, rx: 0.55, fa: 1.35, ra: -1.4, ws: 0.6, rw: -1.45 },
-		yld_maastur: { L: 4.7, W: 1.9, rx: 0.42, fa: 1.45, ra: -1.45, ws: 0.75, rw: -1.95, raamid: true },
-		yld_kaubik: { L: 5.2, W: 2.0, rx: 0.3, fa: 1.85, ra: -1.6, ws: 1.55, rw: null, ribid: true }
+		luukpara: { L: 4.0, W: 1.7, rx: 0.5, fa: 1.15, ra: -1.3, ws: 0.6, rw: -1.55 }, //    VW Golf III
+		sedaan: { L: 4.77, W: 1.83, rx: 0.55, fa: 1.45, ra: -1.35, ws: 0.75, rw: -0.95 }, // VW Passat B8: pagasiruum taga
+		maastur: { L: 4.22, W: 1.87, rx: 0.3, fa: 1.35, ra: -1.6, ws: 0.95, rw: -1.75, raamid: true }, // Jeep Wrangler
+		kaubik: { L: 4.9, W: 1.9, rx: 0.3, fa: 1.75, ra: -1.25, ws: 1.45, rw: null, ribid: true } //  VW Transporter
 	};
-	const A = $derived(AUTOD[auto] || AUTOD.yld_kompakt);
+	const A = $derived(AUTOD[auto] || AUTOD.sedaan);
 	const wy = $derived(A.W / 2 - 0.17);
 	const RATAS = $derived([[A.fa, -(A.W / 2 - 0.12)], [A.fa, A.W / 2 - 0.12], [A.ra, -(A.W / 2 - 0.12)], [A.ra, A.W / 2 - 0.12]]);
 
