@@ -149,6 +149,15 @@
 		['yld_maastur', t('Maastur')],
 		['yld_kaubik', t('Kaubik')]
 	];
+	/* auto külgvaates: väikeauto, kompaktauto, maastur, kaubik */
+	const AKEN = 'fill="var(--paper-2)"';
+	const RATAS = (x, r = 4.2) => `<circle cx="${x}" cy="22" r="${r}" fill="currentColor"/><circle cx="${x}" cy="22" r="${r * 0.42}" ${AKEN}/>`;
+	const AUTO_PILT = {
+		yld_vaike: `<path d="M9 21V15.5Q9 12.5 12.5 12L19 6.5Q20.5 5.5 23 5.5H35Q37.5 5.5 39 7.5L43 12Q48 12.8 48.5 15.5V21Z" fill="currentColor"/><path d="M20.5 8.5Q21.5 7.5 23 7.5H28.5V12H16.5Z M30.5 7.5H35Q36.5 7.5 37.5 9L40 12H30.5Z" ${AKEN}/>` + RATAS(17) + RATAS(40),
+		yld_kompakt: `<path d="M4 21V15.5Q4 12.5 8 12L17 6Q19 4.8 22 4.8H38Q41 4.8 43 7L48 11.8Q57 12.5 58.5 15.5V21Z" fill="currentColor"/><path d="M18.5 7.8Q20 6.8 22 6.8H29.5V11.8H12.5Z M31.5 6.8H38Q40 6.8 41.2 8.2L44.5 11.8H31.5Z" ${AKEN}/>` + RATAS(14) + RATAS(48),
+		yld_maastur: `<path d="M4 21V12Q4 9 7.5 8.6L13 3.8Q14.5 2.6 17.5 2.6H44Q46.5 2.6 47.8 4.5L51.5 9Q58.5 9.5 59.5 13V21Z" fill="currentColor"/><path d="M14.5 5.8Q15.5 4.6 17.5 4.6H29V8.8H9.5Z M31 4.6H44Q45.3 4.6 46 5.6L48.4 8.8H31Z" ${AKEN}/>` + RATAS(14, 5) + RATAS(48.5, 5),
+		yld_kaubik: `<path d="M3 21V4.5Q3 2 5.5 2H46Q48.5 2 50 4L56 10.8Q60.5 11.8 61 15V21Z" fill="currentColor"/><path d="M43 4H46Q47.5 4 48.3 5.2L53 10.8H43Z" ${AKEN}/><path d="M38.5 3.5V19" stroke="var(--paper-2)" stroke-width="0.8" opacity=".5"/>` + RATAS(13) + RATAS(50.5)
+	};
 	let KR = $state({ kiirus: 80, pind: 'marg', kat: 'SUMMER_TOURING', esi: 8, taga: 2, auto: 'yld_kompakt', abs: true });
 	/* Pikivahe ($lib/pikivahe.js): eesolev auto pidurdab järsult või peatub kohe */
 	let ees = $state('pidurdab');
@@ -760,9 +769,11 @@
 			</fieldset>
 			<fieldset>
 				<legend>{t('Auto')}</legend>
-				<div class="lo-seg lo-seg2">
+				<div class="lo-seg lo-seg4 lo-autod">
 					{#each KR_AUTO as [k, n] (k)}
-						<button type="button" aria-pressed={KR.auto === k} onclick={() => (KR.auto = k)}>{n}</button>
+						<button type="button" aria-pressed={KR.auto === k} onclick={() => (KR.auto = k)} aria-label={n} title={n}>
+							<svg viewBox="0 0 64 28" aria-hidden="true">{@html AUTO_PILT[k]}</svg>
+						</button>
 					{/each}
 				</div>
 			</fieldset>
@@ -2240,6 +2251,21 @@
 		font-weight: 700;
 		font-size: 22px;
 		font-variant-numeric: tabular-nums;
+	}
+	.lo-autod button {
+		padding: 6px 4px;
+		display: grid;
+		place-items: center;
+		color: var(--muted);
+	}
+	.lo-autod button[aria-pressed='true'] {
+		color: var(--text);
+	}
+	.lo-autod svg {
+		width: 100%;
+		max-width: 64px;
+		height: auto;
+		display: block;
 	}
 	.lo-pv-sek {
 		margin-top: var(--sp-2);
