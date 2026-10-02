@@ -955,5 +955,9 @@ export default {
 "lamell- ja aastaringset rehvi": "friction and all-season tyres",
 "lamell- ja aastaringseid rehve": "friction and all-season tyres",
 "Põhjamaade lamell": "Nordic friction",
-"Kesk-Euroopa lamell": "Central European friction"
+"Kesk-Euroopa lamell": "Central European friction",
+"u": "approx.",
+"laos": "in stock",
+"tk": "pcs",
+"Vaata poes →": "View in shop →"
 };

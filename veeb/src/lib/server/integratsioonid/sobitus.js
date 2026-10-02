@@ -40,6 +40,9 @@ export function normMoot(s) {
 	return m ? `${m[1]}${m[2]}R${m[3]}${m[4] ? 'C' : ''}` : null;
 }
 
+/* lühendid mudelinimes */
+const SONA_ALIAS = { ug: 'ultragrip' };
+
 /* mudelinimest ära: mõõt, indeksid ja lisamärgid, mis ei muuda mudelit */
 const MYRA = new Set(
 	'xl rf rft runflat ssr zp extra load reinf reinforced fr mfs tl tubeless 3pmsf pmsf fsl bsw studded naast naastrehv suverehv talverehv lamellrehv aastaringne summer winter allseason all season'.split(
@@ -47,15 +50,23 @@ const MYRA = new Set(
 	)
 );
 export function mudeliSonad(mudel, mark) {
-	let s = String(mudel || '');
+	let s = String(mudel || '').replace(/\([^)]*\)/g, ' '); // „Polaris North 6 (ContiVikingContact 6)“
 	s = s.replace(/\d{3}\s*[/ ]?\s*\d{2}\s*Z?R\s*F?\s*\d{2}\s*C?/gi, ' '); // mõõt
 	s = s.replace(/\b\d{2,3}(\/\d{2,3})?\s?[A-Z]\b/g, ' '); // 92Y, 104/102T
 	s = s.replace(/\bM\s*[+&/]\s*S\b/gi, ' '); // M+S (mitte „S“ üksi — Pilot Sport 4 S on eri rehv)
+	s = s.replace(/\+/g, ' plus '); // „UltraGrip Ice 2+“ ≠ „UltraGrip Ice 2“
 	/* margi sõnad välja ("Nokian Tyres Hakkapeliitta R5" → "hakkapeliitta r5") */
 	const markW = new Set(norm(mark).split(' '));
-	return norm(s)
+	let w = norm(s)
 		.split(' ')
-		.filter((w) => w && !MYRA.has(w) && !markW.has(w));
+		.map((x) => SONA_ALIAS[x] || x)
+		.filter((x) => x && !MYRA.has(x) && !markW.has(x));
+	/* Hankooki tehasekood (W429, K135, H750) — üks pood kirjutab, teine mitte */
+	if (normMark(mark) === 'hankook') {
+		const ilma = w.filter((x) => !/^[khwrz]\d{3}[a-z]?$/.test(x));
+		if (ilma.length) w = ilma;
+	}
+	return w;
 }
 
 function sarnasus(a, b) {
@@ -76,16 +87,40 @@ export function leiaRehv(toode, read) {
 	const mk = normMark(toode.mark);
 	const sonad = mudeliSonad(toode.mudel, toode.mark);
 	const tapne = sonad.join(' ');
+	/* kokkukirjutatult: „IceBlazer Arctic 2“ = „ICE BLAZER ARCTIC2“, „TS860 S“ = „TS 860 S“;
+	   Continentali „Conti…“ eesliide („ContiWinterContact“ = „WinterContact“) */
+	const kokku = (w, m) => {
+		let j = w.join('');
+		if (normMark(m) === 'continental') j = j.replace(/^conti(?=[a-z])/, '');
+		return j;
+	};
+	const tapneK = kokku(sonad, toode.mark);
+	let kokkuVaste = null;
 	let parim = null;
 	let parimSkoor = 0;
 	for (const r of read) {
 		if (normMark(r[1]) !== mk) continue;
 		const meie = mudeliSonad(r[2], r[1]);
 		if (meie.join(' ') === tapne) return r[0];
+		if (!kokkuVaste && tapneK && kokku(meie, r[1]) === tapneK) kokkuVaste = r[0];
 		const s = sarnasus(sonad, meie);
 		if (s > parimSkoor) {
 			parimSkoor = s;
 			parim = r[0];
+		}
+	}
+	if (kokkuVaste) return kokkuVaste;
+	/* tehasekoodiga või ilma: „EffexSport TH202“ = „EffeXSport“, aga
+	   „IcePlus S210“ ≠ „IcePlus S220“ (mõlemal kood ja need erinevad) */
+	const kood = (x) => /^[a-z]{1,3}\d{2,4}[a-z]?$/.test(x);
+	const [aK, aS] = [sonad.filter(kood), sonad.filter((x) => !kood(x))];
+	if (aS.length) {
+		for (const r of read) {
+			if (normMark(r[1]) !== mk) continue;
+			const meie = mudeliSonad(r[2], r[1]);
+			const bK = meie.filter(kood), bS = meie.filter((x) => !kood(x));
+			if (aK.length && bK.length && aK.join(' ') !== bK.join(' ')) continue;
+			if (kokku(bS, r[1]) === kokku(aS, toode.mark)) return r[0];
 		}
 	}
 	return parimSkoor >= 0.85 ? parim : null;

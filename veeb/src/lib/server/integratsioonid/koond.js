@@ -12,7 +12,21 @@ import { muutuja, koikOlemas } from './seaded.js';
 import { jsonParing, paring, voog, lubatud } from './http.js';
 import { vahemalus, stat as vmStat, suurus as vmSuurus } from './vahemalu.js';
 import { leiaRehv, normMoot } from './sobitus.js';
-import { eprelSize } from '$lib/server/andmed.js';
+import { eprelSize, core } from '$lib/server/andmed.js';
+
+/* Testitud rehvid (sh naastrehvid, millel EL-i märgist ja seega EPREL-i
+   rida pole) samal kujul nagu eprelSize read: [slug, mark, mudel]. */
+let _testRead = null;
+function testRead() {
+	if (!_testRead)
+		_testRead = (core().tyres || [])
+			.filter((t) => t.slug && t.name)
+			.map((t) => {
+				const [mark, ...m] = String(t.name).split(' ');
+				return [t.slug, mark, m.join(' ')];
+			});
+	return _testRead;
+}
 
 const ctx = { muutuja, jsonParing, paring, voog };
 const olekud = new Map(); // id -> { viga, vigaAeg, edu, tooteid, sobitatud }
@@ -73,7 +87,7 @@ async function tooted(p, moot) {
 export async function hinnadMoodus(moot) {
 	const pakkujad = aktiivsed();
 	if (!pakkujad.length) return { available: false, hinnad: {} };
-	const read = eprelSize(moot);
+	const read = eprelSize(moot).concat(testRead());
 	const hinnad = {};
 	await Promise.all(
 		pakkujad.map(async (p) => {
@@ -102,7 +116,12 @@ export async function hinnadMoodus(moot) {
 					myyja: myyjaNimi(t.myyja) || p.nimi,
 					hind: Math.round(hind * 100) / 100,
 					url: t.url ? poeLink(p, t.url) : null,
-					laos: t.laos === undefined ? undefined : !!t.laos
+					laos: t.laos === undefined ? undefined : !!t.laos,
+					/* laoseis tükkides (kui pakkuja annab) ja „u X €“ märge */
+					...(Number.isInteger(t.kogus) && t.kogus >= 0 ? { kogus: Math.min(t.kogus, 99) } : {}),
+					...(t.umbes ? { umbes: true } : {}),
+					/* kaardil saab näidata pilti /api/pilt/<slug> kaudu */
+					...(t.pilt && lubatud(p, t.pilt) ? { pilt: true } : {})
 				});
 				if (t.pilt && lubatud(p, t.pilt) && !pildid.has(slug)) {
 					pildid.set(slug, { pakkuja: p.id, url: String(t.pilt) });

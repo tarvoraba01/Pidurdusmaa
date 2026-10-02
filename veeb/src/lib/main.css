@@ -684,6 +684,13 @@ table.cmp .grp th{background:var(--paper-2);color:var(--text);font-size:12px;let
 .pv .sellers b{font-variant-numeric:tabular-nums}
 .pv .sellers small{color:var(--muted);font-weight:500}
 .pv .more{margin:var(--sp-1) 0 0;font-size:12px;color:var(--muted)}
+.pv .sellers .hk{display:flex;align-items:baseline;gap:var(--sp-2);white-space:nowrap}
+.pv .sellers li{flex-wrap:wrap}
+.pv .sellers .hk{margin-left:auto}
+@media (max-width:560px){.rcard .price{flex-direction:column;gap:var(--sp-1)}}
+.pv .sellers .go,.r-price .sellers .go{font-size:12.5px;font-weight:600;color:var(--official)}
+.rnimi{display:flex;align-items:center;gap:var(--sp-3)}
+.rpilt{width:56px;height:56px;object-fit:contain;flex:0 0 auto;border-radius:6px;background:#fff}
 table.cmp tr.price-row td{vertical-align:top}
 #sobivad{scroll-margin-top:84px}
 @media (max-width:900px){.home-valik .cmp-layout>.filters{order:2}}

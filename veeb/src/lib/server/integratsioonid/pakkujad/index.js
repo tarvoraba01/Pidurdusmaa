@@ -2,6 +2,6 @@
  * Pakkuja on sees ainult siis, kui kõik tema keskkonnamuutujad on
  * serveris seatud — nimekirjas olemine üksi midagi ei käivita. */
 import naidis from './naidis.js';
-import awin from './awin.js';
+import rehvivahetus from './rehvivahetus.js';
 
-export const PAKKUJAD = [awin, naidis];
+export const PAKKUJAD = [rehvivahetus, naidis];

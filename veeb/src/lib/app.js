@@ -1107,7 +1107,7 @@
         if (!measured) { collapsed[t.category] = t; return; }
         var r = calc(onCar(t, S.size), veh, cond);
         var srcs = uniqSrc(t.tests), er = eprelByTest[t.key];
-        rows.push({ id: 't:' + t.key, kind: 'test', name: t.name, d: r.distanceM, r: r, t: t, pids: er ? [er.slug + '@' + S.size] : [],
+        rows.push({ id: 't:' + t.key, kind: 'test', name: t.name, d: r.distanceM, r: r, t: t, pids: er ? [er.slug + '@' + S.size] : (t.slug ? [t.slug + '@' + S.size] : []),
           sub: _t('Sõltumatu test') + (srcs.length ? ' · ' + srcs.map(srcName).join(', ') : ''),
           sizeNote: norm(t.size) !== S.size ? t.size : null, label: er ? er.g : null, slug: t.slug, other: !avail });
       });
@@ -1203,7 +1203,7 @@
             .filter(Boolean).sort(function (a, b) { return a.r.hind - b.r.hind; }).slice(0, 3);
           box.innerHTML = _t('<span class="pl">Soodsaimad klassi ') + cur.g + _t(' rehvid</span> ') + (top.length ? '<ul class="sellers">' + top.map(function (t) {
             return _t('<li><span><a href="') + rTee(t.m.slug) + '/">' + esc(t.m.mark + ' ' + t.m.name) + '</a> <small>' + esc(t.r.myyja) + '</small></span>' +
-              (t.r.url ? _t('<a class="buy" href="') + esc(poeLink(t.r.url, 'kalkulaator', t.m.mark + ' ' + t.m.name)) + _t('" target="_blank" rel="nofollow sponsored noopener" data-pood="') + esc(t.r.myyja) + _t('" data-rehv="') + esc(t.m.mark + ' ' + t.m.name) + '">' + eur(t.r.hind) + '</a>' : '<b>' + eur(t.r.hind) + '</b>') + '</li>';
+              (t.r.url ? _t('<a class="buy" href="') + esc(poeLink(t.r.url, 'kalkulaator', t.m.mark + ' ' + t.m.name)) + _t('" target="_blank" rel="nofollow sponsored noopener" data-pood="') + esc(t.r.myyja) + _t('" data-rehv="') + esc(t.m.mark + ' ' + t.m.name) + '">' + hindTekst(t.r) + '</a>' : '<b>' + hindTekst(t.r) + '</b>') + '</li>';
           }).join('') + '</ul>' + AFF : _t('<span class="none">Hindu selles klassis veel pole</span>'));
         } else box.innerHTML = _t('<span class="pl">Hinnad</span> <span class="none">vali rehv, et näha müüjaid</span>');
       });
@@ -1625,11 +1625,15 @@
   function priceSlot(id) { return _t('<div class="pv" data-price="') + esc(id) + _t('"><span class="none">Laen hindu…</span></div>'); }
   /* partnerlinkide märge — ainult siis, kui poelingid päriselt ekraanil on */
   var AFF = _t('<p class="aff">Poelingid võivad olla partnerlingid — sinu hind ja meie järjestus ei muutu. <a href="') + _t('/teadmine/partnerid/">Loe lähemalt</a></p>');
+  /* „u 62 €“ — pakkuja hind on keskmine e-poe hind, mitte täpne */
+  function hindTekst(r) { return (r && r.umbes ? _t('u') + ' ' : '') + eur(r.hind); }
   function priceHtml(rows, avail) {
     if (rows && rows.length) {
       return '<ul class="sellers">' + rows.slice(0, 4).map(function (r) {
         var name = r.url ? _t('<a href="') + esc(poeLink(r.url, 'rehvileht')) + _t('" target="_blank" rel="nofollow sponsored noopener" data-pood="') + esc(r.myyja) + '">' + esc(r.myyja) + '</a>' : esc(r.myyja);
-        return '<li><span>' + name + (r.laos === false ? _t(' <small>tellimisel</small>') : '') + '</span><b>' + eur(r.hind) + '</b></li>';
+        var ladu = r.laos === false ? _t(' <small>tellimisel</small>') : (r.kogus > 0 ? ' <small>' + _t('laos') + ' ' + (r.kogus >= 8 ? '8+' : r.kogus) + ' ' + _t('tk') + '</small>' : '');
+        var go = r.url ? _t(' <a class="go" href="') + esc(poeLink(r.url, 'rehvileht')) + _t('" target="_blank" rel="nofollow sponsored noopener" data-pood="') + esc(r.myyja) + '">' + _t('Vaata poes →') + '</a>' : '';
+        return '<li><span>' + name + ladu + '</span><span class="hk"><b>' + hindTekst(r) + '</b>' + go + '</span></li>';
       }).join('') + '</ul>' + (rows.length > 4 ? '<p class="more">+' + (rows.length - 4) + _t(' müüjat veel</p>') : '') + AFF;
     }
     return '<span class="none">' + (avail ? _t('Selle rehvi hinda müüjatelt hetkel pole') : _t('Hinnad pole hetkel saadaval')) + '</span> ' + tip(PRICE_T);
@@ -1641,6 +1645,14 @@
     Prices.get(ids).then(function (d) {
       var h = (d && d.hinnad) || {};
       els.forEach(function (e) { e.innerHTML = priceHtml(h[e.dataset.price], !!(d && d.available)); });
+      /* pakkuja pilt kaardile (meie serveri kaudu); kui laadimine ebaõnnestub, jääb peidetuks */
+      $$('img[data-pilt]', box).forEach(function (im) {
+        var rows = h[im.dataset.pilt];
+        if (!rows || !rows.some(function (r) { return r.pilt; }) || im.getAttribute('src')) return;
+        im.onload = function () { im.hidden = false; };
+        im.onerror = function () { im.hidden = true; };
+        im.src = CFG.home + 'api/pilt/' + encodeURIComponent(im.dataset.pilt.split('@')[0]) + '/';
+      });
     });
   }
   function pick(tests, surf, wet) {
@@ -2055,7 +2067,8 @@
         '<div class="b">' + (why ? '<span class="rank">' + (i + 1) + '</span>' : '') + (KAT_KAART[r.catNr] ? '<span class="kat-b kat-' + r.catNr + '">' + KAT_KAART[r.catNr] + '</span>' : '') + (r.tested ? _t('<span style="color:var(--tested)">Sõltumatult testitud</span>') : _t('<span style="color:var(--muted)">EL-i märgis</span>')) +
           (onRft(r) ? '<span class="rft-b">Run-flat ' + tip(RFT_T) + '</span>' : '') +
           (eriLiik(r) ? '<span class="rft-b eri-b">' + esc(eriLiik(r)) + ' ' + tip(ERI_T) + '</span>' : '') + '</div>' +
-        _t('<h3><a href="') + rTee(r.slug) + '/"><span class="mk">' + esc(r.mark) + '</span> ' + esc(r.name) + '</a></h3></div>' +
+        '<div class="rnimi"><img class="rpilt" alt="" width="56" height="56" decoding="async" hidden data-pilt="' + esc(id) + '">' +
+        _t('<h3><a href="') + rTee(r.slug) + '/"><span class="mk">' + esc(r.mark) + '</span> ' + esc(r.name) + '</a></h3></div></div>' +
         '<div style="display:flex;gap:var(--sp-2);align-items:center;flex-wrap:wrap;justify-content:flex-end">' + (x.fit != null ? _t('<span class="fit" title="Sinu valitud omaduste põhjal selles nimekirjas — mitte üldine hinne">Sobivus sinu valikute põhjal ') + x.fit + '%</span>' : '') +
         _t('<button type="button" class="add-btn" data-add="') + esc(id) + _t('" data-n="') + esc(r.mark + ' ' + r.name) + _t('" aria-pressed="') + on + '">' + (on ? _t('✓ Võrdluses') : _t('+ Võrdle')) + '</button></div>' +
         (why && why.length ? '<ul class="why-list">' + why.map(function (t) { return t.charAt(0) === '!' ? '<li class="x">' + t.slice(1) + '</li>' : '<li>' + t + '</li>'; }).join('') + '</ul>' : '') +
