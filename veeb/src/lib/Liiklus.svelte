@@ -1038,7 +1038,7 @@
 				{#if r.vastu && !r.teelt}<p class="lo-kt-varu">{t('Kui sel hetkel tuleb vastu auto, on see laupkokkupõrge: sina sõidad {k} km/h ja tema tuleb omakorda vastu.', { k: f0(r.vastuKmh) })}</p>{/if}
 				{#if kurv && KR.kiirus > r.piirKmh}<p class="lo-kt-varu">{t('Kiirus on selle kurvi jaoks liiga suur ka ilma pidurdamata.')}</p>{/if}
 			</div>
-			<KurvAnimatsioon sim={r} pind={KR.pind} {t} {LOC} />
+			<KurvAnimatsioon sim={r} pind={KR.pind} auto={KR.auto} {t} {LOC} />
 
 			<h3 class="lo-kr-h3">{t('Kõik kiirused ja teeolud')}</h3>
 			<p class="lo-kr-alam">{t('Sama kurv, auto ja rehvid. Iga ruut on eraldi arvutus — klõpsa, et seda vaadata.')}</p>

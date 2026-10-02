@@ -5,7 +5,19 @@
 	import { onMount, untrack } from 'svelte';
 	import { RADA } from '$lib/kurvisoit.js';
 
-	let { sim, pind = 'kuiv', t, LOC = 'et-EE' } = $props();
+	let { sim, pind = 'kuiv', auto = 'yld_kompakt', t, LOC = 'et-EE' } = $props();
+
+	/* auto pealtvaates valitud tüübi järgi (m): pikkus, laius, nurgad, esi- ja tagasilla koht,
+	   tuuleklaasi ja tagaklaasi koht; maasturil katuseraamid, kaubikul kaubaruumi ribid */
+	const AUTOD = {
+		yld_vaike: { L: 3.9, W: 1.7, rx: 0.55, fa: 1.2, ra: -1.25, ws: 0.55, rw: -1.3 },
+		yld_kompakt: { L: 4.4, W: 1.8, rx: 0.55, fa: 1.35, ra: -1.4, ws: 0.6, rw: -1.45 },
+		yld_maastur: { L: 4.7, W: 1.9, rx: 0.42, fa: 1.45, ra: -1.45, ws: 0.75, rw: -1.95, raamid: true },
+		yld_kaubik: { L: 5.2, W: 2.0, rx: 0.3, fa: 1.85, ra: -1.6, ws: 1.55, rw: null, ribid: true }
+	};
+	const A = $derived(AUTOD[auto] || AUTOD.yld_kompakt);
+	const wy = $derived(A.W / 2 - 0.17);
+	const RATAS = $derived([[A.fa, -(A.W / 2 - 0.12)], [A.fa, A.W / 2 - 0.12], [A.ra, -(A.W / 2 - 0.12)], [A.ra, A.W / 2 - 0.12]]);
 
 	const VARV = {
 		kuiv: { maa: '#9dbf78', serv: '#bdb4a2', tee: '#565b63', joon: '#ffffff', puu: '#3d6b35', puu2: '#4f8044', jalg: 'rgba(25,25,25,.55)' },
@@ -87,7 +99,6 @@
 	});
 
 	/* ---------- libisemisjäljed (iga ratas eraldi), jälgjoon ---------- */
-	const RATAS = [[1.25, -0.78], [1.25, 0.78], [-1.4, -0.78], [-1.4, 0.78]];
 	const jaljed = $derived.by(() => {
 		if (!sim) return [];
 		const r = sim.rada;
@@ -321,18 +332,33 @@
 			{/if}
 			<!-- auto -->
 			<g transform="translate({hetk.x.toFixed(3)} {hetk.y.toFixed(3)}) rotate({((hetk.psi * 180) / Math.PI).toFixed(2)}) scale({autoSuur})">
-				<rect x="-2.3" y="-1.05" width="4.6" height="2.1" rx=".5" fill="#000" opacity=".18" transform="translate(.15 .2)" />
-				{#each RATAS as [lx, ly], i (i)}<rect x={lx - 0.36} y={ly < 0 ? -1.0 : 0.76} width=".72" height=".24" rx=".08" fill="#15171b" />{/each}
-				<rect x="-2.2" y="-0.9" width="4.4" height="1.8" rx=".55" class="ka-keha" class:libiseb />
-				<path d="M.55 -.72 Q1.25 0 .55 .72 L.05 .62 Q.4 0 .05 -.62Z" fill="#26303b" />
-				<path d="M-1.35 -.66 Q-1.75 0 -1.35 .66 L-1.0 .56 Q-1.25 0 -1.0 -.56Z" fill="#26303b" />
-				<rect x="-0.95" y="-0.66" width="0.95" height="1.32" rx=".2" fill="#000" opacity=".08" />
-				{#if hetk.faas === 2 && !lopp}
-					<rect x="-2.28" y="-0.8" width=".16" height=".42" rx=".05" class="ka-pidur" />
-					<rect x="-2.28" y="0.38" width=".16" height=".42" rx=".05" class="ka-pidur" />
+				<rect x={-A.L / 2 - 0.1} y={-A.W / 2 - 0.15} width={A.L + 0.2} height={A.W + 0.3} rx={A.rx} fill="#000" opacity=".18" transform="translate(.15 .2)" />
+				{#each RATAS as [lx, ly], i (i)}<rect x={lx - 0.36} y={ly < 0 ? -A.W / 2 - 0.1 : A.W / 2 - 0.14} width=".72" height=".24" rx=".08" fill="#15171b" />{/each}
+				<rect x={-A.L / 2} y={-A.W / 2} width={A.L} height={A.W} rx={A.rx} class="ka-keha" class:libiseb />
+				<!-- tuuleklaas -->
+				<path d="M{A.ws} {-wy} Q{A.ws + 0.7} 0 {A.ws} {wy} L{A.ws - 0.5} {wy * 0.86} Q{A.ws - 0.15} 0 {A.ws - 0.5} {-wy * 0.86}Z" fill="#26303b" />
+				{#if A.rw !== null}
+					<!-- tagaklaas ja katus -->
+					<path d="M{A.rw} {-wy * 0.92} Q{A.rw - 0.4} 0 {A.rw} {wy * 0.92} L{A.rw + 0.35} {wy * 0.8} Q{A.rw + 0.1} 0 {A.rw + 0.35} {-wy * 0.8}Z" fill="#26303b" />
+					<rect x={A.rw + 0.4} y={-wy * 0.82} width={A.ws - 0.55 - A.rw - 0.4} height={wy * 1.64} rx=".2" fill="#000" opacity=".08" />
 				{/if}
-				<rect x="2.08" y="-0.78" width=".12" height=".34" rx=".05" fill="#fffbe6" />
-				<rect x="2.08" y="0.44" width=".12" height=".34" rx=".05" fill="#fffbe6" />
+				{#if A.raamid}
+					<path d="M{A.rw + 0.45} {-wy * 0.78}H{A.ws - 0.6}M{A.rw + 0.45} {wy * 0.78}H{A.ws - 0.6}" stroke="#171200" stroke-width=".07" opacity=".55" />
+				{/if}
+				{#if A.ribid}
+					<!-- kaubaruum: katus ribidega -->
+					<rect x={-A.L / 2 + 0.15} y={-wy} width={A.ws - 0.55 + A.L / 2 - 0.15} height={wy * 2} rx=".12" fill="#000" opacity=".06" />
+					{#each [0.2, 0.4, 0.6, 0.8] as k (k)}
+						{@const x = -A.L / 2 + 0.15 + k * (A.ws - 0.55 + A.L / 2 - 0.15)}
+						<path d="M{x} {-wy * 0.9}V{wy * 0.9}" stroke="#171200" stroke-width=".06" opacity=".35" />
+					{/each}
+				{/if}
+				{#if hetk.faas === 2 && !lopp}
+					<rect x={-A.L / 2 - 0.08} y={-A.W / 2 + 0.1} width=".16" height=".42" rx=".05" class="ka-pidur" />
+					<rect x={-A.L / 2 - 0.08} y={A.W / 2 - 0.52} width=".16" height=".42" rx=".05" class="ka-pidur" />
+				{/if}
+				<rect x={A.L / 2 - 0.12} y={-A.W / 2 + 0.12} width=".12" height=".34" rx=".05" fill="#fffbe6" />
+				<rect x={A.L / 2 - 0.12} y={A.W / 2 - 0.46} width=".12" height=".34" rx=".05" fill="#fffbe6" />
 			</g>
 			<!-- mootkavakava -->
 			<g transform="translate({cam.x - cam.w / 2 + fs * 0.9} {cam.y + H / 2 - fs * 0.9})">
