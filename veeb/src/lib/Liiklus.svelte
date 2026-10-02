@@ -650,19 +650,22 @@
 		if (!core || !P) return;
 		const voti = [kurv, KR.kat, KR.esi, KR.taga, KR.auto, KR.abs].join('|');
 		kaartVoti = voti;
-		const read = {};
-		let i = 0, katkes = false;
+		/* arvutame väikeste tükkidena (≤ ~12 ms korraga), et telefonis leht ei hanguks */
+		const read = Object.fromEntries(KR_PIND.map(([p]) => [p, Array(KR_KIIRUSED.length).fill(null)]));
+		let k = 0, katkes = false, id = 0;
+		const N = KR_PIND.length * KR_KIIRUSED.length;
 		const tee = () => {
 			if (katkes || voti !== kaartVoti) return;
-			const p = KR_PIND[i][0];
-			read[p] = KR_KIIRUSED.map((v) => {
-				try { return krSoit(p, v, KR.esi, KR.taga).tulemus; } catch { return null; }
-			});
-			i++;
-			kaart = { voti, valmis: i >= KR_PIND.length, read: { ...read } };
-			if (i < KR_PIND.length) setTimeout(tee, 0);
+			const t0 = performance.now();
+			while (k < N && performance.now() - t0 < 12) {
+				const p = KR_PIND[Math.floor(k / KR_KIIRUSED.length)][0], j = k % KR_KIIRUSED.length;
+				try { read[p][j] = krSoit(p, KR_KIIRUSED[j], KR.esi, KR.taga).tulemus; } catch { read[p][j] = null; }
+				k++;
+			}
+			kaart = { voti, valmis: k >= N, read: Object.fromEntries(Object.entries(read).map(([p, r]) => [p, r.slice()])) };
+			if (k < N) id = setTimeout(tee, 0);
 		};
-		const id = setTimeout(tee, 60);
+		id = setTimeout(tee, 250);
 		return () => { katkes = true; clearTimeout(id); };
 	});
 	/* lühikokkuvõte valitud teeolude reast */
@@ -1295,13 +1298,13 @@
 	}
 	.lo-grid {
 		display: grid;
-		grid-template-columns: minmax(300px, 420px) 1fr;
+		grid-template-columns: minmax(300px, 420px) minmax(0, 1fr);
 		gap: var(--sp-5);
 		align-items: start;
 	}
 	@media (max-width: 900px) {
 		.lo-grid {
-			grid-template-columns: 1fr;
+			grid-template-columns: minmax(0, 1fr);
 		}
 		.lo-out {
 			order: -1;
@@ -2100,10 +2103,13 @@
 			overflow-x: auto;
 			gap: 0;
 		}
+		.lo-vaated {
+			justify-content: space-between;
+		}
 		.lo-vaated a {
 			white-space: nowrap;
-			padding: var(--sp-3);
-			font-size: 15px;
+			padding: var(--sp-3) 4px;
+			font-size: 13.5px;
 		}
 	}
 	.lo-kt-note {

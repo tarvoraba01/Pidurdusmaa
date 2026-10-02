@@ -268,8 +268,8 @@
 				<pattern id="ka-lumi" width="3" height="3" patternUnits="userSpaceOnUse"><circle cx=".6" cy=".8" r=".18" fill="#dfe6ee" /><circle cx="2.1" cy="2.2" r=".14" fill="#e7edf3" /></pattern>
 				<linearGradient id="ka-laik" x1="0" x2="1"><stop offset="0" stop-color="#fff" stop-opacity="0" /><stop offset=".5" stop-color="#fff" stop-opacity=".9" /><stop offset="1" stop-color="#fff" stop-opacity="0" /></linearGradient>
 			</defs>
-			<rect x={cam.x - 2000} y={cam.y - 2000} width="4000" height="4000" fill={V.maa} />
-			{#if talv}<rect x={cam.x - 2000} y={cam.y - 2000} width="4000" height="4000" fill="url(#ka-lumi)" />{/if}
+			<rect x={cam.x - cam.w} y={cam.y - cam.w} width={cam.w * 2} height={cam.w * 2} fill={V.maa} />
+			{#if talv && cam.w < 160}<rect x={cam.x - cam.w} y={cam.y - cam.w} width={cam.w * 2} height={cam.w * 2} fill="url(#ka-lumi)" />{/if}
 			<!-- teepeenar / lumevall -->
 			<path d={geo.tee} class="ka-t" stroke={V.serv} stroke-width={RADA * 2 + (talv ? 3.2 : 1.8)} />
 			{#if talv}<path d={geo.tee} class="ka-t" stroke="#fff" stroke-opacity=".7" stroke-width={RADA * 2 + 1.2} />{/if}
@@ -438,7 +438,6 @@
 	}
 	.ka-pidur {
 		fill: #ff2d2d;
-		filter: drop-shadow(0 0 0.35px #ff2d2d);
 	}
 	.ka-paug {
 		fill: #ffdf3d;

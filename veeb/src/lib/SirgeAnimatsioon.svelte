@@ -233,8 +233,8 @@
 					<linearGradient id="sa-kiir" x1="0" x2="1"><stop offset="0" stop-color="#fff4c8" stop-opacity=".62" /><stop offset=".7" stop-color="#fff4c8" stop-opacity=".22" /><stop offset="1" stop-color="#fff4c8" stop-opacity="0" /></linearGradient>
 					<radialGradient id="sa-helk"><stop offset="0" stop-color="#fff7c2" /><stop offset=".35" stop-color="#ffd84a" stop-opacity=".9" /><stop offset="1" stop-color="#ffd84a" stop-opacity="0" /></radialGradient>
 				</defs>
-				<rect x={cam.x - 3000} y={cam.y - 1000} width="6000" height="2000" fill={V.maa} />
-				{#if talv}<rect x={cam.x - 3000} y={cam.y - 1000} width="6000" height="2000" fill="url(#sa-lumi)" />{/if}
+				<rect x={cam.x - cam.w} y={cam.y - cam.w} width={cam.w * 2} height={cam.w * 2} fill={V.maa} />
+				{#if talv && cam.w < 160}<rect x={cam.x - cam.w} y={cam.y - cam.w} width={cam.w * 2} height={cam.w * 2} fill="url(#sa-lumi)" />{/if}
 				{#each Array(geo.n) as _, i (i)}
 					{@const y = yTee(i)}
 					<rect x={geo.x0} y={y - LAI / 2 - (talv ? 1.6 : 0.9)} width={geo.x1 - geo.x0} height={LAI + (talv ? 3.2 : 1.8)} fill={V.serv} />
@@ -418,7 +418,6 @@
 	}
 	.sa-pidur {
 		fill: #ff2d2d;
-		filter: drop-shadow(0 0 0.35px #ff2d2d);
 	}
 	.sa-paug {
 		fill: #ffdf3d;

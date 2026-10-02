@@ -120,7 +120,8 @@ export function kurviSoit(P, o) {
 	let [x, y, psi] = T.punkt(s0);
 	let vx = v0, vy = 0, r = 0, delta = 0, ax = 0;
 	let t = 0, tNae = null, fxF = 0;
-	const dt = 0.002, rec = 0.02;
+	const rec = 0.02;
+	let dt = 0.004; // samm: kiiresti sõites 4 ms, aeglaselt 2 ms (väikesel kiirusel on rehvijõud jäigem)
 	const rada = o.rada ? [] : null;
 	let jargmine = 0;
 	let maxD = -Infinity, minD = Infinity, maxBeta = 0, maxUseF = 0, maxUseR = 0;
@@ -129,8 +130,9 @@ export function kurviSoit(P, o) {
 	let ringiKmh = null, sPidur = null, sLopp = null, peatus = false, tPidur = null;
 	let s = s0, d = 0;
 
-	for (let n = 0; n < 15000; n++) {
+	for (let n = 0; n < 20000 && t < 40; n++) {
 		const v = Math.hypot(vx, vy);
+		dt = v > 3 ? 0.004 : 0.002;
 		[s, d] = T.asend(x, y);
 		/* faas */
 		if (tNae === null && s >= sNae) tNae = t;
