@@ -150,11 +150,12 @@
 	<div class="cc" id="p-valik" role="tabpanel" aria-labelledby="tab-valik" hidden>
 		<div class="vq">
 			<div>
-				<p class="lbl">{t("3. Hooaeg")}</p>
-				<div class="seg" role="group" aria-label={t("Hooaeg")}>
-					<button type="button" data-season="summer" aria-pressed="true">{t("Suvi")}</button>
+				<p class="lbl">{t("3. Rehvi liik")}</p>
+				<div class="seg" role="group" aria-label={t("Rehvi liik")}>
+					<button type="button" data-season="summer" aria-pressed="true">{t("Suverehv")}</button>
+					<button type="button" data-season="winter" aria-pressed="false">{t("Lamellrehv")}</button>
+					<button type="button" data-season="naast" aria-pressed="false">{t("Naastrehv")}</button>
 					<button type="button" data-season="all" aria-pressed="false">{t("Aastaringne")}</button>
-					<button type="button" data-season="winter" aria-pressed="false">{t("Talv")}</button>
 				</div>
 			</div>
 			{#each Object.entries(VALIK_Q) as [g, item], i (g)}

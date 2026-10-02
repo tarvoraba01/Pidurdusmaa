@@ -40,11 +40,12 @@
 				</div>
 				<label class="qlab" for="v-size">{t("Rehvimõõt")}</label>
 				<select class="lsel" id="v-size" data-f="size"><option value="20555R16">205/55 R16</option></select>
-				<p class="qlab">{t("Hooaeg")}</p>
-				<div class="lseg" role="group" aria-label={t("Hooaeg")}>
+				<p class="qlab">{t("Rehvi liik")}</p>
+				<div class="lseg" role="group" aria-label={t("Rehvi liik")}>
 					<button type="button" data-season="summer">{t("Suverehv")}</button>
+					<button type="button" data-season="winter">{t("Lamellrehv")}</button>
+					<button type="button" data-season="naast">{t("Naastrehv")}</button>
 					<button type="button" data-season="all">{t("Aastaringne")}</button>
-					<button type="button" data-season="winter">{t("Talverehv")}</button>
 				</div>
 			</div>
 			<div class="qcol">

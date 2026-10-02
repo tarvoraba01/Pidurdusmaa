@@ -44,10 +44,11 @@
 				<select class="lsel" data-f="year" aria-label={t("Aasta")} disabled><option value="">{t("Aasta")}</option></select>
 				<select class="lsel" data-f="variant" aria-label={t("Mootor")} disabled><option value="">{t("Mootor")}</option></select>
 				<select class="lsel" data-f="size" aria-label={t("Rehvimõõt")}><option value="20555R16">205/55 R16</option></select>
-				<div class="lseg" role="group" aria-label={t("Hooaeg")}>
-					<button type="button" data-season="summer">{t("Suvi")}</button>
+				<div class="lseg" role="group" aria-label={t("Rehvi liik")}>
+					<button type="button" data-season="summer">{t("Suverehv")}</button>
+					<button type="button" data-season="winter">{t("Lamellrehv")}</button>
+					<button type="button" data-season="naast">{t("Naastrehv")}</button>
 					<button type="button" data-season="all">{t("Aastaringne")}</button>
-					<button type="button" data-season="winter">{t("Talv")}</button>
 				</div>
 				<select class="lsel" data-rft aria-label="Run-flat">
 					<option value="">{t("Run-flat: kõik")}</option>

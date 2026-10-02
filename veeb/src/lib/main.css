@@ -280,7 +280,7 @@ input[type=range].slider{-webkit-appearance:none;appearance:none;width:100%;heig
 }
 
 /* võrdlusrežiim kaardis */
-.seg{display:grid;grid-template-columns:repeat(3,1fr);gap:0;background:var(--ink-3);border:1px solid var(--line-d);border-radius:var(--r-sm);padding:var(--sp-1)}
+.seg{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);gap:0;background:var(--ink-3);border:1px solid var(--line-d);border-radius:var(--r-sm);padding:var(--sp-1)}
 .seg button{border:0;background:transparent;color:var(--muted-d);padding:var(--sp-2) var(--sp-2);border-radius:6px;font-weight:600;font-size:14px;cursor:pointer}
 .seg button[aria-pressed="true"]{background:var(--ink-4);color:#fff;box-shadow:inset 0 -2px 0 var(--yellow)}
 .search{width:100%;height:44px;border-radius:var(--r-sm);border:1px solid var(--line-d);background:var(--ink-3);color:#fff;padding:0 var(--sp-3) 0 var(--sp-10);font-size:15px;
@@ -577,6 +577,13 @@ table.cmp .grp th{background:var(--paper-2);color:var(--text);font-size:12px;let
 .why-list{grid-column:1/-1;margin:0;padding:0;list-style:none;display:grid;gap:var(--sp-1)}
 .why-list li{font-size:14px;padding-left:var(--sp-6);position:relative}
 .why-list li::before{content:"";position:absolute;left:2px;top:6px;width:11px;height:6px;border-left:2px solid var(--good);border-bottom:2px solid var(--good);transform:rotate(-45deg)}
+.why-list li.x::before{content:"!";border:0;transform:none;top:0;left:4px;width:auto;height:auto;color:var(--bad);font-weight:800}
+.kat-b{display:inline-flex;align-items:center;padding:2px 9px;border-radius:999px;font-size:12px;font-weight:700;margin-right:var(--sp-2);background:#fff4cf;color:#7a5a00}
+.kat-b.kat-1{background:#e8f5ec;color:#1f6b3a}
+.kat-b.kat-2,.kat-b.kat-3{background:#e6f0fb;color:#1e4f8a}
+.naast-note{padding:var(--sp-5);border:1px solid var(--line);border-radius:var(--r);background:#fff}
+.naast-note p{margin:0 0 var(--sp-2)}
+.naast-note p:last-child{margin:0}
 .rank{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:6px;background:var(--ink);color:var(--yellow);font-size:12px;margin-right:var(--sp-2);vertical-align:middle}
 .add-bar{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--sp-2);margin-top:var(--sp-3)}
 .add-bar .lseg{grid-column:span 2}
@@ -658,7 +665,7 @@ table.cmp .grp th{background:var(--paper-2);color:var(--text);font-size:12px;let
 .calc-card .qchip{background:#15171c;border:1px solid #3a3f49;color:#e6e8eb;padding:var(--sp-2) var(--sp-3);font-size:13px;font-weight:500;border-radius:7px}
 .calc-card .qchip:hover{border-color:#5a616d}
 .calc-card .qchip[aria-pressed="true"]{background:rgba(255,194,14,.07);border-color:var(--yellow);color:var(--yellow);box-shadow:none}
-.calc-card .vq .seg{max-width:340px}
+.calc-card .vq .seg{max-width:460px}
 .vq-out{margin:var(--sp-3) 0 var(--sp-4)}
 .vq-out .note{color:var(--muted-d)!important;font-size:12.5px}
 .vq-out .note b{color:#e6e8eb}
