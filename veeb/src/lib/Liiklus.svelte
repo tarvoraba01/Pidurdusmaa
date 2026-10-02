@@ -153,9 +153,12 @@
 	const AKEN = 'fill="var(--paper-2)"';
 	const RATAS = (x, r = 4.2) => `<circle cx="${x}" cy="22" r="${r}" fill="currentColor"/><circle cx="${x}" cy="22" r="${r * 0.42}" ${AKEN}/>`;
 	const AUTO_PILT = {
-		yld_vaike: `<path d="M9 21V15.5Q9 12.5 12.5 12L19 6.5Q20.5 5.5 23 5.5H35Q37.5 5.5 39 7.5L43 12Q48 12.8 48.5 15.5V21Z" fill="currentColor"/><path d="M20.5 8.5Q21.5 7.5 23 7.5H28.5V12H16.5Z M30.5 7.5H35Q36.5 7.5 37.5 9L40 12H30.5Z" ${AKEN}/>` + RATAS(17) + RATAS(40),
-		yld_kompakt: `<path d="M4 21V15.5Q4 12.5 8 12L17 6Q19 4.8 22 4.8H38Q41 4.8 43 7L48 11.8Q57 12.5 58.5 15.5V21Z" fill="currentColor"/><path d="M18.5 7.8Q20 6.8 22 6.8H29.5V11.8H12.5Z M31.5 6.8H38Q40 6.8 41.2 8.2L44.5 11.8H31.5Z" ${AKEN}/>` + RATAS(14) + RATAS(48),
-		yld_maastur: `<path d="M4 21V12Q4 9 7.5 8.6L13 3.8Q14.5 2.6 17.5 2.6H44Q46.5 2.6 47.8 4.5L51.5 9Q58.5 9.5 59.5 13V21Z" fill="currentColor"/><path d="M14.5 5.8Q15.5 4.6 17.5 4.6H29V8.8H9.5Z M31 4.6H44Q45.3 4.6 46 5.6L48.4 8.8H31Z" ${AKEN}/>` + RATAS(14, 5) + RATAS(48.5, 5),
+		/* väike kaheukseline luukpära (nagu Golf 3): lühike nina, püstine tagaluuk, pikk uks */
+		yld_vaike: `<path d="M6 20V13.5Q6 11.5 7.6 10.6L11.8 5.2Q12.6 4.4 14.2 4.4H31.5Q33.4 4.4 34.5 5.4L39.8 10.4L50.5 11.2Q55.2 11.8 55.8 15V20Z" fill="currentColor"/><path d="M13.9 6.1H18.2V10.2H10.6Z M20.2 6.1H31.3Q32.6 6.1 33.3 6.9L37 10.2H20.2Z" ${AKEN}/><path d="M19.4 11.4V18.6" stroke="var(--paper-2)" stroke-width=".6" opacity=".6"/>` + RATAS(15) + RATAS(45.5),
+		/* sedaan: kolm „kasti“ – mootor, salong, pagasiruum */
+		yld_kompakt: `<path d="M3 20V14Q3 12 5.5 11.8L17 11.4L22.8 5.6Q23.8 4.8 25.4 4.8H36Q37.6 4.8 38.6 5.6L44 11L56 11.8Q60.5 12.4 61 15.5V20Z" fill="currentColor"/><path d="M19.6 11.2L24.2 6.7Q24.8 6.2 25.6 6.2H30V11.2Z M32 6.2H35.8Q36.8 6.2 37.4 6.8L41.4 11.2H32Z" ${AKEN}/>` + RATAS(14.5) + RATAS(49.5),
+		/* maastur (nagu Jeep): kandiline, kõrge, suured rattad, varuratas taga */
+		yld_maastur: `<circle cx="5" cy="11.5" r="3.6" fill="currentColor"/><circle cx="5" cy="11.5" r="1.5" ${AKEN}/><path d="M7.5 18.5V9.5Q7.5 7.8 9 7.8H10V3.2Q10 2 11.2 2H40.5L44.6 7.8H55Q58 7.8 58 10.6V18.5Z" fill="currentColor"/><path d="M12.2 3.8H24.5V7.6H12.2Z M26.5 3.8H39.5L42.2 7.6H26.5Z" ${AKEN}/><path d="M10 18.8Q11 13.6 17.5 13.6Q24 13.6 25 18.8M40 18.8Q41 13.6 47.5 13.6Q54 13.6 55 18.8" stroke="currentColor" stroke-width="2.4" fill="none"/>` + RATAS(17.5, 5.4) + RATAS(47.5, 5.4),
 		yld_kaubik: `<path d="M3 21V4.5Q3 2 5.5 2H46Q48.5 2 50 4L56 10.8Q60.5 11.8 61 15V21Z" fill="currentColor"/><path d="M43 4H46Q47.5 4 48.3 5.2L53 10.8H43Z" ${AKEN}/><path d="M38.5 3.5V19" stroke="var(--paper-2)" stroke-width="0.8" opacity=".5"/>` + RATAS(13) + RATAS(50.5)
 	};
 	let KR = $state({ kiirus: 80, pind: 'marg', kat: 'SUMMER_TOURING', esi: 8, taga: 2, auto: 'yld_kompakt', abs: true });
