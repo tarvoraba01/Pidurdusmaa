@@ -153,9 +153,8 @@
 				<p class="lbl">{t("3. Rehvi liik")}</p>
 				<div class="seg" role="group" aria-label={t("Rehvi liik")}>
 					<button type="button" data-season="summer" aria-pressed="true">{t("Suverehv")}</button>
-					<button type="button" data-season="winter" aria-pressed="false">{t("Lamellrehv")}</button>
+					<button type="button" data-season="winter" aria-pressed="false">{t("Lamell / aastaringne")}</button>
 					<button type="button" data-season="naast" aria-pressed="false">{t("Naastrehv")}</button>
-					<button type="button" data-season="all" aria-pressed="false">{t("Aastaringne")}</button>
 				</div>
 			</div>
 			{#each Object.entries(VALIK_Q) as [g, item], i (g)}

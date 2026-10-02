@@ -89,8 +89,6 @@ export default {
 " kohta midagi)": " grip)",
 "Sõltumatu test": "Independent test",
 "Märgise klass ": "Label class ",
-"Põhjamaade": "Nordic",
-"Kesk-Euroopa": "Central European",
 " rehvimudelit sinu mõõdus, nt ": " tyre models in your size, e.g. ",
 " — kategooria keskmine": " — category average",
 " märgisega rehvimudelit sinu mõõdus · ": " labelled tyre models in your size · ",
@@ -950,5 +948,12 @@ export default {
 "Lamell (Põhjamaade)": "Friction (Nordic)",
 "<b>Suverehv</b> — talveks ei sobi": "<b>Summer tyre</b> — not suitable for winter",
 "3. Rehvi liik": "3. Tyre type",
-"Rehvi liik": "Tyre type"
+"Rehvi liik": "Tyre type",
+"Lamell / aastaringne": "Friction / all-season",
+"lamell- ja aastaringsed rehvid": "friction and all-season tyres",
+"lamell- või aastaringne rehv": "friction or all-season tyre",
+"lamell- ja aastaringset rehvi": "friction and all-season tyres",
+"lamell- ja aastaringseid rehve": "friction and all-season tyres",
+"Põhjamaade lamell": "Nordic friction",
+"Kesk-Euroopa lamell": "Central European friction"
 };

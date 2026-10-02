@@ -43,9 +43,8 @@
 				<p class="qlab">{t("Rehvi liik")}</p>
 				<div class="lseg" role="group" aria-label={t("Rehvi liik")}>
 					<button type="button" data-season="summer">{t("Suverehv")}</button>
-					<button type="button" data-season="winter">{t("Lamellrehv")}</button>
+					<button type="button" data-season="winter">{t("Lamell / aastaringne")}</button>
 					<button type="button" data-season="naast">{t("Naastrehv")}</button>
-					<button type="button" data-season="all">{t("Aastaringne")}</button>
 				</div>
 			</div>
 			<div class="qcol">

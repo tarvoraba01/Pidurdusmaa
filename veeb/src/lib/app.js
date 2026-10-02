@@ -71,7 +71,8 @@
   var SEASON = {
     summer: { label: _t('Suverehv'), et: 'suverehvid', long: _t('suverehvid'), yks: _t('suverehv'), osa: _t('suverehvi'), pp: _t('suverehve'), tested: ['SUMMER_TOURING', 'SUMMER_UHP'], eprel: [0] },
     all:    { label: _t('Aastaringne'), et: 'aastaringsed rehvid', long: _t('aastaringsed rehvid'), yks: _t('aastaringne rehv'), osa: _t('aastaringset rehvi'), pp: _t('aastaringseid rehve'), tested: ['ALL_SEASON'], eprel: [1] },
-    winter: { label: _t('Lamellrehv'), et: 'lamellrehvid', long: _t('lamellrehvid'), yks: _t('lamellrehv'), osa: _t('lamellrehvi'), pp: _t('lamellrehve'), tested: ['WINTER_CENTRAL', 'WINTER_NORDIC'], eprel: [2, 3] },
+    /* lamell ja aastaringne ühes: mõlemaga saab aasta läbi sõita, talvel eristab neid pidurdusmaa */
+    winter: { label: _t('Lamell / aastaringne'), et: 'lamell- ja aastaringsed rehvid', long: _t('lamell- ja aastaringsed rehvid'), yks: _t('lamell- või aastaringne rehv'), osa: _t('lamell- ja aastaringset rehvi'), pp: _t('lamell- ja aastaringseid rehve'), tested: ['WINTER_CENTRAL', 'WINTER_NORDIC', 'ALL_SEASON'], eprel: [3, 2, 1] },
     /* naastrehvidel EL-i märgist ei ole — mõõdu järgi nimekirja ei saa teha, suuname talverehvide lehele */
     naast: { label: _t('Naastrehv'), et: 'naastrehvid', long: _t('naastrehvid'), yks: _t('naastrehv'), osa: _t('naastrehvi'), pp: _t('naastrehve'), tested: ['WINTER_STUDDED'], eprel: [] }
   };
@@ -1029,11 +1030,11 @@
 
   /* ------------------------------------------------------------ tulemus */
   /* ---- SINU REHV (valikuline): EPREL-i rida sinu mõõdus või testitud rehv */
-  var KAT_HOOAEG = { 0: 'summer', 1: 'all', 2: 'winter', 3: 'winter' };
+  var KAT_HOOAEG = { 0: 'summer', 1: 'winter', 2: 'winter', 3: 'winter' };
   /* rehvi liik kaardil: lühike ja selge */
   var KAT_KAART = { 0: _t('Suverehv'), 1: _t('Aastaringne'), 2: _t('Lamell (Kesk-Euroopa)'), 3: _t('Lamell (Põhjamaade)') };
   var KAT_SILT = { 0: _t('suverehv'), 1: _t('aastaringne'), 2: _t('Kesk-Euroopa talverehv'), 3: _t('Põhjamaade talverehv') };
-  function tyypHooaeg(cat) { return /^SUMMER/.test(cat) ? 'summer' : cat === 'ALL_SEASON' ? 'all' : cat === 'WINTER_STUDDED' ? 'naast' : 'winter'; }
+  function tyypHooaeg(cat) { return /^SUMMER/.test(cat) ? 'summer' : cat === 'WINTER_STUDDED' ? 'naast' : 'winter'; }
   function tyypSilt(cat) {
     return { SUMMER_UHP: _t('sportlik suverehv'), SUMMER_TOURING: _t('suverehv'), ALL_SEASON: _t('aastaringne'), WINTER_CENTRAL: _t('Kesk-Euroopa talverehv'),
              WINTER_NORDIC: _t('Põhjamaade talverehv'), WINTER_STUDDED: _t('naastrehv') }[cat] || '';
@@ -1108,7 +1109,7 @@
           var r = calc(classTyre(g, cat, S.size), veh, cond);
           rows.push({ id: 'c:' + k, kind: 'class', g: g, cat: cat, n: list.length, d: r.distanceM, r: r, members: list,
             pids: list.map(function (x) { return x.slug + '@' + S.size; }),
-            name: _t('Märgise klass ') + g + (sea.eprel.length > 1 ? ' · ' + (cat === 'WINTER_NORDIC' ? _t('Põhjamaade') : _t('Kesk-Euroopa')) : ''),
+            name: _t('Märgise klass ') + g + (sea.eprel.length > 1 ? ' · ' + (cat === 'WINTER_NORDIC' ? _t('Põhjamaade lamell') : cat === 'ALL_SEASON' ? _t('aastaringne') : _t('Kesk-Euroopa lamell')) : ''),
             sub: list.length + _t(' rehvimudelit sinu mõõdus, nt ') + list.slice(0, 2).map(function (x) { return x.mark + ' ' + x.name; }).join(', ') });
         });
       } else {
@@ -1369,7 +1370,7 @@
 
       if (detail) {
         $('[data-r-big2]', detail).textContent = fmt(r.distanceM + react);
-        $('[data-r-cats]', detail).innerHTML = Object.keys(SEASON).map(function (k) {
+        $('[data-r-cats]', detail).innerHTML = ['summer', 'winter', 'naast'].map(function (k) {
           return _t('<button type="button" data-rs="') + k + _t('" aria-pressed="') + (k === S.resSeason) + '">' + SEASON[k].label + '</button>';
         }).join('');
         $$('[data-rs]', detail).forEach(function (b) { b.addEventListener('click', function () { S.resSeason = b.dataset.rs; S._userSeason = true; sel = null; render(); }); });
@@ -1657,7 +1658,7 @@
        lehest otsingu ja ?m= kuuarhiivi. */
     if (qs.get('auto')) S.veh = qs.get('auto');
     if (qs.get('moot')) S.size = qs.get('moot');
-    if (qs.get('hooaeg') && SEASON[qs.get('hooaeg')]) S.season = qs.get('hooaeg');
+    if (qs.get('hooaeg') && SEASON[qs.get('hooaeg')]) S.season = qs.get('hooaeg') === 'all' ? 'winter' : qs.get('hooaeg'); /* vanad lingid: aastaringne on nüüd lamelliga koos */
     if (qs.get('rehvid')) {
       var known = {}; cmp.list().forEach(function (x) { known[x.id] = x.n; });
       cmp.set(qs.get('rehvid').split(',').filter(Boolean).map(function (id) { return { id: id, n: known[id] || id.split('@')[0] }; }));
