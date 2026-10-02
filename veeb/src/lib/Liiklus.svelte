@@ -20,6 +20,7 @@
 	   iga teguri mõju ise läbi mängida. Olukord salvestub aadressi
 	   (#...), nii et lingi saab jagada või tunniks ette valmistada. */
 	import { onMount } from 'svelte';
+	import { afterNavigate } from '$app/navigation';
 	import { version } from '$app/environment';
 	import { kaitumine, esiOsa } from '$lib/kaitumine.js';
 	import { kurviSoit, RADA } from '$lib/kurvisoit.js';
@@ -187,6 +188,17 @@
 			if (typeof window !== 'undefined' && typeof window.plausible === 'function') window.plausible(nimi, props ? { props } : undefined);
 		} catch {}
 	};
+
+	/* Kui tuldi saidi seest (esilehe simulaatorite kaardid, menüü, vahelehed), alusta
+	   kohe tööriistast, mitte lehe päisest — telefonis ei pea siis alla kerima.
+	   Otse avades (Google, jagatud link) jääb leht algusesse. */
+	afterNavigate(({ from, to, type }) => {
+		if (type === 'enter' || !from || !to || from.url.pathname === to.url.pathname || !juur) return;
+		requestAnimationFrame(() => {
+			const y = juur.getBoundingClientRect().top + window.scrollY - 76;
+			window.scrollTo({ top: Math.max(0, y), behavior: 'instant' });
+		});
+	});
 
 	/* ------------------------------------------------------ andmed */
 	onMount(async () => {
