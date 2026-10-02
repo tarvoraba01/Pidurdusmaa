@@ -88,6 +88,19 @@
     var v = 100 * diff / base;
     return '+' + (v < 10 ? fmt(v, 1) : String(Math.round(v))) + '%';
   }
+  /* Poelingile UTM: pood näeb oma statistikas, et ostja tuli Pidurdusmaast
+     (utm_source=pidurdusmaa). Awini jms vahenduslinke ei puutu — neil on oma jälgimine. */
+  function poeLink(url, koht, rehv) {
+    try {
+      var u = new URL(url);
+      if (/(^|\.)(awin1\.com|awin\.com)$/.test(u.hostname) || u.searchParams.has('utm_source')) return url;
+      u.searchParams.set('utm_source', 'pidurdusmaa');
+      u.searchParams.set('utm_medium', 'referral');
+      u.searchParams.set('utm_campaign', koht || 'rehv');
+      if (rehv) u.searchParams.set('utm_content', String(rehv).slice(0, 80));
+      return u.toString();
+    } catch (e) { return url; }
+  }
   function esc(s) {
     return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
       return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
@@ -1190,7 +1203,7 @@
             .filter(Boolean).sort(function (a, b) { return a.r.hind - b.r.hind; }).slice(0, 3);
           box.innerHTML = _t('<span class="pl">Soodsaimad klassi ') + cur.g + _t(' rehvid</span> ') + (top.length ? '<ul class="sellers">' + top.map(function (t) {
             return _t('<li><span><a href="') + rTee(t.m.slug) + '/">' + esc(t.m.mark + ' ' + t.m.name) + '</a> <small>' + esc(t.r.myyja) + '</small></span>' +
-              (t.r.url ? _t('<a class="buy" href="') + esc(t.r.url) + _t('" target="_blank" rel="nofollow sponsored noopener" data-pood="') + esc(t.r.myyja) + _t('" data-rehv="') + esc(t.m.mark + ' ' + t.m.name) + '">' + eur(t.r.hind) + '</a>' : '<b>' + eur(t.r.hind) + '</b>') + '</li>';
+              (t.r.url ? _t('<a class="buy" href="') + esc(poeLink(t.r.url, 'kalkulaator', t.m.mark + ' ' + t.m.name)) + _t('" target="_blank" rel="nofollow sponsored noopener" data-pood="') + esc(t.r.myyja) + _t('" data-rehv="') + esc(t.m.mark + ' ' + t.m.name) + '">' + eur(t.r.hind) + '</a>' : '<b>' + eur(t.r.hind) + '</b>') + '</li>';
           }).join('') + '</ul>' + AFF : _t('<span class="none">Hindu selles klassis veel pole</span>'));
         } else box.innerHTML = _t('<span class="pl">Hinnad</span> <span class="none">vali rehv, et näha müüjaid</span>');
       });
@@ -1615,7 +1628,7 @@
   function priceHtml(rows, avail) {
     if (rows && rows.length) {
       return '<ul class="sellers">' + rows.slice(0, 4).map(function (r) {
-        var name = r.url ? _t('<a href="') + esc(r.url) + _t('" target="_blank" rel="nofollow sponsored noopener" data-pood="') + esc(r.myyja) + '">' + esc(r.myyja) + '</a>' : esc(r.myyja);
+        var name = r.url ? _t('<a href="') + esc(poeLink(r.url, 'rehvileht')) + _t('" target="_blank" rel="nofollow sponsored noopener" data-pood="') + esc(r.myyja) + '">' + esc(r.myyja) + '</a>' : esc(r.myyja);
         return '<li><span>' + name + (r.laos === false ? _t(' <small>tellimisel</small>') : '') + '</span><b>' + eur(r.hind) + '</b></li>';
       }).join('') + '</ul>' + (rows.length > 4 ? '<p class="more">+' + (rows.length - 4) + _t(' müüjat veel</p>') : '') + AFF;
     }
