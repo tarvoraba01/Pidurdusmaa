@@ -1014,7 +1014,7 @@
     /* tulemuse riba „Näita sobivaid rehve“ → järgmine samm samal lehel */
     var rv = $('[data-r-valik]');
     if (rv) rv.addEventListener('click', function (e) {
-      e.preventDefault(); naitaValik();
+      e.preventDefault(); naitaValik(); hvAva(true);
       Track('naita_rehve', 'avaleht');
       var t = $('#sobivad'); if (t) t.scrollIntoView({ behavior: smooth(), block: 'start' });
     });
@@ -1025,6 +1025,23 @@
       var on = $('[data-home=valik] [data-season][aria-pressed="true"]');
       if (on) { var u = new URL(vf.getAttribute('href'), location.href); u.searchParams.set('hooaeg', on.dataset.season); vf.setAttribute('href', u.pathname + u.search); }
       Track('naita_rehve', 'rehvi valimise leht');
+    });
+    /* järgmise sammu küsimused + nimekiri on vaikimisi kinni (esileht ei
+       upu infosse); nupp avab ja sulgeb */
+    var hvTog = $('[data-hv-tog]'), hvBody = $('[data-hv-body]');
+    function hvAva(lahti, kust) {
+      if (!hvTog || !hvBody) return;
+      hvBody.hidden = !lahti;
+      hvTog.setAttribute('aria-expanded', lahti ? 'true' : 'false');
+      var tt = $('[data-hv-tog-t]', hvTog); if (tt) tt.textContent = lahti ? _t('Peida küsimused ja rehvid') : _t('Ava küsimused ja rehvid');
+      if (kust) Track('rehvivalik_' + (lahti ? 'lahti' : 'kinni'), kust);
+      if (lahti) try { window.dispatchEvent(new Event('resize')); } catch (e) {}
+    }
+    if (hvTog) hvTog.addEventListener('click', function () { hvAva(hvBody.hidden, 'nupp'); });
+    var hvS = $('[data-hv-sulge]');
+    if (hvS) hvS.addEventListener('click', function () {
+      hvAva(false, 'all');
+      var t = $('#sobivad'); if (t) t.scrollIntoView({ behavior: smooth(), block: 'start' });
     });
     function naitaValik() {
       var v = $('[data-home=valik]'); if (v) v.hidden = false;

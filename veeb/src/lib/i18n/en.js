@@ -1030,5 +1030,8 @@ export default {
 " kui sinu praegustel rehvidel": " than your current tyres",
 " kui sinu rehvil": " than your tyre",
 "Sinu praegustest rehvidest": "Compared to your current tyres",
-"vali uus rehv, et näha hindu": "pick a new tyre to see prices"
+"vali uus rehv, et näha hindu": "pick a new tyre to see prices",
+"Ava küsimused ja rehvid": "Open questions and tyres",
+"Peida küsimused ja rehvid": "Hide questions and tyres",
+"Sulge rehvide valik ↑": "Close tyre picker ↑"
 };

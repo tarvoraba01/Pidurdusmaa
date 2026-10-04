@@ -1000,6 +1000,13 @@ h1,h2{overflow-wrap:break-word;hyphens:auto}
 .hv-step-h{display:grid;gap:var(--sp-1);max-width:62ch}
 .hv-step-h h2{margin:0}
 .hv-q{margin-bottom:var(--sp-5)}
+.hv-btns{display:flex;align-items:center;gap:var(--sp-2) var(--sp-5);flex-wrap:wrap}
+.hv-btns .linkbtn{font-size:14px}
+.hv-ar{display:inline-block;transition:transform .2s}
+[data-hv-tog][aria-expanded="true"] .hv-ar{transform:rotate(180deg)}
+.hv-body{padding-top:var(--sp-2)}
+.hv-sulge{display:block;margin:var(--sp-5) auto 0;font-size:14px}
+@media (prefers-reduced-motion:reduce){.hv-ar{transition:none}}
 .qcard.hv-q{grid-template-columns:minmax(0,1fr)}
 .hv-q .qcol+.qcol{border-left:0;border-top:1px solid var(--line)}
 /* ---- rehvi eelvaade (pilt → paremasse veergu) + „Vali“ ---- */

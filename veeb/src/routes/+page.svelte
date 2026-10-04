@@ -72,8 +72,14 @@
 						<h2 id="hv-h">{t("Vali rehv oma sõidu järgi")}</h2>
 						<p class="note" style="margin:0">{t("Sama auto ja mõõt. Vasta paarile küsimusele — nimekiri järjestub kohe sinu vastuste järgi.")}</p>
 					</div>
-					<a class="btn dark" href={keel.L('/rehvi-valimine/')} data-valik-full>{t("Vali oma tingimustele vastavam →")}</a>
+					<div class="hv-btns">
+						<button type="button" class="btn dark" aria-expanded="false" aria-controls="hv-body" data-hv-tog
+							><span data-hv-tog-t>{t("Ava küsimused ja rehvid")}</span> <span class="hv-ar" aria-hidden="true">↓</span></button
+						>
+						<a class="linkbtn" href={keel.L('/rehvi-valimine/')} data-valik-full>{t("Vali oma tingimustele vastavam →")}</a>
+					</div>
 				</div>
+				<div class="hv-body" id="hv-body" data-hv-body hidden>
 				<div class="qcard hv-q">
 					<div class="qcol">
 						<p class="qlab">{t("Rehvi liik")}</p>
@@ -134,6 +140,8 @@
 						</div>
 					</aside>
 					<div class="res-list" data-cmp-list><p class="note">{t("Laen…")}</p></div>
+				</div>
+				<button type="button" class="linkbtn hv-sulge" aria-controls="hv-body" data-hv-sulge>{t("Sulge rehvide valik ↑")}</button>
 				</div>
 			</div>
 		</section>
