@@ -420,10 +420,20 @@
 
   /* ------------------------------------------------------------ päis */
   function initHeader() {
-    var b = $('[data-burger]'), panel = $('#pm-panel');
-    if (b && panel) b.addEventListener('click', function () {
-      panel.hidden = !panel.hidden;
-      b.setAttribute('aria-expanded', panel.hidden ? 'false' : 'true');
+    /* menüü: päise burger JA telefoni alariba „Menüü“ (delegeeritud — päis
+       joonistatakse neutraalse lehe vahetusel uuesti) */
+    function menuSea(lahti) {
+      var panel = $('#pm-panel'); if (!panel) return;
+      panel.hidden = !lahti;
+      $$('[data-burger]').forEach(function (x) { x.setAttribute('aria-expanded', lahti ? 'true' : 'false'); });
+    }
+    window.PM_MENU = menuSea;
+    document.addEventListener('click', function (e) {
+      var bb = e.target.closest && e.target.closest('[data-burger]');
+      var panel = $('#pm-panel');
+      if (bb) { if (panel) menuSea(panel.hidden); return; }
+      /* alariba lingile vajutus sulgeb lahtise menüü */
+      if (panel && !panel.hidden && e.target.closest && e.target.closest('.tabbar a')) menuSea(false);
     });
     $$('[data-dd]').forEach(function (dd) {
       var btn = $('.dd-btn', dd);
@@ -443,7 +453,8 @@
     document.addEventListener('keydown', function (e) {
       if (e.key !== 'Escape') return;
       $$('[data-dd].open').forEach(function (dd) { dd.classList.remove('open'); $('.dd-btn', dd).focus(); });
-      if (panel && !panel.hidden) { panel.hidden = true; b.setAttribute('aria-expanded', 'false'); }
+      var panel = $('#pm-panel');
+      if (panel && !panel.hidden) menuSea(false);
     });
     cmp.paint();
     $$('[data-cmp-pill]').forEach(function (a) {
@@ -2639,8 +2650,9 @@
       });
     }
     /* päis jääb lehevahetusel alles — sulgeme lahtise menüü */
-    var pm = $('#pm-panel'), bg = $('[data-burger]');
-    if (pm && !pm.hidden) { pm.hidden = true; if (bg) bg.setAttribute('aria-expanded', 'false'); }
+    var pm = $('#pm-panel');
+    if (pm && !pm.hidden && window.PM_MENU) window.PM_MENU(false);
+    if (window.PM_PWA) window.PM_PWA();
     $$('[data-dd].open').forEach(function (dd) { dd.classList.remove('open'); $('.dd-btn', dd).setAttribute('aria-expanded', 'false'); });
     tablesA11y();
     rehviPilt();
@@ -2723,20 +2735,33 @@
     var app = (mm && mm.matches) || navigator.standalone === true;
     document.documentElement.classList.toggle('pwa', !!app);
     if (app) { Track('pwa_avatud'); return; }
-    var b = $('[data-pwa-lisa]'), v = $('[data-pwa-vihje]');
-    if (!b) return;
     var ios = /iphone|ipad|ipod/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-    function naita() { b.hidden = !(window.PM_BIP || ios); }
+    var paigaldatud = false;
+    /* nupud: päises keelte kõrval + menüüs. Näha ainult siis, kui lisada saab. */
+    function naita() { $$('[data-pwa-lisa]').forEach(function (b) { b.hidden = paigaldatud || !(window.PM_BIP || ios); }); }
+    window.PM_PWA = naita;
     naita();
     window.addEventListener('pm:bip', naita);
-    window.addEventListener('appinstalled', function () { Track('pwa_paigaldatud'); b.hidden = true; if (v) v.hidden = true; });
-    b.addEventListener('click', function () {
-      Track('pwa_lisa_nupp', ios ? 'ios' : 'android');
+    function leht(lahti) {
+      var sh = $('[data-pwa-sheet]'); if (!sh) return;
+      sh.hidden = !lahti;
+      if (lahti) { var x = $('[data-pwa-sulge]', sh); if (x) x.focus(); }
+    }
+    window.addEventListener('appinstalled', function () { Track('pwa_paigaldatud'); paigaldatud = true; naita(); leht(false); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') leht(false); });
+    document.addEventListener('click', function (e) {
+      var t = e.target;
+      if (t.closest && t.closest('[data-pwa-sulge]')) { leht(false); return; }
+      if (t.matches && t.matches('[data-pwa-sheet]')) { leht(false); return; }
+      var b = t.closest && t.closest('[data-pwa-lisa]');
+      if (!b) return;
+      Track('pwa_lisa_nupp', (ios ? 'ios' : 'android') + (b.closest('.site-header .hdr-right') ? ' · päis' : ' · menüü'));
       if (window.PM_BIP) {
         var ev = window.PM_BIP; window.PM_BIP = null;
         ev.prompt();
         if (ev.userChoice) ev.userChoice.then(function (c) { Track('pwa_valik', c && c.outcome); naita(); });
-      } else if (v) v.hidden = !v.hidden;
+        naita();
+      } else if (ios) leht(true);
     });
   }
 

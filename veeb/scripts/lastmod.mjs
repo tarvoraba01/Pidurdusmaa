@@ -17,8 +17,12 @@ const SITEMAP = 'build/prerendered/sitemap.xml';
 const ANDMED = 'scripts/lastmod.json';
 const TANA = new Date().toISOString().slice(0, 10);
 
+/* ainult lehe oma sisu: <main> + pealkiri + kirjeldus. Päis, jalus ja
+   alariba on kõigil lehtedel ühised — nende muutus ei ole lehe muutus. */
 function sisu(html) {
-	return html
+	const m = /<main\b[\s\S]*<\/main>/i.exec(html);
+	const pea = (/<title>[\s\S]*?<\/title>/i.exec(html) || [''])[0] + ((/<meta name="description"[^>]*>/i.exec(html) || [''])[0]);
+	return (pea + (m ? m[0] : html))
 		.replace(/<script\b[\s\S]*?<\/script>/gi, '')
 		.replace(/<link\b[^>]*>/gi, '')
 		.replace(/\/_app\/[^"'\s)]+/g, '')

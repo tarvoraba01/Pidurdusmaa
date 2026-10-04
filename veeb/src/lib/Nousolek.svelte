@@ -130,7 +130,7 @@
 		position: fixed;
 		left: 0;
 		right: 0;
-		bottom: 0;
+		bottom: var(--tabbar-h, 0px);
 		z-index: 80;
 		padding: var(--sp-3) var(--sp-4) calc(var(--sp-3) + env(safe-area-inset-bottom, 0px));
 		pointer-events: none;

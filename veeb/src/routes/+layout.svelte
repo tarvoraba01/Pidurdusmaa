@@ -144,6 +144,9 @@
 			<a href={lang === 'ru' ? '/ru/teadmine/artiklid/' : '/teadmine/'} aria-current={cur === 'teadmine' ? 'page' : undefined}>{t("Teadmine")}</a>
 		</nav>
 		<div class="hdr-right">
+			<button type="button" class="hdr-app" data-pwa-lisa hidden aria-label={t("Lisa Pidurdusmaa äpina avaekraanile")}
+				><Icon name="download" /><span>{t("Äpp")}</span></button
+			>
 			<nav class="keeled" aria-label={t("Keel")}>{#each KEELED as k (k)}<a href={keeleLink(k)} onclick={(e) => onTolgitud(k, base) && (e.currentTarget.href = linkLang(k, base) + location.search)} hreflang={k} lang={k} title={KEEL_NIMI[k]} aria-current={k === lang ? 'true' : undefined} data-sveltekit-reload>{k.toUpperCase()}</a>{/each}</nav>
 			<a class="cmp-link" href={L('/vordle-rehve/')} data-cmp-pill>
 				<Icon name="heart" /><span>{@html t("Võrdlus (<span data-cmp-n>0</span>)")}</span>
@@ -200,12 +203,39 @@
 				<nav class="keeled pm-keeled" aria-label={t("Keel")}>{#each KEELED as k (k)}<a href={keeleLink(k)} onclick={(e) => onTolgitud(k, base) && (e.currentTarget.href = linkLang(k, base) + location.search)} hreflang={k} lang={k} aria-current={k === lang ? 'true' : undefined} data-sveltekit-reload>{KEEL_NIMI[k]}</a>{/each}</nav>
 				<button type="button" class="pm-kontakt pm-pwa" data-pwa-lisa hidden><Icon name="download" />{t("Lisa avaekraanile")}</button>
 				<a class="pm-kontakt" href="/kontakt/">{t("Kontakt")}</a>
-				<p class="pm-pwa-v" data-pwa-vihje hidden>{@html t("iPhone'is: vajuta brauseri <b>Jaga</b>-nuppu (ruut noolega) ja vali <b>„Lisa avaekraanile“</b>. Pidurdusmaa avaneb siis nagu äpp, täisekraanil.")}</p>
 			</div>
 		</div>
 	</div>
 </header>
 {/if}
+
+<!-- telefoni alariba (nagu äpis): kõige vajalikum ühe puudutusega.
+     Neutraalsel liiklusohutuse lehel ainult äpina avatuna (html.pwa). -->
+<nav class="tabbar" class:neutraal aria-label={t("Kiirvalik")}>
+	<a href={L('/')} aria-current={cur === 'home' ? 'page' : undefined}><Icon name="gauge" /><span>{t("Arvuta")}</span></a>
+	<a href={L('/rehvi-valimine/')} aria-current={base.startsWith('/rehvi-valimine') || base.startsWith('/talverehvid') ? 'page' : undefined}><Icon name="target" /><span>{t("Vali rehv")}</span></a>
+	<a href={L('/liiklusohutus/')} aria-current={neutraal ? 'page' : undefined}><Icon name="road" /><span>{t("Simulaator")}</span></a>
+	<a href={L('/vordle-rehve/')} data-cmp-pill aria-current={base.startsWith('/vordle-rehve') ? 'page' : undefined}
+		><span class="tb-ic"><Icon name="heart" /><b class="tb-n" data-cmp-n>0</b></span><span>{t("Võrdle")}</span></a
+	>
+	{#if !neutraal}<button type="button" data-burger aria-controls="pm-panel" aria-expanded="false"><Icon name="menu" /><span>{t("Menüü")}</span></button>{/if}
+</nav>
+
+<!-- iPhone: kuidas äpina avaekraanile lisada (Safari ei paku seda ise) -->
+<div class="pwa-sheet" data-pwa-sheet hidden>
+	<div class="ps-in" role="dialog" aria-modal="true" aria-labelledby="ps-h">
+		<button type="button" class="ps-x" data-pwa-sulge aria-label={t("Sulge")}><Icon name="close" /></button>
+		<div class="ps-top">
+			<img src="/icon-192.png" alt="" width="56" height="56" />
+			<div><p class="ps-h" id="ps-h">{t("Pidurdusmaa äpina")}</p><p class="ps-s">{t("Avaneb avaekraanilt täisekraanil, töötab ka ilma võrguta.")}</p></div>
+		</div>
+		<ol class="ps-steps">
+			<li><span class="ps-ic"><Icon name="share" /></span><span>{@html t("Vajuta brauseri <b>Jaga</b>-nuppu")}</span></li>
+			<li><span class="ps-ic"><Icon name="plusbox" /></span><span>{@html t("Vali <b>„Lisa avaekraanile“</b>")}</span></li>
+			<li><span class="ps-ic ps-ok">{t("Lisa")}</span><span>{@html t("Vajuta üleval paremal <b>„Lisa“</b>")}</span></li>
+		</ol>
+	</div>
+</div>
 
 <main id="sisu">{@render children()}</main>
 

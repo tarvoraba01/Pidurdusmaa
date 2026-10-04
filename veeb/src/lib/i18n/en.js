@@ -891,7 +891,7 @@ export default {
 "Sinu rehvid, aga ABS-iga": "Your tyres, but with ABS",
 "Autol ei ole ABS-i.": "The car has no ABS.",
 "Kui kiiresti sinu auto peatub": "How quickly your car stops",
-"Vali rehv": "Choose a tyre",
+"Vali rehv": "Pick a tyre",
 "Sobivad rehvid sinu tingimustele": "Tyres for your conditions",
 "Liiklusohutus": "Road safety",
 "Otsi": "Find",
@@ -1035,5 +1035,16 @@ export default {
 "Peida küsimused ja rehvid": "Hide questions and tyres",
 "Sulge rehvide valik ↑": "Close tyre picker ↑",
 "Lisa avaekraanile": "Add to home screen",
-"iPhone'is: vajuta brauseri <b>Jaga</b>-nuppu (ruut noolega) ja vali <b>„Lisa avaekraanile“</b>. Pidurdusmaa avaneb siis nagu äpp, täisekraanil.": "On iPhone: tap the browser’s <b>Share</b> button (square with an arrow) and choose <b>“Add to Home Screen”</b>. Pidurdusmaa then opens like an app, full screen."
+"iPhone'is: vajuta brauseri <b>Jaga</b>-nuppu (ruut noolega) ja vali <b>„Lisa avaekraanile“</b>. Pidurdusmaa avaneb siis nagu äpp, täisekraanil.": "On iPhone: tap the browser’s <b>Share</b> button (square with an arrow) and choose <b>“Add to Home Screen”</b>. Pidurdusmaa then opens like an app, full screen.",
+"Lisa Pidurdusmaa äpina avaekraanile": "Add Pidurdusmaa to your home screen as an app",
+"Äpp": "App",
+"Kiirvalik": "Quick menu",
+"Arvuta": "Calculate",
+"Simulaator": "Simulator",
+"Pidurdusmaa äpina": "Pidurdusmaa as an app",
+"Avaneb avaekraanilt täisekraanil, töötab ka ilma võrguta.": "Opens full screen from your home screen and works offline too.",
+"Vajuta brauseri <b>Jaga</b>-nuppu": "Tap the browser’s <b>Share</b> button",
+"Vali <b>„Lisa avaekraanile“</b>": "Choose <b>“Add to Home Screen”</b>",
+"Lisa": "Add",
+"Vajuta üleval paremal <b>„Lisa“</b>": "Tap <b>“Add”</b> in the top right"
 };

@@ -25,6 +25,8 @@
 		check: '<path d="m5 12 4.5 4.5L19 7"/>',
 		menu: '<path d="M4 7h16M4 12h16M4 17h16"/>',
 		download: '<rect x="6" y="2.5" width="12" height="19" rx="2.5"/><path d="M12 7v7M9 11l3 3 3-3M10 18.5h4"/>',
+		share: '<path d="M12 3v12M8 7l4-4 4 4"/><path d="M7 10H5.5A1.5 1.5 0 0 0 4 11.5v8A1.5 1.5 0 0 0 5.5 21h13a1.5 1.5 0 0 0 1.5-1.5v-8a1.5 1.5 0 0 0-1.5-1.5H17"/>',
+		plusbox: '<rect x="4" y="4" width="16" height="16" rx="3"/><path d="M12 8v8M8 12h8"/>',
 		close: '<path d="M6 6l12 12M18 6 6 18"/>',
 		moon: '<path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5Z"/>',
 		curve: '<path d="M5 21v-6a8 8 0 0 1 8-8h6"/><path d="m16 4 3 3-3 3"/>',

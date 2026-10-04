@@ -1396,13 +1396,16 @@
 	.lo-mini {
 		display: none;
 	}
+	:global(html.pwa) .lo-mini {
+		padding-bottom: 10px !important;
+	}
 	@media (max-width: 900px) {
 		.lo-mini {
 			display: flex;
 			position: fixed;
 			left: 0;
 			right: 0;
-			bottom: 0;
+			bottom: var(--tabbar-h, 0px);
 			z-index: 40;
 			gap: var(--sp-2);
 			align-items: center;
