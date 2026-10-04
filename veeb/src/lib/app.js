@@ -990,11 +990,8 @@
       S.tab = tab;
       Track('vaheleht', tab === 'valik' ? 'rehvi valimine' : 'kalkulaator');
       $$('[data-tab]', root).forEach(function (x) { x.setAttribute('aria-selected', x.dataset.tab === tab ? 'true' : 'false'); x.tabIndex = x.dataset.tab === tab ? 0 : -1; });
-      $('#p-calc', root).hidden = tab !== 'calc';
-      $('#p-valik', root).hidden = tab !== 'valik';
-      $$('[data-calc-only]', root).forEach(function (x) { x.hidden = tab !== 'calc'; });
-      /* avalehe alumine osa: kalkulaatori tulemus + info VÕI sobivad rehvid */
-      $$('[data-home]').forEach(function (x) { x.hidden = x.dataset.home !== tab; });
+      /* vahelehti enam pole: „valik“ = näita järgmist sammu (rehvide nimekiri) */
+      if (tab === 'valik') naitaValik();
     }
     function smooth() { return matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'; }
     var goV = $('[data-go-valik]', root);
@@ -1002,12 +999,31 @@
       Track('naita_rehve', 'avaleht');
       var t = $('#sobivad'); if (t) t.scrollIntoView({ behavior: smooth(), block: 'start' });
     });
-    /* tulemuse riba nupp „Rehvi valimine“ avab avalehel sama vahelehe */
+    /* tulemuse riba „Näita sobivaid rehve“ → järgmine samm samal lehel */
     var rv = $('[data-r-valik]');
     if (rv) rv.addEventListener('click', function (e) {
-      e.preventDefault(); setTab('valik');
-      root.scrollIntoView({ behavior: smooth(), block: 'start' });
+      e.preventDefault(); naitaValik();
+      Track('naita_rehve', 'avaleht');
+      var t = $('#sobivad'); if (t) t.scrollIntoView({ behavior: smooth(), block: 'start' });
     });
+    /* järgmine samm (rehvide valik) ilmub pärast arvutust; „terve leht“ nupp viib
+       rehvi valimise lehele sama auto ja mõõduga */
+    var vf = $('[data-valik-full]');
+    if (vf) vf.addEventListener('click', function () {
+      var on = $('[data-home=valik] [data-season][aria-pressed="true"]');
+      if (on) { var u = new URL(vf.getAttribute('href'), location.href); u.searchParams.set('hooaeg', on.dataset.season); vf.setAttribute('href', u.pathname + u.search); }
+      Track('naita_rehve', 'rehvi valimise leht');
+    });
+    function naitaValik() {
+      var v = $('[data-home=valik]'); if (v) v.hidden = false;
+      var f = $('[data-valik-full]');
+      if (f) {
+        var u = new URL(f.getAttribute('href'), location.href);
+        if (S.veh) u.searchParams.set('auto', S.veh); else u.searchParams.delete('auto');
+        u.searchParams.set('moot', S.size);
+        f.setAttribute('href', u.pathname + u.search);
+      }
+    }
 
     function save() { store.set('veh', S.veh); }
 
@@ -1024,6 +1040,7 @@
       loadSize(S.size).then(function (rows) {
         Result.show(Object.assign({}, S), rows);
         shown = true; goLabel(_t('Arvuta pidurdusmaa')); goBtn.classList.remove('stale');
+        naitaValik();
         var res = $('#tulemus');
         if (!res) return;
         res.hidden = false;
@@ -1264,11 +1281,10 @@
         if (!avail) { box.innerHTML = _t('<span class="pl">Hinnad müüjatelt</span> <span class="none">pole hetkel saadaval</span> ') + tip(PRICE_T); return; }
         if (cur.kind === 'test' || cur.kind === 'own') {
           var id = (cur.pids || [])[0];
-          box.innerHTML = '<span class="pl">' + esc(cur.name) + _t(' — hinnad</span>') + (id ? priceHtml(h[id], true, id, cur.name) : _t('<span class="none">Seda rehvi sinu mõõdus müüjatelt ei leitud</span>'));
+          box.innerHTML = '<span class="pl">' + esc(cur.name) + _t(' — hinnad</span>') + (id ? poedRead(h[id], id, cur.name) : _t('<span class="none">Seda rehvi sinu mõõdus müüjatelt ei leitud</span>'));
         } else if (cur.kind === 'class' && valitud(cur)) {
           var vm = valitud(cur), vid = vm.slug + '@' + size;
-          box.innerHTML = '<span class="pl">' + esc(vm.mark + ' ' + vm.name) + _t(' — hinnad</span> ') + priceHtml(h[vid], true, vid, vm.mark + ' ' + vm.name) +
-            _t('<a class="more" href="') + rTee(vm.slug) + _t('/">Rehvi leht →</a>');
+          box.innerHTML = '<span class="pl">' + esc(vm.mark + ' ' + vm.name) + _t(' — hinnad</span> ') + poedRead(h[vid], vid, vm.mark + ' ' + vm.name);
         } else if (cur.kind === 'class') {
           /* klassi rehvid poodides: pilt + nimi + hind, odavaim ees, keritav nimekiri */
           var top = cur.members.filter(function (m) { return !eriLiik(m); }).map(function (m) { var id = m.slug + '@' + size; return h[id] && h[id].length ? { m: m, r: h[id].slice().sort(function (a, b) { return a.hind - b.hind; })[0] } : null; })
@@ -1711,6 +1727,20 @@
   function hindTekst(r) { return (r && r.umbes ? _t('u') + ' ' : '') + eur(r.hind); }
   /* Poodide hinnad: rida klikitavaid kaarte (pilt + hind), odavaim ees,
      telefonis keritav vasakule-paremale. Kaart viib selle poe tootelehele. */
+  /* Kalkulaatori vasak kast: ühe rehvi poed ridadena (pilt · pood · laoseis · hind),
+     sama kujundus mis klassi nimekirjal; terve rida viib poodi. */
+  function poedRead(rows, id, nimi) {
+    if (!rows || !rows.length) return priceHtml(rows, true);
+    var slug = String(id).split('@')[0];
+    return '<div class="pk-list">' + rows.slice().sort(function (a, b) { return a.hind - b.hind; }).map(function (r) {
+      var ladu = r.laos === false ? _t('tellimisel') : (r.kogus > 0 ? _t('laos') + ' ' + (r.kogus >= 8 ? '8+' : r.kogus) + ' ' + _t('tk') : '');
+      var pilt = r.pilt ? '<img src="' + CFG.home + 'api/pilt/' + encodeURIComponent(slug) + '/" alt="" width="48" height="58" loading="lazy" decoding="async">' : '<span class="pk-ring" aria-hidden="true"></span>';
+      var sisu = '<span class="pk-pilt">' + pilt + '</span><span class="pk-nimi"><b>' + esc(r.myyja) + '</b><small>' + esc(ladu) + '</small><b class="pk-hind">' + hindTekst(r) + '</b></span>';
+      return r.url
+        ? _t('<a class="pk-r" href="') + esc(poeLink(r.url, 'kalkulaator', nimi)) + _t('" target="_blank" rel="nofollow sponsored noopener" data-pood="') + esc(r.myyja) + _t('" data-rehv="') + esc(nimi) + '">' + sisu + '</a>'
+        : '<div class="pk-r">' + sisu + '</div>';
+    }).join('') + '</div>';
+  }
   function priceHtml(rows, avail, id, nimi) {
     if (rows && rows.length) {
       var slug = id ? String(id).split('@')[0] : '';
@@ -2173,6 +2203,23 @@
       var pill = { off: _t('Ametlik'), test: _t('Test'), calc: _t('Arvutus'), est: _t('Tuletatud') }[p.src];
       return '<div class="rp"><div class="l">' + esc(label) + (p.src === 'calc' || p.src === 'est' ? ' ' + tip(CALC_T) : '') + '</div><div class="v">' + p.show + '</div><div class="srcd">' + pill + (p.sub ? ' · ' + esc(p.sub) : '') + '</div></div>';
     }
+    /* Kompaktne kokkuvõte inimkeeles: number + mida see tähendab. Allikas ja
+       arvutuse detail on vihjes (hõljuta / vajuta), mitte kaardil. */
+    var MURA = { A: _t('vaikne'), B: _t('tavaline'), C: _t('mürarikkam') };
+    var KULU = { A: _t('väike'), B: _t('väike'), C: _t('keskmine'), D: _t('suurem'), E: _t('suur') };
+    function kq(label, val, title, cls) {
+      return '<div class="q' + (cls ? ' ' + cls : '') + '"' + (title ? ' title="' + esc(title) + '"' : '') + '><span class="ql">' + label + '</span><span class="qv">' + val + '</span></div>';
+    }
+    function kiired(x) {
+      var P = x.P, r = x.r, h = '';
+      var src = function (p) { return p ? ({ off: _t('Ametlik EL-i märgis'), calc: _t('Arvutus sinu autoga'), est: _t('Tuletatud (≈)'), test: _t('Test') }[p.src] || '') + (p.sub ? ' · ' + p.sub : '') : ''; };
+      if (P.wetb) h += kq(_t('Märjal peatub') + ' <small>90→0</small>', P.wetb.show + (r.g ? ' ' + grade(r.g) : ''), src(P.wetb));
+      if (P.dryb) h += kq(_t('Kuival peatub'), P.dryb.show, src(P.dryb));
+      if (P.noise) h += kq(_t('Müra'), (MURA[r.nk] || '') + ' <small>' + r.db + ' dB</small>', src(P.noise));
+      if (P.rr) h += kq(_t('Kütusekulu'), (KULU[r.f] || '') + ' ' + grade(r.f), _t('Veeretakistuse klass (EL-i märgis): A on kõige säästlikum.'));
+      if (P.winter && r.catNr !== 0) h += kq(_t('Lumel / jääl') + ' <small>50→0</small>', P.winter.show.replace(_t('lumi '), '').replace(_t(' · jää '), ' / '), src(P.winter));
+      return '<div class="qs">' + h + '</div>';
+    }
     function card(x, i, why) {
       var r = x.r, id = r.slug + '@' + r.m, on = cmp.has(id);
       return _t('<article class="rcard') + (on ? ' on' : '') + '"><div class="rc-info">' +
@@ -2184,11 +2231,7 @@
         '<div class="rc-side"><img class="rpilt" alt="" width="96" height="112" decoding="async" hidden data-pilt="' + esc(id) + '">' +
         _t('<button type="button" class="add-btn" data-add="') + esc(id) + _t('" data-n="') + esc(r.mark + ' ' + r.name) + _t('" aria-pressed="') + on + '">' + (on ? _t('✓ Võrdluses') : _t('+ Võrdle')) + '</button></div>' +
         (why && why.length ? '<ul class="why-list">' + why.map(function (t) { return t.charAt(0) === '!' ? '<li class="x">' + t.slice(1) + '</li>' : '<li>' + t + '</li>'; }).join('') + '</ul>' : '') +
-        '<div class="props">' +
-        prop(_t('Märgpidamine'), x.P.wet, 'wet') + prop(_t('Märgpidurdus 90→0'), x.P.wetb, 'wetb') +
-        prop(_t('Kuivpidurdus 90→0'), x.P.dryb, 'dryb') + prop(_t('Müra'), x.P.noise, 'noise') + prop(_t('Veeretakistus'), x.P.rr, 'rr') +
-        prop(_t('Talv'), x.P.winter, 'winter') +
-        '</div>' +
+        kiired(x) +
         _t('<div class="price"><div class="pl">Hinnad poodides</div>') + priceSlot(id) + '</div>' +
         (x.miss && x.miss.length ? _t('<p class="note" style="grid-column:1/-1;margin:0">Sobivuses arvestamata: ') + esc(x.miss.join(', ')) + '</p>' : '') + '</article>';
     }

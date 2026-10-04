@@ -6,30 +6,10 @@
 	   data/core.json — siin on ainult kest, täpselt samade konksudega
 	   (data-*), mida app.js otsib. */
 	import Icon from '$lib/Icon.svelte';
-	import { VALIK_Q, CONDS } from '$lib/util.js';
+	import { CONDS } from '$lib/util.js';
 </script>
 
 <div class="calc-card" id="kalkulaator" data-calc>
-	<div class="tabs" role="tablist" aria-label={t("Režiim")}>
-		<button
-			class="tab"
-			role="tab"
-			id="tab-calc"
-			aria-controls="p-calc"
-			aria-selected="true"
-			data-tab="calc"><Icon name="target" />{t("Arvuta pidurdusmaa")}</button
-		>
-		<button
-			class="tab"
-			role="tab"
-			id="tab-valik"
-			aria-controls="p-valik"
-			aria-selected="false"
-			tabindex="-1"
-			data-tab="valik"><Icon name="check" />{t("Leia sobiv rehv")}</button
-		>
-	</div>
-
 	<div class="cc" style="padding-bottom:0">
 		<div class="cc-grid" style="margin-bottom:var(--sp-3)">
 			<div>
@@ -91,7 +71,7 @@
 		</div>
 	</div>
 
-	<div class="cc" id="p-calc" role="tabpanel" aria-labelledby="tab-calc">
+	<div class="cc" id="p-calc">
 		<div class="cc-grid">
 			<div>
 				<p class="lbl"><label for="f-speed">{t("3. Kiirus")}</label></p>
@@ -147,32 +127,4 @@
 		</p>
 	</div>
 
-	<div class="cc" id="p-valik" role="tabpanel" aria-labelledby="tab-valik" hidden>
-		<div class="vq">
-			<div>
-				<p class="lbl">{t("3. Rehvi liik")}</p>
-				<div class="seg" role="group" aria-label={t("Rehvi liik")}>
-					<button type="button" data-season="summer" aria-pressed="true">{t("Suverehv")}</button>
-					<button type="button" data-season="winter" aria-pressed="false">{t("Lamell / aastaringne")}</button>
-					<button type="button" data-season="naast" aria-pressed="false">{t("Naastrehv")}</button>
-				</div>
-			</div>
-			{#each Object.entries(VALIK_Q) as [g, item], i (g)}
-				<div>
-					<p class="lbl">{i + 4}. {t(item[0])} {#if item[2]}<span class="tip" tabindex="0" data-tip={t(item[2])} aria-label={t(item[2])}>i</span>{/if}</p>
-					<div class="qchips" role="group" aria-label={t(item[0])}>
-						{#each Object.entries(item[1]) as [v, label] (v)}
-							<button type="button" class="qchip" data-ct={g} data-v={v} aria-pressed="false"
-								>{t(label)}</button
-							>
-						{/each}
-					</div>
-				</div>
-			{/each}
-		</div>
-		<div class="vq-out" data-ct-out></div>
-		<button class="cta" type="button" data-go-valik
-			>{@html t("Näita sobivaid rehve <span class=\"arr\" aria-hidden=\"true\">→</span>")}</button
-		>
-	</div>
 </div>

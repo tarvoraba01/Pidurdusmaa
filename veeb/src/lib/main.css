@@ -185,24 +185,32 @@ button,input,select{font:inherit;color:inherit}
 .spd-num{display:flex;align-items:center;gap:var(--sp-2);color:#c9ced6;font-size:13px}
 .spd-num input{width:62px;height:40px;border-radius:7px;border:1px solid #5a616d;background:#0c0d10;color:#fff;text-align:center;font-weight:700;font-size:16px;-moz-appearance:textfield}
 .spd-num input::-webkit-inner-spin-button{-webkit-appearance:none}
-/* ---- liugur = pidurdusjälg: täidetud osa on rehvi jälg asfaldil, nupp on rehv ---- */
-input[type=range].slider{-webkit-appearance:none;appearance:none;width:100%;height:32px;background:transparent;cursor:pointer;--p:50%;
-  --sl-road:#30343c;--sl-mark:var(--yellow);--sl-mark0:rgba(255,194,14,.18);--sl-gap:rgba(12,13,16,.55);--sl-hub:#ffc20e;--sl-rub:#0c0d10;--sl-ring:rgba(255,255,255,.18)}
+/* ---- liugur = pidurdusjälg: täidetud osa on kaks paralleelset rehvijälge, nupp on ratas ---- */
+input[type=range].slider{-webkit-appearance:none;appearance:none;width:100%;height:34px;background:transparent;cursor:pointer;--p:50%;
+  --sl-road:#30343c;--sl-mark:var(--yellow);--sl-mark0:rgba(255,194,14,.15);--sl-gap:rgba(12,13,16,.5);--sl-hub:#ffc20e;--sl-rub:#0c0d10;--sl-ring:rgba(255,255,255,.2);--sl-rim:#d9dde3;--sl-spoke:#7d848e}
 .slider:focus-visible{outline:none}
-.slider::-webkit-slider-runnable-track{height:10px;border-radius:5px;
+.slider::-webkit-slider-runnable-track{height:16px;border-radius:4px;
   background:linear-gradient(90deg,transparent var(--p),var(--sl-road) var(--p)),
-    repeating-linear-gradient(100deg,transparent 0 5px,var(--sl-gap) 5px 7px),
+    linear-gradient(180deg,transparent 0 37%,var(--sl-road) 37% 63%,transparent 63%),
+    repeating-linear-gradient(100deg,transparent 0 4px,var(--sl-gap) 4px 6px),
     linear-gradient(90deg,var(--sl-mark0),var(--sl-mark) 55%)}
-.slider::-moz-range-track{height:10px;border-radius:5px;background:var(--sl-road)}
-.slider::-moz-range-progress{height:10px;border-radius:5px;background:repeating-linear-gradient(100deg,transparent 0 5px,var(--sl-gap) 5px 7px),linear-gradient(90deg,var(--sl-mark0),var(--sl-mark) 55%)}
-.slider::-webkit-slider-thumb{-webkit-appearance:none;width:26px;height:26px;margin-top:-8px;border:0;border-radius:50%;
-  background:radial-gradient(circle,var(--sl-hub) 0 22%,#9aa1ac 23% 30%,var(--sl-rub) 31% 60%,transparent 61%),repeating-conic-gradient(var(--sl-rub) 0 12deg,#3d424b 12deg 24deg);
-  box-shadow:0 0 0 1.5px var(--sl-ring),0 3px 10px rgba(0,0,0,.45);transition:transform .15s}
-.slider::-moz-range-thumb{width:26px;height:26px;border:0;border-radius:50%;
-  background:radial-gradient(circle,var(--sl-hub) 0 22%,#9aa1ac 23% 30%,var(--sl-rub) 31% 60%,transparent 61%),repeating-conic-gradient(var(--sl-rub) 0 12deg,#3d424b 12deg 24deg);
-  box-shadow:0 0 0 1.5px var(--sl-ring),0 3px 10px rgba(0,0,0,.45)}
-.slider:active::-webkit-slider-thumb,.slider:focus-visible::-webkit-slider-thumb{transform:scale(1.12) rotate(40deg);box-shadow:0 0 0 3px var(--sl-mark),0 3px 10px rgba(0,0,0,.45)}
-.slider:focus-visible::-moz-range-thumb{box-shadow:0 0 0 3px var(--sl-mark),0 3px 10px rgba(0,0,0,.45)}
+.slider::-moz-range-track{height:16px;border-radius:4px;background:var(--sl-road)}
+.slider::-moz-range-progress{height:16px;border-radius:4px;
+  background:linear-gradient(180deg,transparent 0 37%,var(--sl-road) 37% 63%,transparent 63%),repeating-linear-gradient(100deg,transparent 0 4px,var(--sl-gap) 4px 6px),linear-gradient(90deg,var(--sl-mark0),var(--sl-mark) 55%)}
+.slider::-webkit-slider-thumb{-webkit-appearance:none;width:32px;height:32px;margin-top:-8px;border:0;border-radius:50%;
+  background:radial-gradient(circle,var(--sl-hub) 0 10%,#5d636d 11% 13%,transparent 14% 39%,#2b2f36 40% 44%,var(--sl-rub) 45% 66%,transparent 67%),
+    repeating-conic-gradient(from 18deg,var(--sl-spoke) 0 13deg,transparent 13deg 72deg),
+    radial-gradient(circle,var(--sl-rim) 0 40%,transparent 41%),
+    repeating-conic-gradient(var(--sl-rub) 0 9deg,#3d424b 9deg 18deg);
+  box-shadow:0 0 0 1.5px var(--sl-ring),0 4px 12px rgba(0,0,0,.45);transition:transform .2s}
+.slider::-moz-range-thumb{width:32px;height:32px;border:0;border-radius:50%;
+  background:radial-gradient(circle,var(--sl-hub) 0 10%,#5d636d 11% 13%,transparent 14% 39%,#2b2f36 40% 44%,var(--sl-rub) 45% 66%,transparent 67%),
+    repeating-conic-gradient(from 18deg,var(--sl-spoke) 0 13deg,transparent 13deg 72deg),
+    radial-gradient(circle,var(--sl-rim) 0 40%,transparent 41%),
+    repeating-conic-gradient(var(--sl-rub) 0 9deg,#3d424b 9deg 18deg);
+  box-shadow:0 0 0 1.5px var(--sl-ring),0 4px 12px rgba(0,0,0,.45)}
+.slider:active::-webkit-slider-thumb,.slider:focus-visible::-webkit-slider-thumb{transform:scale(1.1) rotate(72deg);box-shadow:0 0 0 3px var(--sl-mark),0 4px 12px rgba(0,0,0,.45)}
+.slider:focus-visible::-moz-range-thumb{box-shadow:0 0 0 3px var(--sl-mark),0 4px 12px rgba(0,0,0,.45)}
 .slider:disabled{cursor:not-allowed;opacity:.45}
 /* heledal taustal: tume jälg helehallil teel */
 input[type=range].slider.hele,.lo input[type=range].slider,.prio input[type=range].slider,.box input[type=range].slider{--sl-road:#e4e7ec;--sl-mark:#15171c;--sl-mark0:rgba(21,23,28,.12);--sl-gap:rgba(255,255,255,.55);--sl-ring:rgba(0,0,0,.08)}
@@ -552,6 +560,16 @@ table.t a:hover{text-decoration:underline}
 .rcard h3 a:hover{text-decoration:underline}
 .rcard .b{font-size:12.5px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.04em}
 .rcard .props{grid-column:1/-1;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:var(--sp-2)}
+/* kompaktne kokkuvõte kaardil */
+.rcard .qs{grid-column:1/-1;display:grid;grid-template-columns:repeat(auto-fit,minmax(128px,1fr));gap:var(--sp-2)}
+.q{display:grid;gap:1px;padding:var(--sp-2) var(--sp-3);border-radius:8px;background:var(--paper-2);min-width:0;cursor:help}
+.ql{font-size:12px;color:var(--muted);font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ql small{font-weight:500;opacity:.8}
+.qv{font-size:15px;font-weight:700;display:flex;align-items:center;gap:6px;flex-wrap:wrap;font-variant-numeric:tabular-nums}
+.qv small{font-size:12px;font-weight:500;color:var(--muted)}
+.qv .gr{min-width:20px;height:19px;font-size:13px}
+.qv .est{margin:0}
+@media (max-width:560px){.rcard .qs{grid-template-columns:1fr 1fr}}
 .rp{background:var(--paper-2);border-radius:8px;padding:var(--sp-2) var(--sp-3)}
 .rp .l{font-size:11.5px;color:var(--muted);font-weight:600;letter-spacing:.03em;text-transform:uppercase}
 .rp .v{font-weight:700;font-size:15px;display:flex;align-items:center;gap:var(--sp-2);margin-top:2px;font-variant-numeric:tabular-nums}
@@ -762,7 +780,7 @@ a.pk:hover,a.pk:focus-visible{border-color:var(--ink);box-shadow:var(--shadow)}
 .pk-m{font-size:13px;font-weight:800;letter-spacing:.02em}
 .pk-m i{font-style:normal;font-weight:700;font-size:11px;color:#6b5000;background:var(--yellow-soft);border-radius:999px;padding:1px 6px;margin-left:2px}
 .pk-n{font-size:13px;font-weight:600;line-height:1.25}
-.pk-list{display:grid;gap:var(--sp-2);max-height:340px;overflow-y:auto;margin-top:var(--sp-2);padding-right:2px;overscroll-behavior:contain}
+.pk-list{display:grid;align-content:start;gap:var(--sp-2);max-height:340px;overflow-y:auto;margin-top:var(--sp-2);padding-right:2px;overscroll-behavior:contain}
 .pk-r{display:grid;grid-template-columns:48px minmax(0,1fr);align-items:center;column-gap:var(--sp-3);padding:var(--sp-2);border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--text);text-decoration:none}
 a.pk-r:hover,a.pk-r:focus-visible{border-color:var(--ink)}
 .pk-r .pk-pilt{width:48px;height:58px}
@@ -970,3 +988,11 @@ textarea.lin{resize:vertical;min-height:140px}
 /* vene/inglise: pikad sõnad suurtes pealkirjades (nt „ОСТАНАВЛИВАЕТСЯ“) ei tohi lehest välja minna */
 h1,h2{overflow-wrap:break-word;hyphens:auto}
 :lang(ru) .page-hero h1,:lang(ru) .lo-hero h1{font-size:clamp(28px,7.4vw,60px)}
+
+/* avalehe järgmine samm: rehvide valik pärast arvutust */
+.hv-step{display:flex;align-items:flex-end;justify-content:space-between;gap:var(--sp-4);flex-wrap:wrap;margin-bottom:var(--sp-4)}
+.hv-step-h{display:grid;gap:var(--sp-1);max-width:62ch}
+.hv-step-h h2{margin:0}
+.hv-q{margin-bottom:var(--sp-5)}
+.qcard.hv-q{grid-template-columns:minmax(0,1fr)}
+.hv-q .qcol+.qcol{border-left:0;border-top:1px solid var(--line)}

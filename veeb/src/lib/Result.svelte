@@ -62,10 +62,11 @@
 			</div>
 			<div class="rs-cta">
 				<div>
-					<p>{t("Kasuta sobivaimate rehvide leidmiseks")}</p>
-					<p class="{t("s")}">{t("Vali, mis on sinu jaoks oluline.")}</p>
+					<p class="rs-k" style="margin:0">{t("Järgmine samm")}</p>
+					<p>{t("Leia oma autole sobiv rehv")}</p>
+					<p class="{t("s")}">{t("Vali rehvi liik ja mis sulle oluline on.")}</p>
 				</div>
-				<a class="btn dark" href={keel.L('/rehvi-valimine/')} data-r-valik>{t("Rehvi valimine →")}</a>
+				<a class="btn dark" href="#sobivad" data-r-valik>{t("Näita sobivaid rehve ↓")}</a>
 			</div>
 		</div>
 

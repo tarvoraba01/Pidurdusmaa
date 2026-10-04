@@ -10,7 +10,7 @@
 	import Calc from '$lib/Calc.svelte';
 	import Result from '$lib/Result.svelte';
 	import How from '$lib/How.svelte';
-	import { num, pct } from '$lib/util.js';
+	import { num, pct, VALIK_Q } from '$lib/util.js';
 	import Meta from '$lib/Meta.svelte';
 	import { ORG, WEBSITE, tooriist, graph } from '$lib/skeem.js';
 
@@ -63,6 +63,87 @@
 
 <div data-home="calc">
 	<Result />
+	<div data-home="valik" hidden>
+		<section class="body-sec home-valik" id="sobivad" aria-labelledby="hv-h" data-valik-home>
+			<div class="wrap">
+				<div class="hv-step">
+					<div class="hv-step-h">
+						<span class="eyebrow" style="color:var(--muted)">{t("Järgmine samm")}</span>
+						<h2 id="hv-h">{t("Leia oma autole sobiv rehv")}</h2>
+						<p class="note" style="margin:0">{t("Sama auto ja mõõt. Vali rehvi liik ja mis sulle oluline on — nimekiri järjestub kohe.")}</p>
+					</div>
+					<a class="btn dark" href={keel.L('/rehvi-valimine/')} data-valik-full>{t("Vali oma tingimustele vastavam →")}</a>
+				</div>
+				<div class="qcard hv-q">
+					<div class="qcol">
+						<p class="qlab">{t("Rehvi liik")}</p>
+						<div class="lseg" role="group" aria-label={t("Rehvi liik")}>
+							<button type="button" data-season="summer" aria-pressed="true">{t("Suverehv")}</button>
+							<button type="button" data-season="winter" aria-pressed="false">{t("Lamell / aastaringne")}</button>
+							<button type="button" data-season="naast" aria-pressed="false">{t("Naastrehv")}</button>
+						</div>
+					</div>
+					<div class="qcol">
+						{#each Object.entries(VALIK_Q) as [g, item] (g)}
+							<p class="qlab">{t(item[0])} {#if item[2]}<span class="tip" tabindex="0" data-tip={t(item[2])} aria-label={t(item[2])}>i</span>{/if}</p>
+							<div class="qchips" role="group" aria-label={t(item[0])}>
+								{#each Object.entries(item[1]) as [v, label] (v)}
+									<button type="button" class="qchip" data-ct={g} data-v={v} aria-pressed="false">{t(label)}</button>
+								{/each}
+							</div>
+						{/each}
+						<div class="qout" data-ct-out></div>
+					</div>
+				</div>
+				<div class="hv-head">
+					<div class="list-filter">
+						<select class="lsel" data-brand aria-label={t("Mark")}
+							><option value="">{t("Kõik margid")}</option></select
+						>
+						<input
+							class="lsel"
+							type="search"
+							data-q
+							placeholder={t("Otsi marki või mudelit")}
+							aria-label={t("Otsi rehvi")}
+							style="background-image:none"
+						/>
+					</div>
+					<p class="note" data-cmp-head style="margin:0;font-size:15px"></p>
+				</div>
+				<div class="cmp-layout">
+					<aside class="filters" aria-label={t("Täpsemad seaded")}>
+						<div class="box">
+							<div style="display:flex;align-items:center;justify-content:space-between">
+								<h3 style="margin:0">{t("Täpsusta soove")}</h3>
+								<button type="button" class="btn sm" data-prio-reset hidden>{t("Tühjenda")}</button>
+							</div>
+							<p class="note" style="margin:var(--sp-2) 0 var(--sp-3)">
+								{t("Valikuline. Sinu vastused täidavad selle ise — liuguriga saad täpselt määrata, kui palju iga omadus loeb (0–100%).")}
+							</p>
+							<div class="prio" data-prio></div>
+						</div>
+						<div class="box">
+							<h3 style="margin:0 0 var(--sp-2)">{t("Kuidas järjestatakse")}</h3>
+							<p class="note" style="margin:0">
+								{t("„Sobivus“ on ainult selle nimekirja sisene võrdlus sinu valitud omaduste järgi — mitte rehvi üldhinne. Hinnad ei mõjuta järjestust.")}
+							</p>
+							<p class="note" style="margin:var(--sp-3) 0 0">
+								{@html t("See on andmete kõrvutus, mitte ostunõuanne. <a href=\"/kasutustingimused/\">Tingimused</a>")}
+							</p>
+						</div>
+					</aside>
+					<div class="res-list" data-cmp-list><p class="note">{t("Laen…")}</p></div>
+				</div>
+			</div>
+		</section>
+		<div class="cmp-tray" data-tray hidden>
+			<div class="wrap">
+				<div class="chips" data-tray-chips></div>
+				<a class="btn yel sm" href={keel.L('/vordle-rehve/')} data-tray-go>{t("Võrdle kõrvuti →")}</a>
+			</div>
+		</div>
+	</div>
 
 	{#if d}
 		<section class="sec" aria-labelledby="s1">
@@ -214,63 +295,6 @@
 			</div>
 		</section>
 	{/if}
-</div>
-
-<div data-home="valik" hidden>
-	<section class="body-sec home-valik" id="sobivad" aria-labelledby="hv-h" data-valik-home>
-		<div class="wrap">
-			<div class="hv-head">
-				<div>
-					<span class="eyebrow" style="color:var(--muted)">{t("Rehvi valimine")}</span>
-					<h2 id="hv-h">{t("Sinu tingimustele sobivad rehvid")}</h2>
-				</div>
-				<div class="list-filter">
-					<select class="lsel" data-brand aria-label={t("Mark")}
-						><option value="">{t("Kõik margid")}</option></select
-					>
-					<input
-						class="lsel"
-						type="search"
-						data-q
-						placeholder={t("Otsi marki või mudelit")}
-						aria-label={t("Otsi rehvi")}
-						style="background-image:none"
-					/>
-				</div>
-				<p class="note" data-cmp-head style="margin:0;font-size:15px"></p>
-			</div>
-			<div class="cmp-layout">
-				<aside class="filters" aria-label={t("Täpsemad seaded")}>
-					<div class="box">
-						<div style="display:flex;align-items:center;justify-content:space-between">
-							<h3 style="margin:0">{t("Täpsusta soove")}</h3>
-							<button type="button" class="btn sm" data-prio-reset hidden>{t("Tühjenda")}</button>
-						</div>
-						<p class="note" style="margin:var(--sp-2) 0 var(--sp-3)">
-							{t("Valikuline. Sinu vastused täidavad selle ise — siin näed ja muudad, kui palju iga omadus loeb (1–3).")}
-						</p>
-						<div class="prio" data-prio></div>
-					</div>
-					<div class="box">
-						<h3 style="margin:0 0 var(--sp-2)">{t("Kuidas järjestatakse")}</h3>
-						<p class="note" style="margin:0">
-							{t("„Sobivus“ on ainult selle nimekirja sisene võrdlus sinu valitud omaduste järgi — mitte rehvi üldhinne. Hinnad ei mõjuta järjestust.")}
-						</p>
-						<p class="note" style="margin:var(--sp-3) 0 0">
-							{@html t("See on andmete kõrvutus, mitte ostunõuanne. <a href=\"/kasutustingimused/\">Tingimused</a>")}
-						</p>
-					</div>
-				</aside>
-				<div class="res-list" data-cmp-list><p class="note">{t("Laen…")}</p></div>
-			</div>
-		</div>
-	</section>
-	<div class="cmp-tray" data-tray hidden>
-		<div class="wrap">
-			<div class="chips" data-tray-chips></div>
-			<a class="btn yel sm" href={keel.L('/vordle-rehve/')} data-tray-go>{t("Võrdle kõrvuti →")}</a>
-		</div>
-	</div>
 </div>
 
 <How />
