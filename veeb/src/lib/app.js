@@ -423,16 +423,23 @@
   function initHeader() {
     /* menüü: päise burger JA telefoni alariba „Menüü“ (delegeeritud — päis
        joonistatakse neutraalse lehe vahetusel uuesti) */
-    function menuSea(lahti) {
+    var menuTaimer = null;
+    function menuSea(lahti, kohe) {
       var panel = $('#pm-panel'); if (!panel) return;
-      panel.hidden = !lahti;
       $$('[data-burger]').forEach(function (x) { x.setAttribute('aria-expanded', lahti ? 'true' : 'false'); });
+      clearTimeout(menuTaimer); panel.classList.remove('sulgub');
+      if (lahti) { panel.hidden = false; return; }
+      if (panel.hidden) return;
+      /* sulgemine: lühike hajumine, siis peidus (lehevahetusel kohe) */
+      if (kohe || matchMedia('(prefers-reduced-motion: reduce)').matches) { panel.hidden = true; return; }
+      panel.classList.add('sulgub');
+      menuTaimer = setTimeout(function () { panel.hidden = true; panel.classList.remove('sulgub'); }, 170);
     }
     window.PM_MENU = menuSea;
     document.addEventListener('click', function (e) {
       var bb = e.target.closest && e.target.closest('[data-burger]');
       var panel = $('#pm-panel');
-      if (bb) { if (panel) menuSea(panel.hidden); return; }
+      if (bb) { if (panel) menuSea(panel.hidden || panel.classList.contains('sulgub')); return; }
       /* alariba lingile vajutus sulgeb lahtise menüü */
       if (panel && !panel.hidden && e.target.closest && e.target.closest('.tabbar a')) menuSea(false);
     });
@@ -2682,7 +2689,7 @@
     }
     /* päis jääb lehevahetusel alles — sulgeme lahtise menüü */
     var pm = $('#pm-panel');
-    if (pm && !pm.hidden && window.PM_MENU) window.PM_MENU(false);
+    if (pm && !pm.hidden && window.PM_MENU) window.PM_MENU(false, true);
     if (window.PM_PWA) window.PM_PWA();
     $$('[data-dd].open').forEach(function (dd) { dd.classList.remove('open'); $('.dd-btn', dd).setAttribute('aria-expanded', 'false'); });
     tablesA11y();

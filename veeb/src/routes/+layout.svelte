@@ -1,7 +1,7 @@
 <script>
 	import { onMount } from 'svelte';
 	import { page } from '$app/state';
-	import { afterNavigate, beforeNavigate } from '$app/navigation';
+	import { afterNavigate, beforeNavigate, onNavigate } from '$app/navigation';
 	import { setContext } from 'svelte';
 	import { tr, langOf, baseOf, linkLang, onTolgitud, KEELED, KEEL_NIMI } from '$lib/i18n.js';
 	import { version } from '$app/environment';
@@ -94,6 +94,22 @@
 			cancel();
 			location.href = to.url.href;
 		}
+	});
+
+	/* Sujuv lehevahetus (View Transitions API): vana leht hajub, uus tõuseb
+	   kergelt esile; päis ja alariba jäävad paigale (main.css). Brauserid, mis
+	   seda ei toeta, vahetavad lehe nagu enne. Sama lehe sees (ainult ?päring
+	   või #ankur) üleminekut ei tehta. */
+	onNavigate((nav) => {
+		if (typeof document === 'undefined' || !document.startViewTransition) return;
+		if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+		if (!nav.to || (nav.from && nav.from.url.pathname === nav.to.url.pathname)) return;
+		return new Promise((valmis) => {
+			document.startViewTransition(async () => {
+				valmis();
+				await nav.complete;
+			});
+		});
 	});
 
 	/* SPA-navigeerimisel ei tule DOMContentLoaded'i — käivitame ise.
