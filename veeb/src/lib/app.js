@@ -1183,6 +1183,7 @@
       var M0 = minuLeia(S.minu, eprelRows);
       if (M0 && !M0.puudu && !S._userSeason) S.resSeason = M0.hooaeg;
       state = S; state._eprel = eprelRows;
+      eelKuular(); eelSulge();
       sel = null; showAll = false; selManual = false;
       pick = {}; pickManual = {}; pickAll = false; avatud = null;
       if (hinnadSize !== S.size) { hinnad = null; hinnadSize = null; }
@@ -1199,6 +1200,66 @@
     /* Sinu auto tehasemõõdud poodides: kõik hinnaga rehvid valitud hooajas,
        odavaim ees, igal kaardil kohe mõõt. Täidab tulemuse keskmise veeru
        tühja osa; kui hindu pole, jääb plokk peidetuks. */
+    /* ---- EELVAADE: rehvi pildile vajutades paremas veerus selle rehvi
+       pidurdusmaa sinu autoga (sama mudel ja tingimused) + vahemik graafikul
+       võrrelduna praeguse tulemusega. „Vali“ viib poodi. */
+    var eelCtx = null, eelAktiivne = null;
+    function eelvaade(d) {
+      var box = $('[data-r-eel]', el);
+      if (!box || !eelCtx) return;
+      eelAktiivne = d;
+      var x = d.id.split('@'), slug = x[0], m = x[1];
+      loadSize(m).then(function (rows) {
+        if (eelAktiivne !== d) return;
+        var e = rows.filter(function (y) { return y.slug === slug; })[0];
+        if (!core._tyreBySlug) { core._tyreBySlug = {}; core.tyres.forEach(function (t) { if (t.slug) core._tyreBySlug[t.slug] = t; }); }
+        var t = (e && e.tested && core.tyreByKey[e.tested]) || core._tyreBySlug[slug] || null;
+        var tyre = t ? onCar(t, m) : e ? eprelTyre(e) : null;
+        var res = tyre ? calc(tyre, eelCtx.veh, eelCtx.cond) : null;
+        var R = eelCtx.react;
+        var g = e && e.g;
+        var html = '<button type="button" class="eel-x" data-eel-x aria-label="' + esc(_t('Sulge')) + '">×</button>' +
+          '<div class="eel-top"><span class="eel-pilt">' + (d.pilt ? '<img src="' + CFG.home + 'api/pilt/' + encodeURIComponent(slug) + '/" alt="" width="110" height="130">' : '<span class="pk-ring" aria-hidden="true"></span>') + '</span>' +
+          '<span class="eel-n"><small>' + esc(pretty(m)) + (m === state.size ? ' · ' + _t('sinu mõõt') : '') + '</small><b>' + esc(d.n) + '</b>' + (g ? '<span>' + grade(g) + ' ' + _t('märghaare') + '</span>' : '') + '</span></div>';
+        if (res) {
+          var dd = res.distanceM + R, lo = res.lowM + R, hi = res.highM + R;
+          var mn = Math.min(lo, eelCtx.lo), mx = Math.max(hi, eelCtx.hi), pad = (mx - mn) * 0.12 || 2;
+          mn -= pad; mx += pad;
+          var pos = function (v) { return (100 * (v - mn) / (mx - mn)).toFixed(1) + '%'; };
+          var vahe = dd - eelCtx.d;
+          html += '<p class="eel-k">' + (eelCtx.stop ? _t('Peatumisteekond') : _t('Pidurdusteekond')) + ' ' + _t('sinu autoga') + '</p>' +
+            '<p class="eel-num">' + fmt(dd) + ' <small>m</small></p>' +
+            '<div class="eel-g" role="img" aria-label="' + esc(_t('Vahemik') + ' ' + fmt(lo) + '–' + fmt(hi) + ' m') + '">' +
+              '<div class="eg-r on"><span class="eg-l">' + _t('See rehv') + '</span><span class="eg-t"><i style="left:' + pos(lo) + ';right:calc(100% - ' + pos(hi) + ')"></i><b style="left:' + pos(dd) + '"></b></span></div>' +
+              '<div class="eg-r"><span class="eg-l">' + _t('Praegune tulemus') + '</span><span class="eg-t"><i style="left:' + pos(eelCtx.lo) + ';right:calc(100% - ' + pos(eelCtx.hi) + ')"></i><b style="left:' + pos(eelCtx.d) + '"></b></span></div>' +
+              '<div class="eg-ax"><span>' + fmt(mn + pad) + ' m</span><span>' + fmt(mx - pad) + ' m</span></div>' +
+            '</div>' +
+            '<p class="eel-v ' + (vahe < -0.05 ? 'hea' : vahe > 0.05 ? 'halb' : '') + '">' +
+              (Math.abs(vahe) < 0.05 ? _t('Sama kui praegune tulemus') : (vahe < 0 ? fmt(-vahe) + _t(' m lühem') : fmt(vahe) + _t(' m pikem')) + _t(' kui praegune tulemus')) + '</p>' +
+            '<p class="eel-s">' + _t('Tõenäoline vahemik') + ' ' + fmt(lo) + '–' + fmt(hi) + ' m' + (t ? ' · ' + _t('haare sõltumatust testist') : ' · ' + _t('märgise klassi järgi')) + '</p>';
+        } else html += '<p class="eel-s">' + _t('Selle rehvi kohta pole pidurdusandmeid.') + '</p>';
+        if (d.url) html += '<a class="btn yel eel-vali" href="' + esc(d.url) + '" target="_blank" rel="nofollow sponsored noopener" data-pood="' + esc(d.pood) + '" data-rehv="' + esc(d.n) + '">' + _t('Vali') + ' · ' + esc(d.hind) + ' →</a><p class="eel-s" style="margin:0">' + esc(d.pood) + '</p>';
+        box.innerHTML = html; box.hidden = false;
+        el.classList.add('eel-on');
+      });
+    }
+    function eelSulge() { eelAktiivne = null; var box = $('[data-r-eel]', el); if (box) { box.hidden = true; box.innerHTML = ''; } if (el) el.classList.remove('eel-on'); }
+    function eelKuular() {
+      if (!el || el._eel) return;
+      el._eel = true;
+      el.addEventListener('click', function (e) {
+        var x = e.target.closest && e.target.closest('[data-eel-x]');
+        if (x) { eelSulge(); return; }
+        var b = e.target.closest && e.target.closest('[data-eel]');
+        if (!b) return;
+        e.preventDefault();
+        var d = { id: b.dataset.eel, n: b.dataset.n || '', url: b.dataset.url || '', hind: b.dataset.hind || '', pood: b.dataset.pood || '', pilt: b.dataset.pilt === '1' };
+        Track('eelvaade', d.n + ' · ' + d.id.split('@')[1]);
+        eelvaade(d);
+        var box = $('[data-r-eel]', el);
+        if (box && matchMedia('(max-width:900px)').matches) setTimeout(function () { box.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }, 80);
+      });
+    }
     var poodVoti = null;
     function poodiMoodud(S) {
       var box = $('[data-r-pood]', el);
@@ -1245,13 +1306,11 @@
               var r = x.r;
               var ladu = r.laos === false ? _t('tellimisel') : (r.kogus > 0 ? _t('laos') + ' ' + (r.kogus >= 8 ? '8+' : r.kogus) + ' ' + _t('tk') : '');
               var pilt = r.pilt ? '<img src="' + CFG.home + 'api/pilt/' + encodeURIComponent(x.slug) + '/" alt="" width="72" height="86" loading="lazy" decoding="async">' : '<span class="pk-ring" aria-hidden="true"></span>';
-              var sisu = '<span class="pk-m">' + esc(pretty(x.m)) + (x.m === S.size ? ' <i>' + _t('sinu') + '</i>' : '') + '</span>' +
+              var ylal = '<span class="pk-m">' + esc(pretty(x.m)) + (x.m === S.size ? ' <i>' + _t('sinu') + '</i>' : '') + '</span>' +
                 '<span class="pk-pilt">' + pilt + '</span><span class="pk-n">' + esc(x.nimi) + '</span>' +
-                (x.g ? '<small>' + _t('märghaare ') + esc(x.g) + (x.testitud ? _t(' · testitud') : '') + '</small>' : x.testitud ? '<small>' + _t('testitud') + '</small>' : '') +
-                '<b>' + hindTekst(r) + '</b><span class="pk-pood">' + esc(r.myyja) + '</span>' + (ladu ? '<small>' + ladu + '</small>' : '');
-              return r.url
-                ? _t('<a class="pk" href="') + esc(poeLink(r.url, 'kalkulaator', x.nimi)) + _t('" target="_blank" rel="nofollow sponsored noopener" data-pood="') + esc(r.myyja) + _t('" data-rehv="') + esc(x.nimi + ' ' + pretty(x.m)) + '">' + sisu + '</a>'
-                : '<div class="pk">' + sisu + '</div>';
+                (x.g ? '<small>' + _t('märghaare ') + esc(x.g) + (x.testitud ? _t(' · testitud') : '') + '</small>' : x.testitud ? '<small>' + _t('testitud') + '</small>' : '');
+              return '<div class="pk">' + eelNupp(x.slug, x.m, x.nimi, r, ylal) +
+                '<b>' + hindTekst(r) + '</b><span class="pk-pood">' + esc(r.myyja) + '</span>' + (ladu ? '<small>' + ladu + '</small>' : '') + valiLink(r, x.nimi + ' ' + pretty(x.m)) + '</div>';
             }).join('') + '</div>' +
             (!ainultOma ? '<p class="note" style="margin:0">' + _t('Mõõdud on selle auto tehase lubatud mõõdud. Teise mõõdu puhul kontrolli, et velg sobib.') + '</p>' : '');
           box.hidden = false;
@@ -1291,12 +1350,11 @@
             .filter(Boolean).sort(function (a, b) { return a.r.hind - b.r.hind; });
           box.innerHTML = _t('<span class="pl">Soodsaimad klassi ') + cur.g + _t(' rehvid</span> ') + (top.length ? '<div class="pk-list">' + top.map(function (t) {
             var nimi = t.m.mark + ' ' + t.m.name;
-            var ladu = t.r.laos === false ? _t('tellimisel') : (t.r.kogus > 0 ? _t('laos') + ' ' + (t.r.kogus >= 8 ? '8+' : t.r.kogus) + '\u00a0' + _t('tk') : '');
+            var ladu = t.r.laos === false ? _t('tellimisel') : (t.r.kogus > 0 ? _t('laos') + ' ' + (t.r.kogus >= 8 ? '8+' : t.r.kogus) + ' ' + _t('tk') : '');
             var pilt = t.r.pilt ? '<img src="' + CFG.home + 'api/pilt/' + encodeURIComponent(t.m.slug) + '/" alt="" width="48" height="58" loading="lazy" decoding="async">' : '<span class="pk-ring" aria-hidden="true"></span>';
-            var sisu = '<span class="pk-pilt">' + pilt + '</span><span class="pk-nimi"><b>' + esc(nimi) + '</b><small>' + esc(t.r.myyja) + (ladu ? ' · ' + ladu : '') + '</small><b class="pk-hind">' + hindTekst(t.r) + '</b></span>';
-            return t.r.url
-              ? _t('<a class="pk-r" href="') + esc(poeLink(t.r.url, 'kalkulaator', nimi)) + _t('" target="_blank" rel="nofollow sponsored noopener" data-pood="') + esc(t.r.myyja) + _t('" data-rehv="') + esc(nimi) + '">' + sisu + '</a>'
-              : '<div class="pk-r">' + sisu + '</div>';
+            return '<div class="pk-r">' + eelNupp(t.m.slug, size, nimi, t.r, '<span class="pk-pilt">' + pilt + '</span>') +
+              '<span class="pk-nimi">' + eelNupp(t.m.slug, size, nimi, t.r, '<b>' + esc(nimi) + '</b>') + '<small>' + esc(t.r.myyja) + (ladu ? ' · ' + ladu : '') + '</small>' +
+              '<span class="pk-rv"><b class="pk-hind">' + hindTekst(t.r) + '</b>' + valiLink(t.r, nimi) + '</span></span></div>';
           }).join('') + '</div>' : _t('<span class="none">Hindu selles klassis veel pole</span>'));
         } else box.innerHTML = _t('<span class="pl">Hinnad</span> <span class="none">vali rehv, et näha müüjaid</span>');
       });
@@ -1457,6 +1515,8 @@
           render();
         });
       }
+      eelCtx = { veh: out.veh, cond: out.cond, react: react, d: r.distanceM + react, lo: r.lowM + react, hi: r.highM + react, stop: rmode === 'stop' };
+      if (eelAktiivne) eelvaade(eelAktiivne);
       var vm = valitud(cur);
       var whoShort = cur.kind === 'own' ? cur.name + _t(' (sinu rehv)') : cur.kind === 'class' ? (vm ? vm.mark + ' ' + vm.name + (vmT ? _t(' (sõltumatu test)') : ' (' + cur.g + _t('-klassi märgis)')) : cur.g + _t('-klassi märgise rehviga')) : cur.kind === 'cat' ? CATNAME[cur.cat] + _t(' — keskmine') : cur.name;
       $('[data-r-whoshort]', el).innerHTML = esc(whoShort) + ' · ' + esc(c.label) + '<br>' +
@@ -1727,18 +1787,25 @@
   function hindTekst(r) { return (r && r.umbes ? _t('u') + ' ' : '') + eur(r.hind); }
   /* Poodide hinnad: rida klikitavaid kaarte (pilt + hind), odavaim ees,
      telefonis keritav vasakule-paremale. Kaart viib selle poe tootelehele. */
+  /* nupp, mis avab eelvaate (pilt + nimi); andmed atribuutides */
+  function eelNupp(slug, m, nimi, r, sisu) {
+    return '<button type="button" class="pk-eel" data-eel="' + esc(slug + '@' + m) + '" data-n="' + esc(nimi) + '" data-pilt="' + (r.pilt ? 1 : 0) + '"' +
+      (r.url ? ' data-url="' + esc(poeLink(r.url, 'kalkulaator', nimi)) + '" data-pood="' + esc(r.myyja) + '" data-hind="' + esc(hindTekst(r)) + '"' : '') +
+      ' title="' + esc(_t('Vaata selle rehvi pidurdusmaad')) + '">' + sisu + '</button>';
+  }
+  function valiLink(r, nimi, koht) {
+    return r.url ? '<a class="pk-vali" href="' + esc(poeLink(r.url, koht || 'kalkulaator', nimi)) + '" target="_blank" rel="nofollow sponsored noopener" data-pood="' + esc(r.myyja) + '" data-rehv="' + esc(nimi) + '">' + _t('Vali') + ' →</a>' : '';
+  }
   /* Kalkulaatori vasak kast: ühe rehvi poed ridadena (pilt · pood · laoseis · hind),
      sama kujundus mis klassi nimekirjal; terve rida viib poodi. */
   function poedRead(rows, id, nimi) {
     if (!rows || !rows.length) return priceHtml(rows, true);
-    var slug = String(id).split('@')[0];
+    var x = String(id).split('@'), slug = x[0], m = x[1];
     return '<div class="pk-list">' + rows.slice().sort(function (a, b) { return a.hind - b.hind; }).map(function (r) {
       var ladu = r.laos === false ? _t('tellimisel') : (r.kogus > 0 ? _t('laos') + ' ' + (r.kogus >= 8 ? '8+' : r.kogus) + ' ' + _t('tk') : '');
       var pilt = r.pilt ? '<img src="' + CFG.home + 'api/pilt/' + encodeURIComponent(slug) + '/" alt="" width="48" height="58" loading="lazy" decoding="async">' : '<span class="pk-ring" aria-hidden="true"></span>';
-      var sisu = '<span class="pk-pilt">' + pilt + '</span><span class="pk-nimi"><b>' + esc(r.myyja) + '</b><small>' + esc(ladu) + '</small><b class="pk-hind">' + hindTekst(r) + '</b></span>';
-      return r.url
-        ? _t('<a class="pk-r" href="') + esc(poeLink(r.url, 'kalkulaator', nimi)) + _t('" target="_blank" rel="nofollow sponsored noopener" data-pood="') + esc(r.myyja) + _t('" data-rehv="') + esc(nimi) + '">' + sisu + '</a>'
-        : '<div class="pk-r">' + sisu + '</div>';
+      return '<div class="pk-r">' + eelNupp(slug, m, nimi, r, '<span class="pk-pilt">' + pilt + '</span>') +
+        '<span class="pk-nimi"><b>' + esc(r.myyja) + '</b><small>' + esc(ladu) + '</small><span class="pk-rv"><b class="pk-hind">' + hindTekst(r) + '</b>' + valiLink(r, nimi) + '</span></span></div>';
     }).join('') + '</div>';
   }
   function priceHtml(rows, avail, id, nimi) {

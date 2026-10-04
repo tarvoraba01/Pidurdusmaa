@@ -260,6 +260,7 @@ input[type=range].slider.hele,.lo input[type=range].slider,.prio input[type=rang
 .linkbtn{border:0;background:transparent;padding:0;font-size:13px;font-weight:600;color:var(--text);cursor:pointer;text-decoration:underline;text-underline-offset:3px;text-decoration-color:#c5cad3}
 .linkbtn:hover{text-decoration-color:var(--text)}
 .rs-cta{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.rs-cta .r-eel:not([hidden])+.rs-next{width:100%}
 .rs-cta p{margin:0;font-size:17px;line-height:1.3;color:#3a3f49}
 .rs-cta .s{font-size:13px;color:var(--muted);margin:var(--sp-2) 0 var(--sp-4)}
 .rs-cta .btn{height:40px;min-width:200px;font-size:14.5px;color:var(--yellow)}
@@ -996,3 +997,53 @@ h1,h2{overflow-wrap:break-word;hyphens:auto}
 .hv-q{margin-bottom:var(--sp-5)}
 .qcard.hv-q{grid-template-columns:minmax(0,1fr)}
 .hv-q .qcol+.qcol{border-left:0;border-top:1px solid var(--line)}
+/* ---- rehvi eelvaade (pilt → paremasse veergu) + „Vali“ ---- */
+.pk-eel{all:unset;box-sizing:border-box;cursor:pointer;display:grid;justify-items:center;gap:2px;width:100%;border-radius:8px}
+.pk-eel:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.pk-eel:hover .pk-n,.pk-eel:hover b{text-decoration:underline}
+.pk-r>.pk-eel{width:48px;align-self:center}
+.pk-nimi .pk-eel{justify-items:start;width:auto}
+.pk-rv{display:flex;align-items:center;justify-content:space-between;gap:var(--sp-2);margin-top:2px}
+.pk-vali{display:inline-flex;align-items:center;height:30px;padding:0 12px;border-radius:999px;background:var(--ink);color:var(--yellow);font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.pk-vali:hover{background:#000}
+.pk .pk-vali{margin-top:var(--sp-2)}
+div.pk{cursor:default}
+.rs-cta.eel-flow{justify-content:flex-start}
+.r-eel{position:relative;width:100%;text-align:left;display:grid;gap:var(--sp-2);padding-bottom:var(--sp-4);margin-bottom:var(--sp-4);border-bottom:1px solid var(--line)}
+.eel-x{position:absolute;top:-6px;right:-6px;width:30px;height:30px;border:0;border-radius:50%;background:var(--paper-2);font-size:19px;line-height:1;cursor:pointer;color:var(--muted)}
+.eel-x:hover{background:var(--ink);color:#fff}
+.eel-top{display:flex;align-items:center;gap:var(--sp-3);padding-right:28px}
+.eel-pilt{flex:0 0 auto;display:grid;place-items:center;width:96px;height:112px}
+.eel-pilt img{width:96px;height:112px;object-fit:contain}
+.eel-pilt .pk-ring{width:70px;height:70px;border-width:12px}
+.eel-n{display:grid;gap:4px;min-width:0}
+.eel-n small{color:var(--muted);font-size:12.5px;font-weight:600}
+.eel-n b{font-size:17px;line-height:1.25}
+.eel-n>span{font-size:12.5px;color:var(--muted);display:flex;align-items:center;gap:6px}
+.eel-k{margin:var(--sp-2) 0 0!important;font-size:12.5px!important;color:var(--muted)!important;font-weight:600;text-transform:uppercase;letter-spacing:.04em}
+.eel-num{margin:0!important;font-family:var(--display);font-size:46px!important;line-height:1!important;font-weight:800;color:var(--ink)!important}
+.eel-num small{font-size:24px}
+.eel-g{display:grid;gap:6px;margin-top:var(--sp-1)}
+.eg-r{display:grid;grid-template-columns:96px minmax(0,1fr);align-items:center;gap:var(--sp-2)}
+.eg-l{font-size:12px;color:var(--muted);font-weight:600}
+.eg-r.on .eg-l{color:var(--ink)}
+.eg-t{position:relative;height:14px;border-radius:7px;background:var(--paper-3)}
+.eg-t i{position:absolute;top:2px;bottom:2px;border-radius:5px;background:#b9bec7}
+.eg-r.on .eg-t i{background:var(--yellow)}
+.eg-t b{position:absolute;top:-3px;width:4px;height:20px;margin-left:-2px;border-radius:2px;background:#5d636d}
+.eg-r.on .eg-t b{background:var(--ink)}
+.eg-ax{display:flex;justify-content:space-between;margin-left:104px;font-size:11px;color:var(--muted);font-variant-numeric:tabular-nums}
+.eel-v{margin:var(--sp-1) 0 0!important;font-size:15px!important;font-weight:700;color:var(--ink)!important}
+.eel-v.hea{color:#15803d!important}
+.eel-v.halb{color:var(--bad)!important}
+.eel-s{margin:0!important;font-size:12.5px!important;color:var(--muted)!important}
+.eel-vali{margin-top:var(--sp-2);width:100%;justify-content:center;height:44px!important;color:var(--ink)!important}
+[data-result].eel-on .rs-cta{justify-content:flex-start}
+[data-result].eel-on .rs-next p{font-size:15px}
+/* avalehe rehvide nimekiri lõpeb koos vasaku menüüga — edasi keritakse nimekirja sees */
+@media (min-width:901px){
+  .home-valik .cmp-layout>.res-list{align-self:stretch;contain:size;overflow-y:auto;overscroll-behavior:contain;padding-right:6px;scrollbar-gutter:stable}
+}
+@media (max-width:900px){
+  .home-valik .cmp-layout>.res-list{max-height:min(1600px,160vh);overflow-y:auto;overscroll-behavior:contain}
+}

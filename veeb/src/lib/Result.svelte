@@ -61,7 +61,8 @@
 				</p>
 			</div>
 			<div class="rs-cta">
-				<div>
+				<div class="r-eel" data-r-eel hidden></div>
+				<div class="rs-next">
 					<p class="rs-k" style="margin:0">{t("Järgmine samm")}</p>
 					<p>{t("Leia oma autole sobiv rehv")}</p>
 					<p class="{t("s")}">{t("Vali rehvi liik ja mis sulle oluline on.")}</p>
