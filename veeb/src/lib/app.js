@@ -82,6 +82,7 @@
   /* ------------------------------------------------------------ abivahendid */
   function $(s, r) { return (r || document).querySelector(s); }
   function $$(s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); }
+  function mmT(v) { return Math.abs(v - Math.round(v)) < 0.05 ? String(Math.round(v)) : fmt(v); }
   function fmt(n, d) { return (d == null ? n.toFixed(1) : n.toFixed(d)).replace('.', DEC); }
   /* vahe protsendina parimast: alla 10% ühe komakohaga, muidu täisarv */
   function pct(diff, base) {
@@ -900,7 +901,7 @@
       if (!mmIn) return;
       var v = +mmIn.value, uus = v >= 7.95;
       mmIn.style.setProperty('--p', (100 * (v - 1.6) / (8 - 1.6)).toFixed(1) + '%');
-      if (mmV) { mmV.textContent = uus ? _t('uus') : fmt(v) + _t(' mm'); mmV.classList.toggle('kulu', !uus); }
+      if (mmV) { mmV.textContent = uus ? _t('uus') : mmT(v) + _t(' mm'); mmV.classList.toggle('kulu', !uus); }
       if (mmN) {
         var t = uus ? MM_N0 : v < 1.6 + 0.05 ? _t('Seaduslik miinimum (suverehv). Talverehvil peab olema vähemalt 3 mm.')
           : v < 3 ? _t('Talverehvi miinimum on 3 mm — suverehvina veel lubatud (1,6 mm).')
@@ -1172,7 +1173,7 @@
           dUus: mm ? calc(baseM, veh, cond).distanceM : null,
           pids: M.r ? [M.r.slug + '@' + S.size] : [], label: M.r ? M.r.g : null, t: measuredM ? mt : null,
           est: !measuredM && ck !== 'wet',
-          sub: _t('Sinu rehv · ') + M.silt + (mm ? _t(' · muster ') + fmt(mm) + _t(' mm') : '') + (measuredM ? _t(' · haare sõltumatust testist') : ck === 'wet' && M.r ? _t(' · märgise klass ') + M.r.g : _t(' · rehvitüübi keskmine (märgis ei ütle ') + COND[ck].gen + _t(' kohta midagi)')) });
+          sub: _t('Sinu rehv · ') + M.silt + (mm ? _t(' · muster ') + mmT(mm) + _t(' mm') : '') + (measuredM ? _t(' · haare sõltumatust testist') : ck === 'wet' && M.r ? _t(' · märgise klass ') + M.r.g : _t(' · rehvitüübi keskmine (märgis ei ütle ') + COND[ck].gen + _t(' kohta midagi)')) });
       }
       /* oma rehvi pole valitud, aga muster on antud: tüüpiline sama hooaja
          rehv selle mustriga, et näha, kui palju uued rehvid varem peatuvad */
@@ -1182,7 +1183,7 @@
         var gg = inSeasonG(eprelRows, sea), gt = classTyre(gg, gcat, S.size), gr = calc(kulunud(gt, mm), veh, cond);
         rows.push({ id: 'o', kind: 'own', gen: true, name: _t('Sinu rehvid praegu'), d: gr.distanceM, r: gr, own: true, mm: mm,
           hooaeg: season, dUus: calc(gt, veh, cond).distanceM, pids: [], label: null, t: null, est: true,
-          sub: _t('Tüüpiline: ') + tyypSilt(gcat) + (ck === 'wet' ? ', ' + _t('märgise klass ') + gg : '') + _t(', muster ') + fmt(mm) + _t(' mm') + '. ' + _t('Täpsemaks vali oma rehv.') });
+          sub: _t('Tüüpiline: ') + tyypSilt(gcat) + (ck === 'wet' ? ', ' + _t('märgise klass ') + gg : '') + _t(', muster ') + mmT(mm) + _t(' mm') + '. ' + _t('Täpsemaks vali oma rehv.') });
       }
       core.tyres.forEach(function (t) {
         if (t.key === minuT) return;
@@ -1304,23 +1305,29 @@
           '<span class="eel-n"><small>' + esc(pretty(m)) + (m === state.size ? ' · ' + _t('sinu mõõt') : '') + '</small><b>' + esc(d.n) + '</b>' + (g ? '<span>' + grade(g) + ' ' + _t('märghaare') + '</span>' : '') + '</span></div>';
         if (res) {
           var dd = res.distanceM + R, lo = res.lowM + R, hi = res.highM + R;
+          /* võrdlus: sinu praegused rehvid (kui on antud), muidu praegune tulemus */
           var O = eelCtx.oma, CO = eelCtx.curOma;
-          var mn = Math.min(lo, eelCtx.lo, O ? O.lo : lo), mx = Math.max(hi, eelCtx.hi, O ? O.hi : hi), pad = (mx - mn) * 0.12 || 2;
+          var ref = O ? O : { d: eelCtx.d, lo: eelCtx.lo, hi: eelCtx.hi, oma: !!CO };
+          var omaRef = !!(O || CO);
+          var mn = Math.min(lo, ref.lo), mx = Math.max(hi, ref.hi), pad = (mx - mn) * 0.12 || 2;
           mn -= pad; mx += pad;
           var pos = function (v) { return (100 * (v - mn) / (mx - mn)).toFixed(1) + '%'; };
-          var vahe = dd - eelCtx.d;
+          var vahe = dd - ref.d;
+          var rida = function (nimi, a, b, x, on) {
+            return '<div class="eg-r' + (on ? ' on' : '') + '"><span class="eg-l">' + nimi + '</span><span class="eg-t"><i style="left:' + pos(a) + ';right:calc(100% - ' + pos(b) + ')"></i><b style="left:' + pos(x) + '"></b></span></div>';
+          };
           html += '<p class="eel-k">' + (eelCtx.stop ? _t('Peatumisteekond') : _t('Pidurdusteekond')) + ' ' + _t('sinu autoga') + '</p>' +
             '<p class="eel-num">' + fmt(dd) + ' <small>m</small></p>' +
             '<div class="eel-g" role="img" aria-label="' + esc(_t('Vahemik') + ' ' + fmt(lo) + '–' + fmt(hi) + ' m') + '">' +
-              '<div class="eg-r on"><span class="eg-l">' + _t('See rehv') + '</span><span class="eg-t"><i style="left:' + pos(lo) + ';right:calc(100% - ' + pos(hi) + ')"></i><b style="left:' + pos(dd) + '"></b></span></div>' +
-              '<div class="eg-r"><span class="eg-l">' + (CO ? (CO.gen ? _t('Sinu rehvid') : _t('Sinu rehv')) : _t('Praegune tulemus')) + '</span><span class="eg-t"><i style="left:' + pos(eelCtx.lo) + ';right:calc(100% - ' + pos(eelCtx.hi) + ')"></i><b style="left:' + pos(eelCtx.d) + '"></b></span></div>' +
-              (O ? '<div class="eg-r"><span class="eg-l">' + (O.gen ? _t('Sinu rehvid') : _t('Sinu rehv')) + '</span><span class="eg-t"><i style="left:' + pos(O.lo) + ';right:calc(100% - ' + pos(O.hi) + ')"></i><b style="left:' + pos(O.d) + '"></b></span></div>' : '') +
+              rida(_t('See rehv'), lo, hi, dd, true) +
+              rida(omaRef ? _t('Sinu praegused') : _t('Praegune tulemus'), ref.lo, ref.hi, ref.d, false) +
               '<div class="eg-ax"><span>' + fmt(mn + pad) + ' m</span><span>' + fmt(mx - pad) + ' m</span></div>' +
             '</div>' +
             '<p class="eel-v ' + (vahe < -0.05 ? 'hea' : vahe > 0.05 ? 'halb' : '') + '">' +
-              (Math.abs(vahe) < 0.05 ? (CO ? _t('Sama kui sinu rehvil') : _t('Sama kui praegune tulemus')) : (vahe < 0 ? fmt(-vahe) + _t(' m lühem') : fmt(vahe) + _t(' m pikem')) + (CO ? (CO.mm ? _t(' kui sinu praegustel rehvidel') : _t(' kui sinu rehvil')) : _t(' kui praegune tulemus'))) + '</p>' +
-              (O && O.d - dd >= 0.5 ? '<p class="eel-v2">' + _t('Sinu praegustest rehvidest') + (O.mm ? ' (' + fmt(O.mm) + _t(' mm') + ')' : '') + ' <b>' + fmt(O.d - dd) + _t(' m lühem') + '</b></p>' : '') +
-            '<p class="eel-s">' + _t('Tõenäoline vahemik') + ' ' + fmt(lo) + '–' + fmt(hi) + ' m' + (t ? ' · ' + _t('haare sõltumatust testist') : ' · ' + _t('märgise klassi järgi')) + '</p>';
+              (omaRef
+                ? (Math.abs(vahe) < 0.05 ? _t('Sama kui sinu praegused') : _t('Sinu praegustest: ') + (vahe < 0 ? fmt(-vahe) + _t(' m lühem') : fmt(vahe) + _t(' m pikem')))
+                : (Math.abs(vahe) < 0.05 ? _t('Sama kui praegune tulemus') : (vahe < 0 ? fmt(-vahe) + _t(' m lühem') : fmt(vahe) + _t(' m pikem')) + _t(' kui praegune tulemus'))) + '</p>' +
+            '<p class="eel-s">' + _t('Tõenäoline vahemik') + ' ' + fmt(lo) + '–' + fmt(hi) + ' m</p>';
         } else html += '<p class="eel-s">' + _t('Selle rehvi kohta pole pidurdusandmeid.') + '</p>';
         box.innerHTML = html; box.hidden = false;
         el.classList.add('eel-on');
@@ -1501,7 +1508,7 @@
       var dd = x.d - best;
       if (compact) {
         var nm = x.kind === 'cat' ? (CATNAME[x.cat] + _t(', keskmine')) : x.name, nmHtml = null;
-        if (x.kind === 'own') nmHtml = (x.gen ? '' : '<em class="own-p">' + _t('Sinu rehv') + ' · </em>') + esc(x.name) + (x.mm ? ' <small>' + fmt(x.mm) + _t(' mm') + '</small>' : '');
+        if (x.kind === 'own') nmHtml = (x.gen ? '' : '<em class="own-p">' + _t('Sinu rehv') + ' · </em>') + esc(x.name) + (x.mm ? ' <small>' + mmT(x.mm) + _t(' mm') + '</small>' : '');
         if (x.kind === 'class') {
           /* klassi asemel konkreetne rehv: soodsaim / testitud / vaikseim selles klassis */
           var esi = liikmed(x).list[0];
@@ -1533,8 +1540,8 @@
       if (!cur || cur.kind !== 'own') {
         if (!oma || !cur) return '';
         var vv = oma.d - cur.d;
-        return _t('<span class="own-cmp">') + (oma.gen ? _t('Sinu praegustel rehvidel') : _t('Sinu rehvil')) + (oma.mm ? _t(' (muster ') + fmt(oma.mm) + _t(' mm)') : '') + ': <b>' + fmt(oma.d + react) + _t(' m</b>') +
-          (vv >= 0.5 ? _t('. See rehv peatub <b>') + fmt(vv) + _t(' m</b> varem.') : '.') + '</span>' + (talvMin || '');
+        var kes = (oma.gen || oma.mm ? _t('Sinu praegustest') : _t('Sinu rehvist')) + (oma.mm ? ' (' + mmT(oma.mm) + _t(' mm') + ')' : '');
+        return '<span class="own-cmp">' + (vv >= 0.5 ? kes + _t(' peatub <b>') + fmt(vv) + _t(' m varem</b>') : kes + ': ' + fmt(oma.d + react) + ' m') + '</span>' + (talvMin || '');
       }
       var muud = rows.filter(function (x) { return x.kind !== 'own'; });
       var h = '';
@@ -1616,7 +1623,7 @@
         oma: omaE && omaE !== cur ? { d: omaE.d + react, lo: omaE.r.lowM + react, hi: omaE.r.highM + react, gen: omaE.gen, mm: omaE.mm } : null };
       if (eelAktiivne) eelvaade(eelAktiivne);
       var vm = valitud(cur);
-      var whoShort = cur.kind === 'own' ? (cur.gen ? cur.name : cur.name + _t(' (sinu rehv)')) + (cur.mm ? _t(', muster ') + fmt(cur.mm) + _t(' mm') : '') : cur.kind === 'class' ? (vm ? vm.mark + ' ' + vm.name + (vmT ? _t(' (sõltumatu test)') : ' (' + cur.g + _t('-klassi märgis)')) : cur.g + _t('-klassi märgise rehviga')) : cur.kind === 'cat' ? CATNAME[cur.cat] + _t(' — keskmine') : cur.name;
+      var whoShort = cur.kind === 'own' ? (cur.gen ? cur.name : cur.name + _t(' (sinu rehv)')) + (cur.mm ? _t(', muster ') + mmT(cur.mm) + _t(' mm') : '') : cur.kind === 'class' ? (vm ? vm.mark + ' ' + vm.name + (vmT ? _t(' (sõltumatu test)') : ' (' + cur.g + _t('-klassi märgis)')) : cur.g + _t('-klassi märgise rehviga')) : cur.kind === 'cat' ? CATNAME[cur.cat] + _t(' — keskmine') : cur.name;
       $('[data-r-whoshort]', el).innerHTML = esc(whoShort) + ' · ' + esc(c.label) + '<br>' +
         (out.vehDefault ? _t('auto valimata — arvutatud VW Golf 8 järgi') : esc(out.veh.name)) + _t(' · vahemik ') + fmt(r.lowM + react) + '–' + fmt(r.highM + react) + _t(' m') +
         minuVordlus(cur, rows, out, S, react);

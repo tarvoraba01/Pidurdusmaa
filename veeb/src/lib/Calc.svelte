@@ -11,8 +11,8 @@
 
 <div class="calc-card" id="kalkulaator" data-calc>
 	<div class="cc" style="padding-bottom:0">
-		<div class="cc-grid" style="margin-bottom:var(--sp-3)">
-			<div>
+		<div class="cc-grid cc-main">
+			<div class="c-auto">
 				<p class="lbl">{@html t("1. Sinu auto <span class=\"aside\" data-veh-hint></span>")}</p>
 				<div class="car3">
 					<select class="sel" data-f="make" aria-label={t("Mark")}><option value="">{t("Mark")}</option></select>
@@ -37,7 +37,7 @@
 					>
 				</div>
 			</div>
-			<div>
+			<div class="c-rehv">
 				<div class="own" data-calc-only>
 					<p class="lbl">
 						<label for="f-own">{t("Sinu rehv")}</label> <span class="opt">{t("valikuline")}</span>
@@ -77,12 +77,7 @@
 				<p class="size-note" data-size-tag hidden></p>
 				<p class="size-hint">{t("Täpne mõõt on rehvi küljel ja juhiukse piirdel.")}</p>
 			</div>
-		</div>
-	</div>
-
-	<div class="cc" id="p-calc">
-		<div class="cc-grid">
-			<div>
+			<div class="c-kiirus">
 				<p class="lbl"><label for="f-speed">{t("3. Kiirus")}</label></p>
 				<div class="spd">
 					<input
@@ -110,7 +105,7 @@
 				</div>
 				<p class="cap-note" data-cap-note hidden></p>
 			</div>
-			<div>
+			<div class="c-tee">
 				<p class="lbl">{t("4. Teeolud")}</p>
 				<div class="conds" role="group" aria-label={t("Teeolud")}>
 					{#each Object.entries(CONDS) as [k, c] (k)}
@@ -125,6 +120,9 @@
 				</div>
 			</div>
 		</div>
+	</div>
+
+	<div class="cc cc-go" id="p-calc">
 		<button class="cta" type="button" data-go
 			>{@html t("Arvuta pidurdusmaa <span class=\"arr\" aria-hidden=\"true\">→</span>")}</button
 		>

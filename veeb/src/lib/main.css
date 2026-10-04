@@ -172,6 +172,13 @@ html.pwa{-webkit-tap-highlight-color:transparent}
 .cc{padding:var(--sp-5) var(--sp-5) var(--sp-5)}
 .cc[hidden]{display:none}
 .cc-grid{display:grid;grid-template-columns:minmax(0,1fr) 210px;gap:var(--sp-3) var(--sp-6);margin-bottom:var(--sp-4)}
+/* kalkulaator: vasakul auto → kiirus → teeolud, paremal rehv ja mõõt (telefonis DOM-i järjekord) */
+.cc-main{margin-bottom:0;align-items:start}
+.cc-main>.c-auto{grid-column:1;grid-row:1}
+.cc-main>.c-rehv{grid-column:2;grid-row:1/span 3}
+.cc-main>.c-kiirus{grid-column:1;grid-row:2;padding-top:var(--sp-2)}
+.cc-main>.c-tee{grid-column:1;grid-row:3;padding-top:var(--sp-2)}
+.cc-go{padding-top:var(--sp-3)}
 .lbl{margin:0 0 var(--sp-2);font-weight:700;font-size:14.5px;color:#fff;display:flex;flex-wrap:wrap;align-items:center;gap:var(--sp-1) var(--sp-2)}
 .lbl .aside{margin-left:auto;font-weight:500;font-size:12.5px;color:var(--muted-d)}
 .car3{display:grid;grid-template-columns:1fr 1fr 1.25fr;gap:var(--sp-2)}
@@ -297,6 +304,7 @@ input[type=range].slider.hele,.lo input[type=range].slider,.prio input[type=rang
 @media (max-width:640px){
   .cc{padding:var(--sp-4) var(--sp-4) var(--sp-5)}
   .cc-grid{grid-template-columns:minmax(0,1fr);gap:var(--sp-4)}
+  .cc-main>.c-auto,.cc-main>.c-rehv,.cc-main>.c-kiirus,.cc-main>.c-tee{grid-column:1;grid-row:auto;padding-top:0}
   .car3{grid-template-columns:1fr 1fr}
   .car3 .sel:first-child{grid-column:1/-1}
   .var-row .sel{flex:1 1 auto}
