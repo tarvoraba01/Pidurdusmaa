@@ -1059,5 +1059,7 @@ export default {
 "Sinu praegustest": "Compared to your current tyres",
 "Sinu rehvist": "Compared to your tyre",
 " peatub <b>": " it stops <b>",
-" m varem</b>": " m sooner</b>"
+" m varem</b>": " m sooner</b>",
+"Rehvid poodides mõõdus ": "Tyres in shops in size ",
+"Rehvid poodides — sinu mõõt ees": "Tyres in shops — your size first"
 };

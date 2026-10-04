@@ -1355,11 +1355,17 @@
       var box = $('[data-r-pood]', el);
       if (!box || !CFG.prices) return;
       var veh = core.vehByKey[S.veh];
-      var moodud = [S.size];
+      /* Valitud mõõt on alati esimene. Auto teised tehasemõõdud tulevad juurde
+         ainult siis, kui valitud mõõt on ise tehasemõõt — kui inimene pani oma
+         mõõdu (nt 245/40 R18), näitame ainult seda. */
+      var moodud = [S.size], fab = [];
       ((veh && veh.oemSizes) || []).forEach(function (z) {
         var x = /^(\d{3})\/(\d{2})\s*R(\d{2})(C?)$/.exec(String(z).trim());
         var m = x ? x[1] + x[2] + 'R' + x[3] + x[4] : null;
-        if (m && moodud.indexOf(m) < 0 && core.eprelSizes.indexOf(m) >= 0) moodud.push(m);
+        if (m) fab.push(m);
+      });
+      if (!veh || fab.indexOf(S.size) >= 0) fab.forEach(function (m) {
+        if (moodud.indexOf(m) < 0 && core.eprelSizes.indexOf(m) >= 0) moodud.push(m);
       });
       moodud = moodud.slice(0, 8);
       var sea = SEASON[S.resSeason] || SEASON.summer, voti = moodud.join(',') + '|' + S.resSeason;
@@ -1384,14 +1390,12 @@
               list.push({ m: k.m, slug: slug, nimi: nimi, g: g, testitud: !!(t || (e && e.tested)), r: r });
             });
           });
-          list.sort(function (a, b) { return a.r.hind - b.r.hind; });
-          /* teised tehasemõõdud eraldi; oma mõõdu rehvid on juba vasakul — neid
-             näitame siin ainult siis, kui teistes mõõtudes hindu pole */
-          var muud = list.filter(function (x) { return x.m !== S.size; }), ainultOma = !muud.length;
-          if (!ainultOma) list = muud;
+          /* sinu mõõt ees (soodsaim ees), teised tehasemõõdud järel */
+          list.sort(function (a, b) { return ((a.m !== S.size) - (b.m !== S.size)) || (a.r.hind - b.r.hind); });
+          var ainultOma = !list.some(function (x) { return x.m !== S.size; });
           if (!list.length) { box.hidden = true; box.innerHTML = ''; return; }
           list = list.slice(0, 30);
-          box.innerHTML = '<p class="rs-k">' + (ainultOma ? _t('Selle mõõdu rehvid poodides') : _t('Sinu auto teised mõõdud poodides')) + ' <span style="font-weight:500;color:var(--muted)">' + _t('(soodsaim ees · ') + sea.long + ')</span></p>' +
+          box.innerHTML = '<p class="rs-k">' + (ainultOma ? _t('Rehvid poodides mõõdus ') + esc(pretty(S.size)) : _t('Rehvid poodides — sinu mõõt ees')) + ' <span style="font-weight:500;color:var(--muted)">' + _t('(soodsaim ees · ') + sea.long + ')</span></p>' +
             '<div class="pk-rida pk-moot">' + list.map(function (x) {
               var r = x.r;
               var ladu = r.laos === false ? _t('tellimisel') : (r.kogus > 0 ? _t('laos') + ' ' + (r.kogus >= 8 ? '8+' : r.kogus) + ' ' + _t('tk') : '');

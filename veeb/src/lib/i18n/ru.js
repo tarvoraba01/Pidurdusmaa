@@ -1188,6 +1188,8 @@ export default {
 "Sinu rehvist": "По сравнению с вашей шиной",
 " peatub <b>": " остановится на <b>",
 " m varem</b>": " м раньше</b>",
+"Rehvid poodides mõõdus ": "Шины в магазинах в размере ",
+"Rehvid poodides — sinu mõõt ees": "Шины в магазинах — сначала ваш размер",
 "Rehvid {m} — {n} rehvimudelit märgise andmetega": "Шины {m} — моделей шин с данными маркировки: {n}",
 "Kõik {m} mõõdus rehvid EL-i rehvimärgise järgi: märghaardumise klass, veeretakistus ja müra. Võrdle ja vaata, kui palju muutub pidurdusmaa.": "Все шины размера {m} по маркировке шин ЕС: класс сцепления на мокрой дороге, сопротивление качению и шум. Сравните и посмотрите, насколько меняется тормозной путь.",
 "rehvimudelit EL-i rehvimärgise andmetega. Märghaardumise klass ütleb, kui lühikeseks jääb pidurdusmaa märjal teel — ja klass on selle mõõdu oma, mitte mudeli üldine.": "моделей шин с данными маркировки шин ЕС. Класс сцепления на мокрой дороге показывает, насколько коротким будет тормозной путь на мокрой дороге — и класс относится к этому размеру, а не к модели в целом.",
