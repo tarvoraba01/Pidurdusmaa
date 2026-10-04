@@ -1073,7 +1073,7 @@
     /* Klassi rea all päris rehvid: pick[klassiRida] = valitud rehvi slug.
        Vaikimisi valitakse üks ise (soodsaim / testitud / vaikseim), et
        inimene ei peaks 12 rehvi vahel otsustama — aga saab vahetada. */
-    var pick = {}, pickManual = {}, pickAll = false, hinnad = null, hinnadSize = null;
+    var pick = {}, pickManual = {}, pickAll = false, hinnad = null, hinnadSize = null, selManual = false;
     /* avatud = klassi rida, mille rehvide nimekiri on lahti (vaikimisi kinni) */
     var avatud = null;
     function rowsFor(S, eprelRows, season) {
@@ -1145,8 +1145,14 @@
     function srcName(c) { var s = core.sources[c]; return s ? s.tegija.replace(/ \(.*\)/, '') + ' ' + s.aasta : c; }
     function defaultSel(rows) {
       if (rows.some(function (r) { return r.kind === 'own'; })) return 'o';
-      var cls = rows.filter(function (r) { return r.kind === 'class'; });
-      if (cls.length) return cls.slice().sort(function (a, b) { return b.n - a.n; })[0].id;
+      /* soovitame parimat: lühima pidurdusmaaga klass, mille rehvi saab poest osta;
+         kui hindu pole, siis lihtsalt parim klass */
+      var cls = rows.filter(function (r) { return r.kind === 'class'; }).sort(function (a, b) { return a.d - b.d; });
+      if (cls.length) {
+        var h = hinnad || {}, size = state && state.size;
+        var osta = cls.filter(function (c) { return c.members.some(function (m) { var r = h[m.slug + '@' + size]; return !eriLiik(m) && r && r.length; }); })[0];
+        return (osta || cls[0]).id;
+      }
       var cat = rows.filter(function (r) { return r.kind === 'cat'; });
       if (cat.length) return cat[0].id;
       return rows.length ? rows[Math.floor(rows.length / 2)].id : null;
@@ -1160,7 +1166,7 @@
       var M0 = minuLeia(S.minu, eprelRows);
       if (M0 && !M0.puudu && !S._userSeason) S.resSeason = M0.hooaeg;
       state = S; state._eprel = eprelRows;
-      sel = null; showAll = false;
+      sel = null; showAll = false; selManual = false;
       pick = {}; pickManual = {}; pickAll = false; avatud = null;
       if (hinnadSize !== S.size) { hinnad = null; hinnadSize = null; }
       render();
@@ -1242,7 +1248,10 @@
         /* hinnad saabusid: soovitus võib muutuda soodsaimaks — joonista üks kord uuesti */
         if (avail && hinnadSize !== size) {
           hinnad = h; hinnadSize = size;
-          if (cur.kind === 'class' && !pickManual[cur.id]) { delete pick[cur.id]; render(); return; }
+          /* hinnad saabusid: soovitus = parim klass, mida saab osta; nimed klassiridadel */
+          if (!selManual) sel = null;
+          if (cur.kind === 'class' && !pickManual[cur.id]) delete pick[cur.id];
+          render(); return;
         }
         $$('[data-rp]').forEach(function (e) {
           var x = rowsAll.filter(function (r) { return r.id === e.dataset.rp; })[0], c = x && cheapest(x.pids || [], h);
@@ -1332,10 +1341,16 @@
     function row(x, best, max, compact) {
       var dd = x.d - best;
       if (compact) {
-        var nm = x.kind === 'class' ? _t('Klass ') + x.g + ' · ' + x.n + _t(' rehvi') : x.kind === 'cat' ? (CATNAME[x.cat] + _t(', keskmine')) : x.name;
+        var nm = x.kind === 'cat' ? (CATNAME[x.cat] + _t(', keskmine')) : x.name, nmHtml = null;
+        if (x.kind === 'class') {
+          /* klassi asemel konkreetne rehv: soodsaim / testitud / vaikseim selles klassis */
+          var esi = liikmed(x).list[0];
+          nmHtml = grade(x.g) + ' ' + (esi ? esc(esi.mark + ' ' + esi.name) : esc(_t('Klass ') + x.g)) +
+            (x.n > 1 ? ' <small>' + _t('+ ') + (x.n - 1) + _t(' sama klassi') + '</small>' : '');
+        }
         return _t('<li><button type="button" class="mbar') + (x.kind === 'class' ? ' mcls' : '') + (x.kind === 'own' ? ' own' : '') + _t('" data-row="') + esc(x.id) + _t('" aria-pressed="') + (x.id === sel) + '"' +
-          (x.kind === 'class' ? ' aria-expanded="' + (x.id === avatud) + '"' : '') + ' title="' + esc(x.kind === 'class' ? _t('EL-i märgise märghaardumise klass ') + x.g + _t(' — vajuta, et näha selle klassi rehve') : (x.sub || '')) + '">' +
-          '<span class="n">' + esc(nm) + '</span>' +
+          (x.kind === 'class' ? ' aria-expanded="' + (x.id === avatud) + '"' : '') + ' title="' + esc(x.kind === 'class' ? _t('Täht = EL-i rehvimärgise märghaarde klass ') + x.g + _t('. Sama klassi rehvid pidurdavad märjal ühtviisi — vajuta, et näha kõiki ') + x.n : (x.sub || '')) + '">' +
+          '<span class="n">' + (nmHtml || esc(nm)) + '</span>' +
           _t('<span class="t" aria-hidden="true"><span style="width:') + (100 * x.d / max).toFixed(1) + '%"></span></span>' +
           '<span class="v">' + fmt(x.d) + _t(' m</span>') +
           '<span class="d">' + (dd < 0.05 ? '' : '+' + fmt(dd) + _t(' m <i>') + pct(dd, best) + '</i>') + '</span>' +
@@ -1509,7 +1524,7 @@
           /* klassi rida: valib ja avab/sulgeb rehvide nimekirja */
           if (x && x.kind === 'class') avatud = (avatud === id && sel === id) ? null : id;
           else avatud = null;
-          sel = id; render();
+          sel = id; selManual = true; render();
         });
       });
       var tg = $('[data-r-toggle]');
@@ -1811,12 +1826,19 @@
       all: _t('parimad märjal, lumel ja jääl pidurdamisel')
     };
     /* ---- küsimused (ainult valik) */
+    /* kaalud 0–100: küsimuste vastused annavad 33 / 67 / 100, liuguriga saab iga numbri */
     function weights() {
-      if (S.w && S.wManual) return S.w;
+      if (S.w && S.wManual) {
+        /* vanad salvestused olid 1–3 */
+        var vana = Object.keys(S.w).every(function (k) { return S.w[k] <= 3; });
+        if (vana) Object.keys(S.w).forEach(function (k) { S.w[k] = Math.round(S.w[k] * 100 / 3); });
+        return S.w;
+      }
       var w = {};
       function add(m) { Object.keys(m || {}).forEach(function (k) { w[k] = Math.min(3, (w[k] || 0) + m[k]); }); }
       add(CT.drive[S.drive]); add(CT.km[S.km]);
       S.main.forEach(function (k) { add(CT.main[k]); });
+      Object.keys(w).forEach(function (k) { w[k] = Math.round(w[k] * 100 / 3); });
       return w;
     }
     $$('[data-ct]', root).forEach(function (b) {
@@ -1832,34 +1854,48 @@
       });
     });
     var prio = $('[data-prio]', root);
+    var wTxt = function (v) { return v > 0 ? v + '%' : _t('ei loe'); };
     if (prio) {
       prio.innerHTML = PROPS.map(function (p) {
-        return _t('<div class="prio-item') + (p.ok ? '' : ' na') + '"><span class="pn">' + esc(p.n) + '</span>' +
-          _t('<span class="lvl" role="group" aria-label="') + esc(p.n) + _t(' tähtsus">') + [1, 2, 3].map(function (l) {
-            return _t('<button type="button" data-w="') + p.k + _t('" data-l="') + l + '"' + (p.ok ? '' : ' disabled') + _t(' aria-label="tähtsus ') + l + '"></button>';
-          }).join('') + '</span><span class="pd">' + esc(p.d) + (p.ok ? '' : _t(' <b>Andmed puuduvad.</b>')) + '</span></div>';
+        return _t('<div class="prio-item') + (p.ok ? '' : ' na') + '"><label class="pr-top" for="w-' + p.k + '"><span class="pn">' + esc(p.n) + '</span>' +
+          '<output class="pr-v" data-wv="' + p.k + '">' + wTxt(0) + '</output></label>' +
+          '<input type="range" class="slider" id="w-' + p.k + '" min="0" max="100" step="1" value="0" data-w="' + p.k + '"' + (p.ok ? '' : ' disabled') + ' style="--p:0%">' +
+          '<span class="pd">' + esc(p.d) + (p.ok ? '' : _t(' <b>Andmed puuduvad.</b>')) + '</span></div>';
       }).join('');
-      $$('[data-w]', prio).forEach(function (b) {
-        b.addEventListener('click', function () {
-          var w = Object.assign({}, weights()), k = b.dataset.w, l = +b.dataset.l;
-          w[k] = w[k] === l ? 0 : l;
-          S.w = w; S.wManual = true; save(); paintQ(); draw();
-        });
+      var wTimer = null;
+      $$('input[data-w]', prio).forEach(function (inp) {
+        var k = inp.dataset.w;
+        var muuda = function (lopp) {
+          var v = +inp.value;
+          inp.style.setProperty('--p', v + '%');
+          var o = $('[data-wv="' + k + '"]', prio); if (o) o.textContent = wTxt(v);
+          var w = Object.assign({}, weights()); w[k] = v;
+          S.w = w; S.wManual = true;
+          clearTimeout(wTimer);
+          /* nimekiri järgneb liugurile sujuvalt; lõpus kohe */
+          wTimer = setTimeout(function () { save(); paintQ(true); draw(); }, lopp ? 0 : 140);
+        };
+        inp.addEventListener('input', function () { muuda(false); });
+        inp.addEventListener('change', function () { muuda(true); Track('kaal', k + '=' + inp.value); });
       });
     }
     var reset = $('[data-prio-reset]', root);
     if (reset) reset.addEventListener('click', function () { S.drive = S.km = S.rft = ''; S.main = []; S.w = null; S.wManual = false; save(); paintQ(); draw(); });
-    function paintQ() {
+    function paintQ(liugurilt) {
       $$('[data-ct]', root).forEach(function (b) {
         var on = b.dataset.ct === 'main' ? S.main.indexOf(b.dataset.v) >= 0 : S[b.dataset.ct] === b.dataset.v;
         b.setAttribute('aria-pressed', on ? 'true' : 'false');
       });
       var w = weights();
-      $$('[data-w]', root).forEach(function (b) { b.setAttribute('aria-pressed', (w[b.dataset.w] || 0) >= +b.dataset.l ? 'true' : 'false'); });
+      if (!liugurilt) $$('input[data-w]', root).forEach(function (inp) {
+        var v = w[inp.dataset.w] || 0;
+        inp.value = v; inp.style.setProperty('--p', v + '%');
+        var o = $('[data-wv="' + inp.dataset.w + '"]', root); if (o) o.textContent = wTxt(v);
+      });
       var used = Object.keys(w).filter(function (k) { return w[k] > 0 && PROP[k] && PROP[k].ok; });
       var miss = Object.keys(w).filter(function (k) { return w[k] > 0 && PROP[k] && !PROP[k].ok; });
       var box = $('[data-ct-out]', root);
-      if (box) box.innerHTML = (used.length ? _t('<p class="note" style="margin:0">Arvestan: ') + used.map(function (k) { return '<b>' + esc(PROP[k].n.toLowerCase()) + '</b>' + (w[k] > 1 ? ' ×' + w[k] : ''); }).join(', ') + '</p>' : _t('<p class="note" style="margin:0">Vali ülal, mis sulle oluline on — järjestus muutub kohe.</p>')) +
+      if (box) box.innerHTML = (used.length ? _t('<p class="note" style="margin:0">Arvestan: ') + used.sort(function (a, b) { return w[b] - w[a]; }).map(function (k) { return '<b>' + esc(PROP[k].n.toLowerCase()) + '</b> ' + w[k] + '%'; }).join(', ') + '</p>' : _t('<p class="note" style="margin:0">Vali ülal, mis sulle oluline on — järjestus muutub kohe.</p>')) +
         (miss.length ? '<div class="note-box" style="margin-top:var(--sp-3)">' + miss.map(function (k) { return PROP[k].n; }).join(', ') + _t(': usaldusväärsed andmed puuduvad — seda ei saa arvestada, ja me ei hakka seda arvama.</div>') : '');
       if (reset) reset.hidden = !used.length && !miss.length;
     }
@@ -2157,6 +2193,13 @@
         (x.miss && x.miss.length ? _t('<p class="note" style="grid-column:1/-1;margin:0">Sobivuses arvestamata: ') + esc(x.miss.join(', ')) + '</p>' : '') + '</article>';
     }
 
+    /* URL-ist tulnud rehvil on ainult slug — õige nimi mõõdu andmetest */
+    function nimedSlugist(box) {
+      $$('[data-csn]', box).forEach(function (b) {
+        var x = b.dataset.csn.split('@');
+        loadSize(x[1]).then(function (rows) { var r = rows.filter(function (y) { return y.slug === x[0]; })[0]; if (r) b.textContent = r.mark + ' ' + r.name; });
+      });
+    }
     /* ---- valitud rehvide tabel + alumine riba */
     var tblBox = $('[data-cmp-table]', root);
     function drawTable() {
@@ -2166,15 +2209,35 @@
       if (tray) {
         tray.hidden = !sel.length;
         $('[data-tray-chips]', tray).innerHTML = sel.map(function (p) {
-          return '<span class="chip">' + esc(p.n) + _t(' <button type="button" data-trm="') + esc(p.id) + _t('" aria-label="Eemalda">×</button></span>');
+          var pb = p.id.split('@');
+          return '<span class="chip"><span data-csn="' + esc(p.id) + '">' + esc(p.n && p.n !== p.id && p.n !== pb[0] ? p.n : titleCase(pb[0].replace(/-/g, ' '))) + '</span>' + _t(' <button type="button" data-trm="') + esc(p.id) + _t('" aria-label="Eemalda">×</button></span>');
         }).join('');
+        nimedSlugist(tray);
         $$('[data-trm]', tray).forEach(function (b) { b.addEventListener('click', function () { cmp.toggle({ id: b.dataset.trm }); draw(); }); });
         var go = $('[data-tray-go]', tray);
         if (go) { go.href = mode === 'valik' ? cmpUrl(sel, { auto: S.veh }) : '#vordlus'; go.textContent = mode === 'valik' ? _t('Võrdle kõrvuti (') + sel.length + ') →' : _t('Vaata võrdlust ↓'); }
       }
       if (!tblBox) return;
       if (sel.length < 2) {
-        tblBox.innerHTML = mode === 'vordle' ? '<div class="box empty-cmp"><h2>' + (sel.length ? _t('Lisa veel vähemalt üks rehv') : _t('Vali võrdlemiseks 2–4 rehvi')) + _t('</h2><p class="note" style="margin:0">Otsi allpool rehvi ja vajuta „+ Võrdle“. Või <a href="') + LHOME + _t('rehvi-valimine/">lase rehvi valimisel</a> sobivad välja pakkuda.</p></div>') : '';
+        if (mode !== 'vordle') { tblBox.innerHTML = ''; return; }
+        /* 4 pesa: valitud rehvid + tühjad „Lisa rehv“ pesad */
+        var pesad = '';
+        for (var pi = 0; pi < 4; pi++) {
+          var pp = sel[pi];
+          if (pp) {
+            var pb = pp.id.split('@');
+            pesad += '<div class="cs on"><img src="' + CFG.home + 'api/pilt/' + encodeURIComponent(pb[0]) + '/" alt="" width="56" height="66" onerror="this.remove()">' +
+              '<span class="cs-n"><b data-csn="' + esc(pp.id) + '">' + esc(pp.n && pp.n !== pp.id && pp.n !== pb[0] ? pp.n : titleCase(pb[0].replace(/-/g, ' '))) + '</b><small>' + esc(pretty(pb[1])) + '</small></span>' +
+              _t('<button type="button" class="cs-x" data-xrm="') + esc(pp.id) + _t('" aria-label="Eemalda ') + esc(pp.n) + '">×</button></div>';
+          } else pesad += '<a class="cs add" href="#lisa"><span aria-hidden="true">+</span>' + _t('Lisa rehv') + '</a>';
+        }
+        tblBox.innerHTML = '<div class="cmp-slots"><div class="cs-h"><h2>' + _t('Valitud rehvid') + '</h2><span class="cs-c">' + sel.length + ' / 4</span></div>' +
+          '<div class="cs-grid">' + pesad + '</div><p class="note" style="margin:0">' +
+          (sel.length ? _t('Lisa veel vähemalt üks rehv — siis tuleb võrdlus kõrvuti.') : _t('Vali allpool 2–4 rehvi.')) +
+          ' ' + _t('Või') + ' <a href="' + LHOME + 'rehvi-valimine/">' + _t('lase rehvi valimisel') + '</a> ' + _t('sobivad välja pakkuda.') + '</p></div>';
+        $$('[data-xrm]', tblBox).forEach(function (b) { b.addEventListener('click', function () { cmp.toggle({ id: b.dataset.xrm }); draw(); }); });
+        nimedSlugist(tblBox);
+        $$('a.cs.add', tblBox).forEach(function (a) { a.addEventListener('click', function () { setTimeout(function () { var q = $('[data-q]', root); if (q) q.focus({ preventScroll: true }); }, 350); }); });
         return;
       }
       var sizes = {}; sel.forEach(function (p) { var m = p.id.split('@')[1]; if (m) sizes[m] = 1; });

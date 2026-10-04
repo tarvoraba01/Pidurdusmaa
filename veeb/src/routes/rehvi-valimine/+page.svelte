@@ -69,7 +69,7 @@
 						<button type="button" class="btn sm" data-prio-reset hidden>{t("Tühjenda")}</button>
 					</div>
 					<p class="note" style="margin:var(--sp-2) 0 var(--sp-3)">
-						{t("Valikuline. Sinu vastused täidavad selle ise — siin näed ja muudad, kui palju iga omadus loeb (1–3).")}
+						{t("Valikuline. Sinu vastused täidavad selle ise — liuguriga saad täpselt määrata, kui palju iga omadus loeb (0–100%).")}
 					</p>
 					<div class="prio" data-prio></div>
 				</div>

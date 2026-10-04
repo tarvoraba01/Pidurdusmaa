@@ -185,12 +185,27 @@ button,input,select{font:inherit;color:inherit}
 .spd-num{display:flex;align-items:center;gap:var(--sp-2);color:#c9ced6;font-size:13px}
 .spd-num input{width:62px;height:40px;border-radius:7px;border:1px solid #5a616d;background:#0c0d10;color:#fff;text-align:center;font-weight:700;font-size:16px;-moz-appearance:textfield}
 .spd-num input::-webkit-inner-spin-button{-webkit-appearance:none}
-input[type=range].slider{-webkit-appearance:none;appearance:none;width:100%;height:30px;background:transparent;cursor:pointer;--p:50%}
-.slider::-webkit-slider-runnable-track{height:5px;border-radius:3px;background:linear-gradient(90deg,var(--yellow) var(--p),#3a3f49 var(--p))}
-.slider::-moz-range-track{height:5px;border-radius:3px;background:#3a3f49}
-.slider::-moz-range-progress{height:5px;border-radius:3px;background:var(--yellow)}
-.slider::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;background:#fff;border:0;margin-top:-7.5px;box-shadow:0 2px 8px rgba(0,0,0,.6)}
-.slider::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:#fff;border:0}
+/* ---- liugur = pidurdusjälg: täidetud osa on rehvi jälg asfaldil, nupp on rehv ---- */
+input[type=range].slider{-webkit-appearance:none;appearance:none;width:100%;height:32px;background:transparent;cursor:pointer;--p:50%;
+  --sl-road:#30343c;--sl-mark:var(--yellow);--sl-mark0:rgba(255,194,14,.18);--sl-gap:rgba(12,13,16,.55);--sl-hub:#ffc20e;--sl-rub:#0c0d10;--sl-ring:rgba(255,255,255,.18)}
+.slider:focus-visible{outline:none}
+.slider::-webkit-slider-runnable-track{height:10px;border-radius:5px;
+  background:linear-gradient(90deg,transparent var(--p),var(--sl-road) var(--p)),
+    repeating-linear-gradient(100deg,transparent 0 5px,var(--sl-gap) 5px 7px),
+    linear-gradient(90deg,var(--sl-mark0),var(--sl-mark) 55%)}
+.slider::-moz-range-track{height:10px;border-radius:5px;background:var(--sl-road)}
+.slider::-moz-range-progress{height:10px;border-radius:5px;background:repeating-linear-gradient(100deg,transparent 0 5px,var(--sl-gap) 5px 7px),linear-gradient(90deg,var(--sl-mark0),var(--sl-mark) 55%)}
+.slider::-webkit-slider-thumb{-webkit-appearance:none;width:26px;height:26px;margin-top:-8px;border:0;border-radius:50%;
+  background:radial-gradient(circle,var(--sl-hub) 0 22%,#9aa1ac 23% 30%,var(--sl-rub) 31% 60%,transparent 61%),repeating-conic-gradient(var(--sl-rub) 0 12deg,#3d424b 12deg 24deg);
+  box-shadow:0 0 0 1.5px var(--sl-ring),0 3px 10px rgba(0,0,0,.45);transition:transform .15s}
+.slider::-moz-range-thumb{width:26px;height:26px;border:0;border-radius:50%;
+  background:radial-gradient(circle,var(--sl-hub) 0 22%,#9aa1ac 23% 30%,var(--sl-rub) 31% 60%,transparent 61%),repeating-conic-gradient(var(--sl-rub) 0 12deg,#3d424b 12deg 24deg);
+  box-shadow:0 0 0 1.5px var(--sl-ring),0 3px 10px rgba(0,0,0,.45)}
+.slider:active::-webkit-slider-thumb,.slider:focus-visible::-webkit-slider-thumb{transform:scale(1.12) rotate(40deg);box-shadow:0 0 0 3px var(--sl-mark),0 3px 10px rgba(0,0,0,.45)}
+.slider:focus-visible::-moz-range-thumb{box-shadow:0 0 0 3px var(--sl-mark),0 3px 10px rgba(0,0,0,.45)}
+.slider:disabled{cursor:not-allowed;opacity:.45}
+/* heledal taustal: tume jälg helehallil teel */
+input[type=range].slider.hele,.lo input[type=range].slider,.prio input[type=range].slider,.box input[type=range].slider{--sl-road:#e4e7ec;--sl-mark:#15171c;--sl-mark0:rgba(21,23,28,.12);--sl-gap:rgba(255,255,255,.55);--sl-ring:rgba(0,0,0,.08)}
 .cap-note{font-size:12px;color:#fbbf24;margin:var(--sp-1) 0 0}
 .conds{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--sp-2)}
 .cond{appearance:none;border:1px solid #3a3f49;background:#15171c;border-radius:7px;height:56px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:var(--sp-1);cursor:pointer;color:#e6e8eb;font-weight:500;font-size:12px}
@@ -511,9 +526,12 @@ table.t a:hover{text-decoration:underline}
 .lseg button{border:1px solid var(--line);background:#fff;border-radius:8px;padding:var(--sp-2) var(--sp-3);font-size:14px;font-weight:600;color:var(--muted);cursor:pointer}
 .lseg button[aria-pressed="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
 .prio{display:grid;gap:var(--sp-2)}
-.prio-item{display:grid;grid-template-columns:1fr auto;gap:2px var(--sp-3);align-items:center;padding:var(--sp-3) var(--sp-3);border:1px solid var(--line);border-radius:10px;background:#fff}
+.prio-item{display:grid;gap:2px;padding:var(--sp-3);border:1px solid var(--line);border-radius:10px;background:#fff}
+.pr-top{display:flex;justify-content:space-between;align-items:baseline;gap:var(--sp-3);cursor:pointer}
+.pr-v{font-weight:800;font-variant-numeric:tabular-nums;font-size:14px;min-width:4.5ch;text-align:right}
+.prio-item .slider{margin:2px 0}
 .prio-item .pn{font-weight:600;font-size:14.5px}
-.prio-item .pd{grid-column:1/-1;font-size:12.5px;color:var(--muted);line-height:1.35}
+.prio-item .pd{font-size:12.5px;color:var(--muted);line-height:1.35}
 .prio-item.na{background:var(--paper-2)}
 .prio-item.na .pn{color:var(--muted)}
 .lvl{display:flex;gap:var(--sp-1)}
@@ -589,6 +607,40 @@ table.cmp .grp th{background:var(--paper-2);color:var(--text);font-size:12px;let
 .add-bar .lseg{grid-column:span 2}
 .add-bar input{grid-column:span 2}
 .empty-cmp{text-align:center;padding:var(--sp-10) var(--sp-6)}
+/* ---- võrdlus: valitud pesad + lisamise paneel ---- */
+.cmp-slots{display:grid;gap:var(--sp-3);margin-bottom:var(--sp-6)}
+.cs-h{display:flex;align-items:baseline;gap:var(--sp-3)}
+.cs-h h2{font-family:var(--display);font-size:28px;text-transform:uppercase;margin:0}
+.cs-c{font-weight:700;color:var(--muted);font-variant-numeric:tabular-nums}
+.cs-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--sp-3)}
+.cs{min-height:96px;border-radius:12px;display:flex;align-items:center;gap:var(--sp-3);padding:var(--sp-3)}
+.cs.on{background:#fff;border:1px solid var(--line);box-shadow:var(--shadow);position:relative;padding-right:40px}
+.cs.on img{width:48px;height:58px;object-fit:contain;flex:0 0 auto}
+.cs-n{display:grid;min-width:0}
+.cs-n b{font-size:15px;line-height:1.25;overflow-wrap:break-word;hyphens:auto}
+.cs-n small{color:var(--muted);font-size:12.5px}
+.cs-x{position:absolute;top:6px;right:6px;width:28px;height:28px;border:0;border-radius:50%;background:var(--paper-2);font-size:18px;line-height:1;cursor:pointer;color:var(--muted)}
+.cs-x:hover{background:var(--ink);color:#fff}
+.cs.add{border:2px dashed var(--line);justify-content:center;flex-direction:column;gap:2px;color:var(--muted);font-weight:600;text-decoration:none}
+.cs.add span{font-size:26px;line-height:1;color:var(--ink)}
+.cs.add:hover{border-color:var(--ink);color:var(--ink)}
+@media (max-width:760px){.cs-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.cs{min-height:84px;gap:var(--sp-2)}.cs.on img{width:34px;height:42px}.cs-n b{font-size:13.5px}}
+.cmp-add{display:grid;gap:var(--sp-5)}
+.ca-h h2{margin-bottom:var(--sp-1)}
+.ca-h .note{margin:0}
+.ca-grid{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,2fr);gap:var(--sp-4)}
+.ca-blk{display:grid;gap:var(--sp-2);align-content:start;background:var(--paper-2);border-radius:12px;padding:var(--sp-4);min-width:0}
+.ca-blk .vs{margin-bottom:0}
+.ca-l{display:flex;align-items:center;gap:var(--sp-2);margin:0;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+.ca-l span{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--ink);color:var(--yellow);font-size:12px}
+.ca-car{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--sp-2)}
+.ca-seg{display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}
+.ca-seg button{padding:var(--sp-2);min-height:44px;font-size:13.5px;line-height:1.2}
+.ca-q{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr) minmax(0,1fr);gap:var(--sp-2)}
+.ca-search{height:52px;font-size:16px;background-image:none!important;padding-right:var(--sp-3)!important}
+.ca-find{background:var(--yellow-soft)}
+@media (max-width:900px){.ca-grid{grid-template-columns:1fr}}
+@media (max-width:640px){.ca-q{grid-template-columns:1fr 1fr}.ca-q .ca-search{grid-column:1/-1}.ca-blk{padding:var(--sp-3)}}
 .empty-cmp h2{margin-bottom:var(--sp-2)}
 @keyframes flash{0%{opacity:.35}100%{opacity:1}}
 .flash{animation:flash .5s ease-out}
@@ -834,6 +886,17 @@ textarea.lin{resize:vertical;min-height:140px}
 .r-price .more{display:inline-block;margin-top:var(--sp-2);font-size:13px;font-weight:600}
 /* tulemuse vasak veerg (number + hinnad) jääb kerimisel nähtavale */
 .rs-stick{position:sticky;top:84px}
+/* vasak veerg ulatub sama kõrgele kui keskmine: hinnakast täidab ülejäänud ruumi */
+@media (min-width:901px){
+  .rstrip>div:first-child{display:flex;flex-direction:column}
+  .rstrip>div:first-child>.rs-stick{position:static;flex:1;display:flex;flex-direction:column}
+  .rs-stick .r-price:not(:empty){flex:1 1 0;display:flex;flex-direction:column;min-height:220px}
+  .rs-stick .r-price .pk-list{flex:1 1 0;max-height:none;min-height:0}
+}
+.rs-expl{margin:0 0 var(--sp-3);font-size:13px;color:var(--muted);line-height:1.45}
+.rs-expl .gr{min-width:18px;height:17px;font-size:12px;vertical-align:1px}
+.mbar .n .gr{min-width:20px;height:19px;font-size:13px;margin-right:2px;vertical-align:-1px}
+.mbar .n small{color:var(--muted);font-weight:500}
 .rs-stick .r-price{margin-top:var(--sp-4);text-align:left}
 @media (max-width:900px){.rs-stick{position:static}}
 /* rehvi valimine: järjestuse valik */

@@ -1579,23 +1579,6 @@
 	.lo-halb {
 		color: var(--bad);
 	}
-	.lo .slider::-webkit-slider-runnable-track {
-		background: linear-gradient(90deg, #111 var(--p), #d5d9e0 var(--p));
-	}
-	.lo .slider::-moz-range-track {
-		background: #d5d9e0;
-	}
-	.lo .slider::-moz-range-progress {
-		background: #111;
-	}
-	.lo .slider::-webkit-slider-thumb {
-		background: var(--yellow);
-		box-shadow: 0 0 0 2px #111;
-	}
-	.lo .slider::-moz-range-thumb {
-		background: var(--yellow);
-		box-shadow: 0 0 0 2px #111;
-	}
 	.lo-sel {
 		width: 100%;
 		height: 40px;

@@ -40,8 +40,9 @@
 				</div>
 			</div>
 			<div>
-				<p class="rs-k">
-					{@html t("Võrdlus teiste rehvidega <span style=\"font-weight:500;color:var(--muted)\">(pidurdusteekond, samas mõõdus)</span>")}
+				<p class="rs-k">{t("Kui palju muudab rehv?")}</p>
+				<p class="rs-expl">
+					{@html t("Sama auto ja kiirus, ainult rehv erineb. <b>Lühem riba = auto seisab varem.</b> Täht on EL-i rehvimärgise märghaarde klass: <span class=\"gr A\">A</span> pidurdab märjal kõige paremini.")}
 				</p>
 				<ol class="mbars" data-r-mbars></ol>
 				<div class="rs-links">
