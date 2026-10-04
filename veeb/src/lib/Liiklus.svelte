@@ -1663,8 +1663,6 @@
 		color: var(--on-d);
 		border-radius: var(--r-lg);
 		padding: var(--sp-5);
-		position: sticky;
-		top: 84px;
 		box-shadow: var(--shadow);
 	}
 	.proj .lo-out {
@@ -2084,11 +2082,37 @@
 		margin-top: 0;
 		align-self: start;
 	}
-	/* simulaatori pilt jääb vasakut veergu kerides ette; kui vasak saab otsa, kerib edasi */
+	/* Arvutis: vasak seadete veerg on oma kerimisalaga ja püsib paigal, nii et
+	   paremal olev simulaator (pilt + tulemus) jääb seadeid muutes kogu aeg
+	   nähtavale. Kui vasak saab otsa, kerib edasi terve leht (alumised tabelid). */
 	@media (min-width: 901px) {
-		.lo-kt.lo-side {
+		.lo-grid > .lo-in {
 			position: sticky;
 			top: 84px;
+			max-height: calc(100vh - 100px);
+			max-height: calc(100dvh - 100px);
+			overflow-y: auto;
+			scrollbar-width: thin;
+			scrollbar-color: #c3c8d0 transparent;
+		}
+		.lo-grid > .lo-in::-webkit-scrollbar {
+			width: 8px;
+		}
+		.lo-grid > .lo-in::-webkit-scrollbar-thumb {
+			background: #c3c8d0;
+			border-radius: 4px;
+			border: 2px solid var(--lo-card);
+		}
+		/* simulaatori pilt mahub ekraanile ka madalal ekraanil (pilt lõigatakse
+		   servadest, auto jääb keskele) */
+		.lo-out :global(.sa-scene > svg) {
+			max-height: max(240px, calc(100dvh - 84px - 330px));
+		}
+		.lo-pv :global(.sa-scene > svg) {
+			max-height: max(240px, calc(100dvh - 84px - 270px));
+		}
+		.lo-kt:not(.lo-pv) :global(.ka-scene > svg) {
+			max-height: max(240px, calc(100dvh - 84px - 400px));
 		}
 	}
 	.lo-vaated {
