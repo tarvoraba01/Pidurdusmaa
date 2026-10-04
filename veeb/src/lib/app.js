@@ -1113,9 +1113,11 @@
         var res = $('#tulemus');
         if (!res) return;
         res.hidden = false;
-        var top = res.getBoundingClientRect().top;
-        if (top > window.innerHeight - 160 || top < 0) {
-          res.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
+        /* tulemus päise alla (kleepuv päis ei tohi pealkirja katta) */
+        var hdr = $('.site-header'), hh = hdr ? hdr.getBoundingClientRect().height : 64;
+        var siht = res.getBoundingClientRect().top + window.scrollY - hh - 12;
+        if (Math.abs(window.scrollY - siht) > 24) {
+          window.scrollTo({ top: Math.max(0, siht), behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
         }
         var big = $('[data-r-big]'); if (big) { big.parentNode.classList.remove('flash'); void big.offsetWidth; big.parentNode.classList.add('flash'); }
       });

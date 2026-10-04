@@ -1136,10 +1136,12 @@ body{padding-bottom:var(--tabbar-h, 0px)}
 .site-header{view-transition-name:pm-header}
 .tabbar{view-transition-name:pm-tabbar}
 ::view-transition-group(pm-header),::view-transition-group(pm-tabbar),::view-transition-old(pm-header),::view-transition-new(pm-header),::view-transition-old(pm-tabbar),::view-transition-new(pm-tabbar){animation:none}
-::view-transition-old(root){animation:vt-valja .16s ease-in both}
-::view-transition-new(root){animation:vt-sisse .3s cubic-bezier(.2,.7,.2,1) both}
-@keyframes vt-valja{to{opacity:0}}
-@keyframes vt-sisse{from{opacity:0;transform:translateY(12px)}}
+/* vana leht jääb alla täiesti nähtavaks ja uus tuleb selle peale — nii ei
+   paista kahe poolläbipaistva lehe vahelt taust läbi (see tegi „välgatuse“) */
+::view-transition-old(root){animation:none;opacity:1;mix-blend-mode:normal}
+::view-transition-new(root){animation:vt-sisse .28s cubic-bezier(.25,.6,.3,1) both;mix-blend-mode:normal}
+::view-transition-image-pair(root){isolation:auto}
+@keyframes vt-sisse{from{opacity:0;transform:translateY(8px)}}
 @keyframes ilmu{from{opacity:0;transform:translateY(-6px)}}
 @keyframes pm-sisse{from{opacity:0;transform:translateY(-10px)}}
 @keyframes pm-valja{to{opacity:0;transform:translateY(-10px)}}
@@ -1153,3 +1155,4 @@ body{padding-bottom:var(--tabbar-h, 0px)}
   ::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){animation:none!important}
   .dd-menu{transition:none!important}
 }
+#sobivad,#tulemus,#kalkulaator{scroll-margin-top:76px}
