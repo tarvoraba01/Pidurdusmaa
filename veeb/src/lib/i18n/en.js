@@ -232,10 +232,6 @@ export default {
 "Arvutatud tulemus meie mudelist sinu autoga. Hinnang, mitte mõõtmine — viga on tavaliselt paar meetrit.": "Calculated result from our model with your car. An estimate, not a measurement — usually accurate to within a couple of metres.",
 "Siia tulevad rehvimüüjate hinnad otse nende süsteemist. Ühendus müüjatega on töös. Hind mõjutab rehvide järjestust ainult siis, kui valid ise „Soodne hind“.": "Tyre sellers' prices will appear here directly from their systems. Connecting with sellers is in progress. Price affects the tyre ranking only if you choose “Low price” yourself.",
 "\"><span class=\"none\">Laen hindu…</span></div>": "\"><span class=\"none\">Loading prices…</span></div>",
-"<p class=\"aff\">Poelingid võivad olla partnerlingid — sinu hind ja meie järjestus ei muutu. <a href=\"": "<p class=\"aff\">Shop links may be affiliate links — your price and our ranking don't change. <a href=\"",
-"/teadmine/partnerid/\">Loe lähemalt</a></p>": "/teadmine/partnerid/\">Read more</a></p>",
-" <small>tellimisel</small>": " <small>to order</small>",
-" müüjat veel</p>": " more sellers</p>",
 "Selle rehvi hinda müüjatelt hetkel pole": "No seller prices for this tyre at the moment",
 "Hinnad pole hetkel saadaval": "Prices not available at the moment",
 "parimad märjal ja kuival teel pidurdamisel": "best for braking on wet and dry roads",
@@ -310,7 +306,6 @@ export default {
 "Märgpidurdus 90→0": "Wet braking 90→0",
 "Kuivpidurdus 90→0": "Dry braking 90→0",
 "Talv": "Winter",
-"<div class=\"price\"><div class=\"pl\">Hind müüjatelt</div>": "<div class=\"price\"><div class=\"pl\">Prices from sellers</div>",
 "<p class=\"note\" style=\"grid-column:1/-1;margin:0\">Sobivuses arvestamata: ": "<p class=\"note\" style=\"grid-column:1/-1;margin:0\">Not included in the match: ",
 "\" aria-label=\"Eemalda\">×</button></span>": "\" aria-label=\"Remove\">×</button></span>",
 "Võrdle kõrvuti (": "Compare side by side (",
@@ -959,5 +954,7 @@ export default {
 "u": "approx.",
 "laos": "in stock",
 "tk": "pcs",
-"Vaata poes →": "View in shop →"
+"Vaata poes →": "View in shop →",
+"Hinnad poodides": "Prices in shops",
+"tellimisel": "to order"
 };

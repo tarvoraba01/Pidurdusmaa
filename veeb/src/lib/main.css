@@ -676,7 +676,7 @@ table.cmp .grp th{background:var(--paper-2);color:var(--text);font-size:12px;let
 /* ---------- hind müüjatelt ---------- */
 .rcard .price{grid-column:1/-1;display:flex;align-items:flex-start;gap:var(--sp-4);border:1px dashed var(--line);border-radius:8px;padding:var(--sp-2) var(--sp-3);background:#fff}
 .price .pl{flex:0 0 auto;font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding-top:2px}
-.pv{min-width:0;flex:1;font-size:13.5px}
+.pv{min-width:0;flex:1;font-size:13.5px;width:100%}
 .pv .none{color:var(--muted);font-style:italic}
 .pv .sellers{list-style:none;margin:0;padding:0;display:grid;gap:var(--sp-1)}
 .pv .sellers li{display:flex;justify-content:space-between;gap:var(--sp-3)}
@@ -687,10 +687,33 @@ table.cmp .grp th{background:var(--paper-2);color:var(--text);font-size:12px;let
 .pv .sellers .hk{display:flex;align-items:baseline;gap:var(--sp-2);white-space:nowrap}
 .pv .sellers li{flex-wrap:wrap}
 .pv .sellers .hk{margin-left:auto}
-@media (max-width:560px){.rcard .price{flex-direction:column;gap:var(--sp-1)}}
 .pv .sellers .go,.r-price .sellers .go{font-size:12.5px;font-weight:600;color:var(--official)}
-.rnimi{display:flex;align-items:center;gap:var(--sp-3)}
-.rpilt{width:56px;height:56px;object-fit:contain;flex:0 0 auto;border-radius:6px;background:#fff}
+.rc-info{min-width:0;display:grid;gap:var(--sp-1);justify-items:start}
+.rc-info .fit{white-space:normal}
+.rc-side{display:flex;flex-direction:column;align-items:flex-end;gap:var(--sp-2)}
+.rpilt{width:96px;height:112px;object-fit:contain;border-radius:8px;background:#fff}
+@media (max-width:560px){.rpilt{width:84px;height:98px}}
+/* poodide hinnad: keritav rida kaarte */
+.rcard .price{flex-direction:column;gap:var(--sp-2);border:0;padding:0}
+.pk-rida{display:flex;gap:var(--sp-2);overflow-x:auto;scroll-snap-type:x mandatory;padding:2px 2px var(--sp-2);margin:0 -2px;-webkit-overflow-scrolling:touch}
+.pk{flex:0 0 132px;scroll-snap-align:start;display:grid;justify-items:center;gap:2px;padding:var(--sp-2) var(--sp-2) var(--sp-3);border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--text);text-decoration:none;text-align:center}
+a.pk:hover,a.pk:focus-visible{border-color:var(--ink);box-shadow:var(--shadow)}
+.pk-pilt{display:grid;place-items:center;width:72px;height:86px}
+.pk-pilt img{width:72px;height:86px;object-fit:contain}
+.pk-ring{width:56px;height:56px;border-radius:50%;border:10px solid #2a2d33;box-sizing:border-box}
+.pk b{font-size:16px;font-variant-numeric:tabular-nums}
+.pk-pood{font-size:12.5px;font-weight:600;color:var(--official)}
+.pk small{font-size:11.5px;color:var(--muted)}
+.pk-list{display:grid;gap:var(--sp-2);max-height:340px;overflow-y:auto;margin-top:var(--sp-2);padding-right:2px;overscroll-behavior:contain}
+.pk-r{display:grid;grid-template-columns:48px minmax(0,1fr);align-items:center;column-gap:var(--sp-3);padding:var(--sp-2);border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--text);text-decoration:none}
+a.pk-r:hover,a.pk-r:focus-visible{border-color:var(--ink)}
+.pk-r .pk-pilt{width:48px;height:58px}
+.pk-r .pk-pilt img{width:48px;height:58px}
+.pk-r .pk-ring{width:40px;height:40px;border-width:7px}
+.pk-nimi{display:grid;min-width:0}
+.pk-nimi b{font-size:14px;line-height:1.25}
+.pk-nimi small{font-size:12px;line-height:1.35;color:var(--muted)}
+.pk-hind{font-size:15px;white-space:nowrap;font-variant-numeric:tabular-nums;margin-top:2px}
 table.cmp tr.price-row td{vertical-align:top}
 #sobivad{scroll-margin-top:84px}
 @media (max-width:900px){.home-valik .cmp-layout>.filters{order:2}}
