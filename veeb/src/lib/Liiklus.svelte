@@ -2081,6 +2081,13 @@
 		margin-top: 0;
 		align-self: start;
 	}
+	/* simulaatori pilt jääb vasakut veergu kerides ette; kui vasak saab otsa, kerib edasi */
+	@media (min-width: 901px) {
+		.lo-kt.lo-side {
+			position: sticky;
+			top: 84px;
+		}
+	}
 	.lo-vaated {
 		display: flex;
 		gap: var(--sp-2);

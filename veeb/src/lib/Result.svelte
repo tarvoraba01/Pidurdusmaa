@@ -64,10 +64,10 @@
 				<div class="r-eel" data-r-eel hidden></div>
 				<div class="rs-next">
 					<p class="rs-k" style="margin:0">{t("Järgmine samm")}</p>
-					<p>{t("Leia oma autole sobiv rehv")}</p>
-					<p class="{t("s")}">{t("Vali rehvi liik ja mis sulle oluline on.")}</p>
+					<p>{t("Vali rehv oma sõidu järgi")}</p>
+					<p class="{t("s")}">{t("Linn või maantee, kui palju sõidad ja mis on tähtis — ohutus, hind või vaikus. Järjestame rehvid selle järgi.")}</p>
 				</div>
-				<a class="btn dark" href="#sobivad" data-r-valik>{t("Näita sobivaid rehve ↓")}</a>
+				<a class="btn dark" href="#sobivad" data-r-valik>{t("Vali oma sõidu järgi ↓")}</a>
 			</div>
 		</div>
 

@@ -98,7 +98,6 @@ export default {
 "Peatumisteekond": "Stopping distance",
 "Pidurdusteekond": "Braking distance",
 "Tõenäoline vahemik": "Likely range",
-"Vali": "Choose",
 "testitud": "tested",
 "Soodsaim selle klassi rehv: ": "Cheapest tyre in this class: ",
 "Soodsaim hind: ": "Cheapest price: ",
@@ -233,6 +232,7 @@ export default {
 "Arvutatud tulemus meie mudelist sinu autoga. Hinnang, mitte mõõtmine — viga on tavaliselt paar meetrit.": "Calculated result from our model with your car. An estimate, not a measurement — usually accurate to within a couple of metres.",
 "Siia tulevad rehvimüüjate hinnad otse nende süsteemist. Ühendus müüjatega on töös. Hind mõjutab rehvide järjestust ainult siis, kui valid ise „Soodne hind“.": "Tyre sellers' prices will appear here directly from their systems. Connecting with sellers is in progress. Price affects the tyre ranking only if you choose “Low price” yourself.",
 "\"><span class=\"none\">Laen hindu…</span></div>": "\"><span class=\"none\">Loading prices…</span></div>",
+"Vali": "Choose",
 "Selle rehvi hinda müüjatelt hetkel pole": "No seller prices for this tyre at the moment",
 "Hinnad pole hetkel saadaval": "Prices not available at the moment",
 "parimad märjal ja kuival teel pidurdamisel": "best for braking on wet and dry roads",
@@ -1000,5 +1000,12 @@ export default {
 "haare sõltumatust testist": "grip from an independent test",
 "märgise klassi järgi": "by label class",
 "Selle rehvi kohta pole pidurdusandmeid.": "No braking data for this tyre.",
-"Vaata selle rehvi pidurdusmaad": "See this tyre’s braking distance"
+"Vaata selle rehvi pidurdusmaad": "See this tyre’s braking distance",
+"Vali rehv oma sõidu järgi": "Pick a tyre for how you drive",
+"Linn või maantee, kui palju sõidad ja mis on tähtis — ohutus, hind või vaikus. Järjestame rehvid selle järgi.": "City or highway, how much you drive and what matters — safety, price or quiet. We rank the tyres by that.",
+"Vali oma sõidu järgi ↓": "Pick for how I drive ↓",
+"Sama auto ja mõõt. Vasta paarile küsimusele — nimekiri järjestub kohe sinu vastuste järgi.": "Same car and size. Answer a couple of questions — the list sorts right away by your answers.",
+"märja asfaldi": "wet asphalt",
+"kuiva asfaldi": "dry asphalt",
+"tallatud lume": "packed snow"
 };

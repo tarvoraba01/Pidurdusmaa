@@ -63,10 +63,10 @@
   };
   /* NB: sama tabel on functions.php-s (PM_CONDS) ja metoodika tekstis. */
   var COND = {
-    wet:  { surface: 'ASPHALT', waterMm: 1.0, tempC: 10, et: 'märg asfalt', label: _t('märg asfalt'), short: _t('Märg') },
-    dry:  { surface: 'ASPHALT', waterMm: 0.0, tempC: 15, et: 'kuiv asfalt', label: _t('kuiv asfalt'), short: _t('Kuiv') },
-    snow: { surface: 'SNOW_PACKED', waterMm: 0.0, tempC: -5, et: 'tallatud lumi', label: _t('tallatud lumi'), short: _t('Lumi') },
-    ice:  { surface: 'ICE', waterMm: 0.0, tempC: -5, et: 'jää', label: _t('jää'), short: _t('Jää') }
+    wet:  { surface: 'ASPHALT', waterMm: 1.0, tempC: 10, et: 'märg asfalt', label: _t('märg asfalt'), gen: _t('märja asfaldi'), short: _t('Märg') },
+    dry:  { surface: 'ASPHALT', waterMm: 0.0, tempC: 15, et: 'kuiv asfalt', label: _t('kuiv asfalt'), gen: _t('kuiva asfaldi'), short: _t('Kuiv') },
+    snow: { surface: 'SNOW_PACKED', waterMm: 0.0, tempC: -5, et: 'tallatud lumi', label: _t('tallatud lumi'), gen: _t('tallatud lume'), short: _t('Lumi') },
+    ice:  { surface: 'ICE', waterMm: 0.0, tempC: -5, et: 'jää', label: _t('jää'), gen: _t('jää'), short: _t('Jää') }
   };
   var SEASON = {
     summer: { label: _t('Suverehv'), et: 'suverehvid', long: _t('suverehvid'), yks: _t('suverehv'), osa: _t('suverehvi'), pp: _t('suverehve'), tested: ['SUMMER_TOURING', 'SUMMER_UHP'], eprel: [0] },
@@ -1110,7 +1110,7 @@
         rows.push({ id: 'o', kind: 'own', name: M.nimi, d: rm.distanceM, r: rm, own: true, hooaeg: M.hooaeg,
           pids: M.r ? [M.r.slug + '@' + S.size] : [], label: M.r ? M.r.g : null, t: measuredM ? mt : null,
           est: !measuredM && ck !== 'wet',
-          sub: _t('Sinu rehv · ') + M.silt + (measuredM ? _t(' · haare sõltumatust testist') : ck === 'wet' && M.r ? _t(' · märgise klass ') + M.r.g : _t(' · rehvitüübi keskmine (märgis ei ütle ') + COND[ck].label + _t(' kohta midagi)')) });
+          sub: _t('Sinu rehv · ') + M.silt + (measuredM ? _t(' · haare sõltumatust testist') : ck === 'wet' && M.r ? _t(' · märgise klass ') + M.r.g : _t(' · rehvitüübi keskmine (märgis ei ütle ') + COND[ck].gen + _t(' kohta midagi)')) });
       }
       core.tyres.forEach(function (t) {
         if (t.key === minuT) return;
@@ -1152,7 +1152,7 @@
           var r = calc(classTyre('C', c, S.size), veh, cond);
           rows.push({ id: 'k:' + c, kind: 'cat', cat: c, n: cats[c], d: r.distanceM, r: r, pids: [],
             name: CATNAME[c] + _t(' — kategooria keskmine'),
-            sub: (cats[c] ? cats[c] + _t(' märgisega rehvimudelit sinu mõõdus · ') : '') + _t('märgis ei ütle ') + COND[ck].label + _t(' kohta midagi') });
+            sub: (cats[c] ? cats[c] + _t(' märgisega rehvimudelit sinu mõõdus · ') : '') + _t('märgis ei ütle ') + COND[ck].gen + _t(' kohta midagi') });
         });
       }
       rows.sort(function (a, b) { return a.d - b.d; });
@@ -1238,7 +1238,6 @@
               (Math.abs(vahe) < 0.05 ? _t('Sama kui praegune tulemus') : (vahe < 0 ? fmt(-vahe) + _t(' m lühem') : fmt(vahe) + _t(' m pikem')) + _t(' kui praegune tulemus')) + '</p>' +
             '<p class="eel-s">' + _t('Tõenäoline vahemik') + ' ' + fmt(lo) + '–' + fmt(hi) + ' m' + (t ? ' · ' + _t('haare sõltumatust testist') : ' · ' + _t('märgise klassi järgi')) + '</p>';
         } else html += '<p class="eel-s">' + _t('Selle rehvi kohta pole pidurdusandmeid.') + '</p>';
-        if (d.url) html += '<a class="btn yel eel-vali" href="' + esc(d.url) + '" target="_blank" rel="nofollow sponsored noopener" data-pood="' + esc(d.pood) + '" data-rehv="' + esc(d.n) + '">' + _t('Vali') + ' · ' + esc(d.hind) + ' →</a><p class="eel-s" style="margin:0">' + esc(d.pood) + '</p>';
         box.innerHTML = html; box.hidden = false;
         el.classList.add('eel-on');
       });
@@ -1561,7 +1560,7 @@
             (gn ? _t('selle klassi <b>') + gn + _t(' mõõdetud rehvi mediaan</b>') : _t('klassi nominaalne keskpunkt')) +
             _t('. Sama klassi rehvid on mudelis võrdsed; päris elus erinevad nad ±3–4%.</span>');
         }
-        else who += _t('<span class="src">EL-i märgis ei ütle ') + esc(c.label) + _t(' haarde kohta midagi, seetõttu on see kategooria keskmine.</span>');
+        else who += _t('<span class="src">EL-i märgis ei ütle ') + esc(c.gen || c.label) + _t(' haarde kohta midagi, seetõttu on see kategooria keskmine.</span>');
         $('[data-r-who]', detail).innerHTML = who;
         var meta = _t('<span class="pill calc">Arvutatud hinnang</span>');
         meta += out.vehDefault ? _t('<span class="pill warn">Auto valimata: VW Golf 8</span>') : '<span class="pill">' + esc(out.veh.name) + '</span>';

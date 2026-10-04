@@ -69,8 +69,8 @@
 				<div class="hv-step">
 					<div class="hv-step-h">
 						<span class="eyebrow" style="color:var(--muted)">{t("Järgmine samm")}</span>
-						<h2 id="hv-h">{t("Leia oma autole sobiv rehv")}</h2>
-						<p class="note" style="margin:0">{t("Sama auto ja mõõt. Vali rehvi liik ja mis sulle oluline on — nimekiri järjestub kohe.")}</p>
+						<h2 id="hv-h">{t("Vali rehv oma sõidu järgi")}</h2>
+						<p class="note" style="margin:0">{t("Sama auto ja mõõt. Vasta paarile küsimusele — nimekiri järjestub kohe sinu vastuste järgi.")}</p>
 					</div>
 					<a class="btn dark" href={keel.L('/rehvi-valimine/')} data-valik-full>{t("Vali oma tingimustele vastavam →")}</a>
 				</div>

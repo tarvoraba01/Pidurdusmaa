@@ -1039,7 +1039,7 @@ div.pk{cursor:default}
 .eel-s{margin:0!important;font-size:12.5px!important;color:var(--muted)!important}
 .eel-vali{margin-top:var(--sp-2);width:100%;justify-content:center;height:44px!important;color:var(--ink)!important}
 [data-result].eel-on .rs-cta{justify-content:flex-start}
-[data-result].eel-on .rs-next p{font-size:15px}
+[data-result].eel-on .rs-next p:not(.s){font-size:15px}
 /* avalehe rehvide nimekiri lõpeb koos vasaku menüüga — edasi keritakse nimekirja sees */
 @media (min-width:901px){
   .home-valik .cmp-layout>.res-list{align-self:stretch;contain:size;overflow-y:auto;overscroll-behavior:contain;padding-right:6px;scrollbar-gutter:stable}
@@ -1047,3 +1047,9 @@ div.pk{cursor:default}
 @media (max-width:900px){
   .home-valik .cmp-layout>.res-list{max-height:min(1600px,160vh);overflow-y:auto;overscroll-behavior:contain}
 }
+
+/* eelvaade kompaktsem, et „Järgmine samm“ jääks nähtavale */
+[data-result].eel-on .eel-pilt,[data-result].eel-on .eel-pilt img{width:72px;height:84px}
+[data-result].eel-on .eel-num{font-size:38px!important}
+[data-result].eel-on .r-eel{padding-bottom:var(--sp-3);margin-bottom:var(--sp-3)}
+[data-result].eel-on .rs-next .s{margin:var(--sp-1) 0 var(--sp-3)}
