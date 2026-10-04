@@ -890,15 +890,35 @@
       inp.addEventListener('blur', function () { setTimeout(function () { list.hidden = true; inp.setAttribute('aria-expanded', 'false'); }, 120); });
     })();
 
-    /* mustrisügavus (valikuline): kulunud praegused rehvid vs uued */
+    /* mustrisügavus (valikuline): kulunud praegused rehvid vs uued.
+       Liugur: paremal „uus“ (8 mm), vasakule kulunud. Kui tulemus on juba
+       ekraanil ja muud valikud pole muutunud, uueneb tulemus kohe. */
     S.muster = null;
-    var mmSel = $('[data-f=muster]', root);
-    if (mmSel) {
-      mmSel.value = '';
-      mmSel.addEventListener('change', function () {
-        S.muster = +mmSel.value || null;
+    var mmIn = $('[data-f=muster]', root), mmV = $('[data-mm-v]', root), mmN = $('[data-mm-n]', root);
+    var MM_N0 = mmN ? mmN.textContent : '';
+    function mmPaint() {
+      if (!mmIn) return;
+      var v = +mmIn.value, uus = v >= 7.95;
+      mmIn.style.setProperty('--p', (100 * (v - 1.6) / (8 - 1.6)).toFixed(1) + '%');
+      if (mmV) { mmV.textContent = uus ? _t('uus') : fmt(v) + _t(' mm'); mmV.classList.toggle('kulu', !uus); }
+      if (mmN) {
+        var t = uus ? MM_N0 : v < 1.6 + 0.05 ? _t('Seaduslik miinimum (suverehv). Talverehvil peab olema vähemalt 3 mm.')
+          : v < 3 ? _t('Talverehvi miinimum on 3 mm — suverehvina veel lubatud (1,6 mm).')
+          : v < 4 ? _t('Kulunud: märjal ja lumel pidurdab märgatavalt halvemini.')
+          : _t('Tulemuses näed, kui palju uued rehvid samades oludes varem peatuvad.');
+        mmN.textContent = t; mmN.classList.toggle('hoiatus', !uus && v < 3);
+      }
+      S.muster = uus ? null : Math.round(v * 10) / 10;
+    }
+    if (mmIn) {
+      mmIn.value = 8; mmPaint();
+      mmIn.addEventListener('input', mmPaint);
+      mmIn.addEventListener('change', function () {
+        mmPaint();
         Track('muster', S.muster ? S.muster + ' mm' : 'uus');
-        recalc();
+        if (shown && !goBtn.classList.contains('stale')) {
+          loadSize(S.size).then(function (rows) { Result.show(Object.assign({}, S), rows); });
+        } else recalc();
       });
     }
 
@@ -1152,7 +1172,7 @@
           dUus: mm ? calc(baseM, veh, cond).distanceM : null,
           pids: M.r ? [M.r.slug + '@' + S.size] : [], label: M.r ? M.r.g : null, t: measuredM ? mt : null,
           est: !measuredM && ck !== 'wet',
-          sub: _t('Sinu rehv · ') + M.silt + (mm ? _t(' · muster ') + mm + _t(' mm') : '') + (measuredM ? _t(' · haare sõltumatust testist') : ck === 'wet' && M.r ? _t(' · märgise klass ') + M.r.g : _t(' · rehvitüübi keskmine (märgis ei ütle ') + COND[ck].gen + _t(' kohta midagi)')) });
+          sub: _t('Sinu rehv · ') + M.silt + (mm ? _t(' · muster ') + fmt(mm) + _t(' mm') : '') + (measuredM ? _t(' · haare sõltumatust testist') : ck === 'wet' && M.r ? _t(' · märgise klass ') + M.r.g : _t(' · rehvitüübi keskmine (märgis ei ütle ') + COND[ck].gen + _t(' kohta midagi)')) });
       }
       /* oma rehvi pole valitud, aga muster on antud: tüüpiline sama hooaja
          rehv selle mustriga, et näha, kui palju uued rehvid varem peatuvad */
@@ -1162,7 +1182,7 @@
         var gg = inSeasonG(eprelRows, sea), gt = classTyre(gg, gcat, S.size), gr = calc(kulunud(gt, mm), veh, cond);
         rows.push({ id: 'o', kind: 'own', gen: true, name: _t('Sinu rehvid praegu'), d: gr.distanceM, r: gr, own: true, mm: mm,
           hooaeg: season, dUus: calc(gt, veh, cond).distanceM, pids: [], label: null, t: null, est: true,
-          sub: _t('Tüüpiline: ') + tyypSilt(gcat) + (ck === 'wet' ? ', ' + _t('märgise klass ') + gg : '') + _t(', muster ') + mm + _t(' mm') + '. ' + _t('Täpsemaks vali oma rehv.') });
+          sub: _t('Tüüpiline: ') + tyypSilt(gcat) + (ck === 'wet' ? ', ' + _t('märgise klass ') + gg : '') + _t(', muster ') + fmt(mm) + _t(' mm') + '. ' + _t('Täpsemaks vali oma rehv.') });
       }
       core.tyres.forEach(function (t) {
         if (t.key === minuT) return;
@@ -1299,7 +1319,7 @@
             '</div>' +
             '<p class="eel-v ' + (vahe < -0.05 ? 'hea' : vahe > 0.05 ? 'halb' : '') + '">' +
               (Math.abs(vahe) < 0.05 ? (CO ? _t('Sama kui sinu rehvil') : _t('Sama kui praegune tulemus')) : (vahe < 0 ? fmt(-vahe) + _t(' m lühem') : fmt(vahe) + _t(' m pikem')) + (CO ? (CO.mm ? _t(' kui sinu praegustel rehvidel') : _t(' kui sinu rehvil')) : _t(' kui praegune tulemus'))) + '</p>' +
-              (O && O.d - dd >= 0.5 ? '<p class="eel-v2">' + _t('Sinu praegustest rehvidest') + (O.mm ? ' (' + O.mm + _t(' mm') + ')' : '') + ' <b>' + fmt(O.d - dd) + _t(' m lühem') + '</b></p>' : '') +
+              (O && O.d - dd >= 0.5 ? '<p class="eel-v2">' + _t('Sinu praegustest rehvidest') + (O.mm ? ' (' + fmt(O.mm) + _t(' mm') + ')' : '') + ' <b>' + fmt(O.d - dd) + _t(' m lühem') + '</b></p>' : '') +
             '<p class="eel-s">' + _t('Tõenäoline vahemik') + ' ' + fmt(lo) + '–' + fmt(hi) + ' m' + (t ? ' · ' + _t('haare sõltumatust testist') : ' · ' + _t('märgise klassi järgi')) + '</p>';
         } else html += '<p class="eel-s">' + _t('Selle rehvi kohta pole pidurdusandmeid.') + '</p>';
         box.innerHTML = html; box.hidden = false;
@@ -1481,7 +1501,7 @@
       var dd = x.d - best;
       if (compact) {
         var nm = x.kind === 'cat' ? (CATNAME[x.cat] + _t(', keskmine')) : x.name, nmHtml = null;
-        if (x.kind === 'own') nmHtml = (x.gen ? '' : '<em class="own-p">' + _t('Sinu rehv') + ' · </em>') + esc(x.name) + (x.mm ? ' <small>' + x.mm + _t(' mm') + '</small>' : '');
+        if (x.kind === 'own') nmHtml = (x.gen ? '' : '<em class="own-p">' + _t('Sinu rehv') + ' · </em>') + esc(x.name) + (x.mm ? ' <small>' + fmt(x.mm) + _t(' mm') + '</small>' : '');
         if (x.kind === 'class') {
           /* klassi asemel konkreetne rehv: soodsaim / testitud / vaikseim selles klassis */
           var esi = liikmed(x).list[0];
@@ -1513,7 +1533,7 @@
       if (!cur || cur.kind !== 'own') {
         if (!oma || !cur) return '';
         var vv = oma.d - cur.d;
-        return _t('<span class="own-cmp">') + (oma.gen ? _t('Sinu praegustel rehvidel') : _t('Sinu rehvil')) + (oma.mm ? _t(' (muster ') + oma.mm + _t(' mm)') : '') + ': <b>' + fmt(oma.d + react) + _t(' m</b>') +
+        return _t('<span class="own-cmp">') + (oma.gen ? _t('Sinu praegustel rehvidel') : _t('Sinu rehvil')) + (oma.mm ? _t(' (muster ') + fmt(oma.mm) + _t(' mm)') : '') + ': <b>' + fmt(oma.d + react) + _t(' m</b>') +
           (vv >= 0.5 ? _t('. See rehv peatub <b>') + fmt(vv) + _t(' m</b> varem.') : '.') + '</span>' + (talvMin || '');
       }
       var muud = rows.filter(function (x) { return x.kind !== 'own'; });
@@ -1596,7 +1616,7 @@
         oma: omaE && omaE !== cur ? { d: omaE.d + react, lo: omaE.r.lowM + react, hi: omaE.r.highM + react, gen: omaE.gen, mm: omaE.mm } : null };
       if (eelAktiivne) eelvaade(eelAktiivne);
       var vm = valitud(cur);
-      var whoShort = cur.kind === 'own' ? (cur.gen ? cur.name : cur.name + _t(' (sinu rehv)')) + (cur.mm ? _t(', muster ') + cur.mm + _t(' mm') : '') : cur.kind === 'class' ? (vm ? vm.mark + ' ' + vm.name + (vmT ? _t(' (sõltumatu test)') : ' (' + cur.g + _t('-klassi märgis)')) : cur.g + _t('-klassi märgise rehviga')) : cur.kind === 'cat' ? CATNAME[cur.cat] + _t(' — keskmine') : cur.name;
+      var whoShort = cur.kind === 'own' ? (cur.gen ? cur.name : cur.name + _t(' (sinu rehv)')) + (cur.mm ? _t(', muster ') + fmt(cur.mm) + _t(' mm') : '') : cur.kind === 'class' ? (vm ? vm.mark + ' ' + vm.name + (vmT ? _t(' (sõltumatu test)') : ' (' + cur.g + _t('-klassi märgis)')) : cur.g + _t('-klassi märgise rehviga')) : cur.kind === 'cat' ? CATNAME[cur.cat] + _t(' — keskmine') : cur.name;
       $('[data-r-whoshort]', el).innerHTML = esc(whoShort) + ' · ' + esc(c.label) + '<br>' +
         (out.vehDefault ? _t('auto valimata — arvutatud VW Golf 8 järgi') : esc(out.veh.name)) + _t(' · vahemik ') + fmt(r.lowM + react) + '–' + fmt(r.highM + react) + _t(' m') +
         minuVordlus(cur, rows, out, S, react);

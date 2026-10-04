@@ -417,7 +417,6 @@ export default {
 "Aasta": "Year",
 "Mootor": "Engine",
 "valikuline": "optional",
-"Mustrisügavus": "Tread depth",
 "2. Rehvimõõt": "2. Tyre size",
 "Täpne mõõt on rehvi küljel ja juhiukse piirdel.": "The exact size is on the tyre sidewall and the driver's door frame.",
 "3. Kiirus": "3. Speed",
@@ -546,6 +545,7 @@ export default {
 "Uus": "New",
 "Keskmiselt kulunud": "Half worn",
 "Seaduse piiril": "At the legal limit",
+"Mustrisügavus": "Tread depth",
 "Rehvi vanus": "Tyre age",
 "aasta": "year",
 "aastat": "years",
@@ -1046,5 +1046,11 @@ export default {
 "Vajuta brauseri <b>Jaga</b>-nuppu": "Tap the browser’s <b>Share</b> button",
 "Vali <b>„Lisa avaekraanile“</b>": "Choose <b>“Add to Home Screen”</b>",
 "Lisa": "Add",
-"Vajuta üleval paremal <b>„Lisa“</b>": "Tap <b>“Add”</b> in the top right"
+"Vajuta üleval paremal <b>„Lisa“</b>": "Tap <b>“Add”</b> in the top right",
+"Sinu rehvide mustrisügavus": "Your tyres’ tread depth",
+"Liiguta vasakule, kui rehvid on kulunud — näitame, kui palju uued varem peatuvad.": "Slide left if your tyres are worn — we’ll show how much sooner new ones stop.",
+"Seaduslik miinimum (suverehv). Talverehvil peab olema vähemalt 3 mm.": "Legal minimum (summer tyre). Winter tyres need at least 3 mm.",
+"Talverehvi miinimum on 3 mm — suverehvina veel lubatud (1,6 mm).": "Winter tyre minimum is 3 mm — still legal as a summer tyre (1.6 mm).",
+"Kulunud: märjal ja lumel pidurdab märgatavalt halvemini.": "Worn: brakes noticeably worse in the wet and on snow.",
+"Tulemuses näed, kui palju uued rehvid samades oludes varem peatuvad.": "The result shows how much sooner new tyres stop in the same conditions."
 };

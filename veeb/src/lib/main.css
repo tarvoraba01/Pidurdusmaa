@@ -952,8 +952,13 @@ textarea.lin{resize:vertical;min-height:140px}
 .mbar.own .n{font-weight:800}
 .mbar.own .n .own-p{font-style:normal;color:var(--yellow)}
 .mbar.own .n small{font-weight:600;color:var(--muted)}
-.own-mm-l{display:flex;align-items:center;gap:var(--sp-2);margin-top:var(--sp-2);font-size:12.5px;font-weight:600;color:#aab1bc}
-.own-mm{width:auto;height:32px;padding-right:var(--sp-6);font-size:13px}
+.own-mm{margin-top:var(--sp-3)}
+.own-mm-h{display:flex;align-items:baseline;justify-content:space-between;gap:var(--sp-2);margin:0;font-size:13px;font-weight:600;color:#c9ced6}
+.own-mm-h b{color:#fff;font-size:14px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.own-mm-h b.kulu{color:var(--yellow)}
+.own-mm .slider{display:block;margin:2px 0 0}
+.own-mm-n{margin:0;font-size:12px;line-height:1.45;color:#8b929e}
+.own-mm-n.hoiatus{color:#fbbf24}
 .eel-v2{margin:0!important;font-size:13px!important;color:var(--muted)!important}
 .eel-v2 b{color:#15803d}
 .own-cmp{display:block;margin-top:var(--sp-2);font-size:14px}

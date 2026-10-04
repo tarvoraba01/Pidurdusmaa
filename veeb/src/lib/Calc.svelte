@@ -59,16 +59,15 @@
 						/>
 						<ul class="vs-list" id="own-list" role="listbox" hidden data-own-list></ul>
 					</div>
-					<label class="own-mm-l" for="f-mm"
-						title={t("Näitame, kui palju uued rehvid samades oludes varem peatuvad.")}
-						>{t("Mustrisügavus")}
-						<select class="sel own-mm" id="f-mm" data-f="muster">
-							<option value="">{t("uus")}</option>
-							{#each [7, 6, 5, 4, 3, 2] as mm (mm)}
-								<option value={mm}>{mm} {t("mm")}</option>
-							{/each}
-						</select></label
-					>
+					<div class="own-mm">
+						<p class="own-mm-h">
+							<label for="f-mm">{t("Mustrisügavus")}</label>
+							<b data-mm-v>{t("uus")}</b>
+						</p>
+						<input class="slider" type="range" id="f-mm" min="1.6" max="8" step="0.1" value="8" data-f="muster"
+							aria-describedby="mm-n" />
+						<p class="own-mm-n" id="mm-n" data-mm-n>{t("Liiguta vasakule, kui rehvid on kulunud — näitame, kui palju uued varem peatuvad.")}</p>
+					</div>
 					<p class="size-hint" id="own-hint" data-own-hint hidden></p>
 				</div>
 				<p class="lbl"><label for="f-size">{t("2. Rehvimõõt")}</label></p>
