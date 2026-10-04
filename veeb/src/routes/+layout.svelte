@@ -198,7 +198,9 @@
 
 			<div class="pm-alla">
 				<nav class="keeled pm-keeled" aria-label={t("Keel")}>{#each KEELED as k (k)}<a href={keeleLink(k)} onclick={(e) => onTolgitud(k, base) && (e.currentTarget.href = linkLang(k, base) + location.search)} hreflang={k} lang={k} aria-current={k === lang ? 'true' : undefined} data-sveltekit-reload>{KEEL_NIMI[k]}</a>{/each}</nav>
+				<button type="button" class="pm-kontakt pm-pwa" data-pwa-lisa hidden><Icon name="download" />{t("Lisa avaekraanile")}</button>
 				<a class="pm-kontakt" href="/kontakt/">{t("Kontakt")}</a>
+				<p class="pm-pwa-v" data-pwa-vihje hidden>{@html t("iPhone'is: vajuta brauseri <b>Jaga</b>-nuppu (ruut noolega) ja vali <b>„Lisa avaekraanile“</b>. Pidurdusmaa avaneb siis nagu äpp, täisekraanil.")}</p>
 			</div>
 		</div>
 	</div>

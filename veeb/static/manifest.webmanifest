@@ -1,0 +1,27 @@
+{
+  "id": "/",
+  "name": "Pidurdusmaa.ee",
+  "short_name": "Pidurdusmaa",
+  "description": "Pidurdusmaa kalkulaator, rehvide võrdlus ja liiklusohutuse simulaatorid.",
+  "lang": "et",
+  "dir": "ltr",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#0a0b0d",
+  "theme_color": "#0a0b0d",
+  "categories": ["auto", "utilities", "education"],
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/icon-maskable-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+    { "src": "/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "Pidurdusmaa kalkulaator", "short_name": "Kalkulaator", "url": "/", "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }] },
+    { "name": "Liiklusohutuse simulaatorid", "short_name": "Simulaatorid", "url": "/liiklusohutus/", "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }] },
+    { "name": "Vali rehv", "short_name": "Vali rehv", "url": "/rehvi-valimine/", "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }] },
+    { "name": "Võrdle rehve", "short_name": "Võrdle", "url": "/vordle-rehve/", "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }] }
+  ]
+}

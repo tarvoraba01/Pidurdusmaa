@@ -233,7 +233,8 @@
        omadused. Plausible'is tuleb samad nimed lisada Goals alla. */
     var PLAUS = { arvuta: 'Arvutus', arvuta_ilma_autota: 'Arvutus', auto: 'Auto valitud', poe_klikk: 'Poe klikk',
       partner_klikk: 'Partneri klikk', vordlusse: 'Rehv võrdlusse', otsing: 'Otsing', oma_rehv: 'Oma rehv valitud',
-      vaheleht: 'Avaleht: rehvi valimine', naita_rehve: 'Näita sobivaid rehve' };
+      vaheleht: 'Avaleht: rehvi valimine', naita_rehve: 'Näita sobivaid rehve',
+      rehvivalik_lahti: 'Rehvivalik avatud', pwa_paigaldatud: 'Rakendus paigaldatud', pwa_avatud: 'Rakendus avatud' };
     function plaus(r) {
       var nimi = PLAUS[r.e];
       if (!nimi || typeof window.plausible !== 'function') return;
@@ -2713,6 +2714,32 @@
     };
   }
 
+  /* ------------------------------------------------------------ PWA
+     Avaekraanile lisamine: Android/Chrome annab oma akna (beforeinstallprompt,
+     püütakse app.html-is kinni), iPhone'is näitame juhist (Jaga → Lisa
+     avaekraanile). Avaekraanilt avatuna nuppu ei näidata. */
+  function initPwa() {
+    var mm = window.matchMedia ? matchMedia('(display-mode: standalone)') : null;
+    var app = (mm && mm.matches) || navigator.standalone === true;
+    document.documentElement.classList.toggle('pwa', !!app);
+    if (app) { Track('pwa_avatud'); return; }
+    var b = $('[data-pwa-lisa]'), v = $('[data-pwa-vihje]');
+    if (!b) return;
+    var ios = /iphone|ipad|ipod/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    function naita() { b.hidden = !(window.PM_BIP || ios); }
+    naita();
+    window.addEventListener('pm:bip', naita);
+    window.addEventListener('appinstalled', function () { Track('pwa_paigaldatud'); b.hidden = true; if (v) v.hidden = true; });
+    b.addEventListener('click', function () {
+      Track('pwa_lisa_nupp', ios ? 'ios' : 'android');
+      if (window.PM_BIP) {
+        var ev = window.PM_BIP; window.PM_BIP = null;
+        ev.prompt();
+        if (ev.userChoice) ev.userChoice.then(function (c) { Track('pwa_valik', c && c.outcome); naita(); });
+      } else if (v) v.hidden = !v.hidden;
+    });
+  }
+
   window.PM = { initPage: initPage, lugu: lugu, track: Track };
 
   /* SvelteKit laeb selle faili onMount'is, st PÄRAST DOMContentLoaded'i —
@@ -2721,7 +2748,7 @@
   var booted = false;
   function boot() {
     if (booted) return; booted = true;
-    initHeader(); initHow(); initTips();
+    initHeader(); initHow(); initTips(); initPwa();
     if (!window.PM_DEFER) initPage();
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);

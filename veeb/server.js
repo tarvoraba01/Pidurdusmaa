@@ -130,6 +130,10 @@ const server = http.createServer((req, res) => {
 		res.writeHead(301, { Location: kuhu, 'Cache-Control': 'public, max-age=86400' });
 		return res.end();
 	}
+	/* PWA: service worker ja manifest peavad iga deploy järel kohe uuenema */
+	const tee0 = (req.url || '').split('?')[0];
+	if (tee0 === '/service-worker.js' || tee0 === '/manifest.webmanifest') res.setHeader('Cache-Control', 'no-cache');
+	if (tee0 === '/manifest.webmanifest') res.setHeader('Content-Type', 'application/manifest+json; charset=utf-8');
 	handler(req, res, () => {
 		res.statusCode = 404;
 		res.end('Not found');

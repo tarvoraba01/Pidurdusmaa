@@ -1162,6 +1162,8 @@ export default {
 "Ava küsimused ja rehvid": "Открыть вопросы и шины",
 "Peida küsimused ja rehvid": "Скрыть вопросы и шины",
 "Sulge rehvide valik ↑": "Свернуть подбор шин ↑",
+"Lisa avaekraanile": "Добавить на главный экран",
+"iPhone'is: vajuta brauseri <b>Jaga</b>-nuppu (ruut noolega) ja vali <b>„Lisa avaekraanile“</b>. Pidurdusmaa avaneb siis nagu äpp, täisekraanil.": "На iPhone: нажмите в браузере кнопку <b>«Поделиться»</b> (квадрат со стрелкой) и выберите <b>«На экран „Домой“»</b>. Pidurdusmaa будет открываться как приложение, на весь экран.",
 "Rehvid {m} — {n} rehvimudelit märgise andmetega": "Шины {m} — моделей шин с данными маркировки: {n}",
 "Kõik {m} mõõdus rehvid EL-i rehvimärgise järgi: märghaardumise klass, veeretakistus ja müra. Võrdle ja vaata, kui palju muutub pidurdusmaa.": "Все шины размера {m} по маркировке шин ЕС: класс сцепления на мокрой дороге, сопротивление качению и шум. Сравните и посмотрите, насколько меняется тормозной путь.",
 "rehvimudelit EL-i rehvimärgise andmetega. Märghaardumise klass ütleb, kui lühikeseks jääb pidurdusmaa märjal teel — ja klass on selle mõõdu oma, mitte mudeli üldine.": "моделей шин с данными маркировки шин ЕС. Класс сцепления на мокрой дороге показывает, насколько коротким будет тормозной путь на мокрой дороге — и класс относится к этому размеру, а не к модели в целом.",

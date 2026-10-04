@@ -132,6 +132,12 @@ button,input,select{font:inherit;color:inherit}
 .pm-alla .pm-keeled{padding-top:0}
 .pm-kontakt{color:var(--muted-d);text-decoration:none;font-weight:600;font-size:14px;min-height:44px;display:inline-flex;align-items:center}
 .pm-kontakt:hover{color:#fff}
+.pm-pwa{background:none;border:0;padding:0;cursor:pointer;gap:var(--sp-2);font:inherit;font-weight:600;font-size:14px}
+.pm-pwa svg{width:18px;height:18px}
+.pm-pwa-v{flex:1 0 100%;margin:0;padding:var(--sp-3) var(--sp-4);border:1px solid #2a2e36;border-radius:8px;color:#d6d9de;font-size:14px;line-height:1.5}
+.pm-pwa-v b{color:#fff}
+/* avaekraanilt avatud (äpp): pole brauseri riba, puudutus ilma halli välgatuseta */
+html.pwa{-webkit-tap-highlight-color:transparent}
 @media (max-width:900px){.pm-tiles{grid-template-columns:1fr 1fr}}
 @media (max-width:600px){.pm{gap:var(--sp-5);padding-block:var(--sp-4) var(--sp-6)}.pm-tile{padding:var(--sp-3)}.pm-tile b{font-size:15px}.pm-tile span{font-size:12.5px}.pm-two{grid-template-columns:1fr;gap:var(--sp-5)}.pm-chips a{font-size:14px;padding:0 var(--sp-3)}}
 @media (max-width:1020px){.nav{display:none}.cmp-link>span{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}}

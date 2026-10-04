@@ -1033,5 +1033,7 @@ export default {
 "vali uus rehv, et näha hindu": "pick a new tyre to see prices",
 "Ava küsimused ja rehvid": "Open questions and tyres",
 "Peida küsimused ja rehvid": "Hide questions and tyres",
-"Sulge rehvide valik ↑": "Close tyre picker ↑"
+"Sulge rehvide valik ↑": "Close tyre picker ↑",
+"Lisa avaekraanile": "Add to home screen",
+"iPhone'is: vajuta brauseri <b>Jaga</b>-nuppu (ruut noolega) ja vali <b>„Lisa avaekraanile“</b>. Pidurdusmaa avaneb siis nagu äpp, täisekraanil.": "On iPhone: tap the browser’s <b>Share</b> button (square with an arrow) and choose <b>“Add to Home Screen”</b>. Pidurdusmaa then opens like an app, full screen."
 };
