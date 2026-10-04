@@ -878,6 +878,18 @@
       inp.addEventListener('blur', function () { setTimeout(function () { list.hidden = true; inp.setAttribute('aria-expanded', 'false'); }, 120); });
     })();
 
+    /* mustrisügavus (valikuline): kulunud praegused rehvid vs uued */
+    S.muster = null;
+    var mmSel = $('[data-f=muster]', root);
+    if (mmSel) {
+      mmSel.value = '';
+      mmSel.addEventListener('change', function () {
+        S.muster = +mmSel.value || null;
+        Track('muster', S.muster ? S.muster + ' mm' : 'uus');
+        recalc();
+      });
+    }
+
     var picker = VehPicker(root, function (key) {
       /* mark → mudel → aasta: vahepealsed sammud (auto veel valimata) ei muuda midagi */
       if (!key && !S.veh) return;
@@ -1102,15 +1114,26 @@
       eprelRows.forEach(function (r) { if (r.tested) eprelByTest[r.tested] = r; });
       var collapsed = {};
       var hiddenOther = 0;
-      var M = minuLeia(S.minu, eprelRows), minuT = M && M.t ? M.t.key : null;
+      var M = minuLeia(S.minu, eprelRows), minuT = M && M.t ? M.t.key : null, mm = S.muster || null;
       if (M && !M.puudu) {
         var mt = M.t, measuredM = mt && (ck === 'wet' || (ck === 'dry' ? mt.muDry != null : ck === 'snow' ? mt.muSnow != null : mt.muIce != null));
         var baseM = measuredM ? onCar(mt, S.size) : (M.r ? eprelTyre(M.r) : Object.assign({}, mt, { muDry: null, muSnow: null, muIce: null }));
-        var rm = calc(baseM, veh, cond);
-        rows.push({ id: 'o', kind: 'own', name: M.nimi, d: rm.distanceM, r: rm, own: true, hooaeg: M.hooaeg,
+        var rm = calc(kulunud(baseM, mm), veh, cond);
+        rows.push({ id: 'o', kind: 'own', name: M.nimi, d: rm.distanceM, r: rm, own: true, hooaeg: M.hooaeg, mm: mm,
+          dUus: mm ? calc(baseM, veh, cond).distanceM : null,
           pids: M.r ? [M.r.slug + '@' + S.size] : [], label: M.r ? M.r.g : null, t: measuredM ? mt : null,
           est: !measuredM && ck !== 'wet',
-          sub: _t('Sinu rehv · ') + M.silt + (measuredM ? _t(' · haare sõltumatust testist') : ck === 'wet' && M.r ? _t(' · märgise klass ') + M.r.g : _t(' · rehvitüübi keskmine (märgis ei ütle ') + COND[ck].gen + _t(' kohta midagi)')) });
+          sub: _t('Sinu rehv · ') + M.silt + (mm ? _t(' · muster ') + mm + _t(' mm') : '') + (measuredM ? _t(' · haare sõltumatust testist') : ck === 'wet' && M.r ? _t(' · märgise klass ') + M.r.g : _t(' · rehvitüübi keskmine (märgis ei ütle ') + COND[ck].gen + _t(' kohta midagi)')) });
+      }
+      /* oma rehvi pole valitud, aga muster on antud: tüüpiline sama hooaja
+         rehv selle mustriga, et näha, kui palju uued rehvid varem peatuvad */
+      if (mm && !(M && !M.puudu)) {
+        var gcat = { summer: 'SUMMER_TOURING', all: 'ALL_SEASON', winter: 'WINTER_NORDIC', naast: 'WINTER_STUDDED' }[season] || 'SUMMER_TOURING';
+        /* tüüpiline = sinu mõõdu selle hooaja märgiste mediaanklass (märjal) */
+        var gg = inSeasonG(eprelRows, sea), gt = classTyre(gg, gcat, S.size), gr = calc(kulunud(gt, mm), veh, cond);
+        rows.push({ id: 'o', kind: 'own', gen: true, name: _t('Sinu rehvid praegu'), d: gr.distanceM, r: gr, own: true, mm: mm,
+          hooaeg: season, dUus: calc(gt, veh, cond).distanceM, pids: [], label: null, t: null, est: true,
+          sub: _t('Tüüpiline: ') + tyypSilt(gcat) + (ck === 'wet' ? ', ' + _t('märgise klass ') + gg : '') + _t(', muster ') + mm + _t(' mm') + '. ' + _t('Täpsemaks vali oma rehv.') });
       }
       core.tyres.forEach(function (t) {
         if (t.key === minuT) return;
@@ -1158,10 +1181,19 @@
       rows.sort(function (a, b) { return a.d - b.d; });
       return { rows: rows, veh: veh, cond: cond, vehDefault: !core.vehByKey[S.veh], nSeason: inSeason.length, hiddenOther: hiddenOther, minu: M };
     }
+    function inSeasonG(eprelRows, sea) {
+      var g = eprelRows.filter(function (r) { return sea.eprel.indexOf(r.catNr) >= 0 && GNOM[r.g]; }).map(function (r) { return r.g; }).sort();
+      return g.length ? g[Math.floor(g.length / 2)] : 'C';
+    }
+    function kulunud(t, mm) {
+      if (!mm) return t;
+      var uus = t.treadDepthNewMm || 8;
+      return Object.assign({}, t, { treadDepthNewMm: uus, treadDepthMm: Math.min(mm, uus) });
+    }
     function uniqSrc(tests) { var s = []; (tests || []).forEach(function (x) { if (s.indexOf(x.src) < 0) s.push(x.src); }); return s; }
     function srcName(c) { var s = core.sources[c]; return s ? s.tegija.replace(/ \(.*\)/, '') + ' ' + s.aasta : c; }
     function defaultSel(rows) {
-      if (rows.some(function (r) { return r.kind === 'own'; })) return 'o';
+      if (rows.some(function (r) { return r.kind === 'own' && !r.gen; })) return 'o';
       /* soovitame parimat: lühima pidurdusmaaga klass, mille rehvi saab poest osta;
          kui hindu pole, siis lihtsalt parim klass */
       var cls = rows.filter(function (r) { return r.kind === 'class'; }).sort(function (a, b) { return a.d - b.d; });
@@ -1223,7 +1255,8 @@
           '<span class="eel-n"><small>' + esc(pretty(m)) + (m === state.size ? ' · ' + _t('sinu mõõt') : '') + '</small><b>' + esc(d.n) + '</b>' + (g ? '<span>' + grade(g) + ' ' + _t('märghaare') + '</span>' : '') + '</span></div>';
         if (res) {
           var dd = res.distanceM + R, lo = res.lowM + R, hi = res.highM + R;
-          var mn = Math.min(lo, eelCtx.lo), mx = Math.max(hi, eelCtx.hi), pad = (mx - mn) * 0.12 || 2;
+          var O = eelCtx.oma, CO = eelCtx.curOma;
+          var mn = Math.min(lo, eelCtx.lo, O ? O.lo : lo), mx = Math.max(hi, eelCtx.hi, O ? O.hi : hi), pad = (mx - mn) * 0.12 || 2;
           mn -= pad; mx += pad;
           var pos = function (v) { return (100 * (v - mn) / (mx - mn)).toFixed(1) + '%'; };
           var vahe = dd - eelCtx.d;
@@ -1231,11 +1264,13 @@
             '<p class="eel-num">' + fmt(dd) + ' <small>m</small></p>' +
             '<div class="eel-g" role="img" aria-label="' + esc(_t('Vahemik') + ' ' + fmt(lo) + '–' + fmt(hi) + ' m') + '">' +
               '<div class="eg-r on"><span class="eg-l">' + _t('See rehv') + '</span><span class="eg-t"><i style="left:' + pos(lo) + ';right:calc(100% - ' + pos(hi) + ')"></i><b style="left:' + pos(dd) + '"></b></span></div>' +
-              '<div class="eg-r"><span class="eg-l">' + _t('Praegune tulemus') + '</span><span class="eg-t"><i style="left:' + pos(eelCtx.lo) + ';right:calc(100% - ' + pos(eelCtx.hi) + ')"></i><b style="left:' + pos(eelCtx.d) + '"></b></span></div>' +
+              '<div class="eg-r"><span class="eg-l">' + (CO ? (CO.gen ? _t('Sinu rehvid') : _t('Sinu rehv')) : _t('Praegune tulemus')) + '</span><span class="eg-t"><i style="left:' + pos(eelCtx.lo) + ';right:calc(100% - ' + pos(eelCtx.hi) + ')"></i><b style="left:' + pos(eelCtx.d) + '"></b></span></div>' +
+              (O ? '<div class="eg-r"><span class="eg-l">' + (O.gen ? _t('Sinu rehvid') : _t('Sinu rehv')) + '</span><span class="eg-t"><i style="left:' + pos(O.lo) + ';right:calc(100% - ' + pos(O.hi) + ')"></i><b style="left:' + pos(O.d) + '"></b></span></div>' : '') +
               '<div class="eg-ax"><span>' + fmt(mn + pad) + ' m</span><span>' + fmt(mx - pad) + ' m</span></div>' +
             '</div>' +
             '<p class="eel-v ' + (vahe < -0.05 ? 'hea' : vahe > 0.05 ? 'halb' : '') + '">' +
-              (Math.abs(vahe) < 0.05 ? _t('Sama kui praegune tulemus') : (vahe < 0 ? fmt(-vahe) + _t(' m lühem') : fmt(vahe) + _t(' m pikem')) + _t(' kui praegune tulemus')) + '</p>' +
+              (Math.abs(vahe) < 0.05 ? (CO ? _t('Sama kui sinu rehvil') : _t('Sama kui praegune tulemus')) : (vahe < 0 ? fmt(-vahe) + _t(' m lühem') : fmt(vahe) + _t(' m pikem')) + (CO ? (CO.mm ? _t(' kui sinu praegustel rehvidel') : _t(' kui sinu rehvil')) : _t(' kui praegune tulemus'))) + '</p>' +
+              (O && O.d - dd >= 0.5 ? '<p class="eel-v2">' + _t('Sinu praegustest rehvidest') + (O.mm ? ' (' + O.mm + _t(' mm') + ')' : '') + ' <b>' + fmt(O.d - dd) + _t(' m lühem') + '</b></p>' : '') +
             '<p class="eel-s">' + _t('Tõenäoline vahemik') + ' ' + fmt(lo) + '–' + fmt(hi) + ' m' + (t ? ' · ' + _t('haare sõltumatust testist') : ' · ' + _t('märgise klassi järgi')) + '</p>';
         } else html += '<p class="eel-s">' + _t('Selle rehvi kohta pole pidurdusandmeid.') + '</p>';
         box.innerHTML = html; box.hidden = false;
@@ -1337,7 +1372,9 @@
         if (mb) mb.classList.toggle('has-prices', !!$('.mbar .p:not(:empty)', mb));
         if (!box) return;
         if (!avail) { box.innerHTML = _t('<span class="pl">Hinnad müüjatelt</span> <span class="none">pole hetkel saadaval</span> ') + tip(PRICE_T); return; }
-        if (cur.kind === 'test' || cur.kind === 'own') {
+        if (cur.kind === 'own' && cur.gen) {
+          box.innerHTML = '<span class="pl">' + esc(cur.name) + '</span> <span class="none">' + _t('vali uus rehv, et näha hindu') + '</span>';
+        } else if (cur.kind === 'test' || cur.kind === 'own') {
           var id = (cur.pids || [])[0];
           box.innerHTML = '<span class="pl">' + esc(cur.name) + _t(' — hinnad</span>') + (id ? poedRead(h[id], id, cur.name) : _t('<span class="none">Seda rehvi sinu mõõdus müüjatelt ei leitud</span>'));
         } else if (cur.kind === 'class' && valitud(cur)) {
@@ -1415,6 +1452,7 @@
       var dd = x.d - best;
       if (compact) {
         var nm = x.kind === 'cat' ? (CATNAME[x.cat] + _t(', keskmine')) : x.name, nmHtml = null;
+        if (x.kind === 'own') nmHtml = (x.gen ? '' : '<em class="own-p">' + _t('Sinu rehv') + ' · </em>') + esc(x.name) + (x.mm ? ' <small>' + x.mm + _t(' mm') + '</small>' : '');
         if (x.kind === 'class') {
           /* klassi asemel konkreetne rehv: soodsaim / testitud / vaikseim selles klassis */
           var esi = liikmed(x).list[0];
@@ -1441,7 +1479,14 @@
     /* sinu rehv vs parim sama hooaja valik (+ suverehv lumel/jääl) */
     function minuVordlus(cur, rows, out, S, react) {
       if (out.minu && out.minu.puudu) return _t('<span class="own-cmp">Rehvi ') + esc(out.minu.nimi || '') + _t(' mõõdus ') + esc(pretty(S.size)) + _t(' ei ole — näitame tüüpilist rehvi.</span>');
-      if (!cur || cur.kind !== 'own') return '';
+      var oma = rows.filter(function (x) { return x.kind === 'own'; })[0];
+      if (oma && oma.mm && /^(winter|naast)$/.test(oma.hooaeg) && oma.mm < 3) var talvMin = _t('<span class="own-cmp">Talverehvi mustri lubatud miinimum on 3 mm.</span>');
+      if (!cur || cur.kind !== 'own') {
+        if (!oma || !cur) return '';
+        var vv = oma.d - cur.d;
+        return _t('<span class="own-cmp">') + (oma.gen ? _t('Sinu praegustel rehvidel') : _t('Sinu rehvil')) + (oma.mm ? _t(' (muster ') + oma.mm + _t(' mm)') : '') + ': <b>' + fmt(oma.d + react) + _t(' m</b>') +
+          (vv >= 0.5 ? _t('. See rehv peatub <b>') + fmt(vv) + _t(' m</b> varem.') : '.') + '</span>' + (talvMin || '');
+      }
       var muud = rows.filter(function (x) { return x.kind !== 'own'; });
       var h = '';
       if (muud.length) {
@@ -1452,6 +1497,8 @@
           : vahe / cur.d < 0.05 ? _t('<span class="own-cmp">Sinu rehv on parimate hulgas: vahe parimaga (') + esc(bn) + _t(') on ') + fmt(vahe) + _t(' m, see on veapiiri sees.</span>')
           : _t('<span class="own-cmp">Parim valik: <b>') + esc(bn) + _t('</b> — peatub <b>') + fmt(vahe) + _t(' m</b> varem.</span>');
       }
+      if (cur.mm && cur.dUus != null && cur.d - cur.dUus >= 0.3) h += _t('<span class="own-cmp">Uue mustriga peatuks sama rehv <b>') + fmt(cur.d - cur.dUus) + _t(' m</b> varem.</span>');
+      if (talvMin) h += talvMin;
       if (cur.hooaeg === 'summer' && (S.cond === 'snow' || S.cond === 'ice')) {
         var w = calc(classTyre('C', 'WINTER_NORDIC', S.size), out.veh, out.cond).distanceM;
         h += _t('<span class="own-cmp">Suverehv ') + (S.cond === 'snow' ? _t('lumel') : _t('jääl')) + _t(': Põhjamaade talverehviga oleks umbes <b>') + fmt(w + react) + _t(' m</b>.</span>');
@@ -1514,17 +1561,22 @@
           render();
         });
       }
-      eelCtx = { veh: out.veh, cond: out.cond, react: react, d: r.distanceM + react, lo: r.lowM + react, hi: r.highM + react, stop: rmode === 'stop' };
+      var omaE = rows.filter(function (x) { return x.kind === 'own'; })[0];
+      eelCtx = { veh: out.veh, cond: out.cond, react: react, d: r.distanceM + react, lo: r.lowM + react, hi: r.highM + react, stop: rmode === 'stop',
+        curOma: cur.kind === 'own' ? cur : null,
+        oma: omaE && omaE !== cur ? { d: omaE.d + react, lo: omaE.r.lowM + react, hi: omaE.r.highM + react, gen: omaE.gen, mm: omaE.mm } : null };
       if (eelAktiivne) eelvaade(eelAktiivne);
       var vm = valitud(cur);
-      var whoShort = cur.kind === 'own' ? cur.name + _t(' (sinu rehv)') : cur.kind === 'class' ? (vm ? vm.mark + ' ' + vm.name + (vmT ? _t(' (sõltumatu test)') : ' (' + cur.g + _t('-klassi märgis)')) : cur.g + _t('-klassi märgise rehviga')) : cur.kind === 'cat' ? CATNAME[cur.cat] + _t(' — keskmine') : cur.name;
+      var whoShort = cur.kind === 'own' ? (cur.gen ? cur.name : cur.name + _t(' (sinu rehv)')) + (cur.mm ? _t(', muster ') + cur.mm + _t(' mm') : '') : cur.kind === 'class' ? (vm ? vm.mark + ' ' + vm.name + (vmT ? _t(' (sõltumatu test)') : ' (' + cur.g + _t('-klassi märgis)')) : cur.g + _t('-klassi märgise rehviga')) : cur.kind === 'cat' ? CATNAME[cur.cat] + _t(' — keskmine') : cur.name;
       $('[data-r-whoshort]', el).innerHTML = esc(whoShort) + ' · ' + esc(c.label) + '<br>' +
         (out.vehDefault ? _t('auto valimata — arvutatud VW Golf 8 järgi') : esc(out.veh.name)) + _t(' · vahemik ') + fmt(r.lowM + react) + '–' + fmt(r.highM + react) + _t(' m') +
         minuVordlus(cur, rows, out, S, react);
 
       /* kompaktsed ribad: 5 rida, valitud alati sees */
-      var LIMC = 5, comp = rows.slice(0, LIMC);
-      if (comp.indexOf(cur) < 0) comp = comp.slice(0, LIMC - 1).concat([cur]);
+      var LIMC = 5, omaR = rows.filter(function (x) { return x.kind === 'own'; })[0];
+      var must = [cur].concat(omaR && omaR !== cur ? [omaR] : []);
+      var comp = rows.filter(function (x) { return must.indexOf(x) < 0; }).slice(0, LIMC - must.length).concat(must)
+        .sort(function (a, b) { return a.d - b.d; });
       $('[data-r-mbars]', el).innerHTML = comp.map(function (x) {
         return row(x, best, max, true) + (x === cur && x.id === avatud && x.kind === 'class' && x.members.length ? pickPanel(x) : '');
       }).join('');

@@ -47,7 +47,7 @@
 							id="f-own"
 							class="sel vs-in"
 							type="search"
-							placeholder={t("Nt Hakkapeliitta R5 — pole kohustuslik")}
+							placeholder={t("Nt Hakkapeliitta R5")}
 							autocomplete="off"
 							spellcheck="false"
 							role="combobox"
@@ -59,6 +59,16 @@
 						/>
 						<ul class="vs-list" id="own-list" role="listbox" hidden data-own-list></ul>
 					</div>
+					<label class="own-mm-l" for="f-mm"
+						title={t("Näitame, kui palju uued rehvid samades oludes varem peatuvad.")}
+						>{t("Mustrisügavus")}
+						<select class="sel own-mm" id="f-mm" data-f="muster">
+							<option value="">{t("uus")}</option>
+							{#each [7, 6, 5, 4, 3, 2] as mm (mm)}
+								<option value={mm}>{mm} {t("mm")}</option>
+							{/each}
+						</select></label
+					>
 					<p class="size-hint" id="own-hint" data-own-hint hidden></p>
 				</div>
 				<p class="lbl"><label for="f-size">{t("2. Rehvimõõt")}</label></p>
