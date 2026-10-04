@@ -1173,6 +1173,67 @@
       pids.forEach(function (id) { var r = h[id]; if (r && r.length && (!best || r[0].hind < best.hind)) best = { id: id, hind: r[0].hind, row: r[0] }; });
       return best;
     }
+    /* Sinu auto tehasemõõdud poodides: kõik hinnaga rehvid valitud hooajas,
+       odavaim ees, igal kaardil kohe mõõt. Täidab tulemuse keskmise veeru
+       tühja osa; kui hindu pole, jääb plokk peidetuks. */
+    var poodVoti = null;
+    function poodiMoodud(S) {
+      var box = $('[data-r-pood]', el);
+      if (!box || !CFG.prices) return;
+      var veh = core.vehByKey[S.veh];
+      var moodud = [S.size];
+      ((veh && veh.oemSizes) || []).forEach(function (z) {
+        var x = /^(\d{3})\/(\d{2})\s*R(\d{2})(C?)$/.exec(String(z).trim());
+        var m = x ? x[1] + x[2] + 'R' + x[3] + x[4] : null;
+        if (m && moodud.indexOf(m) < 0 && core.eprelSizes.indexOf(m) >= 0) moodud.push(m);
+      });
+      moodud = moodud.slice(0, 8);
+      var sea = SEASON[S.resSeason] || SEASON.summer, voti = moodud.join(',') + '|' + S.resSeason;
+      if (voti === poodVoti) return;
+      poodVoti = voti;
+      if (!core._tyreBySlug) { core._tyreBySlug = {}; core.tyres.forEach(function (t) { if (t.slug) core._tyreBySlug[t.slug] = t; }); }
+      Promise.all(moodud.map(function (m) { return Promise.all([Prices.size(m), loadSize(m)]).then(function (x) { return { m: m, h: (x[0] && x[0].hinnad) || {}, rows: x[1] }; }); }))
+        .then(function (koik) {
+          if (poodVoti !== voti) return;
+          var list = [];
+          koik.forEach(function (k) {
+            var bySlug = {};
+            k.rows.forEach(function (r) { bySlug[r.slug] = r; });
+            Object.keys(k.h).forEach(function (id) {
+              var slug = id.split('@')[0], rr = k.h[id];
+              if (!rr || !rr.length || id.split('@')[1] !== k.m) return;
+              var e = bySlug[slug], t = core._tyreBySlug[slug], nimi, g = null;
+              if (e) { if (sea.eprel.indexOf(e.catNr) < 0) return; nimi = e.mark + ' ' + e.name; g = e.g; }
+              else if (t) { if (sea.tested.indexOf(t.category) < 0) return; nimi = t.name; }
+              else return;
+              var r = rr.slice().sort(function (a, b) { return a.hind - b.hind; })[0];
+              list.push({ m: k.m, slug: slug, nimi: nimi, g: g, testitud: !!(t || (e && e.tested)), r: r });
+            });
+          });
+          list.sort(function (a, b) { return a.r.hind - b.r.hind; });
+          /* teised tehasemõõdud eraldi; oma mõõdu rehvid on juba vasakul — neid
+             näitame siin ainult siis, kui teistes mõõtudes hindu pole */
+          var muud = list.filter(function (x) { return x.m !== S.size; }), ainultOma = !muud.length;
+          if (!ainultOma) list = muud;
+          if (!list.length) { box.hidden = true; box.innerHTML = ''; return; }
+          list = list.slice(0, 30);
+          box.innerHTML = '<p class="rs-k">' + (ainultOma ? _t('Selle mõõdu rehvid poodides') : _t('Sinu auto teised mõõdud poodides')) + ' <span style="font-weight:500;color:var(--muted)">' + _t('(soodsaim ees · ') + sea.long + ')</span></p>' +
+            '<div class="pk-rida pk-moot">' + list.map(function (x) {
+              var r = x.r;
+              var ladu = r.laos === false ? _t('tellimisel') : (r.kogus > 0 ? _t('laos') + ' ' + (r.kogus >= 8 ? '8+' : r.kogus) + ' ' + _t('tk') : '');
+              var pilt = r.pilt ? '<img src="' + CFG.home + 'api/pilt/' + encodeURIComponent(x.slug) + '/" alt="" width="72" height="86" loading="lazy" decoding="async">' : '<span class="pk-ring" aria-hidden="true"></span>';
+              var sisu = '<span class="pk-m">' + esc(pretty(x.m)) + (x.m === S.size ? ' <i>' + _t('sinu') + '</i>' : '') + '</span>' +
+                '<span class="pk-pilt">' + pilt + '</span><span class="pk-n">' + esc(x.nimi) + '</span>' +
+                (x.g ? '<small>' + _t('märghaare ') + esc(x.g) + (x.testitud ? _t(' · testitud') : '') + '</small>' : x.testitud ? '<small>' + _t('testitud') + '</small>' : '') +
+                '<b>' + hindTekst(r) + '</b><span class="pk-pood">' + esc(r.myyja) + '</span>' + (ladu ? '<small>' + ladu + '</small>' : '');
+              return r.url
+                ? _t('<a class="pk" href="') + esc(poeLink(r.url, 'kalkulaator', x.nimi)) + _t('" target="_blank" rel="nofollow sponsored noopener" data-pood="') + esc(r.myyja) + _t('" data-rehv="') + esc(x.nimi + ' ' + pretty(x.m)) + '">' + sisu + '</a>'
+                : '<div class="pk">' + sisu + '</div>';
+            }).join('') + '</div>' +
+            (!ainultOma ? '<p class="note" style="margin:0">' + _t('Mõõdud on selle auto tehase lubatud mõõdud. Teise mõõdu puhul kontrolli, et velg sobib.') + '</p>' : '');
+          box.hidden = false;
+        });
+    }
     function paintPrices(size, cur) {
       var box = $('[data-r-price]', el);
       Prices.size(size).then(function (d) {
@@ -1387,6 +1448,7 @@
       var mpa = $('[data-mp-all]', el);
       if (mpa) mpa.addEventListener('click', function () { pickAll = !pickAll; render(); });
       paintPrices(S.size, cur);
+      poodiMoodud(S);
 
       if (detail) {
         $('[data-r-big2]', detail).textContent = fmt(r.distanceM + react);

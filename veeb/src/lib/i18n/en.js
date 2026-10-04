@@ -94,6 +94,7 @@ export default {
 " märgisega rehvimudelit sinu mõõdus · ": " labelled tyre models in your size · ",
 "märgis ei ütle ": "the label says nothing about ",
 " kohta midagi": " grip",
+"testitud": "tested",
 "Soodsaim selle klassi rehv: ": "Cheapest tyre in this class: ",
 "Soodsaim hind: ": "Cheapest price: ",
 "<span class=\"pl\">Hinnad müüjatelt</span> <span class=\"none\">pole hetkel saadaval</span> ": "<span class=\"pl\">Prices from sellers</span> <span class=\"none\">not available at the moment</span> ",
@@ -106,7 +107,6 @@ export default {
 "<span class=\"none\">Hindu selles klassis veel pole</span>": "<span class=\"none\">No prices in this class yet</span>",
 "<span class=\"pl\">Hinnad</span> <span class=\"none\">vali rehv, et näha müüjaid</span>": "<span class=\"pl\">Prices</span> <span class=\"none\">choose a tyre to see sellers</span>",
 "soodsaim": "cheapest",
-"testitud": "tested",
 "vaikseim": "quietest",
 "<li class=\"mpick\"><p class=\"mp-h\">Klassi ": "<li class=\"mpick\"><p class=\"mp-h\">Class ",
 " rehvid sinu mõõdus <small>— märjal pidurdavad ühtviisi, vahe on müras, kütusekulus ja hinnas</small></p>": " tyres in your size <small>— they brake equally in the wet; the difference is in noise, fuel consumption and price</small></p>",
@@ -302,7 +302,6 @@ export default {
 "Tuletatud": "Estimated",
 "<span style=\"color:var(--tested)\">Sõltumatult testitud</span>": "<span style=\"color:var(--tested)\">Independently tested</span>",
 "<span style=\"color:var(--muted)\">EL-i märgis</span>": "<span style=\"color:var(--muted)\">EU label</span>",
-"<span class=\"fit\" title=\"Sinu valitud omaduste põhjal selles nimekirjas — mitte üldine hinne\">Sobivus sinu valikute põhjal ": "<span class=\"fit\" title=\"Based on the properties you chose, within this list — not an overall rating\">Match based on your choices ",
 "Märgpidurdus 90→0": "Wet braking 90→0",
 "Kuivpidurdus 90→0": "Dry braking 90→0",
 "Talv": "Winter",
@@ -956,5 +955,13 @@ export default {
 "tk": "pcs",
 "Vaata poes →": "View in shop →",
 "Hinnad poodides": "Prices in shops",
-"tellimisel": "to order"
+"tellimisel": "to order",
+"Sinu auto mõõdud poodides": "Your car’s sizes in shops",
+"(soodsaim ees · ": "(cheapest first · ",
+"sinu": "yours",
+"märghaare ": "wet grip ",
+" · testitud": " · tested",
+"Mõõdud on selle auto tehase lubatud mõõdud. Teise mõõdu puhul kontrolli, et velg sobib.": "These are the factory-approved sizes for this car. For a different size, check that the rim fits.",
+"Selle mõõdu rehvid poodides": "Tyres in this size in shops",
+"Sinu auto teised mõõdud poodides": "Other sizes for your car in shops"
 };

@@ -54,6 +54,7 @@
 					>
 					<button type="button" class="linkbtn" data-how>{t("Kuidas arvutatakse?")}</button>
 				</div>
+				<div class="r-pood" data-r-pood hidden></div>
 				<p class="rs-legal">
 					{@html t("Hinnang, mitte garantii. Ära kasuta seda liikluses otsustamiseks. <a href=\"/kasutustingimused/\">Tingimused</a>")}
 				</p>
