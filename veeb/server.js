@@ -142,6 +142,51 @@ const server = http.createServer((req, res) => {
 
 server.listen(PORT, LISTEN, () => console.log(`Listening on http://${LISTEN}:${PORT}`));
 
+/* IndexNow: pärast deploy'd teatame Bingile, Yandexile jt (api.indexnow.org
+ * jagab teadet kõigiga), millised lehed on uued või muutunud. Google seda ei
+ * kasuta — Google loeb saidikaarti (lastmod = lehe päris muutus, vt
+ * scripts/lastmod.mjs).
+ * Võti EI OLE saladus: see peabki olema avalik failis /<võti>.txt, sellega
+ * tõestame, et sait on meie oma.
+ * Mis on juba teatatud, hoitakse failis LOG_DIR/indexnow.json (Coolify
+ * püsikaust). Kui seda pole, teatatakse viimase 7 päeva muutused.
+ * Välja lülitamiseks: keskkonnamuutuja INDEXNOW=0. */
+const INDEXNOW_VOTI = '338c17d8674a0c635991930347fc5fbd';
+async function indexNow() {
+	const { readFile, writeFile } = await import('node:fs/promises');
+	const { join } = await import('node:path');
+	const xml = await readFile(new URL('./prerendered/sitemap.xml', import.meta.url), 'utf-8');
+	const lehed = [...xml.matchAll(/<loc>([^<]+)<\/loc><lastmod>([^<]+)<\/lastmod>/g)].map((m) => [m[1], m[2]]);
+	const olekFail = join(process.env.LOG_DIR || new URL('./', import.meta.url).pathname, 'indexnow.json');
+	let olek = null;
+	try {
+		olek = JSON.parse(await readFile(olekFail, 'utf-8'));
+	} catch {
+		/* esimene kord või püsikausta pole */
+	}
+	const piir = new Date(Date.now() - 7 * 864e5).toISOString().slice(0, 10);
+	const saata = lehed.filter(([u, kp]) => (olek ? olek[u] !== kp : kp >= piir)).map(([u]) => u);
+	if (!saata.length) return console.log('IndexNow: muutusi pole');
+	for (let i = 0; i < saata.length; i += 10000) {
+		const r = await fetch('https://api.indexnow.org/indexnow', {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json; charset=utf-8' },
+			body: JSON.stringify({ host: HOST, key: INDEXNOW_VOTI, keyLocation: `https://${HOST}/${INDEXNOW_VOTI}.txt`, urlList: saata.slice(i, i + 10000) })
+		});
+		console.log(`IndexNow: ${Math.min(10000, saata.length - i)} aadressi → HTTP ${r.status}`);
+		if (!r.ok) return;
+	}
+	try {
+		await writeFile(olekFail, JSON.stringify(Object.fromEntries(lehed)));
+	} catch {
+		/* püsikausta pole — järgmine kord saadetakse uuesti viimase 7 päeva muutused */
+	}
+}
+if (process.env.NODE_ENV === 'production' && process.env.INDEXNOW !== '0') {
+	/* oota, kuni uus versioon on päriselt väljas (võtmefail peab olema kättesaadav) */
+	setTimeout(() => indexNow().catch((e) => console.log('IndexNow viga:', e.message)), 90_000).unref();
+}
+
 /* Coolify peatab vana konteineri SIGTERM-iga: lõpeta pooleli päringud ära */
 function sulge() {
 	server.close(() => process.exit(0));

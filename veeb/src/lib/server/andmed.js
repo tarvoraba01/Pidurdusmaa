@@ -96,7 +96,7 @@ export const source = (code) => core().sources[code] || null;
  * Partii suurendamiseks alanda SITEMAP_MUDEL_MIN_MOOTE (nt 20 → 10 → 3),
  * kui Search Console näitab, et eelmine partii on indekseeritud.
  */
-export const SITEMAP_MUDEL_MIN_MOOTE = Infinity; // 1. partii: ainult testitud
+export const SITEMAP_MUDEL_MIN_MOOTE = 3; // 2. partii: kõik indekseeritavad rehvilehed (≤2 mõõtu on noindex)
 
 const SKU_RE = /\d{3}-?\d{2}-?z?r\d{2}/;
 /* ainult tootja märgistuse koodid -- mitte "suv", "plus", "4x4", mis on
