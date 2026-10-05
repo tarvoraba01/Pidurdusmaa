@@ -2911,6 +2911,13 @@
     window.addEventListener('pm:bip', naita);
     function leht(lahti) {
       var sh = $('[data-pwa-sheet]'); if (!sh) return;
+      if (lahti) {
+        var v = pwaSammud(), ol = $('[data-pwa-sammud]', sh), n = $('[data-pwa-nool]', sh);
+        if (ol) ol.innerHTML = v.html;
+        if (n) { n.className = 'ps-nool' + (v.nool ? ' ps-nool-' + v.nool : ''); n.hidden = !v.nool; }
+        /* kui nupp on all, jääb juhis üles, et brauseri riba oleks näha */
+        sh.classList.toggle('ps-ylal', v.nool === 'keskel' || v.nool === 'paremal');
+      }
       sh.hidden = !lahti;
       if (lahti) { var x = $('[data-pwa-sulge]', sh); if (x) x.focus(); }
     }
@@ -2930,6 +2937,24 @@
         naita();
       } else if (ios) leht(true);
     });
+  }
+  /* iPhone: täpne juhis sõltub brauserist ja iOS-i versioonist. Nool näitab,
+     kus ekraanil see nupp on (Safari all, Chrome üleval). */
+  function pwaSammud() {
+    var ua = navigator.userAgent;
+    var inapp = /FBAN|FBAV|Instagram|Messenger|Line\/|TikTok|Snapchat/i.test(ua);
+    var chrome = /CriOS/i.test(ua), firefox = /FxiOS/i.test(ua), edge = /EdgiOS/i.test(ua);
+    var ver = +((/Version\/(\d+)/.exec(ua) || [])[1] || 0);
+    var ik = function (n) { var t = $('[data-pwa-ikoonid]'); var e = t && t.content.querySelector('[data-i="' + n + '"]'); return e ? e.innerHTML : ''; };
+    var ok = '<span class="ps-ic ps-ok">' + _t('Lisa') + '</span>';
+    var rida = function (ic, html) { return '<li><span class="ps-ic">' + ic + '</span><span>' + html + '</span></li>'; };
+    var lisa = rida(ik('plusbox'), _t('Vali <b>„Lisa avaekraanile“</b> (keri menüüs veidi alla)'));
+    var lopp = '<li>' + ok + '<span>' + _t('Vajuta üleval paremal <b>„Lisa“</b> — valmis!') + '</span></li>';
+    if (inapp) return { nool: '', html: rida(ik('menu'), _t('See leht on avatud Instagrami või Facebooki sees. Vajuta üleval paremal <b>⋯</b> ja vali <b>„Ava brauseris“</b>')) + rida(ik('share'), _t('Siis vajuta Safaris uuesti nuppu <b>„Äpp“</b>')) };
+    if (chrome || edge) return { nool: 'ules', html: rida(ik('share'), _t('Vajuta üleval aadressiriba paremas servas <b>Jaga</b>-nuppu')) + lisa + lopp };
+    if (firefox) return { nool: 'paremal', html: rida(ik('menu'), _t('Vajuta all paremal <b>☰</b> ja siis <b>Jaga</b>')) + lisa + lopp };
+    if (ver >= 26) return { nool: 'paremal', html: rida('<b class="ps-dots">⋯</b>', _t('Vajuta all paremal <b>⋯</b> ja siis <b>Jaga</b>')) + lisa + lopp };
+    return { nool: 'keskel', html: rida(ik('share'), _t('Vajuta all keskel <b>Jaga</b>-nuppu (ruut noolega)')) + lisa + lopp };
   }
 
   window.PM = { initPage: initPage, lugu: lugu, track: Track };

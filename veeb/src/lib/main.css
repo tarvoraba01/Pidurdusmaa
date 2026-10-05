@@ -1179,3 +1179,19 @@ body{padding-bottom:var(--tabbar-h, 0px)}
 .jaga-x{position:absolute;top:10px;right:10px;width:38px;height:38px;border:0;border-radius:50%;background:var(--paper-2);font-size:22px;cursor:pointer}
 @media (max-width:480px){.jaga-in{grid-template-columns:1fr}.jaga-in img{width:150px;justify-self:center}}
 @media (prefers-reduced-motion:no-preference){.jaga-leht:not([hidden]) .jaga-in{animation:ps-up .22s ease-out}}
+
+/* äpi lisamise juhis: nool näitab brauseri nupu kohta */
+.pwa-sheet.ps-ylal{align-items:flex-start}
+.pwa-sheet.ps-ylal .ps-in{border-radius:0 0 18px 18px;padding-top:calc(22px + env(safe-area-inset-top, 0px));padding-bottom:22px}
+.ps-miks{margin:14px 0 0;font-size:12.5px;line-height:1.45;color:var(--muted)}
+.ps-dots{font-size:24px;line-height:1;letter-spacing:-1px}
+.ps-nool{position:fixed;z-index:96;width:56px;height:56px;border-radius:50%;background:var(--yellow);display:grid;place-items:center;box-shadow:0 6px 20px rgba(0,0,0,.35);pointer-events:none}
+.ps-nool[hidden]{display:none}
+.ps-nool svg{width:30px;height:30px;fill:none;stroke:#111;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.ps-nool-keskel{left:calc(50% - 28px);bottom:calc(14px + env(safe-area-inset-bottom, 0px))}
+.ps-nool-paremal{right:14px;bottom:calc(14px + env(safe-area-inset-bottom, 0px))}
+.ps-nool-ules{right:14px;top:calc(14px + env(safe-area-inset-top, 0px))}
+.ps-nool-ules svg{transform:rotate(180deg)}
+@media (prefers-reduced-motion:no-preference){.ps-nool-keskel,.ps-nool-paremal{animation:ps-pomp 1s ease-in-out infinite}.ps-nool-ules{animation:ps-pomp-u 1s ease-in-out infinite}}
+@keyframes ps-pomp{50%{transform:translateY(8px)}}
+@keyframes ps-pomp-u{50%{transform:translateY(-8px)}}

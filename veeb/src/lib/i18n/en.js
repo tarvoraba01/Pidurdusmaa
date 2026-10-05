@@ -1111,5 +1111,14 @@ export default {
 "Sinu tulemus pildina": "Your result as an image",
 "Laadi pilt alla": "Download image",
 "Pilt sobib Instagrami ja Facebooki storysse. Link avab sõbrale sama arvutuse — ta saab sinna oma auto panna.": "The image fits Instagram and Facebook stories. The link opens the same calculation for a friend — they can put in their own car.",
-"Pidurdusteekond 90 → 0 km/h, uued rehvid": "Braking distance 90 → 0 km/h, new tyres"
+"Pidurdusteekond 90 → 0 km/h, uued rehvid": "Braking distance 90 → 0 km/h, new tyres",
+"Apple ei luba veebilehel end ühe vajutusega paigaldada — iPhone'is käib see alati brauseri Jaga-menüü kaudu. Androidis piisab ühest vajutusest.": "Apple does not let websites install with one tap — on iPhone it always goes through the browser’s Share menu. On Android one tap is enough.",
+"Vali <b>„Lisa avaekraanile“</b> (keri menüüs veidi alla)": "Choose <b>“Add to Home Screen”</b> (scroll down the menu a little)",
+"Vajuta üleval paremal <b>„Lisa“</b> — valmis!": "Tap <b>“Add”</b> in the top right — done!",
+"See leht on avatud Instagrami või Facebooki sees. Vajuta üleval paremal <b>⋯</b> ja vali <b>„Ava brauseris“</b>": "This page is open inside Instagram or Facebook. Tap <b>⋯</b> in the top right and choose <b>“Open in browser”</b>",
+"Siis vajuta Safaris uuesti nuppu <b>„Äpp“</b>": "Then tap the <b>“App”</b> button again in Safari",
+"Vajuta üleval aadressiriba paremas servas <b>Jaga</b>-nuppu": "Tap the <b>Share</b> button at the right of the address bar at the top",
+"Vajuta all paremal <b>☰</b> ja siis <b>Jaga</b>": "Tap <b>☰</b> in the bottom right, then <b>Share</b>",
+"Vajuta all paremal <b>⋯</b> ja siis <b>Jaga</b>": "Tap <b>⋯</b> in the bottom right, then <b>Share</b>",
+"Vajuta all keskel <b>Jaga</b>-nuppu (ruut noolega)": "Tap the <b>Share</b> button at the bottom centre (square with an arrow)"
 };

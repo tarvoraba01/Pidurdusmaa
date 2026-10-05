@@ -244,13 +244,16 @@
 			<img src="/icon-192.png" alt="" width="56" height="56" />
 			<div><p class="ps-h" id="ps-h">{t("Pidurdusmaa äpina")}</p><p class="ps-s">{t("Avaneb avaekraanilt täisekraanil, töötab ka ilma võrguta.")}</p></div>
 		</div>
-		<ol class="ps-steps">
-			<li><span class="ps-ic"><Icon name="share" /></span><span>{@html t("Vajuta brauseri <b>Jaga</b>-nuppu")}</span></li>
-			<li><span class="ps-ic"><Icon name="plusbox" /></span><span>{@html t("Vali <b>„Lisa avaekraanile“</b>")}</span></li>
-			<li><span class="ps-ic ps-ok">{t("Lisa")}</span><span>{@html t("Vajuta üleval paremal <b>„Lisa“</b>")}</span></li>
-		</ol>
+		<!-- sammud sõltuvad brauserist (iPhone Safari, Chrome, rakendusesisene brauser) — täidab app.js -->
+		<ol class="ps-steps" data-pwa-sammud></ol>
+		<p class="ps-miks">{t("Apple ei luba veebilehel end ühe vajutusega paigaldada — iPhone'is käib see alati brauseri Jaga-menüü kaudu. Androidis piisab ühest vajutusest.")}</p>
 	</div>
+	<div class="ps-nool" data-pwa-nool aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3v16M5 12l7 7 7-7" /></svg></div>
 </div>
+<!-- ikoonid sammude jaoks (app.js kopeerib) -->
+<template data-pwa-ikoonid>
+	<span data-i="share"><Icon name="share" /></span><span data-i="plusbox"><Icon name="plusbox" /></span><span data-i="menu"><Icon name="menu" /></span>
+</template>
 
 <main id="sisu">{@render children()}</main>
 
