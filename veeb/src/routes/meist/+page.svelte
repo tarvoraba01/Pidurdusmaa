@@ -68,7 +68,7 @@
 					<strong>Sõltumatud rehvitestid</strong> — {data.testitud} rehvi mõõdetud pidurdusmaaga. Iga
 					tulemuse juures on allikas ja aasta.
 				</li>
-				<li><strong>Autod</strong> — {data.autosid} automudelit koos tehase rehvimõõtudega.</li>
+				<li><strong>Autod</strong> — {data.autosid} automudeli põlvkonda koos tehase rehvimõõtudega.</li>
 			</ul>
 			<p>Testid, millele mudel toetub:</p>
 			<ul>

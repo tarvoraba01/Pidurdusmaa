@@ -395,7 +395,7 @@ export default {
 "Laen…": "Загрузка…",
 "Võrdle kõrvuti →": "Сравнить →",
 "Miks pidurdusmaa loeb": "Почему тормозной путь важен",
-"Kiirus kasvab lineaarselt. Pidurdusmaa ei kasva.": "Скорость растёт линейно. Тормозной путь — нет.",
+"Kiirus kasvab lineaarselt. Pidurdusmaa kasvab ruudus.": "Скорость растёт линейно. Тормозной путь — в квадрате.",
 "Kahekordne kiirus tähendab rohkem kui kahekordset pidurdusmaad. Märjal teel on vahe veel suurem.": "Вдвое большая скорость — это более чем вдвое больший тормозной путь. На мокрой дороге разница ещё больше.",
 "Peatumisteekond = reageerimine + pidurdus": "Остановочный путь = реакция + торможение",
 "Enne kui pidur hakkab tööle, sõidab auto reaktsiooniaja jooksul täiskiirusel edasi: 90 km/h juures 1 sekundiga 25 m. Märjal teel on peatumisteekond seega umbes": "Пока тормоз не начал работать, автомобиль за время реакции едет дальше на полной скорости: при 90 км/ч за 1 секунду — 25 м. Поэтому на мокрой дороге остановочный путь составляет примерно",
