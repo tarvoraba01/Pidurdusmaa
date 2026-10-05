@@ -12,6 +12,7 @@
 	const ANDMED = [
 		['/autod/', 'road', 'Autod', 'Iga mudeli tehase rehvimõõdud, mootorid ja pidurdusmaa.'],
 		['/rehvid/', 'tyre', 'Rehvid', 'Kõik rehvid märgise andmete ja testitulemustega.'],
+		['/talverehvid/', 'snow', 'Talverehvid mõõdu järgi', 'Testitud naast- ja lamellrehvid sinu rehvimõõdus: pidurdusmaa lumel ja jääl.'],
 		['/testid/', 'test', 'Sõltumatud testid', 'ADAC, Tekniikan Maailma jt — mõõdetud pidurdusmaad.'],
 		['/margid/', 'scale', 'Rehvimargid', 'Tootjad ja nende rehvid ühest kohast.']
 	];

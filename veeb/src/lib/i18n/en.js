@@ -1061,5 +1061,18 @@ export default {
 " peatub <b>": " it stops <b>",
 " m varem</b>": " m sooner</b>",
 "Rehvid poodides mõõdus ": "Tyres in shops in size ",
-"Rehvid poodides — sinu mõõt ees": "Tyres in shops — your size first"
+"Rehvid poodides — sinu mõõt ees": "Tyres in shops — your size first",
+"Talverehvid mõõdu järgi": "Winter tyres by size",
+"Juhi vaade": "Driver’s view",
+"Pealtvaade": "Top view",
+"Vaade": "View",
+"Juhi vaates on olukord A": "Driver’s view shows situation A",
+"Juhi vaade pimedas: kas ja millal jalakäija paistab": "Driver’s view in the dark: whether and when the pedestrian becomes visible",
+"Jalakäijani": "To pedestrian",
+"Näita, kus jalakäija on": "Show where the pedestrian is",
+"Juhi silmade kõrguselt. Jalakäija muutub nähtavaks samal kaugusel, mida kasutab arvutus ({d} m).": "From the driver’s eye height. The pedestrian becomes visible at the same distance the calculation uses ({d} m).",
+"Märg tee neelab valgust — asfalt on tumedam.": "A wet road absorbs light — the asphalt looks darker.",
+"Lumi peegeldab valgust — taust on heledam.": "Snow reflects light — the background is brighter.",
+"Peatud {m} m enne jalakäijat": "You stop {m} m before the pedestrian",
+"Vihmas ja märjal teel neelab asfalt valgust — tee on tumedam.": "In rain and on a wet road the asphalt absorbs light — the road looks darker."
 };

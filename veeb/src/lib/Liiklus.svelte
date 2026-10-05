@@ -27,6 +27,7 @@
 	import KurvAnimatsioon from '$lib/KurvAnimatsioon.svelte';
 	import { pikivahe, ajatelg, hetkel } from '$lib/pikivahe.js';
 	import SirgeAnimatsioon from '$lib/SirgeAnimatsioon.svelte';
+	import JuhiVaade from '$lib/JuhiVaade.svelte';
 
 	let core = $state(null);
 	let P = $state(null);
@@ -98,6 +99,8 @@
 		['kaug', 325, t('Kaugtuled, helkuriga')]
 	];
 	let naeb = $state('');
+	/* pimedas: juhi vaade (esimene isik) või pealtvaade */
+	let pmMood = $state('juht');
 	const NAEB = $derived(NAHT.find((x) => x[0] === naeb) || null);
 	function setNaeb(id) {
 		const x = NAHT.find((n) => n[0] === id);
@@ -1163,7 +1166,14 @@
 					{/if}
 				</div>
 
-				{#if pmStseen}<SirgeAnimatsioon stseen={pmStseen} {t} {LOC} />{/if}
+				{#if pmStseen}
+					<div class="lo-mood" role="group" aria-label={t('Vaade')}>
+						<button type="button" aria-pressed={pmMood === 'juht'} onclick={() => { pmMood = 'juht'; pl('Liiklusohutus: vaade', { vaade: 'juht' }); }}>{t('Juhi vaade')}</button>
+						<button type="button" aria-pressed={pmMood === 'pealt'} onclick={() => { pmMood = 'pealt'; pl('Liiklusohutus: vaade', { vaade: 'pealt' }); }}>{t('Pealtvaade')}</button>
+						{#if B && pmMood === 'juht'}<small>{t('Juhi vaates on olukord A')}</small>{/if}
+					</div>
+					{#if pmMood === 'juht'}<JuhiVaade stseen={pmStseen} D={NAEB[1]} {naeb} vesi={+A.vesi || 0} {t} {LOC} />{:else}<SirgeAnimatsioon stseen={pmStseen} {t} {LOC} />{/if}
+				{/if}
 				{#if stsenaariumid.length}
 					<figure class="lo-fig" bind:clientWidth={figW}>
 						<svg width={W} viewBox="0 0 {W} {60 + stsenaariumid.length * 70}" role="img" aria-label={t("Peatumisteekond teel meetrites")}>
@@ -2078,6 +2088,36 @@
 		color: var(--muted);
 		font-size: 13px;
 	}
+	.lo-mood {
+		display: flex;
+		align-items: center;
+		flex-wrap: wrap;
+		gap: 4px;
+		margin-top: var(--sp-4);
+	}
+	.lo-mood button {
+		border: 1px solid #3a3f49;
+		background: transparent;
+		color: #c9ced6;
+		font-weight: 600;
+		font-size: 13px;
+		border-radius: 999px;
+		padding: 6px 14px;
+		cursor: pointer;
+	}
+	.lo-mood button[aria-pressed='true'] {
+		background: var(--yellow);
+		border-color: var(--yellow);
+		color: #111;
+	}
+	.lo-mood + :global(figure) {
+		margin-top: var(--sp-2);
+	}
+	.lo-mood small {
+		margin-left: var(--sp-2);
+		color: #9aa2ae;
+		font-size: 12px;
+	}
 	.lo-kt.lo-side {
 		margin-top: 0;
 		align-self: start;
@@ -2105,8 +2145,9 @@
 		}
 		/* simulaatori pilt mahub ekraanile ka madalal ekraanil (pilt lõigatakse
 		   servadest, auto jääb keskele) */
-		.lo-out :global(.sa-scene > svg) {
-			max-height: max(240px, calc(100dvh - 84px - 330px));
+		.lo-out :global(.sa-scene > svg),
+		.lo-out :global(.jv-scene > canvas) {
+			max-height: max(240px, calc(100dvh - 84px - 370px));
 		}
 		.lo-pv :global(.sa-scene > svg) {
 			max-height: max(240px, calc(100dvh - 84px - 270px));

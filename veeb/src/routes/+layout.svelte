@@ -37,9 +37,9 @@
 	const cur = $derived.by(() => {
 		const p = base;
 		if (p === '/') return 'home';
-		if (p.startsWith('/rehvi-valimine') || p.startsWith('/vordle-rehve') || p.startsWith('/talverehvid')) return 'valik';
+		if (p.startsWith('/rehvi-valimine') || p.startsWith('/vordle-rehve')) return 'valik';
 		/* rehvid, testid ja margid on menüüs Teadmine all */
-		if (p.startsWith('/teadmine') || p.startsWith('/testid') || p.startsWith('/rehvid') || p.startsWith('/margid') || p.startsWith('/autod')) return 'teadmine';
+		if (p.startsWith('/teadmine') || p.startsWith('/talverehvid') || p.startsWith('/testid') || p.startsWith('/rehvid') || p.startsWith('/margid') || p.startsWith('/autod')) return 'teadmine';
 		return '';
 	});
 
@@ -153,7 +153,6 @@
 				>
 				<div class="dd-menu" role="menu">
 					{@html t("<a role=\"menuitem\" href=\"/rehvi-valimine/\" ><b>Vali rehv enda tingimustele</b><span>Mis on sulle oluline — näitame sobivaid</span></a > <a role=\"menuitem\" href=\"/vordle-rehve/\" ><b>Võrdle rehve kõrvuti</b><span>2–4 rehvi ühes tabelis</span></a >")}
-					<a role="menuitem" href={L('/talverehvid/')}><b>{t('Parimad talverehvid')}</b><span>{t('Testid ja pidurdusmaa sinu mõõdus')}</span></a>
 					<a role="menuitem" href={L('/teadmine/rehvivahetus/')}><b>{t('Rehvivahetus')}</b><span>{t('Millal talve- ja suverehvid alla')}</span></a>
 				</div>
 			</div>
@@ -203,7 +202,7 @@
 					<a class="pm-row" href={L('/autod/')}><Icon name="car" />{t("Autod ja rehvimõõdud")}</a>
 					<a class="pm-row" href={L('/rehvid/')}><Icon name="tyre" />{t("Rehvid")}</a>
 					<a class="pm-row" href={L('/vordle-rehve/')}><Icon name="compare" />{t("Võrdle rehve kõrvuti")}</a>
-					<a class="pm-row" href={L('/talverehvid/')}><Icon name="snow" />{t("Parimad talverehvid")}</a>
+					<a class="pm-row" href={L('/talverehvid/')}><Icon name="snow" />{t("Talverehvid mõõdu järgi")}</a>
 					<a class="pm-row" href="/testid/"><Icon name="test" />{t("Sõltumatud testid")}</a>
 				</section>
 				<section class="pm-sek">
@@ -229,7 +228,7 @@
      Neutraalsel liiklusohutuse lehel ainult äpina avatuna (html.pwa). -->
 <nav class="tabbar" class:neutraal aria-label={t("Kiirvalik")}>
 	<a href={L('/')} aria-current={cur === 'home' ? 'page' : undefined}><Icon name="gauge" /><span>{t("Arvuta")}</span></a>
-	<a href={L('/rehvi-valimine/')} aria-current={base.startsWith('/rehvi-valimine') || base.startsWith('/talverehvid') ? 'page' : undefined}><Icon name="target" /><span>{t("Vali rehv")}</span></a>
+	<a href={L('/rehvi-valimine/')} aria-current={base.startsWith('/rehvi-valimine') ? 'page' : undefined}><Icon name="target" /><span>{t("Vali rehv")}</span></a>
 	<a href={L('/liiklusohutus/')} aria-current={neutraal ? 'page' : undefined}><Icon name="road" /><span>{t("Simulaator")}</span></a>
 	<a href={L('/vordle-rehve/')} data-cmp-pill aria-current={base.startsWith('/vordle-rehve') ? 'page' : undefined}
 		><span class="tb-ic"><Icon name="heart" /><b class="tb-n" data-cmp-n>0</b></span><span>{t("Võrdle")}</span></a
@@ -271,7 +270,6 @@
 					<li><a href={L('/')}>{t("Pidurdusmaa kalkulaator")}</a></li>
 					<li><a href={L('/rehvi-valimine/')}>{t("Rehvi valimine")}</a></li>
 					<li><a href={L('/vordle-rehve/')}>{t("Võrdle rehve")}</a></li>
-					<li><a href={L('/talverehvid/')}>{t("Parimad talverehvid")}</a></li>
 					<li><a href={L('/teadmine/rehvivahetus/')}>{t("Rehvivahetus")}</a></li>
 					<li><a href={L('/liiklusohutus/')}>{t("Liiklusohutuse kalkulaator")}</a></li>
 				</ul>
@@ -281,6 +279,7 @@
 				<ul>
 					<li><a href={L('/autod/')}>{t("Autod")}</a></li>
 					<li><a href={L('/rehvid/')}>{t("Rehvid")}</a></li>
+					<li><a href={L('/talverehvid/')}>{t("Talverehvid mõõdu järgi")}</a></li>
 					<li><a href="/testid/">{t("Sõltumatud testid")}</a></li>
 					<li><a href="/teadmine/kuidas-pidurdusmaa-arvutatakse/">{t("Kuidas arvutatakse")}</a></li>
 					<li><a href="/margid/">{t("Rehvimargid")}</a></li>
