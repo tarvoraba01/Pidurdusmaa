@@ -104,7 +104,7 @@ begin
 end;
 $$;
 revoke all on function public.failsafe_bump(text) from public;
-grant execute on function public.failsafe_bump(text) to anon, authenticated, service_role;
+grant execute on function public.failsafe_bump(text) to anon, service_role;
 
 -- 7. Kasutuslogi kokkuvõte (/api/kokkuvote) — arvutatakse andmebaasis, mitte serveris
 create or replace function public.kasutuslogi_kokkuvote(alates timestamptz)
