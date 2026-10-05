@@ -1,0 +1,48 @@
+# Supabase'i tasuta projekt pannakse pausile pärast 7 päeva vaikust.
+# See töövoog kirjutab 2× nädalas tabelisse "supabase-free-failsafe"
+# (write_count +1 kord ISO nädalas) — ka siis, kui server ise seisab.
+#
+# GitHub → Settings → Secrets and variables → Actions → New repository secret:
+#   SUPABASE_URL              https://<projekt>.supabase.co
+#   SUPABASE_PUBLISHABLE_KEY  avalik võti (sb_publishable_… või vana "anon" võti)
+# Avaliku võtmega saab kutsuda AINULT funktsiooni failsafe_bump() — tabeleid
+# ta lugeda ega muuta ei saa (RLS, vt veeb/supabase/schema.sql).
+
+name: Supabase failsafe
+
+on:
+  schedule:
+    - cron: '17 6 * * 1' # esmaspäev 06:17 UTC
+    - cron: '17 6 * * 4' # neljapäev 06:17 UTC
+  workflow_dispatch: {}
+
+permissions: {}
+
+jobs:
+  failsafe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: failsafe_bump()
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          KEY: ${{ secrets.SUPABASE_PUBLISHABLE_KEY }}
+        run: |
+          if [ -z "$SUPABASE_URL" ] || [ -z "$KEY" ]; then
+            echo "::error::SUPABASE_URL või SUPABASE_PUBLISHABLE_KEY puudub (repo Secrets)"
+            exit 1
+          fi
+          AUTH=()
+          case "$KEY" in eyJ*) AUTH=(-H "Authorization: Bearer $KEY") ;; esac
+          for i in 1 2 3; do
+            if OUT=$(curl -fsS --max-time 30 -X POST "${SUPABASE_URL%/}/rest/v1/rpc/failsafe_bump" \
+                 -H "apikey: $KEY" -H "Content-Type: application/json" "${AUTH[@]}" \
+                 -d '{"p_allikas":"github-actions"}'); then
+              echo "write_count = $OUT"
+              exit 0
+            fi
+            echo "Katse $i ebaõnnestus, proovin uuesti…"
+            sleep 30
+          done
+          echo "::error::Supabase failsafe ebaõnnestus 3 korda"
+          exit 1

@@ -13,6 +13,9 @@ import { jsonParing, paring, voog, lubatud } from './http.js';
 import { vahemalus, stat as vmStat, suurus as vmSuurus } from './vahemalu.js';
 import { leiaRehv, normMoot } from './sobitus.js';
 import { eprelSize, core } from '$lib/server/andmed.js';
+import { sbSees, failsafeOlek } from '$lib/server/supabase.js';
+import { sbLogiOlek } from '$lib/server/logi.js';
+import { pusivusOlek } from './pusivus.js';
 
 /* Testitud rehvid (sh naastrehvid, millel EL-i märgist ja seega EPREL-i
    rida pole) samal kujul nagu eprelSize read: [slug, mark, mudel]. */
@@ -187,6 +190,7 @@ export function olekKoond() {
 			...(typeof p.lisaOlek === 'function' ? { fail: p.lisaOlek() } : {})
 		})),
 		vahemalu: { ...vmStat, kirjeid: vmSuurus() },
-		pilte: pildid.size
+		pilte: pildid.size,
+		supabase: { sees: sbSees(), failsafe: { ...failsafeOlek }, logi: { ...sbLogiOlek }, puhver: { ...pusivusOlek } }
 	};
 }

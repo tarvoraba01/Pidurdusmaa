@@ -10,6 +10,14 @@ export async function init() {
 	const { kustutaVanad } = await import('$lib/server/logi.js');
 	kustutaVanad();
 	setInterval(kustutaVanad, 864e5).unref();
+	/* Supabase'i failsafe: kirjuta kohe ja siis iga 24 h (write_count +1 kord nädalas) */
+	const { failsafe } = await import('$lib/server/supabase.js');
+	failsafe();
+	setInterval(failsafe, 864e5).unref();
+	/* sulgemisel: saatmata logiread faili, et midagi ei kaoks */
+	const { tuhjendaFaili } = await import('$lib/server/logi.js');
+	process.once('SIGTERM', tuhjendaFaili);
+	process.once('SIGINT', tuhjendaFaili);
 }
 
 /* Vene ja inglise lehel <html lang="ru|en"> (app.html-is on "et") */

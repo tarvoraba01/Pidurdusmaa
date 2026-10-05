@@ -1,8 +1,11 @@
-/* Failipõhine logi ja lihtne sagedusepiir.
+/* Logi (Supabase või failid) ja lihtne sagedusepiir.
  *
- * Andmebaasi siin ei ole: ridu kirjutatakse JSONL-failidesse kausta,
- * mille annab LOG_DIR (vaikimisi ./data). Docker'is peab see olema
- * volume, muidu kaob sisu uue versiooniga.
+ * Kui Supabase on seadistatud (SUPABASE_URL + SUPABASE_SECRET_KEY, vt
+ * supabase.js), lähevad read tabelitesse kasutuslogi ja kontakt. Read
+ * kogutakse ~2 s kaupa kokku ja saadetakse ühe päringuga.
+ * Kui Supabase'i pole või päring ebaõnnestub, kirjutatakse read nagu enne
+ * JSONL-failidesse kausta LOG_DIR (vaikimisi ./data) — midagi ei kao.
+ * Failidest saab need hiljem üle tõsta: node scripts/supabase-import.mjs.
  *
  * Kasutuslogis (logi.jsonl) IP-d ei ole: ainult räsi päeva soolaga, mida
  * pärast päeva lõppu enam ei ole -- anonüümne, hoitakse tähtajatult.
@@ -13,6 +16,10 @@
 import { appendFileSync, mkdirSync, readFileSync, writeFileSync, renameSync } from 'node:fs';
 import { join } from 'node:path';
 import { createHash, randomBytes } from 'node:crypto';
+import { sbSees, lisa as sbLisa, sb } from './supabase.js';
+
+/* fail → Supabase'i tabel */
+const TABELID = { 'logi.jsonl': 'kasutuslogi', 'kontakt.jsonl': 'kontakt' };
 
 const DIR = process.env.LOG_DIR || join(process.cwd(), 'data');
 /* Päeva sool: juhuslik, ainult mälus, vahetub UTC keskööl. Eilset soola ei
@@ -42,12 +49,74 @@ function tagaKaust() {
 }
 
 export function lisaRida(fail, obj) {
+	if (TABELID[fail] && sbSees()) {
+		jarjekorda(fail, obj);
+		return true;
+	}
+	return lisaFaili(fail, obj);
+}
+
+function lisaFaili(fail, obj) {
 	tagaKaust();
 	try {
 		appendFileSync(join(DIR, fail), JSON.stringify(obj) + '\n');
 		return true;
 	} catch {
 		return false;
+	}
+}
+
+/* ---- Supabase'i järjekord ----
+   Read kogutakse mällu ja saadetakse 2 s pärast korraga. Kui saatmine
+   ebaõnnestub, lähevad need read faili (sama mis enne Supabase'i). */
+const jarjekord = new Map(); // fail -> [read]
+const MAX_JARJEKORDA = 5000;
+let taimer = null;
+export const sbLogiOlek = { saadetud: 0, failiKirjutatud: 0, viga: null, vigaAeg: null };
+
+function jarjekorda(fail, obj) {
+	const l = jarjekord.get(fail) || [];
+	l.push(obj);
+	jarjekord.set(fail, l);
+	/* liiga pikk järjekord (Supabase maas) → vanimad kohe faili */
+	while (l.length > MAX_JARJEKORDA) {
+		lisaFaili(fail, l.shift());
+		sbLogiOlek.failiKirjutatud++;
+	}
+	if (!taimer) {
+		taimer = setTimeout(saadaJarjekord, 2000);
+		taimer.unref?.();
+	}
+}
+
+export async function saadaJarjekord() {
+	taimer = null;
+	for (const [fail, read] of jarjekord) {
+		if (!read.length) continue;
+		const pakk = read.splice(0, read.length);
+		try {
+			await sbLisa(TABELID[fail], pakk.map((o) => vormista(fail, o)));
+			sbLogiOlek.saadetud += pakk.length;
+		} catch (e) {
+			sbLogiOlek.viga = String(e.message || e).slice(0, 200);
+			sbLogiOlek.vigaAeg = new Date().toISOString();
+			for (const o of pakk) lisaFaili(fail, o);
+			sbLogiOlek.failiKirjutatud += pakk.length;
+		}
+	}
+}
+
+/* JSONL rida → tabeli veerud (ainult teadaolevad väljad) */
+function vormista(fail, o) {
+	if (fail === 'logi.jsonl') return { t: o.t, k: o.k ?? null, s: Number(o.s) || 0, e: String(o.e), v: o.v ?? null };
+	return { aeg: o.aeg || o.t, teema: o.teema ?? null, nimi: o.nimi ?? null, email: o.email ?? null, firma: o.firma ?? null, sonum: o.sonum ?? null };
+}
+export { vormista as _vormista };
+
+/** Serveri sulgemisel (SIGTERM): saatmata read sünkroonselt faili, et midagi ei kaoks. */
+export function tuhjendaFaili() {
+	for (const [fail, read] of jarjekord) {
+		while (read.length) lisaFaili(fail, read.shift());
 	}
 }
 
@@ -66,6 +135,11 @@ export function ipHash(ip) {
 export const HOIA_PAEVI = 365;
 export function kustutaVanad(paevi = HOIA_PAEVI) {
 	const piir = Date.now() - paevi * 864e5;
+	if (sbSees()) {
+		sb('kontakt?aeg=lt.' + encodeURIComponent(new Date(piir).toISOString()), { method: 'DELETE', prefer: 'return=minimal' }).catch((e) =>
+			console.log('Supabase: vanade kontaktikirjade kustutamine ebaõnnestus:', String(e.message || e).slice(0, 160))
+		);
+	}
 	for (const fail of ['kontakt.jsonl']) {
 		const tee = join(DIR, fail);
 		let read;
