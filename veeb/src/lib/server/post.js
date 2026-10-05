@@ -79,6 +79,50 @@ async function saadaTeade({ subject, text, replyTo }) {
 	}
 }
 
+/* ---- Automaatne kinnitus kirja saatjale ----
+ * „Täname teid kirja eest! Pidurdusmaa.ee vastab teile 24 h jooksul.“
+ * Spämmikaitse (vorm ei tohi muutuda tasuta meilisaatjaks):
+ *  - tekst on FIKSEERITUD: kasutaja nime, sõnumit ega linke kirja ei panda;
+ *  - saadetakse ainult siis, kui Turnstile on päriselt sees ja läbitud
+ *    (kutsuja kontrollib) ning sama aadress saab kuni 1 kinnituse ööpäevas;
+ *  - Reply-To = meie postkast, nii et vastus jõuab Tarvoni. */
+const KINNITUS = {
+	et: {
+		subject: 'Täname teid kirja eest! — Pidurdusmaa.ee',
+		text: 'Tere!\n\nTäname teid kirja eest! Pidurdusmaa.ee vastab teile 24 tunni jooksul.\n\nSee on automaatne kinnitus. Kui soovite midagi lisada, vastake lihtsalt sellele kirjale.\n\nPidurdusmaa.ee\nhttps://pidurdusmaa.ee/\n'
+	},
+	en: {
+		subject: 'Thank you for your message — Pidurdusmaa.ee',
+		text: 'Hello!\n\nThank you for your message. Pidurdusmaa.ee will reply within 24 hours.\n\nThis is an automatic confirmation. If you want to add something, simply reply to this e-mail.\n\nPidurdusmaa.ee\nhttps://pidurdusmaa.ee/en/\n'
+	},
+	ru: {
+		subject: 'Спасибо за письмо — Pidurdusmaa.ee',
+		text: 'Здравствуйте!\n\nСпасибо за ваше письмо. Pidurdusmaa.ee ответит вам в течение 24 часов.\n\nЭто автоматическое подтверждение. Если хотите что-то добавить, просто ответьте на это письмо.\n\nPidurdusmaa.ee\nhttps://pidurdusmaa.ee/ru/\n'
+	}
+};
+
+/** Saada kinnitus aadressile `to`. lang = 'et' | 'en' | 'ru'. true = saadetud. */
+export async function saadaKinnitus(to, lang = 'et') {
+	const t = smtp();
+	if (!t) return false;
+	const k = KINNITUS[lang] || KINNITUS.et;
+	const from = process.env.MAIL_FROM || process.env.SMTP_USER;
+	try {
+		await t.sendMail({
+			from: `"Pidurdusmaa.ee" <${from}>`,
+			to,
+			replyTo: process.env.MAIL_TO || from,
+			subject: k.subject,
+			text: k.text,
+			headers: { 'Auto-Submitted': 'auto-replied', 'X-Auto-Response-Suppress': 'All' }
+		});
+		return true;
+	} catch (e) {
+		console.error('Kinnitus:', e.code || '', e.message);
+		return false;
+	}
+}
+
 /** Saadab kirja kõigisse seadistatud kanalitesse. true = vähemalt üks õnnestus. */
 export async function saadaKiri(kiri) {
 	const [a, b] = await Promise.all([saadaEpost(kiri), saadaTeade(kiri)]);

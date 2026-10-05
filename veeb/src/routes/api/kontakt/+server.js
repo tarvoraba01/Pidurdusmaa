@@ -1,6 +1,7 @@
 import { json } from '@sveltejs/kit';
 import { lisaRida, ipHash, kasLubatud } from '$lib/server/logi.js';
-import { saadaKiri } from '$lib/server/post.js';
+import { saadaKiri, saadaKinnitus } from '$lib/server/post.js';
+import { langOf } from '$lib/i18n.js';
 import { kontrolliTurnstile } from '$lib/server/turnstile.js';
 
 export const prerender = false;
@@ -75,6 +76,19 @@ export async function POST({ request, getClientAddress }) {
 			(kiri.firma ? `\nEttevõte: ${kiri.firma}` : '') +
 			`\n\n${kiri.sonum}\n`
 	});
+
+	/* Automaatne kinnitus saatjale: ainult päris Turnstile'i kontrolliga
+	   (mitte siis, kui võti puudub ja kontroll jäeti vahele) ja kuni 1×
+	   ööpäevas sama aadressi kohta. Taustal — vastus kasutajale ei oota. */
+	if (process.env.TURNSTILE_SECRET && tk.ok && !tk.why && kasLubatud('kinnitus:' + kiri.email.toLowerCase(), 1, 86400)) {
+		let keel = 'et';
+		try {
+			keel = langOf(new URL(request.headers.get('referer') || '').pathname);
+		} catch {
+			/* viitaja puudub → eesti keel */
+		}
+		saadaKinnitus(kiri.email, keel).catch(() => {});
+	}
 
 	/* Kiri on igal juhul failis, nii et kasutajale vastame ausalt „kohal“. */
 	return json({ ok: true, mail: saadetud });
