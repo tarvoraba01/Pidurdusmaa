@@ -148,21 +148,59 @@ server.listen(PORT, LISTEN, () => console.log(`Listening on http://${LISTEN}:${P
  * scripts/lastmod.mjs).
  * Võti EI OLE saladus: see peabki olema avalik failis /<võti>.txt, sellega
  * tõestame, et sait on meie oma.
- * Mis on juba teatatud, hoitakse failis LOG_DIR/indexnow.json (Coolify
- * püsikaust). Kui seda pole, teatatakse viimase 7 päeva muutused.
+ * Mis on juba teatatud, hoitakse Supabase'i tabelis seis (voti 'indexnow'),
+ * kui SUPABASE_URL ja SUPABASE_SECRET_KEY on seatud; muidu failis
+ * LOG_DIR/indexnow.json (Coolify püsikaust). Kui kumbagi pole, teatatakse
+ * viimase 7 päeva muutused.
  * Välja lülitamiseks: keskkonnamuutuja INDEXNOW=0. */
 const INDEXNOW_VOTI = '338c17d8674a0c635991930347fc5fbd';
+
+/* Väike Supabase'i abiline ainult IndexNow oleku jaoks (vt src/lib/server/supabase.js) */
+function sbSeis() {
+	const url = String(process.env.SUPABASE_URL || '').trim().replace(/\/+$/, '');
+	const voti = String(process.env.SUPABASE_SECRET_KEY || '').trim();
+	if (!/^https:\/\//.test(url) || voti.length < 20) return null;
+	const pais = { apikey: voti, 'Content-Type': 'application/json' };
+	if (voti.startsWith('eyJ')) pais.Authorization = 'Bearer ' + voti;
+	return {
+		async loe(nimi) {
+			const r = await fetch(`${url}/rest/v1/seis?voti=eq.${encodeURIComponent(nimi)}&select=vaartus`, { headers: pais, signal: AbortSignal.timeout(15000) });
+			if (!r.ok) throw new Error('Supabase seis: HTTP ' + r.status);
+			const rida = (await r.json())[0];
+			return rida ? rida.vaartus : null;
+		},
+		async kirjuta(nimi, vaartus) {
+			const r = await fetch(`${url}/rest/v1/seis`, {
+				method: 'POST',
+				headers: { ...pais, Prefer: 'resolution=merge-duplicates,return=minimal' },
+				body: JSON.stringify({ voti: nimi, vaartus, uuendatud: new Date().toISOString() }),
+				signal: AbortSignal.timeout(30000)
+			});
+			if (!r.ok) throw new Error('Supabase seis: HTTP ' + r.status);
+		}
+	};
+}
 async function indexNow() {
 	const { readFile, writeFile } = await import('node:fs/promises');
 	const { join } = await import('node:path');
 	const xml = await readFile(new URL('./prerendered/sitemap.xml', import.meta.url), 'utf-8');
 	const lehed = [...xml.matchAll(/<loc>([^<]+)<\/loc><lastmod>([^<]+)<\/lastmod>/g)].map((m) => [m[1], m[2]]);
 	const olekFail = join(process.env.LOG_DIR || new URL('./', import.meta.url).pathname, 'indexnow.json');
+	const sbs = sbSeis();
 	let olek = null;
-	try {
-		olek = JSON.parse(await readFile(olekFail, 'utf-8'));
-	} catch {
-		/* esimene kord või püsikausta pole */
+	if (sbs) {
+		try {
+			olek = await sbs.loe('indexnow');
+		} catch (e) {
+			console.log('IndexNow:', e.message);
+		}
+	}
+	if (!olek) {
+		try {
+			olek = JSON.parse(await readFile(olekFail, 'utf-8'));
+		} catch {
+			/* esimene kord või püsikausta pole */
+		}
 	}
 	const piir = new Date(Date.now() - 7 * 864e5).toISOString().slice(0, 10);
 	const saata = lehed.filter(([u, kp]) => (olek ? olek[u] !== kp : kp >= piir)).map(([u]) => u);
@@ -176,8 +214,17 @@ async function indexNow() {
 		console.log(`IndexNow: ${Math.min(10000, saata.length - i)} aadressi → HTTP ${r.status}`);
 		if (!r.ok) return;
 	}
+	const uusOlek = Object.fromEntries(lehed);
+	if (sbs) {
+		try {
+			await sbs.kirjuta('indexnow', uusOlek);
+			return;
+		} catch (e) {
+			console.log('IndexNow:', e.message, '— salvestan faili');
+		}
+	}
 	try {
-		await writeFile(olekFail, JSON.stringify(Object.fromEntries(lehed)));
+		await writeFile(olekFail, JSON.stringify(uusOlek));
 	} catch {
 		/* püsikausta pole — järgmine kord saadetakse uuesti viimase 7 päeva muutused */
 	}

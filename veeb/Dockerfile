@@ -26,6 +26,8 @@ VOLUME /app/data
 COPY --from=build /app/build ./build
 COPY --from=build /app/node_modules ./node_modules
 COPY --from=build /app/package.json ./
+# ühekordne logifailide import Supabase'i (vt supabase/SUPABASE.md)
+COPY --from=build /app/scripts/supabase-import.mjs ./scripts/
 EXPOSE 3000
 HEALTHCHECK --interval=30s --timeout=3s --start-period=10s \
   CMD wget -qO- http://127.0.0.1:3000/ >/dev/null || exit 1

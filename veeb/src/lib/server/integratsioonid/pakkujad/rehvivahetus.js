@@ -23,6 +23,7 @@
  */
 import { normMoot, normMark, norm } from '../sobitus.js';
 import { core } from '$lib/server/andmed.js';
+import { salvesta as salvestaPuhver, taasta as taastaPuhver } from '../pusivus.js';
 
 const VARSKE_MS = 6 * 3600 * 1000;
 const MAX_VANUS_MS = 48 * 3600 * 1000;
@@ -259,10 +260,28 @@ async function laeKoik(pakkuja, { muutuja, jsonParing }) {
 	if (!hoitud) throw new Error(`rehvivahetus: ${kokku} toodet, aga ükski ei sobinud meie mõõtudega`);
 	if (indeks && info.hoitud > 200 && hoitud < info.hoitud * 0.2)
 		throw new Error(`rehvivahetus: ainult ${hoitud} sobivat toodet (enne ${info.hoitud}) — jätsin vana`);
+	const vana = indeks;
 	indeks = uus;
 	laetud = Date.now();
 	Object.assign(info, { tooteid: kokku, hoitud, lehti, laetud: new Date(laetud).toISOString(), kestusMs: Date.now() - algus });
 	viimaneViga = null;
+	/* puhver Supabase'i (taustal; ilma Supabase'ita ei tee midagi) */
+	salvestaPuhver('rehvivahetus', uus, vana, { ...info }).catch(() => {});
+}
+
+/* Serveri restardil: võta viimane salvestatud kataloog Supabase'ist, kuni
+   värske laadimine valmis saab. Vanem kui 48 h → ei kasuta. */
+let taastatud = null;
+function taastaKord() {
+	if (!taastatud)
+		taastatud = taastaPuhver('rehvivahetus').then((r) => {
+			if (r && !indeks && Date.now() - r.laetud < MAX_VANUS_MS) {
+				indeks = r.indeks;
+				laetud = r.laetud;
+				Object.assign(info, r.info || {}, { taastatudSupabasest: true });
+			}
+		});
+	return taastatud;
 }
 
 function lae(pakkuja, ctx) {
@@ -290,10 +309,12 @@ export default {
 	ttlHinnad: 600,
 
 	async soojenda(ctx) {
+		await taastaKord();
 		await lae(this, ctx);
 	},
 
 	async hinnadMoodus(moot, ctx) {
+		if (!indeks) await taastaKord();
 		if (!indeks) await lae(this, ctx);
 		else if (Date.now() - laetud > VARSKE_MS) lae(this, ctx).catch(() => {});
 		if (Date.now() - laetud > MAX_VANUS_MS) throw new Error('rehvivahetus: andmed üle 48 h vanad ja värskendus ei õnnestu');

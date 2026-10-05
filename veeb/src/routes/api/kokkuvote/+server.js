@@ -3,6 +3,7 @@ import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 
 import { votiOnOige, piirang } from '$lib/server/integratsioonid/kaitse.js';
+import { sbSees, rpc } from '$lib/server/supabase.js';
 
 export const prerender = false;
 /* API aadressid töötavad nii kaldkriipsuga kui ilma (lehtedel on alati kaldkriips) */
@@ -19,7 +20,7 @@ const DIR = process.env.LOG_DIR || join(process.cwd(), 'data');
  *
  *   curl -H "Authorization: Bearer $STATS_KEY" "https://pidurdusmaa.ee/api/kokkuvote?paevi=7"
  */
-export function GET(event) {
+export async function GET(event) {
 	const { url, request } = event;
 	const key = process.env.STATS_KEY;
 	if (!key) error(404, 'Statistika ei ole sisse lülitatud');
@@ -28,6 +29,16 @@ export function GET(event) {
 
 	const paevi = Math.min(3650, Math.max(1, +(url.searchParams.get('paevi') || 7)));
 	const alates = Date.now() - paevi * 864e5;
+
+	/* Supabase: kokkuvõte arvutatakse andmebaasis (kasutuslogi_kokkuvote) */
+	if (sbSees()) {
+		try {
+			const r = await rpc('kasutuslogi_kokkuvote', { alates: new Date(alates).toISOString() }, 30000);
+			return json({ paevi, allikas: 'supabase', ...r });
+		} catch {
+			/* Supabase maas → loe vähemalt failist (varulahendus) */
+		}
+	}
 
 	let read = [];
 	try {
