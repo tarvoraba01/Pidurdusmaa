@@ -131,6 +131,13 @@
 				: ['Ei ole kohustuslikud', s.t < h.kohustus ? `kohustuslikud alates ${Kk(h.kohustus, 'st')}` : 'võib sõita suverehvidega']
 	);
 	const TA = ALLIKAD[0];
+	/* infomull: mida tähendab „talviste teeolude korral“ (määrus: naastrehvid
+	   15.10–31.03; erandina talviste tee- ja ilmastikuolude korral 1.10–30.04) */
+	const TALVEOLUD = $derived(
+		ru
+			? `Зимние дорожные и погодные условия: на дороге снег, лёд, слякоть или иней, либо ночные заморозки делают дорогу скользкой. Только в таких условиях правила разрешают шипы с ${Kk(h.naastTalv)} по ${Kk(new Date(h.naast - 864e5))} и с ${Kk(new Date(h.naastLopp.getTime() + 864e5))} по ${Kk(h.naastTalvLopp)}. Если дорога сухая и тёплая, в эти дни нужно ездить без шипов. Точной границы (градусы, сантиметры снега) правила не задают — решает водитель по фактическим условиям.`
+			: `Talvised tee- ja ilmastikuolud: teel on lumi, jää, lörts või härmatis või teeb öökülm tee libedaks. Ainult siis lubab määrus naastrehve ${Kk(h.naastTalv, 'st')} kuni ${Kk(new Date(h.naast - 864e5), 'ni')} ja ${Kk(new Date(h.naastLopp.getTime() + 864e5), 'st')} kuni ${Kk(h.naastTalvLopp, 'ni')}. Kui tee on kuiv ja soe, tuleb neil päevadel sõita ilma naastudeta. Täpset piiri (kraade, lume paksust) määrus ei anna — otsustab juht tegelike olude järgi.`
+	);
 </script>
 
 <Meta
@@ -175,7 +182,7 @@
 				<dl>
 					<div class="rv-rida">
 						<dt>{ru ? 'Шипованная резина' : 'Naastrehvid'}</dt>
-						<dd><b class="rv-{s.naast}">{NAAST[0]}</b> <span>{NAAST[1]}</span></dd>
+						<dd><b class="rv-{s.naast}">{NAAST[0]}</b>{#if s.naast === 'talveoludes'} <span class="tip" tabindex="0" data-tip={TALVEOLUD} aria-label={TALVEOLUD}>i</span>{/if} <span>{NAAST[1]}</span></dd>
 					</div>
 					<div class="rv-rida">
 						<dt>{ru ? 'Зимняя резина' : 'Talverehvid'}</dt>

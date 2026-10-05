@@ -235,7 +235,8 @@
     var PLAUS = { arvuta: 'Arvutus', arvuta_ilma_autota: 'Arvutus', auto: 'Auto valitud', poe_klikk: 'Poe klikk',
       partner_klikk: 'Partneri klikk', vordlusse: 'Rehv võrdlusse', otsing: 'Otsing', oma_rehv: 'Oma rehv valitud',
       vaheleht: 'Avaleht: rehvi valimine', naita_rehve: 'Näita sobivaid rehve',
-      rehvivalik_lahti: 'Rehvivalik avatud', pwa_paigaldatud: 'Rakendus paigaldatud', pwa_avatud: 'Rakendus avatud' };
+      rehvivalik_lahti: 'Rehvivalik avatud', pwa_paigaldatud: 'Rakendus paigaldatud', pwa_avatud: 'Rakendus avatud',
+      jaga: 'Tulemus jagatud', jagatud_link: 'Jagatud link avatud' };
     function plaus(r) {
       var nimi = PLAUS[r.e];
       if (!nimi || typeof window.plausible !== 'function') return;
@@ -1128,6 +1129,8 @@
     if (goDef) goDef.addEventListener('click', function () { useDefault = true; compute(true); });
 
     if (S.veh && core.vehByKey[S.veh]) picker.set(S.veh); else recalc();
+    /* jagatud link (?arvuta=1): näita sama tulemust kohe */
+    if (qsc.get('arvuta') === '1') { Track('jagatud_link', (S.veh || '') + ' · ' + S.size); setTimeout(function () { compute(true); }, 250); }
   }
 
   /* ------------------------------------------------------------ tulemus */
@@ -1294,7 +1297,7 @@
     /* ---- EELVAADE: rehvi pildile vajutades paremas veerus selle rehvi
        pidurdusmaa sinu autoga (sama mudel ja tingimused) + vahemik graafikul
        võrrelduna praeguse tulemusega. „Vali“ viib poodi. */
-    var eelCtx = null, eelAktiivne = null;
+    var eelCtx = null, eelAktiivne = null, jagaInfo = null;
     function eelvaade(d) {
       var box = $('[data-r-eel]', el);
       if (!box || !eelCtx) return;
@@ -1637,6 +1640,18 @@
       if (eelAktiivne) eelvaade(eelAktiivne);
       var vm = valitud(cur);
       var whoShort = cur.kind === 'own' ? (cur.gen ? cur.name : cur.name + _t(' (sinu rehv)')) + (cur.mm ? _t(', muster ') + mmT(cur.mm) + _t(' mm') : '') : cur.kind === 'class' ? (vm ? vm.mark + ' ' + vm.name + (vmT ? _t(' (sõltumatu test)') : ' (' + cur.g + _t('-klassi märgis)')) : cur.g + _t('-klassi märgise rehviga')) : cur.kind === 'cat' ? CATNAME[cur.cat] + _t(' — keskmine') : cur.name;
+      /* jagamiseks: mis on praegu ekraanil */
+      var jReas = [cur].concat(rows.filter(function (x) { return x !== cur; }));
+      var jParim = rows[0], jHalvim = rows[rows.length - 1], jOma = rows.filter(function (x) { return x.kind === 'own'; })[0];
+      jagaInfo = {
+        d: r.distanceM + react, stop: rmode === 'stop', speed: S.speed, cond: c.label, ck: ck,
+        veh: out.vehDefault ? 'VW Golf 8' : out.veh.name, vehKey: out.vehDefault ? null : S.veh, size: S.size,
+        tyre: whoShort, mm: S.muster || null,
+        ribad: [[_t('Sinu tulemus'), r.distanceM + react, true]]
+          .concat(jOma && jOma !== cur ? [[jOma.gen ? _t('Sinu praegused rehvid') : jOma.name, jOma.d + react, false]] : [])
+          .concat(jParim && jParim !== cur ? [[_t('Parim selles mõõdus'), jParim.d + react, false]] : [])
+          .concat(jHalvim && jHalvim !== cur && jHalvim !== jOma && jHalvim !== jParim ? [[_t('Halvim selles mõõdus'), jHalvim.d + react, false]] : [])
+      };
       $('[data-r-whoshort]', el).innerHTML = esc(whoShort) + ' · ' + esc(c.label) + '<br>' +
         (out.vehDefault ? _t('auto valimata — arvutatud VW Golf 8 järgi') : esc(out.veh.name)) + _t(' · vahemik ') + fmt(r.lowM + react) + '–' + fmt(r.highM + react) + _t(' m') +
         minuVordlus(cur, rows, out, S, react);
@@ -1734,7 +1749,119 @@
         });
       }
     }
-    return { show: show };
+    return { show: show, jagaInfo: function () { return jagaInfo; } };
+  })();
+
+  /* ------------------------------------------------------------ jagamine
+     Tulemus pildina (1080×1920, sobib storysse ja postitusse) + link, mis
+     avab sama arvutuse. Telefonis avaneb jagamismenüü (Instagram, Facebook,
+     WhatsApp …), arvutis aken pildi allalaadimise ja linkidega. */
+  var Jaga = (function () {
+    function link(j) {
+      var q = [];
+      if (j.vehKey) q.push('auto=' + encodeURIComponent(j.vehKey));
+      q.push('moot=' + encodeURIComponent(j.size), 'kiirus=' + j.speed, 'olud=' + j.ck, 'arvuta=1');
+      return location.origin + LHOME + '?' + q.join('&');
+    }
+    function tekst(j) {
+      return _t('Minu auto peatub ') + fmt(j.d) + _t(' meetriga') + ' (' + j.speed + _t(' km/h, ') + j.cond + '). ' + _t('Kui kiiresti peatub sinu oma?');
+    }
+    function ring(ctx, x, y, w, h, r) { ctx.beginPath(); ctx.moveTo(x + r, y); ctx.arcTo(x + w, y, x + w, y + h, r); ctx.arcTo(x + w, y + h, x, y + h, r); ctx.arcTo(x, y + h, x, y, r); ctx.arcTo(x, y, x + w, y, r); ctx.closePath(); }
+    function pilt(j) {
+      var W = 1080, H = 1920;
+      var cv = document.createElement('canvas'); cv.width = W; cv.height = H;
+      var g = cv.getContext('2d');
+      var DISP = '"Barlow Condensed", "Arial Narrow", sans-serif', BODY = 'Inter, system-ui, sans-serif';
+      g.fillStyle = '#0a0b0d'; g.fillRect(0, 0, W, H);
+      /* tee all (dekoratsioon; storys katab alumise ääre vastamisriba) */
+      var tee = g.createLinearGradient(0, 1560, 0, H); tee.addColorStop(0, 'rgba(36,39,45,0)'); tee.addColorStop(.3, '#1b1e24'); tee.addColorStop(1, '#14161a');
+      g.fillStyle = tee; g.fillRect(140, 1560, 800, H - 1560);
+      g.strokeStyle = 'rgba(255,255,255,.3)'; g.lineWidth = 6; g.setLineDash([46, 56]);
+      g.beginPath(); g.moveTo(540, 1620); g.lineTo(540, H); g.stroke(); g.setLineDash([]);
+      g.strokeStyle = 'rgba(229,72,77,.5)'; g.lineWidth = 14; g.lineCap = 'round';
+      [400, 470].forEach(function (x) { g.beginPath(); g.moveTo(x, 1910); g.lineTo(x, 1830); g.stroke(); });
+      g.fillStyle = '#ffc20e'; ring(g, 384, 1690, 102, 190, 30); g.fill();
+      g.fillStyle = '#26303b'; ring(g, 400, 1720, 70, 40, 10); g.fill(); ring(g, 404, 1820, 62, 30, 10); g.fill();
+      /* logo */
+      g.textBaseline = 'alphabetic';
+      g.font = 'italic 800 64px ' + BODY; g.fillStyle = '#fff'; g.fillText('PIDURDUSMAA', 90, 250);
+      var lw = g.measureText('PIDURDUSMAA').width; g.fillStyle = '#ffc20e'; g.fillText('.ee', 90 + lw, 250);
+      /* number */
+      g.fillStyle = '#ffc20e'; g.font = '700 46px ' + BODY;
+      g.fillText((j.stop ? _t('Peatumisteekond') : _t('Pidurdusteekond')).toUpperCase(), 90, 420);
+      g.font = '700 330px ' + DISP; var num = fmt(j.d);
+      g.fillText(num, 80, 710); var nw = g.measureText(num).width;
+      g.fillStyle = '#fff'; g.font = '700 150px ' + DISP; g.fillText('m', 100 + nw, 710);
+      g.fillStyle = '#c9ced6'; g.font = '500 44px ' + BODY;
+      g.fillText(j.speed + ' → 0 km/h · ' + j.cond, 90, 790);
+      /* sildid */
+      var y = 850;
+      [j.veh, pretty(j.size), j.tyre].filter(Boolean).forEach(function (sl) {
+        g.font = '500 36px ' + BODY;
+        var t = sl.length > 46 ? sl.slice(0, 45) + '…' : sl, w = g.measureText(t).width + 56;
+        g.fillStyle = '#1a1d24'; ring(g, 90, y, Math.min(w, 900), 72, 18); g.fill();
+        g.strokeStyle = '#2b3039'; g.lineWidth = 2; g.stroke();
+        g.fillStyle = '#f3f4f6'; g.fillText(t, 118, y + 49); y += 90;
+      });
+      /* ribad */
+      y += 50;
+      var max = Math.max.apply(null, j.ribad.map(function (x) { return x[1]; }));
+      j.ribad.slice(0, 3).forEach(function (rb) {
+        g.font = (rb[2] ? '700 ' : '500 ') + '34px ' + BODY; g.fillStyle = rb[2] ? '#fff' : '#aab1bc';
+        var nm = rb[0].length > 34 ? rb[0].slice(0, 33) + '…' : rb[0];
+        g.fillText(nm, 90, y); g.textAlign = 'right'; g.fillText(fmt(rb[1]) + ' m', 990, y); g.textAlign = 'left';
+        g.fillStyle = '#23262d'; ring(g, 90, y + 18, 900, 22, 11); g.fill();
+        g.fillStyle = rb[2] ? '#ffc20e' : '#5d636d'; ring(g, 90, y + 18, Math.max(30, 900 * rb[1] / max), 22, 11); g.fill();
+        y += 104;
+      });
+      /* üleskutse */
+      y = Math.max(y + 10, 1430);
+      g.fillStyle = '#16181d'; ring(g, 90, y, 900, 190, 28); g.fill();
+      g.strokeStyle = '#2b3039'; g.lineWidth = 2; g.stroke();
+      g.fillStyle = '#fff'; g.font = '700 50px ' + BODY; g.fillText(_t('Kui kiiresti peatub sinu auto?'), 130, y + 78);
+      g.fillStyle = '#ffc20e'; g.font = '700 60px ' + DISP; g.fillText('pidurdusmaa.ee', 130, y + 152);
+      return new Promise(function (ok) { cv.toBlob(function (b) { ok(b); }, 'image/png'); });
+    }
+    function aken(j, blob) {
+      var d = $('[data-jaga]'); if (!d) return;
+      var u = URL.createObjectURL(blob), l = link(j), tx = tekst(j);
+      $('[data-jaga-img]', d).src = u;
+      var dl = $('[data-jaga-dl]', d); dl.href = u; dl.download = 'pidurdusmaa-' + String(fmt(j.d)).replace(',', '-') + 'm.png';
+      $('[data-jaga-fb]', d).href = 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(l);
+      $('[data-jaga-wa]', d).href = 'https://wa.me/?text=' + encodeURIComponent(tx + ' ' + l);
+      var kp = $('[data-jaga-kopeeri]', d);
+      kp.onclick = function () {
+        try { navigator.clipboard.writeText(tx + ' ' + l); kp.textContent = _t('Kopeeritud ✓'); Track('jaga', 'link'); } catch (e) {}
+      };
+      kp.textContent = _t('Kopeeri link');
+      d.hidden = false;
+      var x = $('[data-jaga-x]', d); if (x) x.focus();
+    }
+    function jaga() {
+      var j = Result.jagaInfo(); if (!j) return;
+      var fonte = document.fonts && document.fonts.load ? Promise.all([document.fonts.load('700 100px "Barlow Condensed"'), document.fonts.load('700 40px Inter'), document.fonts.load('italic 800 40px Inter')]).catch(function () {}) : Promise.resolve();
+      fonte.then(function () { return pilt(j); }).then(function (blob) {
+        var fail = null;
+        try { fail = new File([blob], 'pidurdusmaa.png', { type: 'image/png' }); } catch (e) {}
+        var mob = matchMedia('(pointer: coarse)').matches;
+        if (mob && fail && navigator.canShare && navigator.canShare({ files: [fail] })) {
+          navigator.share({ files: [fail], text: tekst(j) + ' ' + link(j) })
+            .then(function () { Track('jaga', 'jagamismenüü'); })
+            .catch(function (e) { if (!e || e.name !== 'AbortError') aken(j, blob); });
+          return;
+        }
+        aken(j, blob);
+        Track('jaga', 'aken');
+      });
+    }
+    document.addEventListener('click', function (e) {
+      var t = e.target;
+      if (t.closest && t.closest('[data-r-jaga]')) { e.preventDefault(); jaga(); return; }
+      var d = $('[data-jaga]');
+      if (d && !d.hidden && (t === d || (t.closest && t.closest('[data-jaga-x]')))) d.hidden = true;
+    });
+    document.addEventListener('keydown', function (e) { var d = $('[data-jaga]'); if (e.key === 'Escape' && d && !d.hidden) d.hidden = true; });
+    return { jaga: jaga };
   })();
 
   /* ------------------------------------------------------------ dialoog */

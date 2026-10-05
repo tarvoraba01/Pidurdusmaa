@@ -15,7 +15,7 @@ export default {
         if (/^\/(ru\/|en\/)?liiklusohutus/.test(path) && id.includes('=')) return;
         throw new Error(message);
       },
-      entries: ['*', '/ru/', '/en/', '/ru/rehvi-valimine/', '/en/rehvi-valimine/', '/ru/vordle-rehve/', '/en/vordle-rehve/', '/ru/liiklusohutus/', '/en/liiklusohutus/', '/ru/liiklusohutus/pimedas/', '/en/liiklusohutus/pimedas/', '/ru/liiklusohutus/pikivahe/', '/en/liiklusohutus/pikivahe/', '/ru/liiklusohutus/kurv/', '/en/liiklusohutus/kurv/', '/ru/autod/', '/ru/teadmine/rehvivahetus/']
+      entries: ['*', '/ru/', '/en/', '/ru/rehvi-valimine/', '/en/rehvi-valimine/', '/ru/vordle-rehve/', '/en/vordle-rehve/', '/ru/liiklusohutus/', '/en/liiklusohutus/', '/ru/liiklusohutus/pimedas/', '/en/liiklusohutus/pimedas/', '/ru/liiklusohutus/pikivahe/', '/en/liiklusohutus/pikivahe/', '/ru/liiklusohutus/kurv/', '/en/liiklusohutus/kurv/', '/ru/autod/', '/ru/teadmine/rehvivahetus/', '/ru/kontakt/', '/en/kontakt/', '/ru/kasutustingimused/', '/en/kasutustingimused/', '/ru/privaatsus/', '/en/privaatsus/']
     }
   }
 };

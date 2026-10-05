@@ -8,6 +8,7 @@
 	   /rehvi-valimine/ lehel). Vahetuse teeb app.js. */
 	import Icon from '$lib/Icon.svelte';
 	import Calc from '$lib/Calc.svelte';
+	import HeroPidurdus from '$lib/HeroPidurdus.svelte';
 	import Result from '$lib/Result.svelte';
 	import How from '$lib/How.svelte';
 	import { num, pct, VALIK_Q } from '$lib/util.js';
@@ -50,12 +51,12 @@
 					/></svg
 				>
 			</p>
-			<div class="hero-visual-m" aria-hidden="true">
-				<img src="/img/hero-car.jpg" alt="" fetchpriority="low" decoding="async" width="624" height="588" />
+			<div class="hero-visual-m hero-anim" aria-hidden="true">
+				<HeroPidurdus suund="paremale" />
 			</div>
 		</div>
-		<div class="hero-photo" aria-hidden="true">
-			<img src="/img/hero-car.jpg" alt="" fetchpriority="high" decoding="async" width="624" height="588" />
+		<div class="hero-photo hero-anim" aria-hidden="true">
+			<HeroPidurdus suund="ules" />
 		</div>
 		<Calc />
 	</div>

@@ -36,6 +36,9 @@
 					<span data-r-splittxt></span>
 				</p>
 				<p class="rs-who" data-r-whoshort>{t("Arvutan…")}</p>
+				<button type="button" class="rs-jaga" data-r-jaga
+					><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M8 7l4-4 4 4" /><path d="M7 10H5.5A1.5 1.5 0 0 0 4 11.5v8A1.5 1.5 0 0 0 5.5 21h13a1.5 1.5 0 0 0 1.5-1.5v-8a1.5 1.5 0 0 0-1.5-1.5H17" /></svg>{t('Jaga tulemust')}</button
+				>
 				<div class="r-price" data-r-price></div>
 				</div>
 			</div>
@@ -102,6 +105,22 @@
 		</div>
 	</div>
 </section>
+
+<!-- jagamise aken (arvutis; telefonis avaneb süsteemi jagamismenüü) -->
+<div class="jaga-leht" data-jaga hidden>
+	<div class="jaga-in" role="dialog" aria-modal="true" aria-labelledby="jaga-h">
+		<button type="button" class="jaga-x" data-jaga-x aria-label={t('Sulge')}>×</button>
+		<h2 id="jaga-h">{t('Jaga tulemust')}</h2>
+		<img data-jaga-img alt={t('Sinu tulemus pildina')} width="270" height="480" />
+		<div class="jaga-nupud">
+			<a class="btn yel" data-jaga-dl href="#top">{t('Laadi pilt alla')}</a>
+			<button type="button" class="btn" data-jaga-kopeeri>{t('Kopeeri link')}</button>
+			<a class="btn" data-jaga-fb href="#top" target="_blank" rel="noopener">Facebook</a>
+			<a class="btn" data-jaga-wa href="#top" target="_blank" rel="noopener">WhatsApp</a>
+		</div>
+		<p class="jaga-s">{t('Pilt sobib Instagrami ja Facebooki storysse. Link avab sõbrale sama arvutuse — ta saab sinna oma auto panna.')}</p>
+	</div>
+</div>
 
 <section class="trust" aria-label={t("Kust tulemused tulevad")}>
 	<div class="wrap">

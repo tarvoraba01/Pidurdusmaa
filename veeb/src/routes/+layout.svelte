@@ -7,7 +7,7 @@
 	import { version } from '$app/environment';
 	import Icon from '$lib/Icon.svelte';
 	import Nousolek from '$lib/Nousolek.svelte';
-	import { GA4_ID, GSC_VERIFY } from '$lib/seaded.js';
+	import { GA4_ID, GSC_VERIFY, ETTEVOTE, ETTEVOTE_REGKOOD, ETTEVOTE_AADRESS, ETTEVOTE_EPOST } from '$lib/seaded.js';
 	import '$lib/main.css';
 
 	let { children, data } = $props();
@@ -217,7 +217,7 @@
 			<div class="pm-alla">
 				<nav class="keeled pm-keeled" aria-label={t("Keel")}>{#each KEELED as k (k)}<a href={keeleLink(k)} onclick={(e) => onTolgitud(k, base) && (e.currentTarget.href = linkLang(k, base) + location.search)} hreflang={k} lang={k} aria-current={k === lang ? 'true' : undefined} data-sveltekit-reload>{KEEL_NIMI[k]}</a>{/each}</nav>
 				<button type="button" class="pm-kontakt pm-pwa" data-pwa-lisa hidden><Icon name="download" />{t("Lisa avaekraanile")}</button>
-				<a class="pm-kontakt" href="/kontakt/">{t("Kontakt")}</a>
+				<a class="pm-kontakt" href={L('/kontakt/')}>{t("Kontakt")}</a>
 			</div>
 		</div>
 	</div>
@@ -287,7 +287,7 @@
 					<li><a href={L('/teadmine/artiklid/')}>{t("Artiklid")}</a></li>
 					<li><a href="/meist/">{t("Meist")}</a></li>
 					<li><a href="/teadmine/partnerid/">{t("Partnerid")}</a></li>
-					<li><a href="/kontakt/">{t("Kontakt")}</a></li>
+					<li><a href={L('/kontakt/')}>{t("Kontakt")}</a></li>
 				</ul>
 			</div>
 			<div>
@@ -301,17 +301,21 @@
 		</div>
 		{/if}
 		<div class="ft-b">
-			<span>© {new Date().getFullYear()} Rabarvo OÜ · {#if neutraal}<a href={L('/')}>Pidurdusmaa.ee</a> {t("— rehvide pidurdusmaa sinu autoga")}{:else}Pidurdusmaa.ee{/if}</span>
+			<span>© {new Date().getFullYear()} {ETTEVOTE} · {#if neutraal}<a href={L('/')}>Pidurdusmaa.ee</a> {t("— rehvide pidurdusmaa sinu autoga")}{:else}Pidurdusmaa.ee{/if}</span>
 			<span
 				>{t("Tulemused on arvutatud hinnangud — mitte mõõtmised ega garantii.")}
-				<a href="/kasutustingimused/">{t("Kasutustingimused ja vastutus")}</a> ·
-				<a href="/privaatsus/">{t("Privaatsus")}</a>{#if GA4_ID}
+				<a href={L('/kasutustingimused/')}>{t("Kasutustingimused ja vastutus")}</a> ·
+				<a href={L('/privaatsus/')}>{t("Privaatsus")}</a> ·
+				<a href={L('/kontakt/')}>{t("Kontakt")}</a>{#if GA4_ID}
 					·
 					<button type="button" class="linkbtn" onclick={() => window.PM_KUPSISED?.()}
 						>{t("Küpsiste seaded")}</button
 					>{/if}</span
 			>
 		</div>
+		<p class="ft-firma">
+			{ETTEVOTE}{#if ETTEVOTE_REGKOOD} · {t('registrikood')} {ETTEVOTE_REGKOOD}{/if}{#if ETTEVOTE_AADRESS} · {ETTEVOTE_AADRESS}{/if}{#if ETTEVOTE_EPOST} · <a href="mailto:{ETTEVOTE_EPOST}">{ETTEVOTE_EPOST}</a>{/if}
+		</p>
 	</div>
 </footer>
 

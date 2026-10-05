@@ -38,3 +38,12 @@ export const TURNSTILE_SITEKEY = '0x4AAAAAAFCcchOaK4rnMWhJ';
  */
 export const AUTOR_NIMI = 'Tarvo Raba';
 export const ETTEVOTE = 'Rabarvo OÜ';
+
+/**
+ * Ettevõtte andmed (infoühiskonna teenuse seadus § 4: nimi, registrikood,
+ * aadress ja e-post peavad olema lehel kergesti leitavad). Näidatakse
+ * jaluses, kontaktilehel ja privaatsusteates. Tühi väli jäetakse välja.
+ */
+export const ETTEVOTE_REGKOOD = '';
+export const ETTEVOTE_AADRESS = '';
+export const ETTEVOTE_EPOST = 'rabarvo@hotmail.com';
