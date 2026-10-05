@@ -373,7 +373,7 @@ export default {
 "Laen…": "Loading…",
 "Võrdle kõrvuti →": "Compare side by side →",
 "Miks pidurdusmaa loeb": "Why braking distance matters",
-"Kiirus kasvab lineaarselt. Pidurdusmaa ei kasva.": "Speed grows linearly. Braking distance doesn't.",
+"Kiirus kasvab lineaarselt. Pidurdusmaa kasvab ruudus.": "Speed grows linearly. Braking distance grows with its square.",
 "Kahekordne kiirus tähendab rohkem kui kahekordset pidurdusmaad. Märjal teel on vahe veel suurem.": "Double the speed means more than double the braking distance. On a wet road the difference is even bigger.",
 "Peatumisteekond = reageerimine + pidurdus": "Stopping distance = reaction + braking",
 "Enne kui pidur hakkab tööle, sõidab auto reaktsiooniaja jooksul täiskiirusel edasi: 90 km/h juures 1 sekundiga 25 m. Märjal teel on peatumisteekond seega umbes": "Before the brakes start working, the car keeps going at full speed during your reaction time: at 90 km/h that is 25 m in 1 second. On a wet road the stopping distance is therefore about",

@@ -160,7 +160,7 @@
 				<div>
 					<div class="sec-h">
 						<span class="eyebrow" style="color:var(--muted)">{t("Miks pidurdusmaa loeb")}</span>
-						<h2 id="s1">{t("Kiirus kasvab lineaarselt. Pidurdusmaa ei kasva.")}</h2>
+						<h2 id="s1">{t("Kiirus kasvab lineaarselt. Pidurdusmaa kasvab ruudus.")}</h2>
 						<p>
 							{t("Kahekordne kiirus tähendab rohkem kui kahekordset pidurdusmaad. Märjal teel on vahe veel suurem.")}
 						</p>

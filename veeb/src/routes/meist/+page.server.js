@@ -1,4 +1,5 @@
 import { core, models } from '$lib/server/andmed.js';
+import { autod } from '$lib/server/autod.js';
 
 /** /meist/ — kes teeb, kust andmed tulevad, kuidas me sõltumatuks jääme. */
 export function load() {
@@ -11,6 +12,7 @@ export function load() {
 		mudeleid: Object.keys(models()).length,
 		mootusid: c.eprelSizes.length,
 		testitud: c.tyres.length,
-		autosid: c.vehicles.length
+		/* sama arv ja mõiste mis /autod/ lehel (üks leht põlvkonna kohta) */
+		autosid: autod().polved.size
 	};
 }

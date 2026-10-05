@@ -44,6 +44,6 @@ export const ETTEVOTE = 'Rabarvo OÜ';
  * aadress ja e-post peavad olema lehel kergesti leitavad). Näidatakse
  * jaluses, kontaktilehel ja privaatsusteates. Tühi väli jäetakse välja.
  */
-export const ETTEVOTE_REGKOOD = '';
+export const ETTEVOTE_REGKOOD = '16947078';
 export const ETTEVOTE_AADRESS = '';
 export const ETTEVOTE_EPOST = 'rabarvo@hotmail.com';
