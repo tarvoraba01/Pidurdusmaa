@@ -1181,7 +1181,7 @@
         var mt = M.t, measuredM = mt && (ck === 'wet' || (ck === 'dry' ? mt.muDry != null : ck === 'snow' ? mt.muSnow != null : mt.muIce != null));
         var baseM = measuredM ? onCar(mt, S.size) : (M.r ? eprelTyre(M.r) : Object.assign({}, mt, { muDry: null, muSnow: null, muIce: null }));
         var rm = calc(kulunud(baseM, mm), veh, cond);
-        rows.push({ id: 'o', kind: 'own', name: M.nimi, d: rm.distanceM, r: rm, own: true, hooaeg: M.hooaeg, mm: mm,
+        rows.push({ id: 'o', kind: 'own', spec: S.minu && S.minu.e ? 'o:e:' + S.minu.e : 'o:t:' + minuT, name: M.nimi, d: rm.distanceM, r: rm, own: true, hooaeg: M.hooaeg, mm: mm,
           dUus: mm ? calc(baseM, veh, cond).distanceM : null,
           pids: M.r ? [M.r.slug + '@' + S.size] : [], label: M.r ? M.r.g : null, t: measuredM ? mt : null,
           est: !measuredM && ck !== 'wet',
@@ -1193,7 +1193,7 @@
         var gcat = { summer: 'SUMMER_TOURING', all: 'ALL_SEASON', winter: 'WINTER_NORDIC', naast: 'WINTER_STUDDED' }[season] || 'SUMMER_TOURING';
         /* tüüpiline = sinu mõõdu selle hooaja märgiste mediaanklass (märjal) */
         var gg = inSeasonG(eprelRows, sea), gt = classTyre(gg, gcat, S.size), gr = calc(kulunud(gt, mm), veh, cond);
-        rows.push({ id: 'o', kind: 'own', gen: true, name: _t('Sinu rehvid praegu'), d: gr.distanceM, r: gr, own: true, mm: mm,
+        rows.push({ id: 'o', kind: 'own', gen: true, spec: 'g:' + gcat + gg, name: _t('Sinu rehvid praegu'), d: gr.distanceM, r: gr, own: true, mm: mm,
           hooaeg: season, dUus: calc(gt, veh, cond).distanceM, pids: [], label: null, t: null, est: true,
           sub: _t('Tüüpiline: ') + tyypSilt(gcat) + (ck === 'wet' ? ', ' + _t('märgise klass ') + gg : '') + _t(', muster ') + mmT(mm) + _t(' mm') + '. ' + _t('Täpsemaks vali oma rehv.') });
       }
@@ -1643,7 +1643,10 @@
       /* jagamiseks: mis on praegu ekraanil */
       var jReas = [cur].concat(rows.filter(function (x) { return x !== cur; }));
       var jParim = rows[0], jHalvim = rows[rows.length - 1], jOma = rows.filter(function (x) { return x.kind === 'own'; })[0];
+      /* serveri jagamislehe (/jaga/) jaoks: rida, mille server arvutab uuesti */
+      var jSpec = cur.kind === 'class' && vm ? 'e:' + vm.slug : cur.spec || cur.id;
       jagaInfo = {
+        spec: jSpec, ab: absOn(S.veh) && out.veh && out.veh.absOpt ? 1 : 0, rt: rmode === 'stop' ? rt : 0,
         d: r.distanceM + react, stop: rmode === 'stop', speed: S.speed, cond: c.label, ck: ck,
         veh: out.vehDefault ? 'VW Golf 8' : out.veh.name, vehKey: out.vehDefault ? null : S.veh, size: S.size,
         tyre: whoShort, mm: S.muster || null,
@@ -1757,7 +1760,17 @@
      avab sama arvutuse. Telefonis avaneb jagamismenüü (Instagram, Facebook,
      WhatsApp …), arvutis aken pildi allalaadimise ja linkidega. */
   var Jaga = (function () {
+    /* jagatav link: serveri tulemuse leht (number arvutatakse seal uuesti, eelvaates on selle pilt) */
     function link(j) {
+      if (j.spec && /^(t|c|k|e|o|g):/.test(j.spec)) {
+        var p = [];
+        if (j.vehKey) p.push('a=' + encodeURIComponent(j.vehKey));
+        if (j.ab) p.push('ab=1');
+        p.push('m=' + encodeURIComponent(j.size), 'v=' + j.speed, 'o=' + j.ck, 'r=' + encodeURIComponent(j.spec));
+        if (j.mm && /^[og]:/.test(j.spec)) p.push('mm=' + j.mm);
+        if (j.rt) p.push('rt=' + j.rt);
+        return location.origin + LHOME + 'jaga/?' + p.join('&');
+      }
       var q = [];
       if (j.vehKey) q.push('auto=' + encodeURIComponent(j.vehKey));
       q.push('moot=' + encodeURIComponent(j.size), 'kiirus=' + j.speed, 'olud=' + j.ck, 'arvuta=1');

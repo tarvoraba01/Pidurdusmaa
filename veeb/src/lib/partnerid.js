@@ -32,4 +32,8 @@ export function awin(mid, url) {
 	return 'https://www.awin1.com/cread.php?awinmid=' + mid + '&awinaffid=' + AWIN_ID + '&ued=' + encodeURIComponent(url);
 }
 
-export const PARTNERID = [];
+export const PARTNERID = [
+	{ nimi: 'Rehvivahetus.ee', link: utm('https://www.rehvivahetus.ee/'), logo: 'rehvivahetus.svg' }
+	/* Dignicy: lisandub, kui logo (static/img/partnerid/dignicy.svg) on kaustas */
+	// { nimi: 'Dignicy', link: utm('https://dignicy.ee/'), logo: 'dignicy.svg' }
+];

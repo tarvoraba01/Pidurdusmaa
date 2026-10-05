@@ -26,9 +26,10 @@ const TAPSED = {
 		'/teadmine/artiklid/',
 		'/teadmine/pidurdusteekond-ja-peatumisteekond/',
 		'/teadmine/rehvivahetus/',
-		...ARTIKLID.filter((a) => a.ru).map((a) => a.ruTee || artikliTee(a))
+		...ARTIKLID.filter((a) => a.ru).map((a) => a.ruTee || artikliTee(a)),
+		'/jaga/' /* jagatud tulemus (noindex, serveris) */
 	]),
-	en: new Set()
+	en: new Set(['/jaga/'])
 };
 
 /** Kas see (keeleta) tee on antud keeles olemas? */

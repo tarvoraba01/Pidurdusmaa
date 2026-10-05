@@ -1,21 +1,22 @@
 <script>
 	/* Avalehe hero: kolm autot pidurdavad samal hetkel 90 km/h pealt —
 	   kuival, märjal ja lumel. Näitab ühe pilguga, mida leht teeb.
-	   Numbrid on sama mudeli tulemused (VW Golf 8, uued rehvid: kuival ja
-	   märjal suverehv, lumel Põhjamaade talverehv; vt engine.js). Arvutis jookseb tee alt üles, telefonis vasakult paremale. */
+	   Numbrid arvutab server ehitusel sama mudeliga (routes/+page.server.js
+	   heroNumbrid): VW Golf 8, 205/55 R16, uus tüüpiline rehv — kuival ja
+	   märjal suverehv, lumel Põhjamaade talverehv. Käsitsi numbreid ei ole. Arvutis jookseb tee alt üles, telefonis vasakult paremale. */
 	import { onMount } from 'svelte';
 	import { useT, useLang } from '$lib/i18n.js';
 	const t = useT();
 	const keel = useLang();
 	const LOC = { et: 'et-EE', ru: 'ru-RU', en: 'en-GB' }[keel.lang] || 'et-EE';
 
-	let { suund = 'ules' } = $props(); // 'ules' (arvuti) | 'paremale' (telefon)
+	let { suund = 'ules', d } = $props(); // suund: 'ules' (arvuti) | 'paremale' (telefon); d = { kuiv, marg, lumi } m
 
 	const V = 90 / 3.6;
 	const rajad = [
-		{ k: 'kuiv', nimi: t('Kuiv'), d: 29.8 },
-		{ k: 'marg', nimi: t('Märg'), d: 43.9 },
-		{ k: 'lumi', nimi: t('Lumi'), d: 83.9 }
+		{ k: 'kuiv', nimi: t('Kuiv'), d: d.kuiv },
+		{ k: 'marg', nimi: t('Märg'), d: d.marg },
+		{ k: 'lumi', nimi: t('Lumi'), d: d.lumi }
 	];
 	const EEL = 0.7; // s enne pidurdust (auto sõidab 90 km/h)
 	const KORD = 1.35; // kiirendus, et lumi ei veniks

@@ -52,11 +52,11 @@
 				>
 			</p>
 			<div class="hero-visual-m hero-anim" aria-hidden="true">
-				<HeroPidurdus suund="paremale" />
+				<HeroPidurdus suund="paremale" d={data.hero} />
 			</div>
 		</div>
 		<div class="hero-photo hero-anim" aria-hidden="true">
-			<HeroPidurdus suund="ules" />
+			<HeroPidurdus suund="ules" d={data.hero} />
 		</div>
 		<Calc />
 	</div>

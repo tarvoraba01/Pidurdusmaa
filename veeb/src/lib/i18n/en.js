@@ -1120,5 +1120,21 @@ export default {
 "Vajuta üleval aadressiriba paremas servas <b>Jaga</b>-nuppu": "Tap the <b>Share</b> button at the right of the address bar at the top",
 "Vajuta all paremal <b>☰</b> ja siis <b>Jaga</b>": "Tap <b>☰</b> in the bottom right, then <b>Share</b>",
 "Vajuta all paremal <b>⋯</b> ja siis <b>Jaga</b>": "Tap <b>⋯</b> in the bottom right, then <b>Share</b>",
-"Vajuta all keskel <b>Jaga</b>-nuppu (ruut noolega)": "Tap the <b>Share</b> button at the bottom centre (square with an arrow)"
+"Vajuta all keskel <b>Jaga</b>-nuppu (ruut noolega)": "Tap the <b>Share</b> button at the bottom centre (square with an arrow)",
+"kategooria keskmine": "category average",
+"muster": "tread",
+"Märg asfalt": "Wet asphalt",
+"Kuiv asfalt": "Dry asphalt",
+"Arvuta oma auto ja rehvidega → pidurdusmaa.ee": "Calculate for your own car and tyres → pidurdusmaa.ee",
+"Jagatud tulemus": "Shared result",
+"Arvuta oma auto ja rehvidega — tasuta, ilma registreerimata.": "Calculate for your own car and tyres — free, no sign-up.",
+"Arvuta oma auto pidurdusmaa.": "Calculate your car’s braking distance.",
+"pidurdusteekond": "braking distance",
+"Mudeli hinnang, vahemik": "Model estimate, range",
+"Päris elus võib pidurdusmaa olla pikem.": "In real life the braking distance may be longer.",
+"Arvuta oma auto ja rehvidega →": "Calculate for your car and tyres →",
+"Kuidas arvutame": "How we calculate",
+"Seda tulemust ei saa näidata": "This result can’t be shown",
+"Link on vigane või andmed on vahepeal muutunud. Arvuta uuesti — see võtab mõne sekundi.": "The link is broken or the data has changed since. Calculate again — it takes a few seconds.",
+"Arvuta pidurdusmaa →": "Calculate braking distance →"
 };

@@ -26,14 +26,33 @@ let _loendur = 0;
 function koristaVahel() {
 	if (_gc && ++_loendur % 50 === 0) _gc();
 }
-import { readdirSync } from 'node:fs';
+import { readdirSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
 
-const FONDID = join(process.cwd(), 'src/lib/server/og-fondid');
+/* ehitusel src-kaustast; töötavas serveris (Docker: ainult build/) postbuild'i
+   koopiast build/og-fondid (vt package.json) — jagamispildid tehakse seal käigu pealt */
+const FONDID = [join(process.cwd(), 'src/lib/server/og-fondid'), join(process.cwd(), 'build/og-fondid')].find((d) => existsSync(d)) || join(process.cwd(), 'src/lib/server/og-fondid');
 let _fondid = null;
 function fondid() {
 	if (!_fondid) _fondid = readdirSync(FONDID).filter((f) => f.endsWith('.ttf')).map((f) => join(FONDID, f));
 	return _fondid;
+}
+/** Valmis SVG → PNG samade fontidega (jagamispilt /jaga/pilt.png). */
+export function svgPng(svg, laius = 1200) {
+	koristaVahel();
+	return new Resvg(svg, { font: { fontFiles: fondid(), loadSystemFonts: false, defaultFontFamily: 'Inter' }, fitTo: { mode: 'width', value: laius } }).render().asPng();
+}
+export { esc as svgEsc };
+/** Teksti tegelik laius pikslites (resvg mõõdab samade fontidega); vea korral hinnang. */
+export function mootLaius(tekst, pere, paksus, px) {
+	try {
+		const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="2000" height="${px * 2}"><text x="0" y="${px * 1.5}" font-family="${pere}" font-weight="${paksus}" font-size="${px}" fill="#000">${esc(tekst)}</text></svg>`;
+		const bb = new Resvg(svg, { font: { fontFiles: fondid(), loadSystemFonts: false, defaultFontFamily: 'Inter' } }).getBBox();
+		if (bb && bb.width > 0) return bb.x + bb.width;
+	} catch {
+		/* hinnang allpool */
+	}
+	return String(tekst).length * px * 0.42;
 }
 
 const W = 1200;

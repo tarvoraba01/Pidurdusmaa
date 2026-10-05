@@ -3,16 +3,14 @@
 	import Leht from '$lib/Leht.svelte';
 	import { PARTNERID } from '$lib/partnerid.js';
 	const esc = (t) => String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
-	/* ruudukesed: logo (kui on) + nimi + lühike kirjeldus; kogu kaart on link */
+	/* ainult logod: kogu ruut on klikitav link partneri lehele (alt = nimi) */
 	const nimekiri = PARTNERID.length
 		? '<div class="partn">' +
 			PARTNERID.map(
 				(p) =>
-					`<a class="partn-k" href="${esc(p.link)}" rel="nofollow sponsored noopener" target="_blank" data-partner="${esc(p.nimi)}">` +
-					`<span class="partn-l">${p.logo ? `<img src="/img/partnerid/${esc(p.logo)}" alt="${esc(p.nimi)}" loading="lazy">` : `<b>${esc(p.nimi)}</b>`}</span>` +
-					`<span class="partn-n">${esc(p.nimi)}</span>` +
-					(p.kirjeldus ? `<span class="partn-d">${esc(p.kirjeldus)}</span>` : '') +
-					`<span class="partn-g">Ava pood →</span></a>`
+					`<a class="partn-k" href="${esc(p.link)}" rel="sponsored noopener" target="_blank" data-partner="${esc(p.nimi)}" aria-label="${esc(p.nimi)}">` +
+					(p.logo ? `<img src="/img/partnerid/${esc(p.logo)}" alt="${esc(p.nimi)}" loading="lazy">` : `<b>${esc(p.nimi)}</b>`) +
+					`</a>`
 			).join('') +
 			'</div>'
 		: '<p>Hetkel partnereid ei ole — lehel ei ole ühtegi tasulist linki.</p>';
