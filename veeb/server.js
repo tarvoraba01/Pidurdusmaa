@@ -134,6 +134,8 @@ const server = http.createServer((req, res) => {
 	const tee0 = (req.url || '').split('?')[0];
 	if (tee0 === '/service-worker.js' || tee0 === '/manifest.webmanifest') res.setHeader('Cache-Control', 'no-cache');
 	if (tee0 === '/manifest.webmanifest') res.setHeader('Content-Type', 'application/manifest+json; charset=utf-8');
+	/* llms.txt on eesti tekst — ilma charset'ita loeks mõni AI-robot täpitähed valesti */
+	if (tee0 === '/llms.txt') res.setHeader('Content-Type', 'text/plain; charset=utf-8');
 	handler(req, res, () => {
 		res.statusCode = 404;
 		res.end('Not found');
