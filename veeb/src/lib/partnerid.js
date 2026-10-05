@@ -33,7 +33,6 @@ export function awin(mid, url) {
 }
 
 export const PARTNERID = [
-	{ nimi: 'Rehvivahetus.ee', link: utm('https://www.rehvivahetus.ee/'), logo: 'rehvivahetus.svg' }
-	/* Dignicy: lisandub, kui logo (static/img/partnerid/dignicy.svg) on kaustas */
-	// { nimi: 'Dignicy', link: utm('https://dignicy.ee/'), logo: 'dignicy.svg' }
+	{ nimi: 'Rehvivahetus.ee', link: utm('https://www.rehvivahetus.ee/'), logo: 'rehvivahetus.svg' },
+	{ nimi: 'Dignicy', link: utm('https://dignicy.ee/'), logo: 'dignicy.svg' }
 ];

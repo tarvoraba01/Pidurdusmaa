@@ -980,11 +980,11 @@ textarea.lin{resize:vertical;min-height:140px}
 .prose p.aff-legal{margin-top:var(--sp-8);font-size:13px;color:var(--muted)}
 
 /* partnerite ruudukesed */
-.partn{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(220px,100%),1fr));gap:var(--sp-3);margin:var(--sp-4) 0}
-.prose a.partn-k{display:flex;align-items:center;justify-content:center;height:112px;padding:var(--sp-4) var(--sp-5);border:1px solid var(--line);border-radius:var(--r);background:#fff;text-decoration:none;color:var(--ink);transition:border-color .15s,box-shadow .15s,transform .15s}
+.partn{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(150px,100%),1fr));gap:var(--sp-3);margin:var(--sp-4) 0}
+.prose a.partn-k{display:flex;align-items:center;justify-content:center;height:112px;padding:var(--sp-4);border:1px solid var(--line);border-radius:var(--r);background:#fff;text-decoration:none;color:var(--ink);transition:border-color .15s,box-shadow .15s,transform .15s}
 .prose a.partn-k:hover{border-color:#c5cad3;box-shadow:var(--shadow);transform:translateY(-1px)}
 .prose a.partn-k:focus-visible{outline:2px solid var(--yellow);outline-offset:2px}
-.partn-k img{max-height:56px;max-width:100%;width:auto;object-fit:contain;margin:0;border-radius:0}
+.partn-k img{max-height:52px;max-width:min(100%,190px);width:auto;object-fit:contain;margin:0;border-radius:0}
 .partn-k b{font-size:18px}
 
 /* ABS-i hoiatustuli variandi kõrval: kustunud = ABS-i pole, põleb = ABS olemas */
