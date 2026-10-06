@@ -30,6 +30,7 @@
 			<li><a href={keel.L('/liiklusohutus/pimedas/')}>{t('Nähtavus pimedas')}</a></li>
 			<li><a href={keel.L('/liiklusohutus/pikivahe/')}>{t('Pikivahe kalkulaator')}</a></li>
 			<li><a href={keel.L('/liiklusohutus/kurv/')}>{t('Pidurdamine kurvis')}</a></li>
+			{#if keel.lang !== 'en'}<li><a href={keel.L('/teadmine/artiklid/pimedas-helkur/')}>{t('Pidurdusmaa pimedas: miks helkur päästab elu')}</a></li>{/if}
 		</ul>
 	</div>
 </LiiklusLeht>

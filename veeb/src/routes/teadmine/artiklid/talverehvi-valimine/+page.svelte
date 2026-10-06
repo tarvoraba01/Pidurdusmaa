@@ -73,6 +73,7 @@ ${tabel(
 	)}
 <p>Naast lõikab jäässe ja sulav jää ei mõjuta teda nii palju kui kummi. Seepärast on naastrehvi eelis suurim just nulli ümber, mis on Eesti talvel sage. Väga külmal kõval jääl naast enam hästi sisse ei lähe ja lamell pidurdab lühemalt — seda mõõtis Za Rulem samade rehvidega neljal temperatuuril.</p>
 <p>Lumel on nad praktiliselt võrdsed (naast 25,4 m, lamell 26,2 m). Kuival asfaldil on lamell veidi parem (90 km/h pealt 39,7 m vs 40,6 m) ning vaiksem. <strong>Naastrehv</strong> sobib, kui sõidad palju maanteel ja kõrvalteedel, kus jää püsib. <strong>Lamell</strong> sobib, kui sõidad peamiselt linnas ja soolatud teedel.</p>
+<p>Testides mõõdetud pidurdusmaad jääl, märjal ja kuival: <a href="/teadmine/artiklid/naastrehv-voi-lamell/">Naastrehv või lamell?</a></p>
 
 <h2>Aastaringne rehv</h2>
 <p>Lumel on aastaringne rehv hea (25,2 m), aga jääl pidurdab ta 60,1 meetriga — umbes sama halvasti kui Kesk-Euroopa talverehv ja üle poole pikemalt kui Põhjamaade oma. Eesti talveks, kus on jääd, see hea valik ei ole.</p>
@@ -153,6 +154,7 @@ ${tabel(
 	)}
 <p>Шип врезается в лёд, и тающий лёд влияет на него не так сильно, как на резину. Поэтому преимущество шипованной шины больше всего именно около нуля, а это в эстонскую зиму частое явление. На очень холодном твёрдом льду шип уже плохо входит в лёд, и «липучка» тормозит короче — это измерил Za Rulem на одних и тех же шинах при четырёх температурах.</p>
 <p>На снегу они практически равны (шипы 25,4 м, «липучка» 26,2 м). На сухом асфальте «липучка» немного лучше (с 90 км/ч 39,7 м против 40,6 м) и тише. <strong>Шипованная шина</strong> подходит, если вы много ездите по трассе и второстепенным дорогам, где держится лёд. <strong>«Липучка»</strong> подходит, если вы ездите в основном по городу и по дорогам, посыпанным солью.</p>
+<p>Измеренный в тестах тормозной путь на льду, мокром и сухом асфальте: <a href="/ru/teadmine/artiklid/naastrehv-voi-lamell/">Шипы или «липучка»?</a></p>
 
 <h2>Всесезонная шина</h2>
 <p>На снегу всесезонная шина хороша (25,2 м), но на льду тормозит за 60,1 метра — примерно так же плохо, как европейская зимняя шина, и более чем в полтора раза длиннее, чем северная. Для эстонской зимы со льдом это не лучший выбор.</p>

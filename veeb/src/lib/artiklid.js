@@ -4,6 +4,54 @@
  * leht ja Teadmine leht loevad nimekirja siit. */
 export const ARTIKLID = [
 	{
+		slug: 'pimedas-helkur',
+		title: 'Pidurdusmaa pimedas: miks helkur päästab elu',
+		desc: 'Tumedas riietuses jalakäijat näeb lähitulede valgel 30 m, helkuriga 130–150 m kauguselt. Märjal teel jõuab 30 m peale peatuda vaid kuni 53 km/h pealt.',
+		kuupaev: '2026-10-07',
+		silt: 'Liiklusohutus',
+		ru: {
+			title: 'Тормозной путь в темноте: зачем нужен световозвращатель',
+			desc: 'Пешехода в тёмной одежде при ближнем свете видно с 30 м, со световозвращателем — со 130–150 м. На мокрой дороге на 30 м можно остановиться только с 53 км/ч.',
+			silt: 'Безопасность'
+		}
+	},
+	{
+		slug: 'naastrehv-voi-lamell',
+		title: 'Naastrehv või lamell? Pidurdusmaad jääl, lumel ja asfaldil',
+		desc: 'Jääl peatus naastrehv testis 50 km/h pealt keskmiselt 36,9 m, lamell 49,4 m. Märjal ja kuival on vahe alla 2 m. Kõige suurem on naastu eelis jääl nulli lähedal.',
+		kuupaev: '2026-10-07',
+		silt: 'Talverehvid',
+		ru: {
+			title: 'Шипы или «липучка»: тормозной путь на льду, снегу и асфальте',
+			desc: 'На льду шипованная шина в тесте остановилась с 50 км/ч в среднем за 36,9 м, «липучка» — за 49,4 м. На мокром и сухом асфальте разница меньше 2 м.',
+			silt: 'Зимние шины'
+		}
+	},
+	{
+		slug: 'linnas-50-kmh',
+		title: 'Linnas 50 km/h: kui palju on vahet 40 ja 60 km/h vahel?',
+		desc: 'Peatumisteekond 50 km/h pealt on kuival 23,5 m, 60 km/h pealt 30,3 m. Seal, kus 50 km/h auto seisab, sõidab 60 km/h auto veel 45 km/h.',
+		kuupaev: '2026-10-07',
+		silt: 'Liiklusohutus',
+		ru: {
+			title: '50 км/ч в городе: какая разница между 40 и 60 км/ч?',
+			desc: 'Остановочный путь с 50 км/ч на сухой дороге 23,5 м, с 60 км/ч — 30,3 м. Там, где машина с 50 км/ч уже стоит, машина с 60 км/ч едет ещё 45 км/ч.',
+			silt: 'Безопасность'
+		}
+	},
+	{
+		slug: 'koorem-ja-haagis',
+		title: 'Pidurdusmaa koormaga ja haagisega: kui palju see pikeneb?',
+		desc: 'Täis auto pidurdab märjal alla meetri kauem. 750 kg pidurita haagisega on pidurdusmaa poole pikem: 35,0 m asemel 52,4 m. Piduriga haagis peatub lühemalt.',
+		kuupaev: '2026-10-07',
+		silt: 'Liiklusohutus',
+		ru: {
+			title: 'Тормозной путь с грузом и прицепом: насколько он удлиняется?',
+			desc: 'Груз в машине удлиняет тормозной путь меньше чем на метр. С прицепом 750 кг без тормозов он в полтора раза длиннее: 52,4 м вместо 35,0 м.',
+			silt: 'Безопасность'
+		}
+	},
+	{
 		slug: 'rehvirohk-ja-pidurdus',
 		title: 'Rehvirõhk ja pidurdus: mida teeb liiga madal rõhk?',
 		desc: 'Tavaliselt lisab liiga madal rõhk märjal mõne meetri. Sügavas vees langeb akvaplaneerimise kiirus 129 km/h pealt 101 km/h peale. Numbrid, sügisene rõhulangus ja kuidas kontrollida.',
@@ -35,7 +83,7 @@ export const ARTIKLID = [
 		silt: 'Talverehvid',
 		ru: {
 			title: 'Когда менять шины на зимние в Эстонии? Сроки 2026/2027 и правила',
-			desc: 'Шипованные шины разрешены с 15 октября, зимние обязательны с 1 декабря. Все сроки, правило 3 мм и тормозной путь: когда пора менять.',
+			desc: 'Шипы разрешены с 15 октября, зимние шины обязательны с 1 декабря. На первом снегу с 50 км/ч летняя шина останавливается за 61 м, зимняя — за 26 м.',
 			silt: 'Зимние шины'
 		}
 	},
