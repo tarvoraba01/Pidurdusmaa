@@ -166,7 +166,7 @@
 		jeep_wrangler_jk: `<circle cx="5" cy="11.5" r="3.6" fill="currentColor"/><circle cx="5" cy="11.5" r="1.5" ${AKEN}/><path d="M7.5 18.5V9.5Q7.5 7.8 9 7.8H10V3.2Q10 2 11.2 2H40.5L44.6 7.8H55Q58 7.8 58 10.6V18.5Z" fill="currentColor"/><path d="M12.2 3.8H24.5V7.6H12.2Z M26.5 3.8H39.5L42.2 7.6H26.5Z" ${AKEN}/><path d="M10 18.8Q11 13.6 17.5 13.6Q24 13.6 25 18.8M40 18.8Q41 13.6 47.5 13.6Q54 13.6 55 18.8" stroke="currentColor" stroke-width="2.4" fill="none"/>` + RATAS(17.5, 5.4) + RATAS(47.5, 5.4),
 		vw_transporter: `<path d="M3 21V4.5Q3 2 5.5 2H46Q48.5 2 50 4L56 10.8Q60.5 11.8 61 15V21Z" fill="currentColor"/><path d="M43 4H46Q47.5 4 48.3 5.2L53 10.8H43Z" ${AKEN}/><path d="M38.5 3.5V19" stroke="var(--paper-2)" stroke-width="0.8" opacity=".5"/>` + RATAS(13) + RATAS(50.5)
 	};
-	let KR = $state({ kiirus: 80, pind: 'marg', kat: 'SUMMER_TOURING', esi: 8, taga: 2, auto: 'vw_passat_b8', abs: true });
+	let KR = $state({ kiirus: 80, pind: 'marg', kat: 'SUMMER_TOURING', esi: 8, taga: 2, auto: 'vw_passat_b8', abs: true, laad: 75 });
 	/* Pikivahe ($lib/pikivahe.js): eesolev auto pidurdab järsult või peatub kohe */
 	let ees = $state('pidurdab');
 	let pvSek = $state(2);
@@ -240,6 +240,11 @@
 			.map((v) => [v.key, v.yearLabel + (n[v.yearLabel] > 1 && v.variant && v.variant !== '—' ? ' · ' + v.variant.replace(' hj (', ' ' + t('hj') + ' (') : '')]);
 	});
 
+	/* koormuse liuguri ülempiir: kaubikul (ehitusmaterjal, kolimine) suurem */
+	function laadMax(s) {
+		const v = core && core.byKey[s.mk ? s.veh : s.tyyp];
+		return v && v.body === 'KAUBIK' ? 1200 : v && v.body === 'MAASTUR' ? 800 : 600;
+	}
 	function auto(s) {
 		if (!core) return null;
 		let v = core.byKey[s.mk ? s.veh : s.tyyp];
@@ -624,7 +629,7 @@
 			treadDepthMm: mm, treadDepthNewMm: 8, ageYears: 1, pressureBar: null, loadCapacityKg: null,
 			studded: KR.kat === 'WINTER_STUDDED', size: veh.oemSize, gSource: 'label'
 		});
-		const cond = { speedKmh: kmh, texture: 'NORMAL', payloadKg: 75, gradientPct: 0, reactionTimeS: 1, brakeCondition: 1, iceRoad: true, ...KR_PIND.find((x) => x[0] === pind)[2] };
+		const cond = { speedKmh: kmh, texture: 'NORMAL', payloadKg: +KR.laad || 75, gradientPct: 0, reactionTimeS: 1, brakeCondition: 1, iceRoad: true, ...KR_PIND.find((x) => x[0] === pind)[2] };
 		return { veh, cond, tyre, f0: esiOsa(veh) };
 	}
 	function krSoit(pind, kmh, esi, taga, rada = false, abs = KR.abs) {
@@ -678,7 +683,7 @@
 	let kaartVoti = '';
 	$effect(() => {
 		if (!core || !P) return;
-		const voti = [kurv, KR.kat, KR.esi, KR.taga, KR.auto, KR.abs].join('|');
+		const voti = [kurv, KR.kat, KR.esi, KR.taga, KR.auto, KR.abs, KR.laad].join('|');
 		kaartVoti = voti;
 		/* arvutame väikeste tükkidena (≤ ~12 ms korraga), et telefonis leht ei hanguks */
 		const read = Object.fromEntries(KR_PIND.map(([p]) => [p, Array(KR_KIIRUSED.length).fill(null)]));
@@ -801,6 +806,8 @@
 					{@const v = core.byKey[KR.auto]}
 					<p class="lo-kr-vihje"><b>{v.make} {v.model} {v.yearLabel}</b> · {v.kerbMassKg} {t('kg')} · {t('rehvid')} {v.oemSize}</p>
 				{/if}
+				<label class="lo-row" for="kr-laad"><span>{t("Koormus (juht, reisijad, pagas)")}</span><b class="lo-val">{KR.laad} {t("kg")}</b></label>
+				<input id="kr-laad" class="slider" type="range" min="75" max={laadMax({ tyyp: KR.auto })} step="25" bind:value={KR.laad} style="--p:{((Math.min(KR.laad, laadMax({ tyyp: KR.auto })) - 75) / (laadMax({ tyyp: KR.auto }) - 75)) * 100}%" />
 			</fieldset>
 			<fieldset>
 				<legend>{t('ABS')}</legend>
@@ -969,7 +976,7 @@
 					<span>{t("Koormus (juht, reisijad, pagas)")}</span>
 					<b class="lo-val">{S.laad} {t("kg")}</b>
 				</label>
-				<input id="lo-laad" class="slider" type="range" min="75" max="600" step="25" bind:value={S.laad} style="--p:{((S.laad - 75) / 525) * 100}%" />
+				<input id="lo-laad" class="slider" type="range" min="75" max={laadMax(S)} step="25" bind:value={S.laad} style="--p:{((Math.min(S.laad, laadMax(S)) - 75) / (laadMax(S) - 75)) * 100}%" />
 				<label class="lo-row" for="lo-pidur"><span>{t("Pidurite seisukord")}</span></label>
 				<select id="lo-pidur" class="lo-sel" bind:value={S.pidur}>
 					{#each PIDUR as [k, n]}<option value={k}>{autoNimi(keel.lang, n)}</option>{/each}
