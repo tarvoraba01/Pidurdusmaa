@@ -1,4 +1,5 @@
 import { error } from '@sveltejs/kit';
+import { arvuta } from '$lib/server/jaga.js';
 import {
 	core,
 	eprelSize,
@@ -157,6 +158,8 @@ function rehvLeht(t) {
 		? { ...t.tested.aqua, nimi: (source(t.tested.aqua.src) || {}).nimi || '' }
 		: null;
 
+	const vastus = vastusLause(t, sizes);
+
 	const vs = vsLinksFor(t.slug)
 		.map((p) => {
 			const other = tyrePage(p[0] === t.slug ? p[1] : p[0]);
@@ -203,7 +206,39 @@ function rehvLeht(t) {
 			db: vahemik(sizes.map((z) => z.db), (a, b) => a - b),
 			n: new Set(sizes.map((z) => z.m)).size
 		},
-		ogPilt: ix.sitemap
+		ogPilt: ix.sitemap,
+		vastus
+	};
+}
+
+/* GEO: üks tsiteeritav fakt rehvilehe päisesse.
+   „<Rehv> <mõõt>: pidurdusmaa märjal 90 km/h pealt umbes X m (<auto> …)“
+   Mõõt = kõige levinum tehase põhimõõt, auto = uusim selle mõõduga auto. Arvutus on
+   SAMA mis kalkulaatoris ja jagamislehel (jaga.js arvuta): testitud rehvil
+   testi järgi, muidu EL-i märgise klassi järgi. */
+function vastusLause(t, sizes) {
+	if (!sizes.length) return null;
+	/* mõõt, mis on kõige rohkemate autode tehase PÕHImõõt; auto = uusim neist.
+	   Kui ühelgi autol pole ükski mõõt põhimõõt, võta lisamõõduga auto.
+	   Ilma päris autota lauset ei tehta — ebarealistlik kombinatsioon
+	   (nt 275/35 R21 Golfil) annaks eksitava numbri. */
+	let parim = null, auto = null, parimN = -1;
+	for (const z of sizes) {
+		const autod = autodMoodus(z.m);
+		const pohi = autod.filter((c) => c.pohi);
+		const n = pohi.length * 1000 + autod.length;
+		if (autod.length && n > parimN) { parim = z; auto = (pohi[0] || autod[0]); parimN = n; }
+	}
+	if (!parim || !auto || !auto.key) return null;
+	const x = arvuta({ a: auto.key, ab: false, m: parim.m, o: 'wet', v: 90, r: 'e:' + t.slug, mm: null, rt: 0, l: 'et' });
+	if (!x || x.autoVaikimisi || !(x.d > 10 && x.d < 150)) return null;
+	return {
+		moot: parim.label,
+		d: Math.round(x.d),
+		auto: auto.nimi,
+		/* mida arvutus päriselt kasutas: testi mõõtmist või märgise klassi */
+		test: x.alla === 'Sõltumatu test',
+		g: parim.g || null
 	};
 }
 

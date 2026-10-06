@@ -168,6 +168,13 @@
 					>
 				{/if}
 			</p>
+			{#if data.vastus}
+				{@const v = data.vastus}
+				<p class="vastus">
+					{t('{rehv} {moot}: pidurdusmaa märjal teel 90 km/h pealt umbes {d} m', { rehv: ty.name, moot: v.moot, d: v.d })}
+					<span class="vastus-alus">({t('{auto}, ilma reaktsiooniajata', { auto: v.auto })}; {v.test ? t('sõltumatu testi järgi') : t('EL-i märgise klassi {g} järgi', { g: v.g })})</span>
+				</p>
+			{/if}
 			<div class="pills">
 				{#if data.sizes.length}<span class="pill off">{t("EL-i märgis ·")} {data.mootudeArv} {data.mootudeArv === 1 ? t('mõõt') : t('mõõtu')}</span>{/if}
 				{#if data.tests.length || data.ext.length}<span class="pill test">{t("Sõltumatult testitud")}</span>{/if}
@@ -451,3 +458,8 @@
 		</div>
 	</div>
 {/if}
+
+<style>
+	.vastus { font-size: 17px; font-weight: 600; max-width: 62ch; margin: 6px 0 10px; }
+	.vastus-alus { font-weight: 400; color: var(--muted-d, inherit); font-size: 14px; }
+</style>

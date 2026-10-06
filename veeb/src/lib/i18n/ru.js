@@ -1,5 +1,9 @@
 /* Tõlkesõnastik (ru). Võti = eestikeelne lähtetekst (vt $lib/i18n.js). */
 export default {
+"{rehv} {moot}: pidurdusmaa märjal teel 90 km/h pealt umbes {d} m": "{rehv} {moot}: тормозной путь на мокрой дороге со скорости 90 км/ч — около {d} м",
+"{auto}, ilma reaktsiooniajata": "{auto}, без времени реакции",
+"sõltumatu testi järgi": "по данным независимого теста",
+"EL-i märgise klassi {g} järgi": "по классу {g} маркировки ЕС",
 "Suverehv (sportlik)": "Летняя шина (спортивная)",
 "Suverehv": "Летняя шина",
 "Aastaringne rehv": "Всесезонная шина",

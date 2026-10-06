@@ -167,7 +167,7 @@ export function autodMoodus(mootN) {
 			koik.delete('');
 			for (const m of koik) {
 				if (!_moodus.has(m)) _moodus.set(m, []);
-				_moodus.get(m).push({ nimi: polveNimi(p), url: '/autod/' + p.mk + '/' + p.slug + '/', pohi: m === pohi, aasta: p.aasta });
+				_moodus.get(m).push({ nimi: polveNimi(p), url: '/autod/' + p.mk + '/' + p.slug + '/', pohi: m === pohi, aasta: p.aasta, key: p.rows[0].key });
 			}
 		}
 		for (const list of _moodus.values())

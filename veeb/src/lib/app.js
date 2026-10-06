@@ -2772,6 +2772,38 @@
     }
     var sek = crumb ? crumb.textContent.replace(/\s+/g, ' ').trim().split('/')[1] : '';
     Track('leht', (sek ? sek.trim() + ': ' : '') + nimi.slice(0, 70));
+    trackAiAllikas();
+  }
+
+  /* GEO mõõtmine: kas külastaja tuli AI-otsingust (ChatGPT, Perplexity …)?
+     Salvestatakse AINULT allika nimi (nt "chatgpt"), mitte aadress ega
+     päring. ChatGPT lisab linkidele utm_source=chatgpt.com; teised annavad
+     viitaja (referrer). Kord lehe avamise kohta. */
+  var AI_ALLIKAD = [
+    ['chatgpt', /(^|\.)(chatgpt\.com|chat\.openai\.com|openai\.com)$/],
+    ['perplexity', /(^|\.)perplexity\.ai$/],
+    ['claude', /(^|\.)claude\.ai$/],
+    ['gemini', /(^|\.)gemini\.google\.com$/],
+    ['copilot', /(^|\.)copilot\.microsoft\.com$/],
+    ['deepseek', /(^|\.)chat\.deepseek\.com$/],
+    ['you', /(^|\.)you\.com$/],
+    ['phind', /(^|\.)phind\.com$/]
+  ];
+  function aiAllikas(host) {
+    host = String(host || '').toLowerCase().replace(/^www\./, '');
+    for (var i = 0; i < AI_ALLIKAD.length; i++) if (AI_ALLIKAD[i][1].test(host)) return AI_ALLIKAD[i][0];
+    return '';
+  }
+  function trackAiAllikas() {
+    try {
+      var utm = new URLSearchParams(location.search).get('utm_source') || '';
+      var a = aiAllikas(utm.replace(/^https?:\/\//, '').split('/')[0]);
+      if (!a && document.referrer) {
+        var r = new URL(document.referrer);
+        if (r.host !== location.host) a = aiAllikas(r.hostname);
+      }
+      if (a) Track('ai_allikas', a);
+    } catch (e) { /* vigane referrer — jätame vahele */ }
   }
 
   /* laiad tabelid: kerimisala peab olema klaviatuuriga kättesaadav */

@@ -1,5 +1,9 @@
 /* Tõlkesõnastik (en). Võti = eestikeelne lähtetekst (vt $lib/i18n.js). */
 export default {
+"{rehv} {moot}: pidurdusmaa märjal teel 90 km/h pealt umbes {d} m": "{rehv} {moot}: braking distance on a wet road from 90 km/h is about {d} m",
+"{auto}, ilma reaktsiooniajata": "{auto}, without reaction time",
+"sõltumatu testi järgi": "based on an independent test",
+"EL-i märgise klassi {g} järgi": "based on EU label class {g}",
 "Suverehv (sportlik)": "Summer tyre (sporty)",
 "Suverehv": "Summer tyre",
 "Aastaringne rehv": "All-season tyre",
