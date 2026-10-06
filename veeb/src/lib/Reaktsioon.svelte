@@ -71,9 +71,13 @@
 		if (typeof window === 'undefined') return;
 		clearTimeout(taimer); cancelAnimationFrame(raf); window.removeEventListener('resize', suurus);
 	});
+	let viimaneLaius = 0;
 	function suurus() {
 		if (!cv) return;
 		const dpr = Math.min(2, window.devicePixelRatio || 1), w = cv.clientWidth || 800;
+		/* telefonis kerimine muudab akna kõrgust (aadressiriba): siis ei joonista ümber */
+		if (Math.abs(w - viimaneLaius) < 2) return;
+		viimaneLaius = w;
 		W = Math.round(w * dpr); H = Math.round(w * 0.62 * dpr);
 		cv.width = W; cv.height = H;
 	}
@@ -150,13 +154,22 @@
 		if (reziim === 'tuled') { const p = pidurdusAjal(J, tt); vE = p[1]; gap = v0 * vahe + p[0] - s; ees = { gap: Math.max(0, gap), pidur: true }; }
 		else {
 			gap = D - s;
-			/* jalakäija kõnnib teele 1,4 m/s, kuni sinu raja keskele ja edasi */
-			const kaugusServast = jkPool > 0 ? TEE.TEE_L + 1.6 - 1.4 * tt : -TEE.TEE_L - 1.6 + 1.4 * tt;
-			jk = { z: zBase + D, x: jkPool > 0 ? Math.max(-TEE.TEE_L, kaugusServast) : Math.min(TEE.TEE_L, kaugusServast), riie, kond: tt * 7 };
+			jk = { z: zBase + D, x: jkX(tt), riie, kond: jkX(tt) === jkX(tt + 0.05) ? 0 : tt * 7 };
 		}
 		if (gap <= 0.01) { crash = true; lopeta(r == null ? tt : r, { crash: true, kmh: Math.max(0, v - vE) * 3.6 }); return; }
 		if (r != null && v <= 0.05 && vE <= 0.05) { lopeta(r, { crash: false, m: gap }); return; }
 		if (tt > 40) lopeta(r ?? tt, lopp(r ?? tt));
+	}
+
+	/* JALAKÄIJA: kõnnib 1,4 m/s teele nii, et jõuab sinu rajale siis, kui sina
+	   (täiskiirusel) tema juurde jõuaksid; sinu rajal ehmatab ja jääb seisma.
+	   Paremalt: varjaja (puu / pargitud auto) tagant. Vasakult: ületab teed. */
+	const RAJA_X = TEE.KAAM_X, KOND = 1.4;
+	function jkX(tt) {
+		/* t0 hetkel (nähtavale tulek) seisab ta tee servas varjaja kõrval või on juba teel */
+		const Tk = D / (kiirus / 3.6), serv = TEE.TEE_L + 0.3;
+		if (jkPool > 0) return Math.max(RAJA_X, Math.min(serv, RAJA_X + KOND * (Tk - tt)));
+		return Math.min(RAJA_X, Math.max(-serv, RAJA_X - KOND * (Tk - tt)));
 	}
 
 	/* ---------- mänguvoog ---------- */
@@ -169,7 +182,7 @@
 		zOoteAlgus = z; tOoteAlgus = performance.now();
 		if (reziim === 'pime') {
 			/* jalakäija ja tema varjaja (puu / pargitud auto) ette */
-			D = kaugus(); jkPool = 1;
+			D = kaugus(); jkPool = Math.random() < 0.5 ? 1 : -1;
 			const zOht = zOoteAlgus + v0 * (viide / 1000) + D;
 			lisaVarjaja(tee, Math.floor(zOht / TEE.SEG), jkPool);
 		}
@@ -360,7 +373,7 @@
 	.rk-ala.crash { animation: raputa 0.45s; }
 	@keyframes raputa { 15% { transform: translate(-8px, 4px); } 35% { transform: translate(7px, -4px); } 55% { transform: translate(-5px, 2px); } 75% { transform: translate(3px, 0); } }
 	.rk-cv { width: 100%; aspect-ratio: 1 / 0.62; display: block; background: #0a0b0d; }
-	.rk-tekst { display: flex; flex-direction: column; gap: 6px; text-align: center; padding: 0 var(--sp-4); min-height: 70px; }
+	.rk-tekst { display: flex; flex-direction: column; justify-content: center; gap: 6px; text-align: center; padding: 0 var(--sp-4); height: 96px; overflow: hidden; }
 	.rk-tekst b { font-family: var(--display); font-size: 34px; letter-spacing: 0.02em; text-transform: uppercase; line-height: 1; }
 	.rk-tekst b.punane, .rk-tekst b.roheline { text-transform: none; font-size: 32px; }
 	.rk-tekst b.punane { color: #ff5a5a; }

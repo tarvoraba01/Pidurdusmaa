@@ -49,6 +49,8 @@ export function looTee({ maastik = 'mets', seed = 1 } = {}) {
 			if (n % 12 === 6) s.obj.push({ t: 'lamp', x: TEE_L + 1.6 });
 			if (n % 8 === 4) for (const pool of [-1, 1]) if (r() < 0.6) s.obj.push({ t: r() < 0.5 ? 'kask' : 'poos', x: pool * (TEE_L + 4.5 + r() * 2), h: 4 + r() * 6, v: r() });
 			if (n % 2 === 0) for (const pool of [-1, 1]) s.obj.push({ t: 'aed', x: pool * (TEE_L + 5.2) });
+			/* pargitud autod mõlemal pool tänavat (jalakäija võib tulla ükskõik millise tagant) */
+			if (n % 3 === 1) for (const pool of [-1, 1]) if (r() < 0.45) s.obj.push({ t: 'parkauto', x: pool * (TEE_L + 1.3), varv: ['#46505e', '#6b2f2f', '#2f4a6b', '#7a7d82', '#1f2428'][Math.floor(r() * 5)] });
 		}
 	}
 	/* tähed */
@@ -60,7 +62,7 @@ export function looTee({ maastik = 'mets', seed = 1 } = {}) {
 export function lisaVarjaja(tee, n, pool) {
 	const s = tee.seg[((n % N) + N) % N];
 	s.obj.push(tee.maastik === 'kula'
-		? { t: 'parkauto', x: pool * (TEE_L + 1.3) }
+		? { t: 'parkauto', x: pool * (TEE_L + 1.3), varv: ['#46505e', '#6b2f2f', '#2f4a6b', '#7a7d82'][n % 4] }
 		: { t: 'kuusk', x: pool * (TEE_L + 2.6), h: 11, v: 0.5, suur: 1 });
 }
 
@@ -81,6 +83,11 @@ function valgus(z, oo, lampL = 0) {
 }
 
 export function joonista(ctx, W, H, tee, o) {
+	try { joonistaStseen(ctx, W, H, tee, o); } catch (e) { /* üks vigane kaader ei tohi kapotti ära viia */ }
+	kapott(ctx, W, H, o, !!o.oo);
+	if (o.crash) klaas(ctx, W, H);
+}
+function joonistaStseen(ctx, W, H, tee, o) {
 	const oo = !!o.oo, talv = o.ilm === 'talv', vihm = o.ilm === 'vihm';
 	const hor = Math.round(H * 0.44);
 	const D = (W / 2) / Math.tan((68 * Math.PI) / 360); /* fookus pikslites */
@@ -140,9 +147,9 @@ export function joonista(ctx, W, H, tee, o) {
 		const [ax, ay, as] = proj(a.x, 0, a.zr), [bx, by, bs] = proj(b.x, 0, b.zr);
 		if (by >= ay) continue;
 		const L = valgus(a.zr, oo, lampL(a.n)), udu = kl(a.zr * uduK, 0, 0.85);
-		const tri = (x1, w1, x2, w2, c) => { ctx.fillStyle = c; ctx.beginPath(); ctx.moveTo(ax + x1 * as, ay); ctx.lineTo(ax + (x1 + w1) * as, ay); ctx.lineTo(bx + (x2 + w2) * bs, by); ctx.lineTo(bx + x2 * bs, by); ctx.fill(); };
+		const tri = (x1, w1, x2, w2, c) => { ctx.fillStyle = c; ctx.beginPath(); ctx.moveTo(ax + x1 * as, ay + 1); ctx.lineTo(ax + (x1 + w1) * as, ay + 1); ctx.lineTo(bx + (x2 + w2) * bs, by - 1); ctx.lineTo(bx + x2 * bs, by - 1); ctx.fill(); };
 		/* serv (muru/lumi) vöödena */
-		const vood = Math.floor(a.n / 2) % 2;
+		const vood = a.zr < 40 ? Math.floor(a.n / 2) % 2 : 0; /* kaugel triibud virvendaksid */
 		const serv = talv ? (vood ? '#eef2f6' : '#e3e8ee') : tee.maastik === 'kula' ? (vood ? '#78985a' : '#6f8f50') : (vood ? '#55723f' : '#4c6838');
 		tri(-60, 120, -60, 120, v(serv, L, udu, uduVarv));
 		/* asfalt + õlad */
@@ -189,10 +196,10 @@ export function joonista(ctx, W, H, tee, o) {
 		ctx.strokeStyle = 'rgba(190,205,230,0.45)';
 		for (let i = 0; i < n; i++) {
 			const sx = (Math.sin(i * 12.9898) * 43758.5453) % 1, sy = (Math.sin(i * 78.233) * 12345.678) % 1;
-			let px = ((Math.abs(sx) + t * (talv ? 0.03 : 0.01) * (i % 3 - 1)) % 1) * W;
-			let py = ((Math.abs(sy) + t * (talv ? 0.25 + kiir * 0.4 : 1.6)) % 1) * H;
-			/* kiirusega laiali keskelt */
-			px = W / 2 + (px - W / 2) * (1 + ((py / H) * kiir) * 0.3);
+			const mod = (x) => ((x % 1) + 1) % 1;
+			const kiirI = 0.6 + ((i * 7) % 5) / 10; /* igal helbel oma kiirus */
+			const px = mod(Math.abs(sx) + t * (talv ? 0.02 : 0.004) * ((i % 3) - 1)) * W;
+			const py = mod(Math.abs(sy) + t * kiirI * (talv ? 0.18 + kiir * 0.25 : 1.4)) * H;
 			if (talv) { ctx.beginPath(); ctx.arc(px, py, 1 + (i % 3) * 0.7, 0, 7); ctx.fill(); }
 			else { ctx.beginPath(); ctx.moveTo(px, py); ctx.lineTo(px - 2, py + 12); ctx.stroke(); }
 		}
@@ -205,11 +212,9 @@ export function joonista(ctx, W, H, tee, o) {
 		ctx.fillStyle = rg; ctx.fillRect(0, 0, W, H);
 	}
 
-	/* ---- oma auto kapott + kiirus ---- */
-	kapott(ctx, W, H, o, oo);
-
-	/* ---- kokkupõrge ---- */
-	if (o.crash) {
+}
+function klaas(ctx, W, H) {
+	{
 		ctx.fillStyle = 'rgba(255,255,255,0.12)'; ctx.fillRect(0, 0, W, H);
 		ctx.strokeStyle = 'rgba(255,255,255,0.75)'; ctx.lineWidth = 1.5;
 		const cx = W * 0.55, cy = H * 0.38;
@@ -283,7 +288,7 @@ function objekt(ctx, ob, sx, sy, sc, L, udu, uduVarv, e) {
 			if (e.oo) { const lg = ctx.createRadialGradient(sx - m(1.3), sy - m(6.9), 0, sx - m(1.3), sy - m(6.9), m(2.5)); lg.addColorStop(0, 'rgba(255,214,140,0.9)'); lg.addColorStop(1, 'rgba(255,214,140,0)'); ctx.fillStyle = lg; ctx.fillRect(sx - m(4), sy - m(9.5), m(5.5), m(5)); }
 			break;
 		}
-		case 'parkauto': auto(ctx, sx, sy, sc, L, V, { varv: '#46505e', pidur: false, oo: e.oo, kulg: true }); break;
+		case 'parkauto': auto(ctx, sx, sy, sc, L, V, { varv: ob.varv || '#46505e', pidur: false, oo: e.oo, kulg: true }); break;
 		case 'auto': auto(ctx, sx, sy, sc, L, V, { varv: '#9aa4b0', pidur: ob.pidur, oo: e.oo }); break;
 		case 'inim': inimene(ctx, sx, sy, sc, L, V, ob, e); break;
 	}
@@ -309,14 +314,15 @@ function auto(ctx, sx, sy, sc, L, V, o) {
 	if (o.kulg) return;
 	/* tagatuled: öösel alati põlevad, pidurdades eredad + kolmas pidurituli */
 	const tuli = (x, w2, h2, y) => { ctx.fillRect(sx + m(x), sy - m(y), m(w2), m(h2)); };
-	const ere = o.pidur ? 1 : o.oo ? 0.45 : 0;
-	ctx.fillStyle = ere ? `rgba(255,${o.pidur ? 40 : 30},${o.pidur ? 40 : 30},${0.55 + ere * 0.45})` : V('#5a1c1c');
+	/* tagatuled põlevad alati (ka päeval), pidurdades veidi eredamad — nagu päriselt, et kohe aru ei saaks */
+	const ere = o.pidur ? 1 : 0.62;
+	ctx.fillStyle = `rgba(255,${o.pidur ? 45 : 35},${o.pidur ? 40 : 30},${0.6 + ere * 0.4})`;
 	tuli(-w * 0.49, 0.42, 0.14, 0.78); tuli(w * 0.49 - 0.42, 0.42, 0.14, 0.78);
 	if (o.pidur) tuli(-0.25, 0.5, 0.05, h - 0.02);
 	if (ere) {
 		for (const xx of [-w * 0.28, w * 0.28]) {
-			const gg = ctx.createRadialGradient(sx + m(xx), sy - m(0.72), 0, sx + m(xx), sy - m(0.72), m(o.pidur ? 1.1 : 0.6));
-			gg.addColorStop(0, `rgba(255,40,40,${o.pidur ? 0.55 : 0.25})`); gg.addColorStop(1, 'rgba(255,40,40,0)');
+			const gg = ctx.createRadialGradient(sx + m(xx), sy - m(0.72), 0, sx + m(xx), sy - m(0.72), m(o.pidur ? 0.8 : 0.6));
+			gg.addColorStop(0, `rgba(255,40,40,${(o.pidur ? 0.42 : 0.3) * (o.oo ? 1 : 0.6)})`); gg.addColorStop(1, 'rgba(255,40,40,0)');
 			ctx.fillStyle = gg; ctx.fillRect(sx + m(xx) - m(1.2), sy - m(1.9), m(2.4), m(2.4));
 		}
 	}
