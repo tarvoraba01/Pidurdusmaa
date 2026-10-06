@@ -46,6 +46,7 @@ export function GET() {
 		['/liiklusohutus/pikivahe/', '0.7'],
 		['/liiklusohutus/kurv/', '0.7'],
 		['/liiklusohutus/reaktsioon/', '0.7'],
+		['/rehvi-vanus/', '0.8'],
 		['/kontakt/', '0.4'],
 		['/kasutustingimused/', '0.3'],
 		['/privaatsus/', '0.3']

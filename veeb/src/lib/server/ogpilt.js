@@ -183,6 +183,14 @@ const PILDID = {
   <g transform="translate(150 266)" stroke="#8fc7ff" stroke-width="6" stroke-linecap="round">
     <path d="M0 -26 V26 M-22.5 -13 L22.5 13 M-22.5 13 L22.5 -13"/>
   </g>
+</g>`,
+	/* rehvi vanus: rehvi külg, DOT-kood ja tootmisnädal ovaalis */
+	dot: `<circle cx="1020" cy="640" r="430" fill="#1a1d24" stroke="#2b3039" stroke-width="6"/>
+<circle cx="1020" cy="660" r="200" fill="#0a0b0d" stroke="#2b3039" stroke-width="6"/>
+<g transform="rotate(-14 1000 330)">
+  <text x="840" y="300" font-family="Inter" font-weight="700" font-size="40" letter-spacing="6" fill="#8b93a0">DOT</text>
+  <rect x="890" y="320" width="230" height="96" rx="48" fill="none" stroke="${KOLLANE}" stroke-width="7"/>
+  <text x="1005" y="392" text-anchor="middle" font-family="Barlow Condensed" font-weight="700" font-size="80" letter-spacing="4" fill="${KOLLANE}">2319</text>
 </g>`
 };
 

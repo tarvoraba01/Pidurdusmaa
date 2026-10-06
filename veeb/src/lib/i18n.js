@@ -12,7 +12,7 @@ export const KEEL_NIMI = { et: 'Eesti', ru: 'Русский', en: 'English' };
 export const OG_LOCALE = { et: 'et_EE', ru: 'ru_RU', en: 'en_GB' };
 
 /** Lehed, millel on vene ja inglise versioon (tee ilma keele eesliiteta). */
-export const TOLGITUD = ['/', '/rehvi-valimine/', '/vordle-rehve/', '/liiklusohutus/', '/liiklusohutus/pimedas/', '/liiklusohutus/pikivahe/', '/liiklusohutus/kurv/', '/liiklusohutus/reaktsioon/', '/kontakt/', '/kasutustingimused/', '/privaatsus/'];
+export const TOLGITUD = ['/', '/rehvi-valimine/', '/vordle-rehve/', '/liiklusohutus/', '/liiklusohutus/pimedas/', '/liiklusohutus/pikivahe/', '/liiklusohutus/kurv/', '/liiklusohutus/reaktsioon/', '/rehvi-vanus/', '/kontakt/', '/kasutustingimused/', '/privaatsus/'];
 
 /* Lisaks ainult vene keeles:
    - autolehed (terve haru /autod/),
@@ -104,6 +104,7 @@ const OG_KEELED = {
 	'liiklus-pimedas': ['ru', 'en'],
 	'liiklus-pikivahe': ['ru', 'en'],
 	'liiklus-reaktsioon': ['ru', 'en'],
+	'rehvi-vanus': ['ru', 'en'],
 	'millal-talverehvid-alla': ['ru'],
 	rehvivahetus: ['ru']
 };

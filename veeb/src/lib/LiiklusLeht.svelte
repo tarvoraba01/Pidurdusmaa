@@ -2,6 +2,7 @@
 	/* Liiklusohutuse tööriistade ühine leht: hero, kalkulaator (vaade) ja infoplokk. */
 	import Liiklus from '$lib/Liiklus.svelte';
 	import Reaktsioon from '$lib/Reaktsioon.svelte';
+	import RehviVanus from '$lib/RehviVanus.svelte';
 	let { kick, h1, lead, vaade = 'peatumine', children } = $props();
 </script>
 
@@ -15,7 +16,7 @@
 
 <section class="lo-bg">
 	<div class="wrap">
-		{#if vaade === 'reaktsioon'}<Reaktsioon />{:else}<Liiklus {vaade} />{/if}
+		{#if vaade === 'reaktsioon'}<Reaktsioon />{:else if vaade === 'vanus'}<RehviVanus />{:else}<Liiklus {vaade} />{/if}
 	</div>
 </section>
 
