@@ -58,7 +58,9 @@ def cond_from(c):
         payload_kg=c["payloadKg"], gradient_pct=c["gradientPct"],
         reaction_time_s=c["reactionTimeS"],
         brake_condition=c.get("brakeCondition", 1.0),
-        ice_road=c.get("iceRoad", True) is not False)
+        ice_road=c.get("iceRoad", True) is not False,
+        trailer_kg=c.get("trailerKg", 0.0),
+        trailer_brakes=bool(c.get("trailerBrakes", False)))
 
 
 def gmid(core, g, cat):
@@ -117,6 +119,13 @@ def build_cases(core, n=400, seed=11):
              "reactionTimeS": rnd.choice([0.0, 0.0, 1.0, 1.5]),
              "brakeCondition": rnd.choice([1.0, 1.0, 0.8, 0.5])}
         out.append({"veh": v, "tyre": t, "cond": c})
+    # HAAGIS (6.10.2026): eraldi juhuslik jada, et vanad juhud jääksid samaks
+    rt = random.Random(seed + 101)
+    for x in [dict(o) for o in rt.sample(out, 60)]:
+        c = dict(x["cond"])
+        c["trailerKg"] = rt.choice([300, 750, 1200, 2000, 3500])
+        c["trailerBrakes"] = rt.random() < 0.5
+        out.append({"veh": x["veh"], "tyre": x["tyre"], "cond": c})
     return out
 
 

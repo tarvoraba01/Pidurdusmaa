@@ -81,7 +81,9 @@
 		tyyp: 'yld_kompakt', mk: '', md: '', veh: '', abs: 'auto', laad: 75, pidur: 1,
 		kat: 'SUMMER_TOURING', klass: 'C', muster: 8, vanus: 1, rohk: 0,
 		pind: 'ASPHALT', vesi: 1, tekst: 'NORMAL', temp: 10, jaa: 'tee', kalle: 0,
-		kiirus: 50, reakt: 1.0
+		kiirus: 50, reakt: 1.0,
+		/* haagis lõpus: vanad positsioonilised lingid (#a=…*…) jäävad kehtima */
+		haagis: 'ei', haagisKg: 750
 	};
 
 	let A = $state({ ...ALGNE });
@@ -240,6 +242,8 @@
 			.map((v) => [v.key, v.yearLabel + (n[v.yearLabel] > 1 && v.variant && v.variant !== '—' ? ' · ' + v.variant.replace(' hj (', ' ' + t('hj') + ' (') : '')]);
 	});
 
+	/* haagis: pidurita EL-is kuni 750 kg; inertspiduriga kuni 2500 kg (tavaline sõiduauto haakekonks) */
+	const haagisMax = (s) => (s.haagis === 'piduriga' ? 2500 : 750);
 	/* koormuse liuguri ülempiir: kaubikul (ehitusmaterjal, kolimine) suurem */
 	function laadMax(s) {
 		const v = core && core.byKey[s.mk ? s.veh : s.tyyp];
@@ -275,7 +279,9 @@
 			speedKmh: +s.kiirus, surface: s.pind, texture: asf ? s.tekst : 'NORMAL',
 			waterMm: asf ? +s.vesi : 0, tempC: +s.temp, payloadKg: +s.laad,
 			gradientPct: +s.kalle, reactionTimeS: +s.reakt, brakeCondition: +s.pidur,
-			iceRoad: s.jaa !== 'sile'
+			iceRoad: s.jaa !== 'sile',
+			trailerKg: s.haagis === 'ei' ? 0 : Math.min(+s.haagisKg || 0, haagisMax(s)),
+			trailerBrakes: s.haagis === 'piduriga'
 		};
 		return { veh, tyre, cond };
 	}
@@ -516,6 +522,11 @@
 		let tL = null;
 		if (B) {
 			const y = arvuta({ ...B, reakt: 0 });
+			if (y && y.r && y.r.stopped && y.r.trace && y.r.trace.length > 1) tL = y.r.trace;
+		}
+		/* eesolev auto on sama auto, aga SINU haagist tal ei ole */
+		if (!tL && A.haagis !== 'ei') {
+			const y = arvuta({ ...A, reakt: 0, haagis: 'ei' });
 			if (y && y.r && y.r.stopped && y.r.trace && y.r.trace.length > 1) tL = y.r.trace;
 		}
 		return [1, 2, 3, 4].map((sek) => [sek, pikivahe(x.r.trace, +A.kiirus, sek, +A.reakt, ees, tL)]);
@@ -977,6 +988,18 @@
 					<b class="lo-val">{S.laad} {t("kg")}</b>
 				</label>
 				<input id="lo-laad" class="slider" type="range" min="75" max={laadMax(S)} step="25" bind:value={S.laad} style="--p:{((Math.min(S.laad, laadMax(S)) - 75) / (laadMax(S) - 75)) * 100}%" />
+				{#if S.haagis === 'ei'}
+					<button type="button" class="lo-haagis-lisa" onclick={() => (S.haagis = 'pidurita')}>{t("+ Lisa haagis")}</button>
+				{:else}
+					<div class="lo-row"><span>{t("Haagis")}</span><button type="button" class="linkbtn lo-haagis-x" onclick={() => (S.haagis = 'ei')}>{t("Eemalda")}</button></div>
+					<div class="lo-seg lo-seg2" role="group" aria-label={t("Haagis")}>
+						<button type="button" aria-pressed={S.haagis === 'pidurita'} onclick={() => (S.haagis = 'pidurita')}>{t("Pidurita")}</button>
+						<button type="button" aria-pressed={S.haagis === 'piduriga'} onclick={() => (S.haagis = 'piduriga')}>{t("Piduritega")}</button>
+					</div>
+					<label class="lo-row" for="lo-haagiskg"><span>{t("Haagise mass koos koormaga")}</span><b class="lo-val">{Math.min(S.haagisKg, haagisMax(S))} {t("kg")}</b></label>
+					<input id="lo-haagiskg" class="slider" type="range" min="100" max={haagisMax(S)} step="50" bind:value={S.haagisKg} style="--p:{((Math.min(S.haagisKg, haagisMax(S)) - 100) / (haagisMax(S) - 100)) * 100}%" />
+					<p class="lo-kr-vihje">{S.haagis === 'pidurita' ? t("Pidurita haagist peatavad ainult auto pidurid ja rehvid. Raske haagis lükkab tagant ja pidurdusmaa kasvab palju.") : t("Inertspiduriga haagis pidurdab ise, aga ABS-ita ja nõrgemalt kui auto.")}</p>
+				{/if}
 				<label class="lo-row" for="lo-pidur"><span>{t("Pidurite seisukord")}</span></label>
 				<select id="lo-pidur" class="lo-sel" bind:value={S.pidur}>
 					{#each PIDUR as [k, n]}<option value={k}>{autoNimi(keel.lang, n)}</option>{/each}
@@ -1504,6 +1527,20 @@
 		min-width: 0;
 		overflow-wrap: anywhere;
 	}
+	.lo-haagis-lisa {
+		margin-top: var(--sp-3);
+		width: 100%;
+		padding: var(--sp-3);
+		border: 1px dashed var(--line);
+		border-radius: var(--r-sm);
+		background: transparent;
+		color: var(--text);
+		font: inherit;
+		font-weight: 600;
+		cursor: pointer;
+	}
+	.lo-haagis-lisa:hover { border-color: var(--yellow); }
+	.lo-haagis-x { font-size: 13px; }
 	.lo-in {
 		background: var(--lo-card);
 		border: 1px solid var(--line);

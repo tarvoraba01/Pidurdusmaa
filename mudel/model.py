@@ -176,6 +176,13 @@ class Conditions:
     # False = testiväljaku sile jää (ajakirjade testid, kalibreerimine).
     # Vt Calibration.ice_road_add.
     ice_road: bool = True
+    # HAAGIS (6.10.2026). trailer_kg = haagise kogumass koos koormaga.
+    # trailer_brakes: False = pidurita haagis (EL-is lubatud kuni 750 kg):
+    # auto rehvid peavad peatama ka haagise -> aeglustus jagatakse kogumassiga.
+    # True = inertspiduriga haagis: pidurdab ise, aga ilma ABS-ita ja
+    # nõrgemalt (vt Calibration.trailer_brake_g).
+    trailer_kg: float = 0.0
+    trailer_brakes: bool = False
 
 
 # ---------------------------------------------------------------------------
@@ -640,6 +647,11 @@ class Calibration:
         AbsClass.NONE: 0.35, AbsClass.EARLY: 0.28,
         AbsClass.MODERN: 0.22, AbsClass.LATEST: 0.17})
     crr: float = 0.011                   # veeretakistus
+    # Inertspiduriga haagis (O1/O2): suurim aeglustus g-des. UNECE R13
+    # nõuab inertspiduriga haagiselt pidurdusjõudu vähemalt ~50 % massist;
+    # ABS-i ei ole, rattad lukustuvad -> haarde kasutus 0,85 (vt ABS NONE).
+    trailer_brake_g: float = 0.50
+    trailer_tyre_eff: float = 0.85
 
     # --- ebamäärasus (1 sigma, suhteline) ---
     sigma_base: dict = field(default_factory=lambda: {
@@ -770,6 +782,7 @@ def validate_inputs(tyre: "Tyre", veh: "Vehicle", cond: "Conditions") -> None:
     _num("veekile mm", cond.water_mm, 0.0, 20.0)
     _num("temperatuur °C", cond.temp_c, -50.0, 60.0)
     _num("lisamass kg", cond.payload_kg, 0.0, 5000.0)
+    _num("haagise mass kg", cond.trailer_kg, 0.0, 3500.0)
     _num("kalle %", cond.gradient_pct, -50.0, 50.0)
     _num("reaktsiooniaeg s", cond.reaction_time_s, 0.0, 5.0)
     _num("pidurite seisukord", cond.brake_condition, 0.05, 1.5)
@@ -1095,6 +1108,21 @@ class BrakingModel:
 
     # -- Layer 1 + 4: integreerimine --------------------------------------
 
+    def _trailer_mix(self, a_car: float, mu: float, mass: float,
+                     cond: Conditions, cos_n: float) -> float:
+        """Auto + haagise ühine pidurdusaeglustus (rehvidest). Pidurita
+        haagis: auto pidurdusjõud m·a peab peatama m + m_h. Inertspiduriga:
+        haagis lisab oma jõu, kuni trailer_brake_g ja oma haardeni (ABS-ita).
+        Haagise aisakoormus auto tagasillal jäetakse arvestamata (ettevaatlik)."""
+        mt = cond.trailer_kg
+        if mt <= 0:
+            return a_car
+        a_tr = 0.0
+        if cond.trailer_brakes:
+            a_tr = min(mu * G_ACC * self.cal.trailer_tyre_eff * cos_n,
+                       self.cal.trailer_brake_g * G_ACC)
+        return (mass * a_car + mt * a_tr) / (mass + mt)
+
     def stopping_distance(self, tyre: Tyre, veh: Vehicle,
                           cond: Conditions) -> Result:
         validate_inputs(tyre, veh, cond)
@@ -1147,7 +1175,8 @@ class BrakingModel:
             if a_brake_max < a_tyre:
                 brake_limited_steps += 1
             a_tyre = min(a_tyre, a_brake_max)
-            a_aero = 0.5 * RHO_AIR * veh.cda_m2 * v * v / mass
+            a_tyre = self._trailer_mix(a_tyre, mu, mass, cond, cos_n)
+            a_aero = 0.5 * RHO_AIR * veh.cda_m2 * v * v / (mass + cond.trailer_kg)
             a_roll = cal.crr * G_ACC * cos_n
             a = a_tyre * ramp + a_aero + a_roll + slope_a
             if ramp >= 1.0 and a <= 1e-6:
@@ -1404,7 +1433,8 @@ class BrakingModel:
             ramp = _clamp(t / t_build, 0.0, 1.0) if t_build > 0 else 1.0
             a_tyre = min(mu * G_ACC * eta,
                          veh.brake_capacity_g * cond.brake_condition * G_ACC)
-            a = a_tyre * ramp + 0.5 * RHO_AIR * veh.cda_m2 * v * v / mass \
+            a_tyre = self._trailer_mix(a_tyre, mu, mass, cond, 1.0)
+            a = a_tyre * ramp + 0.5 * RHO_AIR * veh.cda_m2 * v * v / (mass + cond.trailer_kg) \
                 + cal.crr * G_ACC + slope_a
             a = max(0.05, a)
             v -= a * dt

@@ -60,6 +60,7 @@
     absEffGravel: { NONE: 1.0, EARLY: 0.698, MODERN: 0.698, LATEST: 0.698 },
     brakeBuildup: { NONE: 0.35, EARLY: 0.28, MODERN: 0.22, LATEST: 0.17 },
     crr: 0.011,
+    trailerBrakeG: 0.50, trailerTyreEff: 0.85,
     sigmaBase: { ASPHALT: 0.07, CONCRETE: 0.085, GRAVEL: 0.22, SNOW_PACKED: 0.13, SNOW_LOOSE: 0.18, ICE: 0.25 },
     speedRange: { ASPHALT: [40.0, 130.0], CONCRETE: [40.0, 120.0], SNOW_PACKED: [15.0, 80.0], SNOW_LOOSE: [15.0, 60.0], ICE: [15.0, 80.0], GRAVEL: [40.0, 80.0] },
     sigmaSpeedExtrap: 0.25, sigmaSpeedExtrapMax: 0.4,
@@ -268,6 +269,7 @@
     num('veekile mm', cond.waterMm, 0, 20);
     num('temperatuur °C', cond.tempC, -50, 60);
     num('lisamass kg', cond.payloadKg, 0, 5000);
+    num('haagise mass kg', cond.trailerKg || 0, 0, 3500);
     num('kalle %', cond.gradientPct, -50, 50);
     num('reaktsiooniaeg s', cond.reactionTimeS, 0, 5);
     num('pidurite seisukord', cond.brakeCondition, 0.05, 1.5, true);
@@ -298,6 +300,7 @@
     var v0 = cond.speedKmh / 3.6;
     var mass = veh.kerbMassKg + cond.payloadKg;
     validate(tyre, veh, cond);
+    var mT = cond.trailerKg || 0;
     var theta = Math.atan(cond.gradientPct / 100.0);
     var slopeA = G * Math.sin(theta), cosN = Math.cos(theta);
     // Kruusal on ABS-i mõju vastupidine, vt absEffGravel.
@@ -317,7 +320,10 @@
       var aBrakeMax = veh.brakeCapacityG * brakeCond * G;
       if (aBrakeMax < aTyre) brakeLimited++;
       aTyre = Math.min(aTyre, aBrakeMax);
-      var a = aTyre * ramp + 0.5 * RHO * veh.cdaM2 * v * v / mass + CAL.crr * G * cosN + slopeA;
+      /* HAAGIS (vt model.py _trailer_mix): pidurita haagise peatavad auto
+         rehvid; inertspidur lisab haagise oma jõu, kuni trailerBrakeG */
+      if (mT > 0) aTyre = (mass * aTyre + mT * (cond.trailerBrakes ? Math.min(mu * G * CAL.trailerTyreEff * cosN, CAL.trailerBrakeG * G) : 0)) / (mass + mT);
+      var a = aTyre * ramp + 0.5 * RHO * veh.cdaM2 * v * v / (mass + mT) + CAL.crr * G * cosN + slopeA;
       if ((ramp >= 1 && a <= 1e-6) || t > tMax) { stopped = false; break; }
       if (a > peakA) peakA = a;
       if (muN % 25 === 1) trace.push([s, v * 3.6]);
