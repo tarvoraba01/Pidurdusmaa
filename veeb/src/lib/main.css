@@ -584,6 +584,7 @@ table.t a:hover{text-decoration:underline}
 .rcard .b{font-size:12.5px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.04em}
 .rcard .props{grid-column:1/-1;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:var(--sp-2)}
 /* kompaktne kokkuvõte kaardil */
+.rcard .rc-lause{grid-column:1/-1;margin:0;font-size:14.5px;color:var(--muted)}.rcard .rc-lause b{color:var(--text)}.rcard .rc-lause.hea b{color:#15803d}.rcard .rc-lause.halb b{color:var(--red)}
 .rcard .qs{grid-column:1/-1;display:grid;grid-template-columns:repeat(auto-fit,minmax(128px,1fr));gap:var(--sp-2)}
 .q{display:grid;gap:1px;padding:var(--sp-2) var(--sp-3);border-radius:8px;background:var(--paper-2);min-width:0;cursor:help}
 .ql{font-size:12px;color:var(--muted);font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}

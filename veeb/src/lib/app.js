@@ -2424,6 +2424,9 @@ import UNIVERSAALID from './universaalid.json';
       draw();
     });
     var viimaneN = 0;
+    /* „Ühe lausega“: märja pidurduse vahe selle mõõdu ja hooaja keskmisest.
+       Keskmine arvutatakse filtreerimata nimekirjast (mark/otsing ei muuda seda). */
+    var keskWet = {}, keskVoti = '';
     /* JÄRJESTUS (ainult valik): sobivus sinu valikute järgi või hind */
     var sortBy = 'fit', sortBar = null;
     if (head && mode === 'valik') {
@@ -2591,6 +2594,11 @@ import UNIVERSAALID from './universaalid.json';
           });
         }
         viimaneN = list.length;
+        keskVoti = S.size + '|' + S.season + '|' + (S.veh || '');
+        if (!brandVal && !qq) {
+          var wv = list.map(function (x) { return x.P.wetb ? x.P.wetb.v : null; }).filter(function (v) { return v != null; });
+          keskWet[keskVoti] = wv.length >= 3 ? wv.reduce(function (a, b) { return a + b; }, 0) / wv.length : null;
+        }
         if (head) head.innerHTML = '<b>' + list.length + '</b> ' + (list.length === 1 ? SEASON[S.season].yks : SEASON[S.season].osa) + _t(' mõõdus <b>') + esc(pretty(S.size)) + '</b>' +
           (S.rft ? (S.rft === 'only' ? _t(' · ainult run-flat') : _t(' · ilma run-flatita')) : '') +
           (sortBy === 'price' && hOn ? _t(' · soodsaim hind enne') : valis && ws.length ? _t(' · järjestatud sinu valikute järgi') : mode === 'valik' ? ' · ' + HOOAEG_TXT[S.season] : _t(' · järjestatud märghaardumise klassi järgi')) +
@@ -2645,6 +2653,13 @@ import UNIVERSAALID from './universaalid.json';
       if (P.winter && r.catNr !== 0) h += kq(_t('Lumel / jääl') + ' <small>50→0</small>', P.winter.show.replace(_t('lumi '), '').replace(_t(' · jää '), ' / '), src(P.winter));
       return '<div class="qs">' + h + '</div>';
     }
+    function lause(x) {
+      var k = keskWet[keskVoti], v = x.P.wetb ? x.P.wetb.v : null;
+      if (k == null || v == null) return '';
+      var d = k - v, a = fmt(Math.abs(d), 1);
+      if (Math.abs(d) < 0.5) return '<p class="rc-lause">' + _t('Märjal peatub sama kaugel kui selle mõõdu keskmine rehv.') + '</p>';
+      return '<p class="rc-lause ' + (d > 0 ? 'hea' : 'halb') + '">' + _t('Märjal peatub') + ' <b>' + a + ' ' + _t('m') + ' ' + (d > 0 ? _t('varem') : _t('hiljem')) + '</b> ' + _t('kui selle mõõdu keskmine rehv.') + '</p>';
+    }
     function card(x, i, why) {
       var r = x.r, id = r.slug + '@' + r.m, on = cmp.has(id);
       return _t('<article class="rcard') + (on ? ' on' : '') + '"><div class="rc-info">' +
@@ -2656,7 +2671,7 @@ import UNIVERSAALID from './universaalid.json';
         '<div class="rc-side"><img class="rpilt" alt="" width="96" height="112" decoding="async" hidden data-pilt="' + esc(id) + '">' +
         _t('<button type="button" class="add-btn" data-add="') + esc(id) + _t('" data-n="') + esc(r.mark + ' ' + r.name) + _t('" aria-pressed="') + on + '">' + (on ? _t('✓ Võrdluses') : _t('+ Võrdle')) + '</button></div>' +
         (why && why.length ? '<ul class="why-list">' + why.map(function (t) { return t.charAt(0) === '!' ? '<li class="x">' + t.slice(1) + '</li>' : '<li>' + t + '</li>'; }).join('') + '</ul>' : '') +
-        kiired(x) +
+        lause(x) + kiired(x) +
         _t('<div class="price"><div class="pl">Hinnad poodides</div>') + priceSlot(id) + '</div>' +
         (x.miss && x.miss.length ? _t('<p class="note" style="grid-column:1/-1;margin:0">Sobivuses arvestamata: ') + esc(x.miss.join(', ')) + '</p>' : '') + '</article>';
     }
