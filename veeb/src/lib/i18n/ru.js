@@ -566,6 +566,7 @@ export default {
 "Kui eesolev auto järsult pidurdab": "Если машина впереди резко тормозит",
 "Kus osta": "Где купить",
 "Hinnad poodidest, uuenevad mitu korda päevas. Järjestus pidurdusmaa järgi ei sõltu poest.": "Цены из магазинов, обновляются несколько раз в день. Рейтинг по тормозному пути не зависит от магазина.",
+"jalakäija nähtav": "пешеход виден с",
 "Lühidalt": "Коротко",
 "\">eemalda</button></span></th>": "\">убрать</button></span></th>",
 "Jah": "Да",

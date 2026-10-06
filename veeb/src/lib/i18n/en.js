@@ -554,6 +554,7 @@ export default {
 "Kui eesolev auto järsult pidurdab": "When the car ahead brakes hard",
 "Kus osta": "Where to buy",
 "Hinnad poodidest, uuenevad mitu korda päevas. Järjestus pidurdusmaa järgi ei sõltu poest.": "Prices from shops, updated several times a day. The braking-distance ranking does not depend on the shop.",
+"jalakäija nähtav": "pedestrian visible at",
 "Lühidalt": "In short",
 "\">eemalda</button></span></th>": "\">remove</button></span></th>",
 "Jah": "Yes",

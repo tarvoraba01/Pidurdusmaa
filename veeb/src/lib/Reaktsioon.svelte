@@ -113,7 +113,7 @@
 	function lopp(r) {
 		const v0 = kiirus / 3.6;
 		if (reziim === 'pime') {
-			const Dk = kaugus(), vaja = v0 * r + J.d;
+			const Dk = D || kaugus(), vaja = v0 * r + J.d; /* sama nähtavuskaugus mis katses */
 			if (vaja <= Dk) return { crash: false, m: Dk - vaja };
 			let kmh = v0 * 3.6;
 			if (v0 * r < Dk) { const rest = Dk - v0 * r; const p = J.T.find((x) => x[1] >= rest); kmh = p ? p[2] * 3.6 : 0; }
@@ -223,7 +223,8 @@
 		zOoteAlgus = z; tOoteAlgus = performance.now();
 		if (reziim === 'pime') {
 			/* jalakäija ja tema varjaja (puu / pargitud auto) ette */
-			D = kaugus();
+			/* nähtavus kõigub: tee kõverus, valgus, riiete toon — ±20% (Transpordiameti keskmise ümber) */
+			D = Math.round(kaugus() * (0.85 + Math.random() * 0.4));
 			/* vasakult ainult siis, kui ta jõuab terve raja ületada (≤ 4,5 m/s) */
 			zOht = zOoteAlgus + v0 * (viide / 1000) + D; tOht = tOoteAlgus + viide;
 			const nV = Math.floor((zOht - 1.5) / TEE.SEG);
@@ -268,8 +269,8 @@
 		if (kaib) return;
 		const vali = (a) => a[Math.floor(Math.random() * a.length)];
 		ilm = vali(['kuiv', 'vihm', 'talv']);
-		if (reziim === 'pime') { kiirus = vali([30, 50, 50, 70, 90]); riie = vali(['tume', 'tume', 'hele', 'helkur']); }
-		else { kiirus = vali([50, 90, 90, 110]); vahe = vali([0.5, 1, 1, 2]); }
+		if (reziim === 'pime') { kiirus = vali([30, 50, 50, 70, 90, 110]); riie = vali(['tume', 'tume', 'hele', 'helkur']); }
+		else { kiirus = vali([50, 70, 90, 90, 110, 130]); vahe = vali([0.5, 1, 1, 2]); }
 		lahtesta();
 	}
 	function klahv(e) {
@@ -371,9 +372,10 @@
 	</div>
 
 	<div class="rk-seaded">
-		<div class="rk-seg" role="group" aria-label={t('Kiirus')}>
-			{#each reziim === 'pime' ? [30, 50, 70, 90] : [50, 90, 110] as k (k)}<button type="button" disabled={kaib} aria-pressed={kiirus === k} onclick={() => seadista(() => (kiirus = k))}>{k} {t('km/h')}</button>{/each}
-		</div>
+		<label class="rk-kiirus">
+			<span>{t('Kiirus')} <b>{kiirus} {t('km/h')}</b></span>
+			<input type="range" min="30" max="150" step="10" bind:value={kiirus} disabled={kaib} onchange={() => lahtesta()} aria-label={t('Kiirus')} />
+		</label>
 		{#if reziim === 'tuled'}
 			<div class="rk-seg" role="group" aria-label={t('Pikivahe')}>
 				{#each [0.5, 1, 2] as k (k)}<button type="button" disabled={kaib} aria-pressed={vahe === k} onclick={() => seadista(() => (vahe = k))}>{t('vahe')} {f1(k)} s</button>{/each}
@@ -438,7 +440,7 @@
 	{#if olek === 'tulemus' && read.length}
 		<div class="rk-tul">
 			{#if tulemusMs}<p class="rk-suur">{reziim === 'tuled' ? t('Sinu reaktsioon (3 katse mediaan)') : t('Sinu reaktsioon')}: <b>{f2(tulemusMs)} s</b>{#if sobra}{' · ' + (tulemusMs < sobra ? t('Sõbrast kiirem!') : tulemusMs > sobra ? t('Sõber oli kiirem') + ' (' + f2(sobra) + ' s)' : t('Täpselt sama kiire kui sõber!'))}{/if}</p>{/if}
-			<p class="rk-pea">{t('Sama olukord, erinev reaktsioon')} · {ilmNimi} · {kiirus} {t('km/h')} · {veh.name}</p>
+			<p class="rk-pea">{t('Sama olukord, erinev reaktsioon')} · {ilmNimi} · {kiirus} {t('km/h')}{reziim === 'pime' && D ? ' · ' + t('jalakäija nähtav') + ' ' + Math.round(D) + ' ' + t('m') : ''} · {veh.name}</p>
 			<ol class="rk-read">
 				{#each read as [nimi, s, r, me] (nimi)}
 					<li class:me><span class="n">{nimi} <small>{f2(s * 1000)} s</small></span><span class="o" class:punane={r.crash}>{lause(r)}</span></li>
@@ -462,6 +464,9 @@
 	.rk-seg { display: flex; flex-wrap: wrap; gap: var(--sp-1); background: #fff; border: 1px solid var(--line); padding: var(--sp-1); border-radius: 10px; }
 	.rk-seg button { border: 0; background: transparent; padding: 6px 10px; border-radius: 7px; font-weight: 600; font-size: 13.5px; color: var(--muted); cursor: pointer; }
 	.rk-seg button[aria-pressed='true'] { background: var(--paper-2); color: var(--text); box-shadow: inset 0 -2px 0 var(--yellow); }
+	.rk-kiirus { display: flex; align-items: center; gap: var(--sp-3); background: #fff; border: 1px solid var(--line); padding: 6px 12px; border-radius: 10px; font-size: 13.5px; color: var(--muted); font-weight: 600; flex: 1 1 260px; }
+	.rk-kiirus b { color: var(--text); font-family: var(--display); font-size: 18px; min-width: 76px; display: inline-block; }
+	.rk-kiirus input { flex: 1; accent-color: var(--ink); min-width: 120px; }
 	.rk-juh { border: 1px dashed var(--line); background: #fff; border-radius: 10px; padding: 9px 12px; font-weight: 700; font-size: 13.5px; cursor: pointer; color: var(--text); }
 	.rk-juh:hover { border-color: var(--yellow); }
 	.rk-rezh button:disabled, .rk-seg button:disabled, .rk-juh:disabled { cursor: default; opacity: 0.6; }
