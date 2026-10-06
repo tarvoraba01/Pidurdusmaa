@@ -145,8 +145,8 @@
 		if (olek === 'oota') {
 			z = zOoteAlgus + v0 * Math.max(0, (now - tOoteAlgus) / 1000); kmhNaha = kiirus;
 			if (ees) ees = { gap: v0 * vahe, pidur: false };
-			/* jalakäija on juba olemas: seisab varjaja taga ja astub t0 hetkeks tee servale */
-			if (reziim === 'pime' && zOht) { const tt = (now - tOht) / 1000, D0 = zOht - z; jk = { z: zOht, x: jkX(tt, D0), riie, kond: tt > -2 ? tt * 7 : 0 }; }
+			/* enne ohuhetke jalakäijat ei joonistata: ta on varjaja taga (muidu paistsid jalad ja „Liiga vara!“) */
+			if (reziim === 'pime') jk = null;
 		} else if (olek === 'nyyd' || olek === 'soit') {
 			samm(now);
 		} else if (olek === 'algus') {
@@ -175,18 +175,26 @@
 	   kui sina täiskiirusel tema juurde jõuaksid; seal ehmatab ja jääb seisma.
 	   Vasakult tulles ületab ta vastassuuna raja. */
 	const RAJA_X = TEE.KAAM_X, KOND = 1.4;
-	const SERV = TEE.TEE_L + 0.3;
+	/* Ohuhetkel (t0) astub jalakäija varjaja (pargitud auto / kuusk) tee poolse
+	   serva tagant välja: tema algkoht arvutatakse nii, et kaamerast vaadates on
+	   ta täpselt varjaja serva kõrval — enne t0 teda ei joonistata, pärast t0 on
+	   ta kohe nähtav (reaktsiooniaeg ei sisalda „varjatud“ aega). */
+	let jkAlg = 0, jkDz = 3;
+	function varjajaServ() {
+		const kula = tee.maastik === 'kula';
+		const X = kula ? TEE.TEE_L + 1.3 : TEE.TEE_L + 2.6, pool = kula ? 0.9 : 11 * 0.38 / 2;
+		return jkPool * (X - pool - 0.25);
+	}
+	function arvutaAlg(Dn) {
+		const e = varjajaServ();
+		return RAJA_X + (e - RAJA_X) * (Dn / Math.max(1, Dn - jkDz));
+	}
 	function jkX(tt, Dn = D) {
 		const Tk = Math.max(0.3, Dn / (kiirus / 3.6));
-		const rada = jkPool > 0 ? SERV - RAJA_X : SERV + RAJA_X;
-		const vk = Math.min(4.5, Math.max(KOND, rada / Tk));
-		const taga = varjajaX() + 0.4;
-		const m = tt < 0 ? Math.min(taga, SERV - KOND * tt) : Math.max(jkPool > 0 ? RAJA_X : -RAJA_X, SERV - vk * tt);
-		/* vasakult: liigub -SERV → +RAJA_X */
-		if (jkPool > 0) return m;
-		return tt < 0 ? -m : Math.min(RAJA_X, -SERV + vk * tt);
+		const vahe = RAJA_X - jkAlg;
+		const vk = Math.min(4.5, Math.max(KOND, Math.abs(vahe) / Tk));
+		return jkAlg + Math.sign(vahe) * Math.min(Math.abs(vahe), vk * Math.max(0, tt));
 	}
-	const varjajaX = () => (tee.maastik === 'kula' ? TEE.TEE_L + 1.3 : TEE.TEE_L + 2.6);
 
 	/* ---------- täisekraan: päris täisekraan, kus brauser lubab (iPhone'is mitte) — muidu kogu akna peale ---------- */
 	function taisEkraan() {
@@ -217,14 +225,19 @@
 			/* jalakäija ja tema varjaja (puu / pargitud auto) ette */
 			D = kaugus();
 			/* vasakult ainult siis, kui ta jõuab terve raja ületada (≤ 4,5 m/s) */
-			jkPool = Math.random() < 0.5 && (TEE.TEE_L + 0.3 + RAJA_X) / (D / v0) <= 4.5 ? -1 : 1;
 			zOht = zOoteAlgus + v0 * (viide / 1000) + D; tOht = tOoteAlgus + viide;
-			lisaVarjaja(tee, Math.floor((zOht - 1.5) / TEE.SEG), jkPool);
+			const nV = Math.floor((zOht - 1.5) / TEE.SEG);
+			jkDz = zOht - nV * TEE.SEG;
+			/* vasakult ainult siis, kui ta jõuab terve tee ületada (≤ 4,5 m/s) */
+			jkPool = -1; const vasak = Math.abs(RAJA_X - arvutaAlg(D)) / (D / v0) <= 4.5;
+			jkPool = Math.random() < 0.5 && vasak ? -1 : 1;
+			jkAlg = arvutaAlg(D);
+			lisaVarjaja(tee, nV, jkPool);
 		} else zOht = 0;
 		olek = 'oota';
 		taimer = setTimeout(() => {
 			t0 = performance.now(); zBase = z; tVajutus = null;
-			if (reziim === 'pime') D = zOht - zBase; /* täpselt seal, kus ta juba seisab */
+			if (reziim === 'pime') { D = zOht - zBase; jkAlg = arvutaAlg(D); } /* täpselt seal, kus ta varjaja taga on */
 			if (reziim === 'tuled') ees = { gap: v0 * vahe, pidur: true };
 			olek = 'nyyd';
 		}, viide);
@@ -335,11 +348,17 @@
 		}
 	}
 	/* saada sõbrale: telefonis jagamismenüü (Messenger, WhatsApp…), muidu link lõikelauale */
+	/* saada sõbrale: telefonis süsteemi jagamismenüü (Messenger, WhatsApp…);
+	   arvutis on see menüü (AirDrop, Mail…) kasutu — näitame otse Facebooki ja WhatsAppi */
+	let valikud = $state(false);
+	const puutekas = () => { try { return matchMedia('(pointer: coarse)').matches; } catch { return false; } };
+	const jagaTekst = () => (tulemusMs ? t('Minu reaktsioon') + ' ' + f2(tulemusMs) + ' s. ' : '') + t('Kas sina oled kiirem?');
 	async function saada() {
-		const l = link(), tekst = (tulemusMs ? t('Minu reaktsioon') + ' ' + f2(tulemusMs) + ' s. ' : '') + t('Kas sina oled kiirem?');
-		if (navigator.share) { try { await navigator.share({ title: t('Kui kiiresti SINA pidurdad?'), text: tekst, url: l }); track('jaga', 'sobrale'); return; } catch (e) { if (e && e.name === 'AbortError') return; } }
-		kopeeri();
+		const l = link();
+		if (navigator.share && puutekas()) { try { await navigator.share({ title: t('Kui kiiresti SINA pidurdad?'), text: jagaTekst(), url: l }); track('jaga', 'sobrale'); return; } catch (e) { if (e && e.name === 'AbortError') return; } }
+		valikud = !valikud;
 	}
+
 	function kopeeri() { try { navigator.clipboard.writeText(link()); jagatud = t('Link kopeeritud ✓'); track('jaga', 'link'); } catch {} }
 </script>
 
@@ -403,6 +422,12 @@
 					<button type="button" class="btn" onclick={saada}>{t('Saada sõbrale')}</button>
 					<button type="button" class="btn" onclick={kopeeri}>{t('Kopeeri link')}</button>
 				</div>
+				{#if valikud}
+					<div class="rk-valik">
+						<a href={'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(link())} target="_blank" rel="noopener" onclick={() => track('jaga', 'facebook')}>Facebook</a>
+						<a href={'https://wa.me/?text=' + encodeURIComponent(jagaTekst() + ' ' + link())} target="_blank" rel="noopener" onclick={() => track('jaga', 'whatsapp')}>WhatsApp</a>
+					</div>
+				{/if}
 				{#if jagatud}<p class="rk-k-s" role="status">{jagatud}</p>{/if}
 				<button type="button" class="rk-uuesti" onclick={() => { kaart = false; vajuta(); }}>{t('Proovi uuesti')}</button>
 			</div>
@@ -492,6 +517,9 @@
 	.rk-jaga .btn { text-align: center; justify-content: center; }
 	.rk-jaga .yel { grid-column: 1 / -1; }
 	.rk-kaart .rk-jaga .btn:not(.yel) { background: #23262d; color: #fff; border-color: #343944; }
+	.rk-valik { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-2); margin-top: var(--sp-2); }
+	.rk-valik a { text-align: center; padding: 10px 6px; border-radius: 10px; background: #23262d; border: 1px solid #343944; color: #fff; text-decoration: none; font-weight: 700; font-size: 14px; }
+	.rk-valik a:hover { border-color: #ffc20e; }
 	.rk-uuesti { margin-top: var(--sp-3); border: 0; background: transparent; color: #aab1bc; font-weight: 700; font-size: 14px; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; padding: 8px; }
 	.rk-uuesti:hover { color: #fff; }
 	.rk-nupud { display: flex; flex-wrap: wrap; gap: var(--sp-2); margin-top: var(--sp-4); }
