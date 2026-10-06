@@ -10,7 +10,8 @@
 		['peatumine', '/liiklusohutus/', t('Peatumisteekond')],
 		['pimedas', '/liiklusohutus/pimedas/', t('Pimedas')],
 		['pikivahe', '/liiklusohutus/pikivahe/', t('Pikivahe')],
-		['kurv', '/liiklusohutus/kurv/', t('Kurv ja rehvid')]
+		['kurv', '/liiklusohutus/kurv/', t('Kurv ja rehvid')],
+		['reaktsioon', '/liiklusohutus/reaktsioon/', t('Reaktsioonitest')]
 	];
 	const teeVaade = $derived(vaade === 'peatumine' || vaade === 'pimedas');
 	/* Liiklusohutuse kalkulaator (/liiklusohutus/).

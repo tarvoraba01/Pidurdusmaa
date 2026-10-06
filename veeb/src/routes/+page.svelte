@@ -295,6 +295,7 @@
 						<p>{t("Neli simulaatorit samast mudelist: muuda kiirust, teeolusid ja rehve ning vaata animatsioonist, mis juhtub.")}</p>
 					</div>
 					<div class="sim-g">
+						<a class="sim-c sim-mang" href={keel.L('/liiklusohutus/reaktsioon/')}><Icon name="speed" /><b>{t("Mäng: kui kiiresti SINA pidurdad?")}</b><span>{t("Testi oma reaktsiooni, vaata oma peatumisteekonda ja jaga tulemust sõpradega.")}</span><em>{t("Mängi")} →</em></a>
 						<a class="sim-c" href={keel.L('/liiklusohutus/')}><Icon name="road" /><b>{t("Peatumisteekond")}</b><span>{t("Kui palju pikem on peatumine, kui sõidad 10 km/h kiiremini?")}</span><em>{t("Proovi")} →</em></a>
 						<a class="sim-c" href={keel.L('/liiklusohutus/pimedas/')}><Icon name="moon" /><b>{t("Pimedas")}</b><span>{t("Kas jõuad peatuda, kui jalakäija on tumedates riietes?")}</span><em>{t("Proovi")} →</em></a>
 						<a class="sim-c" href={keel.L('/liiklusohutus/pikivahe/')}><Icon name="gap" /><b>{t("Pikivahe")}</b><span>{t("Kas 2 sekundit vahet on ikka piisav?")}</span><em>{t("Proovi")} →</em></a>

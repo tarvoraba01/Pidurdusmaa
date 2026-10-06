@@ -36,8 +36,8 @@ export function entries() {
 	for (const [a, b] of vsPairs()) out.push({ liik: 'vs', slug: a + '-vs-' + b });
 	for (const p of autod().polved.values()) out.push({ liik: 'auto', slug: p.mk + '--' + p.slug });
 	/* vene/inglise lehtede pildid (vt ogLang $lib/i18n.js-is) */
-	for (const x of ['liiklus-kurv', 'liiklus-pimedas', 'liiklus-pikivahe', 'rehvivahetus']) out.push({ liik: 'sait', slug: x });
-	for (const k of ['ru', 'en']) for (const x of ['avaleht', 'liiklusohutus', 'liiklus-kurv', 'liiklus-pimedas', 'liiklus-pikivahe']) out.push({ liik: 'sait', slug: x + '.' + k });
+	for (const x of ['liiklus-kurv', 'liiklus-pimedas', 'liiklus-pikivahe', 'liiklus-reaktsioon', 'rehvivahetus']) out.push({ liik: 'sait', slug: x });
+	for (const k of ['ru', 'en']) for (const x of ['avaleht', 'liiklusohutus', 'liiklus-kurv', 'liiklus-pimedas', 'liiklus-pikivahe', 'liiklus-reaktsioon']) out.push({ liik: 'sait', slug: x + '.' + k });
 	out.push({ liik: 'sait', slug: 'rehvivahetus.ru' });
 	out.push({ liik: 'sait', slug: 'millal-talverehvid-alla.ru' });
 	for (const p of autod().polved.values()) out.push({ liik: 'auto', slug: p.mk + '--' + p.slug + '.ru' });
@@ -177,6 +177,11 @@ const TEEMA = {
 		et: { pilt: 'pikivahe', kicker: 'Liiklusohutus · pikivahe', pealkiri: 'Kas 2 sekundit on piisav?', alapealkiri: 'Kui eesolev auto järsult pidurdab', sildid: ['1–4 sekundit', 'Tasuta'] },
 		ru: { pilt: 'pikivahe', kicker: 'Безопасность · дистанция', pealkiri: 'Хватит ли 2 секунд?', alapealkiri: 'Если машина впереди резко тормозит', sildid: ['1–4 секунды', 'Бесплатно'] },
 		en: { pilt: 'pikivahe', kicker: 'Road safety · following distance', pealkiri: 'Is 2 seconds enough?', alapealkiri: 'When the car ahead brakes hard', sildid: ['1–4 seconds', 'Free'] }
+	},
+	'liiklus-reaktsioon': {
+		et: { pilt: 'pikivahe', kicker: 'Liiklusohutus · mäng', pealkiri: 'Kui kiiresti SINA pidurdad?', alapealkiri: 'Testi oma reaktsiooni', sildid: ['3 katset', 'Jaga sõpradega'] },
+		ru: { pilt: 'pikivahe', kicker: 'Безопасность · игра', pealkiri: 'Как быстро ВЫ тормозите?', alapealkiri: 'Проверьте свою реакцию', sildid: ['3 попытки', 'Поделитесь'] },
+		en: { pilt: 'pikivahe', kicker: 'Road safety · game', pealkiri: 'How fast do YOU brake?', alapealkiri: 'Test your reaction', sildid: ['3 tries', 'Share'] }
 	},
 	rehvivahetus: {
 		et: { pilt: 'kalender', kicker: 'Rehvivahetus ' + AASTA, pealkiri: 'Millal talverehvid alla?', alapealkiri: 'Talverehvid kohustuslikud 1.12–1.03', sildid: ['Naast 15.10–31.03', 'Seadus'] },

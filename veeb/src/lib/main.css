@@ -468,6 +468,7 @@ dialog.how::backdrop{background:rgba(10,11,13,.6);backdrop-filter:blur(2px)}
 .sim-c b{font-size:17px}
 .sim-c span{font-size:14px;line-height:1.4;color:var(--muted-d);flex:1}
 .sim-c em{font-style:normal;font-weight:700;font-size:14px;color:var(--yellow);margin-top:var(--sp-2)}
+.sim-mang{grid-column:1/-1;background:#1f1a08;border-color:#4a3c0c}
 .sim-c:hover,.sim-c:focus-visible{border-color:var(--yellow);background:#1d2027}
 @media (max-width:900px){.sim-g{grid-template-columns:1fr 1fr}}
 @media (max-width:560px){.sim{padding:var(--sp-5);margin-top:var(--sp-8)}.sim-c{padding:var(--sp-4)}.sim-c b{font-size:15.5px}.sim-c span{font-size:13px}}
