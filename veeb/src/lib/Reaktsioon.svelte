@@ -228,7 +228,7 @@
 	function track(e, v) { try { window.PM_TRACK && window.PM_TRACK('mang', e + (v ? ' · ' + v : '')); } catch {} }
 
 	const read = $derived.by(() => {
-		if (olek !== 'tulemus' || !veh || !P) return [];
+		if (!tulemused.length || kaib || !veh || !P) return [];
 		void [kiirus, vahe, riie, reziim, ilm];
 		J = jalg(kiirus);
 		const sinu = tulemusMs ? tulemusMs / 1000 : null;
@@ -289,6 +289,12 @@
 			track('jaga', 'arvutis');
 		}
 	}
+	/* saada sõbrale: telefonis jagamismenüü (Messenger, WhatsApp…), muidu link lõikelauale */
+	async function saada() {
+		const l = link(), tekst = (tulemusMs ? t('Minu reaktsioon') + ' ' + f2(tulemusMs) + ' s. ' : '') + t('Kas sina oled kiirem?');
+		if (navigator.share) { try { await navigator.share({ title: t('Kui kiiresti SINA pidurdad?'), text: tekst, url: l }); track('jaga', 'sobrale'); return; } catch (e) { if (e && e.name === 'AbortError') return; } }
+		kopeeri();
+	}
 	function kopeeri() { try { navigator.clipboard.writeText(link()); jagatud = t('Link kopeeritud ✓'); track('jaga', 'link'); } catch {} }
 </script>
 
@@ -335,6 +341,15 @@
 		{#if reziim === 'tuled'}<span class="rk-pallid" aria-hidden="true">{#each Array(KATSEID) as _, i}<i class:on={i < tulemused.length} class:cr={tulemused[i]?.crash}></i>{/each}</span>{/if}
 	</button>
 
+	{#if tulemused.length && !kaib}
+		<div class="rk-jaga">
+			<button type="button" class="btn yel" onclick={jaga}>{t('Jaga storysse')}</button>
+			<button type="button" class="btn" onclick={saada}>{t('Saada sõbrale')}</button>
+			<button type="button" class="btn" onclick={kopeeri}>{t('Kopeeri link')}</button>
+		</div>
+		{#if jagatud}<p class="rk-sel rk-jaga-s" role="status">{jagatud}</p>{/if}
+	{/if}
+
 	{#if olek === 'tulemus' && read.length}
 		<div class="rk-tul">
 			{#if tulemusMs}<p class="rk-suur">{reziim === 'tuled' ? t('Sinu reaktsioon (3 katse mediaan)') : t('Sinu reaktsioon')}: <b>{f2(tulemusMs)} s</b>{#if sobra}{' · ' + (tulemusMs < sobra ? t('Sõbrast kiirem!') : tulemusMs > sobra ? t('Sõber oli kiirem') + ' (' + f2(sobra) + ' s)' : t('Täpselt sama kiire kui sõber!'))}{/if}</p>{/if}
@@ -346,11 +361,8 @@
 			</ol>
 			<p class="rk-sel">{t('Testis sa tead, et takistus tuleb. Liikluses mitte — seal on reaktsioon tavaliselt pikem.')} {ilm === 'talv' ? t('Talvel lamellrehvid, tallatud lumi.') : t('Uued keskmised suverehvid.')} {t('Sama arvutus mis kalkulaatoris.')}{reziim === 'tuled' ? ' ' + t('Kui eesolev auto pidurdab sama hästi kui sina, ei muuda ilm tulemust: otsustavad pikivahe ja reaktsioon. Kui tal on paremad rehvid või ta sõidab millelegi otsa, peatub ta kiiremini kui sina, ja libedal teel on see vahe suurem.') : ''}</p>
 			<div class="rk-nupud">
-				<button type="button" class="btn yel" onclick={jaga}>{t('Jaga storysse')}</button>
-				<button type="button" class="btn" onclick={kopeeri}>{t('Kopeeri link')}</button>
 				<a class="btn" href={keel.L('/')}>{t('Arvuta oma auto ja rehvidega')}</a>
 			</div>
-			{#if jagatud}<p class="rk-sel" role="status">{jagatud}</p>{/if}
 		</div>
 	{/if}
 </div>
@@ -394,6 +406,10 @@
 	.rk-read .o { font-weight: 800; color: #15803d; text-align: right; }
 	.rk-read .o.punane { color: var(--red); }
 	.rk-sel { font-size: 13px; color: var(--muted); margin: var(--sp-3) 0 0; line-height: 1.45; }
+	.rk-jaga { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--sp-2); margin-top: var(--sp-3); }
+	.rk-jaga .btn { text-align: center; justify-content: center; }
+	.rk-jaga-s { text-align: center; }
+	@media (max-width: 640px) { .rk-jaga { grid-template-columns: 1fr 1fr; } .rk-jaga .yel { grid-column: 1 / -1; } }
 	.rk-nupud { display: flex; flex-wrap: wrap; gap: var(--sp-2); margin-top: var(--sp-4); }
 	@media (max-width: 640px) { .rk-tekst b { font-size: 28px; } .rk-nupud .btn { flex: 1 1 100%; text-align: center; } }
 </style>

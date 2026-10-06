@@ -15,7 +15,7 @@
 <LiiklusLeht kick={t('Liiklusohutus · mäng')} h1={t('Kui kiiresti SINA pidurdad?')} lead={t('Eesolev auto pidurdab järsult või pimedas on teel jalakäija. Vajuta, kui näed ohtu, ja vaata, kas jõuad peatuda.')} vaade="reaktsioon">
 	<div>
 		<h2>{t('Kuidas see töötab')}</h2>
-		<p>{t('Mõõdame, kui kiiresti vajutad pärast seda, kui oht tuleb nähtavale. Edasi on sama arvutus mis kalkulaatoris: märg asfalt, uued keskmised suverehvid, sinu auto või VW Golf 8. Eesolev auto pidurdab sama tugevalt kui sina. Pimedas tuleb jalakäija nähtavale lähitulede valgel: tumedates riietes umbes 30 m, heledates 45 m ja helkuriga 140 m kauguselt (Transpordiamet).')}</p>
+		<p>{t('Mõõdame, kui kiiresti vajutad pärast seda, kui oht tuleb nähtavale. Edasi on sama arvutus mis kalkulaatoris valitud ilmaga: kuiv või märg asfalt suverehvidega, talvel tallatud lumi lamellrehvidega; sinu auto või VW Golf 8. Eesolev auto pidurdab sama tugevalt kui sina. Pimedas tuleb jalakäija nähtavale lähitulede valgel: tumedates riietes umbes 30 m, heledates 45 m ja helkuriga 140 m kauguselt (Transpordiamet).')}</p>
 	</div>
 	<div>
 		<h2>{t('Miks liikluses on rohkem')}</h2>
