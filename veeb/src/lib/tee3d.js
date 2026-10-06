@@ -134,7 +134,9 @@ function joonistaStseen(ctx, W, H, tee, o) {
 	let zr = (1 - frac) * SEG, th = kb * zr, x = 0.5 * kb * zr * zr;
 	for (let n = 1; n <= NAHE; n++) {
 		const s = sg(base + n);
-		P.push({ zr, x, s, n: base + n });
+		/* kaamerale liiga lähedal (< 0,6 m) lõigupiir jäetakse välja: muidu jäi
+		   iga 5 m järel auto ette hetkeks tühi riba (maa „vilkus“ sõites) */
+		if (n > 1 || zr > 0.6) P.push({ zr, x, s, n: base + n });
 		const kn = kap(base + n);
 		x += th * SEG + 0.5 * kn * SEG * SEG; th += kn * SEG; zr += SEG;
 	}
@@ -149,7 +151,6 @@ function joonistaStseen(ctx, W, H, tee, o) {
 	/* ---- tee (kaugelt lähedale) ---- */
 	for (let i = P.length - 2; i >= 0; i--) {
 		const a = P[i], b = P[i + 1];
-		if (a.zr < 0.5 && i > 0) continue;
 		const [ax, ay, as] = proj(a.x, 0, a.zr), [bx, by, bs] = proj(b.x, 0, b.zr);
 		if (by >= ay) continue;
 		const L = valgus(a.zr, oo, lampL(a.n)), udu = kl(a.zr * uduK, 0, 0.85);
