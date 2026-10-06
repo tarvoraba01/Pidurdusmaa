@@ -27,6 +27,7 @@
 		<ul>
 			<li><a href={keel.L('/')}>{t('Pidurdusmaa kalkulaator')}</a></li>
 			<li><a href={keel.L('/rehvi-valimine/')}>{t('Rehvi valimine')}</a></li>
+			{#if keel.lang !== 'en'}<li><a href={keel.L('/teadmine/artiklid/vanad-ja-kulunud-rehvid/')}>{t('Vanad ja kulunud rehvid: kui palju pikeneb pidurdusmaa?')}</a></li>{/if}
 		</ul>
 	</div>
 </LiiklusLeht>

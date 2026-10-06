@@ -4,6 +4,18 @@
  * leht ja Teadmine leht loevad nimekirja siit. */
 export const ARTIKLID = [
 	{
+		slug: 'vanad-ja-kulunud-rehvid',
+		title: 'Vanad ja kulunud rehvid: kui palju pikeneb pidurdusmaa?',
+		desc: '3 mm mustriga suverehv peatub märjal 4 m hiljem kui uus, talverehv lumel veerandi võrra pikemalt. Arvutatud pidurdusmaad, DOT-koodi lugemine ja millal vahetada.',
+		kuupaev: '2026-10-06',
+		silt: 'Rehvid',
+		ru: {
+			title: 'Старые и изношенные шины: насколько удлиняется тормозной путь?',
+			desc: 'Летняя шина с протектором 3 мм на мокрой дороге останавливается на 4 м дальше новой, зимняя на снегу — на четверть дальше. Расчёты, как читать код DOT и когда менять.',
+			silt: 'Шины'
+		}
+	},
+	{
 		slug: 'millal-talverehvid-alla',
 		title: 'Millal talverehvid alla? Kuupäevad 2026/2027 ja reeglid',
 		desc: 'Naastrehvid on lubatud 15. oktoobrist, talverehvid kohustuslikud 1. detsembrist. Kõik kuupäevad, 3 mm reegel ja pidurdusmaa numbrid: millal vahetada.',
