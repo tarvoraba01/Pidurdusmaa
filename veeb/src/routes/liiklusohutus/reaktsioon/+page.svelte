@@ -15,7 +15,7 @@
 <LiiklusLeht kick={t('Liiklusohutus · mäng')} h1={t('Kui kiiresti SINA pidurdad?')} lead={t('Kui eesoleva auto pidurituled süttivad, vajuta kohe. Kolm katset. Siis näed, mitme meetri pealt sa päriselt peatud.')} vaade="reaktsioon">
 	<div>
 		<h2>{t('Kuidas see töötab')}</h2>
-		<p>{t('Mõõdame, kui kiiresti vajutad pärast tulede süttimist (kolme katse mediaan). Sellele lisame 0,2 s jala viimiseks gaasilt pidurile. Peatumisteekond tuleb samast arvutusmudelist mis kalkulaatoris: märg asfalt, uued keskmised suverehvid, sinu auto või VW Golf 8.')}</p>
+		<p>{t('Mõõdame, kui kiiresti vajutad pärast tulede süttimist (kolme katse mediaan). Peatumisteekond tuleb samast arvutusmudelist mis kalkulaatoris: märg asfalt, uued keskmised suverehvid, sinu auto või VW Golf 8.')}</p>
 	</div>
 	<div>
 		<h2>{t('Miks liikluses on rohkem')}</h2>

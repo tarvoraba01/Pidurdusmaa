@@ -3,8 +3,8 @@
 	   Eesoleva auto pidurituled süttivad juhuslikul hetkel → vajuta.
 	   3 katset, tulemus = mediaan. Peatumisteekond tuleb SAMAST mootorist
 	   (engine.js) sinu autoga (kui kalkulaatoris valitud) või Golf 8-ga.
-	   Ausus: test mõõdab lihtsat reaktsiooni ekraanil. Liikluses lisandub
-	   jala viimine pidurile (~0,2 s) ja ootamatus — näitame ka 1 s ja 2 s.
+	   Ausus: tulemus on täpselt mõõdetud aeg (Tarvo: midagi juurde ei lisa);
+	   märkus ütleb, et testis tead, et takistus tuleb. Näitame ka 1 s ja 2 s.
 	   Isikuandmeid ei koguta; jagatav link sisaldab ainult aega (?r=ms). */
 	import { onMount } from 'svelte';
 	import { version } from '$app/environment';
@@ -13,7 +13,6 @@
 	const keel = useLang();
 
 	const KATSEID = 3;
-	const JALG = 0.2; /* jala viimine gaasilt pidurile, s */
 	const PIKK = 2.5; /* üle selle = ei vajutanud */
 
 	let P = null, core = null;
@@ -77,7 +76,7 @@
 	}
 	const read = $derived.by(() => {
 		if (!tulemusMs || !veh) return [];
-		const sina = tulemusMs / 1000 + JALG;
+		const sina = tulemusMs / 1000;
 		return [
 			[t('Sina, kui oled valmis'), sina, teekond(sina), true],
 			[t('Tavaline juht liikluses (1 s)'), 1, teekond(1), false],
@@ -177,7 +176,7 @@
 					</li>
 				{/each}
 			</ol>
-			<p class="rk-sel">{t('Hele osa ribal = reageerimise ajal sõidad täiskiirusel edasi. Sinu ajale on lisatud 0,2 s jala viimiseks pidurile. Liikluses on oht ootamatu ja päris reaktsioon on tavaliselt pikem kui testis.')}</p>
+			<p class="rk-sel">{t('Hele osa ribal = reageerimise ajal sõidad täiskiirusel edasi. Testis sa tead, et takistus tuleb. Liikluses mitte — seal on reaktsioon tavaliselt pikem.')}</p>
 			<div class="rk-nupud">
 				<button type="button" class="btn yel" onclick={jaga}>{t('Jaga storysse')}</button>
 				<button type="button" class="btn" onclick={kopeeri}>{t('Kopeeri link')}</button>
