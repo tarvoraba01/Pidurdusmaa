@@ -37,7 +37,8 @@
 	const cur = $derived.by(() => {
 		const p = base;
 		if (p === '/') return 'home';
-		if (p.startsWith('/rehvi-valimine') || p.startsWith('/vordle-rehve')) return 'valik';
+		if (p.startsWith('/rehvi-valimine') || p.startsWith('/vordle-rehve') || p.startsWith('/rehvi-vanus') || p.startsWith('/rehvi-kalkulaator')) return 'valik';
+		if (p.startsWith('/liiklusohutus')) return 'sim';
 		/* rehvid, testid ja margid on menüüs Teadmine all */
 		if (p.startsWith('/teadmine') || p.startsWith('/talverehvid') || p.startsWith('/testid') || p.startsWith('/rehvid') || p.startsWith('/margid') || p.startsWith('/autod')) return 'teadmine';
 		return '';
@@ -149,13 +150,23 @@
 					aria-expanded="false"
 					aria-haspopup="true"
 					aria-current={cur === 'valik' ? 'page' : undefined}
-					>{t("Rehvi valimine")} <Icon name="chev" /></button
+					>{t("Rehvid")} <Icon name="chev" /></button
 				>
 				<div class="dd-menu" role="menu">
 					{@html t("<a role=\"menuitem\" href=\"/rehvi-valimine/\" ><b>Vali rehv enda tingimustele</b><span>Mis on sulle oluline — näitame sobivaid</span></a > <a role=\"menuitem\" href=\"/vordle-rehve/\" ><b>Võrdle rehve kõrvuti</b><span>2–4 rehvi ühes tabelis</span></a >")}
 					<a role="menuitem" href={L('/teadmine/rehvivahetus/')}><b>{t('Rehvivahetus')}</b><span>{t('Millal talve- ja suverehvid alla')}</span></a>
 					<a role="menuitem" href={L('/rehvi-vanus/')}><b>{t('Kui vanad on su rehvid?')}</b><span>{t('DOT-kood, vanus ja kulunud muster')}</span></a>
 					<a role="menuitem" href={L('/rehvi-kalkulaator/')}><b>{t('Rehvimõõdu kalkulaator')}</b><span>{t('Läbimõõt, külje kõrgus ja spidomeeter')}</span></a>
+				</div>
+			</div>
+			<div class="dd" data-dd>
+				<button type="button" class="dd-btn" aria-expanded="false" aria-haspopup="true" aria-current={cur === 'sim' ? 'page' : undefined}>{t('Simulaatorid')} <Icon name="chev" /></button>
+				<div class="dd-menu" role="menu">
+					<a role="menuitem" href={L('/liiklusohutus/reaktsioon/')}><b>{t('Mäng: kui kiiresti SINA pidurdad?')}</b><span>{t('Testi oma reaktsiooni ja jaga tulemust')}</span></a>
+					<a role="menuitem" href={L('/liiklusohutus/')}><b>{t('Peatumisteekond')}</b><span>{t('Kiirus, reaktsioon ja teeolud')}</span></a>
+					<a role="menuitem" href={L('/liiklusohutus/pimedas/')}><b>{t('Pimedas')}</b><span>{t('Kas jõuad jalakäija ees peatuda?')}</span></a>
+					<a role="menuitem" href={L('/liiklusohutus/pikivahe/')}><b>{t('Pikivahe')}</b><span>{t('Kui eesolev auto järsult pidurdab')}</span></a>
+					<a role="menuitem" href={L('/liiklusohutus/kurv/')}><b>{t('Kurv ja rehvid')}</b><span>{t('Pidurdamine kurvis')}</span></a>
 				</div>
 			</div>
 			<a href={lang === 'ru' ? '/ru/teadmine/artiklid/' : '/teadmine/'} aria-current={cur === 'teadmine' ? 'page' : undefined}>{t("Teadmine")}</a>

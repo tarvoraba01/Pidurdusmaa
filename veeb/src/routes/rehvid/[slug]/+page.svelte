@@ -354,6 +354,12 @@
 						<button type="button" class="btn yel" style="width:100%;margin-top:var(--sp-4)" data-tw-add
 							>{t("Võrdle seda rehvi →")}</button
 						>
+						<!-- poed: täidab app.js (rehviPilt → /api/rehv/<slug>/), peidus kui hindu pole -->
+						<div class="rp-poed" data-rehv-poed data-nimi={ty.name} hidden>
+							<h3>{t('Kus osta')}</h3>
+							<div class="rp-list" data-rehv-poed-list></div>
+							<p class="srcline">{t('Hinnad poodidest, uuenevad mitu korda päevas. Järjestus pidurdusmaa järgi ei sõltu poest.')}</p>
+						</div>
 						<h3
 							style="font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:var(--sp-6) 0 var(--sp-2)"
 						>
@@ -462,4 +468,13 @@
 <style>
 	.vastus { font-size: 17px; font-weight: 600; max-width: 62ch; margin: 6px 0 10px; }
 	.vastus-alus { font-weight: 400; color: var(--muted-d, inherit); font-size: 14px; }
+	.rp-poed { margin-top: var(--sp-5); }
+	.rp-poed h3 { font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin: 0 0 var(--sp-2); }
+	.rp-list { display: grid; gap: var(--sp-2); }
+	:global(.rp-pood) { display: grid; grid-template-columns: 1fr auto; gap: 2px var(--sp-2); align-items: center; padding: 10px 12px; border: 1px solid var(--line); border-radius: 10px; text-decoration: none; color: var(--text); background: #fff; }
+	:global(.rp-pood:hover) { border-color: var(--yellow); }
+	:global(.rp-pood b) { font-weight: 800; }
+	:global(.rp-pood .h) { font-family: var(--display); font-weight: 700; font-size: 20px; text-align: right; }
+	:global(.rp-pood small) { color: var(--muted); font-size: 12.5px; }
+	:global(.rp-pood .v) { color: var(--text); font-weight: 700; font-size: 13px; text-align: right; }
 </style>

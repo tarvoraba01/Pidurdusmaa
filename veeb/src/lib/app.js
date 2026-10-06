@@ -2948,6 +2948,7 @@ import UNIVERSAALID from './universaalid.json';
     fetch(CFG.home + 'api/rehv/' + encodeURIComponent(slug) + '/', { credentials: 'omit' })
       .then(function (r) { return r.ok ? r.json() : null; })
       .then(function (d) {
+        poed(d);
         if (!d || !d.pilt) return;
         var img = new Image();
         img.alt = _t('Rehvi pilt');
@@ -2963,6 +2964,25 @@ import UNIVERSAALID from './universaalid.json';
         img.src = d.pilt;
       })
       .catch(function () {});
+  }
+
+  /* Rehvi lehel „Kus osta“: iga poe soodsaim pakkumine (mõõt, laoseis, hind),
+     odavaim ees. Link läheb poe tootelehele (rel=sponsored, UTM / Awini link). */
+  function poed(d) {
+    var box = $('[data-rehv-poed]');
+    if (!box || !d || !d.hinnad || !d.hinnad.length) return;
+    var nimi = box.getAttribute('data-nimi') || '';
+    var parim = {};
+    d.hinnad.forEach(function (r) { if (!r.url) return; var k = r.myyja + '|' + r.moot; if (!parim[k] || r.hind < parim[k].hind) parim[k] = r; });
+    var list = Object.keys(parim).map(function (k) { return parim[k]; }).sort(function (a, b) { return a.hind - b.hind; }).slice(0, 8);
+    if (!list.length) return;
+    $('[data-rehv-poed-list]', box).innerHTML = list.map(function (r) {
+      return '<a class="rp-pood" href="' + esc(poeLink(r.url, 'rehvileht', nimi)) + '" target="_blank" rel="nofollow sponsored noopener" data-pood="' + esc(r.myyja) + '" data-rehv="' + esc(nimi) + '">' +
+        '<b>' + esc(r.myyja) + '</b><span class="h">' + esc(hindTekst(r)) + '</span>' +
+        '<small>' + esc(pretty(r.moot)) + (r.laos === false ? ' · ' + _t('tellimisel') : r.kogus > 0 ? ' · ' + _t('laos') + ' ' + (r.kogus >= 8 ? '8+' : r.kogus) + ' ' + _t('tk') : '') + '</small><span class="v">' + _t('Vali') + ' →</span></a>';
+    }).join('');
+    box.hidden = false;
+    Track('poed_rehvilehel', nimi + ' · ' + list.length);
   }
 
   /* partneri kaardi klikk statistikasse (üks kuular kogu saidile) */
