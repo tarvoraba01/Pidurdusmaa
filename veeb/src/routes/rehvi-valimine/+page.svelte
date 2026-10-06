@@ -37,6 +37,7 @@
 					<select class="lsel" data-f="model" aria-label={t("Mudel")} disabled><option value="">{t("Mudel")}</option></select>
 					<select class="lsel" data-f="year" aria-label={t("Aasta")} disabled><option value="">{t("Aasta")}</option></select>
 					<select class="lsel" data-f="variant" aria-label={t("Mootor")} disabled><option value="">{t("Mootor")}</option></select>
+					<select class="lsel kere-sel" data-f="kere" aria-label={t("Kere")} hidden><option value="">{t("Kere")}</option></select>
 				</div>
 				<label class="qlab" for="v-size">{t("Rehvimõõt")}</label>
 				<select class="lsel" id="v-size" data-f="size"><option value="20555R16">205/55 R16</option></select>

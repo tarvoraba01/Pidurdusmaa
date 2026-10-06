@@ -489,7 +489,7 @@
   function VehPicker(root, onChange) {
     var sel = {
       make: $('[data-f=make]', root), model: $('[data-f=model]', root),
-      year: $('[data-f=year]', root), variant: $('[data-f=variant]', root)
+      year: $('[data-f=year]', root), variant: $('[data-f=variant]', root), kere: $('[data-f=kere]', root)
     };
     var V = core.vehicles;
     function opts(el, list, ph) {
@@ -526,8 +526,19 @@
         opts(sel.year, md ? yrs : [], md ? _t('Vali aasta') : '—');
         yr = sel.year.value; from = 'year';
       }
-      if (from === 'year') taidaMootorid();
+      if (from === 'year') { taidaMootorid(); taidaKere(); }
       onChange(sel.variant.value || null);
+    }
+    /* KERE (sedaan / universaal / luukpära): sõiduautodel valitav, et inimene
+       leiaks oma auto. Arvutuses sama: universaal on ~60 kg raskem ja see
+       muudab pidurdusmaad mudelis ~0,13 m (90 km/h, märg) — alla veapiiri. */
+    function taidaKere() {
+      if (!sel.kere) return;
+      var v = core.vehByKey[sel.variant.value], keha = v && /^(SOIDUAUTO|VAIKEAUTO)$/.test(v.body);
+      sel.kere.hidden = !keha;
+      if (!keha) { sel.kere.value = ''; return; }
+      if (sel.kere.options.length < 2) opts(sel.kere, [['luuk', _t('Luukpära')], ['sedaan', _t('Sedaan')], ['universaal', _t('Universaal')]], _t('Kere'));
+      sel.kere.disabled = false;
     }
     function taidaMootorid() {
       var mk = sel.make.value, md = sel.model.value, yr = sel.year.value;
@@ -554,6 +565,7 @@
     sel.model.addEventListener('change', function () { fill('model'); });
     sel.year.addEventListener('change', function () { fill('year'); });
     sel.variant.addEventListener('change', function () { onChange(sel.variant.value || null); });
+    if (sel.kere) sel.kere.addEventListener('change', function () { if (sel.kere.value) Track('kere', sel.kere.value); });
     var api = {
       set: function (key) {
         var v = core.vehByKey[key]; if (!v) return;
