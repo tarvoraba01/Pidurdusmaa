@@ -16,6 +16,10 @@
  *  - Omadusi, mille kohta usaldusväärseid andmeid ei ole (juhitavus,
  *    kulumine, hind), lehel ei näidata — ei arvata ega pakuta valikuks.
  */
+/* universaalid: põlvkonna rida → universaali nimi („Passat Variant“, „Octavia Combi“).
+   Auto valikus eraldi mudelina, andmed samad mis põhimudelil (universaal ~60 kg
+   raskem = ~0,13 m, alla veapiiri). Allikas: tookoda / Ants, 6.10.2026. */
+import UNIVERSAALID from './universaalid.json';
 (function () {
   'use strict';
 
@@ -492,6 +496,19 @@
       year: $('[data-f=year]', root), variant: $('[data-f=variant]', root)
     };
     var V = core.vehicles;
+    /* universaalid mudelite nimekirja: „mark|nimi“ → { base: mudel, keys: põlvkonna read } */
+    var UNI = {};
+    Object.keys(UNIVERSAALID).forEach(function (k) {
+      var v = core.vehByKey[k]; if (!v) return;
+      var id = v.make + '|' + UNIVERSAALID[k];
+      (UNI[id] = UNI[id] || { base: v.model, keys: {} }).keys[k] = 1;
+    });
+    function onMudel(v, mk, md) {
+      if (v.make !== mk) return false;
+      if (v.model === md) return true;
+      var u = UNI[mk + '|' + md];
+      return !!(u && v.model === u.base && u.keys[absKey(v.key)]);
+    }
     function opts(el, list, ph) {
       var grp = null;
       el.innerHTML = '<option value="">' + esc(ph) + '</option>' + list.map(function (o) {
@@ -513,7 +530,8 @@
     function fill(from) {
       var mk = sel.make.value, md = sel.model.value, yr = sel.year.value;
       if (from === 'make') {
-        var models = uniq(V.filter(function (v) { return v.make === mk; }).map(function (v) { return [v.model, v.model]; }))
+        var models = uniq(V.filter(function (v) { return v.make === mk; }).map(function (v) { return [v.model, v.model]; })
+          .concat(Object.keys(UNI).filter(function (id) { return id.indexOf(mk + '|') === 0; }).map(function (id) { var n = id.slice(mk.length + 1); return [n, n]; })))
           .sort(function (a, b) { return a[1].localeCompare(b[1], 'et', { numeric: true }); });
         opts(sel.model, mk ? models : [], mk ? _t('Vali mudel') : '—');
         md = sel.model.value; from = 'model';
@@ -521,7 +539,7 @@
       if (from === 'model') {
         /* põlvkonnad uusimast vanimani (algusaasta järgi) */
         var alg = function (l) { var m = /\((\d{4})/.exec(l[0]); return m ? +m[1] : 0; };
-        var yrs = uniq(V.filter(function (v) { return v.make === mk && v.model === md; }).map(function (v) { return [v.yearLabel, v.yearLabel]; }))
+        var yrs = uniq(V.filter(function (v) { return onMudel(v, mk, md); }).map(function (v) { return [v.yearLabel, v.yearLabel]; }))
           .sort(function (a, b) { return alg(b) - alg(a); });
         opts(sel.year, md ? yrs : [], md ? _t('Vali aasta') : '—');
         yr = sel.year.value; from = 'year';
@@ -531,7 +549,7 @@
     }
     function taidaMootorid() {
       var mk = sel.make.value, md = sel.model.value, yr = sel.year.value;
-      var rows = V.filter(function (v) { return v.make === mk && v.model === md && v.yearLabel === yr; });
+      var rows = V.filter(function (v) { return onMudel(v, mk, md) && v.yearLabel === yr; });
       var first = rows.filter(function (v) { return !v.virt; })[0];
       var jrk = function (v) { return v.engOrd != null ? v.engOrd : 1e3; };
       var mitmeKytusega = rows.some(function (v) { return v.fuel && v.fuel !== rows[0].fuel; });
@@ -611,7 +629,7 @@
       var y = /^(\d{4})(?:\s*[-–]\s*(\d{4}))?(\+)?/.exec(String(v.years || ''));
       return {
         v: v,
-        hay: ' ' + lihtne([v.make, v.model, v.modelEt, v.gen, v.variant, v.name, v.body].join(' ')) + extra + ' ',
+        hay: ' ' + lihtne([v.make, v.model, v.modelEt, v.gen, v.variant, v.name, v.body, UNIVERSAALID[v.key] || ''].join(' ')) + extra + ' ',
         y0: y ? +y[1] : 0, y1: y ? (y[2] ? +y[2] : (y[3] ? 2030 : +y[1])) : 0
       };
     });
