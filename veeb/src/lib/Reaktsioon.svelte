@@ -42,12 +42,15 @@
 	let sobra = $state(0);
 	let jagatud = $state('');
 	let crash = $state(false);
+	let taisekraan = $state(false); /* mäng üle kogu ekraani */
+	let kaart = $state(false); /* tulemuse + jagamise kaart mänguekraanil */
+	let ekraan;
 
 	/* stseen (ei ole $state: joonistatakse igal kaadril canvas'ele) */
 	let cv, ctx, W = 800, H = 500, raf = 0, taimer = 0;
 	let tee = looTee({ maastik: 'mets', seed: 7 });
 	let oo = false, z = 0, kmhNaha = 0, ees = null, jk = null, aeg0 = performance?.now?.() || 0;
-	let zOoteAlgus = 0, tOoteAlgus = 0, zBase = 0, t0 = 0, tVajutus = null, D = 0, jkPool = 1;
+	let zOoteAlgus = 0, tOoteAlgus = 0, zBase = 0, t0 = 0, tVajutus = null, D = 0, jkPool = 1, zOht = 0, tOht = 0;
 
 	onMount(async () => {
 		try {
@@ -57,6 +60,7 @@
 		ctx = cv.getContext('2d');
 		suurus();
 		window.addEventListener('resize', suurus);
+		document.addEventListener('fullscreenchange', fsMuutus); document.addEventListener('webkitfullscreenchange', fsMuutus);
 		raf = requestAnimationFrame(kaader);
 		await import('$lib/engine.js');
 		P = globalThis.Pidurdus;
@@ -70,15 +74,18 @@
 	onDestroy(() => {
 		if (typeof window === 'undefined') return;
 		clearTimeout(taimer); cancelAnimationFrame(raf); window.removeEventListener('resize', suurus);
+		document.removeEventListener('fullscreenchange', fsMuutus); document.removeEventListener('webkitfullscreenchange', fsMuutus);
+		try { document.documentElement.style.overflow = ''; } catch {}
 	});
-	let viimaneLaius = 0;
+	let viimaneLaius = 0, viimaneKorgus = 0;
 	function suurus() {
 		if (!cv) return;
 		const dpr = Math.min(2, window.devicePixelRatio || 1), w = cv.clientWidth || 800;
+		const h = taisekraan ? cv.clientHeight || w * 0.62 : w * 0.62;
 		/* telefonis kerimine muudab akna kõrgust (aadressiriba): siis ei joonista ümber */
-		if (Math.abs(w - viimaneLaius) < 2) return;
-		viimaneLaius = w;
-		W = Math.round(w * dpr); H = Math.round(w * 0.62 * dpr);
+		if (Math.abs(w - viimaneLaius) < 2 && Math.abs(h - viimaneKorgus) < 2) return;
+		viimaneLaius = w; viimaneKorgus = h;
+		W = Math.round(w * dpr); H = Math.round(h * dpr);
 		cv.width = W; cv.height = H;
 	}
 
@@ -128,7 +135,7 @@
 		const maastik = Math.random() < 0.5 ? 'mets' : 'kula';
 		tee = looTee({ maastik, seed });
 		oo = reziim === 'pime' ? true : Math.random() < 0.4;
-		z = 0; kmhNaha = kiirus; crash = false; jk = null;
+		z = 0; kmhNaha = kiirus; crash = false; jk = null; zOht = 0;
 		ees = reziim === 'tuled' ? { gap: (kiirus / 3.6) * vahe, pidur: false } : null;
 	}
 	function kaader(now) {
@@ -138,6 +145,8 @@
 		if (olek === 'oota') {
 			z = zOoteAlgus + v0 * Math.max(0, (now - tOoteAlgus) / 1000); kmhNaha = kiirus;
 			if (ees) ees = { gap: v0 * vahe, pidur: false };
+			/* jalakäija on juba olemas: seisab varjaja taga ja astub t0 hetkeks tee servale */
+			if (reziim === 'pime' && zOht) { const tt = (now - tOht) / 1000, D0 = zOht - z; jk = { z: zOht, x: jkX(tt, D0), riie, kond: tt > -2 ? tt * 7 : 0 }; }
 		} else if (olek === 'nyyd' || olek === 'soit') {
 			samm(now);
 		} else if (olek === 'algus') {
@@ -161,16 +170,40 @@
 		if (tt > 40) lopeta(r ?? tt, lopp(r ?? tt));
 	}
 
-	/* JALAKÄIJA: kõnnib 1,4 m/s teele nii, et jõuab sinu rajale siis, kui sina
-	   (täiskiirusel) tema juurde jõuaksid; sinu rajal ehmatab ja jääb seisma.
-	   Paremalt: varjaja (puu / pargitud auto) tagant. Vasakult: ületab teed. */
+	/* JALAKÄIJA: seisab varjaja (puu / pargitud auto) taga, astub t0 hetkel tee
+	   servale (nähtavale) ja kõnnib sinu rajale nii, et jõuab sinna hiljemalt siis,
+	   kui sina täiskiirusel tema juurde jõuaksid; seal ehmatab ja jääb seisma.
+	   Vasakult tulles ületab ta vastassuuna raja. */
 	const RAJA_X = TEE.KAAM_X, KOND = 1.4;
-	function jkX(tt) {
-		/* t0 hetkel (nähtavale tulek) seisab ta tee servas varjaja kõrval või on juba teel */
-		const Tk = D / (kiirus / 3.6), serv = TEE.TEE_L + 0.3;
-		if (jkPool > 0) return Math.max(RAJA_X, Math.min(serv, RAJA_X + KOND * (Tk - tt)));
-		return Math.min(RAJA_X, Math.max(-serv, RAJA_X - KOND * (Tk - tt)));
+	const SERV = TEE.TEE_L + 0.3;
+	function jkX(tt, Dn = D) {
+		const Tk = Math.max(0.3, Dn / (kiirus / 3.6));
+		const rada = jkPool > 0 ? SERV - RAJA_X : SERV + RAJA_X;
+		const vk = Math.min(4.5, Math.max(KOND, rada / Tk));
+		const taga = varjajaX() + 0.4;
+		const m = tt < 0 ? Math.min(taga, SERV - KOND * tt) : Math.max(jkPool > 0 ? RAJA_X : -RAJA_X, SERV - vk * tt);
+		/* vasakult: liigub -SERV → +RAJA_X */
+		if (jkPool > 0) return m;
+		return tt < 0 ? -m : Math.min(RAJA_X, -SERV + vk * tt);
 	}
+	const varjajaX = () => (tee.maastik === 'kula' ? TEE.TEE_L + 1.3 : TEE.TEE_L + 2.6);
+
+	/* ---------- täisekraan: päris täisekraan, kus brauser lubab (iPhone'is mitte) — muidu kogu akna peale ---------- */
+	function taisEkraan() {
+		if (taisekraan) { valjuTais(); return; }
+		taisekraan = true; track('taisekraan');
+		try { document.documentElement.style.overflow = 'hidden'; } catch {}
+		try { const r = ekraan.requestFullscreen || ekraan.webkitRequestFullscreen; r && r.call(ekraan)?.catch?.(() => {}); } catch {}
+		setTimeout(() => { viimaneLaius = 0; suurus(); ekraan?.querySelector('.rk-ala')?.focus(); }, 60);
+	}
+	function valjuTais() {
+		taisekraan = false;
+		try { document.documentElement.style.overflow = ''; } catch {}
+		try { const fe = document.fullscreenElement || document.webkitFullscreenElement; if (fe) (document.exitFullscreen || document.webkitExitFullscreen).call(document); } catch {}
+		setTimeout(() => { viimaneLaius = 0; suurus(); }, 60);
+	}
+	function fsMuutus() { if (taisekraan && !(document.fullscreenElement || document.webkitFullscreenElement) && natiivne) valjuTais(); natiivne = !!(document.fullscreenElement || document.webkitFullscreenElement); }
+	let natiivne = false;
 
 	/* ---------- mänguvoog ---------- */
 	function alusta() {
@@ -182,13 +215,16 @@
 		zOoteAlgus = z; tOoteAlgus = performance.now();
 		if (reziim === 'pime') {
 			/* jalakäija ja tema varjaja (puu / pargitud auto) ette */
-			D = kaugus(); jkPool = Math.random() < 0.5 ? 1 : -1;
-			const zOht = zOoteAlgus + v0 * (viide / 1000) + D;
-			lisaVarjaja(tee, Math.floor(zOht / TEE.SEG), jkPool);
-		}
+			D = kaugus();
+			/* vasakult ainult siis, kui ta jõuab terve raja ületada (≤ 4,5 m/s) */
+			jkPool = Math.random() < 0.5 && (TEE.TEE_L + 0.3 + RAJA_X) / (D / v0) <= 4.5 ? -1 : 1;
+			zOht = zOoteAlgus + v0 * (viide / 1000) + D; tOht = tOoteAlgus + viide;
+			lisaVarjaja(tee, Math.floor((zOht - 1.5) / TEE.SEG), jkPool);
+		} else zOht = 0;
 		olek = 'oota';
 		taimer = setTimeout(() => {
 			t0 = performance.now(); zBase = z; tVajutus = null;
+			if (reziim === 'pime') D = zOht - zBase; /* täpselt seal, kus ta juba seisab */
 			if (reziim === 'tuled') ees = { gap: v0 * vahe, pidur: true };
 			olek = 'nyyd';
 		}, viide);
@@ -199,16 +235,18 @@
 		if (!rec.vajutamata) ajad = [...ajad, Math.round(r * 1000)];
 		track(reziim, ilm + ' · ' + (res.crash ? 'kokkupõrge ' + Math.round(res.kmh) + ' km/h' : 'peatus ' + Math.round(res.m) + ' m') + ' · ' + Math.round(r * 1000) + ' ms');
 		olek = reziim === 'pime' || tulemused.length >= KATSEID ? 'tulemus' : 'vahe';
+		/* kokkupõrke raputus jõuab enne lõpuni, siis tuleb kaart */
+		if (olek === 'tulemus') setTimeout(() => { if (olek === 'tulemus') { kaart = true; jagatud = ''; } }, res.crash ? 900 : 500);
 	}
 	function vajuta() {
 		if (!veh || !P) return;
 		if (olek === 'algus' || olek === 'vahe' || olek === 'vara') { if (olek === 'algus') { tulemused = []; ajad = []; track('algus', reziim); } alusta(); return; }
 		if (olek === 'oota') { clearTimeout(taimer); olek = 'vara'; return; }
 		if (olek === 'nyyd') { if (tVajutus == null) { tVajutus = (performance.now() - t0) / 1000; olek = 'soit'; } return; }
-		if (olek === 'tulemus') { tulemused = []; ajad = []; jagatud = ''; alusta(); }
+		if (olek === 'tulemus') { if (kaart) return; tulemused = []; ajad = []; jagatud = ''; alusta(); }
 	}
 	const kaib = $derived(olek === 'oota' || olek === 'nyyd' || olek === 'soit');
-	function lahtesta() { olek = 'algus'; tulemused = []; ajad = []; if (core) uusStseen(); }
+	function lahtesta() { kaart = false; olek = 'algus'; tulemused = []; ajad = []; if (core) uusStseen(); }
 	function vaheta(r) { if (kaib) return; reziim = r; kiirus = r === 'pime' ? 50 : 90; lahtesta(); }
 	function seadista(f) { if (kaib) return; f(); lahtesta(); }
 	function juhuslik() {
@@ -220,6 +258,7 @@
 		lahtesta();
 	}
 	function klahv(e) {
+		if (e.key === 'Escape') { if (kaart) { kaart = false; return; } if (taisekraan && !natiivne) valjuTais(); return; }
 		if ((e.code === 'Space' || e.key === 'Enter') && document.activeElement?.closest?.('.rk-ala')) { e.preventDefault(); vajuta(); }
 	}
 	const mediaan = (a) => { const s = [...a].sort((x, y) => x - y), m = Math.floor(s.length / 2); return s.length % 2 ? s[m] : Math.round((s[m - 1] + s[m]) / 2); };
@@ -254,8 +293,9 @@
 		const g = c.getContext('2d'), DF = '"Barlow Condensed", "Arial Narrow", sans-serif', B = 'Inter, system-ui, sans-serif';
 		g.fillStyle = '#0a0b0d'; g.fillRect(0, 0, 1080, 1920);
 		/* mängu kaader pildi ülaossa */
-		try { g.drawImage(cv, 0, 230, 1080, Math.round(1080 * (cv.height / cv.width))); } catch {}
-		const yy = 230 + Math.round(1080 * (cv.height / cv.width)) + 90;
+		const kh = Math.min(700, Math.round(1080 * (cv.height / cv.width))), sh = Math.round(cv.width * kh / 1080);
+		try { g.drawImage(cv, 0, Math.max(0, (cv.height - sh) / 2), cv.width, Math.min(sh, cv.height), 0, 230, 1080, kh); } catch {}
+		const yy = 230 + kh + 90;
 		g.fillStyle = '#fff'; g.font = 'italic 800 64px ' + B; g.fillText('PIDURDUSMAA', 90, 150); const w = g.measureText('PIDURDUSMAA').width; g.fillStyle = '#ffc20e'; g.fillText('.ee', 90 + w, 150);
 		g.fillStyle = '#ffc20e'; g.font = '700 40px ' + B; g.fillText((t('Minu reaktsioon') + ' · ' + ilmNimi + ' · ' + kiirus + ' ' + t('km/h')).toUpperCase(), 90, yy);
 		const tx = tulemusMs ? f2(tulemusMs) : '—';
@@ -329,6 +369,7 @@
 		<p class="rk-sober">{t('Sõbra reaktsioon:')} <b>{f2(sobra)} s</b>. {t('Kas oled kiirem?')}</p>
 	{/if}
 
+	<div class="rk-ekraan" class:tais={taisekraan} bind:this={ekraan}>
 	<button type="button" class="rk-ala" class:crash onpointerdown={(e) => { e.preventDefault(); vajuta(); }} aria-live="polite">
 		<canvas bind:this={cv} class="rk-cv" aria-hidden="true"></canvas>
 		<span class="rk-tekst">
@@ -340,15 +381,29 @@
 		</span>
 		{#if reziim === 'tuled'}<span class="rk-pallid" aria-hidden="true">{#each Array(KATSEID) as _, i}<i class:on={i < tulemused.length} class:cr={tulemused[i]?.crash}></i>{/each}</span>{/if}
 	</button>
+	<button type="button" class="rk-fs" onclick={taisEkraan} aria-label={taisekraan ? t('Välju täisekraanist') : t('Täisekraan')} title={taisekraan ? t('Välju täisekraanist') : t('Täisekraan')}>
+		{#if taisekraan}<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5"/></svg>
+		{:else}<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>{/if}
+	</button>
 
-	{#if tulemused.length && !kaib}
-		<div class="rk-jaga">
-			<button type="button" class="btn yel" onclick={jaga}>{t('Jaga storysse')}</button>
-			<button type="button" class="btn" onclick={saada}>{t('Saada sõbrale')}</button>
-			<button type="button" class="btn" onclick={kopeeri}>{t('Kopeeri link')}</button>
+	{#if kaart && olek === 'tulemus' && viimane}
+		<div class="rk-kaart" role="dialog" aria-modal="false" aria-label={t('Jaga tulemust')}>
+			<div class="rk-kaart-sisu">
+				<button type="button" class="rk-x" onclick={() => (kaart = false)} aria-label={t('Sulge')}>×</button>
+				{#if tulemusMs}<p class="rk-k-pea">{reziim === 'tuled' ? t('Sinu reaktsioon (3 katse mediaan)') : t('Sinu reaktsioon')}</p><p class="rk-k-aeg">{f2(tulemusMs)} <small>s</small></p>{/if}
+				<p class="rk-k-lause" class:punane={viimane.crash}>{lause(viimane)}</p>
+				{#if sobra && tulemusMs}<p class="rk-k-sober">{tulemusMs < sobra ? t('Sõbrast kiirem!') : tulemusMs > sobra ? t('Sõber oli kiirem') + ' (' + f2(sobra) + ' s)' : t('Täpselt sama kiire kui sõber!')}</p>{/if}
+				<div class="rk-jaga">
+					<button type="button" class="btn yel" onclick={jaga}>{t('Jaga storysse')}</button>
+					<button type="button" class="btn" onclick={saada}>{t('Saada sõbrale')}</button>
+					<button type="button" class="btn" onclick={kopeeri}>{t('Kopeeri link')}</button>
+				</div>
+				{#if jagatud}<p class="rk-k-s" role="status">{jagatud}</p>{/if}
+				<button type="button" class="rk-uuesti" onclick={() => { kaart = false; vajuta(); }}>{t('Proovi uuesti')}</button>
+			</div>
 		</div>
-		{#if jagatud}<p class="rk-sel rk-jaga-s" role="status">{jagatud}</p>{/if}
 	{/if}
+	</div>
 
 	{#if olek === 'tulemus' && read.length}
 		<div class="rk-tul">
@@ -361,6 +416,7 @@
 			</ol>
 			<p class="rk-sel">{t('Testis sa tead, et takistus tuleb. Liikluses mitte — seal on reaktsioon tavaliselt pikem.')} {ilm === 'talv' ? t('Talvel lamellrehvid, tallatud lumi.') : t('Uued keskmised suverehvid.')} {t('Sama arvutus mis kalkulaatoris.')}{reziim === 'tuled' ? ' ' + t('Kui eesolev auto pidurdab sama hästi kui sina, ei muuda ilm tulemust: otsustavad pikivahe ja reaktsioon. Kui tal on paremad rehvid või ta sõidab millelegi otsa, peatub ta kiiremini kui sina, ja libedal teel on see vahe suurem.') : ''}</p>
 			<div class="rk-nupud">
+				<button type="button" class="btn yel" onclick={() => { kaart = true; jagatud = ''; ekraan?.scrollIntoView({ block: 'center', behavior: 'smooth' }); }}>{t('Jaga tulemust')}</button>
 				<a class="btn" href={keel.L('/')}>{t('Arvuta oma auto ja rehvidega')}</a>
 			</div>
 		</div>
@@ -406,10 +462,33 @@
 	.rk-read .o { font-weight: 800; color: #15803d; text-align: right; }
 	.rk-read .o.punane { color: var(--red); }
 	.rk-sel { font-size: 13px; color: var(--muted); margin: var(--sp-3) 0 0; line-height: 1.45; }
-	.rk-jaga { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--sp-2); margin-top: var(--sp-3); }
+	.rk-ekraan { position: relative; }
+	.rk-fs { position: absolute; top: 10px; right: 10px; width: 40px; height: 40px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.18); background: rgba(10,11,13,0.55); color: #fff; display: grid; place-items: center; cursor: pointer; padding: 0; z-index: 2; }
+	.rk-fs:hover { background: rgba(10,11,13,0.8); }
+	.rk-fs svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+	.rk-ekraan.tais { position: fixed; inset: 0; z-index: 1000; background: #0a0b0d; display: flex; flex-direction: column; padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left); }
+	.rk-ekraan.tais .rk-ala { flex: 1 1 auto; min-height: 0; border-radius: 0; padding-bottom: var(--sp-3); }
+	.rk-ekraan.tais .rk-cv { flex: 1 1 auto; min-height: 0; aspect-ratio: auto; height: 100%; }
+	.rk-ekraan.tais .rk-fs { top: calc(10px + env(safe-area-inset-top)); right: calc(10px + env(safe-area-inset-right)); }
+	.rk-kaart { position: absolute; inset: 0; z-index: 3; display: grid; place-items: center; padding: var(--sp-3); background: rgba(5,6,8,0.55); border-radius: var(--r-lg, 16px); animation: kaartSisse 0.25s ease-out; }
+	.rk-ekraan.tais .rk-kaart { border-radius: 0; }
+	@keyframes kaartSisse { from { opacity: 0; transform: translateY(8px); } }
+	.rk-kaart-sisu { position: relative; width: 100%; max-width: 440px; max-height: 100%; overflow: auto; background: #16181d; color: #fff; border: 1px solid #2b3039; border-radius: 16px; padding: var(--sp-5) var(--sp-4) var(--sp-4); text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
+	.rk-x { position: absolute; top: 6px; right: 6px; width: 40px; height: 40px; border: 0; background: transparent; color: #aab1bc; font-size: 28px; line-height: 1; cursor: pointer; border-radius: 10px; }
+	.rk-x:hover { color: #fff; background: #23262d; }
+	.rk-k-pea { margin: 0; color: #ffc20e; font-weight: 700; font-size: 13px; letter-spacing: 0.04em; text-transform: uppercase; }
+	.rk-k-aeg { margin: 2px 0 0; font-family: var(--display); font-size: 64px; font-weight: 700; line-height: 1; color: #ffc20e; }
+	.rk-k-aeg small { font-size: 28px; color: #fff; }
+	.rk-k-lause { margin: var(--sp-2) 0 0; font-weight: 800; font-size: 18px; color: #4ade80; }
+	.rk-k-lause.punane { color: #ff5a5a; }
+	.rk-k-sober { margin: 4px 0 0; color: #d6dae1; font-size: 14.5px; }
+	.rk-k-s { font-size: 13px; color: #aab1bc; margin: var(--sp-2) 0 0; line-height: 1.4; }
+	.rk-jaga { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-2); margin-top: var(--sp-4); }
 	.rk-jaga .btn { text-align: center; justify-content: center; }
-	.rk-jaga-s { text-align: center; }
-	@media (max-width: 640px) { .rk-jaga { grid-template-columns: 1fr 1fr; } .rk-jaga .yel { grid-column: 1 / -1; } }
+	.rk-jaga .yel { grid-column: 1 / -1; }
+	.rk-kaart .rk-jaga .btn:not(.yel) { background: #23262d; color: #fff; border-color: #343944; }
+	.rk-uuesti { margin-top: var(--sp-3); border: 0; background: transparent; color: #aab1bc; font-weight: 700; font-size: 14px; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; padding: 8px; }
+	.rk-uuesti:hover { color: #fff; }
 	.rk-nupud { display: flex; flex-wrap: wrap; gap: var(--sp-2); margin-top: var(--sp-4); }
 	@media (max-width: 640px) { .rk-tekst b { font-size: 28px; } .rk-nupud .btn { flex: 1 1 100%; text-align: center; } }
 </style>

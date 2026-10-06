@@ -124,13 +124,19 @@ function joonistaStseen(ctx, W, H, tee, o) {
 	/* ---- projektsioon ---- */
 	const z0 = Math.max(0, o.z || 0), base = Math.floor(z0 / SEG), frac = (z0 % SEG) / SEG;
 	const sg = (n) => tee.seg[((n % N) + N) % N];
+	/* Tee telg kaamera teljestikus, PIDEVALT: kõverus κ = k/SEG² on lõigu sees
+	   konstantne; integreerime kaamerast edasi (kaamera suund = tee puutuja).
+	   Varem nihkus kogu tee iga 5 m järel järsult külje peale (nõksud kurvis). */
 	const P = [];
-	let x = 0, dx = -sg(base).k * frac;
-	for (let n = 0; n <= NAHE; n++) {
+	const kap = (n) => sg(n).k / (SEG * SEG);
+	const kb = kap(base);
+	P.push({ zr: 0.1, x: 0, s: sg(base), n: base });
+	let zr = (1 - frac) * SEG, th = kb * zr, x = 0.5 * kb * zr * zr;
+	for (let n = 1; n <= NAHE; n++) {
 		const s = sg(base + n);
-		const zr = n * SEG - frac * SEG; /* kaugus kaamerast lõigu alguseni */
-		P.push({ zr: Math.max(0.1, zr), x, s, n: base + n });
-		x += dx; dx += s.k;
+		P.push({ zr, x, s, n: base + n });
+		const kn = kap(base + n);
+		x += th * SEG + 0.5 * kn * SEG * SEG; th += kn * SEG; zr += SEG;
 	}
 	const proj = (wx, wy, zr) => { const sc = D / Math.max(0.3, zr); return [W / 2 + (wx - KAAM_X) * sc, hor + (KAAM_H - wy) * sc, sc]; };
 	/* laternate valgus lõikudes (küla, öö) */
@@ -174,7 +180,7 @@ function joonistaStseen(ctx, W, H, tee, o) {
 		for (const ob of a.s.obj) asjad.push({ zr: a.zr, x: a.x + ob.x, ob, n: a.n });
 	}
 	const xAt = (zr) => { /* tee telje x kaugusel zr (interpolatsioon) */
-		const i = Math.max(0, Math.min(P.length - 2, Math.floor((zr + frac * SEG) / SEG)));
+		let i = 0; while (i < P.length - 2 && P[i + 1].zr < zr) i++;
 		const a = P[i], b = P[i + 1], k = kl((zr - a.zr) / Math.max(0.01, b.zr - a.zr), 0, 1);
 		return a.x + (b.x - a.x) * k;
 	};
