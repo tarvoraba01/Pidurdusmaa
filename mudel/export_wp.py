@@ -434,7 +434,9 @@ def main():
                 | (2 if len(z["gAll"]) > 1 else 0)
                 | (4 if z["snow"] else 0) | (8 if z["ice"] else 0),
                 m.get("tested")])
+    from .eprel_dedup import koonda_read
     for s, lst in per.items():
+        lst[:] = koonda_read(lst)  # üks rida rehvimudeli kohta (audit 6.10)
         lst.sort(key=lambda r: ("ABCDE".index(r[4]) if r[4] in "ABCDE" else 9,
                                 r[1], r[2]))
         with open(os.path.join(OUT, "eprel", s + ".json"), "w",

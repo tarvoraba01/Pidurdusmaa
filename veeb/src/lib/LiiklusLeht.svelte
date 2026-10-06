@@ -3,7 +3,8 @@
 	import Liiklus from '$lib/Liiklus.svelte';
 	import Reaktsioon from '$lib/Reaktsioon.svelte';
 	import RehviVanus from '$lib/RehviVanus.svelte';
-	let { kick, h1, lead, vaade = 'peatumine', children } = $props();
+	import RehviMoot from '$lib/RehviMoot.svelte';
+	let { kick, h1, lead, vaade = 'peatumine', andmed = null, children } = $props();
 </script>
 
 <section class="lo-hero">
@@ -16,7 +17,7 @@
 
 <section class="lo-bg">
 	<div class="wrap">
-		{#if vaade === 'reaktsioon'}<Reaktsioon />{:else if vaade === 'vanus'}<RehviVanus />{:else}<Liiklus {vaade} />{/if}
+		{#if vaade === 'reaktsioon'}<Reaktsioon />{:else if vaade === 'vanus'}<RehviVanus />{:else if vaade === 'moot'}<RehviMoot moodud={andmed || []} />{:else}<Liiklus {vaade} />{/if}
 	</div>
 </section>
 

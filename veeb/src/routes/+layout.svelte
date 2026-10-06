@@ -155,6 +155,7 @@
 					{@html t("<a role=\"menuitem\" href=\"/rehvi-valimine/\" ><b>Vali rehv enda tingimustele</b><span>Mis on sulle oluline — näitame sobivaid</span></a > <a role=\"menuitem\" href=\"/vordle-rehve/\" ><b>Võrdle rehve kõrvuti</b><span>2–4 rehvi ühes tabelis</span></a >")}
 					<a role="menuitem" href={L('/teadmine/rehvivahetus/')}><b>{t('Rehvivahetus')}</b><span>{t('Millal talve- ja suverehvid alla')}</span></a>
 					<a role="menuitem" href={L('/rehvi-vanus/')}><b>{t('Kui vanad on su rehvid?')}</b><span>{t('DOT-kood, vanus ja kulunud muster')}</span></a>
+					<a role="menuitem" href={L('/rehvi-kalkulaator/')}><b>{t('Rehvimõõdu kalkulaator')}</b><span>{t('Läbimõõt, külje kõrgus ja spidomeeter')}</span></a>
 				</div>
 			</div>
 			<a href={lang === 'ru' ? '/ru/teadmine/artiklid/' : '/teadmine/'} aria-current={cur === 'teadmine' ? 'page' : undefined}>{t("Teadmine")}</a>
@@ -276,6 +277,7 @@
 					<li><a href={L('/vordle-rehve/')}>{t("Võrdle rehve")}</a></li>
 					<li><a href={L('/teadmine/rehvivahetus/')}>{t("Rehvivahetus")}</a></li>
 					<li><a href={L('/rehvi-vanus/')}>{t("Rehvi vanuse kontroll")}</a></li>
+					<li><a href={L('/rehvi-kalkulaator/')}>{t("Rehvimõõdu kalkulaator")}</a></li>
 					<li><a href={L('/liiklusohutus/')}>{t("Liiklusohutuse kalkulaator")}</a></li>
 				</ul>
 			</div>

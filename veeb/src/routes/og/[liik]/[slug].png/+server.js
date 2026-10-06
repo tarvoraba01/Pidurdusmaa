@@ -36,8 +36,8 @@ export function entries() {
 	for (const [a, b] of vsPairs()) out.push({ liik: 'vs', slug: a + '-vs-' + b });
 	for (const p of autod().polved.values()) out.push({ liik: 'auto', slug: p.mk + '--' + p.slug });
 	/* vene/inglise lehtede pildid (vt ogLang $lib/i18n.js-is) */
-	for (const x of ['liiklus-kurv', 'liiklus-pimedas', 'liiklus-pikivahe', 'liiklus-reaktsioon', 'rehvi-vanus', 'rehvivahetus']) out.push({ liik: 'sait', slug: x });
-	for (const k of ['ru', 'en']) for (const x of ['avaleht', 'liiklusohutus', 'liiklus-kurv', 'liiklus-pimedas', 'liiklus-pikivahe', 'liiklus-reaktsioon', 'rehvi-vanus']) out.push({ liik: 'sait', slug: x + '.' + k });
+	for (const x of ['liiklus-kurv', 'liiklus-pimedas', 'liiklus-pikivahe', 'liiklus-reaktsioon', 'rehvi-vanus', 'rehvi-kalkulaator', 'rehvivahetus']) out.push({ liik: 'sait', slug: x });
+	for (const k of ['ru', 'en']) for (const x of ['avaleht', 'liiklusohutus', 'liiklus-kurv', 'liiklus-pimedas', 'liiklus-pikivahe', 'liiklus-reaktsioon', 'rehvi-vanus', 'rehvi-kalkulaator']) out.push({ liik: 'sait', slug: x + '.' + k });
 	out.push({ liik: 'sait', slug: 'rehvivahetus.ru' });
 	out.push({ liik: 'sait', slug: 'millal-talverehvid-alla.ru' });
 	for (const p of autod().polved.values()) out.push({ liik: 'auto', slug: p.mk + '--' + p.slug + '.ru' });
@@ -187,6 +187,11 @@ const TEEMA = {
 		et: { pilt: 'dot', kicker: 'Rehvid · DOT-kood', pealkiri: 'Kui vanad on su rehvid?', alapealkiri: 'Sisesta 4 numbrit ja näed vanust', sildid: ['Pidurdusmaa', 'Tasuta'] },
 		ru: { pilt: 'dot', kicker: 'Шины · код DOT', pealkiri: 'Сколько лет вашим шинам?', alapealkiri: 'Введите 4 цифры и узнайте возраст', sildid: ['Тормозной путь', 'Бесплатно'] },
 		en: { pilt: 'dot', kicker: 'Tyres · DOT code', pealkiri: 'How old are your tyres?', alapealkiri: 'Enter 4 digits to see the age', sildid: ['Braking distance', 'Free'] }
+	},
+	'rehvi-kalkulaator': {
+		et: { pilt: 'dot', kicker: 'Rehvid · mõõt', pealkiri: 'Rehvimõõdu kalkulaator', alapealkiri: 'Läbimõõt, külje kõrgus, spidomeeter', sildid: ['Kaks mõõtu kõrvuti', 'Tasuta'] },
+		ru: { pilt: 'dot', kicker: 'Шины · размер', pealkiri: 'Калькулятор размера шин', alapealkiri: 'Диаметр, профиль, спидометр', sildid: ['Два размера рядом', 'Бесплатно'] },
+		en: { pilt: 'dot', kicker: 'Tyres · size', pealkiri: 'Tyre size calculator', alapealkiri: 'Diameter, sidewall, speedometer', sildid: ['Two sizes side by side', 'Free'] }
 	},
 	rehvivahetus: {
 		et: { pilt: 'kalender', kicker: 'Rehvivahetus ' + AASTA, pealkiri: 'Millal talverehvid alla?', alapealkiri: 'Talverehvid kohustuslikud 1.12–1.03', sildid: ['Naast 15.10–31.03', 'Seadus'] },

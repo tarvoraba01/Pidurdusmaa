@@ -26,6 +26,16 @@
 	/* Sotsiaalvõrgud ja Google loevad AINULT täis-URL-e — suhteline tee
 	   (/og/...) ei tööta Facebookis ega Messengeris. Seepärast käib iga
 	   URL siit läbi. */
+	/* SEO (audit 6.10): Google näitab umbes 60 märki. Lisame „| Pidurdusmaa.ee“
+	   ainult siis, kui see mahub; pikk kirjeldus lõigatakse lause või sõna piirilt. */
+	const tiitel = $derived(fullTitle ?? (title.length + 17 <= 62 ? title + ' | Pidurdusmaa.ee' : title));
+	const kirj = $derived.by(() => {
+		const d = String(desc || '');
+		if (d.length <= 160) return d;
+		const l = d.slice(0, 158);
+		const p = Math.max(l.lastIndexOf('. '), l.lastIndexOf('! '), l.lastIndexOf('? '));
+		return p > 90 ? l.slice(0, p + 1) : l.slice(0, l.lastIndexOf(' ')).replace(/[,;:—–-]$/, '') + '…';
+	});
 	const abs = (u) => (/^https?:\/\//.test(String(u)) ? String(u) : BASE + '/' + String(u).replace(/^\//, ''));
 	/* JSON-LD läheb HTML-i sisse — sulgev script-silt tekstis lõpetaks sildi enneaegu, seepärast < → \u003c */
 	const ld = (o) => JSON.stringify(o).replace(/</g, '\\u003c');
@@ -57,14 +67,14 @@
 </script>
 
 <svelte:head>
-	<title>{fullTitle ?? title + ' | Pidurdusmaa.ee'}</title>
-	<meta name="description" content={desc} />
+	<title>{tiitel}</title>
+	<meta name="description" content={kirj} />
 	<link rel="canonical" href={canon} />
 	{#if noindex}<meta name="robots" content="noindex, follow" />{/if}
 	<meta property="og:type" content={ogType} />
 	<meta property="og:site_name" content="Pidurdusmaa.ee" />
 	<meta property="og:title" content={title} />
-	<meta property="og:description" content={desc} />
+	<meta property="og:description" content={kirj} />
 	<meta property="og:url" content={canon} />
 	<meta property="og:locale" content={OG_LOCALE[lang]} />
 	{#each keeled as k (k)}<link rel="alternate" hreflang={k} href={abs(linkLang(k, alus))} />{/each}
@@ -76,7 +86,7 @@
 	<meta property="og:image:alt" content={imageAlt || title} />
 	<meta name="twitter:card" content="summary_large_image" />
 	<meta name="twitter:title" content={title} />
-	<meta name="twitter:description" content={desc} />
+	<meta name="twitter:description" content={kirj} />
 	<meta name="twitter:image" content={img} />
 	<meta name="twitter:image:alt" content={imageAlt || title} />
 	{#if crumbLd}
