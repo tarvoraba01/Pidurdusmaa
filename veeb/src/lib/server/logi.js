@@ -123,6 +123,25 @@ export function tuhjendaFaili() {
 /** IP → lühike räsi päeva soolaga: sama masina read on seotud ainult ühe
  *  päeva piires (külastuse teekond), eri päevi siduda ei saa ja pärast
  *  päeva lõppu ei saa räsi enam kellegi IP-ga seostada. */
+/** Külastaja IP. Server on Coolify proksi (Traefik) taga: ilma selleta näeks
+ *  getClientAddress() kõigi päringute puhul proksi IP-d ja kõik piirangud
+ *  oleksid ühised (audit 6.10). Proksi lisab X-Forwarded-For lõppu päris
+ *  kliendi aadressi — võtame VIIMASE (eespool olevaid saab klient ise võltsida). */
+export function kliendiIp(event) {
+	try {
+		const xff = event.request?.headers?.get('x-forwarded-for');
+		if (xff) {
+			const osad = xff.split(',').map((x) => x.trim()).filter(Boolean);
+			if (osad.length) return osad[osad.length - 1];
+		}
+	} catch {}
+	try {
+		return event.getClientAddress();
+	} catch {
+		return 'tundmatu';
+	}
+}
+
 export function ipHash(ip) {
 	return createHash('sha256').update(sool() + '|' + String(ip)).digest('hex').slice(0, 16);
 }

@@ -106,6 +106,7 @@ export function loeValik(q) {
 	if (mm === 8) mm = null;
 	let rt = s('rt') ? +s('rt') : 0;
 	if (!(rt >= 0 && rt <= 3)) rt = 0;
+	rt = Math.round(rt * 10) / 10; /* piiratud arv variante → piltide vahemälu toimib */
 	const a = s('a');
 	const l = ['et', 'ru', 'en'].includes(s('l')) ? s('l') : 'et';
 	return { a: /^[\w~.-]+$/.test(a) ? a : '', ab: s('ab') === '1', m, o, v, r, mm, rt, l };

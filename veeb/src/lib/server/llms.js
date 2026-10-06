@@ -34,7 +34,7 @@ export function llmsTekst(lang = 'et') {
 		.map((s) => (s.aasta && !String(s.nimi).includes(String(s.aasta)) ? `${s.nimi} ${s.aasta}` : s.nimi))
 		.sort()
 		.join(', ');
-	const nMud = n(Object.keys(models()).length), nMoot = n(c.eprelSizes.length), nTest = n(c.tyres.length), nAuto = n(autod().polved.size);
+	const nMud = n(Object.keys(models()).length), nMoot = n(c.eprelSizes.filter((m) => /^\d{5}R\d{2}C?$/.test(m)).length) /* ainult päris mõõdud (audit: ~690 võtit on nimest valesti loetud) */, nTest = n(c.tyres.length), nAuto = n(autod().polved.size);
 	const md = lang === 'et' ? m : (x) => (Math.round(x * 10) / 10).toString().replace('.', lang === 'en' ? '.' : ',');
 	if (lang === 'en' || lang === 'ru') return valisKeel(lang, { kuiv, marg, lumi, reakts, allikad, nMud, nMoot, nTest, nAuto, md });
 	const artiklid = (ARTIKLID || [])
@@ -46,7 +46,7 @@ export function llmsTekst(lang = 'et') {
 
 Lühifaktid (arvutatud sama mudeliga mis kalkulaator; VW Golf 8, 205/55 R16, uus tüüpiline rehv, 90 km/h, ilma reaktsiooniajata):
 - Pidurdusmaa kuival asfaldil: ${m(kuiv)} m
-- Pidurdusmaa märjal asfaldil: ${m(marg)} m
+- Pidurdusmaa märjal asfaldil (+10 °C): ${m(marg)} m
 - Pidurdusmaa lumel (Põhjamaade talverehv): ${m(lumi)} m
 - Reaktsiooniaeg 1 s lisab 90 km/h juures ${reakts} m; peatumisteekond märjal on seega umbes ${m(reakts + marg)} m.
 - Pidurdusmaa kasvab kiiruse ruudus: kahekordne kiirus ≈ neljakordne pidurdusmaa.
@@ -96,7 +96,7 @@ function valisKeel(lang, x) {
 
 Key facts (same model as the calculator; VW Golf 8, 205/55 R16, typical new tyre, 90 km/h, without reaction time):
 - Braking distance on dry asphalt: ${x.md(x.kuiv)} m
-- Braking distance on wet asphalt: ${x.md(x.marg)} m
+- Braking distance on wet asphalt (+10 °C): ${x.md(x.marg)} m
 - Braking distance on snow (Nordic winter tyre): ${x.md(x.lumi)} m
 - A 1 s reaction time adds ${x.reakts} m at 90 km/h, so the stopping distance on wet roads is about ${x.md(x.reakts + x.marg)} m.
 - Braking distance grows with the square of speed: double the speed ≈ four times the braking distance.
@@ -130,7 +130,7 @@ When citing, please link to ${BASE}/en/ or the relevant page.
 
 Краткие факты (та же модель, что и в калькуляторе; VW Golf 8, 205/55 R16, типичная новая шина, 90 км/ч, без времени реакции):
 - Тормозной путь на сухом асфальте: ${x.md(x.kuiv)} м
-- Тормозной путь на мокром асфальте: ${x.md(x.marg)} м
+- Тормозной путь на мокром асфальте (+10 °C): ${x.md(x.marg)} м
 - Тормозной путь на снегу (северная зимняя шина): ${x.md(x.lumi)} м
 - Время реакции 1 с добавляет на 90 км/ч ${x.reakts} м, поэтому остановочный путь на мокрой дороге около ${x.md(x.reakts + x.marg)} м.
 - Тормозной путь растёт пропорционально квадрату скорости: вдвое большая скорость ≈ вчетверо больший тормозной путь.

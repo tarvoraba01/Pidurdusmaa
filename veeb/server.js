@@ -136,6 +136,15 @@ const server = http.createServer((req, res) => {
 	if (tee0 === '/manifest.webmanifest') res.setHeader('Content-Type', 'application/manifest+json; charset=utf-8');
 	/* llms.txt on eesti tekst — ilma charset'ita loeks mõni AI-robot täpitähed valesti */
 	if (tee0 === '/llms.txt') res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+	/* Vahemälu (audit 6.10): andmefailid küsitakse alati ?v=<versioon> parameetriga,
+	   seega võivad need aasta brauseris olla; fondid 30 päeva; HTML iga kord
+	   üle kontrollida (ETag on olemas — muutmata lehte uuesti ei laadita).
+	   _app/immutable/* päised paneb adapter ise. */
+	if (!tee0.startsWith('/_app/')) {
+		if (tee0.startsWith('/data/')) res.setHeader('Cache-Control', /[?&]v=/.test(req.url || '') ? 'public, max-age=31536000, immutable' : 'public, max-age=300');
+		else if (tee0.startsWith('/fonts/')) res.setHeader('Cache-Control', 'public, max-age=2592000');
+		else if (tee0.endsWith('/') || tee0.endsWith('.html')) res.setHeader('Cache-Control', 'no-cache');
+	}
 	handler(req, res, () => {
 		res.statusCode = 404;
 		res.end('Not found');

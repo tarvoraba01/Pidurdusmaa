@@ -1,5 +1,5 @@
 import { json } from '@sveltejs/kit';
-import { lisaRida, ipHash, kasLubatud } from '$lib/server/logi.js';
+import { lisaRida, ipHash, kasLubatud, kliendiIp } from '$lib/server/logi.js';
 import { saadaKiri, saadaKinnitus } from '$lib/server/post.js';
 import { langOf } from '$lib/i18n.js';
 import { kontrolliTurnstile } from '$lib/server/turnstile.js';
@@ -19,8 +19,9 @@ const TEEMAD = {
 /* Kontaktivorm. Kiri saadetakse SMTP kaudu, kui see on seadistatud;
    igal juhul kirjutatakse kiri ka faili, et ükski sõnum ei kaoks, kui
    postiserver parajasti ei tööta. */
-export async function POST({ request, getClientAddress }) {
-	const paljasIp = getClientAddress();
+export async function POST(event) {
+	const { request } = event;
+	const paljasIp = kliendiIp(event);
 	const ip = ipHash(paljasIp);
 	if (!kasLubatud('kontakt:' + ip, 5, 3600)) {
 		return json({ ok: false, msg: 'Liiga palju kirju ühest kohast. Proovi tunni pärast.' }, { status: 429 });

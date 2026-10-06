@@ -48,7 +48,7 @@
 		if (s.length === 3) return { vana: true };
 		if (s.length !== 4) return { viga: t('Sisesta 4 numbrit, nt 2319.') };
 		const n = +s.slice(0, 2), a = 2000 + +s.slice(2);
-		if (n < 1 || n > 53) return { viga: t('Kahe esimese numbri (nädal) peab olema 01–53.') };
+		if (n < 1 || n > 53) return { viga: t('Kaks esimest numbrit (nädal) peavad olema 01–53.') };
 		const algus = nadalaAlgus(a, n), nyyd = new Date();
 		if (algus > nyyd) return { viga: t('See kuupäev on tulevikus. Kontrolli numbreid: esimesed kaks on nädal, viimased kaks aasta.') };
 		const kuud = Math.max(0, Math.floor((nyyd - algus) / (30.44 * 864e5)));

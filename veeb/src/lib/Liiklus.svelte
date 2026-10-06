@@ -1142,7 +1142,7 @@
 			{/if}
 			<p class="lo-kt-note">
 				{t('Paremad rehvid pane tagasillale: kui tagarattad kaotavad haarde, pöörab auto ringi ja seda on palju raskem päästa kui otse sõitvat autot. Nii soovitavad ka ADAC, TCS ja ÖAMTC oma katsete põhjal.')}
-				{t('Lihtsustatud sõidukimudel: rehvi haare tuleb samast mudelist mis kalkulaatoris, pidurdades kandub koormus esisillale, ABS hoiab esirattad haarde piiril ja tagasild pidurdab umbes 28 %. Juht hoiab rooli oma raja keskel, aga libisemist päästa ei oska. ESP-d mudel ei arvesta — ESP aitab autot hoida, aga haaret juurde ei tee.')}
+				{t('Lihtsustatud sõidukimudel: rehvi haare tuleb samast mudelist, mis kalkulaatoris, pidurdades kandub koormus esisillale, ABS hoiab esirattad haarde piiril ja tagasild pidurdab umbes 28 %. Juht hoiab rooli oma raja keskel, aga libisemist päästa ei oska. ESP-d mudel ei arvesta — ESP aitab autot hoida, aga haaret juurde ei tee.')}
 			</p>
 		</section>
 		{/if}

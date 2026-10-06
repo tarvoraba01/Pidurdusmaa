@@ -10,7 +10,7 @@ export function load() {
 	return {
 		allikad,
 		mudeleid: Object.keys(models()).length,
-		mootusid: c.eprelSizes.length,
+		mootusid: c.eprelSizes.filter((m) => /^\d{5}R\d{2}C?$/.test(m)).length,
 		testitud: c.tyres.length,
 		/* sama arv ja mõiste mis /autod/ lehel (üks leht põlvkonna kohta) */
 		autosid: autod().polved.size

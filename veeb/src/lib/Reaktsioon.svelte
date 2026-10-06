@@ -236,6 +236,7 @@
 		track(reziim, ilm + ' · ' + (res.crash ? 'kokkupõrge ' + Math.round(res.kmh) + ' km/h' : 'peatus ' + Math.round(res.m) + ' m') + ' · ' + Math.round(r * 1000) + ' ms');
 		olek = reziim === 'pime' || tulemused.length >= KATSEID ? 'tulemus' : 'vahe';
 		/* kokkupõrke raputus jõuab enne lõpuni, siis tuleb kaart */
+		if (olek === 'tulemus') tulemusAeg = performance.now();
 		if (olek === 'tulemus') setTimeout(() => { if (olek === 'tulemus') { kaart = true; jagatud = ''; } }, res.crash ? 900 : 500);
 	}
 	function vajuta() {
@@ -243,7 +244,8 @@
 		if (olek === 'algus' || olek === 'vahe' || olek === 'vara') { if (olek === 'algus') { tulemused = []; ajad = []; track('algus', reziim); } alusta(); return; }
 		if (olek === 'oota') { clearTimeout(taimer); olek = 'vara'; return; }
 		if (olek === 'nyyd') { if (tVajutus == null) { tVajutus = (performance.now() - t0) / 1000; olek = 'soit'; } return; }
-		if (olek === 'tulemus') { if (kaart) return; tulemused = []; ajad = []; jagatud = ''; alusta(); }
+		/* kohe pärast viimast katset ei alusta uut (kiire topeltpuudutus kustutaks tulemused) */
+		if (olek === 'tulemus') { if (kaart || performance.now() - tulemusAeg < 1200) return; tulemused = []; ajad = []; jagatud = ''; alusta(); }
 	}
 	const kaib = $derived(olek === 'oota' || olek === 'nyyd' || olek === 'soit');
 	function lahtesta() { kaart = false; olek = 'algus'; tulemused = []; ajad = []; if (core) uusStseen(); }
@@ -278,10 +280,13 @@
 		];
 	});
 
+	/* kaardil ja pildil: mediaanreaktsiooni tulemus (mitte viimane katse), sama mis tabelis „Sina“ */
+	const kaardiTul = $derived(read.length && read[0][3] ? read[0][2] : viimane);
 	const LOC = keel.lang === 'en' ? 'en-GB' : keel.lang === 'ru' ? 'ru-RU' : 'et-EE';
 	const f1 = (x) => x.toLocaleString(LOC, { minimumFractionDigits: 1, maximumFractionDigits: 1 });
 	const f2 = (ms) => (ms / 1000).toLocaleString(LOC, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-	const lause = (x) => (x.crash ? t('Kokkupõrge') + ' ' + Math.round(x.kmh) + ' ' + t('km/h') : t('Peatud') + ' ' + f1(x.m) + ' ' + t('m enne'));
+	let tulemusAeg = 0;
+	const lause = (x) => (x.crash ? t('Kokkupõrge') + ' ' + Math.round(x.kmh) + ' ' + t('km/h') : t('Peatud {m} m enne takistust', { m: f1(x.m) }));
 	const ilmNimi = $derived(ILM.find((x) => x[0] === ilm)[1]);
 
 	/* ---------- jagamine ---------- */
@@ -300,7 +305,7 @@
 		g.fillStyle = '#ffc20e'; g.font = '700 40px ' + B; g.fillText((t('Minu reaktsioon') + ' · ' + ilmNimi + ' · ' + kiirus + ' ' + t('km/h')).toUpperCase(), 90, yy);
 		const tx = tulemusMs ? f2(tulemusMs) : '—';
 		g.fillStyle = '#ffc20e'; g.font = '700 220px ' + DF; g.fillText(tx, 80, yy + 210); const w2 = g.measureText(tx).width; g.fillStyle = '#fff'; g.font = '700 90px ' + DF; g.fillText(' s', 80 + w2, yy + 210);
-		if (viimane) { g.fillStyle = viimane.crash ? '#ff5a5a' : '#4ade80'; g.font = '700 54px ' + B; g.fillText(lause(viimane), 90, yy + 300); }
+		if (kaardiTul) { g.fillStyle = kaardiTul.crash ? '#ff5a5a' : '#4ade80'; g.font = '700 54px ' + B; g.fillText(lause(kaardiTul), 90, yy + 300); }
 		let y = yy + 400;
 		read.slice(1).forEach(([n, s, r]) => {
 			g.font = '500 34px ' + B; g.fillStyle = '#aab1bc'; g.fillText(n + ' (' + f2(s * 1000) + ' s): ', 90, y);
@@ -377,7 +382,7 @@
 			{:else if olek === 'oota'}<b>{t('Sõidad…')}</b><small>{reziim === 'pime' ? t('Vaata teed') : t('Jälgi eesolevat autot')}</small>
 			{:else if olek === 'nyyd' || olek === 'soit'}<b>&nbsp;</b><small>&nbsp;</small>
 			{:else if olek === 'vara'}<b>{t('Liiga vara!')}</b><small>{t('Vajuta uuesti, et seda katset korrata')}</small>
-			{:else if viimane}<b class:punane={viimane.crash} class:roheline={!viimane.crash}>{lause(viimane)}</b><small>{viimane.vajutamata ? t('Ei vajutanud') : t('Reaktsioon') + ' ' + f2(viimane.r * 1000) + ' s'}{olek === 'vahe' ? ' · ' + t('Katse') + ' ' + tulemused.length + ' / ' + KATSEID + ' · ' + t('vajuta, et jätkata') : ' · ' + t('Vajuta, et uuesti proovida')}</small>{/if}
+			{:else if viimane}<b class:punane={viimane.crash} class:roheline={!viimane.crash}>{lause(viimane)}</b><small>{viimane.vajutamata ? t('Ei vajutanud') : t('Reaktsioon') + ' ' + f2(viimane.r * 1000) + ' s'}{olek === 'vahe' ? ' · ' + t('Katse nr') + ' ' + tulemused.length + ' / ' + KATSEID + ' · ' + t('vajuta, et jätkata') : ' · ' + t('Vajuta, et uuesti proovida')}</small>{/if}
 		</span>
 		{#if reziim === 'tuled'}<span class="rk-pallid" aria-hidden="true">{#each Array(KATSEID) as _, i}<i class:on={i < tulemused.length} class:cr={tulemused[i]?.crash}></i>{/each}</span>{/if}
 	</button>
@@ -391,7 +396,7 @@
 			<div class="rk-kaart-sisu">
 				<button type="button" class="rk-x" onclick={() => (kaart = false)} aria-label={t('Sulge')}>×</button>
 				{#if tulemusMs}<p class="rk-k-pea">{reziim === 'tuled' ? t('Sinu reaktsioon (3 katse mediaan)') : t('Sinu reaktsioon')}</p><p class="rk-k-aeg">{f2(tulemusMs)} <small>s</small></p>{/if}
-				<p class="rk-k-lause" class:punane={viimane.crash}>{lause(viimane)}</p>
+				<p class="rk-k-lause" class:punane={kaardiTul.crash}>{lause(kaardiTul)}</p>
 				{#if sobra && tulemusMs}<p class="rk-k-sober">{tulemusMs < sobra ? t('Sõbrast kiirem!') : tulemusMs > sobra ? t('Sõber oli kiirem') + ' (' + f2(sobra) + ' s)' : t('Täpselt sama kiire kui sõber!')}</p>{/if}
 				<div class="rk-jaga">
 					<button type="button" class="btn yel" onclick={jaga}>{t('Jaga storysse')}</button>
@@ -414,7 +419,7 @@
 					<li class:me><span class="n">{nimi} <small>{f2(s * 1000)} s</small></span><span class="o" class:punane={r.crash}>{lause(r)}</span></li>
 				{/each}
 			</ol>
-			<p class="rk-sel">{t('Testis sa tead, et takistus tuleb. Liikluses mitte — seal on reaktsioon tavaliselt pikem.')} {ilm === 'talv' ? t('Talvel lamellrehvid, tallatud lumi.') : t('Uued keskmised suverehvid.')} {t('Sama arvutus mis kalkulaatoris.')}{reziim === 'tuled' ? ' ' + t('Kui eesolev auto pidurdab sama hästi kui sina, ei muuda ilm tulemust: otsustavad pikivahe ja reaktsioon. Kui tal on paremad rehvid või ta sõidab millelegi otsa, peatub ta kiiremini kui sina, ja libedal teel on see vahe suurem.') : ''}</p>
+			<p class="rk-sel">{t('Testis sa tead, et takistus tuleb. Liikluses mitte — seal on reaktsioon tavaliselt pikem.')} {ilm === 'talv' ? t('Talvel lamellrehvid, tallatud lumi.') : t('Uued keskmised suverehvid.')} {t('Sama arvutus, mis kalkulaatoris.')}{reziim === 'tuled' ? ' ' + t('Kui eesolev auto pidurdab sama hästi kui sina, ei muuda ilm tulemust: otsustavad pikivahe ja reaktsioon. Kui tal on paremad rehvid või ta sõidab millelegi otsa, peatub ta kiiremini kui sina, ja libedal teel on see vahe suurem.') : ''}</p>
 			<div class="rk-nupud">
 				<button type="button" class="btn yel" onclick={() => { kaart = true; jagatud = ''; ekraan?.scrollIntoView({ block: 'center', behavior: 'smooth' }); }}>{t('Jaga tulemust')}</button>
 				<a class="btn" href={keel.L('/')}>{t('Arvuta oma auto ja rehvidega')}</a>
@@ -476,7 +481,7 @@
 	.rk-kaart-sisu { position: relative; width: 100%; max-width: 440px; max-height: 100%; overflow: auto; background: #16181d; color: #fff; border: 1px solid #2b3039; border-radius: 16px; padding: var(--sp-5) var(--sp-4) var(--sp-4); text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
 	.rk-x { position: absolute; top: 6px; right: 6px; width: 40px; height: 40px; border: 0; background: transparent; color: #aab1bc; font-size: 28px; line-height: 1; cursor: pointer; border-radius: 10px; }
 	.rk-x:hover { color: #fff; background: #23262d; }
-	.rk-k-pea { margin: 0; color: #ffc20e; font-weight: 700; font-size: 13px; letter-spacing: 0.04em; text-transform: uppercase; }
+	.rk-k-pea { margin: 0; padding: 0 36px; color: #ffc20e; font-weight: 700; font-size: 13px; letter-spacing: 0.04em; text-transform: uppercase; }
 	.rk-k-aeg { margin: 2px 0 0; font-family: var(--display); font-size: 64px; font-weight: 700; line-height: 1; color: #ffc20e; }
 	.rk-k-aeg small { font-size: 28px; color: #fff; }
 	.rk-k-lause { margin: var(--sp-2) 0 0; font-weight: 800; font-size: 18px; color: #4ade80; }

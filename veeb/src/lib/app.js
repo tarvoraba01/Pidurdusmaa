@@ -2572,7 +2572,7 @@ import UNIVERSAALID from './universaalid.json';
             });
             x.fit = wsum ? Math.round(100 * s / wsum) : null; x.miss = miss;
           });
-          list.sort(function (a, b) { return (b.fit == null ? -1 : b.fit) - (a.fit == null ? -1 : a.fit) || ((FG[b.r.g] || 0) - (FG[a.r.g] || 0)); });
+          list.sort(function (a, b) { return (b.fit == null ? -1 : b.fit) - (a.fit == null ? -1 : a.fit) || ((FG[b.r.g] || 0) - (FG[a.r.g] || 0)) || (!!b.r.tested - !!a.r.tested); }); /* viik: testitud ette (audit 6.10) */
           /* „Sobivus %“ ainult siis, kui kasutaja ise midagi valis */
           if (!valis) list.forEach(function (x) { x.fit = null; x.miss = null; });
         } else {
@@ -2609,7 +2609,7 @@ import UNIVERSAALID from './universaalid.json';
           listEl.innerHTML = '<div class="box"><p style="margin:0">' + (rows.length ? (S.rft === 'only' && !brandVal && !qq
               ? _t('Selles mõõdus meil praegu run-flat ') + SEASON[S.season].pp + _t(' ei ole.')
               : _t('Selles mõõdus ei ole andmebaasis ühtegi ') + (S.rft === 'only' ? 'run-flat ' : '') + SEASON[S.season].osa + (brandVal ? _t(' margilt ') + esc(brandVal) : '') + (qq ? _t(' selle otsinguga') : '') + '.') :
-            _t('Mõõdu ') + esc(pretty(S.size)) + _t(' märgiseandmed pole veel andmebaasis. Hetkel on korjatud ') + core.eprelSizes.length + _t(' mõõtu.')) + '</p>' +
+            _t('Mõõdu ') + esc(pretty(S.size)) + _t(' märgiseandmed pole veel andmebaasis. Hetkel on korjatud ') + core.eprelSizes.filter(function (m) { return /^\d{5}R\d{2}C?$/.test(m); }).length + _t(' mõõtu.')) + '</p>' +
             (!brandVal && !qq ? '<div data-alt-sizes></div>' : '') + '</div>';
           if (!brandVal && !qq) altSizes($('[data-alt-sizes]', listEl), cats, joonis);
           drawTable(); return;
@@ -2650,15 +2650,15 @@ import UNIVERSAALID from './universaalid.json';
       if (P.dryb) h += kq(_t('Kuival peatub'), P.dryb.show, src(P.dryb));
       if (P.noise) h += kq(_t('Müra'), (MURA[r.nk] || '') + ' <small>' + r.db + ' dB</small>', src(P.noise));
       if (P.rr) h += kq(_t('Kütusekulu'), (KULU[r.f] || '') + ' ' + grade(r.f), _t('Veeretakistuse klass (EL-i märgis): A on kõige säästlikum.'));
-      if (P.winter && r.catNr !== 0) h += kq(_t('Lumel / jääl') + ' <small>50→0</small>', P.winter.show.replace(_t('lumi '), '').replace(_t(' · jää '), ' / '), src(P.winter));
+      if (P.winter && r.catNr !== 0) h += kq(_t('Lumel / jääl') + ' <small>50→0</small>', P.winter.show.replace(_t('lumi '), '').replace(_t(' m · jää '), ' / '), src(P.winter));
       return '<div class="qs">' + h + '</div>';
     }
     function lause(x) {
       var k = keskWet[keskVoti], v = x.P.wetb ? x.P.wetb.v : null;
       if (k == null || v == null) return '';
       var d = k - v, a = fmt(Math.abs(d), 1);
-      if (Math.abs(d) < 0.5) return '<p class="rc-lause">' + _t('Märjal peatub sama kaugel kui selle mõõdu keskmine rehv.') + '</p>';
-      return '<p class="rc-lause ' + (d > 0 ? 'hea' : 'halb') + '">' + _t('Märjal peatub') + ' <b>' + a + ' ' + _t('m') + ' ' + (d > 0 ? _t('varem') : _t('hiljem')) + '</b> ' + _t('kui selle mõõdu keskmine rehv.') + '</p>';
+      if (Math.abs(d) < 0.5) return '<p class="rc-lause">' + _t('Märjal on pidurdusmaa sama mis selle mõõdu keskmisel rehvil.') + '</p>';
+      return '<p class="rc-lause ' + (d > 0 ? 'hea' : 'halb') + '">' + _t('Märjal on pidurdusmaa') + ' <b>' + a + ' ' + _t('m') + ' ' + (d > 0 ? _t('lühem') : _t('pikem')) + '</b> ' + _t('kui selle mõõdu keskmisel rehvil.') + '</p>';
     }
     function card(x, i, why) {
       var r = x.r, id = r.slug + '@' + r.m, on = cmp.has(id);
@@ -2667,12 +2667,12 @@ import UNIVERSAALID from './universaalid.json';
           (onRft(r) ? '<span class="rft-b">Run-flat ' + tip(RFT_T) + '</span>' : '') +
           (eriLiik(r) ? '<span class="rft-b eri-b">' + esc(eriLiik(r)) + ' ' + tip(ERI_T) + '</span>' : '') + '</div>' +
         _t('<h3><a href="') + rTee(r.slug) + '/"><span class="mk">' + esc(r.mark) + '</span> ' + esc(r.name) + '</a></h3>' +
-        (x.fit != null ? _t('<span class="fit" title="Sobivus sinu valitud omaduste põhjal selles nimekirjas — mitte üldine hinne">Sobivus ') + x.fit + '%</span>' : '') + '</div>' +
+        (x.fit != null ? '<span class="fit" title="' + _t('Sobivus sinu valitud omaduste põhjal selles nimekirjas — mitte üldine hinne') + '">' + _t('Sobivus') + ' ' + x.fit + '%</span>' : '') + '</div>' +
         '<div class="rc-side"><img class="rpilt" alt="" width="96" height="112" decoding="async" hidden data-pilt="' + esc(id) + '">' +
         _t('<button type="button" class="add-btn" data-add="') + esc(id) + _t('" data-n="') + esc(r.mark + ' ' + r.name) + _t('" aria-pressed="') + on + '">' + (on ? _t('✓ Võrdluses') : _t('+ Võrdle')) + '</button></div>' +
         (why && why.length ? '<ul class="why-list">' + why.map(function (t) { return t.charAt(0) === '!' ? '<li class="x">' + t.slice(1) + '</li>' : '<li>' + t + '</li>'; }).join('') + '</ul>' : '') +
         lause(x) + kiired(x) +
-        _t('<div class="price"><div class="pl">Hinnad poodides</div>') + priceSlot(id) + '</div>' +
+        '<div class="price"><div class="pl">' + _t('Hinnad poodides') + '</div>' + priceSlot(id) + '</div>' +
         (x.miss && x.miss.length ? _t('<p class="note" style="grid-column:1/-1;margin:0">Sobivuses arvestamata: ') + esc(x.miss.join(', ')) + '</p>' : '') + '</article>';
     }
 
@@ -2693,7 +2693,7 @@ import UNIVERSAALID from './universaalid.json';
         tray.hidden = !sel.length;
         $('[data-tray-chips]', tray).innerHTML = sel.map(function (p) {
           var pb = p.id.split('@');
-          return '<span class="chip"><span data-csn="' + esc(p.id) + '">' + esc(p.n && p.n !== p.id && p.n !== pb[0] ? p.n : titleCase(pb[0].replace(/-/g, ' '))) + '</span>' + _t(' <button type="button" data-trm="') + esc(p.id) + _t('" aria-label="Eemalda">×</button></span>');
+          return '<span class="chip"><span data-csn="' + esc(p.id) + '">' + esc(p.n && p.n !== p.id && p.n !== pb[0] ? p.n : titleCase(pb[0].replace(/-/g, ' '))) + '</span>' + _t(' <button type="button" data-trm="') + esc(p.id) + '" aria-label="' + _t('Eemalda') + '">×</button></span>';
         }).join('');
         nimedSlugist(tray);
         $$('[data-trm]', tray).forEach(function (b) { b.addEventListener('click', function () { cmp.toggle({ id: b.dataset.trm }); draw(); }); });

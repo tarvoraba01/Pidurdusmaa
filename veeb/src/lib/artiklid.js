@@ -6,7 +6,7 @@ export const ARTIKLID = [
 	{
 		slug: 'vanad-ja-kulunud-rehvid',
 		title: 'Vanad ja kulunud rehvid: kui palju pikeneb pidurdusmaa?',
-		desc: '3 mm mustriga suverehv peatub märjal 4 m hiljem kui uus, talverehv lumel veerandi võrra pikemalt. Arvutatud pidurdusmaad, DOT-koodi lugemine ja millal vahetada.',
+		desc: '3 mm mustriga suverehvi pidurdusmaa on märjal 4 m pikem kui uuel, talverehvil lumel veerandi võrra pikem. Arvutatud pidurdusmaad, DOT-koodi lugemine ja millal vahetada.',
 		kuupaev: '2026-10-06',
 		silt: 'Rehvid',
 		ru: {

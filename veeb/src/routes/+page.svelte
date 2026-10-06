@@ -2,6 +2,8 @@
 	import { useT, useLang } from '$lib/i18n.js';
 	const t = useT();
 	const keel = useLang();
+	/* inglise keeles kümnendpunkt (audit 6.10: EN avalehel oli „29,8 m“) */
+	const num = (v, d) => (keel.lang === 'en' ? numEt(v, d).replace(',', '.') : numEt(v, d));
 	/* Avaleht = pidurdusmaa. Kaardi teine vaheleht „Vali rehv enda
 	   tingimustel“ peidab kalkulaatori tulemuse ja infoplokid ning näitab
 	   nende asemel sobivate rehvide nimekirja (sama loogika, mis
@@ -11,7 +13,7 @@
 	import HeroPidurdus from '$lib/HeroPidurdus.svelte';
 	import Result from '$lib/Result.svelte';
 	import How from '$lib/How.svelte';
-	import { num, pct, VALIK_Q } from '$lib/util.js';
+	import { num as numEt, pct, VALIK_Q } from '$lib/util.js';
 	import Meta from '$lib/Meta.svelte';
 	import { ORG, WEBSITE, tooriist, graph } from '$lib/skeem.js';
 

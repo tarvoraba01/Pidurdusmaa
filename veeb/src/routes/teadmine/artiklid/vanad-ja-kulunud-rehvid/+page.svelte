@@ -20,9 +20,9 @@
 		read.map((r) => '<tr>' + r.map((c, i) => (i ? `<td class="n">${c}</td>` : `<td><strong>${c}</strong></td>`)).join('') + '</tr>').join('') +
 		'</tbody></table></div>';
 
-	const SISU = `<p>Rehv ei muutu halvaks üleöö. Muster kulub millimeeter haaval ja kumm kõveneb aasta-aastalt. Sellepärast on raske märgata, millal rehv on oma aja ära elanud. Siin on numbrid, mis seda näitavad.</p>
-<p>Pidurdusmaad on arvutatud sama mudeliga mis <a href="/">kalkulaator</a>: VW Golf 8, rehvimõõt 205/55 R16, keskmine rehv (märghaardeklass C). Arvestatud on ainult pidurdusteekonda, reaktsiooniaega mitte.</p>
-<div class="note-box"><strong>Lühidalt.</strong> 3 mm mustriga suverehv peatub märjal teel 90 km/h pealt 4,2 m hiljem kui uus. Talverehv peatub 3 mm mustriga lumel veerandi võrra pikemalt. Vanus lisab vähem kui muster, aga 10 aasta vanune rehv peatub ka täie mustriga 2,4 m hiljem. Vanuse saad teada <a href="/rehvi-vanus/">DOT-koodist</a>.</div>
+	const SISU = `<p>Rehv ei muutu halvaks üleöö. Muster kulub millimeeter haaval ja kumm kõveneb aasta-aastalt. Sellepärast on raske märgata, millal rehv on oma aja ära elanud.</p>
+<p>Pidurdusmaad on arvutatud sama mudeliga, mis <a href="/">kalkulaator</a>: VW Golf 8, rehvimõõt 205/55 R16, keskmine rehv (märghaardeklass C). Arvestatud on ainult pidurdusteekonda, reaktsiooniaega mitte.</p>
+<div class="note-box"><strong>Lühidalt.</strong> 3 mm mustriga suverehvi pidurdusmaa on märjal teel 90 km/h pealt 4,1 m pikem kui uuel. Talverehvi pidurdusmaa lumel on 3 mm mustriga veerandi võrra pikem. Vanus lisab vähem kui muster, aga 10 aasta vanuse rehvi pidurdusmaa on ka täie mustriga 2,3 m pikem. Vanuse saad teada <a href="/rehvi-vanus/">DOT-koodist</a>.</div>
 
 <h2>Kulunud muster märjal teel</h2>
 <p>Märjal teel peab muster vee rehvi alt välja juhtima. Mida madalam muster, seda vähem vett ta mahutab ja seda varem hakkab rehv vee peal libisema. Suverehvi pidurdusmaa 90 km/h pealt märjal asfaldil:</p>
@@ -31,21 +31,21 @@ ${tabel(
 		[
 			['8 mm (uus)', '43,9 m', '—', '—'],
 			['6 mm', '45,2 m', '+1,3 m', '17 km/h'],
-			['4 mm', '46,9 m', '+3,1 m', '25 km/h'],
-			['3 mm', '48,0 m', '+4,2 m', '29 km/h'],
-			['2 mm', '49,3 m', '+5,5 m', '33 km/h'],
-			['1,6 mm (seaduslik piir)', '49,9 m', '+6,1 m', '35 km/h']
+			['4 mm', '46,9 m', '+3,0 m', '25 km/h'],
+			['3 mm', '48,0 m', '+4,1 m', '29 km/h'],
+			['2 mm', '49,3 m', '+5,4 m', '33 km/h'],
+			['1,6 mm (seaduslik piir)', '49,9 m', '+6,0 m', '35 km/h']
 		]
 	)}
-<p>Viimane veerg näitab kiirust kohas, kus uute rehvidega auto on juba seisma jäänud. Seaduslikul piiril 1,6 mm sõidad seal veel 35 km/h. Ees seisvale autole või jalakäijale on see suur vahe.</p>
+<p>Viimane veerg näitab kiirust kohas, kus uute rehvidega auto on juba seisma jäänud. Seaduslikul piiril 1,6 mm sõidad seal veel 35 km/h. Kui ees seisab auto või jalakäija, on see suur vahe.</p>
 
 <h2>Talverehv lumel</h2>
-<p>Lumel haakub rehv lumega mustri soonte ja lamellide kaudu. Kui muster kulub, kaob just see haare. Põhjamaade lamellrehvi pidurdusmaa 50 km/h pealt tallatud lumel (−5 °C):</p>
+<p>Lumel haakub rehv mustrisoonte ja lamellide kaudu. Kui muster kulub, kaob just see haare. Põhjamaade lamellrehvi pidurdusmaa 50 km/h pealt tallatud lumel (−5 °C):</p>
 ${tabel(
 		['Mustri sügavus', 'Pidurdusmaa', 'Uuest rehvist rohkem'],
 		[
 			['9 mm (uus)', '26,2 m', '—'],
-			['7 mm', '28,1 m', '+2,0 m (+7%)'],
+			['7 mm', '28,1 m', '+1,9 m (+7%)'],
 			['6 mm', '29,2 m', '+3,0 m (+12%)'],
 			['5 mm', '30,4 m', '+4,2 m (+16%)'],
 			['4 mm', '31,7 m', '+5,5 m (+21%)'],
@@ -61,19 +61,19 @@ ${tabel(
 		[
 			['kuni 5 aastat', '43,9 m', '—'],
 			['8 aastat', '45,3 m', '+1,4 m'],
-			['10 aastat', '46,2 m', '+2,4 m'],
+			['10 aastat', '46,2 m', '+2,3 m'],
 			['12 aastat', '47,3 m', '+3,4 m'],
 			['15 aastat', '48,9 m', '+5,0 m']
 		]
 	)}
-<p>Vanus lisab vähem kui kulunud muster, aga need liituvad. 10 aastat vana suverehv 2 mm mustriga peatub märjal <strong>8,1 m</strong> hiljem kui uus. Uute rehvidega auto on seal juba seisnud, sina sõidad veel 39 km/h. Rehvitootjad soovitavad üle 5 aasta vanuseid rehve igal aastal kontrollida ja vahetada hiljemalt 10 aasta vanuselt.</p>
+<p>Vanus lisab vähem kui kulunud muster, aga need liituvad. 10 aastat vana suverehvi pidurdusmaa on 2 mm mustriga märjal <strong>8,1 m</strong> pikem kui uuel. Uute rehvidega auto on seal juba seisnud, sina sõidad veel 39 km/h. Rehvitootjad soovitavad üle 5 aasta vanuseid rehve igal aastal kontrollida ja vahetada hiljemalt 10 aasta vanuselt.</p>
 
 <h2>Kuidas rehvi vanust lugeda</h2>
 <p>Rehvi küljel on DOT-kood. Selle lõpus on ovaalses raamis 4 numbrit: kaks esimest on tootmisnädal, kaks viimast aasta. <strong>2319</strong> tähendab 23. nädalat 2019 ehk juunit 2019. Kood on sageli ainult rehvi ühel küljel, nii et vaata vajadusel ka sisekülge.</p>
 <p>Sisesta numbrid <a href="/rehvi-vanus/">rehvi vanuse kontrolli</a> ja näed vanust ning seda, kui palju sinu rehvi vanus ja muster pidurdusmaad pikendavad.</p>
 
 <h2>Kuidas mustrit mõõta</h2>
-<ul><li><strong>Mustrisügavuse mõõtja</strong> maksab paar eurot ja on kõige täpsem. Mõõda kõige kulunuma koha pealt, mitte rehvi keskelt.</li><li><strong>Kulumisnäidikud</strong> on mustrisoonte põhjas väikesed kühmud. Kui muster on nendega tasa, on suverehvi 1,6 mm piir käes. Talverehvidel on sageli eraldi näidik 4 mm juures.</li><li><strong>Ebaühtlane kulumine</strong> (üks serv rohkem kui teine) räägib valest rõhust või rattanurkadest. Siis kulub rehv kiiremini, kui ta peaks.</li></ul>
+<ul><li><strong>Mustrisügavuse mõõtja</strong> maksab paar eurot ja on kõige täpsem. Mõõda kõige kulunuma koha pealt, mitte rehvi keskelt.</li><li><strong>Kulumisnäidikud</strong> on mustrisoonte põhjas väikesed kühmud. Kui muster on nendega tasa, on suverehvi 1,6 mm piir käes. Talverehvidel on sageli eraldi näidik 4 mm juures.</li><li><strong>Ebaühtlane kulumine</strong> (üks serv rohkem kui teine) viitab valele rõhule või rattanurkadest. Siis kulub rehv kiiremini, kui ta peaks.</li></ul>
 
 <h2>Proovi oma autoga</h2>
 <ul><li><a href="/rehvi-vanus/">Rehvi vanuse kontroll</a>: DOT-kood, muster ja pidurdusmaa</li><li><a href="/">Pidurdusmaa kalkulaator</a>: sinu auto, sinu rehvid ja mustri sügavus</li><li><a href="/rehvi-valimine/">Rehvi valimine</a>: uued rehvid sinu auto mõõdus</li></ul>
@@ -81,7 +81,7 @@ ${tabel(
 
 	const SISU_RU = `<p>Шина не становится плохой за одну ночь. Протектор стирается миллиметр за миллиметром, а резина год за годом твердеет. Поэтому трудно заметить, когда шина отслужила своё. Вот цифры, которые это показывают.</p>
 <p>Тормозной путь рассчитан той же моделью, что и <a href="/ru/">калькулятор</a>: VW Golf 8, размер шин 205/55 R16, средняя шина (класс сцепления на мокром C). Учтён только тормозной путь, без времени реакции.</p>
-<div class="note-box"><strong>Коротко.</strong> Летняя шина с протектором 3 мм на мокрой дороге с 90 км/ч останавливается на 4,2 м дальше новой. Зимняя шина с протектором 3 мм на снегу тормозит на четверть дольше. Возраст добавляет меньше, чем износ протектора, но 10-летняя шина даже с полным протектором останавливается на 2,4 м дальше. Возраст шины можно узнать по <a href="/ru/rehvi-vanus/">коду DOT</a>.</div>
+<div class="note-box"><strong>Коротко.</strong> Летняя шина с протектором 3 мм на мокрой дороге с 90 км/ч останавливается на 4,1 м дальше новой. Зимняя шина с протектором 3 мм на снегу тормозит на четверть дольше. Возраст добавляет меньше, чем износ протектора, но 10-летняя шина даже с полным протектором останавливается на 2,3 м дальше. Возраст шины можно узнать по <a href="/ru/rehvi-vanus/">коду DOT</a>.</div>
 
 <h2>Изношенный протектор на мокрой дороге</h2>
 <p>На мокрой дороге протектор должен отводить воду из-под шины. Чем он мельче, тем меньше воды вмещает и тем раньше шина начинает скользить по воде. Тормозной путь летней шины с 90 км/ч на мокром асфальте:</p>
@@ -90,10 +90,10 @@ ${tabel(
 		[
 			['8 мм (новая)', '43,9 м', '—', '—'],
 			['6 мм', '45,2 м', '+1,3 м', '17 км/ч'],
-			['4 мм', '46,9 м', '+3,1 м', '25 км/ч'],
-			['3 мм', '48,0 м', '+4,2 м', '29 км/ч'],
-			['2 мм', '49,3 м', '+5,5 м', '33 км/ч'],
-			['1,6 мм (допустимый минимум)', '49,9 м', '+6,1 м', '35 км/ч']
+			['4 мм', '46,9 м', '+3,0 м', '25 км/ч'],
+			['3 мм', '48,0 м', '+4,1 м', '29 км/ч'],
+			['2 мм', '49,3 м', '+5,4 м', '33 км/ч'],
+			['1,6 мм (допустимый минимум)', '49,9 м', '+6,0 м', '35 км/ч']
 		]
 	)}
 <p>Последний столбец показывает скорость в том месте, где машина с новыми шинами уже остановилась. На минимально допустимых 1,6 мм вы там всё ещё едете 35 км/ч.</p>
@@ -104,7 +104,7 @@ ${tabel(
 		['Глубина протектора', 'Тормозной путь', 'Больше, чем у новой'],
 		[
 			['9 мм (новая)', '26,2 м', '—'],
-			['7 мм', '28,1 м', '+2,0 м (+7%)'],
+			['7 мм', '28,1 м', '+1,9 м (+7%)'],
 			['6 мм', '29,2 м', '+3,0 м (+12%)'],
 			['5 мм', '30,4 м', '+4,2 м (+16%)'],
 			['4 мм', '31,7 м', '+5,5 м (+21%)'],
@@ -120,7 +120,7 @@ ${tabel(
 		[
 			['до 5 лет', '43,9 м', '—'],
 			['8 лет', '45,3 м', '+1,4 м'],
-			['10 лет', '46,2 м', '+2,4 м'],
+			['10 лет', '46,2 м', '+2,3 м'],
 			['12 лет', '47,3 м', '+3,4 м'],
 			['15 лет', '48,9 м', '+5,0 м']
 		]
@@ -139,13 +139,13 @@ ${tabel(
 <p class="note">Расчётные результаты — это оценки, а не измерения. Точность модели и допущения: <a href="/teadmine/kuidas-pidurdusmaa-arvutatakse/">Как рассчитывается тормозной путь</a> (на эстонском).</p>`;
 
 	const KKK = [
-		['Kui palju pikeneb pidurdusmaa kulunud rehviga?', 'VW Golf 8 peatub märjal teel 90 km/h pealt uue suverehviga 43,9 m pealt. 3 mm mustriga on pidurdusmaa 48,0 m ehk 4,2 m pikem, seadusliku piiri 1,6 mm juures 49,9 m. Talverehv peatub lumel 3 mm mustriga veerandi võrra pikemalt kui uus.'],
+		['Kui palju pikeneb pidurdusmaa kulunud rehviga?', 'VW Golf 8 pidurdusmaa märjal teel 90 km/h pealt on uue suverehviga 43,9 m. 3 mm mustriga on see 48,0 m ehk 4,1 m pikem, seadusliku piiri 1,6 mm juures 49,9 m. Talverehvi pidurdusmaa lumel on 3 mm mustriga veerandi võrra pikem kui uuel.'],
 		['Kui vana rehviga võib sõita?', 'Seadus rehvi vanust ei piira. Rehvitootjad soovitavad üle 5 aasta vanuseid rehve igal aastal kontrollida ja vahetada hiljemalt 10 aasta vanuselt, sest kumm kõveneb ja haare väheneb ka täie mustriga.'],
 		['Kuidas teada saada rehvi vanust?', 'Rehvi küljel on DOT-kood, mille lõpus on ovaalses raamis 4 numbrit: kaks esimest on tootmisnädal ja kaks viimast aasta. Näiteks 2319 tähendab 23. nädalat 2019.'],
 		['Kui sügav peab olema rehvi muster Eestis?', 'Suverehvil vähemalt 1,6 mm, talverehvil sügavam kui 3 mm. Pidurdusmaa hakkab pikenema palju varem: lumel on talverehvi pidurdusmaa 4 mm mustriga juba viiendiku võrra pikem kui uuel rehvil.']
 	];
 	const KKK_RU = [
-		['Насколько удлиняется тормозной путь на изношенной шине?', 'VW Golf 8 на мокрой дороге с 90 км/ч останавливается на новой летней шине за 43,9 м. С протектором 3 мм тормозной путь 48,0 м, то есть на 4,2 м длиннее, при допустимом минимуме 1,6 мм — 49,9 м. Зимняя шина с протектором 3 мм на снегу тормозит на четверть дольше новой.'],
+		['Насколько удлиняется тормозной путь на изношенной шине?', 'VW Golf 8 на мокрой дороге с 90 км/ч останавливается на новой летней шине за 43,9 м. С протектором 3 мм тормозной путь 48,0 м, то есть на 4,1 м длиннее, при допустимом минимуме 1,6 мм — 49,9 м. Зимняя шина с протектором 3 мм на снегу тормозит на четверть дольше новой.'],
 		['Сколько лет можно ездить на шинах?', 'Закон возраст шины не ограничивает. Производители рекомендуют ежегодно проверять шины старше 5 лет и менять их не позднее чем в 10 лет, потому что резина твердеет и сцепление снижается даже при полном протекторе.'],
 		['Как узнать возраст шины?', 'На боковине шины есть код DOT, в конце которого в овальной рамке 4 цифры: первые две — неделя производства, последние две — год. Например, 2319 означает 23-ю неделю 2019 года.'],
 		['Какой должна быть глубина протектора в Эстонии?', 'У летней шины не меньше 1,6 мм, у зимней — больше 3 мм. Тормозной путь начинает расти намного раньше: на снегу при протекторе 4 мм он уже на пятую часть длиннее, чем у новой шины.']

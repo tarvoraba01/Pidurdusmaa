@@ -69,7 +69,7 @@ async function saadaTeade({ subject, text, replyTo }) {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
 			/* "content" on Discordi väljanimi, "text" Slacki oma */
-			body: JSON.stringify({ content: tekst, text: tekst, subject, replyTo }),
+			body: JSON.stringify({ content: tekst, text: tekst, subject, replyTo, allowed_mentions: { parse: [] } }), /* @everyone kirjas ei pingi kõiki */
 			signal: AbortSignal.timeout(8000)
 		});
 		return r.ok;

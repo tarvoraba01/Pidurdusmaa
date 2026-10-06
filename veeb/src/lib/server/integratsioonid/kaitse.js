@@ -11,7 +11,7 @@
  */
 import { json } from '@sveltejs/kit';
 import { timingSafeEqual, createHash } from 'node:crypto';
-import { ipHash } from '$lib/server/logi.js';
+import { ipHash, kliendiIp } from '$lib/server/logi.js';
 
 /* ------------------------------------------------------------ piirang */
 const MAX_KIRJEID = 20000;
@@ -26,7 +26,7 @@ const kirjed = new Map(); // voti -> { algus, n }
 export function piirang(nimi, event, mitu, sek) {
 	let ip = 'tundmatu';
 	try {
-		ip = ipHash(event.getClientAddress());
+		ip = ipHash(kliendiIp(event));
 	} catch {
 		/* ehituse ajal IP-d ei ole */
 	}
