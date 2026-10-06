@@ -362,6 +362,13 @@ def main():
     # --- rehvimudelid (EPREL): mark+nimi normaliseeritult, ule moodude
     mud = {}
     spell = defaultdict(Counter)
+    # mõõduvõti vabast tekstist (vt eprel_moot.py): "205/55 R16 91W" -> 20555R16.
+    # LT ja veoauto veljed jäävad oma võtme alla (mõõdulehte neil pole, aga
+    # mudel ja tema leht jäävad alles)
+    from .eprel_moot import puhas_moot
+    _ok = re.compile(r"^\d{5}R\d{2}C?$")
+    rows = [dict(r, mootN=r["mootN"] if _ok.match(r["mootN"]) else (puhas_moot(r["moot"]) or r["mootN"]))
+            for r in rows]
     for r in rows:
         k = norm(r["mark"]) + "|" + norm(r["nimi"])
         spell[k][r["nimi"]] += 1

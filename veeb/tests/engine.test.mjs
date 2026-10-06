@@ -257,3 +257,13 @@ test('kiire tee: eelarvutatud haare = muAtSpeed bitt-bitilt (öövahetus 7.10)',
   assert.deepEqual(bad.slice(0, 10), [], bad.length + ' erinevust');
 });
 
+test('EPREL-i mõõdufailid: sõiduauto mõõtudel õige võti (öövahetus 7.10)', () => {
+  // Vigased võtmed ("20555R1691W", "17565R14C6PR") liideti õige mõõdu alla.
+  // Alles võivad jääda ainult LT (light truck) ja veoauto veljed (17.5, 19.5).
+  const files = fs.readdirSync(path.join(root, 'static/data/eprel')).map(f => f.replace(/\.json$/, ''));
+  const muud = files.filter(f => !/^\d{5}R\d{2}C?$/.test(f) && !/LT|^\d{5}R1[79]5/.test(f));
+  assert.deepEqual(muud, []);
+  const sizes = new Set(core.sizes.map(s => s.m));
+  for (const s of core.sizes) assert.ok(files.includes(s.m), 'mõõdulehel pole faili ' + s.m);
+  assert.ok(sizes.size === core.sizes.length);
+});
