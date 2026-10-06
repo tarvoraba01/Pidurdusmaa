@@ -509,6 +509,7 @@ export default {
 "hiljem": "later",
 "Märjal peatub sama kaugel kui selle mõõdu keskmine rehv.": "On wet roads it stops about the same as the average tyre in this size.",
 "kui selle mõõdu keskmine rehv.": "than the average tyre in this size.",
+"Korduma kippuvad küsimused": "Frequently asked questions",
 "Lühidalt": "In short",
 "\">eemalda</button></span></th>": "\">remove</button></span></th>",
 "Jah": "Yes",

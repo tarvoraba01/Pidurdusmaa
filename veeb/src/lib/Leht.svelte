@@ -9,9 +9,11 @@
 	const t = useT();
 	const keel = useLang();
 	const L = keel.L;
-	let { title, desc, path, crumbs = [], sisu, lapsed = [], uuendatud = '', avaldatud = '', image = undefined } = $props();
+	let { title, desc, path, crumbs = [], sisu, lapsed = [], uuendatud = '', avaldatud = '', image = undefined, kkk = [] } = $props();
+	/* kkk: [[küsimus, vastus], …] — nähtav plokk lehe lõpus + FAQPage (GEO) */
+	const faq = $derived(kkk.length ? { '@type': 'FAQPage', mainEntity: kkk.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) } : null);
 	const jsonld = $derived(
-		uuendatud ? graph(...artikkel({ path: L('/' + path), title, desc, uuendatud, avaldatud, lang: keel.lang })) : null
+		uuendatud || faq ? graph(...(uuendatud ? artikkel({ path: L('/' + path), title, desc, uuendatud, avaldatud, lang: keel.lang }) : []), ...(faq ? [faq] : [])) : null
 	);
 </script>
 
@@ -32,6 +34,10 @@
 		<article class="entry prose entry-content">
 			{#if uuendatud}<Autor {uuendatud} />{/if}
 			{@html lingid(keel.lang, sisu)}
+			{#if kkk.length}
+				<h2>{t('Korduma kippuvad küsimused')}</h2>
+				{#each kkk as [q, a] (q)}<h3>{q}</h3><p>{a}</p>{/each}
+			{/if}
 		</article>
 		{#if lapsed.length}
 			<div class="grid-cards" style="margin-top:var(--sp-8);max-width:760px">

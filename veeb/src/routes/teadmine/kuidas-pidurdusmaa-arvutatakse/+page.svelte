@@ -26,4 +26,11 @@
 	lapsed={[]}
 	uuendatud="2026-09-25"
 	sisu={SISU}
+	kkk={[
+		['Kui täpne on pidurdusmaa kalkulaator?', '369 mõõdetud pidurdusmaa vastu (ADAC, Tekniikan Maailma, UTAC) on mudeli keskmine viga märjal ja kuival asfaldil 4,4%, lumel 5,5% ja jääl 6,9%. Iga tulemuse juures näidatakse vahemikku. Rehvidel, millel on ainult EL-i märgis, on vahemik laiem, sest teada on klass, mitte täpne number.'],
+		['Kust tulevad rehvide andmed?', 'Märja haarde annab EL-i rehvimärgis (tooteregister EPREL). Sõltumatult testitud rehvidel kasutatakse testi enda mõõdetud pidurdusmaad, mis on täpsem kui märgise klass. Kuival, lumel ja jääl kasutatakse testi tulemust või rehvi kategooria keskmist.'],
+		['Kas pidurdusmaa sisaldab reaktsiooniaega?', 'Ei. Pidurdusmaa algab hetkest, kui pidur on põhjas, sest reaktsioon tuleb juhist, mitte rehvist. Peatumisteekonna, kus reaktsiooniaeg on juures, arvutab liiklusohutuse kalkulaator.'],
+		['Miks ei järjestata ainult märgisega rehve lumel ja jääl?', 'EL-i märgis ei ütle lume ja jää pidurduse kohta midagi. Kui rehv ei ole testitud, oleks kõigil sama kategooria rehvidel sama tulemus, ja järjestus näeks välja nagu teadmine, mida meil ei ole.'],
+		['Milliste eeldustega tulemus arvutatakse?', 'Rehv on uus (muster 8 mm), rõhk tehase soovituse järgi ja autos on juht (75 kg). Märg tee on 1 mm veekihiga asfalt +10 °C juures, kuiv asfalt +15 °C, tallatud lumi ja sõidutee jää −5 °C juures.']
+	]}
 />

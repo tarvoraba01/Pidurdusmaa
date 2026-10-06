@@ -522,6 +522,7 @@ export default {
 "hiljem": "позже",
 "Märjal peatub sama kaugel kui selle mõõdu keskmine rehv.": "На мокрой дороге останавливается так же, как средняя шина этого размера.",
 "kui selle mõõdu keskmine rehv.": "чем средняя шина этого размера.",
+"Korduma kippuvad küsimused": "Часто задаваемые вопросы",
 "Lühidalt": "Коротко",
 "\">eemalda</button></span></th>": "\">убрать</button></span></th>",
 "Jah": "Да",

@@ -1,6 +1,23 @@
 <script>
 	import Meta from '$lib/Meta.svelte';
+	import { BASE, ORG, ORG_ID, graph } from '$lib/skeem.js';
 	let { data } = $props();
+	/* Dataset-skeem (GEO): mõõdetud pidurdusmaad, mida mudel kasutab */
+	const aastad = data.sources.map((s) => +s.aasta).filter(Boolean);
+	const jsonld = graph(ORG, {
+		'@type': 'Dataset',
+		'@id': BASE + '/testid/#andmed',
+		name: 'Sõltumatute rehvitestide mõõdetud pidurdusmaad',
+		description: 'Rehvitestide (ADAC, Tekniikan Maailma, UTAC, Vi Bilägare) mõõdetud pidurdusmaad märjal ja kuival asfaldil, lumel ja jääl, allika, aasta, auto, rehvimõõdu ja protokolliga. Pidurdusmaa.ee kalibreerib nende järgi oma pidurdusmudelit.',
+		url: BASE + '/testid/',
+		inLanguage: 'et',
+		creator: { '@id': ORG_ID },
+		publisher: { '@id': ORG_ID },
+		keywords: ['rehvitest', 'pidurdusmaa', 'märghaardumine', 'talverehvid', 'suverehvid'],
+		variableMeasured: ['pidurdusmaa märjal asfaldil', 'pidurdusmaa kuival asfaldil', 'pidurdusmaa lumel', 'pidurdusmaa jääl'],
+		...(aastad.length ? { temporalCoverage: Math.min(...aastad) + '/' + Math.max(...aastad) } : {}),
+		isBasedOn: data.sources.map((s) => ({ '@type': 'CreativeWork', name: s.nimi, author: { '@type': 'Organization', name: s.tegija }, datePublished: String(s.aasta), url: BASE + '/testid/' + s.slug + '/' }))
+	});
 </script>
 
 <Meta
@@ -8,6 +25,7 @@
 	desc="Rehvitestid, mille mõõdetud tulemusi Pidurdusmaa.ee kasutab: ADAC, Tekniikan Maailma, UTAC, Vi Bilägare. Allikas, kuupäev, protokoll ja iga rehvi tulemus."
 	path="testid/"
 	crumbs={[['Avaleht', '/'], ['Testid', '/testid/']]}
+	{jsonld}
 />
 
 <section class="page-hero">
