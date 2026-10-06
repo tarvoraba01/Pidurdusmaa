@@ -37,7 +37,8 @@
 	};
 	const A = $derived(arvuta(a));
 	const B = $derived(arvuta(b));
-	const vahe = $derived((B.d / A.d - 1) * 100);
+	/* ümardub nulliks -> 0, mitte „−0,0“ */
+	const vahe = $derived(((x) => (Math.abs(x) < 0.05 ? 0 : x))((B.d / A.d - 1) * 100));
 	const tegelik = $derived(kiirus * (B.d / A.d));
 	const hinne = $derived(
 		Math.abs(vahe) <= 1.5
@@ -106,7 +107,7 @@
 			<h2>{t('Sama läbimõõduga mõõdud')} <small>(±1,5 %)</small></h2>
 			<p class="rm-sel">{t('Vali, millise mõõdu rehve vaadata — igal lehel on rehvid märghaarde ja testide järgi.')}</p>
 			<div class="rm-chips">
-				{#each sarnased as s (s.slug)}<a href={link(s.slug)}><b>{s.label}</b> <small>{s.v > 0 ? '+' : ''}{f(s.v)} %</small></a>{/each}
+				{#each sarnased as s (s.slug)}<a href={link(s.slug)}><b>{s.label}</b> <small>{s.v >= 0.05 ? '+' : ''}{f(Math.abs(s.v) < 0.05 ? 0 : s.v)} %</small></a>{/each}
 			</div>
 		</div>
 	{/if}

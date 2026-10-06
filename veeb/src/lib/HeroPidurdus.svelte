@@ -119,8 +119,8 @@
 			{/if}
 			<!-- auto -->
 			{@const [cx, cy] = P(r.m - AUTO_L / 2, i)}
-			{@const L = AUTO_L * pxm}
-			{@const W = Math.min(AUTO_W * pxm * 1.25, raLai * 0.62)}
+			{@const L = Math.max(0, AUTO_L * pxm)}
+			{@const W = Math.max(0, Math.min(AUTO_W * pxm * 1.25, raLai * 0.62))}
 			<g transform="translate({cx} {cy}) rotate({ules ? -90 : 0})">
 				{#if !r.seis}<ellipse cx={L / 2 + L * 0.9} cy="0" rx={L * 0.95} ry={W * 0.7} fill="url(#hp-tuli)" />{/if}
 				<rect x={-L / 2} y={-W / 2} width={L} height={W} rx={W * 0.32} fill="#ffc20e" stroke="#171200" stroke-width="1" />
