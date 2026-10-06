@@ -452,8 +452,14 @@ import UNIVERSAALID from './universaalid.json';
       var btn = $('.dd-btn', dd);
       btn.addEventListener('click', function (e) {
         e.stopPropagation();
+        /* korraga ainult üks menüü lahti */
+        $$('[data-dd].open').forEach(function (o) { if (o !== dd) { o.classList.remove('open'); $('.dd-btn', o).setAttribute('aria-expanded', 'false'); } });
         var open = dd.classList.toggle('open');
         btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+      /* hiirega teise menüü peale: klikiga avatud menüü sulgub */
+      dd.addEventListener('mouseenter', function () {
+        $$('[data-dd].open').forEach(function (o) { if (o !== dd) { o.classList.remove('open'); $('.dd-btn', o).setAttribute('aria-expanded', 'false'); } });
       });
       /* klaviatuur: kui fookus lahkub menüüst, sulgeme selle */
       dd.addEventListener('focusout', function (e) {
