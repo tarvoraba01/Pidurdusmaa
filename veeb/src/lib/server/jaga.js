@@ -265,3 +265,22 @@ ${read.map(([t, c, px, w], i) => `<text x="70" y="${448 + i * 44 + (i ? 4 : 0)}"
 </svg>`;
 	return svgPng(svg, 1200);
 }
+
+/** Mõõdulehe KKK: sama auto pidurdusmaa märjal 80 km/h pealt selle mõõdu
+ *  parima ja halvima märgise klassiga (samas rehvitüübis). Sama mootor ja
+ *  samad klassi väärtused mis kalkulaatoris. null, kui klasse on alla kahe. */
+export function klassiVahe(m, autoKey) {
+	const read = eprelRead(m).filter((r) => GNOM[r.g]);
+	if (!read.length) return null;
+	const kat = Object.entries(read.reduce((o, r) => ((o[r.cat] = (o[r.cat] || 0) + 1), o), {})).sort((a, b) => b[1] - a[1])[0][0];
+	const kl = [...new Set(read.filter((r) => r.cat === kat).map((r) => r.g))].sort();
+	if (kl.length < 2) return null;
+	const { veh } = idx();
+	const v = (autoKey && veh.get(autoKey)) || veh.get(DEFAULT_VEH);
+	if (!v) return null;
+	const C = COND.wet;
+	const cond = { speedKmh: 80, surface: C.surface, texture: 'NORMAL', waterMm: C.waterMm, tempC: C.tempC, payloadKg: 75, gradientPct: 0, reactionTimeS: 0, brakeCondition: 1 };
+	const d = (g) => Math.round(P().stoppingDistance(classTyre(g, kat, m), v, cond).distanceM * 10) / 10;
+	const g1 = kl[0], g2 = kl[kl.length - 1], d1 = d(g1), d2 = d(g2);
+	return { kat, g1, g2, d1, d2, vahe: Math.round((d2 - d1) * 10) / 10, auto: v.name.replace(/\s*\(.*\)$/, ''), autoKey: v.key };
+}

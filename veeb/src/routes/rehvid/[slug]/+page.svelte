@@ -10,6 +10,7 @@
 	import How from '$lib/How.svelte';
 	import TyreArt from '$lib/TyreArt.svelte';
 	import { KAT_NIMI, CONDS, num, pretty, testLabel } from '$lib/util.js';
+	import { graph } from '$lib/skeem.js';
 
 	let { data } = $props();
 	const KAT = { 0: t('Suverehvid'), 1: t('Aastaringsed rehvid'), 2: t('Talverehvid (Kesk-Euroopa)'), 3: t('Talverehvid (Põhjamaade)') };
@@ -32,6 +33,45 @@
 		return data.tyre.name + (o.fraas ? ' — ' + t(o.fraas).charAt(0).toLowerCase() + t(o.fraas).slice(1) : '') + (osad.length ? ': ' + osad.join(', ') : '') + '. ' + t('Vaata, kui pikk on pidurdusmaa sinu autoga.');
 	});
 
+	/* mõõdulehe KKK: vastused ainult lehe andmetest (märgis, mudel, autod) */
+	const ja = (a) => (a.length < 2 ? a.join('') : a.slice(0, -1).join(', ') + ' ' + t('ja') + ' ' + a[a.length - 1]);
+	const mootKkk = $derived.by(() => {
+		if (data.liik !== 'moot') return [];
+		const m = data.size.label, out = [];
+		if (data.parimG && data.parimad.length) {
+			out.push([
+				t('Milline {m} rehv on märjal kõige parem?', { m }),
+				(data.parimG === 'A'
+					? t('EL-i rehvimärgise järgi on {m} mõõdus {n} mudelil märghaardumise klass A, näiteks {nimed}.', { m, n: data.parimN, nimed: ja(data.parimad) })
+					: t('{m} mõõdus on parim märghaardumise klass {g} ({n} mudelit), näiteks {nimed}.', { m, g: data.parimG, n: data.parimN, nimed: ja(data.parimad) })) +
+					' ' + t('Klass on mõõdupõhine: sama mudel võib teises mõõdus olla teise klassiga.')
+			]);
+		}
+		if (data.vahe) {
+			const v = data.vahe;
+			out.push([
+				t('Kui palju lühem on pidurdusmaa parema märgise klassiga?'),
+				t('{auto} pidurdusmaa märjal asfaldil 80 km/h pealt: {g1}-klassi rehviga {d1} m, {g2}-klassi rehviga {d2} m. Vahe on {dv} m.', { auto: an(v.auto), g1: v.g1, g2: v.g2, d1: num(v.d1), d2: num(v.d2), dv: num(v.vahe) }) +
+					' ' + t('Rehvitüüp: {tyyp}. Arvutatud sama mudeliga mis kalkulaator; oma auto tulemust näed kalkulaatoris.', { tyyp: ((x) => x.charAt(0).toLowerCase() + x.slice(1))(t(KAT_NIMI[v.kat])) })
+			]);
+		}
+		if (data.cars.length) {
+			out.push([
+				t('Millistel autodel on {m} tehasemõõt?', { m }),
+				t('Andmebaasis on {m} tehasemõõt {n} autol, näiteks {autod}.', { m, n: data.autosid, autod: ja(data.cars.slice(0, 4).map((c) => an(c.nimi))) })
+			]);
+		}
+		if (data.sarnased.length) {
+			out.push([
+				t('Milliseid mõõte saab {m} asemel kasutada?', { m }),
+				t('Sama välisläbimõõduga (vahe kuni 1,5%) on näiteks {moodud}.', { moodud: ja(data.sarnased.slice(0, 4).map((z) => z.label)) }) +
+					' ' + t('Enne vahetamist kontrolli, kas mõõt on sinu auto lubatud mõõtude seas (registreerimistunnistus või tootja andmed).')
+			]);
+		}
+		return out;
+	});
+	const mootLd = $derived(mootKkk.length ? graph({ '@type': 'FAQPage', mainEntity: mootKkk.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) }) : undefined);
+
 	function pctVahe(d, x, y) {
 		const p = (100 * d) / Math.min(x, y);
 		return (d > 0 ? '+' : '') + num(p, Math.abs(p) < 10 ? 1 : 0);
@@ -46,6 +86,7 @@
 		image={data.noindex ? undefined : `/og/m/${data.size.slug}.png`}
 		noindex={data.noindex}
 		crumbs={[[t('Avaleht'), '/'], [t('Rehvid'), '/rehvid/'], [data.size.label, '/rehvid/' + data.size.slug + '/']]}
+		jsonld={mootLd}
 	/>
 
 	<section class="page-hero">
@@ -57,6 +98,8 @@
 			<h1>{t("Rehvid")} {data.size.label}</h1>
 			<p>
 				{data.n} {t("rehvimudelit EL-i rehvimärgise andmetega. Märghaardumise klass ütleb, kui lühikeseks jääb pidurdusmaa märjal teel — ja klass on selle mõõdu oma, mitte mudeli üldine.")}
+				{#if data.parimG === 'A'}{t('Klass A on {n} mudelil.', { n: data.parimN })}{/if}
+				{#if data.nTest}{data.nTest === 1 ? t('1 mudel on olnud sõltumatus pidurdustestis.') : t('{n} mudelit on olnud sõltumatus pidurdustestis.', { n: data.nTest })}{/if}
 			</p>
 			<div class="pills">
 				{#each data.klassid as [g, n] (g)}
@@ -95,6 +138,12 @@
 						</div>
 					</div>
 				{/each}
+				{#if mootKkk.length}
+					<div class="box">
+						<h2>{t('Korduma kippuvad küsimused')}</h2>
+						{#each mootKkk as [q, a] (q)}<h3 style="font-size:17px;margin:var(--sp-4) 0 var(--sp-1)">{q}</h3><p style="margin:0">{a}</p>{/each}
+					</div>
+				{/if}
 			</div>
 			<aside class="side">
 				<div class="box">
@@ -105,6 +154,17 @@
 						>{t("Võrdle selle mõõdu rehve")}</a
 					>
 					{#if data.talv}<a class="btn" style="width:100%;margin-top:var(--sp-2)" href={L('/talverehvid/' + data.talv + '/')}>{t('Parimad talverehvid {m}', { m: data.size.label })}</a>{/if}
+					<a class="btn" style="width:100%;margin-top:var(--sp-2)" href={L('/rehvi-kalkulaator/') + '?a=' + data.size.slug}>{t('Rehvimõõdu kalkulaator')}</a>
+					{#if data.sarnased.length}
+						<h3
+							style="font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:var(--sp-6) 0 var(--sp-2)"
+						>
+							{t('Sama läbimõõduga mõõdud')}
+						</h3>
+						<ul class="note" style="margin:0;padding-left:var(--sp-5)">
+							{#each data.sarnased as z (z.slug)}<li><a href={L('/rehvid/' + z.slug + '/')}>{z.label}</a> <span style="color:var(--muted)">{z.v > 0 ? '+' : ''}{num(z.v)} %</span></li>{/each}
+						</ul>
+					{/if}
 					{#if data.cars.length}
 						<h3
 							style="font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:var(--sp-6) 0 var(--sp-2)"
@@ -385,6 +445,9 @@
 						</ul>
 						{#if data.sobib.n > data.sobib.list.length}<p class="srcline">{t("Kokku")} {data.sobib.n} {t("autot, mille tehase põhimõõt on selle rehvi mõõtude hulgas.")}</p>{/if}
 					{/if}
+					<p class="srcline" style="margin-top:var(--sp-5)">
+						{t('Kas sinu praegused rehvid on veel head?')} <a href={L('/rehvi-vanus/')}>{t('Kontrolli rehvi vanust DOT-koodist')}</a>
+					</p>
 				</div>
 			</aside>
 		</div>

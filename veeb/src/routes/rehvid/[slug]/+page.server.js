@@ -1,5 +1,5 @@
 import { error } from '@sveltejs/kit';
-import { arvuta } from '$lib/server/jaga.js';
+import { arvuta, klassiVahe } from '$lib/server/jaga.js';
 import {
 	core,
 	eprelSize,
@@ -93,9 +93,27 @@ function mootLeht(size) {
 	const koikAutod = autodMoodus(size.m);
 	const cars = koikAutod.slice(0, 24);
 
+	/* KKK ja sissejuhatus: ainult andmetest (märgis, testid, autod) */
+	const kl = Object.keys(klassid).filter((g) => 'ABCDE'.includes(g)).sort();
+	const parimG = kl[0] || null;
+	const parimad = parimG
+		? rows
+				.filter((r) => r[4] === parimG)
+				.sort((a, b) => (b[9] ? 1 : 0) - (a[9] ? 1 : 0) || (a[6] ?? 99) - (b[6] ?? 99))
+				.slice(0, 3)
+				.map((r) => titleCase(r[1] + ' ' + r[2]))
+		: [];
+	/* klassivahe arvutatakse auto peal, millel see mõõt päriselt on; kui ühtki pole, jääb see küsimus ära */
+	const pohiAuto = koikAutod.find((c) => c.pohi) || koikAutod[0];
 	return {
 		liik: 'moot',
 		size,
+		parimG,
+		parimN: parimG ? klassid[parimG] : 0,
+		parimad,
+		nTest: rows.filter((r) => r[9]).length,
+		vahe: ((v) => (v && pohiAuto && v.autoKey === pohiAuto.key ? { ...v, auto: pohiAuto.nimi } : null))(pohiAuto ? klassiVahe(size.m, pohiAuto.key) : null),
+		sarnased: sarnasedMoodud(size),
 		grupid,
 		klassid: Object.keys(klassid).sort().map((g) => [g, klassid[g]]),
 		cars,
@@ -106,6 +124,26 @@ function mootLeht(size) {
 	};
 }
 
+
+/* Sama välisläbimõõduga mõõdud (±1,5 %), millel on oma leht. C (kaubiku)
+   mõõdud ainult C-mõõtudega ja vastupidi. */
+const labimoot = (m) => {
+	const x = /^(\d{3})(\d{2})R(\d{2})(C?)$/.exec(m);
+	return x ? { d: +x[3] * 25.4 + (2 * +x[1] * +x[2]) / 100, c: !!x[4] } : null;
+};
+function sarnasedMoodud(size) {
+	const a = labimoot(size.m);
+	if (!a) return [];
+	const out = [];
+	for (const s of core().sizes) {
+		if (s.m === size.m) continue;
+		const b = labimoot(s.m);
+		if (!b || b.c !== a.c) continue;
+		const v = (b.d / a.d - 1) * 100;
+		if (Math.abs(v) <= 1.5 && sizeModelCount(s.m) >= SIZE_MIN_MODELS) out.push({ label: s.label, slug: s.slug, v: Math.round(v * 10) / 10 });
+	}
+	return out.sort((p, q) => Math.abs(p.v) - Math.abs(q.v)).slice(0, 8);
+}
 
 /* Kirjeldus otsingutulemuse jaoks: konkreetsed numbrid, mitte mall.
    „Kleber Dynaxer HP3 suverehv: märjal haardumise klass B, müra 69 dB,

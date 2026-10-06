@@ -2,6 +2,7 @@
 	/* Rehvimõõdu kalkulaator: kaks mõõtu kõrvuti — läbimõõt, külje kõrgus,
 	   ümbermõõt, spidomeetri viga ja sama läbimõõduga mõõdud (lingid mõõdulehtedele).
 	   Arvutus: külg = laius × profiil / 100; läbimõõt = velg × 25,4 + 2 × külg. */
+	import { onMount } from 'svelte';
 	import { useT, useLang, onTolgitud } from '$lib/i18n.js';
 	const t = useT();
 	const keel = useLang();
@@ -13,6 +14,16 @@
 
 	let a = $state({ w: 205, p: 55, r: 16 });
 	let b = $state({ w: 225, p: 45, r: 17 });
+	/* mõõdulehelt tulles (?a=205-55-r16) on praegune mõõt ette valitud */
+	onMount(() => {
+		try {
+			const q = new URLSearchParams(location.search);
+			for (const [k, x] of [['a', a], ['b', b]]) {
+				const m = /^(\d{3})-(\d{2})-r(\d{2})c?$/i.exec(q.get(k) || '');
+				if (m && LAIUSED.includes(+m[1]) && PROFIILID.includes(+m[2]) && VELJED.includes(+m[3])) { x.w = +m[1]; x.p = +m[2]; x.r = +m[3]; }
+			}
+		} catch {}
+	});
 	let kiirus = $state(90);
 
 	const LOC = keel.lang === 'en' ? 'en-GB' : keel.lang === 'ru' ? 'ru-RU' : 'et-EE';
