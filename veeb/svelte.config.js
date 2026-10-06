@@ -7,6 +7,26 @@ import adapter from '@sveltejs/adapter-node';
 export default {
   kit: {
     adapter: adapter({ out: 'build', precompress: false }),
+    /* CSP ilma 'unsafe-inline'-ita skriptidele: SvelteKit paneb igale
+       eelrenderdatud lehele <meta http-equiv="content-security-policy"> koos
+       lehe käivitusskripti räsiga. server.js päis jääb alles (seal on muud
+       direktiivid); brauser rakendab mõlemat, nii et inline-skript peab
+       läbima ka selle räsikontrolli. Kaks räsi = app.html-i kaks skripti
+       (PWA paigaldus, Plausible). Kui muudad neid, arvuta räsi uuesti:
+       printf '%s' '<skripti sisu>' | openssl dgst -sha256 -binary | base64 */
+    csp: {
+      mode: 'hash',
+      directives: {
+        'script-src': [
+          'self',
+          'sha256-FkjI0LQ6vqJoH55Y9VqBo+5PndeVrCv3kBPEKdLQaik=',
+          'sha256-S46PoNSIlqlHWn5jWqs3zz9yXx6Zq5efyOQb01rgaLs=',
+          'https://www.googletagmanager.com',
+          'https://challenges.cloudflare.com',
+          'https://track.pidurdusmaa.ee'
+        ]
+      }
+    },
     prerender: {
       handleHttpError: 'fail',
       /* /liiklusohutus/#kiirus=70&… — aadressi lõpp on kalkulaatori olek,

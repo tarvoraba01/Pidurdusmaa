@@ -56,8 +56,10 @@ const PLAUSIBLE = 'https://track.pidurdusmaa.ee';
 
 const CSP = [
 	"default-src 'self'",
-	/* 'unsafe-inline': SvelteKiti käivitusskript on lehe sees. Välist
-	   skripti ei saa laadida mujalt kui allolevatelt aadressidelt. */
+	/* 'unsafe-inline' siin ei luba tegelikult suvalist inline-skripti:
+	   eelrenderdatud lehtedel lisab SvelteKit <meta> CSP lehe käivitusskripti
+	   räsiga (svelte.config.js csp) ja brauser peab läbima mõlemad poliitikad.
+	   Välist skripti ei saa laadida mujalt kui allolevatelt aadressidelt. */
 	`script-src 'self' 'unsafe-inline' ${GA} ${CF} ${PLAUSIBLE}`,
 	"style-src 'self' 'unsafe-inline'",
 	`img-src 'self' data: blob: ${GTM_KOIK} ${GA_KOGU}`,
