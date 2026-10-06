@@ -142,7 +142,7 @@
 					<tbody>
 						{#each data.mootorid as m (m.key)}
 							<tr>
-								<td><a href={L('/') + '?auto=' + encodeURIComponent(m.key)}>{hj(m.silt) || a.model}</a></td>
+								<td><a href={L('/') + '?auto=' + encodeURIComponent(m.key)}>{an(hj(m.silt)) || a.model}</a></td>
 								<td>{m.kytus ? t(m.kytus) : '–'}</td>
 								<td>{m.aastad || '–'}</td>
 								<td>{m.moot || '–'}</td>

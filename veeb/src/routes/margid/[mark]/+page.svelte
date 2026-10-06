@@ -40,6 +40,9 @@
 		<p>
 			{data.mudeleid} mudelit ja {data.mootudKokku} mõõtu EL-i rehvimärgise andmebaasis{#if data.testitud.length},
 				{data.testitud.length} mudelit sõltumatutes testides{/if}.
+			{#if data.jaotus.length}Märghaardumise klassid kõigis mõõtudes: {data.jaotus.map(([g, p]) => g + ' ' + p + '%').join(', ')}.{/if}
+			{#if data.topMoodud.length}Kõige rohkem mudeleid mõõtudes
+				{#each data.topMoodud as z, i (z.label)}{#if z.slug}<a href="/rehvid/{z.slug}/">{z.label}</a>{:else}{z.label}{/if} ({z.k}){i < data.topMoodud.length - 1 ? ', ' : '.'}{/each}{/if}
 		</p>
 	</div>
 </section>

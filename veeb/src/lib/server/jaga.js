@@ -284,3 +284,19 @@ export function klassiVahe(m, autoKey) {
 	const g1 = kl[0], g2 = kl[kl.length - 1], d1 = d(g1), d2 = d(g2);
 	return { kat, g1, g2, d1, d2, vahe: Math.round((d2 - d1) * 10) / 10, auto: v.name.replace(/\s*\(.*\)$/, ''), autoKey: v.key };
 }
+
+/** Autolehtede sissejuhatus: pidurdusmaa märjal asfaldil 80 km/h pealt
+ *  keskmise suverehviga (märgise klass C) auto enda tehase põhimõõdus. */
+export function marg80(autoKey) {
+	const v = idx().veh.get(autoKey);
+	if (!v || !v.oemSize) return null;
+	const m = String(v.oemSize).replace(/[/ ]/g, '').toUpperCase();
+	const C = COND.wet;
+	const cond = { speedKmh: 80, surface: C.surface, texture: 'NORMAL', waterMm: C.waterMm, tempC: C.tempC, payloadKg: 75, gradientPct: 0, reactionTimeS: 0, brakeCondition: 1 };
+	try {
+		const d = P().stoppingDistance(classTyre('C', 'SUMMER_TOURING', m), v, cond).distanceM;
+		return Number.isFinite(d) ? Math.round(d * 10) / 10 : null;
+	} catch {
+		return null;
+	}
+}

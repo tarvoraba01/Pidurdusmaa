@@ -232,7 +232,7 @@
 				{@const v = data.vastus}
 				<p class="vastus">
 					{t('{rehv} {moot}: pidurdusmaa märjal teel 90 km/h pealt umbes {d} m', { rehv: ty.name, moot: v.moot, d: v.d })}
-					<span class="vastus-alus">({t('{auto}, ilma reaktsiooniajata', { auto: v.auto })}; {v.test ? t('sõltumatu testi järgi') : t('EL-i märgise klassi {g} järgi', { g: v.g })})</span>
+					<span class="vastus-alus">({t('{auto}, ilma reaktsiooniajata', { auto: an(v.auto) })}; {v.test ? t('sõltumatu testi järgi') : t('EL-i märgise klassi {g} järgi', { g: v.g })})</span>
 				</p>
 			{/if}
 			<div class="pills">

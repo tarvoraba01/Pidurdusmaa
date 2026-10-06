@@ -1,5 +1,5 @@
 import { error } from '@sveltejs/kit';
-import { margid, mark, model, source, titleCase, KAT_NIMI, MARK_MIN_INDEKS, rehviIndeks } from '$lib/server/andmed.js';
+import { margid, mark, model, source, titleCase, KAT_NIMI, MARK_MIN_INDEKS, rehviIndeks, pretty, sizeSlug, sizeModelCount, SIZE_MIN_MODELS } from '$lib/server/andmed.js';
 
 export function entries() {
 	return [...margid().keys()].map((m) => ({ mark: m }));
@@ -52,7 +52,29 @@ export function load({ params }) {
 
 	const mootudKokku = new Set(m.mudelid.flatMap((s) => model(s).sizes.map((z) => z.m))).size;
 
+	/* sissejuhatus andmetest: märghaardeklasside jaotus (mudel × mõõt) ja
+	   mõõdud, milles tootjal on kõige rohkem mudeleid */
+	const klassiArv = {}, mootMudelid = new Map();
+	let klassiKokku = 0;
+	for (const slug of m.mudelid) {
+		const nahtud = new Set();
+		for (const z of model(slug).sizes) {
+			if (KLASSID.includes(z.g)) { klassiArv[z.g] = (klassiArv[z.g] || 0) + 1; klassiKokku++; }
+			if (!/^\d{5}R\d{2}C?$/.test(z.m) || nahtud.has(z.m)) continue;
+			nahtud.add(z.m);
+			mootMudelid.set(z.m, (mootMudelid.get(z.m) || 0) + 1);
+		}
+	}
+	const jaotus = klassiKokku >= 10 ? KLASSID.split('').filter((g) => klassiArv[g]).map((g) => [g, Math.round((100 * klassiArv[g]) / klassiKokku)]) : [];
+	const topMoodud = [...mootMudelid.entries()]
+		.filter(([, k]) => k >= 2)
+		.sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
+		.slice(0, 5)
+		.map(([z, k]) => ({ label: pretty(z), slug: sizeModelCount(z) >= SIZE_MIN_MODELS ? sizeSlug(z) : null, k }));
+
 	return {
+		jaotus,
+		topMoodud,
 		mark: { slug: m.slug, nimi: m.nimi },
 		kategooriad,
 		testitud,

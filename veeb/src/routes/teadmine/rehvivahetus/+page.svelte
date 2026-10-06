@@ -32,10 +32,10 @@
 	const AASTA = ehitus.getFullYear();
 	const h0 = tana(ehitus).h;
 	const TITLE = ru
-		? `Смена резины в Эстонии ${AASTA}: с какого числа зимняя и летняя резина`
+		? `С какого числа зимняя резина в Эстонии ${AASTA}: все сроки`
 		: `Rehvivahetus ${AASTA}: millal talverehvid ja suverehvid alla`;
 	const DESC = ru
-		? `Шипованная резина разрешена с 15 октября по 31 марта, зимняя резина обязательна с 1 декабря по 1 марта. Все сроки смены резины в Эстонии ${h0.S}/${h0.S + 1} и требования к протектору.`
+		? `Шипы — с 15 октября по 31 марта, зимняя резина обязательна с 1 декабря по 1 марта. Что разрешено сегодня, сроки ${h0.S}/${h0.S + 1} и правило 3 мм.`
 		: `Naastrehvid on lubatud 15. oktoobrist 31. märtsini, talverehvid kohustuslikud 1. detsembrist 1. märtsini. Rehvivahetuse kuupäevad ${h0.S}/${h0.S + 1} ja nõuded ühes kohas.`;
 
 	/* Korduma kippuvad küsimused (nähtav + FAQPage) */
