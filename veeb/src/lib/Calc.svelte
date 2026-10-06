@@ -27,9 +27,6 @@
 					<select class="sel" data-f="variant" aria-label={t("Mootor")} disabled
 						><option value="">{t("Mootor")}</option></select
 					>
-					<select class="sel kere-sel" data-f="kere" aria-label={t("Kere")} hidden
-						><option value="">{t("Kere")}</option></select
-					>
 					<button type="button" class="abs-lamp" data-abs hidden aria-pressed="false" aria-disabled="true"
 						><svg viewBox="0 0 44 28" aria-hidden="true"
 							><path d="M9 4.5a14 14 0 0 0 0 19M35 4.5a14 14 0 0 1 0 19" /><circle cx="22" cy="14" r="10" /><text
@@ -39,6 +36,7 @@
 						><span data-abs-t>{t("Kas on ABS?")}</span></button
 					>
 				</div>
+				<p class="size-hint">{t("Sedaan, universaal või luukpära? Vali lihtsalt mudel: kere muudab pidurdusmaad alla 20 cm.")}</p>
 			</div>
 			<div class="c-rehv">
 				<div class="own" data-calc-only>

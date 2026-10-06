@@ -49,7 +49,6 @@
 						<select class="lsel" data-f="model" aria-label={t("Mudel")} disabled><option value="">{t("Mudel")}</option></select>
 						<select class="lsel" data-f="year" aria-label={t("Aasta")} disabled><option value="">{t("Aasta")}</option></select>
 						<select class="lsel" data-f="variant" aria-label={t("Mootor")} disabled><option value="">{t("Mootor")}</option></select>
-					<select class="lsel kere-sel" data-f="kere" aria-label={t("Kere")} hidden><option value="">{t("Kere")}</option></select>
 					</div>
 				</section>
 				<section class="ca-blk" aria-labelledby="ca-l2">
