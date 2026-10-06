@@ -24,7 +24,11 @@ function json(rel) {
 	if (_mem.has(rel)) return _mem.get(rel);
 	let v = null;
 	try {
-		v = JSON.parse(readFileSync(join(DATA, rel), 'utf-8'));
+		/* töötavas serveris on brauseri core.json kärbitud (scripts/kliendi-andmed.mjs);
+		   server loeb täisfaili */
+		const taisfail = join(process.cwd(), 'build/andmed', rel);
+		const fail = rel === 'core.json' && DATA.endsWith(join('build', 'client', 'data')) && existsSync(taisfail) ? taisfail : join(DATA, rel);
+		v = JSON.parse(readFileSync(fail, 'utf-8'));
 	} catch (e) {
 		if (rel === 'core.json' || rel === 'models.json') {
 			throw new Error('Andmefaili ei leitud: ' + join(DATA, rel));

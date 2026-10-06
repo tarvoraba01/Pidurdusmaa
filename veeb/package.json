@@ -8,7 +8,7 @@
     "dev": "vite dev",
     "build": "vite build",
     "preview": "vite preview",
-    "postbuild": "node -e \"require('fs').copyFileSync('server.js','build/server.js');require('fs').cpSync('src/lib/server/og-fondid','build/og-fondid',{recursive:true})\" && node scripts/lastmod.mjs && node scripts/seo-kontroll.mjs && node scripts/turva-kontroll.mjs",
+    "postbuild": "node -e \"require('fs').copyFileSync('server.js','build/server.js');require('fs').cpSync('src/lib/server/og-fondid','build/og-fondid',{recursive:true})\" && node scripts/kliendi-andmed.mjs && node scripts/lastmod.mjs && node scripts/seo-kontroll.mjs && node scripts/turva-kontroll.mjs",
     "seo": "node scripts/seo-kontroll.mjs",
     "turva": "node scripts/turva-kontroll.mjs",
     "start": "node build/server.js",

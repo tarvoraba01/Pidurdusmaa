@@ -234,3 +234,26 @@ test('kalle: ülesmäge lühem, allamäge pikem', () => {
   assert.ok(P.stoppingDistance(t, v, cond('wet', 80, { gradientPct: 8 })).distanceM < flat);
   assert.ok(P.stoppingDistance(t, v, cond('wet', 80, { gradientPct: -8 })).distanceM > flat);
 });
+
+test('kiire tee: eelarvutatud haare = muAtSpeed bitt-bitilt (öövahetus 7.10)', () => {
+  // stoppingDistance kasutab makeMu-d (kiirusest sõltumatud tegurid ühe korra).
+  // See peab andma TÄPSELT sama arvu mis muAtSpeed, igal pinnal ja kiirusel.
+  const SURF = ['ASPHALT', 'CONCRETE', 'GRAVEL', 'SNOW_PACKED', 'SNOW_LOOSE', 'ICE'];
+  const TEX = ['COARSE_NEW', 'NORMAL', 'WORN_SMOOTH', 'POLISHED'];
+  let seed = 7; const R = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+  const bad = [];
+  for (let i = 0; i < 400; i++) {
+    const v = core.vehicles[Math.floor(R() * core.vehicles.length)];
+    const cat = [...CATS, 'SUMMER_UHP', 'WINTER_STUDDED'][Math.floor(R() * 6)];
+    const t = Object.assign(classTyre('ABCDE'[Math.floor(R() * 5)], cat, v.oemSize), { treadDepthMm: R() * 8, ageYears: R() * 14, pressureBar: R() < 0.5 ? null : 1.5 + R() * 1.5 });
+    const surf = SURF[Math.floor(R() * SURF.length)];
+    const c = cond('dry', 80, { surface: surf, texture: TEX[Math.floor(R() * 4)], waterMm: /ASPHALT|CONCRETE/.test(surf) && R() < 0.6 ? R() * 6 : 0, tempC: -25 + R() * 60, payloadKg: Math.round(R() * 500) });
+    const f = P._muKiire(t, v, c);
+    for (const vMs of [0.06, 1, 5, 13.9, 25, 36.1, 45]) {
+      const a = P.muAtSpeed(t, v, c, vMs), b = f(vMs);
+      if (a !== b) bad.push(`${surf} ${cat} v=${vMs}: ${a} vs ${b}`);
+    }
+  }
+  assert.deepEqual(bad.slice(0, 10), [], bad.length + ' erinevust');
+});
+

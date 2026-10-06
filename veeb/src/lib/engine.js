@@ -72,18 +72,34 @@
   function clamp(x, lo, hi) { return Math.max(lo, Math.min(hi, x)); }
 
   // "225/40 R18" -> [225, 40, 18]; null kui ei parsi
+  var _sizeMemo = {};
   function parseSize(size) {
     if (!size) return null;
+    if (typeof size === 'string' && Object.prototype.hasOwnProperty.call(_sizeMemo, size)) {
+      var c = _sizeMemo[size]; return c ? c.slice() : null;
+    }
     var m = /\s*(\d{3})\s*\/\s*(\d{2})\s*R?\s*(\d{2})/.exec(size);
-    return m ? [+m[1], +m[2], +m[3]] : null;
+    var r = m ? [+m[1], +m[2], +m[3]] : null;
+    if (typeof size === 'string') _sizeMemo[size] = r ? r.slice() : null;
+    return r;
   }
   function sizeGapInch(tyreSize, oemSize) {
     var a = parseSize(tyreSize), b = parseSize(oemSize);
     return (a && b) ? Math.abs(a[2] - b[2]) : 0;
   }
 
+  /* Sorditud koopia tehakse ühe korra tabeli kohta (varem igal kutsel —
+     see oli pidurdustsükli kõige kallim osa). Tulemus on sama. */
+  var _sorted = typeof WeakMap !== 'undefined' ? new WeakMap() : null;
+  function sortedPts(pts) {
+    var p = _sorted && _sorted.get(pts);
+    if (p && p.n === pts.length && p.f === pts[0] && p.l === pts[pts.length - 1]) return p.s;
+    var s = pts.slice().sort(function (a, b) { return a[0] - b[0]; });
+    if (_sorted) _sorted.set(pts, { s: s, n: pts.length, f: pts[0], l: pts[pts.length - 1] });
+    return s;
+  }
   function interp(pts, x) {
-    var p = pts.slice().sort(function (a, b) { return a[0] - b[0]; }), a, b, i;
+    var p = sortedPts(pts), a, b, i;
     if (x <= p[0][0]) { a = p[0]; b = p[1]; }
     else if (x >= p[p.length - 1][0]) { a = p[p.length - 2]; b = p[p.length - 1]; }
     else {
@@ -103,7 +119,17 @@
       ? veh.recommendedPressureBar : tyre.pressureBar;
   }
 
+  /* Ühe stoppingDistance kutse ajal ei muutu rehv, auto ega olud, seega
+     ujumiskiirus arvutatakse ühe korra (varem kaks korda igal ajasammul). */
+  var _hp = null;
   function hydroplaneSpeedKmh(tyre, veh, cond) {
+    if (_hp && _hp.t === tyre && _hp.v === veh && (_hp.c === cond || _hp.d === cond)) {
+      if (_hp.c === cond) { if (_hp.r === undefined) _hp.r = hpCalc(tyre, veh, cond); return _hp.r; }
+      if (_hp.rd === undefined) _hp.rd = hpCalc(tyre, veh, cond); return _hp.rd;
+    }
+    return hpCalc(tyre, veh, cond);
+  }
+  function hpCalc(tyre, veh, cond) {
     if (!ASPHALTISH[cond.surface]) return null;
     if (cond.waterMm <= 0.02) return null;
     var p = pressureOf(tyre, veh);
@@ -116,6 +142,23 @@
     if (szw) v *= Math.pow(CAL.hpWidthRefMm / szw[0], CAL.hpWidthExp);
     v *= Math.pow(CAL.hpWaterRefMm / Math.max(0.15, cond.waterMm), 0.42);
     return v;
+  }
+
+  /* Sama tingimus ilma veeta (märja haarde lagi). Hoitakse objekti kohta
+     meeles, et iga ajasammuga uut objekti ei tehtaks; kontrollitakse, et
+     algne tingimus vahepeal ei muutunud. */
+  var _dry = typeof WeakMap !== 'undefined' ? new WeakMap() : null;
+  function dryOf(cond) {
+    var c = _dry && _dry.get(cond);
+    if (c) {
+      var same = true;
+      for (var k in cond) if (k !== 'waterMm' && cond[k] !== c[k]) { same = false; break; }
+      if (same) for (var k2 in c) if (k2 !== 'waterMm' && !(k2 in cond)) { same = false; break; }
+      if (same) return c;
+    }
+    c = Object.assign({}, cond, { waterMm: 0 });
+    if (_dry) _dry.set(cond, c);
+    return c;
   }
 
   function muAtSpeed(tyre, veh, cond, vMs) {
@@ -226,10 +269,115 @@
       /* Märg ei ole haardevam kui kuiv: lagi on SAMA rehvi täielik kuiv
          haare samas kohas, temperatuuril, kiirusel, rõhul ja kulumisel
          (vt model.py). */
-      var muD = muAtSpeed(tyre, veh, Object.assign({}, cond, { waterMm: 0 }), vMs);
+      var muD = muAtSpeed(tyre, veh, dryOf(cond), vMs);
       if (muD < mu) mu = muD;
     }
     return Math.max(0.03, mu);
+  }
+
+  /* KIIRE TEE: sama arvutus mis muAtSpeed, aga kiirusest sõltumatud
+     tegurid arvutatakse ühe korra kutse kohta (varem igal 4 ms ajasammul:
+     interpolatsioonid, astmed, rõhk, vanus, koormus). Korrutamiste järjekord
+     on täpselt sama mis muAtSpeed-is, nii et tulemus on bitt-bitilt sama
+     (vt tests/engine.test.mjs "kiire tee"). */
+  function makeMu(tyre, veh, cond) {
+    var surf = cond.surface;
+    var wet = !!ASPHALTISH[surf] && cond.waterMm > 0.02;
+    var mu, k, i;
+    if (ASPHALTISH[surf]) {
+      mu = wet ? CAL.kG * tyre.wetGripIndex
+               : (tyre.muDry != null ? tyre.muDry : CAL.muDry[tyre.category]);
+      if (surf === 'CONCRETE') mu *= CAL.concreteFactor[tyre.category];
+    } else if (SNOWISH[surf]) {
+      mu = tyre.muSnow != null ? tyre.muSnow : CAL.muSnow[tyre.category];
+      if (surf === 'SNOW_LOOSE') mu *= CAL.snowLooseFactor;
+      mu *= clamp(interp(CAL.snowTempCurve, cond.tempC), CAL.snowTempMin, CAL.snowTempMax);
+    } else if (surf === 'ICE') {
+      mu = tyre.muIce != null ? tyre.muIce : CAL.muIce[tyre.category];
+      var fIce = interp(CAL.iceTempCurve, cond.tempC);
+      var eIce = CAL.iceTempExp[tyre.category];
+      if (eIce == null) eIce = 1.0;
+      if (eIce !== 1.0 && fIce > 0.0 && fIce < 1.0) fIce = Math.pow(fIce, eIce);
+      var eCold = CAL.iceTempExpCold[tyre.category];
+      if (eCold != null && eCold !== 1.0 && fIce > 1.0) fIce = Math.pow(fIce, eCold);
+      mu *= clamp(fIce, CAL.iceTempMin, CAL.iceTempMax);
+      if (cond.iceRoad !== false) mu += CAL.iceRoadAdd;
+    } else {
+      mu = CAL.muGravel;
+    }
+    var spT = 0, spR = 0;
+    if (ASPHALTISH[surf]) {
+      var tc = CAL.tempCurves[tyre.category], tLo = tc[0][0], tHi = tc[tc.length - 1][0];
+      mu *= interp(tc, clamp(cond.tempC, Math.min(tLo, tHi), Math.max(tLo, tHi)));
+      mu *= CAL.textureMicro[cond.texture];
+      if (wet) {
+        spT = CAL.ifiSpA + CAL.ifiSpB * CAL.textureMpdMm[cond.texture];
+        spR = CAL.ifiSpA + CAL.ifiSpB * CAL.textureMpdMm.NORMAL;
+      }
+    }
+    var mu0 = mu;
+    var waterF = 1, h = cond.waterMm;
+    if (wet) waterF = h >= 1.0 ? 1.0 / (1.0 + CAL.waterKDeep * (h - 1.0)) : 1.0 + CAL.waterKShallow * (1.0 - h);
+    var vhp = 0, vhpK = null;
+    if (wet) { vhpK = hydroplaneSpeedKmh(tyre, veh, cond); vhp = vhpK / 3.6; }
+    if (wet) k = 0.0;
+    else if (ASPHALTISH[surf]) k = CAL.kSpeedDry;
+    else if (surf === 'ICE') k = CAL.kSpeedIce;
+    else if (SNOWISH[surf]) k = CAL.kSpeedSnow;
+    else k = CAL.kSpeedDry;
+    /* järgnevad tegurid ei sõltu kiirusest; hoitakse eraldi, et
+       korrutamise järjekord jääks samaks */
+    var post = [];
+    var tdNew = tyre.treadDepthNewMm != null ? tyre.treadDepthNewMm : 8.0;
+    var worn = clamp((tdNew - tyre.treadDepthMm) / Math.max(0.1, tdNew - 1.0), 0, 1);
+    if (wet) post.push(1.0 - CAL.treadLossWetResidual * worn);
+    else if (ASPHALTISH[surf]) post.push(1.0 - CAL.treadLossDryFull * worn);
+    else if (SNOWISH[surf]) post.push(1.0 - 0.30 * worn);
+    else if (surf === 'ICE') post.push(1.0 - 0.15 * worn);
+    else if (surf === 'GRAVEL') {
+      if (veh.absClass === 'NONE') post.push(1.0 - CAL.treadLossGravelLocked * Math.min(worn / CAL.treadGravelSatFrac, 1.0));
+      else post.push(1.0 - CAL.treadLossGravel * worn);
+    }
+    var dp = pressureOf(tyre, veh) - veh.recommendedPressureBar;
+    var pscale = CAL.pressAbsScale[veh.absClass] || 1.0;
+    if (wet) {
+      var kp = dp < 0 ? CAL.pressKWetUnder : CAL.pressKWetOver;
+      post.push(clamp(1.0 - pscale * kp * dp * dp, 0.45, 1.02));
+    } else {
+      var d = dp - CAL.pressOptOffsetDry;
+      post.push(clamp(1.0 - pscale * CAL.pressKDry * d * d, 0.45, 1.02));
+    }
+    var over = Math.max(0.0, (tyre.ageYears != null ? tyre.ageYears : 1.0) - CAL.ageFreeYears);
+    post.push(1.0 - Math.min(CAL.ageLossMax, CAL.ageLossPerYear * over));
+    var mass = veh.kerbMassKg + cond.payloadKg;
+    var cap = tyre.loadCapacityKg || (veh.kerbMassKg / 4.0 / CAL.loadRefRatio);
+    var ratio = (mass / 4.0) / cap;
+    post.push(Math.pow(ratio / CAL.loadRefRatio, CAL.loadExp));
+    var nPost = post.length, p0 = post[0], p1 = post[1], p2 = post[2], p3 = post[3];
+    var dryMu = wet ? makeMu(tyre, veh, dryOf(cond)) : null;
+    var hpLo = wet && vhpK ? 0.72 * vhpK : 0, hpW = wet && vhpK ? 0.28 * vhpK : 0;
+    return function (vMs) {
+      var m = mu0;
+      if (wet) {
+        var dd = CAL.ifiRefSpeedKmh - vMs * 3.6;
+        m *= Math.exp(dd / spT - dd / spR);
+        m *= waterF;
+        m /= 1.0 + CAL.wetLiftB * Math.pow(vMs / vhp, 2);
+      }
+      m *= Math.exp(-k * (vMs - CAL.vRef));
+      if (nPost === 4) { m *= p0; m *= p1; m *= p2; m *= p3; }
+      else { m *= p0; m *= p1; m *= p2; }
+      if (wet) {
+        var vk = vMs * 3.6;
+        if (vhpK && vk > hpLo) {
+          var t = clamp((vk - hpLo) / hpW, 0, 1), blend = t * t;
+          m = m * (1.0 - blend) + CAL.muHydroplane * blend;
+        }
+        var muD = dryMu(vMs);
+        if (muD < m) m = muD;
+      }
+      return Math.max(0.03, m);
+    };
   }
 
   // Parim voimalik kiirendus 0 -> v0 samal pinnal: kogu haare veole,
@@ -237,10 +385,11 @@
   function accelToSpeed(tyre, veh, cond) {
     var vTarget = cond.speedKmh / 3.6;
     if (vTarget <= 0.05) return { t: 0, s: 0, ok: true };
-    var dt = 0.004, v = 0, s = 0, t = 0;
+    var dt = 0.004, v = 0, s = 0, t = 0, muF = makeMu(tyre, veh, cond);
+    var cosA = Math.cos(Math.atan((cond.gradientPct || 0) / 100.0));
     while (v < vTarget && t < 300) {
-      var mu = muAtSpeed(tyre, veh, cond, Math.max(v, 1.0));
-      var a = Math.max(0.02, mu * G * Math.cos(Math.atan((cond.gradientPct || 0) / 100.0)));
+      var mu = muF(Math.max(v, 1.0));
+      var a = Math.max(0.02, mu * G * cosA);
       v += a * dt;
       s += v * dt;
       t += dt;
@@ -300,6 +449,10 @@
     var v0 = cond.speedKmh / 3.6;
     var mass = veh.kerbMassKg + cond.payloadKg;
     validate(tyre, veh, cond);
+    _hp = { t: tyre, v: veh, c: cond, d: dryOf(cond) };
+    try { return sdCore(tyre, veh, cond, warnings, v0, mass); } finally { _hp = null; }
+  }
+  function sdCore(tyre, veh, cond, warnings, v0, mass) {
     var mT = cond.trailerKg || 0;
     var theta = Math.atan(cond.gradientPct / 100.0);
     var slopeA = G * Math.sin(theta), cosN = Math.cos(theta);
@@ -312,8 +465,9 @@
     var trace = [], stopped = true, tMax = 900;
     /* Ei põrandat ega vaikset ajapiiri (vt model.py): kui pidurid on täies
        jõus ja aeglustus ikka <= 0, auto ei peatu -- öeldakse välja. */
+    var muF = makeMu(tyre, veh, cond);
     while (v > 0.05) {
-      var mu = muAtSpeed(tyre, veh, cond, v);
+      var mu = muF(v);
       muSum += mu; muN++;
       var ramp = tBuild > 0 ? clamp(t / tBuild, 0, 1) : 1;
       var aTyre = mu * G * eta * cosN;
@@ -488,6 +642,7 @@
   root.Pidurdus = {
     CAL: CAL,
     muAtSpeed: muAtSpeed,
+    _muKiire: makeMu, /* ainult testidele: peab andma sama mis muAtSpeed */
     hydroplaneSpeedKmh: hydroplaneSpeedKmh,
     stoppingDistance: stoppingDistance,
     validate: validate
