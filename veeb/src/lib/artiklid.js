@@ -4,6 +4,18 @@
  * leht ja Teadmine leht loevad nimekirja siit. */
 export const ARTIKLID = [
 	{
+		slug: 'rehvirohk-ja-pidurdus',
+		title: 'Rehvirõhk ja pidurdus: mida teeb liiga madal rõhk?',
+		desc: 'Tavaliselt lisab liiga madal rõhk märjal mõne meetri. Sügavas vees langeb akvaplaneerimise kiirus 129 km/h pealt 101 km/h peale. Numbrid, sügisene rõhulangus ja kuidas kontrollida.',
+		kuupaev: '2026-10-06',
+		silt: 'Rehvid',
+		ru: {
+			title: 'Давление в шинах и торможение: чем опасно низкое давление?',
+			desc: 'Обычно низкое давление добавляет на мокрой дороге пару метров. В глубокой воде скорость аквапланирования падает со 129 до 101 км/ч. Цифры, осеннее падение давления и как проверить.',
+			silt: 'Шины'
+		}
+	},
+	{
 		slug: 'vanad-ja-kulunud-rehvid',
 		title: 'Vanad ja kulunud rehvid: kui palju pikeneb pidurdusmaa?',
 		desc: '3 mm mustriga suverehvi pidurdusmaa on märjal 4 m pikem kui uuel, talverehvil lumel veerandi võrra pikem. Arvutatud pidurdusmaad, DOT-koodi lugemine ja millal vahetada.',
