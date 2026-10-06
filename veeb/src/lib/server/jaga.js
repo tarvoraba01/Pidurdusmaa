@@ -204,15 +204,10 @@ export function arvuta(val, mootorid) {
 }
 
 /** Kalkulaatori link samade valikutega (CTA „Arvuta oma auto“). */
+/* „Arvuta oma auto ja rehvidega“: PUHAS avaleht. Jagaja auto ja mõõt ei
+   tohi järgmisele inimesele ette tulla — ta tahab oma autot (Tarvo 6.10). */
 export function kalkLink(val) {
-	const pre = val.l === 'et' ? '/' : '/' + val.l + '/';
-	const p = new URLSearchParams();
-	if (val.a) p.set('auto', val.a);
-	p.set('moot', val.m);
-	p.set('kiirus', String(val.v));
-	p.set('olud', val.o);
-	p.set('arvuta', '1');
-	return pre + '?' + p.toString() + '#tulemus';
+	return val.l === 'et' ? '/' : '/' + val.l + '/';
 }
 
 /* ---------------------------------------------------------------- pilt */

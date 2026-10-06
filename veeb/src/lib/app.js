@@ -1895,11 +1895,27 @@ import UNIVERSAALID from './universaalid.json';
       var dl = $('[data-jaga-dl]', d); dl.href = u; dl.download = 'pidurdusmaa-' + String(fmt(j.d)).replace(',', '-') + 'm.png';
       $('[data-jaga-fb]', d).href = 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(l);
       $('[data-jaga-wa]', d).href = 'https://wa.me/?text=' + encodeURIComponent(tx + ' ' + l);
-      var kp = $('[data-jaga-kopeeri]', d);
-      kp.onclick = function () {
-        try { navigator.clipboard.writeText(tx + ' ' + l); kp.textContent = _t('Kopeeritud ✓'); Track('jaga', 'link'); } catch (e) {}
-      };
+      var kp = $('[data-jaga-kopeeri]', d), juhis = $('[data-jaga-juhis]', d), st = $('[data-jaga-story]', d);
+      /* ainult link: storys kleebisesse „Link“ ja mujale kleepimiseks puhas */
+      function kopeeri() { try { navigator.clipboard.writeText(l); return true; } catch (e) { return false; } }
+      kp.onclick = function () { if (kopeeri()) kp.textContent = _t('Link kopeeritud ✓'); Track('jaga', 'link'); };
       kp.textContent = _t('Kopeeri link');
+      if (juhis) juhis.hidden = true;
+      var fail = null;
+      try { fail = new File([blob], 'pidurdusmaa.png', { type: 'image/png' }); } catch (e) {}
+      /* STORY: link lõikelauale + pilt telefoni jagamismenüüsse (Instagram,
+         Facebook, TikTok). Arvutis: pilt alla + link lõikelauale. */
+      if (st) st.onclick = function () {
+        var ok = kopeeri();
+        if (fail && navigator.canShare && navigator.canShare({ files: [fail] })) {
+          navigator.share({ files: [fail] }).then(function () { Track('jaga', 'story'); }).catch(function () {});
+          if (juhis) { juhis.hidden = false; juhis.textContent = (ok ? _t('Link on kopeeritud. ') : '') + _t('Vali Instagram või Facebook → Story, lisa kleebis „Link“ ja kleebi.'); }
+        } else {
+          dl.click();
+          Track('jaga', 'story-arvutis');
+          if (juhis) { juhis.hidden = false; juhis.textContent = _t('Pilt laaditi alla') + (ok ? _t(' ja link on kopeeritud') : '') + _t('. Saada pilt telefoni, lisa storysse ja kleebi link kleebisega „Link“.'); }
+        }
+      };
       d.hidden = false;
       var x = $('[data-jaga-x]', d); if (x) x.focus();
     }
@@ -1907,15 +1923,8 @@ import UNIVERSAALID from './universaalid.json';
       var j = Result.jagaInfo(); if (!j) return;
       var fonte = document.fonts && document.fonts.load ? Promise.all([document.fonts.load('700 100px "Barlow Condensed"'), document.fonts.load('700 40px Inter'), document.fonts.load('italic 800 40px Inter')]).catch(function () {}) : Promise.resolve();
       fonte.then(function () { return pilt(j); }).then(function (blob) {
-        var fail = null;
-        try { fail = new File([blob], 'pidurdusmaa.png', { type: 'image/png' }); } catch (e) {}
-        var mob = matchMedia('(pointer: coarse)').matches;
-        if (mob && fail && navigator.canShare && navigator.canShare({ files: [fail] })) {
-          navigator.share({ files: [fail], text: tekst(j) + ' ' + link(j) })
-            .then(function () { Track('jaga', 'jagamismenüü'); })
-            .catch(function (e) { if (!e || e.name !== 'AbortError') aken(j, blob); });
-          return;
-        }
+        /* ka telefonis oma aken: seal on „Jaga storysse“ (link kopeeritakse
+           enne jagamismenüüd, et storys saaks lingikleebise panna) */
         aken(j, blob);
         Track('jaga', 'aken');
       });

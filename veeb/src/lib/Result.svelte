@@ -118,12 +118,14 @@
 		<h2 id="jaga-h">{t('Jaga tulemust')}</h2>
 		<img data-jaga-img alt={t('Sinu tulemus pildina')} width="270" height="480" />
 		<div class="jaga-nupud">
-			<a class="btn yel" data-jaga-dl href="#top">{t('Laadi pilt alla')}</a>
+			<button type="button" class="btn yel" data-jaga-story>{t('Jaga storysse')}</button>
 			<button type="button" class="btn" data-jaga-kopeeri>{t('Kopeeri link')}</button>
+			<a class="btn" data-jaga-dl href="#top">{t('Laadi pilt alla')}</a>
 			<a class="btn" data-jaga-fb href="#top" target="_blank" rel="noopener">Facebook</a>
 			<a class="btn" data-jaga-wa href="#top" target="_blank" rel="noopener">WhatsApp</a>
 		</div>
-		<p class="jaga-s">{t('Pilt sobib Instagrami ja Facebooki storysse. Link avab sõbrale sama arvutuse — ta saab sinna oma auto panna.')}</p>
+		<p class="jaga-s" data-jaga-juhis hidden></p>
+		<p class="jaga-s">{t('Storys tee link klikitavaks: lisa kleebis „Link“ ja kleebi sinna link. Link avab sõbrale sinu tulemuse ja ta saab arvutada oma autoga.')}</p>
 	</div>
 </div>
 
