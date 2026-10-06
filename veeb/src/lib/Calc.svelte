@@ -36,6 +36,7 @@
 						><span data-abs-t>{t("Kas on ABS?")}</span></button
 					>
 				</div>
+				<p class="size-hint">{t("Sedaan, universaal või luukpära? Vali lihtsalt mudel: kere muudab pidurdusmaad alla 20 cm.")}</p>
 			</div>
 			<div class="c-rehv">
 				<div class="own" data-calc-only>

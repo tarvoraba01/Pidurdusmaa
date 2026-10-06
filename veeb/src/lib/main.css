@@ -251,6 +251,14 @@ input[type=range].slider.hele,.lo input[type=range].slider,.prio input[type=rang
 .rs-num b{font-family:var(--body);font-weight:800;font-size:52px;line-height:1;color:var(--red);letter-spacing:-.02em;font-variant-numeric:tabular-nums}
 .rs-num small{font-size:30px;font-weight:700;color:var(--red)}
 .rs-who{margin:0;text-align:center;font-size:12.5px;color:var(--muted);line-height:1.4}
+.rs-ilmad{margin:var(--sp-3) 0 0}
+.rs-ig{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--sp-1);background:var(--paper-2);padding:var(--sp-1);border-radius:10px}
+.rs-in{margin:var(--sp-1) 0 0;font-size:11.5px;color:var(--muted);text-align:center;line-height:1.35}
+.rs-ig>div{border-radius:7px;padding:5px 2px;display:flex;flex-direction:column;align-items:center;gap:1px;color:var(--muted);font:inherit}
+.rs-ilmad span{font-size:11px;font-weight:600;letter-spacing:.03em}
+.rs-ilmad b{font-size:13.5px;font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
+.rs-ilmad .on{background:#fff;color:var(--text);box-shadow:0 1px 3px rgba(0,0,0,.1)}
+.rs-ilmad .on b{color:var(--red)}
 .mbars{list-style:none;margin:0;padding:0}
 .mbar{display:grid;grid-template-columns:minmax(0,190px) minmax(0,1fr) 56px 96px;align-items:center;gap:var(--sp-3);width:100%;border:0;background:transparent;padding:var(--sp-1) 0;cursor:pointer;text-align:left;font-size:13px}
 .mbar .n{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:600}
@@ -628,6 +636,9 @@ table.cmp .grp th{background:var(--paper-2);color:var(--text);font-size:12px;let
 .why-list li{font-size:14px;padding-left:var(--sp-6);position:relative}
 .why-list li::before{content:"";position:absolute;left:2px;top:6px;width:11px;height:6px;border-left:2px solid var(--good);border-bottom:2px solid var(--good);transform:rotate(-45deg)}
 .why-list li.x::before{content:"!";border:0;transform:none;top:0;left:4px;width:auto;height:auto;color:var(--bad);font-weight:800}
+.cmp-lyh{background:var(--paper-2);border-radius:10px;padding:var(--sp-4) var(--sp-5);margin:0 0 var(--sp-5)}
+.cmp-lyh h3{margin:0 0 var(--sp-2);font-size:15px}
+.cmp-lyh .why-list li{line-height:1.45}
 .kat-b{display:inline-flex;align-items:center;padding:2px 9px;border-radius:999px;font-size:12px;font-weight:700;margin-right:var(--sp-2);background:#fff4cf;color:#7a5a00}
 .kat-b.kat-1{background:#e8f5ec;color:#1f6b3a}
 .kat-b.kat-2,.kat-b.kat-3{background:#e6f0fb;color:#1e4f8a}

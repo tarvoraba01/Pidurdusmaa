@@ -1110,7 +1110,12 @@
       loadSize(S.size).then(function (rows) {
         Result.show(Object.assign({}, S), rows);
         shown = true; goLabel(_t('Arvuta pidurdusmaa')); goBtn.classList.remove('stale');
-        naitaValik();
+        /* rehvide nimekiri (tulemuse all) arvutab rehvid läbi (~1,7 s keskmises
+           telefonis): alles siis, kui tulemus on ekraanil ja kerimine läbi —
+           muidu leht hakib just tulemuse juurde kerides (FB tagasiside) */
+        setTimeout(function () {
+          if (window.requestIdleCallback) requestIdleCallback(naitaValik, { timeout: 1500 }); else naitaValik();
+        }, 700);
         var res = $('#tulemus');
         if (!res) return;
         res.hidden = false;
@@ -1181,7 +1186,7 @@
         var mt = M.t, measuredM = mt && (ck === 'wet' || (ck === 'dry' ? mt.muDry != null : ck === 'snow' ? mt.muSnow != null : mt.muIce != null));
         var baseM = measuredM ? onCar(mt, S.size) : (M.r ? eprelTyre(M.r) : Object.assign({}, mt, { muDry: null, muSnow: null, muIce: null }));
         var rm = calc(kulunud(baseM, mm), veh, cond);
-        rows.push({ id: 'o', kind: 'own', spec: S.minu && S.minu.e ? 'o:e:' + S.minu.e : 'o:t:' + minuT, name: M.nimi, d: rm.distanceM, r: rm, own: true, hooaeg: M.hooaeg, mm: mm,
+        rows.push({ id: 'o', kind: 'own', spec: S.minu && S.minu.e ? 'o:e:' + S.minu.e : 'o:t:' + minuT, name: M.nimi, d: rm.distanceM, r: rm, own: true, ty: kulunud(mt ? onCar(mt, S.size) : baseM, mm), hooaeg: M.hooaeg, mm: mm,
           dUus: mm ? calc(baseM, veh, cond).distanceM : null,
           pids: M.r ? [M.r.slug + '@' + S.size] : [], label: M.r ? M.r.g : null, t: measuredM ? mt : null,
           est: !measuredM && ck !== 'wet',
@@ -1193,7 +1198,7 @@
         var gcat = { summer: 'SUMMER_TOURING', all: 'ALL_SEASON', winter: 'WINTER_NORDIC', naast: 'WINTER_STUDDED' }[season] || 'SUMMER_TOURING';
         /* tüüpiline = sinu mõõdu selle hooaja märgiste mediaanklass (märjal) */
         var gg = inSeasonG(eprelRows, sea), gt = classTyre(gg, gcat, S.size), gr = calc(kulunud(gt, mm), veh, cond);
-        rows.push({ id: 'o', kind: 'own', gen: true, spec: 'g:' + gcat + gg, name: _t('Sinu rehvid praegu'), d: gr.distanceM, r: gr, own: true, mm: mm,
+        rows.push({ id: 'o', kind: 'own', gen: true, spec: 'g:' + gcat + gg, name: _t('Sinu rehvid praegu'), d: gr.distanceM, r: gr, own: true, mm: mm, ty: kulunud(gt, mm),
           hooaeg: season, dUus: calc(gt, veh, cond).distanceM, pids: [], label: null, t: null, est: true,
           sub: _t('Tüüpiline: ') + tyypSilt(gcat) + (ck === 'wet' ? ', ' + _t('märgise klass ') + gg : '') + _t(', muster ') + mmT(mm) + _t(' mm') + '. ' + _t('Täpsemaks vali oma rehv.') });
       }
@@ -1210,7 +1215,7 @@
         if (!measured) { collapsed[t.category] = t; return; }
         var r = calc(onCar(t, S.size), veh, cond);
         var srcs = uniqSrc(t.tests), er = eprelByTest[t.key];
-        rows.push({ id: 't:' + t.key, kind: 'test', name: t.name, d: r.distanceM, r: r, t: t, pids: er ? [er.slug + '@' + S.size] : (t.slug ? [t.slug + '@' + S.size] : []),
+        rows.push({ id: 't:' + t.key, kind: 'test', name: t.name, d: r.distanceM, r: r, t: t, ty: onCar(t, S.size), pids: er ? [er.slug + '@' + S.size] : (t.slug ? [t.slug + '@' + S.size] : []),
           sub: _t('Sõltumatu test') + (srcs.length ? ' · ' + srcs.map(srcName).join(', ') : ''),
           sizeNote: norm(t.size) !== S.size ? t.size : null, label: er ? er.g : null, slug: t.slug, other: !avail });
       });
@@ -1223,7 +1228,7 @@
           var list = byCls[k], g = list[0].g, cat = list[0].cat;
           if (!GNOM[g]) return;
           var r = calc(classTyre(g, cat, S.size), veh, cond);
-          rows.push({ id: 'c:' + k, kind: 'class', g: g, cat: cat, n: list.length, d: r.distanceM, r: r, members: list,
+          rows.push({ id: 'c:' + k, kind: 'class', g: g, cat: cat, n: list.length, d: r.distanceM, r: r, members: list, ty: classTyre(g, cat, S.size),
             pids: list.map(function (x) { return x.slug + '@' + S.size; }),
             name: _t('Märgise klass ') + g + (sea.eprel.length > 1 ? ' · ' + (cat === 'WINTER_NORDIC' ? _t('Põhjamaade lamell') : cat === 'ALL_SEASON' ? _t('aastaringne') : _t('Kesk-Euroopa lamell')) : ''),
             sub: list.length + _t(' rehvimudelit sinu mõõdus, nt ') + list.slice(0, 2).map(function (x) { return x.mark + ' ' + x.name; }).join(', ') });
@@ -1235,7 +1240,7 @@
         Object.keys(collapsed).forEach(function (c) { if (!cats[c]) cats[c] = 0; });
         Object.keys(cats).forEach(function (c) {
           var r = calc(classTyre('C', c, S.size), veh, cond);
-          rows.push({ id: 'k:' + c, kind: 'cat', cat: c, n: cats[c], d: r.distanceM, r: r, pids: [],
+          rows.push({ id: 'k:' + c, kind: 'cat', cat: c, n: cats[c], d: r.distanceM, r: r, pids: [], ty: classTyre('C', c, S.size),
             name: CATNAME[c] + _t(' — kategooria keskmine'),
             sub: (cats[c] ? cats[c] + _t(' märgisega rehvimudelit sinu mõõdus · ') : '') + _t('märgis ei ütle ') + COND[ck].gen + _t(' kohta midagi') });
         });
@@ -1577,6 +1582,26 @@
       }
       return h;
     }
+    /* KÕIK OLUD KORRAGA: sama rehv kuival, märjal, lumel ja jääl (FB tagasiside:
+       „eraldi klikkida on tüütu“). Ainult näit: teeolude vahetus muudaks
+       võrdlusrida (märgis kehtib ainult märjal), numbrid hüppaksid.
+       ≈ = rehvil pole selle pinna kohta mõõtmist, number on rehvitüübi keskmine. */
+    function ilmad(cur, vmT, out, S, react) {
+      var box = $('[data-r-ilmad]', el);
+      if (!box) return;
+      var ty = (vmT && vmT.ty) || cur.ty;
+      if (!ty) { box.hidden = true; return; }
+      box.hidden = false;
+      var hinn = false;
+      box.innerHTML = '<div class="rs-ig">' + ['dry', 'wet', 'snow', 'ice'].map(function (k) {
+        var d = k === S.cond ? null : calc(ty, out.veh, condObj(k, S.speed)).distanceM;
+        if (d == null) d = (vmT ? vmT.r.distanceM : cur.r.distanceM);
+        var mOk = k === 'wet' || (k === 'dry' ? ty.muDry != null : k === 'snow' ? ty.muSnow != null : ty.muIce != null);
+        if (!mOk) hinn = true;
+        return '<div data-ilm="' + k + '"' + (k === S.cond ? ' class="on" aria-current="true"' : '') + ' title="' + esc(COND[k].label) + (mOk ? '' : ' · ' + _t('hinnang rehvitüübi järgi')) + '">' +
+          '<span>' + COND[k].short + '</span><b>' + (mOk ? '' : '≈') + (d + react >= 100 ? fmt(d + react, 0) : fmt(d + react)) + _t(' m') + '</b></div>';
+      }).join('') + '</div>' + (hinn ? '<p class="rs-in">' + _t('≈ hinnang rehvitüübi järgi, mõõtmist pole') + '</p>' : '');
+    }
     function render() {
       var S = state, out = rowsFor(S, S._eprel, S.resSeason);
       rowsAll = out.rows;
@@ -1588,6 +1613,15 @@
       if (detail) {
         $('[data-r-range2]', detail).textContent = S.speed + _t(' → 0 km/h');
         $('[data-r-cond]', detail).textContent = c.label;
+      }
+      /* „Leidsid vea?“ → kontaktivorm, teema „Viga andmetes“, sõnum eeltäidetud
+         sellega, mis on ekraanil (auto, mõõt, olud; isikuandmeid ei ole) */
+      var vg = $('[data-r-viga]', el);
+      if (vg) {
+        var vAuto = core.vehByKey[S.veh];
+        vg.href = LHOME + 'kontakt/?teema=viga&sonum=' + encodeURIComponent(
+          _t('Auto: ') + (vAuto ? vAuto.name : _t('valimata')) + '\n' + _t('Rehvimõõt: ') + pretty(S.size) + '\n' +
+          _t('Kiirus ja olud: ') + S.speed + ' km/h, ' + c.label + '\n\n' + _t('Mis on valesti: '));
       }
       var va = $('[data-r-valik]', el);
       if (va) va.href = LHOME + 'rehvi-valimine/?' + [S.veh ? 'auto=' + encodeURIComponent(S.veh) : '', 'moot=' + S.size, 'hooaeg=' + S.resSeason].filter(Boolean).join('&');
@@ -1658,6 +1692,7 @@
       $('[data-r-whoshort]', el).innerHTML = esc(whoShort) + ' · ' + esc(c.label) + '<br>' +
         (out.vehDefault ? _t('auto valimata — arvutatud VW Golf 8 järgi') : esc(out.veh.name)) + _t(' · vahemik ') + fmt(r.lowM + react) + '–' + fmt(r.highM + react) + _t(' m') +
         minuVordlus(cur, rows, out, S, react);
+      ilmad(cur, vmT, out, S, react);
 
       /* kompaktsed ribad: 5 rida, valitud alati sees */
       var LIMC = 5, omaR = rows.filter(function (x) { return x.kind === 'own'; })[0];
@@ -2014,6 +2049,42 @@
                  score: -(sb.distanceM + ib.distanceM),
                  sub: [ws.length ? ws.join(' + ') : _t('lume- ja jäämärk puudub'), ts ? _t('testis lumi ') + fmt(ts.m) + _t(' m') : '', ti ? _t('jää ') + fmt(ti.m) + _t(' m') : ''].filter(Boolean).join(' · ') };
     return P;
+  }
+  /* VÕRDLUS LÜHIDALT: tulemus tavakeeles, enne tabelit (FB/Tarvo: „tulemustes
+     peab mõtlema“). Üks lause omaduse kohta: kes on parim ja kui palju.
+     Vahe alla mudeli täpsuse (0,5 m / 2 dB) = „ühtviisi“. */
+  function vordlusLuhidalt(items) {
+    var nimi = function (x) { return '<b>' + esc(x.r.mark + ' ' + x.r.name) + '</b>'; };
+    var out = [];
+    function meetrid(k, kus, piir) {
+      var xs = items.filter(function (x) { return x.P[k]; });
+      if (xs.length < 2) return;
+      xs.sort(function (a, b) { return a.P[k].v - b.P[k].v; });
+      var b = xs[0], w = xs[xs.length - 1], d = w.P[k].v - b.P[k].v;
+      var umbes = b.P[k].src === 'est' || w.P[k].src === 'est';
+      if (umbes && xs.every(function (x) { return x.P[k].src === 'est'; })) return;
+      if (d < piir) { out.push(kus + _t(' pidurdavad kõik ühtviisi (vahe alla ') + fmt(piir) + _t(' m).')); return; }
+      out.push(nimi(b) + _t(' peatub ') + kus.toLowerCase() + _t(' kõige varem: ') + (umbes ? _t('umbes ') : '') + '<b>' + fmt(d) + _t(' m lühemalt</b> kui ') + nimi(w) + '.');
+    }
+    meetrid('wetb', _t('Märjal'), 0.5);
+    meetrid('dryb', _t('Kuival'), 0.5);
+    var talv = items.some(function (x) { return x.r.catNr >= 1 && x.r.catNr <= 3; });
+    if (talv) {
+      var ws = items.filter(function (x) { return x.P.winter; }).sort(function (a, b) { return a.P.winter.v - b.P.winter.v; });
+      if (ws.length > 1 && ws[ws.length - 1].P.winter.v - ws[0].P.winter.v >= 1 && !ws.every(function (x) { return x.P.winter.src === 'est'; }))
+        out.push(nimi(ws[0]) + _t(' on talvel parim: lumel ja jääl peatub kõige varem.'));
+    }
+    var ns = items.filter(function (x) { return x.P.noise; }).sort(function (a, b) { return a.P.noise.v - b.P.noise.v; });
+    if (ns.length > 1) {
+      var nd = ns[ns.length - 1].P.noise.v - ns[0].P.noise.v;
+      out.push(nd < 2 ? _t('Müra on kõigil sama: ') + ns[0].P.noise.v + '–' + ns[ns.length - 1].P.noise.v + _t(' dB.')
+        : nimi(ns[0]) + _t(' on kõige vaiksem: ') + ns[0].P.noise.v + _t(' dB (teised kuni ') + ns[ns.length - 1].P.noise.v + _t(' dB).'));
+    }
+    var rs = items.filter(function (x) { return x.P.rr; }).sort(function (a, b) { return b.P.rr.score - a.P.rr.score; });
+    if (rs.length > 1 && rs[0].P.rr.v !== rs[rs.length - 1].P.rr.v)
+      out.push(nimi(rs[0]) + _t(' kulutab kõige vähem kütust (klass ') + esc(rs[0].P.rr.v) + _t(', halvim ') + esc(rs[rs.length - 1].P.rr.v) + ').');
+    if (!out.length) return '';
+    return '<div class="cmp-lyh"><h3>' + _t('Lühidalt') + '</h3><ul class="why-list">' + out.map(function (t) { return '<li>' + t + '</li>'; }).join('') + '</ul></div>';
   }
   var EST_T = _t('Tuletatud meie valemist — selle rehvi kohta sõltumatut mõõtmist ei ole. Võta suunana, mitte 100% täpse numbrina.');
   var CALC_T = _t('Arvutatud tulemus meie mudelist sinu autoga. Hinnang, mitte mõõtmine — viga on tavaliselt paar meetrit.');
@@ -2633,7 +2704,7 @@
           [_t('Hind'), null],
           [_t('Hind müüjatelt'), 'price']
         ];
-        var h = _t('<div class="cmp-table" id="vordlus"><h2>Valitud rehvid</h2><p class="note">Kollane joon = parim selles reas. Sama auto: ') + esc(veh.name) + _t('. <span class="est">≈</span> = tuletatud meie valemist, selle rehvi kohta mõõtmist ei ole. Hõljuta hiirt märgi peal.</p><div class="tbl-wrap"><table class="cmp"><thead><tr><th scope="col">Omadus</th>') +
+        var h = _t('<div class="cmp-table" id="vordlus"><h2>Valitud rehvid</h2><p class="note">Kollane joon = parim selles reas. Sama auto: ') + esc(veh.name) + _t('. <span class="est">≈</span> = tuletatud meie valemist, selle rehvi kohta mõõtmist ei ole. Hõljuta hiirt märgi peal.</p>') + vordlusLuhidalt(items) + _t('<div class="tbl-wrap"><table class="cmp"><thead><tr><th scope="col">Omadus</th>') +
           items.map(function (x) { return _t('<th scope="col"><a href="') + rTee(x.r.slug) + '/">' + esc(x.r.mark + ' ' + x.r.name) + '</a><span class="s" style="font-weight:500;color:var(--muted);display:block;font-size:12px">' + esc(pretty(x.r.m)) + _t(' · <button type="button" class="linkbtn" style="font-size:12px" data-xrm="') + esc(x.r.slug + '@' + x.r.m) + _t('">eemalda</button></span></th>'); }).join('') + '</tr></thead><tbody>';
         ROWS.forEach(function (row) {
           if (!row[1]) { h += _t('<tr class="grp"><th colspan="') + (items.length + 1) + '">' + esc(row[0]) + '</th></tr>'; return; }
@@ -2727,6 +2798,12 @@
      ja JSON-päring on sellest reeglist väljas. Eelvaates,
      kus serverit pole, avatakse valmis kiri kasutaja e-posti programmis. */
   function initContact(form) {
+    /* eeltäide lingist (tulemuse „Leidsid vea?“): ?teema=viga&sonum=… */
+    try {
+      var qk = new URLSearchParams(location.search);
+      if (qk.get('teema') && form.teema && $('option[value="' + qk.get('teema').replace(/[^a-z]/g, '') + '"]', form.teema)) form.teema.value = qk.get('teema').replace(/[^a-z]/g, '');
+      if (qk.get('sonum') && form.sonum && !form.sonum.value) form.sonum.value = qk.get('sonum').slice(0, 1000);
+    } catch (e) {}
     var msg = $('[data-contact-msg]', form), go = $('[data-contact-go]', form);
     function say(t, ok) { msg.hidden = false; msg.className = 'form-msg ' + (ok ? 'ok' : 'err'); msg.textContent = t; }
     form.addEventListener('submit', function (e) {

@@ -239,13 +239,13 @@
 					<div class="factor">
 						<div class="ic"><Icon name="speed" /></div>
 						<h3>{t("Kiirus")}</h3>
-						<p>{t("Kõige suurem üksik tegur. Energia kasvab kiiruse ruudus.")}</p>
+						<p>{t("Kiirus mõjutab pidurdusmaad kõige rohkem. Kaks korda suurem kiirus, neli korda pikem pidurdus.")}</p>
 						<p class="fx">{t("50 → 110 km/h märjal:")} <b>{num(d.wet[0])} → {num(d.wet[2])} {t("m")}</b></p>
 					</div>
 					<div class="factor">
 						<div class="ic"><Icon name="road" /></div>
 						<h3>{t("Teeolud")}</h3>
-						<p>{t("Lumi ja jää muudavad kõike. Suverehv lumel on teine maailm.")}</p>
+						<p>{t("Lumel ja jääl pidurdab auto mitu korda kauem. Suverehviga veel palju kauem.")}</p>
 						<p class="fx">
 							{t("Lumi 50 km/h, suvi vs talv:")} <b>{num(d.snowSummer)} / {num(d.snowWinter)} {t("m")}</b>
 						</p>
@@ -253,7 +253,7 @@
 					<div class="factor">
 						<div class="ic"><Icon name="tyre" /></div>
 						<h3>{t("Rehv")}</h3>
-						<p>{t("Märghaardumise klass on ametlik ja võrreldav. Ainult sinu mõõdus.")}</p>
+						<p>{t("EL-i rehvimärgisel on märjal haardumise klass A–E. Võrdle rehve oma mõõdus.")}</p>
 						<p class="fx">
 							{t("Klass A vs E, 90 km/h:")} <b>+{num(d.classE - d.classA)} m ({pct(d.classE, d.classA)})</b>
 						</p>
@@ -261,7 +261,7 @@
 					<div class="factor">
 						<div class="ic"><Icon name="temp" /></div>
 						<h3>{t("Temperatuur")}</h3>
-						<p>{t("Talverehv on soojal asfaldil pehme ja pidurdab halvemini.")}</p>
+						<p>{t("Soojal asfaldil on talverehv liiga pehme ja pidurdab halvemini kui suverehv.")}</p>
 						<p class="fx">
 							{t("Kuiv +25 °C, suvi vs talv:")}
 							<b>{num(d.summerWarm)} / {num(d.winterWarm)} m ({pct(d.winterWarm, d.summerWarm)})</b>
@@ -270,7 +270,7 @@
 					<div class="factor">
 						<div class="ic"><Icon name="car" /></div>
 						<h3>{t("Auto")}</h3>
-						<p>{t("Mass, ABS ja pidurid. Koorem mõjutab vähem, kui arvatakse.")}</p>
+						<p>{t("Mass, ABS ja pidurid. Täis autoga pidurdad vaid veidi kauem kui tühjaga.")}</p>
 						<p class="fx">
 							{t("+375 kg koormat märjal:")}
 							<b>{num(d.tread8)} → {num(d.loaded)} m ({pct(d.loaded, d.tread8)})</b>
@@ -279,7 +279,7 @@
 					<div class="factor">
 						<div class="ic"><Icon name="wear" /></div>
 						<h3>{t("Rehvi seisukord")}</h3>
-						<p>{t("Kulunud muster juhib vett halvemini. Sügavas vees kordades.")}</p>
+						<p>{t("Kulunud muster juhib vett halvemini. Mida rohkem vett teel, seda suurem vahe.")}</p>
 						<p class="fx">
 							{t("8 mm → 3 mm, märg 90 km/h:")}
 							<b>{num(d.tread8)} → {num(d.tread3)} m ({pct(d.tread3, d.tread8)})</b>
