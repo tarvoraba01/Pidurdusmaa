@@ -46,3 +46,22 @@ if (leiud.length) {
 	process.exit(1);
 }
 console.log('Turvakontroll: brauseri failides saladusi ei ole.');
+
+/* CSP: iga app.html-i inline-skripti räsi peab olema svelte.config.js
+   csp.directives['script-src'] all, muidu blokeerib brauser selle vaikselt
+   (öövahetus 7.10.2026). */
+{
+	const { createHash } = await import('node:crypto');
+	const app = readFileSync('src/app.html', 'utf-8');
+	const conf = readFileSync('svelte.config.js', 'utf-8');
+	const puudu = [];
+	for (const m of app.matchAll(/<script>([\s\S]*?)<\/script>/g)) {
+		const h = 'sha256-' + createHash('sha256').update(m[1]).digest('base64');
+		if (!conf.includes(h)) puudu.push(h + '  (' + m[1].trim().slice(0, 50) + '…)');
+	}
+	if (puudu.length) {
+		console.error('\nTURVAKONTROLL: app.html-i inline-skripti räsi puudub svelte.config.js CSP-st:\n' + puudu.join('\n'));
+		process.exit(1);
+	}
+	console.log('Turvakontroll: app.html-i skriptide CSP räsid korras.');
+}
