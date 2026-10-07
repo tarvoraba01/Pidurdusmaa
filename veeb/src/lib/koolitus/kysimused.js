@@ -270,8 +270,8 @@ const K = [
 	['koorem', 'j', 'Kuidas paigutada raske koorem haagisesse?',
 		['Taha', 'Telje kohale ja madalale, natuke ette, et aisale tuleks soovitatud koormus', 'Üles, et oleks näha', 'Vahet pole'], 1,
 		'Tagumine koorem võtab aisalt koormuse ära ja haagis hakkab loksuma.'],
-	['koorem', 'e', 'Täis autoga sõitu minnes, mida rehvidega teha?',
-		['Mitte midagi', 'Kontrollida rõhku: täis koormaga soovitab tootja enamasti suuremat rõhku', 'Lasta õhku välja, et haare oleks parem', 'Vahetada talverehvid'], 1,
+	['koorem', 'e', 'Lähed pikale sõidule: autos on viis inimest ja pagasiruum on asju täis. Mida rehvidega enne teha?',
+		['Mitte midagi', 'Kontrollida rõhku: suure koormaga soovitab tootja enamasti suuremat rõhku', 'Lasta õhku välja, et haare oleks parem', 'Vahetada talverehvid'], 1,
 		'Koormatud auto rõhutabel on tavaliselt juhiukse piilaril või kütusepaagi luugil.'],
 
 	/* ---------- 9. reeglid ---------- */
