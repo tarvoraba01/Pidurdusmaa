@@ -305,11 +305,53 @@ const K = [
 const loendur = {};
 const POHI = K.map(([teema, m, k, v, o, s, sim]) => ({ id: teema + '-' + (loendur[teema] = (loendur[teema] || 0) + 1), teema, m, k, v, o, s, sim: sim || null }));
 
+/* kaksiku oma simulaatori olukord (sama mis kaksiku arvudes); puudub → põhiküsimuse oma */
+const PAAR_SIM = {
+	'kiirus-1': SIM.peatumine('kiirus=30', 'kiirus=60'),
+	'kiirus-3': SIM.mang('tuled', 'kiirus=70&ilm=kuiv'),
+	'kiirus-4': SIM.peatumine(KUIV + '&kiirus=80', KUIV + '&kiirus=90'),
+	'kiirus-5': SIM.peatumine(KUIV + '&kiirus=50', KUIV + '&kiirus=70'),
+	'kiirus-7': SIM.mang('tuled', 'kiirus=70&ilm=vihm'),
+	'kiirus-8': SIM.peatumine(KUIV + '&kiirus=50', KUIV + '&kiirus=60'),
+	'kiirus-10': SIM.peatumine('kiirus=90', 'kiirus=90&kalle=6'),
+	'reaktsioon-1': SIM.mang('tuled', 'kiirus=50&ilm=kuiv'),
+	'reaktsioon-3': SIM.peatumine('kiirus=90', 'kiirus=90&reakt=3'),
+	'reaktsioon-4': SIM.peatumine(KUIV + '&kiirus=50&takistus=24', KUIV + '&kiirus=50&reakt=1.5'),
+	'reaktsioon-6': SIM.peatumine('kiirus=30&reakt=2', 'kiirus=90&reakt=2'),
+	'reaktsioon-7': SIM.peatumine('kiirus=50', 'kiirus=50&reakt=1.5'),
+	'teeolud-1': SIM.peatumine(KUIV + '&kiirus=30', LUMI + '&kiirus=30'),
+	'teeolud-2': SIM.peatumine(JAA + '&kiirus=30'),
+	'teeolud-6': SIM.peatumine('kiirus=90&vesi=3', 'kiirus=90&vesi=3&muster=3'),
+	'teeolud-8': SIM.peatumine(LUMI + '&kiirus=30', 'pind=SNOW_LOOSE&vesi=0&temp=-5&kat=WINTER_NORDIC&kiirus=30'),
+	'teeolud-9': SIM.peatumine('kiirus=50', 'kiirus=50&kat=WINTER_NORDIC'),
+	'rehvid-1': SIM.peatumine(JAA + '&kiirus=50', 'pind=ICE&vesi=0&temp=-5&kat=SUMMER_TOURING&kiirus=50'),
+	'rehvid-2': SIM.peatumine(KUIV + '&kiirus=90', KUIV + '&kiirus=90&kat=WINTER_NORDIC'),
+	'rehvid-3': SIM.peatumine('kiirus=90', 'kiirus=90&muster=3'),
+	'rehvid-4': SIM.mang('tuled', 'kiirus=50&ilm=talv&mm=4'),
+	'rehvid-5': SIM.peatumine('kiirus=90', 'kiirus=90&vanus=6'),
+	'rehvid-10': SIM.peatumine(KUIV + '&kiirus=50&kat=WINTER_STUDDED', KUIV + '&kiirus=50&kat=WINTER_NORDIC'),
+	'rehvid-11': SIM.peatumine(JAA + '&kiirus=50', 'pind=ICE&vesi=0&temp=-5&kat=WINTER_CENTRAL&kiirus=50'),
+	'pikivahe-2': SIM.mang('tuled', 'kiirus=90&vahe=0.5&ilm=kuiv'),
+	'pikivahe-4': SIM.pikivahe('vahe=2&kiirus=50'),
+	'pikivahe-5': SIM.pikivahe('vahe=3&kiirus=90'),
+	'pikivahe-8': SIM.pikivahe('vahe=3&kiirus=90'),
+	'pimedus-2': SIM.mang('pime', 'riie=tume&kiirus=60&ilm=kuiv'),
+	'pimedus-3': SIM.mang('pime', 'riie=tume&kiirus=90&ilm=vihm'),
+	'pimedus-4': SIM.mang('pime', 'riie=helkur&kiirus=130&ilm=vihm'),
+	'pimedus-9': SIM.peatumine('kiirus=70&takistus=50'),
+	'kurvid-2': SIM.kurv('kr=50~lumi~WINTER_NORDIC~8~8~vw_passat_b8'),
+	'kurvid-6': SIM.kurv('kr=60~marg~SUMMER_TOURING~2~8~vw_golf_3'),
+	'koorem-1': SIM.peatumine(KUIV + '&kiirus=80', KUIV + '&kiirus=80&laad=375'),
+	'koorem-2': SIM.peatumine(KUIV + '&kiirus=80', KUIV + '&kiirus=80&haagis=pidurita&haagisKg=750'),
+	'reeglid-3': SIM.mang('tuled', 'kiirus=50&ilm=talv&mm=2.5'),
+	'reeglid-4': SIM.peatumine('kiirus=90&vesi=3', 'kiirus=90&vesi=3&muster=2')
+};
+
 /* kaksik: sama teadmine teises olukorras (lib/koolitus/paarid.js), id = põhiküsimuse id + 'b' */
 import { PAARID } from './paarid.js';
 export const KYSIMUSED = POHI.map((q) => {
 	const p = PAARID[q.id];
-	return { ...q, paar: p ? { id: q.id + 'b', teema: q.teema, m: q.m, k: p[0], v: p[1], o: p[2], s: p[3], sim: p[4] || q.sim } : null };
+	return { ...q, paar: p ? { id: q.id + 'b', teema: q.teema, m: q.m, k: p[0], v: p[1], o: p[2], s: p[3], sim: p[4] || PAAR_SIM[q.id] || q.sim } : null };
 });
 /* id → küsimus (ka kaksikud), õpetaja vaate jaoks; teema = põhiküsimuse id (kaksikutel ilma b-ta) */
 const KOIK = new Map();

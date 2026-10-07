@@ -169,7 +169,7 @@
 			<div class="dd" data-dd>
 				<button type="button" class="dd-btn" aria-expanded="false" aria-haspopup="true" aria-current={cur === 'sim' ? 'page' : undefined}>{t('Simulaatorid')} <Icon name="chev" /></button>
 				<div class="dd-menu" role="menu">
-					{#if lang === 'et'}<a role="menuitem" href="/liiklusohutus/koolitus/"><b>Koolitus: test + simulaatorid</b><span>Arvamused ja tõed · õpetajale oma tunni test</span></a>{/if}
+					{#if lang !== 'en'}<a role="menuitem" href={L('/liiklusohutus/koolitus/')}><b>{t('Koolitus: test + simulaatorid')}</b><span>{t('Arvamused ja tõed · õpetajale oma tunni test')}</span></a>{/if}
 					<a role="menuitem" href={L('/liiklusohutus/reaktsioon/')}><b>{t('Mäng: kui kiiresti SINA pidurdad?')}</b><span>{t('Testi oma reaktsiooni ja jaga tulemust')}</span></a>
 					<a role="menuitem" href={L('/liiklusohutus/')}><b>{t('Peatumisteekond')}</b><span>{t('Kiirus, reaktsioon ja teeolud')}</span></a>
 					<a role="menuitem" href={L('/liiklusohutus/pimedas/')}><b>{t('Pimedas')}</b><span>{t('Kas jõuad jalakäija ees peatuda?')}</span></a>
@@ -223,7 +223,7 @@
 			<section class="pm-sek">
 				<h4>{t("Simulaatorid")}</h4>
 				<div class="pm-chips">
-					{#if lang === 'et'}<a href="/liiklusohutus/koolitus/"><Icon name="test" />Koolitus</a>{/if}
+					{#if lang !== 'en'}<a href={L('/liiklusohutus/koolitus/')}><Icon name="test" />{t('Koolitus')}</a>{/if}
 					<a href={L('/liiklusohutus/reaktsioon/')}><Icon name="speed" />{t("Mäng")}</a>
 					<a href={L('/liiklusohutus/')}><Icon name="road" />{t("Peatumisteekond")}</a>
 					<a href={L('/liiklusohutus/pimedas/')}><Icon name="moon" />{t("Pimedas")}</a>
@@ -264,7 +264,7 @@
 {#if neutraal}
 <!-- neutraalsel liiklusohutuse lehel oma alariba: ainult simulaatorid ja koolitus (poode ega rehvivalikut pole) -->
 <nav class="tabbar tabbar-n" aria-label={t("Simulaatorid")}>
-	{#if lang === 'et'}<a href="/liiklusohutus/koolitus/" aria-current={base.startsWith('/liiklusohutus/koolitus') ? 'page' : undefined}><Icon name="test" /><span>Koolitus</span></a>{/if}
+	{#if lang !== 'en'}<a href={L('/liiklusohutus/koolitus/')} aria-current={base.startsWith('/liiklusohutus/koolitus') ? 'page' : undefined}><Icon name="test" /><span>{t('Koolitus')}</span></a>{/if}
 	<a href={L('/liiklusohutus/reaktsioon/')} aria-current={base.startsWith('/liiklusohutus/reaktsioon') ? 'page' : undefined}><Icon name="speed" /><span>{t("Mäng")}</span></a>
 	<a href={L('/liiklusohutus/')} aria-current={base === '/liiklusohutus/' ? 'page' : undefined}><Icon name="road" /><span>{t("Peatumine")}</span></a>
 	<a href={L('/liiklusohutus/pimedas/')} aria-current={base.startsWith('/liiklusohutus/pimedas') ? 'page' : undefined}><Icon name="moon" /><span>{t("Pimedas")}</span></a>

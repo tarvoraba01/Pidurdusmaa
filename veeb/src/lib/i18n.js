@@ -27,6 +27,8 @@ const TAPSED = {
 		'/teadmine/pidurdusteekond-ja-peatumisteekond/',
 		'/teadmine/rehvivahetus/',
 		...ARTIKLID.filter((a) => a.ru).map((a) => a.ruTee || artikliTee(a)),
+		'/liiklusohutus/koolitus/',
+		'/liiklusohutus/koolitus/tulemused/',
 		'/jaga/' /* jagatud tulemus (noindex, serveris) */
 	]),
 	en: new Set(['/jaga/'])

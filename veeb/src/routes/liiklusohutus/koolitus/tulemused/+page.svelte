@@ -2,12 +2,14 @@
 	/* Õpetaja tulemuste leht — privaatne (võti räsis), mitte otsingumootoritele. */
 	import Meta from '$lib/Meta.svelte';
 	import KoolitusTulemused from '$lib/KoolitusTulemused.svelte';
+	import { useT } from '$lib/i18n.js';
+	const t = useT();
 </script>
 
-<Meta title="Koolitus: grupi tulemused" desc="Õpetaja vaade: grupi tulemused enne ja pärast koolitust." path="liiklusohutus/koolitus/tulemused/" noindex />
+<Meta title={t("Koolitus: grupi tulemused")} desc={t("Õpetaja vaade: grupi tulemused enne ja pärast koolitust.")} path="liiklusohutus/koolitus/tulemused/" noindex />
 
 <section class="lo-bg" style="padding: var(--sp-8) 0">
-	<div class="wrap"><h1 class="kt-h1">Grupi tulemused</h1><KoolitusTulemused /></div>
+	<div class="wrap"><h1 class="kt-h1">{t("Grupi tulemused")}</h1><KoolitusTulemused /></div>
 </section>
 
 <style>

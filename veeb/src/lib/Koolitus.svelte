@@ -6,6 +6,17 @@
 	import { onMount } from 'svelte';
 	import { KYSIMUSED, TEEMAD, pohiId } from '$lib/koolitus/kysimused.js';
 	import qrcode from 'qrcode-generator';
+	import { useT, useLang } from '$lib/i18n.js';
+	const t = useT();
+	const keel = useLang();
+	/* vene keeles: küsimuste tõlge laetakse ainult vene lehel (lib/koolitus/ru.js) */
+	let TOLGE = $state(keel.lang === 'et' ? {} : null);
+	/* küsimus selle lehe keeles: tekst tõlkest, simulaatori nimi ja link keele järgi */
+	function lq(q) {
+		if (!q) return q;
+		const x = TOLGE?.[q.id];
+		return { ...q, k: x ? x[0] : q.k, v: x ? x[1] : q.v, s: x ? x[2] : q.s, sim: q.sim ? [t(q.sim[0]), keel.L(q.sim[1])] : null };
+	}
 
 	const NAHTUD_VOTI = 'pm-koolitus-nahtud';
 	let olek = $state('algus'); /* algus | eel | selgitus | jarel | tulemus */
@@ -21,6 +32,7 @@
 	let opNimi = $state(''); /* õpetaja testis kohustuslik: näeb ainult õpetaja */
 
 	onMount(() => {
+		if (keel.lang === 'ru') import('$lib/koolitus/ru.js').then((m) => (TOLGE = m.default)).catch(() => (TOLGE = {}));
 		try {
 			/* grupi kood ainult aadressist: tavaline koolituse leht jääb tavaliseks */
 			try { sessionStorage.removeItem('pm-koolitus-kood'); } catch {}
@@ -87,7 +99,7 @@
 		/* eel- ja järeltest kontrollivad SAMA teadmist: juhuslikult üks versioon enne, kaksik pärast */
 		return out.map((q) => {
 			const vaheta = q.paar && rnd() < 0.5;
-			return { q: vaheta ? q.paar : q, teine: vaheta ? q : q.paar || q, jarjestus: sega([0, 1, 2, 3]), vastus: null };
+			return { q: lq(vaheta ? q.paar : q), teine: lq(vaheta ? q : q.paar || q), jarjestus: sega([0, 1, 2, 3]), vastus: null };
 		});
 	}
 	const mitu = () => Math.max(3, Math.min(grupp?.kysimusi || 10, Math.floor(KYSIMUSED.filter((q) => valitud.includes(q.teema)).length / 2)));
@@ -145,7 +157,7 @@
 		requestAnimationFrame(() => ylal?.scrollIntoView({ block: 'start', behavior: 'smooth' }));
 	}
 	const skoor = (list) => list.filter((r) => r.vastus === r.q.o).length;
-	const teemaNimi = (id) => (TEEMAD.find((x) => x[0] === id) || [, id])[1];
+	const teemaNimi = (id) => t((TEEMAD.find((x) => x[0] === id) || [, id])[1]);
 	const tahed = ['A', 'B', 'C', 'D'];
 	function lulita(t) {
 		valitud = valitud.includes(t) ? valitud.filter((x) => x !== t) : [...valitud, t];
@@ -162,13 +174,13 @@
 	let oKopeeritud = $state('');
 	async function looTest() {
 		oViga = '';
-		if (oNimi.trim().length < 2) { oViga = 'Lisa tunni või grupi nimi.'; return; }
-		if (!oTeemad.length) { oViga = 'Vali vähemalt üks teema.'; return; }
+		if (oNimi.trim().length < 2) { oViga = t('Lisa tunni või grupi nimi.'); return; }
+		if (!oTeemad.length) { oViga = t('Vali vähemalt üks teema.'); return; }
 		oTeeb = true;
 		try {
 			const r = await fetch('/api/koolitus', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ tegu: 'loo', nimi: oNimi, teemad: oTeemad, kysimusi: oMitu }) });
 			const j = await r.json().catch(() => null);
-			if (!j?.ok) { oViga = j?.viga || 'Testi loomine ei õnnestunud. Proovi uuesti.'; return; }
+			if (!j?.ok) { oViga = j?.viga ? t(j.viga) : t('Testi loomine ei õnnestunud. Proovi uuesti.'); return; }
 			loodud = j;
 			track('koolitus', 'õpetaja lõi testi');
 			try {
@@ -177,13 +189,13 @@
 				localStorage.setItem('pm-koolitus-minu', JSON.stringify(m.slice(0, 20)));
 			} catch {}
 		} catch {
-			oViga = 'Ühendus katkes. Proovi uuesti.';
+			oViga = t('Ühendus katkes. Proovi uuesti.');
 		} finally {
 			oTeeb = false;
 		}
 	}
-	const opilaseLink = (k) => location.origin + '/liiklusohutus/koolitus/?kood=' + k;
-	const tulemusteLink = (l) => location.origin + '/liiklusohutus/koolitus/tulemused/#kood=' + l.kood + '&voti=' + l.voti;
+	const opilaseLink = (k) => location.origin + keel.L('/liiklusohutus/koolitus/') + '?kood=' + k;
+	const tulemusteLink = (l) => location.origin + keel.L('/liiklusohutus/koolitus/tulemused/') + '#kood=' + l.kood + '&voti=' + l.voti;
 	async function kopeeri(tekst, mis) {
 		try { await navigator.clipboard.writeText(tekst); oKopeeritud = mis; setTimeout(() => (oKopeeritud = ''), 2000); } catch {}
 	}
@@ -201,12 +213,12 @@
 
 	let jagatud = $state('');
 	async function jaga() {
-		const tekst = `Pidurdusmaa koolitus: enne ${skoor(eel)}/${eel.length}, pärast ${skoor(jarel)}/${jarel.length}. Proovi ise:`;
+		const tekst = t('Pidurdusmaa koolitus: enne {a}, pärast {b}. Proovi ise:', { a: skoor(eel) + '/' + eel.length, b: skoor(jarel) + '/' + jarel.length });
 		const url = location.origin + location.pathname + (kood ? '?kood=' + kood : '');
 		try {
 			if (navigator.share) { await navigator.share({ text: tekst, url }); track('koolitus', 'jaga'); return; }
 			await navigator.clipboard.writeText(tekst + ' ' + url);
-			jagatud = 'Link kopeeritud ✓';
+			jagatud = t('Link kopeeritud ✓');
 			track('koolitus', 'jaga');
 		} catch {}
 	}
@@ -239,92 +251,92 @@
 </script>
 
 <div class="kl" bind:this={ylal}>
-	{#if koodViga}<p class="kl-kood kl-viga" role="alert">Sellist grupi koodi ei leitud. Kontrolli linki õpetajalt või tee tavaline test.</p>{/if}
-	{#if grupp || kood}<p class="kl-kood">Grupp: <b>{grupp ? grupp.nimi : kood}</b>{grupp ? ' · ' + grupp.kood : ''} · <a href="/liiklusohutus/koolitus/" data-sveltekit-reload>lahku grupist</a></p>{/if}
+	{#if koodViga}<p class="kl-kood kl-viga" role="alert">{t('Sellist grupi koodi ei leitud. Kontrolli linki õpetajalt või tee tavaline test.')}</p>{/if}
+	{#if grupp || kood}<p class="kl-kood">{t('Grupp:')} <b>{grupp ? grupp.nimi : kood}</b>{grupp ? ' · ' + grupp.kood : ''} · <a href={keel.L('/liiklusohutus/koolitus/')} data-sveltekit-reload>{t('lahku grupist')}</a></p>{/if}
 
 	{#if olek === 'algus'}
 		<div class="kl-kaart">
-			<h2>Test: arvamused ja tõed</h2>
+			<h2>{t('Test: arvamused ja tõed')}</h2>
 			<ol class="kl-sammud">
-				<li><b>Eeltest</b><span>{mitu()} küsimust. Vasta nii, nagu arvad.</span></li>
-				<li><b>Vastused</b><span>Näed, mis oli õige ja miks. Proovi olukorda simulaatoris.</span></li>
-				<li><b>Järeltest</b><span>Samad asjad teises olukorras. Vaata, kas said selgemaks.</span></li>
+				<li><b>{t('Eeltest')}</b><span>{t('{n} küsimust. Vasta nii, nagu arvad.', { n: mitu() })}</span></li>
+				<li><b>{t('Vastused')}</b><span>{t('Näed, mis oli õige ja miks. Proovi olukorda simulaatoris.')}</span></li>
+				<li><b>{t('Järeltest')}</b><span>{t('Samad asjad teises olukorras. Vaata, kas said selgemaks.')}</span></li>
 			</ol>
 			{#if grupp}
-				<p class="kl-grupi-teemad"><b>Teemad:</b> {grupp.teemad.map(teemaNimi).join(', ')}</p>
-				<label class="kl-silt" for="kl-opnimi">Sinu nimi <span class="kl-vabat">(näeb ainult õpetaja)</span></label>
+				<p class="kl-grupi-teemad"><b>{t('Teemad:')}</b> {grupp.teemad.map(teemaNimi).join(', ')}</p>
+				<label class="kl-silt" for="kl-opnimi">{t('Sinu nimi')} <span class="kl-vabat">{t('(näeb ainult õpetaja)')}</span></label>
 				<input id="kl-opnimi" class="kl-sisend" type="text" maxlength="40" autocomplete="name" required bind:value={opNimi} />
 			{:else}
 				<fieldset class="kl-teemad">
-					<legend>Teemad</legend>
+					<legend>{t('Teemad')}</legend>
 					{#each TEEMAD as [id, nimi] (id)}
-						<button type="button" aria-pressed={valitud.includes(id)} onclick={() => lulita(id)}>{nimi}</button>
+						<button type="button" aria-pressed={valitud.includes(id)} onclick={() => lulita(id)}>{t(nimi)}</button>
 					{/each}
 				</fieldset>
 			{/if}
-			<button type="button" class="btn yel kl-suur" disabled={!valitud.length || (grupp && opNimi.trim().length < 2)} onclick={alusta}>Alusta →</button>
-			{#if grupp && opNimi.trim().length < 2}<p class="kl-vaike">Kirjuta oma nimi, et õpetaja näeks sinu tulemust.</p>{/if}
-			<p class="kl-vaike">Umbes {Math.max(5, mitu())} minutit.{grupp ? '' : ' Nime ei küsita.'}</p>
+			<button type="button" class="btn yel kl-suur" disabled={!valitud.length || !TOLGE || (grupp && opNimi.trim().length < 2)} onclick={alusta}>{t('Alusta →')}</button>
+			{#if grupp && opNimi.trim().length < 2}<p class="kl-vaike">{t('Kirjuta oma nimi, et õpetaja näeks sinu tulemust.')}</p>{/if}
+			<p class="kl-vaike">{t('Umbes {n} minutit.', { n: Math.max(5, mitu()) })}{grupp ? '' : ' ' + t('Nime ei küsita.')}</p>
 		</div>
 
 		{#if !grupp}
 			<div class="kl-kaart kl-opetaja">
 				{#if !opetaja && !loodud}
 					<div class="kl-op-rida">
-						<div><b>Õpetajale</b><span>Loo oma tunni test: õpilased avavad lingi või QR-koodi ja sina näed grupi tulemusi enne ja pärast.</span></div>
-						<button type="button" class="btn" onclick={() => (opetaja = true)}>Loo test →</button>
+						<div><b>{t('Õpetajale')}</b><span>{t('Loo oma tunni test: õpilased avavad lingi või QR-koodi ja sina näed grupi tulemusi enne ja pärast.')}</span></div>
+						<button type="button" class="btn" onclick={() => (opetaja = true)}>{t('Loo test →')}</button>
 					</div>
 				{:else if !loodud}
-					<h2>Loo oma tunni test</h2>
-					<label class="kl-silt" for="kl-onimi">Tunni või grupi nimi</label>
-					<input id="kl-onimi" class="kl-sisend" type="text" maxlength="80" placeholder="nt Viiking Autokool, B-kursus oktoober" bind:value={oNimi} />
+					<h2>{t('Loo oma tunni test')}</h2>
+					<label class="kl-silt" for="kl-onimi">{t('Tunni või grupi nimi')}</label>
+					<input id="kl-onimi" class="kl-sisend" type="text" maxlength="80" placeholder={t('nt Viiking Autokool, B-kursus oktoober')} bind:value={oNimi} />
 					<fieldset class="kl-teemad">
-						<legend>Teemad</legend>
+						<legend>{t('Teemad')}</legend>
 						{#each TEEMAD as [id, nimi] (id)}
-							<button type="button" aria-pressed={oTeemad.includes(id)} onclick={() => oLulita(id)}>{nimi}</button>
+							<button type="button" aria-pressed={oTeemad.includes(id)} onclick={() => oLulita(id)}>{t(nimi)}</button>
 						{/each}
 					</fieldset>
 					<fieldset class="kl-teemad">
-						<legend>Küsimusi eel- ja järeltestis</legend>
+						<legend>{t('Küsimusi eel- ja järeltestis')}</legend>
 						{#each [5, 10, 15] as n (n)}
 							<button type="button" aria-pressed={oMitu === n} onclick={() => (oMitu = n)}>{n}</button>
 						{/each}
 					</fieldset>
 					{#if oViga}<p class="kl-viga" role="alert">{oViga}</p>{/if}
 					<div class="kl-nupud">
-						<button type="button" class="btn yel" disabled={oTeeb} onclick={looTest}>{oTeeb ? 'Loon…' : 'Loo test'}</button>
-						<button type="button" class="btn" onclick={() => (opetaja = false)}>Tühista</button>
+						<button type="button" class="btn yel" disabled={oTeeb} onclick={looTest}>{oTeeb ? t('Loon…') : t('Loo test')}</button>
+						<button type="button" class="btn" onclick={() => (opetaja = false)}>{t('Tühista')}</button>
 					</div>
 				{:else}
 					{@const q = qr(opilaseLink(loodud.kood))}
-					<h2>Test on valmis</h2>
-					<p class="kl-lead"><b>{loodud.nimi}</b> · kood <b class="kl-kood-suur">{loodud.kood}</b></p>
+					<h2>{t('Test on valmis')}</h2>
+					<p class="kl-lead"><b>{loodud.nimi}</b> · {t('kood')} <b class="kl-kood-suur">{loodud.kood}</b></p>
 					<div class="kl-valmis">
-						<svg class="kl-qr" viewBox="-2 -2 {q.n + 4} {q.n + 4}" role="img" aria-label="QR-kood õpilaste lingiga"><rect x="-2" y="-2" width={q.n + 4} height={q.n + 4} fill="#fff" /><path d={q.d} fill="#0a0b0d" /></svg>
+						<svg class="kl-qr" viewBox="-2 -2 {q.n + 4} {q.n + 4}" role="img" aria-label={t('QR-kood õpilaste lingiga')}><rect x="-2" y="-2" width={q.n + 4} height={q.n + 4} fill="#fff" /><path d={q.d} fill="#0a0b0d" /></svg>
 						<div>
-							<p class="kl-silt">Õpilastele (näita QR-koodi või saada link)</p>
-							<div class="kl-link"><code>{opilaseLink(loodud.kood)}</code><button type="button" class="btn" onclick={() => kopeeri(opilaseLink(loodud.kood), 'opilane')}>{oKopeeritud === 'opilane' ? 'Kopeeritud ✓' : 'Kopeeri'}</button></div>
-							<p class="kl-silt">Sinu tulemused (ainult sulle)</p>
+							<p class="kl-silt">{t('Õpilastele (näita QR-koodi või saada link)')}</p>
+							<div class="kl-link"><code>{opilaseLink(loodud.kood)}</code><button type="button" class="btn" onclick={() => kopeeri(opilaseLink(loodud.kood), 'opilane')}>{oKopeeritud === 'opilane' ? t('Kopeeritud ✓') : t('Kopeeri')}</button></div>
+							<p class="kl-silt">{t('Sinu tulemused (ainult sulle)')}</p>
 							<div class="kl-nupud">
-								<a class="btn yel" href={tulemusteLink(loodud)} target="_blank" rel="noopener">Ava tulemused ↗</a>
-								<a class="btn" href={'mailto:?subject=' + encodeURIComponent('Pidurdusmaa test: ' + loodud.nimi) + '&body=' + encodeURIComponent('Õpilaste link: ' + opilaseLink(loodud.kood) + '\n\nMinu tulemused (ainult mulle): ' + tulemusteLink(loodud))}>Saada endale e-postiga</a>
+								<a class="btn yel" href={tulemusteLink(loodud)} target="_blank" rel="noopener">{t('Ava tulemused ↗')}</a>
+								<a class="btn" href={'mailto:?subject=' + encodeURIComponent(t('Pidurdusmaa test:') + ' ' + loodud.nimi) + '&body=' + encodeURIComponent(t('Õpilaste link:') + ' ' + opilaseLink(loodud.kood) + '\n\n' + t('Minu tulemused (ainult mulle):') + ' ' + tulemusteLink(loodud))}>{t('Saada endale e-postiga')}</a>
 							</div>
-							<p class="kl-vaike">Tulemuste leht avaneb ainult selle lingiga. Saada see endale e-postiga, siis leiad selle hiljem üles. Selles brauseris on see ka meeles.</p>
+							<p class="kl-vaike">{t('Tulemuste leht avaneb ainult selle lingiga. Saada see endale e-postiga, siis leiad selle hiljem üles. Selles brauseris on see ka meeles.')}</p>
 						</div>
 					</div>
-					<div class="kl-nupud"><button type="button" class="btn" onclick={() => { loodud = null; opetaja = true; oNimi = ''; }}>Loo veel üks test</button></div>
+					<div class="kl-nupud"><button type="button" class="btn" onclick={() => { loodud = null; opetaja = true; oNimi = ''; }}>{t('Loo veel üks test')}</button></div>
 				{/if}
 			</div>
 		{/if}
 	{:else if (olek === 'eel' || olek === 'jarel') && rida}
 		<div class="kl-kaart">
 			<div class="kl-ylal">
-				<span class="kl-etapp">{olek === 'eel' ? 'Eeltest' : 'Järeltest'} · {teemaNimi(rida.q.teema)}</span>
+				<span class="kl-etapp">{olek === 'eel' ? t('Eeltest') : t('Järeltest')} · {teemaNimi(rida.q.teema)}</span>
 				<span class="kl-nr">{i + 1} / {list.length}</span>
 			</div>
 			<div class="kl-riba" aria-hidden="true"><i style="width:{((i + (rida.vastus !== null ? 1 : 0)) / list.length) * 100}%"></i></div>
 			<h2 class="kl-k">{rida.q.k}</h2>
-			<div class="kl-v" role="group" aria-label="Vastused">
+			<div class="kl-v" role="group" aria-label={t('Vastused')}>
 				{#each rida.jarjestus as nr, j (nr)}
 					<button type="button" aria-pressed={rida.vastus === nr} disabled={rida.vastus !== null && rida.vastus !== nr} onclick={() => vasta(rida, nr)}>
 						<b>{tahed[j]}</b><span>{rida.q.v[nr]}</span>
@@ -333,58 +345,58 @@
 			</div>
 			{#if olek === 'jarel' && rida.vastus !== null}
 				<p class="kl-tagasi" class:hea={rida.vastus === rida.q.o}>
-					<b>{rida.vastus === rida.q.o ? 'Õige.' : 'Õige oli: ' + rida.q.v[rida.q.o] + '.'}</b> {rida.q.s}
+					<b>{rida.vastus === rida.q.o ? t('Õige.') : t('Õige oli:') + ' ' + rida.q.v[rida.q.o] + '.'}</b> {rida.q.s}
 				</p>
 			{/if}
 			<div class="kl-nupud">
-				<button type="button" class="btn yel" disabled={rida.vastus === null} onclick={edasi}>{i < list.length - 1 ? 'Edasi →' : olek === 'eel' ? 'Vaata vastuseid →' : 'Vaata tulemust →'}</button>
+				<button type="button" class="btn yel" disabled={rida.vastus === null} onclick={edasi}>{i < list.length - 1 ? t('Edasi →') : olek === 'eel' ? t('Vaata vastuseid →') : t('Vaata tulemust →')}</button>
 			</div>
 		</div>
 	{:else if olek === 'selgitus'}
 		<div class="kl-kaart">
-			<p class="kl-etapp">Eeltest</p>
-			<h2>Õigesti {skoor(eel)} / {eel.length}</h2>
-			<p class="kl-lead">{skoor(eel) === eel.length ? 'Kõik õiged. Järeltestis on küsimused trikkidega: loe täpselt.' : 'Vaata, kus eksisid, ja proovi seda olukorda simulaatoris. Siis järeltest uute küsimustega.'}</p>
+			<p class="kl-etapp">{t('Eeltest')}</p>
+			<h2>{t('Õigesti')} {skoor(eel)} / {eel.length}</h2>
+			<p class="kl-lead">{skoor(eel) === eel.length ? t('Kõik õiged. Järeltestis on samad asjad teises olukorras: loe täpselt.') : t('Vaata, kus eksisid, ja proovi seda olukorda simulaatoris. Siis järeltest: samad asjad teises olukorras.')}</p>
 		</div>
 		<ol class="kl-selg">
 			{#each eel as r (r.q.id)}
 				<li class:vale={r.vastus !== r.q.o}>
 					<p class="kl-sk">{r.q.k}</p>
-					{#if r.vastus !== r.q.o}<p class="kl-sinu">Sinu vastus: {r.q.v[r.vastus]}</p>{/if}
-					<p class="kl-oige"><b>{r.vastus === r.q.o ? '✓' : 'Õige:'}</b> {r.q.v[r.q.o]}</p>
+					{#if r.vastus !== r.q.o}<p class="kl-sinu">{t('Sinu vastus:')} {r.q.v[r.vastus]}</p>{/if}
+					<p class="kl-oige"><b>{r.vastus === r.q.o ? '✓' : t('Õige:')}</b> {r.q.v[r.q.o]}</p>
 					<p class="kl-ss">{r.q.s}</p>
-					{#if r.q.sim}<button type="button" class="kl-sim" class:esile={r.vastus !== r.q.o} onclick={() => avaSim(r.q)}>Proovi simulaatoris: {r.q.sim[0]} →</button>{/if}
+					{#if r.q.sim}<button type="button" class="kl-sim" class:esile={r.vastus !== r.q.o} onclick={() => avaSim(r.q)}>{t('Proovi simulaatoris:')} {r.q.sim[0]} →</button>{/if}
 				</li>
 			{/each}
 		</ol>
 		<div class="kl-kaart kl-keskel">
-			<p class="kl-lead">Järeltestis tulevad samad teemad uues olukorras: {eel.length} küsimust, igaüks kontrollib ühte eeltesti küsimust teisiti.</p>
-			<button type="button" class="btn yel kl-suur" onclick={jareltest}>Järeltest →</button>
+			<p class="kl-lead">{t('Järeltestis tulevad samad teemad uues olukorras: {n} küsimust, igaüks kontrollib ühte eeltesti küsimust teisiti.', { n: eel.length })}</p>
+			<button type="button" class="btn yel kl-suur" onclick={jareltest}>{t('Järeltest →')}</button>
 		</div>
 	{:else if olek === 'tulemus'}
 		<div class="kl-kaart kl-keskel">
-			<p class="kl-etapp">Tulemus</p>
+			<p class="kl-etapp">{t('Tulemus')}</p>
 			<div class="kl-ep">
-				<div><span>Enne</span><b>{skoor(eel)}/{eel.length}</b></div>
+				<div><span>{t('Enne')}</span><b>{skoor(eel)}/{eel.length}</b></div>
 				<i aria-hidden="true">→</i>
-				<div class:p={skoor(jarel) > skoor(eel)}><span>Pärast</span><b>{skoor(jarel)}/{jarel.length}</b></div>
+				<div class:p={skoor(jarel) > skoor(eel)}><span>{t('Pärast')}</span><b>{skoor(jarel)}/{jarel.length}</b></div>
 			</div>
-			<p class="kl-lead">{skoor(jarel) > skoor(eel) ? 'Teadmised kasvasid. Kõige rohkem jääb meelde see, mida simulaatoris ise proovisid.' : skoor(jarel) === jarel.length ? 'Kõik õiged, ka trikiküsimused.' : 'Järeltesti küsimused olid trikkidega. Proovi uuesti: tulevad teised küsimused.'}</p>
+			<p class="kl-lead">{skoor(jarel) > skoor(eel) ? t('Teadmised kasvasid. Kõige rohkem jääb meelde see, mida simulaatoris ise proovisid.') : skoor(jarel) === jarel.length ? t('Kõik õiged.') : t('Vaata allpool, kus eksisid. Proovi uuesti: tulevad teised küsimused.')}</p>
 			<div class="kl-nupud kl-keskel">
-				<button type="button" class="btn yel" onclick={jaga}>Jaga tulemust</button>
-				<button type="button" class="btn" onclick={uuesti}>Proovi uuesti</button>
+				<button type="button" class="btn yel" onclick={jaga}>{t('Jaga tulemust')}</button>
+				<button type="button" class="btn" onclick={uuesti}>{t('Proovi uuesti')}</button>
 			</div>
 			{#if jagatud}<p class="kl-vaike" role="status">{jagatud}</p>{/if}
 		</div>
 		{#if jarel.some((r) => r.vastus !== r.q.o)}
-			<h3 class="kl-h3">Järeltestis eksisid</h3>
+			<h3 class="kl-h3">{t('Järeltestis eksisid')}</h3>
 			<ol class="kl-selg">
 				{#each jarel.filter((r) => r.vastus !== r.q.o) as r (r.q.id)}
 					<li class="vale">
 						<p class="kl-sk">{r.q.k}</p>
-						<p class="kl-oige"><b>Õige:</b> {r.q.v[r.q.o]}</p>
+						<p class="kl-oige"><b>{t('Õige:')}</b> {r.q.v[r.q.o]}</p>
 						<p class="kl-ss">{r.q.s}</p>
-						{#if r.q.sim}<button type="button" class="kl-sim esile" onclick={() => avaSim(r.q)}>Proovi simulaatoris: {r.q.sim[0]} →</button>{/if}
+						{#if r.q.sim}<button type="button" class="kl-sim esile" onclick={() => avaSim(r.q)}>{t('Proovi simulaatoris:')} {r.q.sim[0]} →</button>{/if}
 					</li>
 				{/each}
 			</ol>
@@ -393,18 +405,18 @@
 </div>
 
 {#if sim}
-	<div class="kl-modal" role="dialog" aria-modal="true" aria-label={'Simulaator: ' + sim.nimi}>
-		<button type="button" class="kl-modal-taust" aria-label="Sulge" onclick={sulgeSim}></button>
+	<div class="kl-modal" role="dialog" aria-modal="true" aria-label={t('Simulaator:') + ' ' + sim.nimi}>
+		<button type="button" class="kl-modal-taust" aria-label={t('Sulge')} onclick={sulgeSim}></button>
 		<div class="kl-modal-aken">
 			<div class="kl-modal-pea">
 				<div><b>{sim.nimi}</b><span>{sim.k}</span></div>
-				<button type="button" class="kl-x" onclick={sulgeSim} aria-label="Sulge">×</button>
+				<button type="button" class="kl-x" onclick={sulgeSim} aria-label={t('Sulge')}>×</button>
 			</div>
 			<div class="kl-modal-sisu">
-				{#if !simValmis}<p class="kl-laeb">Laen simulaatorit…</p>{/if}
-				<iframe src={sim.url} title={'Simulaator: ' + sim.nimi} class:peidus={!simValmis} allow="fullscreen"></iframe>
+				{#if !simValmis}<p class="kl-laeb">{t('Laen simulaatorit…')}</p>{/if}
+				<iframe src={sim.url} title={t('Simulaator:') + ' ' + sim.nimi} class:peidus={!simValmis} allow="fullscreen"></iframe>
 			</div>
-			<div class="kl-modal-jalus"><button type="button" class="btn yel" onclick={sulgeSim}>Tagasi testi juurde</button></div>
+			<div class="kl-modal-jalus"><button type="button" class="btn yel" onclick={sulgeSim}>{t('Tagasi testi juurde')}</button></div>
 		</div>
 	</div>
 {/if}

@@ -46,12 +46,14 @@ export function GET() {
 		['/liiklusohutus/pikivahe/', '0.7'],
 		['/liiklusohutus/kurv/', '0.7'],
 		['/liiklusohutus/reaktsioon/', '0.7'],
+		['/liiklusohutus/koolitus/', '0.7'],
 		['/rehvi-vanus/', '0.8'],
 		['/rehvi-kalkulaator/', '0.8'],
 		['/kontakt/', '0.4'],
 		['/kasutustingimused/', '0.3'],
 		['/privaatsus/', '0.3']
 	];
+	urls.push(['/ru/liiklusohutus/koolitus/', '0.6']);
 	/* vene ja inglise versioonid (tööriistalehed, vt $lib/i18n.js) */
 	for (const k of ['ru', 'en']) for (const p of TOLGITUD) urls.push(['/' + k + p, p === '/' ? '0.8' : '0.6']);
 

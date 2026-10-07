@@ -64,6 +64,7 @@ Tsiteerimisel palun viita lehele ${BASE}/ või vastavale alamlehele.
 - [Talverehvid](${BASE}/talverehvid/): talverehvid mõõdu järgi
 - [Liiklusohutuse simulaatorid](${BASE}/liiklusohutus/): kiirus, pimedas, pikivahe, kurv
 - [Reaktsioonitest](${BASE}/liiklusohutus/reaktsioon/): mäng, kui kiiresti sina pidurdad
+- [Koolitus](${BASE}/liiklusohutus/koolitus/): eeltest, selgitused simulaatoriga, järeltest; autokoolid loovad oma grupi testi
 - [Rehvi vanus](${BASE}/rehvi-vanus/): DOT-kood → rehvi vanus, mustri sügavus → pidurdusmaa
 
 ## Andmed

@@ -3,6 +3,10 @@
 	   (#kood=…&voti=…), räsi serverisse ei jõua; võti läheb päringu päises. */
 	import { onMount } from 'svelte';
 	import { TEEMAD, leiaKysimus } from '$lib/koolitus/kysimused.js';
+	import { useT, useLang } from '$lib/i18n.js';
+	const t = useT();
+	const keel = useLang();
+	let TOLGE = $state({});
 
 	let kood = $state('');
 	let voti = '';
@@ -10,8 +14,12 @@
 	let viga = $state('');
 	let laeb = $state(false);
 	let minu = $state([]);
-	const teemaNimi = (id) => (TEEMAD.find((x) => x[0] === id) || [, id])[1];
-	const kysimus = (id) => leiaKysimus(id);
+	const teemaNimi = (id) => t((TEEMAD.find((x) => x[0] === id) || [, id])[1]);
+	const kysimus = (id) => {
+		const q = leiaKysimus(id);
+		const x = q && TOLGE[id];
+		return x ? { ...q, k: x[0], v: x[1] } : q;
+	};
 
 	async function lae() {
 		if (!kood || !voti) return;
@@ -20,15 +28,16 @@
 		try {
 			const r = await fetch('/api/koolitus?tulemused=1&kood=' + encodeURIComponent(kood), { headers: { Authorization: 'Bearer ' + voti } });
 			const j = await r.json().catch(() => null);
-			if (!j?.ok) viga = r.status === 401 ? 'See link ei kehti. Kontrolli, et kopeerisid kogu lingi.' : j?.viga || 'Tulemusi ei saanud laadida.';
+			if (!j?.ok) viga = r.status === 401 ? t('See link ei kehti. Kontrolli, et kopeerisid kogu lingi.') : j?.viga ? t(j.viga) : t('Tulemusi ei saanud laadida.');
 			else andmed = j;
 		} catch {
-			viga = 'Ühendus katkes. Proovi uuesti.';
+			viga = t('Ühendus katkes. Proovi uuesti.');
 		} finally {
 			laeb = false;
 		}
 	}
 	onMount(() => {
+		if (keel.lang === 'ru') import('$lib/koolitus/ru.js').then((m) => (TOLGE = m.default)).catch(() => {});
 		try {
 			const h = new URLSearchParams(location.hash.slice(1));
 			kood = String(h.get('kood') || '').toUpperCase();
@@ -43,61 +52,61 @@
 <div class="kt">
 	{#if !kood}
 		<div class="kt-kaart">
-			<p>Ava see leht lingiga, mille said testi loomisel.</p>
+			<p>{t('Ava see leht lingiga, mille said testi loomisel.')}</p>
 			{#if minu.length}
-				<p><b>Selles brauseris loodud testid:</b></p>
+				<p><b>{t('Selles brauseris loodud testid:')}</b></p>
 				<ul class="kt-minu">{#each minu as m (m.kood)}<li><button type="button" class="linkbtn" onclick={() => mine(m)}>{m.nimi} · {m.kood}</button></li>{/each}</ul>
 			{/if}
-			<a class="btn yel" href="/liiklusohutus/koolitus/">Loo uus test →</a>
+			<a class="btn yel" href={keel.L('/liiklusohutus/koolitus/')}>{t('Loo uus test →')}</a>
 		</div>
 	{:else if viga}
 		<div class="kt-kaart"><p class="kt-viga">{viga}</p></div>
 	{:else if !andmed}
-		<div class="kt-kaart"><p>Laen tulemusi…</p></div>
+		<div class="kt-kaart"><p>{t('Laen tulemusi…')}</p></div>
 	{:else}
 		<div class="kt-kaart">
-			<p class="kt-etapp">Grupp · {andmed.kood}</p>
+			<p class="kt-etapp">{t('Grupp')} · {andmed.kood}</p>
 			<h2>{andmed.nimi}</h2>
 			{#if !andmed.osalejaid.eel}
-				<p>Keegi pole veel testi teinud. Õpilaste link: <b>pidurdusmaa.ee/liiklusohutus/koolitus/?kood={andmed.kood}</b></p>
+				<p>{t('Keegi pole veel testi teinud. Õpilaste link:')} <b>pidurdusmaa.ee{keel.L('/liiklusohutus/koolitus/')}?kood={andmed.kood}</b></p>
 			{:else}
 				<div class="kt-ep">
-					<div><span>Enne</span><b>{andmed.oigeid.eel ?? '–'}%</b><small>{andmed.osalejaid.eel} õpilast</small></div>
+					<div><span>{t('Enne')}</span><b>{andmed.oigeid.eel ?? '–'}%</b><small>{t('{n} õpilast', { n: andmed.osalejaid.eel })}</small></div>
 					<i aria-hidden="true">→</i>
-					<div class:hea={andmed.oigeid.jarel > andmed.oigeid.eel}><span>Pärast</span><b>{andmed.oigeid.jarel ?? '–'}%</b><small>{andmed.osalejaid.jarel} õpilast</small></div>
+					<div class:hea={andmed.oigeid.jarel > andmed.oigeid.eel}><span>{t('Pärast')}</span><b>{andmed.oigeid.jarel ?? '–'}%</b><small>{t('{n} õpilast', { n: andmed.osalejaid.jarel })}</small></div>
 				</div>
-				<p class="kt-vaike">Õigete vastuste osa. Järeltestis on uued ja trikiga küsimused.</p>
+				<p class="kt-vaike">{t('Õigete vastuste osa. Järeltest küsib samu teadmisi teises olukorras.')}</p>
 			{/if}
 			<div class="kt-nupud">
-				<button type="button" class="btn" disabled={laeb} onclick={lae}>{laeb ? 'Laen…' : 'Värskenda'}</button>
-				<button type="button" class="btn" onclick={() => window.print()}>Prindi või salvesta PDF</button>
+				<button type="button" class="btn" disabled={laeb} onclick={lae}>{laeb ? t('Laen…') : t('Värskenda')}</button>
+				<button type="button" class="btn" onclick={() => window.print()}>{t('Prindi või salvesta PDF')}</button>
 			</div>
-			<p class="kt-vaike kt-printaeg">Seisuga {new Date().toLocaleString('et-EE', { dateStyle: 'short', timeStyle: 'short' })}</p>
+			<p class="kt-vaike kt-printaeg">{t('Seisuga')} {new Date().toLocaleString(keel.lang === 'ru' ? 'ru-RU' : 'et-EE', { dateStyle: 'short', timeStyle: 'short' })}</p>
 		</div>
 
 		{#if andmed.opilased?.length}
 			<div class="kt-kaart">
-				<h3>Õpilased</h3>
-				<p class="kt-vaike">Iga läbimine eraldi. Vajuta reale, et näha, milles õpilane eksis.</p>
-				<div class="kt-op kt-op-pea" aria-hidden="true"><span>Õpilane</span><span>Enne</span><span>Pärast</span><span>Muutus</span></div>
+				<h3>{t('Õpilased')}</h3>
+				<p class="kt-vaike">{t('Iga läbimine eraldi. Vajuta reale, et näha, milles õpilane eksis.')}</p>
+				<div class="kt-op kt-op-pea" aria-hidden="true"><span>{t('Õpilane')}</span><span>{t('Enne')}</span><span>{t('Pärast')}</span><span>{t('Muutus')}</span></div>
 				{#each andmed.opilased as o, nr (nr)}
 					{@const e = o.eel[1] ? Math.round((o.eel[0] / o.eel[1]) * 100) : null}
 					{@const j = o.jarel[1] ? Math.round((o.jarel[0] / o.jarel[1]) * 100) : null}
 					<details class="kt-opd">
 						<summary class="kt-op">
-							<span class="kt-opn">{o.nimi || 'Õpilane ' + (nr + 1)}</span>
+							<span class="kt-opn">{o.nimi || t('Õpilane') + ' ' + (nr + 1)}</span>
 							<span>{o.eel[1] ? o.eel[0] + '/' + o.eel[1] : '–'}</span>
-							<span>{o.jarel[1] ? o.jarel[0] + '/' + o.jarel[1] : 'pooleli'}</span>
-							<span class:kt-plus={e !== null && j !== null && j > e} class:kt-miinus={e !== null && j !== null && j < e}>{e !== null && j !== null ? (j - e > 0 ? '+' : '') + (j - e) + ' p.p.' : ''}</span>
+							<span>{o.jarel[1] ? o.jarel[0] + '/' + o.jarel[1] : t('pooleli')}</span>
+							<span class:kt-plus={e !== null && j !== null && j > e} class:kt-miinus={e !== null && j !== null && j < e}>{e !== null && j !== null ? (j - e > 0 ? '+' : '') + (j - e) + ' ' + t('p.p.') : ''}</span>
 						</summary>
 						<div class="kt-valed">
-							{#each [['eel', 'Eeltestis eksis'], ['jarel', 'Järeltestis eksis']] as [et, pealk] (et)}
+							{#each [['eel', t('Eeltestis eksis')], ['jarel', t('Järeltestis eksis')]] as [et, pealk] (et)}
 								{#if o.valed[et].length}
 									<p class="kt-vaike"><b>{pealk}:</b></p>
-									<ul>{#each o.valed[et] as id (id)}{@const q = kysimus(id)}{#if q}<li>{q.k} <span class="kt-vaike">Õige: {q.v[q.o]}</span></li>{/if}{/each}</ul>
+									<ul>{#each o.valed[et] as id (id)}{@const q = kysimus(id)}{#if q}<li>{q.k} <span class="kt-vaike">{t('Õige:')} {q.v[q.o]}</span></li>{/if}{/each}</ul>
 								{/if}
 							{/each}
-							{#if !o.valed.eel.length && !o.valed.jarel.length}<p class="kt-vaike">Kõik vastused õiged.</p>{/if}
+							{#if !o.valed.eel.length && !o.valed.jarel.length}<p class="kt-vaike">{t('Kõik vastused õiged.')}</p>{/if}
 						</div>
 					</details>
 				{/each}
@@ -106,13 +115,13 @@
 
 		{#if andmed.teemad.length}
 			<div class="kt-kaart">
-				<h3>Teemade kaupa</h3>
-				<div class="kt-legend"><span class="e"></span>enne <span class="j"></span>pärast</div>
-				{#each andmed.teemad as t (t.id)}
+				<h3>{t('Teemade kaupa')}</h3>
+				<div class="kt-legend"><span class="e"></span>{t('enne')} <span class="j"></span>{t('pärast')}</div>
+				{#each andmed.teemad as tm (tm.id)}
 					<div class="kt-teema">
-						<p>{teemaNimi(t.id)}</p>
-						<div class="kt-riba"><i class="e" style="width:{t.eel ?? 0}%"></i><b>{t.eel ?? '–'}%</b></div>
-						<div class="kt-riba"><i class="j" style="width:{t.jarel ?? 0}%"></i><b>{t.jarel ?? '–'}%</b></div>
+						<p>{teemaNimi(tm.id)}</p>
+						<div class="kt-riba"><i class="e" style="width:{tm.eel ?? 0}%"></i><b>{tm.eel ?? '–'}%</b></div>
+						<div class="kt-riba"><i class="j" style="width:{tm.jarel ?? 0}%"></i><b>{tm.jarel ?? '–'}%</b></div>
 					</div>
 				{/each}
 			</div>
@@ -120,12 +129,12 @@
 
 		{#if andmed.kysimused.length}
 			<div class="kt-kaart">
-				<h3>Mis jäi segaseks</h3>
-				<p class="kt-vaike">Iga rida on üks teadmine: eeltestis üks küsimus, järeltestis sama asi teisiti küsitud. Ülal need, mis jäid ka pärast selgitust segaseks. Nendest tasub tunnis rääkida.</p>
+				<h3>{t('Mis jäi segaseks')}</h3>
+				<p class="kt-vaike">{t('Iga rida on üks teadmine: eeltestis üks küsimus, järeltestis sama asi teisiti küsitud. Ülal need, mis jäid ka pärast selgitust segaseks. Nendest tasub tunnis rääkida.')}</p>
 				<ol class="kt-ras">
 					{#each andmed.kysimused as k (k.id)}
 						{@const q = kysimus(k.id)}
-						{#if q}<li><p><b>enne {k.eel ?? '–'}% → pärast {k.jarel ?? '–'}%</b> <span class="kt-vaike">õigeid · {k.vastajaid} õpilast</span></p><p>{q.k}</p><p class="kt-vaike">Õige: {q.v[q.o]}</p></li>{/if}
+						{#if q}<li><p><b>{t('enne')} {k.eel ?? '–'}% → {t('pärast')} {k.jarel ?? '–'}%</b> <span class="kt-vaike">{t('õigeid')} · {t('{n} õpilast', { n: k.vastajaid })}</span></p><p>{q.k}</p><p class="kt-vaike">{t('Õige:')} {q.v[q.o]}</p></li>{/if}
 					{/each}
 				</ol>
 			</div>
