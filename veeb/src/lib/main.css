@@ -1230,3 +1230,5 @@ html.upotus .lo-bg{padding-top:12px!important}
 html.upotus .lo-naited,html.upotus .lo-tools,html.upotus .rk-seaded,html.upotus .rk-must,html.upotus .rk-mliug,html.upotus .rk-nupud,html.upotus .rk-jaga,html.upotus .rk-valik{display:none!important}
 /* mäng mahub hüpikakna kõrgusesse koos tulemuse tekstiga */
 html.upotus .rk-cv{max-height:calc(100vh - 150px);object-fit:contain}
+/* katsete täpid pildi vasakusse ülanurka, et all ei lõiguks ära */
+html.upotus .rk-ala{position:relative}html.upotus .rk-pallid{position:absolute;left:16px;top:16px;pointer-events:none}
