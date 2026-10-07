@@ -570,6 +570,7 @@ export default {
 "Vaata sobivaid rehve": "See matching tyres",
 "Koostöö": "Partnership",
 "Haagise pidurid": "Trailer brakes",
+"Uued rehvid": "New tyres",
 "Lühidalt": "In short",
 "\">eemalda</button></span></th>": "\">remove</button></span></th>",
 "Jah": "Yes",

@@ -613,6 +613,7 @@ export default {
 "Vaata sobivaid rehve": "Смотреть подходящие шины",
 "Koostöö": "Сотрудничество",
 "Haagise pidurid": "Тормоза прицепа",
+"Uued rehvid": "Новые шины",
 "Lühidalt": "Коротко",
 "\">eemalda</button></span></th>": "\">убрать</button></span></th>",
 "Jah": "Да",

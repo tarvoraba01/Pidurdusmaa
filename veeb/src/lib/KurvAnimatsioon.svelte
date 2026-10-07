@@ -47,7 +47,15 @@
 	};
 
 	let figW = $state(800);
-	const AR = $derived(figW < 560 ? 1.25 : 1.6);
+	let sceneH = $state(0);
+	/* tegelik pildi kuju: madalal ekraanil piirab max-height kõrgust (pilt on laiem kui 1,6),
+	   siis peab ülevaade arvestama päris kujuga, muidu lõikab „slice“ teekonna otsa ära */
+	const AR = $derived.by(() => {
+		const vaikimisi = figW < 560 ? 1.25 : 1.6;
+		if (!sceneH || !figW) return vaikimisi;
+		return Math.max(vaikimisi, Math.round((figW / sceneH) * 20) / 20);
+	});
+	const kitsas = $derived(figW < 560);
 	const geo = $derived.by(() => {
 		if (!sim) return null;
 		const T = sim.tee;
@@ -66,6 +74,9 @@
 		for (let s = sNae - 15; s <= sMax + 15; s += 4) for (const d of [-2.5, RADA * 1.5 + 1]) { const p = nihe(T.punkt(s), d); lisa(p[0], p[1]); }
 		const pad = 6;
 		x0 -= pad; x1 += pad; y0 -= pad; y1 += pad;
+		/* ülal on nupud ja all mõõtkava pildi peal: jäta neile ruumi, et teekond nende alla ei jääks */
+		const hh = y1 - y0;
+		y0 -= hh * 0.18; y1 += hh * 0.1;
 		let w = x1 - x0, h = y1 - y0;
 		if (w / h < AR) { const nw = h * AR; x0 -= (nw - w) / 2; w = nw; } else { const nh = w / AR; y0 -= (nh - h) / 2; h = nh; }
 		const yld = { x: x0 + w / 2, y: y0 + h / 2, w };
@@ -222,7 +233,7 @@
 	let ootel = 0;
 	$effect(() => {
 		sim;
-		AR;
+		kitsas;
 		untrack(() => {
 			clearTimeout(ootel);
 			if (!nahtav || vaikne) { tSim = 1e9; lopuAeg = null; mangib = false; seaKaamera(0, true); return; }
@@ -292,7 +303,7 @@
 
 <figure class="ka" class:talv bind:this={figEl} bind:clientWidth={figW}>
 	{#if sim && geo && hetk}
-		<div class="ka-scene">
+		<div class="ka-scene" bind:clientHeight={sceneH}>
 		<svg viewBox={vb} role="img" aria-label={t('Auto teekond pealtvaates')} preserveAspectRatio="xMidYMid slice">
 			<defs>
 				<pattern id="ka-lumi" width="3" height="3" patternUnits="userSpaceOnUse"><circle cx=".6" cy=".8" r=".18" fill="#dfe6ee" /><circle cx="2.1" cy="2.2" r=".14" fill="#e7edf3" /></pattern>

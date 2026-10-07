@@ -274,6 +274,7 @@
 		if (kaib) return;
 		const vali = (a) => a[Math.floor(Math.random() * a.length)];
 		ilm = vali(['kuiv', 'vihm', 'talv']);
+		if (!(ilm === 'talv' ? [8, 5, 4, 3] : [8, 5, 3, 1.6]).includes(muster)) muster = 8;
 		if (reziim === 'pime') { kiirus = vali([30, 50, 50, 70, 90, 110]); riie = vali(['tume', 'tume', 'hele', 'helkur']); }
 		else { kiirus = vali([50, 70, 90, 90, 110, 130]); vahe = vali([0.5, 1, 1, 2]); }
 		lahtesta();
@@ -393,7 +394,10 @@
 			</div>
 		{/if}
 		<div class="rk-seg" role="group" aria-label={t('Ilm')}>
-			{#each ILM as [k, n] (k)}<button type="button" disabled={kaib} aria-pressed={ilm === k} onclick={() => seadista(() => (ilm = k))}>{n}</button>{/each}
+			{#each ILM as [k, n] (k)}<button type="button" disabled={kaib} aria-pressed={ilm === k} onclick={() => seadista(() => { ilm = k; if (!(k === 'talv' ? [8, 5, 4, 3] : [8, 5, 3, 1.6]).includes(muster)) muster = 8; })}>{n}</button>{/each}
+		</div>
+		<div class="rk-seg" role="group" aria-label={t('Sinu rehvide muster')}>
+			{#each (ilm === 'talv' ? [8, 5, 4, 3] : [8, 5, 3, 1.6]) as mm (mm)}<button type="button" disabled={kaib} aria-pressed={muster === mm} onclick={() => { muster = mm; track('muster', String(mm)); }}>{mm === 8 ? t('Uued rehvid') : String(mm).replace('.', ',') + ' mm'}</button>{/each}
 		</div>
 		<button type="button" class="rk-juh" disabled={kaib} onclick={juhuslik}>{t('Juhuslik olukord')}</button>
 	</div>
