@@ -579,6 +579,8 @@ export default {
 "Seda mudelit praegu poes ei ole. Vaata sama mõõdu rehve.": "This model is not in the shop right now. See tyres in the same size.",
 "Vaata": "View",
 "Kui pika maaga peatub sinu auto oma rehvidega?": "How far does your car stop on your tyres?",
+"Uue rehvimõõdu läbimõõt võiks erineda tehase mõõdust kuni 1,5%, mitte üle 3%. Vali praegune ja uus mõõt: näed läbimõõtu, külje kõrgust ja mida näitab spidomeeter.": "The diameter of a new tyre size should differ from the factory size by up to 1.5%, never more than 3%. Pick your current and new size to see the diameter, sidewall height and what the speedometer shows.",
+"50 km/h pealt peatub auto kuival teel umbes 24 meetriga, märjal 27 meetriga; 90 km/h pealt 55 ja 70 meetriga. Muuda kiirust, reaktsiooniaega, teeolusid ja rehve ning vaata kohe, kuidas peatumisteekond muutub.": "From 50 km/h a car stops in about 24 metres on a dry road and 27 metres on a wet one; from 90 km/h in 55 and 70 metres. Change the speed, reaction time, road conditions and tyres and see the stopping distance change instantly.",
 "Lühidalt": "In short",
 "\">eemalda</button></span></th>": "\">remove</button></span></th>",
 "Jah": "Yes",

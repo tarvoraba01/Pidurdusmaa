@@ -1,0 +1,51 @@
+/* Rehvimargi lühikirjeldus margilehe algusesse (/margid/<mark>/): päritolu ja
+ * omanik. Ainult laialt teada ja püsivad faktid; kui pole kindel, jäta välja.
+ * Kontrollitud 2026-10 seisuga. */
+export const MARGI_INFO = {
+	nokian: 'Soome tootja Nokian Tyres, talverehvide pioneer: esimene Hakkapeliitta tuli turule 1936. aastal.',
+	continental: 'Saksa tootja (Hannover), üks Euroopa suurimaid rehvitootjaid.',
+	michelin: 'Prantsuse tootja (Clermont-Ferrand), üks maailma suurimaid rehvitootjaid.',
+	goodyear: 'USA tootja (Akron, Ohio), üks maailma suurimaid rehvitootjaid.',
+	bridgestone: 'Jaapani tootja (Tokyo), üks maailma suurimaid rehvitootjaid.',
+	pirelli: 'Itaalia tootja (Milano).',
+	hankook: 'Lõuna-Korea tootja, üks maailma suurimaid rehvitootjaid.',
+	kumho: 'Lõuna-Korea tootja.',
+	nexen: 'Lõuna-Korea tootja.',
+	roadstone: 'Lõuna-Korea Nexeni teine kaubamärk.',
+	laufenn: 'Lõuna-Korea Hankooki soodsam kaubamärk.',
+	marshal: 'Lõuna-Korea Kumho kaubamärk.',
+	yokohama: 'Jaapani tootja.',
+	toyo: 'Jaapani tootja.',
+	falken: 'Jaapani Sumitomo Rubber Industries kaubamärk.',
+	nankang: 'Taiwani tootja.',
+	maxxis: 'Taiwani tootja.',
+	kenda: 'Taiwani tootja.',
+	cst: 'Taiwani tootja Cheng Shin Rubber kaubamärk (sama ettevõte, mis Maxxis).',
+	sailun: 'Hiina tootja (Qingdao).',
+	linglong: 'Hiina tootja.',
+	triangle: 'Hiina tootja.',
+	kormoran: 'Michelini grupi soodsam kaubamärk.',
+	riken: 'Michelini grupi soodsam kaubamärk.',
+	tigar: 'Michelini grupi kaubamärk, tehas Serbias.',
+	kleber: 'Michelini grupi kaubamärk, Prantsuse päritolu.',
+	bfgoodrich: 'USA päritolu kaubamärk Michelini grupis.',
+	barum: 'Continentali grupi soodsam kaubamärk, Tšehhi päritolu.',
+	matador: 'Continentali grupi kaubamärk, Slovakkia päritolu.',
+	semperit: 'Continentali grupi kaubamärk, Austria päritolu.',
+	uniroyal: 'Euroopas Continentali grupi kaubamärk.',
+	viking: 'Continentali grupi kaubamärk, Norra päritolu.',
+	mabor: 'Continentali grupi kaubamärk, Portugali päritolu.',
+	dunlop: 'Briti päritolu kaubamärk, Euroopas Goodyeari grupis.',
+	fulda: 'Goodyeari grupi kaubamärk, Saksa päritolu.',
+	sava: 'Goodyeari grupi kaubamärk, Sloveenia päritolu.',
+	debica: 'Goodyeari grupi kaubamärk, Poola päritolu.',
+	firestone: 'Bridgestone grupi kaubamärk, USA päritolu.',
+	vredestein: 'Hollandi päritolu kaubamärk, kuulub India Apollo Tyresile.',
+	apollo: 'India tootja Apollo Tyres.',
+	ceat: 'India tootja.',
+	petlas: 'Türgi tootja.',
+	nordman: 'Nokian Tyresi soodsam kaubamärk.'
+};
+
+/* vene keeles (vene margilehte praegu pole, aga llms/RU tekstide jaoks valmis) */
+export const MARGI_INFO_RU = {};

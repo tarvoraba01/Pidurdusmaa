@@ -2,10 +2,13 @@
 	import Meta from '$lib/Meta.svelte';
 	import { KAT_NIMI } from '$lib/util.js';
 	import { BASE } from '$lib/skeem.js';
+	import { MARGI_INFO } from '$lib/margiInfo.js';
 	let { data } = $props();
 	const m = $derived(data.mark);
+	const info = $derived(MARGI_INFO[m.slug] || '');
 	const path = $derived('/margid/' + m.slug + '/');
 	const desc = $derived(
+		(info ? `${m.nimi} on ${info} ` : '') +
 		`${m.nimi} rehvid: ${data.mudeleid} mudelit EL-i rehvimärgise andmetega` +
 			(data.testitud.length ? `, neist ${data.testitud.length} sõltumatult testitud` : '') +
 			'. Vaata märghaardumise klasse ja pidurdusmaad oma autoga.'
@@ -37,6 +40,7 @@
 			><span>/</span>{m.nimi}
 		</div>
 		<h1>{m.nimi} rehvid</h1>
+		{#if info}<p>{m.nimi} on {info}</p>{/if}
 		<p>
 			{data.mudeleid} mudelit ja {data.mootudKokku} mõõtu EL-i rehvimärgise andmebaasis{#if data.testitud.length},
 				{data.testitud.length} mudelit sõltumatutes testides{/if}.

@@ -14,6 +14,8 @@ import { core, eprelSize, pretty, sizeSlug, titleCase, sizeModelCount, SIZE_MIN_
 import { autodMoodus, autod as autodIdx } from './autod.js';
 
 const P = () => globalThis.Pidurdus;
+/* talverehvide lehtede sisu viimati üle vaadatud (nähtav „uuendatud“ ja dateModified) */
+export const TALV_UUENDATUD = '2026-10-07';
 const FLAG = { SNOW: 4, ICE: 8 };
 /* EPREL-i kategooria number (andmed.js eprelSize: katNr) */
 const KAT = { SUVI: 0, AASTARING: 1, KESK: 2, POHJA: 3 };
@@ -145,6 +147,7 @@ export function talveLeht(slug) {
 
 	const autod = autodMoodus(s.m).filter((c) => c.pohi);
 	return {
+		uuendatud: TALV_UUENDATUD,
 		moot: { m: s.m, slug: s.slug, label, sizeSlug: sizeModelCount(s.m) >= SIZE_MIN_MODELS ? s.slug : null },
 		auto: auto ? { nimi: auto.nimi, url: auto.url, key: auto.veh.key } : null,
 		autod: autod.slice(0, 16),

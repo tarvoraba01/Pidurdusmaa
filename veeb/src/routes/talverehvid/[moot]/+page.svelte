@@ -2,7 +2,8 @@
 	/* „Parimad talverehvid <mõõt>“ — andmed $lib/server/talv.js. Tekstid eesti keeles,
 	   vene tõlge $lib/i18n/ru.js (/ru/talverehvid/<mõõt>/). */
 	import Meta from '$lib/Meta.svelte';
-	import { BASE } from '$lib/skeem.js';
+	import Autor from '$lib/Autor.svelte';
+	import { BASE, graph, artikkel } from '$lib/skeem.js';
 	import { KAT_NIMI, num } from '$lib/util.js';
 	import { useT, useLang, autoNimi } from '$lib/i18n.js';
 	const t = useT();
@@ -20,6 +21,26 @@
 			(data.auto ? ' ' + t('Sobib nt autole {auto}.', { auto: an(data.auto.nimi) }) : '')
 	);
 	const tyybiRida = (x) => data.tyybid.find((y) => y.kat === x);
+	/* esimene lause = vastus numbritega (AI ülevaated / ChatGPT tsiteerivad seda) */
+	const parimN = $derived(data.naastud.find((x) => x.jaa != null));
+	const parimL = $derived(data.lamellid.find((x) => x.jaa != null));
+	const vastus = $derived(
+		parimN && parimL && data.auto
+			? t('Mõõdus {m} pidurdas jääl kõige paremini naastrehv {n} ({nm}) ja lamellrehvidest {l} ({lm}), arvutatud 50 km/h pealt autoga {auto}.', {
+					m: m.label, n: parimN.nimi, nm: mm(parimN.jaa), l: parimL.nimi, lm: mm(parimL.jaa), auto: an(data.auto.nimi)
+				})
+			: ''
+	);
+	const kkk = $derived(
+		[
+			parimN && parimL ? [t('Milline on parim talverehv mõõdus {m}?', { m: m.label }), vastus + ' ' + t('Jääl pidurdab naastrehv tavaliselt lühemalt, lumel on vahe väike.')] : null,
+			tyybiRida('WINTER_STUDDED') && tyybiRida('WINTER_NORDIC')
+				? [t('Naast või lamell mõõdus {m}?', { m: m.label }), t('Tüüpilise naastrehviga peatub auto jääl 50 km/h pealt umbes {n}, Põhjamaade lamellrehviga {l}. Lumel {nl} vs {ll}.', { n: mm(tyybiRida('WINTER_STUDDED').jaa), l: mm(tyybiRida('WINTER_NORDIC').jaa), nl: mm(tyybiRida('WINTER_STUDDED').lumi), ll: mm(tyybiRida('WINTER_NORDIC').lumi) })]
+				: null,
+			[t('Mitu Põhjamaade talverehvi on mõõdus {m}?', { m: m.label }), t('EL-i rehviregistris on mõõdus {m} {n} Põhjamaade talverehvi, neist {j} jäämärgiga.', { m: m.label, n: data.pohjaKokku, j: data.pohjaJaa })]
+		].filter(Boolean)
+	);
+	const ldTop = $derived([...data.naastud, ...data.lamellid].filter((x) => x.slug && x.jaa != null).sort((a, b) => a.jaa - b.jaa).slice(0, 10));
 	/* kui testitud rehvide lumi on arvutuses kõigil sama (lumetesti pole), jäetakse veerg ära */
 	const lumiErineb = (list) => new Set(list.map((r) => r.lumi)).size > 1;
 </script>
@@ -29,14 +50,11 @@
 	{desc}
 	path="talverehvid/{m.slug}/"
 	crumbs={[[t('Avaleht'), '/'], [t('Talverehvid'), '/talverehvid/'], [m.label, path]]}
-	jsonld={{
-		'@context': 'https://schema.org',
-		'@type': 'WebPage',
-		name: pealkiri,
-		description: desc,
-		url: BASE + L(path),
-		inLanguage: keel.lang
-	}}
+	jsonld={graph(
+		...artikkel({ path: L(path), title: pealkiri, desc, uuendatud: data.uuendatud, avaldatud: '2026-09-30', lang: keel.lang }),
+		{ '@type': 'FAQPage', mainEntity: kkk.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) },
+		...(ldTop.length ? [{ '@type': 'ItemList', name: t('Parimad talverehvid {m}', { m: m.label }), itemListElement: ldTop.map((x, i) => ({ '@type': 'ListItem', position: i + 1, name: x.nimi, url: BASE + L('/rehvid/' + x.slug + '/') })) }] : [])
+	)}
 />
 
 <section class="page-hero">
@@ -46,6 +64,7 @@
 		</div>
 		<p class="eyebrow" style="color:var(--muted-d)">{t('Talverehvid 2026/2027')}</p>
 		<h1>{t('Parimad talverehvid {m}', { m: m.label })}</h1>
+		{#if vastus}<p>{vastus}</p>{/if}
 		<p>
 			{t('{m} on tehase põhimõõt {n} automudelil.', { m: m.label, n: data.autosid })}
 			{t('Siin on selle mõõdu talverehvid päris andmete järgi: testitud rehvide pidurdusmaa lumel ja jääl ning EL-i rehvimärgis.')}
@@ -59,6 +78,7 @@
 
 <div class="body-sec">
 	<div class="wrap">
+		<Autor uuendatud={data.uuendatud} />
 		{#if data.tyybid.length}
 			<div class="box">
 				<h2>{t('Rehvitüüp loeb kõige rohkem')}</h2>
@@ -158,6 +178,13 @@
 					{#each data.autod as c (c.url)}<li><a href={L(c.url)}>{an(c.nimi)}</a></li>{/each}
 				</ul>
 				{#if data.autosid > data.autod.length}<p class="note">{t('…ja veel {n}.', { n: data.autosid - data.autod.length })}</p>{/if}
+			</div>
+		{/if}
+
+		{#if kkk.length}
+			<div class="box">
+				<h2>{t('Korduma kippuvad küsimused')}</h2>
+				{#each kkk as [q, a] (q)}<h3 style="font-size:17px;margin:var(--sp-4) 0 var(--sp-1)">{q}</h3><p style="margin:0">{a}</p>{/each}
 			</div>
 		{/if}
 

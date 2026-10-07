@@ -154,6 +154,11 @@
 				pidurdusteekond или pidurdusmaa) начинается с момента, когда тормоз начинает действовать. Остановочный путь
 				начинается уже с момента, когда водитель замечает опасность, и он всегда длиннее.
 			</p>
+			<p>
+				<strong>Сколько это в метрах:</strong> со скорости 50 км/ч автомобиль останавливается на сухой дороге примерно за
+				24 м, на мокрой — за 27 м. Со скорости 90 км/ч — примерно 55 м на сухой и 70 м на мокрой дороге, из них 25 м
+				приходится на реакцию (VW Golf 8, средняя шина, реакция 1 секунда).
+			</p>
 
 			<h2>Три понятия</h2>
 			<ul>
@@ -291,6 +296,11 @@
 				<strong>Peatumisteekond = reageerimisteekond + pidurdusteekond.</strong> Pidurdusteekond (ehk
 				pidurdusmaa) algab hetkest, kui pidur hakkab tööle. Peatumisteekond algab juba hetkest, kui
 				juht ohtu märkab, ja see on alati pikem.
+			</p>
+			<p>
+				<strong>Kui palju see meetrites on:</strong> 50 km/h pealt peatub auto kuival teel umbes 24 meetriga, märjal
+				27 meetriga. 90 km/h pealt umbes 55 m kuival ja 70 m märjal teel, millest 25 m on reaktsioon (VW Golf 8,
+				keskmine rehv, reaktsioon 1 sekund).
 			</p>
 
 			<h2>Kolm mõistet</h2>

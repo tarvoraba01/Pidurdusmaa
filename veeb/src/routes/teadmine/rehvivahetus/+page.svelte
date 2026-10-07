@@ -161,13 +161,13 @@
 				<a href={L('/')}>Главная</a><span>/</span><a href={L('/teadmine/')}>Знания</a><span>/</span>Смена резины
 			</div>
 			<h1>Смена резины в Эстонии: когда зимняя и когда летняя</h1>
-			<p>Сроки по закону и простой совет — без лишнего.</p>
+			<p>Зимние шины в Эстонии обязательны с 1 декабря по 1 марта, шипованные разрешены с 15 октября по 31 марта (при зимних условиях с 1 октября по 30 апреля). Ниже — что разрешено сегодня и простой совет.</p>
 		{:else}
 			<div class="crumbs">
 				<a href="/">Avaleht</a><span>/</span><a href="/teadmine/">Teadmine</a><span>/</span>Rehvivahetus
 			</div>
 			<h1>Rehvivahetus: millal talverehvid ja suverehvid alla</h1>
-			<p>Seaduse kuupäevad ja lihtne soovitus — ilma liigse jututa.</p>
+			<p>Talverehvid on Eestis kohustuslikud 1. detsembrist 1. märtsini, naastrehvid lubatud 15. oktoobrist 31. märtsini (talviste olude korral 1. oktoobrist 30. aprillini). Allpool on, mis täna lubatud on, ja lihtne soovitus.</p>
 		{/if}
 	</div>
 </section>

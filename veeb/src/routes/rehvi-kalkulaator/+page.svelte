@@ -19,7 +19,7 @@
 
 <Meta title={t('Rehvikalkulaator — rehvimõõt, läbimõõt, külje kõrgus ja spidomeeter')} desc={KIRJ} path="rehvi-kalkulaator/" crumbs={[[t('Avaleht'), '/'], [t('Rehvimõõdu kalkulaator'), '/rehvi-kalkulaator/']]} {jsonld} image="/og/sait/rehvi-kalkulaator.png" />
 
-<LiiklusLeht kick={t('Rehvid · mõõt')} h1={t('Rehvimõõdu kalkulaator')} lead={t('Vali praegune ja uus rehvimõõt. Näed, kui palju muutuvad läbimõõt ja külje kõrgus ning mida näitab spidomeeter.')} vaade="moot" andmed={data.moodud}>
+<LiiklusLeht kick={t('Rehvid · mõõt')} h1={t('Rehvimõõdu kalkulaator')} lead={t('Uue rehvimõõdu läbimõõt võiks erineda tehase mõõdust kuni 1,5%, mitte üle 3%. Vali praegune ja uus mõõt: näed läbimõõtu, külje kõrgust ja mida näitab spidomeeter.')} vaade="moot" andmed={data.moodud}>
 	{#each KKK as [q, a] (q)}
 		<div>
 			<h2>{q}</h2>

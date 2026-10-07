@@ -16,7 +16,7 @@
 <LiiklusLeht
 	kick={t("Liiklusohutus · tasuta, ilma reklaamita")}
 	h1={t("Kui pika maa pealt auto peatub?")}
-	lead={t("Muuda kiirust, reaktsiooniaega, teeolusid ja rehvide seisukorda ning vaata kohe, kuidas peatumisteekond muutub. Pane kaks olukorda kõrvuti ja näe, millise kiirusega jõuab auto sinna, kus teine juba seisab.")}
+	lead={t("50 km/h pealt peatub auto kuival teel umbes 24 meetriga, märjal 27 meetriga; 90 km/h pealt 55 ja 70 meetriga. Muuda kiirust, reaktsiooniaega, teeolusid ja rehve ning vaata kohe, kuidas peatumisteekond muutub.")}
 	vaade="peatumine"
 >
 
