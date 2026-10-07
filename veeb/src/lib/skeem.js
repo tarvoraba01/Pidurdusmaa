@@ -24,6 +24,8 @@ export const WEBSITE = {
 	'@id': SITE_ID,
 	url: BASE + '/',
 	name: 'Pidurdusmaa.ee',
+	/* Google'i saidinimi: eelistatud nimi + varianti (vt developers.google.com/search/docs/appearance/site-names) */
+	alternateName: ['Pidurdusmaa', 'pidurdusmaa.ee'],
 	inLanguage: 'et',
 	publisher: { '@id': ORG_ID }
 };
