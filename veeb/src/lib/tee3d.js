@@ -85,8 +85,10 @@ function valgus(z, oo, lampL = 0) {
 
 const SILM = 2; /* juhi silmad auto esiotsast tagapool (m) */
 export function joonista(ctx, W, H, tee, o) {
-	try { joonistaStseen(ctx, W, H, tee, o); } catch (e) { /* üks vigane kaader ei tohi salongi ära viia */ }
+	let P = null;
+	try { P = joonistaStseen(ctx, W, H, tee, o); } catch (e) { /* üks vigane kaader ei tohi salongi ära viia */ }
 	const k = kokpit(W, H);
+	k.tee = P; /* navigatsiooniekraanile: tee telg eespool (zr, x) */
 	try {
 		kapott(ctx, W, H, k, o);
 		klaasIlm(ctx, W, H, k, o);
@@ -227,7 +229,7 @@ function joonistaStseen(ctx, W, H, tee, o) {
 		rg.addColorStop(0, 'rgba(0,0,0,0)'); rg.addColorStop(1, 'rgba(0,0,0,0.55)');
 		ctx.fillStyle = rg; ctx.fillRect(0, 0, W, H);
 	}
-
+	return P;
 }
 function klaas(ctx, W, H) {
 	{
@@ -381,11 +383,24 @@ function salong(ctx, W, H, k, o) {
 		const eg = ctx.createLinearGradient(ex - ew / 2, ey, ex + ew / 2, ey + eh);
 		eg.addColorStop(0, oo ? '#0c1422' : '#13202f'); eg.addColorStop(1, oo ? '#070b12' : '#0b121b');
 		ruut(ctx, ex - ew / 2, ey, ew, eh, 0.014 * u); ctx.fillStyle = eg; ctx.fill();
-		/* navigatsioon: tee ja nool */
-		ctx.strokeStyle = oo ? '#2c3d56' : '#35506e'; ctx.lineWidth = 0.02 * u; ctx.lineCap = 'round';
-		ctx.beginPath(); ctx.moveTo(ex - 0.03 * u, ey + eh - 0.01 * u); ctx.quadraticCurveTo(ex - 0.02 * u, ey + eh * 0.45, ex + 0.06 * u, ey + 0.02 * u); ctx.stroke();
+		/* navigatsioon: päris tee eespool pealtvaates (sama tee, mis klaasist paistab), auto nool all keskel */
+		const ox = ex, oy = ey + eh - 0.035 * u, sc = (eh * 0.85) / 220;
+		ctx.save();
+		ruut(ctx, ex - ew / 2, ey, ew, eh, 0.014 * u); ctx.clip();
+		if (k.tee && k.tee.length > 2) {
+			const tee = k.tee.filter((p) => p.zr <= 260);
+			const joon = (laius, varv) => {
+				ctx.strokeStyle = varv; ctx.lineWidth = laius; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+				ctx.beginPath();
+				tee.forEach((p, i) => { const x = ox + p.x * sc, y = oy - p.zr * sc; i ? ctx.lineTo(x, y) : ctx.moveTo(x, y); });
+				ctx.stroke();
+			};
+			joon(0.03 * u, oo ? '#1d2a3c' : '#22344a'); /* tee */
+			joon(0.012 * u, oo ? '#2f6fb8' : '#3b82d6'); /* marsruut */
+		}
+		ctx.restore();
 		ctx.lineCap = 'butt';
-		ctx.fillStyle = '#4da3ff'; ctx.beginPath(); ctx.moveTo(ex - 0.03 * u, ey + eh * 0.62); ctx.lineTo(ex - 0.045 * u, ey + eh * 0.8); ctx.lineTo(ex - 0.015 * u, ey + eh * 0.8); ctx.fill();
+		ctx.fillStyle = '#4da3ff'; ctx.beginPath(); ctx.moveTo(ox, oy - 0.03 * u); ctx.lineTo(ox - 0.016 * u, oy + 0.004 * u); ctx.lineTo(ox + 0.016 * u, oy + 0.004 * u); ctx.fill();
 		const kell = new Date(); ctx.fillStyle = '#c9d3e0'; ctx.textAlign = 'left';
 		ctx.font = `600 ${Math.round(0.026 * u)}px "Barlow Condensed", "Arial Narrow", sans-serif`;
 		ctx.fillText(String(kell.getHours()).padStart(2, '0') + ':' + String(kell.getMinutes()).padStart(2, '0'), ex - ew / 2 + 0.015 * u, ey + 0.035 * u);
