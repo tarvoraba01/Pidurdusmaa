@@ -13,7 +13,8 @@ const SEG = 5; /* lõigu pikkus, m */
 const N = 400; /* lõike (2 km, korduv) */
 const TEE_L = 3.5; /* sõiduraja laius */
 const KAAM_H = 1.25; /* silmade kõrgus */
-const KAAM_X = TEE_L / 2; /* kaamera sinu raja keskel (paremal) */
+const KAAM_X = TEE_L / 2; /* auto sinu raja keskel (paremal) */
+const JUHT_X = 0.37; /* juht istub auto keskjoonest vasakul (vasakpoolne rool) */
 const NAHE = 110; /* joonistatavaid lõike (550 m) */
 
 /* deterministlik juhuarv, et sama seed annaks sama tee */
@@ -148,7 +149,7 @@ function joonistaStseen(ctx, W, H, tee, o) {
 		const kn = kap(base + n);
 		x += th * SEG + 0.5 * kn * SEG * SEG; th += kn * SEG; zr += SEG;
 	}
-	const proj = (wx, wy, zr) => { const sc = D / Math.max(0.3, zr); return [W / 2 + (wx - KAAM_X) * sc, hor + (KAAM_H - wy) * sc, sc]; };
+	const proj = (wx, wy, zr) => { const sc = D / Math.max(0.3, zr); return [W / 2 + (wx - KAAM_X + JUHT_X) * sc, hor + (KAAM_H - wy) * sc, sc]; };
 	/* laternate valgus lõikudes (küla, öö) */
 	const lampL = (n) => {
 		if (!oo || tee.maastik !== 'kula') return 0;
@@ -244,12 +245,13 @@ function klaas(ctx, W, H) {
 function kokpit(W, H) {
 	const u = Math.min(H, W / 1.6), cx = W / 2;
 	const yd = H - 0.27 * u; /* armatuurlaua ülaserv */
-	return { u, cx, yd, katus: 0.055 * u };
+	/* auto keskjoon ~0,8 m ees: juhist 0,37 m paremal */
+	return { u, cx, yd, katus: 0.055 * u, ak: cx + 0.34 * W };
 }
 
 /* kapott paistab läbi klaasi armatuuri kohal */
 function kapott(ctx, W, H, k, o) {
-	const { u, cx, yd } = k, oo = !!o.oo;
+	const { u, yd } = k, cx = k.ak, oo = !!o.oo;
 	const y1 = yd - 0.05 * u, y2 = yd + 0.02 * u;
 	const g = ctx.createLinearGradient(0, y1, 0, y2);
 	g.addColorStop(0, oo ? '#121821' : '#3d4f66'); g.addColorStop(1, oo ? '#07090c' : '#1f2a38');
@@ -257,15 +259,17 @@ function kapott(ctx, W, H, k, o) {
 	ctx.beginPath(); ctx.moveTo(0, y2); ctx.lineTo(0, yd - 0.005 * u); ctx.quadraticCurveTo(cx, y1 - 0.02 * u, W, yd - 0.005 * u); ctx.lineTo(W, y2); ctx.fill();
 	/* läige kapoti serval */
 	ctx.strokeStyle = oo ? 'rgba(255,255,255,0.06)' : 'rgba(255,255,255,0.22)'; ctx.lineWidth = Math.max(1, 0.004 * u);
-	ctx.beginPath(); ctx.moveTo(W * 0.08, yd - 0.008 * u); ctx.quadraticCurveTo(cx, y1 - 0.012 * u, W * 0.92, yd - 0.008 * u); ctx.stroke();
+	ctx.beginPath(); ctx.moveTo(W * 0.08, yd - 0.008 * u); ctx.quadraticCurveTo(cx, y1 - 0.012 * u, W, yd - 0.02 * u); ctx.stroke();
 }
 
 /* vihm / lumi esiklaasil + kojamehed. Olek moodulis: piisad jäävad klaasile, kuni klaasipuhasti üle käib. */
 const KL = { piisad: [], t: null, ilm: '', nurk: 0 };
-const KOJA_MAX = 1.95; /* kojamehe pöördenurk (rad) */
+const KOJA_MAX = 1.75; /* kojamehe pöördenurk (rad) */
+/* vasakpoolse rooliga autol on kojamehe teljed keskel ja paremal; rahuasendis näitavad vasakule
+   ja tõusevad üles juhi poole */
 function kojamehed(k, W) {
-	const L = Math.min(0.36 * W, 0.62 * k.u * 1.6, k.yd * 0.98);
-	return [[W * 0.2, k.yd + 0.012 * k.u, L], [W * 0.6, k.yd + 0.012 * k.u, L * 0.94]];
+	const L = Math.min(0.62 * W, k.yd * 1.05);
+	return [[W * 0.76, k.yd + 0.012 * k.u, L], [W * 1.2, k.yd + 0.012 * k.u, L * 0.92]];
 }
 function koja(t) {
 	/* üles-alla 1,3 s, rahuasendis 0,3 s */
@@ -276,10 +280,10 @@ function koja(t) {
 }
 function klaasIlm(ctx, W, H, k, o) {
 	const t = o.aeg || 0, ilm = o.ilm, vihm = ilm === 'vihm', talv = ilm === 'talv', oo = !!o.oo;
-	if (KL.t === null || t < KL.t || ilm !== KL.ilm) { KL.piisad = []; KL.t = t; KL.ilm = ilm; KL.nurk = 0; }
+	if (KL.t === null || t < KL.t || ilm !== KL.ilm) { KL.piisad = []; KL.t = t; KL.ilm = ilm; KL.nurk = Math.PI; }
 	const dt = Math.min(0.1, t - KL.t); KL.t = t;
 	const sadu = vihm || talv, kmh = o.kmh || 0, u = k.u;
-	const nurk = sadu ? koja(t) : 0, eel = KL.nurk; KL.nurk = nurk;
+	const nurk = Math.PI - (sadu ? koja(t) : 0), eel = KL.nurk || Math.PI; KL.nurk = nurk;
 	const P = kojamehed(k, W);
 	if (sadu) {
 		/* uued piisad: sõites tabab klaasi rohkem */
@@ -342,16 +346,12 @@ function salong(ctx, W, H, k, o) {
 	/* katus ja piilarid */
 	ctx.fillStyle = sis;
 	ctx.beginPath(); ctx.moveTo(0, 0); ctx.lineTo(W, 0); ctx.lineTo(W, katus * 1.5); ctx.quadraticCurveTo(cx, katus * 0.6, 0, katus * 1.5); ctx.fill();
-	const pg = ctx.createLinearGradient(0, 0, W * 0.14, 0);
+	const pg = ctx.createLinearGradient(0, 0, W * 0.17, 0);
 	pg.addColorStop(0, sis); pg.addColorStop(1, sis2);
 	ctx.fillStyle = pg;
-	ctx.beginPath(); ctx.moveTo(0, 0); ctx.lineTo(W * 0.14, 0); ctx.lineTo(W * 0.035, yd); ctx.lineTo(0, yd); ctx.fill();
-	const pg2 = ctx.createLinearGradient(W, 0, W * 0.9, 0);
-	pg2.addColorStop(0, sis); pg2.addColorStop(1, sis2);
-	ctx.fillStyle = pg2;
-	ctx.beginPath(); ctx.moveTo(W, 0); ctx.lineTo(W * 0.915, 0); ctx.lineTo(W * 0.975, yd); ctx.lineTo(W, yd); ctx.fill();
+	ctx.beginPath(); ctx.moveTo(0, 0); ctx.lineTo(W * 0.17, 0); ctx.lineTo(W * 0.05, yd); ctx.lineTo(0, yd); ctx.fill();
 	/* tahavaatepeegel */
-	const mx = cx + 0.12 * W, mw = 0.3 * u, mh = 0.07 * u, my = katus + 0.035 * u;
+	const mx = k.ak, mw = 0.3 * u, mh = 0.07 * u, my = katus + 0.035 * u;
 	ctx.fillStyle = sis; ctx.fillRect(mx - 0.006 * u, katus * 0.8, 0.012 * u, my - katus * 0.8);
 	ruut(ctx, mx - mw / 2, my, mw, mh, mh * 0.35); ctx.fillStyle = '#111317'; ctx.fill();
 	const mg = ctx.createLinearGradient(0, my, 0, my + mh);
@@ -371,8 +371,25 @@ function salong(ctx, W, H, k, o) {
 	ctx.quadraticCurveTo(W * 0.8, yd - 0.006 * u, W, yd + 0.01 * u); ctx.lineTo(W, H); ctx.fill();
 	/* õhuavad servades ja keskel */
 	ctx.fillStyle = oo ? '#040506' : '#0d0f12';
-	for (const ax of [W * 0.06, W * 0.86]) { ruut(ctx, ax, yd + 0.05 * u, W * 0.08, 0.035 * u, 0.012 * u); ctx.fill(); }
+	for (const ax of [W * 0.04, k.ak - 0.07 * u]) { ruut(ctx, ax, yd + 0.05 * u, Math.min(W * 0.08, 0.14 * u), 0.035 * u, 0.012 * u); ctx.fill(); }
 
+	/* keskekraan auto keskel (juhist paremal) */
+	{
+		const ex = k.ak - 0.02 * u, ew = 0.3 * u, eh = 0.15 * u, ey = yd - 0.07 * u;
+		ruut(ctx, ex - ew / 2 - 0.008 * u, ey - 0.008 * u, ew + 0.016 * u, eh + 0.016 * u, 0.02 * u); ctx.fillStyle = '#050608'; ctx.fill();
+		const eg = ctx.createLinearGradient(ex - ew / 2, ey, ex + ew / 2, ey + eh);
+		eg.addColorStop(0, oo ? '#0c1422' : '#13202f'); eg.addColorStop(1, oo ? '#070b12' : '#0b121b');
+		ruut(ctx, ex - ew / 2, ey, ew, eh, 0.014 * u); ctx.fillStyle = eg; ctx.fill();
+		/* navigatsioon: tee ja nool */
+		ctx.strokeStyle = oo ? '#2c3d56' : '#35506e'; ctx.lineWidth = 0.02 * u; ctx.lineCap = 'round';
+		ctx.beginPath(); ctx.moveTo(ex - 0.03 * u, ey + eh - 0.01 * u); ctx.quadraticCurveTo(ex - 0.02 * u, ey + eh * 0.45, ex + 0.06 * u, ey + 0.02 * u); ctx.stroke();
+		ctx.lineCap = 'butt';
+		ctx.fillStyle = '#4da3ff'; ctx.beginPath(); ctx.moveTo(ex - 0.03 * u, ey + eh * 0.62); ctx.lineTo(ex - 0.045 * u, ey + eh * 0.8); ctx.lineTo(ex - 0.015 * u, ey + eh * 0.8); ctx.fill();
+		const kell = new Date(); ctx.fillStyle = '#c9d3e0'; ctx.textAlign = 'left';
+		ctx.font = `600 ${Math.round(0.026 * u)}px "Barlow Condensed", "Arial Narrow", sans-serif`;
+		ctx.fillText(String(kell.getHours()).padStart(2, '0') + ':' + String(kell.getMinutes()).padStart(2, '0'), ex - ew / 2 + 0.015 * u, ey + 0.035 * u);
+		if (!oo) { ctx.fillStyle = 'rgba(255,255,255,0.05)'; ctx.beginPath(); ctx.moveTo(ex - ew / 2, ey); ctx.lineTo(ex, ey); ctx.lineTo(ex - ew / 2, ey + eh); ctx.fill(); }
+	}
 	/* näidikuplokk */
 	const nx = cx, ny = yd + 0.115 * u, R = 0.1 * u;
 	ruut(ctx, cx - 0.37 * u, yd + 0.004 * u, 0.74 * u, 0.25 * u, 0.06 * u); ctx.fillStyle = '#07080a'; ctx.fill();
