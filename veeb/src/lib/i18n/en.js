@@ -569,6 +569,7 @@ export default {
 "Kõik teemad": "All topics",
 "Vaata sobivaid rehve": "See matching tyres",
 "Koostöö": "Partnership",
+"Haagise pidurid": "Trailer brakes",
 "Lühidalt": "In short",
 "\">eemalda</button></span></th>": "\">remove</button></span></th>",
 "Jah": "Yes",

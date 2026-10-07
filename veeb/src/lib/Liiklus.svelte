@@ -823,10 +823,14 @@
 				{/if}
 				<label class="lo-row" for="kr-laad"><span>{t("Koormus (juht, reisijad, pagas)")}</span><b class="lo-val">{KR.laad} {t("kg")}</b></label>
 				<input id="kr-laad" class="slider" type="range" min="75" max={laadMax({ tyyp: KR.auto })} step="25" bind:value={KR.laad} style="--p:{((Math.min(KR.laad, laadMax({ tyyp: KR.auto })) - 75) / (laadMax({ tyyp: KR.auto }) - 75)) * 100}%" />
+			</fieldset>
+			<!-- haagis eraldi plokina, et koorma ja haagise liugurid segi ei läheks -->
+			<fieldset>
+				<legend>{t('Haagis')}</legend>
 				{#if KR.haagis === 'ei'}
 					<button type="button" class="lo-haagis-lisa" onclick={() => (KR.haagis = 'pidurita')}>{t("+ Lisa haagis")}</button>
 				{:else}
-					<div class="lo-row"><span>{t("Haagis")}</span><button type="button" class="linkbtn lo-haagis-x" onclick={() => (KR.haagis = 'ei')}>{t("Eemalda")}</button></div>
+					<div class="lo-row"><span>{t("Haagise pidurid")}</span><button type="button" class="linkbtn lo-haagis-x" onclick={() => (KR.haagis = 'ei')}>{t("Eemalda")}</button></div>
 					<div class="lo-seg lo-seg2" role="group" aria-label={t("Haagis")}>
 						<button type="button" aria-pressed={KR.haagis === 'pidurita'} onclick={() => (KR.haagis = 'pidurita')}>{t("Pidurita")}</button>
 						<button type="button" aria-pressed={KR.haagis === 'piduriga'} onclick={() => (KR.haagis = 'piduriga')}>{t("Piduritega")}</button>
@@ -1004,10 +1008,18 @@
 					<b class="lo-val">{S.laad} {t("kg")}</b>
 				</label>
 				<input id="lo-laad" class="slider" type="range" min="75" max={laadMax(S)} step="25" bind:value={S.laad} style="--p:{((Math.min(S.laad, laadMax(S)) - 75) / (laadMax(S) - 75)) * 100}%" />
+				<label class="lo-row" for="lo-pidur"><span>{t("Pidurite seisukord")}</span></label>
+				<select id="lo-pidur" class="lo-sel" bind:value={S.pidur}>
+					{#each PIDUR as [k, n]}<option value={k}>{autoNimi(keel.lang, n)}</option>{/each}
+				</select>
+			</fieldset>
+			<!-- haagis eraldi plokina, et koorma ja haagise liugurid segi ei läheks -->
+			<fieldset>
+				<legend>{t('Haagis')}</legend>
 				{#if S.haagis === 'ei'}
 					<button type="button" class="lo-haagis-lisa" onclick={() => (S.haagis = 'pidurita')}>{t("+ Lisa haagis")}</button>
 				{:else}
-					<div class="lo-row"><span>{t("Haagis")}</span><button type="button" class="linkbtn lo-haagis-x" onclick={() => (S.haagis = 'ei')}>{t("Eemalda")}</button></div>
+					<div class="lo-row"><span>{t("Haagise pidurid")}</span><button type="button" class="linkbtn lo-haagis-x" onclick={() => (S.haagis = 'ei')}>{t("Eemalda")}</button></div>
 					<div class="lo-seg lo-seg2" role="group" aria-label={t("Haagis")}>
 						<button type="button" aria-pressed={S.haagis === 'pidurita'} onclick={() => (S.haagis = 'pidurita')}>{t("Pidurita")}</button>
 						<button type="button" aria-pressed={S.haagis === 'piduriga'} onclick={() => (S.haagis = 'piduriga')}>{t("Piduritega")}</button>
@@ -1016,10 +1028,6 @@
 					<input id="lo-haagiskg" class="slider" type="range" min="100" max={haagisMax(S)} step="50" bind:value={S.haagisKg} style="--p:{((Math.min(S.haagisKg, haagisMax(S)) - 100) / (haagisMax(S) - 100)) * 100}%" />
 					<p class="lo-kr-vihje">{S.haagis === 'pidurita' ? t("Pidurita haagist peatavad ainult auto pidurid ja rehvid. Raske haagis lükkab tagant ja pidurdusmaa kasvab palju.") : t("Inertspiduriga haagis pidurdab ise, aga ABS-ita ja nõrgemalt kui auto.")}</p>
 				{/if}
-				<label class="lo-row" for="lo-pidur"><span>{t("Pidurite seisukord")}</span></label>
-				<select id="lo-pidur" class="lo-sel" bind:value={S.pidur}>
-					{#each PIDUR as [k, n]}<option value={k}>{autoNimi(keel.lang, n)}</option>{/each}
-				</select>
 			</fieldset>
 		</section>
 		{/if}
