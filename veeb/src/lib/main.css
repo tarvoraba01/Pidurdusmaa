@@ -1208,3 +1208,15 @@ body{padding-bottom:var(--tabbar-h, 0px)}
 @media (prefers-reduced-motion:no-preference){.ps-nool-keskel,.ps-nool-paremal{animation:ps-pomp 1s ease-in-out infinite}.ps-nool-ules{animation:ps-pomp-u 1s ease-in-out infinite}}
 @keyframes ps-pomp{50%{transform:translateY(8px)}}
 @keyframes ps-pomp-u{50%{transform:translateY(-8px)}}
+/* rehvivalik: liugurid ja selgitus kokkupandavad (telefonis vaikimisi kinni) */
+.fbox>summary{list-style:none;display:flex;align-items:center;justify-content:space-between;gap:var(--sp-2);cursor:pointer}
+.fbox>summary::-webkit-details-marker{display:none}
+.fbox>summary h3{margin:0}
+.fbox-v{width:22px;height:22px;display:grid;place-items:center;border-radius:50%;background:var(--paper-2);transition:transform .2s}
+.fbox-v::after{content:'';width:7px;height:7px;border-right:2px solid var(--text);border-bottom:2px solid var(--text);transform:translateY(-2px) rotate(45deg)}
+.fbox[open]>summary .fbox-v{transform:rotate(180deg)}
+.fbox[open]>summary{margin-bottom:var(--sp-2)}
+.filters .fbox+.fbox{margin-top:var(--sp-4)}
+.hv-vaata{display:flex;justify-content:center;width:100%;margin-top:var(--sp-4)}
+[data-cmp-list],[data-cmp-head]{scroll-margin-top:84px}
+@media (max-width:900px){.cmp-layout>.filters{order:2}}

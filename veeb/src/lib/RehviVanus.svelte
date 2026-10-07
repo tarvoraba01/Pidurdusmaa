@@ -144,7 +144,9 @@
 					maxlength="4"
 					placeholder="2319"
 					bind:value={dot}
-					oninput={() => { if (!puudutatud) { puudutatud = true; track('sisestus'); } }}
+					oninput={(e) => { if (!puudutatud) { puudutatud = true; track('sisestus'); } /* 4 numbrit = valmis: telefonis klaviatuur kinni, et tulemus paistaks */ if (/^\d{4}$/.test(e.currentTarget.value)) e.currentTarget.blur(); }}
+					onkeydown={(e) => { if (e.key === 'Enter') e.currentTarget.blur(); }}
+					enterkeyhint="done"
 				/>
 				<p class="rv-abi">{t('Numbrid on ovaalses raamis DOT-tähtede järel. Esimesed kaks on nädal, viimased kaks aasta: 2319 = 23. nädal 2019.')}</p>
 			</div>

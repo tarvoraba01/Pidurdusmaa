@@ -60,28 +60,27 @@
 				<div class="qout" data-ct-out></div>
 			</div>
 		</div>
+		<button type="button" class="btn yel hv-vaata" data-vaata-rehve>{t("Vaata sobivaid rehve")} ↓</button>
 
 		<div class="cmp-layout" style="margin-top:var(--sp-8)">
 			<aside class="filters" aria-label={t("Täpsemad seaded")}>
-				<div class="box">
-					<div style="display:flex;align-items:center;justify-content:space-between">
-						<h3 style="margin:0">{t("Täpsusta soove")}</h3>
-						<button type="button" class="btn sm" data-prio-reset hidden>{t("Tühjenda")}</button>
-					</div>
+				<details class="box fbox" data-ava-laial>
+					<summary><h3>{t("Täpsusta soove")}</h3><span class="fbox-v" aria-hidden="true"></span></summary>
+					<div style="display:flex;justify-content:flex-end"><button type="button" class="btn sm" data-prio-reset hidden>{t("Tühjenda")}</button></div>
 					<p class="note" style="margin:var(--sp-2) 0 var(--sp-3)">
 						{t("Valikuline. Sinu vastused täidavad selle ise — liuguriga saad täpselt määrata, kui palju iga omadus loeb (0–100%).")}
 					</p>
 					<div class="prio" data-prio></div>
-				</div>
-				<div class="box">
-					<h3 style="margin:0 0 var(--sp-2)">{t("Kuidas järjestatakse")}</h3>
+				</details>
+				<details class="box fbox" data-ava-laial>
+					<summary><h3>{t("Kuidas järjestatakse")}</h3><span class="fbox-v" aria-hidden="true"></span></summary>
 					<p class="note" style="margin:0">
 						{t("„Sobivus“ on ainult selle nimekirja sisene võrdlus sinu valitud omaduste järgi — mitte rehvi üldhinne. Omadus, mille kohta andmeid pole, jäetakse välja ja see öeldakse kaardil.")}
 					</p>
 					<p class="note" style="margin:var(--sp-3) 0 0">
 						{@html t("See on andmete kõrvutus, mitte ostunõuanne. <a href=\"/kasutustingimused/\">Tingimused</a>")}
 					</p>
-				</div>
+				</details>
 			</aside>
 			<div>
 				<div class="list-filter">

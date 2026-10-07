@@ -2340,6 +2340,16 @@ import UNIVERSAALID from './universaalid.json';
         inp.addEventListener('change', function () { muuda(true); Track('kaal', k + '=' + inp.value); });
       });
     }
+    /* liugurid ja selgitus: arvutis lahti, telefonis kinni (pikk nimekiri ei jää ette) */
+    try { if (window.matchMedia('(min-width: 901px)').matches) $$('details[data-ava-laial]', root).forEach(function (d) { d.open = true; }); } catch (e) {}
+    /* „Vaata sobivaid rehve“ — viib nimekirja algusesse (sobivuse järgi esimene) */
+    $$('[data-vaata-rehve]', root).forEach(function (b) {
+      b.addEventListener('click', function () {
+        var siht = $('[data-cmp-head]', root) || $('[data-cmp-list]', root);
+        if (siht) siht.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        Track('vaata_rehve', S.size + ' · ' + S.season);
+      });
+    });
     var reset = $('[data-prio-reset]', root);
     if (reset) reset.addEventListener('click', function () { S.drive = S.km = S.rft = ''; S.main = []; S.w = null; S.wManual = false; save(); paintQ(); draw(); });
     function paintQ(liugurilt) {

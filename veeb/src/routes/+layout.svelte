@@ -195,13 +195,27 @@
 			<div class="pm-tiles">
 				<a class="pm-tile" href={L('/')}><Icon name="gauge" /><b>{t("Pidurdusmaa kalkulaator")}</b><span>{t("Kui kiiresti sinu auto peatub")}</span></a>
 				<a class="pm-tile" href={L('/rehvi-valimine/')}><Icon name="target" /><b>{t("Vali rehv")}</b><span>{t("Sobivad rehvid sinu tingimustele")}</span></a>
-				<a class="pm-tile" href={lang === 'ru' ? '/ru/teadmine/artiklid/' : '/teadmine/'}><Icon name="book" /><b>{t("Teadmine")}</b><span>{t("Rehvid ja pidurdamine lihtsalt lahti seletatud")}</span></a>
-				<a class="pm-tile" href={L('/teadmine/rehvivahetus/')}><Icon name="calendar" /><b>{t("Rehvivahetus")}</b><span>{t("Millal talve- ja suverehvid alla")}</span></a>
+				<a class="pm-tile" href={L('/rehvi-vanus/')}><Icon name="wear" /><b>{t("Kui vanad on su rehvid?")}</b><span>{t("DOT-kood, vanus ja kulunud muster")}</span></a>
+				<a class="pm-tile" href={L('/liiklusohutus/reaktsioon/')}><Icon name="speed" /><b>{t("Mäng: kui kiiresti SINA pidurdad?")}</b><span>{t("Testi oma reaktsiooni ja jaga tulemust")}</span></a>
 			</div>
 
+			<!-- sama jaotus mis arvuti menüüs: Rehvid · Simulaatorid · Teadmine -->
 			<section class="pm-sek">
-				<h4>{t("Liiklusohutus")}</h4>
+				<h4>{t("Rehvid")}</h4>
 				<div class="pm-chips">
+					<a href={L('/rehvi-valimine/')}><Icon name="target" />{t("Vali rehv")}</a>
+					<a href={L('/vordle-rehve/')}><Icon name="compare" />{t("Võrdle rehve kõrvuti")}</a>
+					<a href={L('/teadmine/rehvivahetus/')}><Icon name="calendar" />{t("Rehvivahetus")}</a>
+					<a href={L('/rehvi-vanus/')}><Icon name="wear" />{t("Rehvi vanus (DOT)")}</a>
+					<a href={L('/rehvi-kalkulaator/')}><Icon name="scale" />{t("Rehvimõõdu kalkulaator")}</a>
+					<a href={L('/talverehvid/')}><Icon name="snow" />{t("Talverehvid mõõdu järgi")}</a>
+				</div>
+			</section>
+
+			<section class="pm-sek">
+				<h4>{t("Simulaatorid")}</h4>
+				<div class="pm-chips">
+					<a href={L('/liiklusohutus/reaktsioon/')}><Icon name="speed" />{t("Mäng")}</a>
 					<a href={L('/liiklusohutus/')}><Icon name="road" />{t("Peatumisteekond")}</a>
 					<a href={L('/liiklusohutus/pimedas/')}><Icon name="moon" />{t("Pimedas")}</a>
 					<a href={L('/liiklusohutus/pikivahe/')}><Icon name="gap" />{t("Pikivahe")}</a>
@@ -211,19 +225,18 @@
 
 			<div class="pm-two">
 				<section class="pm-sek">
-					<h4>{t("Otsi")}</h4>
-					<a class="pm-row" href={L('/autod/')}><Icon name="car" />{t("Autod ja rehvimõõdud")}</a>
-					<a class="pm-row" href={L('/rehvid/')}><Icon name="tyre" />{t("Rehvid")}</a>
-					<a class="pm-row" href={L('/vordle-rehve/')}><Icon name="compare" />{t("Võrdle rehve kõrvuti")}</a>
-					<a class="pm-row" href={L('/talverehvid/')}><Icon name="snow" />{t("Talverehvid mõõdu järgi")}</a>
-					<a class="pm-row" href="/testid/"><Icon name="test" />{t("Sõltumatud testid")}</a>
-				</section>
-				<section class="pm-sek">
-					<h4>{t("Loe")}</h4>
-					{#if lang !== 'ru'}<a class="pm-row" href={L('/teadmine/artiklid/')}><Icon name="book" />{t("Artiklid")}</a>{/if}
+					<h4>{t("Teadmine")}</h4>
+					<a class="pm-row" href={lang === 'ru' ? '/ru/teadmine/artiklid/' : L('/teadmine/artiklid/')}><Icon name="book" />{t("Artiklid")}</a>
+					{#if lang !== 'ru'}<a class="pm-row" href={L('/teadmine/')}><Icon name="info" />{t("Kõik teemad")}</a>{/if}
 					<a class="pm-row" href={L('/teadmine/pidurdusteekond-ja-peatumisteekond/')}><Icon name="info" />{t("Pidurdus- ja peatumisteekond")}</a>
 					<a class="pm-row" href="/teadmine/rehvimargis/"><Icon name="info" />{t("EL-i rehvimärgis")}</a>
 					<a class="pm-row" href="/teadmine/kuidas-pidurdusmaa-arvutatakse/"><Icon name="info" />{t("Kuidas arvutatakse")}</a>
+				</section>
+				<section class="pm-sek">
+					<h4>{t("Otsi")}</h4>
+					<a class="pm-row" href={L('/autod/')}><Icon name="car" />{t("Autod ja rehvimõõdud")}</a>
+					<a class="pm-row" href={L('/rehvid/')}><Icon name="tyre" />{t("Kõik rehvid")}</a>
+					<a class="pm-row" href="/testid/"><Icon name="test" />{t("Sõltumatud testid")}</a>
 				</section>
 			</div>
 
