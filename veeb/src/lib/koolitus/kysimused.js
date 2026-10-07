@@ -303,4 +303,16 @@ const K = [
 
 /* id = teema + järjekorranumber teemas: uued küsimused lisa teema LÕPPU, et nähtud küsimuste märge ei nihkuks */
 const loendur = {};
-export const KYSIMUSED = K.map(([teema, m, k, v, o, s, sim]) => ({ id: teema + '-' + (loendur[teema] = (loendur[teema] || 0) + 1), teema, m, k, v, o, s, sim: sim || null }));
+const POHI = K.map(([teema, m, k, v, o, s, sim]) => ({ id: teema + '-' + (loendur[teema] = (loendur[teema] || 0) + 1), teema, m, k, v, o, s, sim: sim || null }));
+
+/* kaksik: sama teadmine teises olukorras (lib/koolitus/paarid.js), id = põhiküsimuse id + 'b' */
+import { PAARID } from './paarid.js';
+export const KYSIMUSED = POHI.map((q) => {
+	const p = PAARID[q.id];
+	return { ...q, paar: p ? { id: q.id + 'b', teema: q.teema, m: q.m, k: p[0], v: p[1], o: p[2], s: p[3], sim: p[4] || q.sim } : null };
+});
+/* id → küsimus (ka kaksikud), õpetaja vaate jaoks; teema = põhiküsimuse id (kaksikutel ilma b-ta) */
+const KOIK = new Map();
+for (const q of KYSIMUSED) { KOIK.set(q.id, q); if (q.paar) KOIK.set(q.paar.id, q.paar); }
+export const leiaKysimus = (id) => KOIK.get(id) || null;
+export const pohiId = (id) => String(id).replace(/b$/, '');

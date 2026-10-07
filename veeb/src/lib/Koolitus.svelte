@@ -4,7 +4,7 @@
 	   jäävad tahaplaanile (meeles ainult selles brauseris). Autokooli kood tuleb aadressist
 	   (?kood=VIIKING-7K3) ja läheb statistikasse koos vastustega — nime ei küsita. */
 	import { onMount } from 'svelte';
-	import { KYSIMUSED, TEEMAD } from '$lib/koolitus/kysimused.js';
+	import { KYSIMUSED, TEEMAD, pohiId } from '$lib/koolitus/kysimused.js';
 	import qrcode from 'qrcode-generator';
 
 	const NAHTUD_VOTI = 'pm-koolitus-nahtud';
@@ -56,27 +56,38 @@
 			localStorage.setItem(NAHTUD_VOTI, JSON.stringify([...s].slice(-400)));
 		} catch {}
 	}
-	const sega = (a) => {
+	const sega = (a, rnd = Math.random) => {
 		const b = a.slice();
-		for (let j = b.length - 1; j > 0; j--) { const r = Math.floor(Math.random() * (j + 1)); [b[j], b[r]] = [b[r], b[j]]; }
+		for (let j = b.length - 1; j > 0; j--) { const r = Math.floor(rnd() * (j + 1)); [b[j], b[r]] = [b[r], b[j]]; }
 		return b;
 	};
+	/* õpetaja testis saavad kõik õpilased samad küsimused (seeme = kood), et klassi tulemusi saaks võrrelda */
+	function seeme(tekst) {
+		let h = 2166136261;
+		for (const c of String(tekst)) h = Math.imul(h ^ c.charCodeAt(0), 16777619);
+		return () => ((h = Math.imul(h ^ (h >>> 15), 2246822507) ^ Math.imul(h ^ (h >>> 13), 3266489909)) >>> 0) / 4294967296;
+	}
 
 	/* Valik: teemad ringiratast (alustades `esimesed` teemadest), igast teemast eelistatud märgiga
 	   ja nägemata küsimused ees. Vastused segatakse, et õige ei oleks alati samal kohal. */
 	function vali(n, eelista, valja, esimesed = []) {
-		const N = nahtud();
+		const rnd = grupp ? seeme(grupp.kood) : Math.random;
+		const N = grupp ? new Set() : nahtud();
 		const jarg = (q) => (eelista.some((m) => q.m.includes(m)) ? 0 : 2) + (N.has(q.id) ? 1 : 0);
 		const pool = {};
 		for (const t of valitud) {
-			pool[t] = sega(KYSIMUSED.filter((q) => q.teema === t && !valja.has(q.id))).sort((a, b) => jarg(a) - jarg(b));
+			pool[t] = sega(KYSIMUSED.filter((q) => q.teema === t && !valja.has(q.id)), rnd).sort((a, b) => jarg(a) - jarg(b));
 		}
-		const jarjekord = [...esimesed.filter((t) => valitud.includes(t)), ...sega(valitud.filter((t) => !esimesed.includes(t)))];
+		const jarjekord = [...esimesed.filter((t) => valitud.includes(t)), ...sega(valitud.filter((t) => !esimesed.includes(t)), rnd)];
 		const out = [];
 		while (out.length < n && jarjekord.some((t) => pool[t].length)) {
 			for (const t of jarjekord) if (out.length < n && pool[t].length) out.push(pool[t].shift());
 		}
-		return out.map((q) => ({ q, jarjestus: sega([0, 1, 2, 3]), vastus: null }));
+		/* eel- ja järeltest kontrollivad SAMA teadmist: juhuslikult üks versioon enne, kaksik pärast */
+		return out.map((q) => {
+			const vaheta = q.paar && rnd() < 0.5;
+			return { q: vaheta ? q.paar : q, teine: vaheta ? q : q.paar || q, jarjestus: sega([0, 1, 2, 3]), vastus: null };
+		});
 	}
 	const mitu = () => Math.max(3, Math.min(grupp?.kysimusi || 10, Math.floor(KYSIMUSED.filter((q) => valitud.includes(q.teema)).length / 2)));
 	/* grupi tulemus õpetajale: ainult küsimuse id ja õige/vale, sessioon on juhuslik */
@@ -103,7 +114,7 @@
 	function edasi() {
 		const list = olek === 'eel' ? eel : jarel;
 		if (i < list.length - 1) { i++; kerI(); return; }
-		margiNahtuks(list.map((r) => r.q.id));
+		margiNahtuks(list.map((r) => pohiId(r.q.id)));
 		if (olek === 'eel') {
 			track('koolitus', 'eel ' + skoor(eel) + '/' + eel.length + (kood ? ' · ' + kood : ''));
 			saadaGrupile('eel', eel);
@@ -117,8 +128,8 @@
 	}
 	function jareltest() {
 		/* järeltest: teised küsimused, kõigepealt teemad, kus eksisid */
-		const valed = [...new Set(eel.filter((r) => r.vastus !== r.q.o).map((r) => r.q.teema))];
-		jarel = vali(eel.length, ['j', 't'], new Set(eel.map((r) => r.q.id)), valed);
+		/* järeltest = eeltesti küsimuste kaksikud (sama teadmine, teine olukord), teises järjekorras */
+		jarel = sega(eel.map((r) => ({ q: r.teine, jarjestus: sega([0, 1, 2, 3]), vastus: null })));
 		i = 0;
 		olek = 'jarel';
 		kerI();
@@ -235,7 +246,7 @@
 			<ol class="kl-sammud">
 				<li><b>Eeltest</b><span>{mitu()} küsimust. Vasta nii, nagu arvad.</span></li>
 				<li><b>Vastused</b><span>Näed, mis oli õige ja miks. Proovi olukorda simulaatoris.</span></li>
-				<li><b>Järeltest</b><span>{mitu()} uut küsimust. Vaata, kui palju juurde õppisid.</span></li>
+				<li><b>Järeltest</b><span>Samad asjad teises olukorras. Vaata, kas said selgemaks.</span></li>
 			</ol>
 			{#if grupp}
 				<p class="kl-grupi-teemad"><b>Teemad:</b> {grupp.teemad.map(teemaNimi).join(', ')}</p>
@@ -345,7 +356,7 @@
 			{/each}
 		</ol>
 		<div class="kl-kaart kl-keskel">
-			<p class="kl-lead">Järeltestis on {eel.length} uut küsimust samadel teemadel. Kõigepealt need teemad, kus eksisid.</p>
+			<p class="kl-lead">Järeltestis tulevad samad teemad uues olukorras: {eel.length} küsimust, igaüks kontrollib ühte eeltesti küsimust teisiti.</p>
 			<button type="button" class="btn yel kl-suur" onclick={jareltest}>Järeltest →</button>
 		</div>
 	{:else if olek === 'tulemus'}

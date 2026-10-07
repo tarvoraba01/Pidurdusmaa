@@ -2,7 +2,7 @@
 	/* Õpetaja vaade: grupi tulemused enne/pärast. Kood ja võti tulevad aadressi räsist
 	   (#kood=…&voti=…), räsi serverisse ei jõua; võti läheb päringu päises. */
 	import { onMount } from 'svelte';
-	import { KYSIMUSED, TEEMAD } from '$lib/koolitus/kysimused.js';
+	import { TEEMAD, leiaKysimus } from '$lib/koolitus/kysimused.js';
 
 	let kood = $state('');
 	let voti = '';
@@ -11,7 +11,7 @@
 	let laeb = $state(false);
 	let minu = $state([]);
 	const teemaNimi = (id) => (TEEMAD.find((x) => x[0] === id) || [, id])[1];
-	const kysimus = (id) => KYSIMUSED.find((q) => q.id === id);
+	const kysimus = (id) => leiaKysimus(id);
 
 	async function lae() {
 		if (!kood || !voti) return;
@@ -120,12 +120,12 @@
 
 		{#if andmed.kysimused.length}
 			<div class="kt-kaart">
-				<h3>Kõige raskemad küsimused</h3>
-				<p class="kt-vaike">Nendest tasub tunnis rääkida.</p>
+				<h3>Mis jäi segaseks</h3>
+				<p class="kt-vaike">Iga rida on üks teadmine: eeltestis üks küsimus, järeltestis sama asi teisiti küsitud. Ülal need, mis jäid ka pärast selgitust segaseks. Nendest tasub tunnis rääkida.</p>
 				<ol class="kt-ras">
 					{#each andmed.kysimused as k (k.id)}
 						{@const q = kysimus(k.id)}
-						{#if q}<li><p><b>{k.oige}% õigeid</b> · {k.vastajaid} vastust</p><p>{q.k}</p><p class="kt-vaike">Õige: {q.v[q.o]}</p></li>{/if}
+						{#if q}<li><p><b>enne {k.eel ?? '–'}% → pärast {k.jarel ?? '–'}%</b> <span class="kt-vaike">õigeid · {k.vastajaid} õpilast</span></p><p>{q.k}</p><p class="kt-vaike">Õige: {q.v[q.o]}</p></li>{/if}
 					{/each}
 				</ol>
 			</div>

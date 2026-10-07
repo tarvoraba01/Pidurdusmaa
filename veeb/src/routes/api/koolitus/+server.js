@@ -10,7 +10,7 @@
 import { createHash, randomBytes, timingSafeEqual } from 'node:crypto';
 import { sb, sbSees } from '$lib/server/supabase.js';
 import { piirang, vastus, liigaPalju, vigane, keelatud } from '$lib/server/integratsioonid/kaitse.js';
-import { KYSIMUSED, TEEMAD } from '$lib/koolitus/kysimused.js';
+import { KYSIMUSED, TEEMAD, leiaKysimus, pohiId } from '$lib/koolitus/kysimused.js';
 
 export const prerender = false;
 export const trailingSlash = 'ignore';
@@ -18,7 +18,7 @@ export const trailingSlash = 'ignore';
 const KOOD_RE = /^[A-Z0-9]{2,12}-[A-Z0-9]{3}$/;
 const SESS_RE = /^[a-z0-9]{8,32}$/;
 const TEEMA = new Set(TEEMAD.map((t) => t[0]));
-const KYS = new Map(KYSIMUSED.map((q) => [q.id, q]));
+const KYS = { has: (id) => !!leiaKysimus(id) }; /* põhiküsimus või kaksik (id + b) */
 const rasi = (s) => createHash('sha256').update(String(s)).digest('hex');
 const puudub = () => vastus({ ok: false, viga: 'Koolituse andmebaas pole praegu saadaval' }, { status: 503 });
 
@@ -66,11 +66,13 @@ export async function GET(event) {
 		s[r.etapp][0] += r.oige ? 1 : 0;
 		s[r.etapp][1] += 1;
 		sess.set(r.sessioon, s);
-		const q = kys.get(r.kysimus) || { eel: [0, 0], jarel: [0, 0] };
+		/* teadmise kaupa: põhiküsimus ja kaksik koos (eel ja järel kontrollivad sama asja) */
+		const kid = pohiId(r.kysimus);
+		const q = kys.get(kid) || { eel: [0, 0], jarel: [0, 0] };
 		q[r.etapp][0] += r.oige ? 1 : 0;
 		q[r.etapp][1] += 1;
-		kys.set(r.kysimus, q);
-		const tid = KYS.get(r.kysimus)?.teema;
+		kys.set(kid, q);
+		const tid = leiaKysimus(r.kysimus)?.teema;
 		if (tid) {
 			const t = teemad.get(tid) || { eel: [0, 0], jarel: [0, 0] };
 			t[r.etapp][0] += r.oige ? 1 : 0;
@@ -90,10 +92,11 @@ export async function GET(event) {
 		opilased: [...sess.values()].map((s) => ({ nimi: s.nimi, aeg: s.aeg, eel: s.eel, jarel: s.jarel, valed: s.valed })),
 		teemad: [...teemad].map(([id, t]) => ({ id, eel: prots(t.eel), jarel: prots(t.jarel) })),
 		kysimused: [...kys]
-			.map(([id, q]) => ({ id, vastajaid: q.eel[1] + q.jarel[1], oige: prots([q.eel[0] + q.jarel[0], q.eel[1] + q.jarel[1]]) }))
-			.filter((q) => q.vastajaid >= 2 && q.oige < 100)
-			.sort((a, b) => a.oige - b.oige)
-			.slice(0, 8)
+			.map(([id, q]) => ({ id, eel: prots(q.eel), jarel: prots(q.jarel), vastajaid: Math.max(q.eel[1], q.jarel[1]) }))
+			/* kõige raskem = mis jäi ka pärast selgitust segaseks */
+			.filter((q) => q.vastajaid >= 1 && (q.jarel ?? q.eel) < 100)
+			.sort((a, b) => (a.jarel ?? a.eel) - (b.jarel ?? b.eel) || (a.eel ?? 0) - (b.eel ?? 0))
+			.slice(0, 10)
 	});
 }
 
