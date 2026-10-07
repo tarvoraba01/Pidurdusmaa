@@ -616,6 +616,7 @@ export default {
 "Haagise pidurid": "Тормоза прицепа",
 "Rehvi muster": "Протектор шин",
 "Keskmised suverehvid.": "Средние летние шины.",
+"Peatud viimasel hetkel, vahet alla 10 cm": "Остановились в последний момент, меньше 10 см",
 "Lühidalt": "Коротко",
 "\">eemalda</button></span></th>": "\">убрать</button></span></th>",
 "Jah": "Да",

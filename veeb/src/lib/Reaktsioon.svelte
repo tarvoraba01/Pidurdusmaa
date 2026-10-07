@@ -308,7 +308,7 @@
 	const f1 = (x) => x.toLocaleString(LOC, { minimumFractionDigits: 1, maximumFractionDigits: 1 });
 	const f2 = (ms) => (ms / 1000).toLocaleString(LOC, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 	let tulemusAeg = 0;
-	const lause = (x) => (x.crash ? t('Kokkupõrge') + ' ' + Math.round(x.kmh) + ' ' + t('km/h') : t('Peatud {m} m enne takistust', { m: f1(x.m) }));
+	const lause = (x) => (x.crash ? t('Kokkupõrge') + ' ' + Math.round(x.kmh) + ' ' + t('km/h') : (x.m < 0.1 ? t('Peatud viimasel hetkel, vahet alla 10 cm') : t('Peatud {m} m enne takistust', { m: f1(x.m) })));
 	const ilmNimi = $derived(ILM.find((x) => x[0] === ilm)[1]);
 
 	/* ---------- jagamine ---------- */
