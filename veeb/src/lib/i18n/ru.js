@@ -748,6 +748,7 @@ export default {
 "Rehvikalkulaator — rehvimõõt, läbimõõt, külje kõrgus ja spidomeeter": "Калькулятор шин — размер, диаметр, высота боковины и спидометр",
 "Seda mudelit praegu poes ei ole. Vaata sama mõõdu rehve.": "Этой модели сейчас нет в магазине. Посмотрите шины того же размера.",
 "Vaata": "Смотреть",
+"Kui pika maaga peatub sinu auto oma rehvidega?": "Каким будет тормозной путь вашей машины на ваших шинах?",
 "Lühidalt": "Коротко",
 "\">eemalda</button></span></th>": "\">убрать</button></span></th>",
 "Jah": "Да",

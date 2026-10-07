@@ -38,6 +38,8 @@
 	let kaivitatud = false;
 	function kaivitaGA() {
 		if (kaivitatud || !GA4_ID) return;
+		/* ?mina=1 (lehe omanik) — tema brauserit GA-sse ei loeta */
+		try { if (localStorage.getItem('pm_mina') === '1' || new URLSearchParams(location.search).get('mina') === '1') return; } catch {}
 		kaivitatud = true;
 		window.dataLayer = window.dataLayer || [];
 		// gtag peab edastama `arguments` objekti, mitte massiivi — nii tahab GA

@@ -151,6 +151,16 @@ import UNIVERSAALID from './universaalid.json';
        nõusolekut, ja siin ei ole selleks vajadust — serverisse läheb
        sündmus niikuinii kohe. Vana eelvaate-versiooni kirje koristatakse. */
     var MAX = 400, log = [], t0 = Date.now(), jarjekord = [], ajastus = null;
+    /* ?mina=1: lehe omaniku brauser ei lähe statistikasse (meelde jääb selles
+       brauseris; ?mina=0 tühistab). Kasutaja enda soovil, muud ei salvestata. */
+    var MINA = false;
+    try {
+      var mq = new URLSearchParams(location.search).get('mina');
+      /* plausible_ignore = Plausible'i enda väljajätmise võti */
+      if (mq === '1') { localStorage.setItem('pm_mina', '1'); localStorage.setItem('plausible_ignore', 'true'); }
+      else if (mq === '0') { localStorage.removeItem('pm_mina'); localStorage.removeItem('plausible_ignore'); }
+      MINA = localStorage.getItem('pm_mina') === '1';
+    } catch (e) { /* privaatrežiim */ }
     try { localStorage.removeItem('pm_log'); } catch (e) { /* ei loe */ }
     function salvesta() { /* ainult mälus, vt ülal */ }
     function saada() {
@@ -171,6 +181,7 @@ import UNIVERSAALID from './universaalid.json';
       log.push(rida);
       if (log.length > MAX) log.splice(0, log.length - MAX);
       salvesta();
+      if (MINA) return;
       jarjekord.push(rida);
       if (CFG.track && !ajastus) ajastus = setTimeout(saada, 4000);
       ga4(rida);

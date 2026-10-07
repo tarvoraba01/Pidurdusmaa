@@ -1228,7 +1228,7 @@ body{padding-bottom:var(--tabbar-h, 0px)}
 html.upotus .skip,html.upotus .site-header,html.upotus .site-footer,html.upotus .kps,html.upotus .lo-hero,html.upotus .lo-info,html.upotus .lo-vaated,html.upotus .rk-rezh,html.upotus .panel-menu{display:none!important}
 html.upotus .lo-bg{padding-top:12px!important}
 /* hüpikaknas ainult see üks olukord: valmis võrdlused, tööriistad ja mängu seaded peidus */
-html.upotus .lo-naited,html.upotus .lo-tools,html.upotus .rk-seaded,html.upotus .rk-must,html.upotus .rk-mliug,html.upotus .rk-nupud,html.upotus .rk-jaga,html.upotus .rk-valik{display:none!important}
+html.upotus .lo-naited,html.upotus .lo-tools,html.upotus .rk-seaded,html.upotus .rk-must,html.upotus .rk-mliug,html.upotus .rk-nupud,html.upotus .rk-jaga,html.upotus .rk-valik,html.upotus .rk-k-rehv{display:none!important}
 /* mäng mahub hüpikakna kõrgusesse koos tulemuse tekstiga */
 html.upotus .rk-cv{max-height:calc(100vh - 150px);object-fit:contain}
 /* katsete täpid pildi vasakusse ülanurka, et all ei lõiguks ära */

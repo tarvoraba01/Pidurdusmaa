@@ -578,6 +578,7 @@ export default {
 "Rehvikalkulaator — rehvimõõt, läbimõõt, külje kõrgus ja spidomeeter": "Tyre calculator — tyre size, diameter, sidewall height and speedometer",
 "Seda mudelit praegu poes ei ole. Vaata sama mõõdu rehve.": "This model is not in the shop right now. See tyres in the same size.",
 "Vaata": "View",
+"Kui pika maaga peatub sinu auto oma rehvidega?": "How far does your car stop on your tyres?",
 "Lühidalt": "In short",
 "\">eemalda</button></span></th>": "\">remove</button></span></th>",
 "Jah": "Yes",

@@ -451,6 +451,7 @@
 					</div>
 				{/if}
 				{#if jagatud}<p class="rk-k-s" role="status">{jagatud}</p>{/if}
+				<a class="rk-k-rehv" href={keel.L('/')} onclick={() => track('rehvid', 'kaart')}>{t('Kui pika maaga peatub sinu auto oma rehvidega?')} →</a>
 				<button type="button" class="rk-uuesti" onclick={() => { kaart = false; vajuta(); }}>{t('Proovi uuesti')}</button>
 			</div>
 		</div>
@@ -559,6 +560,8 @@
 	.rk-valik a:hover { border-color: #ffc20e; }
 	.rk-uuesti { margin-top: var(--sp-3); border: 0; background: transparent; color: #aab1bc; font-weight: 700; font-size: 14px; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; padding: 8px; }
 	.rk-uuesti:hover { color: #fff; }
+	.rk-k-rehv { display: block; margin-top: var(--sp-4); padding: 12px 14px; border-radius: 10px; background: #23262d; border: 1px solid #343944; color: #fff; font-weight: 700; font-size: 14.5px; text-decoration: none; }
+	.rk-k-rehv:hover { border-color: var(--yellow); }
 	.rk-nupud { display: flex; flex-wrap: wrap; gap: var(--sp-2); margin-top: var(--sp-4); }
 	@media (max-width: 640px) { .rk-tekst b { font-size: 28px; } .rk-nupud .btn { flex: 1 1 100%; text-align: center; } }
 </style>
