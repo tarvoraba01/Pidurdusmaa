@@ -1856,8 +1856,8 @@ import UNIVERSAALID from './universaalid.json';
       g.fillStyle = '#26303b'; ring(g, 400, 1720, 70, 40, 10); g.fill(); ring(g, 404, 1820, 62, 30, 10); g.fill();
       /* logo */
       g.textBaseline = 'alphabetic';
-      g.font = 'italic 800 64px ' + BODY; g.fillStyle = '#fff'; g.fillText('PIDURDUSMAA', 90, 250);
-      var lw = g.measureText('PIDURDUSMAA').width; g.fillStyle = '#ffc20e'; g.fillText('.ee', 90 + lw, 250);
+      g.font = 'italic 800 64px ' + BODY; g.fillStyle = '#fff'; g.fillText('Pidurdusmaa', 90, 250);
+      var lw = g.measureText('Pidurdusmaa').width; g.fillStyle = '#ffc20e'; g.fillText('.ee', 90 + lw, 250);
       /* number */
       g.fillStyle = '#ffc20e'; g.font = '700 46px ' + BODY;
       g.fillText((j.stop ? _t('Peatumisteekond') : _t('Pidurdusteekond')).toUpperCase(), 90, 420);
@@ -2986,8 +2986,19 @@ import UNIVERSAALID from './universaalid.json';
      odavaim ees. Link läheb poe tootelehele (rel=sponsored, UTM / Awini link). */
   function poed(d) {
     var box = $('[data-rehv-poed]');
-    if (!box || !d || !d.hinnad || !d.hinnad.length) return;
+    if (!box || !d) return;
     var nimi = box.getAttribute('data-nimi') || '';
+    /* täpset toodet poes pole: link partneri e-poe sama mõõdu nimekirja */
+    if ((!d.hinnad || !d.hinnad.length) && d.otsi && d.otsi.url) {
+      $('[data-rehv-poed-list]', box).innerHTML =
+        '<a class="rp-pood" href="' + esc(poeLink(d.otsi.url, 'rehvileht', nimi)) + '" target="_blank" rel="nofollow sponsored noopener" data-pood="' + esc(d.otsi.myyja) + '" data-rehv="' + esc(nimi) + '">' +
+        '<b>' + esc(d.otsi.myyja) + '</b><span class="h">' + esc(pretty(d.otsi.moot)) + '</span>' +
+        '<small>' + _t('Seda mudelit praegu poes ei ole. Vaata sama mõõdu rehve.') + '</small><span class="v">' + _t('Vaata') + ' →</span></a>';
+      box.hidden = false;
+      Track('poed_rehvilehel', nimi + ' · otsi');
+      return;
+    }
+    if (!d.hinnad || !d.hinnad.length) return;
     var parim = {};
     d.hinnad.forEach(function (r) { if (!r.url) return; var k = r.myyja + '|' + r.moot; if (!parim[k] || r.hind < parim[k].hind) parim[k] = r; });
     var list = Object.keys(parim).map(function (k) { return parim[k]; }).sort(function (a, b) { return a.hind - b.hind; }).slice(0, 8);

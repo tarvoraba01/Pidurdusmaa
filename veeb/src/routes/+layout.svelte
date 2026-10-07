@@ -140,14 +140,14 @@
 {#if neutraal}
 <header class="site-header">
 	<div class="wrap">
-		{@html t("<a class=\"logo\" href=\"/\" aria-label=\"Pidurdusmaa.ee avaleht\"><b>PIDURDUSMAA</b><em>.ee</em></a> <span class=\"neutraal-silt\">Liiklusohutus</span>")}
+		{@html t("<a class=\"logo\" href=\"/\" aria-label=\"Pidurdusmaa.ee avaleht\"><b>Pidurdusmaa</b><em>.ee</em></a> <span class=\"neutraal-silt\">Liiklusohutus</span>")}
 		<nav class="keeled" aria-label={t("Keel")}>{#each KEELED as k (k)}<a href={keeleLink(k)} onclick={(e) => onTolgitud(k, base) && (e.currentTarget.href = linkLang(k, base) + location.search)} hreflang={k} lang={k} title={KEEL_NIMI[k]} aria-current={k === lang ? 'true' : undefined} data-sveltekit-reload>{k.toUpperCase()}</a>{/each}</nav>
 	</div>
 </header>
 {:else}
 <header class="site-header">
 	<div class="wrap">
-		<a class="logo" href={L('/')} aria-label={t("Pidurdusmaa.ee avaleht")}><b>PIDURDUSMAA</b><em>.ee</em></a>
+		<a class="logo" href={L('/')} aria-label={t("Pidurdusmaa.ee avaleht")}><b>Pidurdusmaa</b><em>.ee</em></a>
 		<nav class="nav" aria-label={t("Peamenüü")}>
 			<a href={L('/')} aria-current={cur === 'home' ? 'page' : undefined}>Pidurdusmaa</a>
 			<div class="dd" data-dd>
@@ -308,7 +308,7 @@
 		{#if !neutraal}
 		<div class="ft">
 			<div>
-				<a class="logo" href={L('/')}><b>PIDURDUSMAA</b><em>.ee</em></a>
+				<a class="logo" href={L('/')}><b>Pidurdusmaa</b><em>.ee</em></a>
 				<p>
 					{t("Sa ei pea teadma, milline rehv on hea. Näitame, kuidas need erinevad — päris andmete järgi, ja ütleme otse, kui andmeid ei ole.")}
 				</p>

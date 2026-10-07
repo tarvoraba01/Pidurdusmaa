@@ -331,7 +331,7 @@
 		const kh = Math.min(700, Math.round(1080 * (cv.height / cv.width))), sh = Math.round(cv.width * kh / 1080);
 		try { g.drawImage(cv, 0, Math.max(0, (cv.height - sh) / 2), cv.width, Math.min(sh, cv.height), 0, 230, 1080, kh); } catch {}
 		const yy = 230 + kh + 90;
-		g.fillStyle = '#fff'; g.font = 'italic 800 64px ' + B; g.fillText('PIDURDUSMAA', 90, 150); const w = g.measureText('PIDURDUSMAA').width; g.fillStyle = '#ffc20e'; g.fillText('.ee', 90 + w, 150);
+		g.fillStyle = '#fff'; g.font = 'italic 800 64px ' + B; g.fillText('Pidurdusmaa', 90, 150); const w = g.measureText('Pidurdusmaa').width; g.fillStyle = '#ffc20e'; g.fillText('.ee', 90 + w, 150);
 		g.fillStyle = '#ffc20e'; g.font = '700 40px ' + B; g.fillText((t('Minu reaktsioon') + ' · ' + ilmNimi + ' · ' + kiirus + ' ' + t('km/h')).toUpperCase(), 90, yy);
 		const tx = tulemusMs ? f2(tulemusMs) : '—';
 		g.fillStyle = '#ffc20e'; g.font = '700 220px ' + DF; g.fillText(tx, 80, yy + 210); const w2 = g.measureText(tx).width; g.fillStyle = '#fff'; g.font = '700 90px ' + DF; g.fillText(' s', 80 + w2, yy + 210);

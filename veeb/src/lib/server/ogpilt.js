@@ -229,7 +229,7 @@ ${PILDID[pilt] || `<g opacity="0.10" fill="none" stroke="#ffffff">
   <circle cx="1080" cy="150" r="78" stroke-width="30"/>
 </g>`}
 <g transform="translate(80 104) skewX(-10)">
-  <text x="0" y="0" font-family="Inter" font-weight="800" font-size="40" fill="#ffffff">PIDURDUSMAA<tspan fill="${KOLLANE}">.ee</tspan></text>
+  <text x="0" y="0" font-family="Inter" font-weight="800" font-size="40" fill="#ffffff">Pidurdusmaa<tspan fill="${KOLLANE}">.ee</tspan></text>
 </g>
 ${kicker ? `<text x="80" y="164" font-family="Inter" font-weight="500" font-size="26" letter-spacing="3" fill="${KOLLANE}">${esc(String(kicker).toUpperCase())}</text>` : ''}
 ${pealSvg}

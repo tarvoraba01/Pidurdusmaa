@@ -77,13 +77,13 @@ export const ARTIKLID = [
 	},
 	{
 		slug: 'millal-talverehvid-alla',
-		title: 'Millal talverehvid alla? Kuupäevad 2026/2027 ja reeglid',
-		desc: 'Naastrehvid on lubatud 15. oktoobrist, talverehvid kohustuslikud 1. detsembrist. Kõik kuupäevad, 3 mm reegel ja pidurdusmaa numbrid: millal vahetada.',
+		title: 'Millal talverehvid alla panna: +7 °C reegel ja esimene lumi numbrites',
+		desc: 'Ära oota 1. detsembrit: esimesel lumel peatub suverehv 50 km/h pealt 61 m, talverehv 26 m. Millal vahetada, milline talverehv valida ja kas vana rehv peab veel talve vastu.',
 		kuupaev: '2026-09-30',
 		silt: 'Talverehvid',
 		ru: {
-			title: 'Когда менять шины на зимние в Эстонии? Сроки 2026/2027 и правила',
-			desc: 'Шипы разрешены с 15 октября, зимние шины обязательны с 1 декабря. На первом снегу с 50 км/ч летняя шина останавливается за 61 м, зимняя — за 26 м.',
+			title: 'Когда ставить зимние шины: правило +7 °C и первый снег в цифрах',
+			desc: 'Не ждите 1 декабря: на первом снегу с 50 км/ч летняя шина останавливается за 61 м, зимняя — за 26 м. Когда менять, какую зимнюю шину выбрать и выдержит ли старая ещё зиму.',
 			silt: 'Зимние шины'
 		}
 	},

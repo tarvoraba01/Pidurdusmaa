@@ -255,7 +255,7 @@ ${res.react > 0 ? `<path d="M965 ${y0} V${yReact}" stroke="${K}" stroke-width="8
   <path d="M-18 24 Q0 10 18 24 L16 36 Q0 28 -16 36Z" fill="#26303b"/>
   <rect x="-19" y="84" width="12" height="5" rx="2" fill="#ff2d2d"/><rect x="7" y="84" width="12" height="5" rx="2" fill="#ff2d2d"/>
 </g>
-<g transform="translate(70 96) skewX(-10)"><text x="0" y="0" font-family="Inter" font-weight="800" font-size="38" fill="#ffffff">PIDURDUSMAA<tspan fill="${K}">.ee</tspan></text></g>
+<g transform="translate(70 96) skewX(-10)"><text x="0" y="0" font-family="Inter" font-weight="800" font-size="38" fill="#ffffff">Pidurdusmaa<tspan fill="${K}">.ee</tspan></text></g>
 <text x="70" y="168" font-family="Inter" font-weight="500" font-size="${kickPx}" letter-spacing="${kickPx > 22 ? 2 : 1}" fill="${K}">${esc((pealkiri + ' · ' + res.olu).toUpperCase())}</text>
 <text x="62" y="${168 + numPx * 0.88}" font-family="Barlow Condensed" font-weight="700" font-size="${numPx}" fill="#ffffff">${esc(num)}</text>
 <text x="${62 + numW}" y="${168 + numPx * 0.88}" font-family="${l === 'ru' ? 'Roboto Condensed' : 'Barlow Condensed'}" font-weight="700" font-size="${Math.round(numPx * 0.42)}" fill="#c9ced6">${l === 'ru' ? 'м' : 'm'}</text>

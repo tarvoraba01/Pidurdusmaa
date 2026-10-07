@@ -17,7 +17,7 @@
 	const jsonld = graph(tooriist(t('Rehvimõõdu kalkulaator'), '/rehvi-kalkulaator/', KIRJ, keel.lang), ORG, faq);
 </script>
 
-<Meta title={t('Rehvimõõdu kalkulaator — läbimõõt, külje kõrgus ja spidomeeter')} desc={KIRJ} path="rehvi-kalkulaator/" crumbs={[[t('Avaleht'), '/'], [t('Rehvimõõdu kalkulaator'), '/rehvi-kalkulaator/']]} {jsonld} image="/og/sait/rehvi-kalkulaator.png" />
+<Meta title={t('Rehvikalkulaator — rehvimõõt, läbimõõt, külje kõrgus ja spidomeeter')} desc={KIRJ} path="rehvi-kalkulaator/" crumbs={[[t('Avaleht'), '/'], [t('Rehvimõõdu kalkulaator'), '/rehvi-kalkulaator/']]} {jsonld} image="/og/sait/rehvi-kalkulaator.png" />
 
 <LiiklusLeht kick={t('Rehvid · mõõt')} h1={t('Rehvimõõdu kalkulaator')} lead={t('Vali praegune ja uus rehvimõõt. Näed, kui palju muutuvad läbimõõt ja külje kõrgus ning mida näitab spidomeeter.')} vaade="moot" andmed={data.moodud}>
 	{#each KKK as [q, a] (q)}
