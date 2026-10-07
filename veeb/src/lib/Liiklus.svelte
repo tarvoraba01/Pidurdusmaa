@@ -383,7 +383,8 @@
 			Object.assign(a, { kat: 'WINTER_NORDIC', pind: 'ICE', temp: -10, kiirus: 50 });
 			Object.assign(b, { kat: 'WINTER_NORDIC', pind: 'ICE', temp: 0, kiirus: 50 });
 		}
-		if (n === 'vesi') { Object.assign(a, { kiirus: 90, vesi: 1 }); Object.assign(b, { kiirus: 90, vesi: 5, muster: 3, vanus: 6 }); }
+		/* ainult vesi muutub (varem muutusid ka muster ja vanus -> vesiliug, 176 m) */
+		if (n === 'vesi') { Object.assign(a, { kiirus: 90, vesi: 1 }); Object.assign(b, { kiirus: 90, vesi: 5 }); }
 		A = a;
 		B = b;
 		muuda = 'B';
@@ -764,6 +765,7 @@
 		<div class="lo-tools">
 			<button type="button" class="lo-tool" onclick={kopeeri}>{kopeeritud ? t('Link kopeeritud') : t('Kopeeri link')}</button>
 			<button type="button" class="lo-tool" aria-pressed={esitlus} onclick={esitlusrezim}>{esitlus ? t('Välju esitlusest') : t('Esitlusrežiim')}</button>
+			{#if vaade === 'pimedas' || vaade === 'pikivahe'}<a class="lo-tool lo-proovi" href={keel.L('/liiklusohutus/reaktsioon/') + '?m=' + (vaade === 'pimedas' ? 'pime' : 'tuled')} onclick={() => pl('Liiklusohutus: proovi ise', { vaade })}>{t('Proovi ise: kas jõuad pidurdada?')} →</a>{/if}
 		</div>
 	</div>
 
@@ -1363,7 +1365,14 @@
 	}
 	.lo-tools {
 		display: flex;
+		flex-wrap: wrap;
 		gap: var(--sp-2);
+	}
+	.lo-proovi {
+		background: var(--yellow);
+		border-color: var(--yellow);
+		color: var(--ink);
+		text-decoration: none;
 	}
 	.lo-tool[aria-pressed='true'] {
 		background: var(--ink);

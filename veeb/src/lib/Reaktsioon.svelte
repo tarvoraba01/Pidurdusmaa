@@ -36,6 +36,7 @@
 	let vahe = $state(1);
 	let riie = $state('tume');
 	let ilm = $state('vihm');
+	let muster = $state(8); /* sinu rehvide muster tulemuse võrdluses; eesoleval autol jäävad uued */
 	let olek = $state('algus'); /* algus | oota | nyyd | soit | vara | vahe | tulemus */
 	let ajad = $state([]);
 	let tulemused = $state([]);
@@ -54,8 +55,11 @@
 
 	onMount(async () => {
 		try {
-			const r = +new URLSearchParams(location.search).get('r');
+			const q = new URLSearchParams(location.search);
+			const r = +q.get('r');
 			if (r >= 100 && r <= 3000) sobra = Math.round(r);
+			/* simulaatorilt tulles (?m=pime | ?m=tuled) õige režiim */
+			if (q.get('m') === 'pime' || q.get('m') === 'tuled') { reziim = q.get('m'); kiirus = reziim === 'pime' ? 50 : 90; }
 		} catch {}
 		ctx = cv.getContext('2d');
 		suurus();
@@ -91,9 +95,9 @@
 
 	/* ---------- füüsika: pidurdus ajas samast mootorist ---------- */
 	const ilmRida = () => ILM.find((x) => x[0] === ilm);
-	function jalg(kmh) {
+	function jalg(kmh, mm = 8) {
 		const [, , c, kat] = ilmRida();
-		const tyre = { key: 'x', name: 'x', category: kat, wetGripIndex: core.gClass?.C?.[kat]?.[0] || 1.32, treadDepthMm: 8, treadDepthNewMm: 8, pressureBar: null, loadCapacityKg: null, ageYears: 1, studded: false, size: veh.oemSize, gSource: 'label' };
+		const tyre = { key: 'x', name: 'x', category: kat, wetGripIndex: core.gClass?.C?.[kat]?.[0] || 1.32, treadDepthMm: mm, treadDepthNewMm: 8, pressureBar: null, loadCapacityKg: null, ageYears: 1, studded: false, size: veh.oemSize, gSource: 'label' };
 		const r = P.stoppingDistance(tyre, veh, { speedKmh: kmh, texture: 'NORMAL', payloadKg: 75, gradientPct: 0, reactionTimeS: 0, brakeCondition: 1, ...c });
 		const tr = r.trace;
 		const vAt = (s) => {
@@ -108,21 +112,22 @@
 	}
 	const pidurdusAjal = (J, tau) => { if (tau <= 0) return [0, J.T[0][2]]; const i = Math.min(J.T.length - 1, Math.floor(tau / 0.01)); return [J.T[i][1], J.T[i][2]]; };
 	let J = null;
-	function sina(tt, r, v0) { if (r == null || tt < r) return [v0 * tt, v0]; const x = pidurdusAjal(J, tt - r); return [v0 * r + x[0], x[1]]; }
+	function sina(tt, r, v0, Jx = J) { if (r == null || tt < r) return [v0 * tt, v0]; const x = pidurdusAjal(Jx, tt - r); return [v0 * r + x[0], x[1]]; }
 	const kaugus = () => NAHT.find((x) => x[0] === riie)[1];
-	function lopp(r) {
+	/* Jx = sinu auto pidurdus (vaikimisi uued rehvid); eesolev auto pidurdab alati uute rehvidega (J) */
+	function lopp(r, Jx = J) {
 		const v0 = kiirus / 3.6;
 		if (reziim === 'pime') {
-			const Dk = D || kaugus(), vaja = v0 * r + J.d; /* sama nähtavuskaugus mis katses */
+			const Dk = D || kaugus(), vaja = v0 * r + Jx.d; /* sama nähtavuskaugus mis katses */
 			if (vaja <= Dk) return { crash: false, m: Dk - vaja };
 			let kmh = v0 * 3.6;
-			if (v0 * r < Dk) { const rest = Dk - v0 * r; const p = J.T.find((x) => x[1] >= rest); kmh = p ? p[2] * 3.6 : 0; }
+			if (v0 * r < Dk) { const rest = Dk - v0 * r; const p = Jx.T.find((x) => x[1] >= rest); kmh = p ? p[2] * 3.6 : 0; }
 			return { crash: true, kmh };
 		}
 		const g0 = v0 * vahe;
 		for (let tt = 0; tt < 40; tt += 0.005) {
 			const pe = pidurdusAjal(J, tt), ee = g0 + pe[0], vE = pe[1];
-			const [s, v] = sina(tt, r, v0);
+			const [s, v] = sina(tt, r, v0, Jx);
 			if (ee - s <= 0) return { crash: true, kmh: Math.max(0, v - vE) * 3.6 };
 			if (v <= 0.05 && vE <= 0.05) return { crash: false, m: ee - s };
 		}
@@ -284,11 +289,13 @@
 
 	const read = $derived.by(() => {
 		if (!tulemused.length || kaib || !veh || !P) return [];
-		void [kiirus, vahe, riie, reziim, ilm];
+		void [kiirus, vahe, riie, reziim, ilm, muster];
 		J = jalg(kiirus);
+		const Jm = muster < 8 ? jalg(kiirus, muster) : null;
 		const sinu = tulemusMs ? tulemusMs / 1000 : null;
 		return [
 			...(sinu ? [[t('Sina'), sinu, lopp(sinu), true]] : []),
+			...(sinu && Jm ? [[t('Sina, rehvi muster {mm} mm', { mm: String(muster).replace('.', ',') }), sinu, lopp(sinu, Jm), true]] : []),
 			[t('Tavaline juht liikluses'), 1, lopp(1), false],
 			[t('Tähelepanu mujal, nt telefon'), 2, lopp(2), false]
 		];
@@ -446,10 +453,17 @@
 					<li class:me><span class="n">{nimi} <small>{f2(s * 1000)} s</small></span><span class="o" class:punane={r.crash}>{lause(r)}</span></li>
 				{/each}
 			</ol>
-			<p class="rk-sel">{t('Testis sa tead, et takistus tuleb. Liikluses mitte — seal on reaktsioon tavaliselt pikem.')} {ilm === 'talv' ? t('Talvel lamellrehvid, tallatud lumi.') : t('Uued keskmised suverehvid.')} {t('Sama arvutus, mis kalkulaatoris.')}{reziim === 'tuled' ? ' ' + t('Kui eesolev auto pidurdab sama hästi kui sina, ei muuda ilm tulemust: otsustavad pikivahe ja reaktsioon. Kui tal on paremad rehvid või ta sõidab millelegi otsa, peatub ta kiiremini kui sina, ja libedal teel on see vahe suurem.') : ''}</p>
+			<div class="rk-must" role="group" aria-label={t('Sinu rehvide muster')}>
+				<span>{t('Proovi oma rehvidega')}:</span>
+				{#each (ilm === 'talv' ? [8, 5, 4, 3] : [8, 5, 3, 1.6]) as mm (mm)}
+					<button type="button" aria-pressed={muster === mm} onclick={() => { muster = mm; track('muster', String(mm)); }}>{mm === 8 ? t('uued') : String(mm).replace('.', ',') + ' mm'}</button>
+				{/each}
+			</div>
+			<p class="rk-sel">{t('Testis sa tead, et takistus tuleb. Liikluses mitte — seal on reaktsioon tavaliselt pikem.')}<br />{ilm === 'talv' ? t('Talvel lamellrehvid, tallatud lumi.') : t('Uued keskmised suverehvid.')} {reziim === 'tuled' ? t('Eesoleval autol on alati uued rehvid.') + ' ' : ''}{t('Sama arvutus, mis kalkulaatoris.')}{#if reziim === 'tuled'}<br />{t('Kui eesolev auto pidurdab sama hästi kui sina, ei muuda ilm tulemust: otsustavad pikivahe ja reaktsioon. Kui tal on paremad rehvid või ta sõidab millelegi otsa, peatub ta kiiremini kui sina, ja libedal teel on see vahe suurem.')}{/if}</p>
 			<div class="rk-nupud">
 				<button type="button" class="btn yel" onclick={() => { kaart = true; jagatud = ''; ekraan?.scrollIntoView({ block: 'center', behavior: 'smooth' }); }}>{t('Jaga tulemust')}</button>
 				<a class="btn" href={keel.L('/')}>{t('Arvuta oma auto ja rehvidega')}</a>
+				<a class="btn" href={keel.L(reziim === 'pime' ? '/liiklusohutus/pimedas/' : '/liiklusohutus/pikivahe/')}>{reziim === 'pime' ? t('Nähtavus pimedas: simulaator') : t('Pikivahe: simulaator')} →</a>
 			</div>
 		</div>
 	{/if}
@@ -457,6 +471,10 @@
 
 <style>
 	.rk { max-width: 860px; margin: 0 auto; padding: var(--sp-6) 0 var(--sp-10); }
+	.rk-must { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp-2); margin: var(--sp-3) 0 0; font-size: 14px; }
+	.rk-must span { font-weight: 600; margin-right: var(--sp-1); }
+	.rk-must button { border: 1px solid var(--line); background: #fff; border-radius: 999px; padding: 5px 12px; font: inherit; font-weight: 600; cursor: pointer; }
+	.rk-must button[aria-pressed='true'] { background: var(--ink); color: #fff; border-color: var(--ink); }
 	.rk-rezh { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-1); background: #fff; border: 1px solid var(--line); padding: var(--sp-1); border-radius: 12px; }
 	.rk-rezh button { border: 0; background: transparent; padding: var(--sp-3); border-radius: 9px; font-weight: 700; font-size: 15px; color: var(--muted); cursor: pointer; }
 	.rk-rezh button[aria-selected='true'] { background: var(--ink); color: #fff; box-shadow: inset 0 -3px 0 var(--yellow); }
