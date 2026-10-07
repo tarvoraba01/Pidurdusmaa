@@ -9,7 +9,7 @@
 
 <Meta title="Koolitus: kui hästi sa tunned pidurdamist?" desc={KIRJ} path="liiklusohutus/koolitus/" noindex />
 
-<LiiklusLeht kick="Liiklusohutus · koolitus" h1="Kui hästi sa tunned pidurdamist?" lead="Mis sa arvad, siis vaata, kuidas päriselt on. Iga vale vastuse olukorda saad simulaatoris ise proovida." vaade="koolitus">
+<LiiklusLeht kick="Liiklusohutus · koolitus" h1="Kui hästi sa tunned pidurdamist?" lead="Vasta, nagu arvad. Siis näed, kuidas päriselt on." vaade="koolitus">
 	<div>
 		<h2>Kuidas see töötab</h2>
 		<p>Eeltestis vastad ilma vihjeteta. Siis näed iga küsimuse juures õiget vastust, selgitust ja linki simulaatorisse, kus saad sama olukorda ise proovida. Järeltestis on uued küsimused samadel teemadel, osa neist trikiga.</p>

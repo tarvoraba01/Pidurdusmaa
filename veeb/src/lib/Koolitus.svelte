@@ -135,8 +135,12 @@
 
 	{#if olek === 'algus'}
 		<div class="kl-kaart">
-			<h2>Mis sa arvad?</h2>
-			<p class="kl-lead">Kõigepealt {mitu()} küsimust ilma vastusteta. Siis näed, mis oli õige ja miks, ja saad iga olukorda simulaatoris ise proovida. Lõpus uued küsimused samadel teemadel.</p>
+			<h2>Test: arvamused ja tõed</h2>
+			<ol class="kl-sammud">
+				<li><b>Eeltest</b><span>{mitu()} küsimust. Vasta nii, nagu arvad.</span></li>
+				<li><b>Vastused</b><span>Näed, mis oli õige ja miks. Proovi olukorda simulaatoris.</span></li>
+				<li><b>Järeltest</b><span>{mitu()} uut küsimust. Vaata, kui palju juurde õppisid.</span></li>
+			</ol>
 			<fieldset class="kl-teemad">
 				<legend>Teemad</legend>
 				{#each TEEMAD as [id, nimi] (id)}
@@ -229,6 +233,11 @@
 	.kl-kaart { background: #fff; border: 1px solid var(--line); border-radius: 16px; padding: var(--sp-6); margin-bottom: var(--sp-4); }
 	.kl-kaart h2 { font-family: var(--display); font-size: 30px; line-height: 1.05; margin: 0 0 var(--sp-3); }
 	.kl-lead { font-size: 16px; color: var(--muted); margin: 0 0 var(--sp-4); }
+	.kl-sammud { list-style: none; counter-reset: s; padding: 0; margin: 0 0 var(--sp-5); display: grid; gap: var(--sp-3); }
+	.kl-sammud li { counter-increment: s; display: grid; grid-template-columns: 34px 1fr; column-gap: var(--sp-3); align-items: start; }
+	.kl-sammud li::before { content: counter(s); grid-row: span 2; width: 34px; height: 34px; border-radius: 50%; background: var(--yellow); color: var(--ink); font-weight: 800; display: grid; place-items: center; }
+	.kl-sammud b { font-size: 17px; line-height: 1.3; }
+	.kl-sammud span { color: var(--muted); font-size: 15px; }
 	.kl-vaike { font-size: 13px; color: var(--muted); margin: var(--sp-3) 0 0; }
 	.kl-keskel { text-align: center; }
 	.kl-keskel.kl-nupud { justify-content: center; }
