@@ -271,6 +271,11 @@ const KOJA_MAX = 1.75; /* kojamehe pöördenurk (rad) */
 /* vasakpoolse rooliga autol on kojamehe teljed keskel ja paremal; rahuasendis näitavad vasakule
    ja tõusevad üles juhi poole */
 function kojamehed(k, W) {
+	/* telefon püsti: esiklaas on kõrge ja kitsas — pikemad harjad, teljed lähemal, et pühkimine kataks klaasi nagu päris autos */
+	if (k.yd > W * 1.2) {
+		const L = Math.min(0.98 * W, (k.yd - k.katus) * 0.7);
+		return [[W * 0.66, k.yd + 0.012 * k.u, L], [W * 1.06, k.yd + 0.012 * k.u, L * 0.9]];
+	}
 	const L = Math.min(0.62 * W, k.yd * 1.05);
 	return [[W * 0.76, k.yd + 0.012 * k.u, L], [W * 1.2, k.yd + 0.012 * k.u, L * 0.92]];
 }

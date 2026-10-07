@@ -17,16 +17,17 @@
 	let ylal; /* kerime küsimuse vahetudes ploki algusse */
 	let grupp = $state(null); /* { kood, nimi, teemad, kysimusi } — õpetaja loodud */
 	let sessioon = '';
+	let koodViga = $state(false);
 	let opNimi = $state(''); /* õpetaja testis kohustuslik: näeb ainult õpetaja */
 
 	onMount(() => {
 		try {
-			const k = new URLSearchParams(location.search).get('kood') || sessionStorage.getItem('pm-koolitus-kood') || '';
-			kood = puhasKood(k);
+			/* grupi kood ainult aadressist: tavaline koolituse leht jääb tavaliseks */
+			try { sessionStorage.removeItem('pm-koolitus-kood'); } catch {}
+			kood = puhasKood(new URLSearchParams(location.search).get('kood'));
 			if (kood) {
-				sessionStorage.setItem('pm-koolitus-kood', kood);
 				fetch('/api/koolitus?kood=' + encodeURIComponent(kood))
-					.then((r) => (r.ok ? r.json() : null))
+					.then((r) => { if (r.status === 404) { koodViga = true; kood = ''; } return r.ok ? r.json() : null; })
 					.then((g) => {
 						if (!g?.ok) return;
 						grupp = g;
@@ -238,7 +239,8 @@
 </script>
 
 <div class="kl" bind:this={ylal}>
-	{#if grupp}<p class="kl-kood">Grupp: <b>{grupp.nimi}</b> · {grupp.kood}</p>{:else if kood}<p class="kl-kood">Grupp: <b>{kood}</b></p>{/if}
+	{#if koodViga}<p class="kl-kood kl-viga" role="alert">Sellist grupi koodi ei leitud. Kontrolli linki õpetajalt või tee tavaline test.</p>{/if}
+	{#if grupp || kood}<p class="kl-kood">Grupp: <b>{grupp ? grupp.nimi : kood}</b>{grupp ? ' · ' + grupp.kood : ''} · <a href="/liiklusohutus/koolitus/" data-sveltekit-reload>lahku grupist</a></p>{/if}
 
 	{#if olek === 'algus'}
 		<div class="kl-kaart">

@@ -1111,9 +1111,10 @@ div.pk{cursor:default}
 /* ---------- telefoni alariba (nagu äpis) */
 .tabbar{display:none}
 @media (max-width:900px){
-  .tabbar:not(.neutraal),html.pwa .tabbar{display:grid}
-  html:has(.tabbar:not(.neutraal)),html.pwa{--tabbar-h:calc(58px + env(safe-area-inset-bottom, 0px))}
-  html:has(.tabbar:not(.neutraal)) .hdr-right .burger,html:has(.tabbar:not(.neutraal)) .hdr-right .cmp-link{display:none}
+  .tabbar{display:grid}
+  html:has(.tabbar),html.pwa{--tabbar-h:calc(58px + env(safe-area-inset-bottom, 0px))}
+  html:has(.tabbar:not(.tabbar-n)) .hdr-right .burger,html:has(.tabbar:not(.tabbar-n)) .hdr-right .cmp-link{display:none}
+  html.upotus .tabbar{display:none!important}html.upotus{--tabbar-h:0px}
 }
 body{padding-bottom:var(--tabbar-h, 0px)}
 .tabbar{position:fixed;left:0;right:0;bottom:0;z-index:60;grid-auto-flow:column;grid-auto-columns:1fr;padding:2px 4px env(safe-area-inset-bottom, 0px);background:rgba(10,11,13,.97);border-top:1px solid #1d2027;-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}

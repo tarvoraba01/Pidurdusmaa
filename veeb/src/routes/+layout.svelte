@@ -261,15 +261,26 @@
 
 <!-- telefoni alariba (nagu äpis): kõige vajalikum ühe puudutusega.
      Neutraalsel liiklusohutuse lehel ainult äpina avatuna (html.pwa). -->
-<nav class="tabbar" class:neutraal aria-label={t("Kiirvalik")}>
+{#if neutraal}
+<!-- neutraalsel liiklusohutuse lehel oma alariba: ainult simulaatorid ja koolitus (poode ega rehvivalikut pole) -->
+<nav class="tabbar tabbar-n" aria-label={t("Simulaatorid")}>
+	{#if lang === 'et'}<a href="/liiklusohutus/koolitus/" aria-current={base.startsWith('/liiklusohutus/koolitus') ? 'page' : undefined}><Icon name="test" /><span>Koolitus</span></a>{/if}
+	<a href={L('/liiklusohutus/reaktsioon/')} aria-current={base.startsWith('/liiklusohutus/reaktsioon') ? 'page' : undefined}><Icon name="speed" /><span>{t("Mäng")}</span></a>
+	<a href={L('/liiklusohutus/')} aria-current={base === '/liiklusohutus/' ? 'page' : undefined}><Icon name="road" /><span>{t("Peatumine")}</span></a>
+	<a href={L('/liiklusohutus/pimedas/')} aria-current={base.startsWith('/liiklusohutus/pimedas') ? 'page' : undefined}><Icon name="moon" /><span>{t("Pimedas")}</span></a>
+	<a href={L('/liiklusohutus/kurv/')} aria-current={base.startsWith('/liiklusohutus/kurv') ? 'page' : undefined}><Icon name="curve" /><span>{t("Kurv")}</span></a>
+</nav>
+{:else}
+<nav class="tabbar" aria-label={t("Kiirvalik")}>
 	<a href={L('/')} aria-current={cur === 'home' ? 'page' : undefined}><Icon name="gauge" /><span>{t("Arvuta")}</span></a>
 	<a href={L('/rehvi-valimine/')} aria-current={base.startsWith('/rehvi-valimine') ? 'page' : undefined}><Icon name="target" /><span>{t("Vali rehv")}</span></a>
 	<a href={L('/liiklusohutus/')} aria-current={neutraal ? 'page' : undefined}><Icon name="road" /><span>{t("Simulaator")}</span></a>
 	<a href={L('/vordle-rehve/')} data-cmp-pill aria-current={base.startsWith('/vordle-rehve') ? 'page' : undefined}
 		><span class="tb-ic"><Icon name="heart" /><b class="tb-n" data-cmp-n>0</b></span><span>{t("Võrdle")}</span></a
 	>
-	{#if !neutraal}<button type="button" data-burger aria-controls="pm-panel" aria-expanded="false"><Icon name="menu" /><span>{t("Menüü")}</span></button>{/if}
+	<button type="button" data-burger aria-controls="pm-panel" aria-expanded="false"><Icon name="menu" /><span>{t("Menüü")}</span></button>
 </nav>
+{/if}
 
 <!-- iPhone: kuidas äpina avaekraanile lisada (Safari ei paku seda ise) -->
 <div class="pwa-sheet" data-pwa-sheet hidden>

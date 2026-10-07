@@ -574,6 +574,7 @@ export default {
 "Rehvi muster": "Tyre tread",
 "Keskmised suverehvid.": "Average summer tyres.",
 "Peatud viimasel hetkel, vahet alla 10 cm": "Stopped at the last moment, less than 10 cm to spare",
+"Peatumine": "Stopping",
 "Lühidalt": "In short",
 "\">eemalda</button></span></th>": "\">remove</button></span></th>",
 "Jah": "Yes",
