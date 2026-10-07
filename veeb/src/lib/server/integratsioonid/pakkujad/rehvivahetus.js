@@ -165,6 +165,8 @@ export function loeKaardid(html) {
 		const pealkiri = /<h2 class="card-product__title">\s*<small>([\s\S]*?)<\/small>([\s\S]*?)<\/h2>/.exec(a);
 		const meta = (/<p class="card-product__meta">([\s\S]*?)<\/p>/.exec(a) || [])[1];
 		if (!id || !pealkiri || !meta) continue;
+		/* kasutatud rehv (märge „USED: 7mm“) on sama nime ja indeksiga eraldi toode — mitte sinna */
+		if (/USED\s*:/i.test(dekodeeri((/<div class="info-content-link">([\s\S]*?)<\/div>/.exec(a) || [])[1]))) continue;
 		const metaT = dekodeeri(meta);
 		const moot = normMoot(metaT);
 		if (!moot) continue;
@@ -184,7 +186,12 @@ async function loeEpoodMoot(pakkuja, ctx, ct, moot) {
 		u.searchParams.set('tireWidth', String(+n[1]));
 		u.searchParams.set('tireHeight', String(+n[2]));
 		u.searchParams.set('tireDiameter', String(+n[3]));
-		const r = await ctx.paring(pakkuja, u.toString(), { maxBaite: 3_000_000, aegMs: 15_000 });
+		const r = await ctx.paring(pakkuja, u.toString(), {
+			maxBaite: 3_000_000,
+			aegMs: 15_000,
+			/* tavaline brauseri moodi päis — mõni veebitulemüür lükkab tundmatu UA tagasi */
+			headers: { 'User-Agent': 'Mozilla/5.0 (compatible; Pidurdusmaa.ee/1.0; +https://pidurdusmaa.ee/kontakt/)', Accept: 'text/html,application/xhtml+xml', 'Accept-Language': 'et-EE,et;q=0.9' }
+		});
 		if (r.status === 404) break;
 		if (r.status !== 200) throw new Error(`rehvivahetus e-pood: HTTP ${r.status}`);
 		const html = r.andmed.toString('utf-8');
@@ -201,6 +208,7 @@ async function loeEpoodMoot(pakkuja, ctx, ct, moot) {
 		await oota(EPOOD_PAUS_MS);
 	}
 	epood.set(`${ct}:${moot}`, { aeg: Date.now(), lingid });
+	console.info('[rehvivahetus e-pood]', `${ct}:${moot}`, 'tootelinke', lingid.size);
 }
 
 function epoodTaustal(pakkuja, ctx, ct, moot) {
@@ -216,7 +224,10 @@ function epoodTaustal(pakkuja, ctx, ct, moot) {
 				await loeEpoodMoot(pakkuja, ctx, +c, m);
 			} catch (e) {
 				/* ebaõnnestus → proovime alles 24 h pärast uuesti; seni mõõdu nimekiri */
-				epood.set(epoodJarjekord[0], { aeg: Date.now(), lingid: new Map(), viga: String(e.message || e).slice(0, 120) });
+				const viga = String(e.message || e).slice(0, 120);
+				epood.set(epoodJarjekord[0], { aeg: Date.now(), lingid: new Map(), viga });
+				/* Coolify logis näha, miks tootelinke pole */
+				console.warn('[rehvivahetus e-pood]', epoodJarjekord[0], viga);
 			}
 			epoodJarjekord.shift();
 			await oota(EPOOD_PAUS_MS);
