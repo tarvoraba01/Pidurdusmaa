@@ -23,6 +23,8 @@
  */
 import { normMoot, normMark, norm } from '../sobitus.js';
 import { core } from '$lib/server/andmed.js';
+/* salvestatud seosed: e-poe võti → e-poe toote nr (mudel/rehvivahetus_lingid.mjs, kogu e-poe läbikäik) */
+import SALVESTATUD from './rehvivahetus-lingid.json';
 import { salvesta as salvestaPuhver, taasta as taastaPuhver } from '../pusivus.js';
 
 const VARSKE_MS = 6 * 3600 * 1000;
@@ -157,6 +159,9 @@ const dekodeeri = (s) =>
 /** E-poe nimekirja HTML → [{ id, voti }]. Pealkirja märgid („Uus“, „Soovitame“) on <span>-is — need jäetakse välja. */
 export function loeKaardid(html) {
 	const out = [];
+	/* märkused (nt „USED: 7mm“) on lehe peidetud tooteandmetes, mitte kaardi HTML-is */
+	const kasutatud = new Set();
+	for (const m of html.matchAll(/\\?"id\\?":\\?"(\d+)\\?"(?:(?!\\?"id\\?":).)*?\\?"notes_details\\?":\\?"([^"\\]*)/g)) if (/USED\s*:/i.test(m[2])) kasutatud.add(m[1]);
 	const re = /<article class="card-product"[\s\S]*?<\/article>/g;
 	let m;
 	while ((m = re.exec(html))) {
@@ -166,7 +171,7 @@ export function loeKaardid(html) {
 		const meta = (/<p class="card-product__meta">([\s\S]*?)<\/p>/.exec(a) || [])[1];
 		if (!id || !pealkiri || !meta) continue;
 		/* kasutatud rehv (märge „USED: 7mm“) on sama nime ja indeksiga eraldi toode — mitte sinna */
-		if (/USED\s*:/i.test(dekodeeri((/<div class="info-content-link">([\s\S]*?)<\/div>/.exec(a) || [])[1]))) continue;
+		if (kasutatud.has(id)) continue;
 		const metaT = dekodeeri(meta);
 		const moot = normMoot(metaT);
 		if (!moot) continue;
@@ -244,7 +249,10 @@ function lisaTooteLingid(pakkuja, ctx, list) {
 		if (!e || Date.now() - e.aeg > EPOOD_KEHTIB_MS) vaja.add(t.ct);
 		if (t.otse) return t;
 		const url = e && (e.lingid.get(t.voti) || e.lingid.get(ilmaIndeksita(t.voti)));
-		return url ? { ...t, url } : t;
+		if (url) return { ...t, url };
+		/* salvestatud seos (kogu e-pood läbi käidud) — töötab ka siis, kui serveri enda lugemine ei õnnestu */
+		const nr = SALVESTATUD.v[t.voti] || SALVESTATUD.v[ilmaIndeksita(t.voti)];
+		return nr ? { ...t, url: `${POOD}product/${nr}/` } : t;
 	});
 	for (const ct of vaja) epoodTaustal(pakkuja, ctx, ct, list[0].moot);
 	return tulem;
