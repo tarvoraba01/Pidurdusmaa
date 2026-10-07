@@ -110,7 +110,10 @@ export function teisenda(x, meieMoodud) {
 		myyja: 'rehvivahetus.ee',
 		umbes: true
 	};
-	t.url = poeLinkMoodule(t);
+	/* kui API annab kunagi toote enda lingi (url/link/permalink), kasutame seda otse */
+	const otse = [x.url, x.link, x.permalink, x.product_url].find((v) => typeof v === 'string' && /^https:\/\/(www\.)?rehvivahetus\.ee\/product\/\d+\/?$/.test(v.trim()));
+	t.url = otse ? otse.trim() : poeLinkMoodule(t);
+	if (otse) t.otse = true;
 	t.ct = /kaubik/i.test(t.carType) ? 2 : 1;
 	t.voti = epoeVoti(mark, nimi, moot, t.lisi);
 	delete t.carType;
@@ -136,6 +139,7 @@ const lisiTuum = (s) => {
 	const m = /(\d{2,3}(?:\/\d{2,3})?)\s*([A-Z])\b/.exec(String(s || '').toUpperCase());
 	return m ? m[1] + m[2] : '';
 };
+const ilmaIndeksita = (v) => v.slice(0, v.lastIndexOf('|')) + '|*';
 export function epoeVoti(mark, mudel, moot, lisi) {
 	return `${normMark(mark)}|${norm(mudel).replace(/ /g, '')}|${moot}|${lisiTuum(lisi)}`;
 }
@@ -185,7 +189,14 @@ async function loeEpoodMoot(pakkuja, ctx, ct, moot) {
 		if (r.status !== 200) throw new Error(`rehvivahetus e-pood: HTTP ${r.status}`);
 		const html = r.andmed.toString('utf-8');
 		const kaardid = loeKaardid(html);
-		for (const k of kaardid) if (!lingid.has(k.voti)) lingid.set(k.voti, `${POOD}product/${k.id}/`);
+		for (const k of kaardid) {
+			if (!lingid.has(k.voti)) lingid.set(k.voti, `${POOD}product/${k.id}/`);
+			/* varuvõti ilma koormus-/kiirusindeksita: kui e-poe kirje indeks on teisiti kirjas,
+			   leiame toote ikkagi — aga ainult siis, kui see mudel on selles mõõdus üks */
+			const v2 = ilmaIndeksita(k.voti), url = `${POOD}product/${k.id}/`;
+			if (!lingid.has(v2)) lingid.set(v2, url);
+			else if (lingid.get(v2) !== url) lingid.set(v2, null);
+		}
 		if (!kaardid.length || !html.includes(`/page/${leht + 1}/`)) break;
 		await oota(EPOOD_PAUS_MS);
 	}
@@ -220,7 +231,8 @@ function lisaTooteLingid(pakkuja, ctx, list) {
 	const tulem = list.map((t) => {
 		const e = epood.get(`${t.ct}:${t.moot}`);
 		if (!e || Date.now() - e.aeg > EPOOD_KEHTIB_MS) vaja.add(t.ct);
-		const url = e && e.lingid.get(t.voti);
+		if (t.otse) return t;
+		const url = e && (e.lingid.get(t.voti) || e.lingid.get(ilmaIndeksita(t.voti)));
 		return url ? { ...t, url } : t;
 	});
 	for (const ct of vaja) epoodTaustal(pakkuja, ctx, ct, list[0].moot);
