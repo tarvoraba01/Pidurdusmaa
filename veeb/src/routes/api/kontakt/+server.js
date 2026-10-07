@@ -10,7 +10,7 @@ export const trailingSlash = 'ignore';
 
 const TEEMAD = {
 	hinnad: 'Rehvimüüja — hinnad lehele',
-	koostoo: 'Koostöö või reklaam',
+	koostoo: 'Koostöö',
 	viga: 'Viga andmetes',
 	ettepanek: 'Ettepanek või küsimus',
 	muu: 'Muu'

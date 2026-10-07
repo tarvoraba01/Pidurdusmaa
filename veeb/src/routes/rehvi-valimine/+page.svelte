@@ -82,7 +82,7 @@
 					</p>
 				</details>
 			</aside>
-			<div>
+			<div class="cmp-col">
 				<div class="list-filter">
 					<select class="lsel" data-brand aria-label={t("Mark")}><option value="">{t("Kõik margid")}</option></select>
 					<input class="lsel" type="search" data-q placeholder={t("Otsi marki või mudelit")} aria-label={t("Otsi rehvi")} style="background-image:none" />

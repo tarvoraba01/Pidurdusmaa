@@ -11,7 +11,7 @@
 	const L = keel.L;
 	const TEEMAD = {
 		hinnad: t('Rehvimüüja — hinnad lehele'),
-		koostoo: t('Koostöö või reklaam'),
+		koostoo: t('Koostöö'),
 		viga: t('Viga andmetes'),
 		ettepanek: t('Ettepanek või küsimus'),
 		muu: t('Muu')

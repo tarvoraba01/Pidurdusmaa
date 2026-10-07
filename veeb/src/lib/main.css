@@ -1086,7 +1086,10 @@ div.pk{cursor:default}
 [data-result].eel-on .rs-next p:not(.s){font-size:15px}
 /* avalehe rehvide nimekiri lõpeb koos vasaku menüüga — edasi keritakse nimekirja sees */
 @media (min-width:901px){
-  .home-valik .cmp-layout>.res-list{align-self:stretch;contain:size;overflow-y:auto;overscroll-behavior:contain;padding-right:6px;scrollbar-gutter:stable}
+  .home-valik .cmp-layout>.res-list{align-self:stretch;contain:size;overflow-y:auto;overscroll-behavior:contain;padding-right:6px;scrollbar-gutter:stable;min-height:70vh}
+  /* sama rehvi valimise lehel: nimekiri lõpeb koos vasaku tulbaga ja keritakse seest */
+  [data-cmp-page] .cmp-col{align-self:stretch;contain:size;display:flex;flex-direction:column;min-height:70vh}
+  [data-cmp-page] .cmp-col>.res-list{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;padding-right:6px;scrollbar-gutter:stable}
 }
 @media (max-width:900px){
   .home-valik .cmp-layout>.res-list{max-height:min(1600px,160vh);overflow-y:auto;overscroll-behavior:contain}

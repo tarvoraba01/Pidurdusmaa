@@ -568,6 +568,7 @@ export default {
 "Mäng": "Game",
 "Kõik teemad": "All topics",
 "Vaata sobivaid rehve": "See matching tyres",
+"Koostöö": "Partnership",
 "Lühidalt": "In short",
 "\">eemalda</button></span></th>": "\">remove</button></span></th>",
 "Jah": "Yes",

@@ -611,6 +611,7 @@ export default {
 "Mäng": "Игра",
 "Kõik teemad": "Все темы",
 "Vaata sobivaid rehve": "Смотреть подходящие шины",
+"Koostöö": "Сотрудничество",
 "Lühidalt": "Коротко",
 "\">eemalda</button></span></th>": "\">убрать</button></span></th>",
 "Jah": "Да",
