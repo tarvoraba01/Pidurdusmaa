@@ -126,6 +126,29 @@
 		} catch {}
 	}
 
+	/* simulaator hüpikaknas samal lehel (iframe, ?upotus=1 peidab päise ja jaluse) */
+	let sim = $state(null); /* { nimi, url, k } */
+	let simValmis = $state(false);
+	function avaSim(q) {
+		const [alus, rasi] = q.sim[1].split('#');
+		sim = { nimi: q.sim[0], url: alus + (alus.includes('?') ? '&' : '?') + 'upotus=1' + (rasi ? '#' + rasi : ''), k: q.k };
+		simValmis = false;
+		setTimeout(() => (simValmis = true), 2500); /* varu, kui teadet ei tule */
+		track('koolitus', 'simulaator · ' + q.id);
+		try { document.documentElement.style.overflow = 'hidden'; } catch {}
+	}
+	function sulgeSim() {
+		sim = null;
+		try { document.documentElement.style.overflow = ''; } catch {}
+	}
+	onMount(() => {
+		const teade = (e) => { if (e.origin === location.origin && e.data?.pm === 'upotus-valmis') simValmis = true; };
+		const klahv = (e) => { if (e.key === 'Escape' && sim) sulgeSim(); };
+		window.addEventListener('message', teade);
+		window.addEventListener('keydown', klahv);
+		return () => { window.removeEventListener('message', teade); window.removeEventListener('keydown', klahv); };
+	});
+
 	const rida = $derived(olek === 'eel' ? eel[i] : olek === 'jarel' ? jarel[i] : null);
 	const list = $derived(olek === 'eel' ? eel : jarel);
 </script>
@@ -187,7 +210,7 @@
 					{#if r.vastus !== r.q.o}<p class="kl-sinu">Sinu vastus: {r.q.v[r.vastus]}</p>{/if}
 					<p class="kl-oige"><b>{r.vastus === r.q.o ? '✓' : 'Õige:'}</b> {r.q.v[r.q.o]}</p>
 					<p class="kl-ss">{r.q.s}</p>
-					{#if r.q.sim}<a class="kl-sim" class:esile={r.vastus !== r.q.o} href={r.q.sim[1]} target="_blank" rel="noopener" onclick={() => track('koolitus', 'simulaator · ' + r.q.id)}>Proovi simulaatoris: {r.q.sim[0]} ↗</a>{/if}
+					{#if r.q.sim}<button type="button" class="kl-sim" class:esile={r.vastus !== r.q.o} onclick={() => avaSim(r.q)}>Proovi simulaatoris: {r.q.sim[0]} →</button>{/if}
 				</li>
 			{/each}
 		</ol>
@@ -218,13 +241,31 @@
 						<p class="kl-sk">{r.q.k}</p>
 						<p class="kl-oige"><b>Õige:</b> {r.q.v[r.q.o]}</p>
 						<p class="kl-ss">{r.q.s}</p>
-						{#if r.q.sim}<a class="kl-sim esile" href={r.q.sim[1]} target="_blank" rel="noopener">Proovi simulaatoris: {r.q.sim[0]} ↗</a>{/if}
+						{#if r.q.sim}<button type="button" class="kl-sim esile" onclick={() => avaSim(r.q)}>Proovi simulaatoris: {r.q.sim[0]} →</button>{/if}
 					</li>
 				{/each}
 			</ol>
 		{/if}
 	{/if}
 </div>
+
+{#if sim}
+	<div class="kl-modal" role="dialog" aria-modal="true" aria-label={'Simulaator: ' + sim.nimi}>
+		<button type="button" class="kl-modal-taust" aria-label="Sulge" onclick={sulgeSim}></button>
+		<div class="kl-modal-aken">
+			<div class="kl-modal-pea">
+				<div><b>{sim.nimi}</b><span>{sim.k}</span></div>
+				<button type="button" class="kl-x" onclick={sulgeSim} aria-label="Sulge">×</button>
+			</div>
+			<div class="kl-modal-sisu">
+				{#if !simValmis}<p class="kl-laeb">Laen simulaatorit…</p>{/if}
+				<iframe src={sim.url} title={'Simulaator: ' + sim.nimi} class:peidus={!simValmis} allow="fullscreen"></iframe>
+			</div>
+			<div class="kl-modal-jalus"><button type="button" class="btn yel" onclick={sulgeSim}>Tagasi testi juurde</button></div>
+		</div>
+	</div>
+{/if}
+
 
 <style>
 	.kl { max-width: 760px; margin: 0 auto; scroll-margin-top: 90px; }
@@ -269,7 +310,22 @@
 	.kl-sinu { color: #b4471a; font-size: 15px; }
 	.kl-oige { font-size: 15px; }
 	.kl-ss { color: var(--muted); font-size: 15px; }
-	.kl-sim { display: inline-block; margin-top: 4px; font-weight: 700; font-size: 14px; }
+	.kl-sim { display: inline-block; margin-top: 4px; font: inherit; font-weight: 700; font-size: 14px; background: none; border: 0; padding: 0; color: var(--link, #1a56db); text-decoration: underline; cursor: pointer; }
+	.kl-sim.esile { text-decoration: none; }
+	.kl-modal { position: fixed; inset: 0; z-index: 1000; display: grid; place-items: center; padding: 16px; }
+	.kl-modal-taust { position: absolute; inset: 0; background: rgba(10, 11, 13, 0.6); border: 0; cursor: pointer; }
+	.kl-modal-aken { position: relative; width: min(1100px, 100%); height: min(92vh, 980px); background: #f4f5f7; border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4); }
+	.kl-modal-pea { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 16px; background: var(--ink); color: #fff; }
+	.kl-modal-pea div { display: grid; min-width: 0; }
+	.kl-modal-pea b { font-family: var(--display); font-size: 20px; text-transform: uppercase; letter-spacing: 0.02em; }
+	.kl-modal-pea span { font-size: 13px; color: #cfd4db; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+	.kl-x { flex: 0 0 auto; width: 40px; height: 40px; border-radius: 50%; border: 0; background: rgba(255, 255, 255, 0.12); color: #fff; font-size: 26px; line-height: 1; cursor: pointer; }
+	.kl-modal-sisu { position: relative; flex: 1 1 auto; min-height: 0; }
+	.kl-modal-sisu iframe { width: 100%; height: 100%; border: 0; display: block; background: #f4f5f7; }
+	.kl-modal-sisu iframe.peidus { visibility: hidden; }
+	.kl-laeb { position: absolute; inset: 0; display: grid; place-items: center; margin: 0; color: var(--muted); }
+	.kl-modal-jalus { padding: 10px 16px; background: #fff; border-top: 1px solid var(--line); display: flex; justify-content: flex-end; }
+	@media (max-width: 600px) { .kl-modal { padding: 0; } .kl-modal-aken { height: 100%; border-radius: 0; } }
 	.kl-sim.esile { background: var(--yellow); color: var(--ink); padding: 8px 14px; border-radius: 999px; text-decoration: none; }
 	.kl-ep { display: flex; align-items: center; justify-content: center; gap: var(--sp-5); margin: var(--sp-3) 0 var(--sp-4); }
 	.kl-ep div { display: grid; gap: 2px; }

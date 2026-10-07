@@ -24,7 +24,9 @@ export const TEEMAD = [
 const KUIV = 'vesi=0&temp=15';
 const LUMI = 'pind=SNOW_PACKED&vesi=0&temp=-5&kat=WINTER_NORDIC';
 const JAA = 'pind=ICE&vesi=0&temp=-5&kat=WINTER_NORDIC';
-const pk = (a, b) => '/liiklusohutus/#' + a + (b ? '&b=1&' + b.split('&').map((x) => 'b.' + x).join('&') : '');
+/* auto = VW Golf 8, sama mis küsimuste arvudes (muidu näitaks simulaator üldist kompaktautot) */
+const GOLF = 'mk=Volkswagen&md=Golf&veh=vw_golf_8&';
+const pk = (a, b) => '/liiklusohutus/#' + GOLF + a + (b ? '&b=1&' + (GOLF + b).split('&').map((x) => 'b.' + x).join('&') : '');
 const SIM = {
 	peatumine: (a, b) => ['Peatumisteekond', pk(a, b)],
 	pimedas: (q) => ['Nähtavus pimedas', '/liiklusohutus/pimedas/#' + q],

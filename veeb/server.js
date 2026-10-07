@@ -65,7 +65,8 @@ const CSP = [
 	`img-src 'self' data: blob: ${GTM_KOIK} ${GA_KOGU}`,
 	"font-src 'self'",
 	`connect-src 'self' ${GTM_KOIK} ${GA_KOGU} ${CF} ${PLAUSIBLE}`,
-	`frame-src ${CF}`,
+	/* 'self': koolituse simulaator avaneb samal lehel hüpikaknas (iframe) */
+	`frame-src 'self' ${CF}`,
 	"frame-ancestors 'self'",
 	"base-uri 'self'",
 	"form-action 'self'",

@@ -49,6 +49,13 @@
 	const neutraal = $derived(base.startsWith('/liiklusohutus'));
 
 	onMount(async () => {
+		/* ?upotus=1: leht on koolituse hüpikaknas (iframe) — ainult tööriist, ilma päise ja jaluseta */
+		try {
+			if (new URLSearchParams(location.search).has('upotus') && window.self !== window.top) {
+				document.documentElement.classList.add('upotus');
+				window.parent.postMessage({ pm: 'upotus-valmis' }, location.origin);
+			}
+		} catch {}
 		/* Avalehel logo / „Pidurdusmaa“ peale vajutus = lehe värskendus
 		   (tulemus ja valikud nullitakse, leht algusest). Mujal tavaline
 		   kiire üleminek. Ctrl/Cmd-klõps (uus vaheleht) jääb puutumata. */
