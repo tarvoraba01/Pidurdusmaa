@@ -82,6 +82,7 @@ function valgus(z, oo, lampL = 0) {
 	return kl(0.05 + tuled + lampL, 0, 1);
 }
 
+const SILM = 2; /* juhi silmad auto esiotsast tagapool (m) */
 export function joonista(ctx, W, H, tee, o) {
 	try { joonistaStseen(ctx, W, H, tee, o); } catch (e) { /* üks vigane kaader ei tohi kapotti ära viia */ }
 	kapott(ctx, W, H, o, !!o.oo);
@@ -122,7 +123,9 @@ function joonistaStseen(ctx, W, H, tee, o) {
 	ctx.fillStyle = v(maa, oo ? 0.25 : 1, oo ? 0 : 0.35, uduVarv); ctx.fillRect(0, hor, W, H - hor);
 
 	/* ---- projektsioon ---- */
-	const z0 = Math.max(0, o.z || 0), base = Math.floor(z0 / SEG), frac = (z0 % SEG) / SEG;
+	/* o.z ja kaugused (ees.gap) on auto esiotsast; kaamera = juhi silmad SILM m tagapool.
+	   Muidu kadus vahetult ette jäänud jalakäija pildilt (paistis, nagu sõidaks läbi). */
+	const z0 = Math.max(0, (o.z || 0) - SILM), base = Math.floor(z0 / SEG), frac = (z0 % SEG) / SEG;
 	const sg = (n) => tee.seg[((n % N) + N) % N];
 	/* Tee telg kaamera teljestikus, PIDEVALT: kõverus κ = k/SEG² on lõigu sees
 	   konstantne; integreerime kaamerast edasi (kaamera suund = tee puutuja).
@@ -185,7 +188,7 @@ function joonistaStseen(ctx, W, H, tee, o) {
 		const a = P[i], b = P[i + 1], k = kl((zr - a.zr) / Math.max(0.01, b.zr - a.zr), 0, 1);
 		return a.x + (b.x - a.x) * k;
 	};
-	if (o.ees && o.ees.gap < 520) asjad.push({ zr: o.ees.gap + 0.5, x: xAt(o.ees.gap + 0.5) + KAAM_X, ob: { t: 'auto', pidur: o.ees.pidur }, n: 0 });
+	if (o.ees && o.ees.gap < 520) asjad.push({ zr: o.ees.gap + SILM, x: xAt(o.ees.gap + SILM) + KAAM_X, ob: { t: 'auto', pidur: o.ees.pidur }, n: 0 });
 	if (o.jk && o.jk.z - z0 > 0.2 && o.jk.z - z0 < 520) { const zr = o.jk.z - z0; asjad.push({ zr, x: xAt(zr) + o.jk.x, ob: { t: 'inim', riie: o.jk.riie, kond: o.jk.kond }, n: 0 }); }
 	asjad.sort((p, q) => q.zr - p.zr);
 	for (const a of asjad) {
