@@ -139,3 +139,27 @@ as $$
 $$;
 revoke all on function public.kasutuslogi_kokkuvote(timestamptz) from public, anon, authenticated;
 grant execute on function public.kasutuslogi_kokkuvote(timestamptz) to service_role;
+
+-- 6. Koolitus: õpetaja loodud grupid ja õpilaste vastused (isikuandmeid pole) ----
+--    Õpetaja võtit ei hoita: ainult selle sha256 räsi. Õpilase sessioon = juhuslik id.
+create table if not exists public.koolitus_grupid (
+	kood text primary key,
+	nimi text not null,
+	teemad text[] not null,
+	kysimusi int not null default 10,
+	voti_rasi text not null,
+	loodud timestamptz not null default now()
+);
+alter table public.koolitus_grupid enable row level security;
+
+create table if not exists public.koolitus_vastused (
+	id bigint generated always as identity primary key,
+	aeg timestamptz not null default now(),
+	kood text not null references public.koolitus_grupid (kood) on delete cascade,
+	sessioon text not null,
+	etapp text not null check (etapp in ('eel', 'jarel')),
+	kysimus text not null,
+	oige boolean not null
+);
+create index if not exists koolitus_vastused_kood on public.koolitus_vastused (kood, aeg);
+alter table public.koolitus_vastused enable row level security;

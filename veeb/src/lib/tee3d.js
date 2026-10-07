@@ -243,7 +243,8 @@ function klaas(ctx, W, H) {
    u = „maastikukaadri“ kõrgus: laial ekraanil H, kitsal (telefon püsti) W/1,6.
    Kõik salongi mõõdud u järgi, all keskel; nii ei kata armatuur telefonis pool pilti. */
 function kokpit(W, H) {
-	const u = Math.min(H, W / 1.6), cx = W / 2;
+	/* telefon püsti (kõrge ja kitsas): armatuur suuremaks, muidu jääb näidikud pisikeseks */
+	const u = H > W ? Math.min(H * 0.55, W / 1.05) : Math.min(H, W / 1.6), cx = W / 2;
 	const yd = H - 0.27 * u; /* armatuurlaua ülaserv */
 	/* auto keskjoon ~0,8 m ees: juhist 0,37 m paremal */
 	return { u, cx, yd, katus: 0.055 * u, ak: cx + 0.34 * W };
@@ -375,7 +376,7 @@ function salong(ctx, W, H, k, o) {
 
 	/* keskekraan auto keskel (juhist paremal) */
 	{
-		const ex = k.ak - 0.02 * u, ew = 0.3 * u, eh = 0.15 * u, ey = yd - 0.07 * u;
+		const ew = 0.3 * u, eh = 0.15 * u, ey = yd - 0.07 * u, ex = Math.min(k.ak - 0.02 * u, W - ew / 2 - 0.02 * u); /* kitsal ekraanil ei lõigu servast ära */
 		ruut(ctx, ex - ew / 2 - 0.008 * u, ey - 0.008 * u, ew + 0.016 * u, eh + 0.016 * u, 0.02 * u); ctx.fillStyle = '#050608'; ctx.fill();
 		const eg = ctx.createLinearGradient(ex - ew / 2, ey, ex + ew / 2, ey + eh);
 		eg.addColorStop(0, oo ? '#0c1422' : '#13202f'); eg.addColorStop(1, oo ? '#070b12' : '#0b121b');

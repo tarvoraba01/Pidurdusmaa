@@ -5,6 +5,7 @@
 	   (?kood=VIIKING-7K3) ja läheb statistikasse koos vastustega — nime ei küsita. */
 	import { onMount } from 'svelte';
 	import { KYSIMUSED, TEEMAD } from '$lib/koolitus/kysimused.js';
+	import qrcode from 'qrcode-generator';
 
 	const NAHTUD_VOTI = 'pm-koolitus-nahtud';
 	let olek = $state('algus'); /* algus | eel | selgitus | jarel | tulemus */
@@ -14,12 +15,24 @@
 	let jarel = $state([]);
 	let i = $state(0);
 	let ylal; /* kerime küsimuse vahetudes ploki algusse */
+	let grupp = $state(null); /* { kood, nimi, teemad, kysimusi } — õpetaja loodud */
+	let sessioon = '';
 
 	onMount(() => {
 		try {
 			const k = new URLSearchParams(location.search).get('kood') || sessionStorage.getItem('pm-koolitus-kood') || '';
 			kood = puhasKood(k);
-			if (kood) sessionStorage.setItem('pm-koolitus-kood', kood);
+			if (kood) {
+				sessionStorage.setItem('pm-koolitus-kood', kood);
+				fetch('/api/koolitus?kood=' + encodeURIComponent(kood))
+					.then((r) => (r.ok ? r.json() : null))
+					.then((g) => {
+						if (!g?.ok) return;
+						grupp = g;
+						valitud = g.teemad.filter((x) => TEEMAD.some((y) => y[0] === x));
+					})
+					.catch(() => {});
+			}
 			const t = new URLSearchParams(location.search).get('teemad');
 			if (t) {
 				const v = t.split(',').filter((x) => TEEMAD.some((y) => y[0] === x));
@@ -64,9 +77,18 @@
 		}
 		return out.map((q) => ({ q, jarjestus: sega([0, 1, 2, 3]), vastus: null }));
 	}
-	const mitu = () => Math.max(3, Math.min(10, Math.floor(KYSIMUSED.filter((q) => valitud.includes(q.teema)).length / 2)));
+	const mitu = () => Math.max(3, Math.min(grupp?.kysimusi || 10, Math.floor(KYSIMUSED.filter((q) => valitud.includes(q.teema)).length / 2)));
+	/* grupi tulemus õpetajale: ainult küsimuse id ja õige/vale, sessioon on juhuslik */
+	function saadaGrupile(etapp, list) {
+		if (!grupp) return;
+		try {
+			fetch('/api/koolitus', { method: 'POST', headers: { 'Content-Type': 'application/json' }, keepalive: true,
+				body: JSON.stringify({ tegu: 'vastused', kood: grupp.kood, sessioon, etapp, read: list.map((r) => [r.q.id, r.vastus === r.q.o]) }) }).catch(() => {});
+		} catch {}
+	}
 
 	function alusta() {
+		sessioon = Math.random().toString(36).slice(2, 12) + Date.now().toString(36);
 		eel = vali(mitu(), ['e'], new Set());
 		i = 0;
 		olek = 'eel';
@@ -83,9 +105,11 @@
 		margiNahtuks(list.map((r) => r.q.id));
 		if (olek === 'eel') {
 			track('koolitus', 'eel ' + skoor(eel) + '/' + eel.length + (kood ? ' · ' + kood : ''));
+			saadaGrupile('eel', eel);
 			olek = 'selgitus';
 		} else {
 			track('koolitus', 'jarel ' + skoor(jarel) + '/' + jarel.length + (kood ? ' · ' + kood : '') + ' · eel ' + skoor(eel));
+			saadaGrupile('jarel', jarel);
 			olek = 'tulemus';
 		}
 		kerI();
@@ -113,6 +137,54 @@
 	function lulita(t) {
 		valitud = valitud.includes(t) ? valitud.filter((x) => x !== t) : [...valitud, t];
 	}
+
+	/* ---------- õpetaja: loo oma tunni test ---------- */
+	let opetaja = $state(false);
+	let oNimi = $state('');
+	let oTeemad = $state(['kiirus', 'teeolud', 'rehvid']);
+	let oMitu = $state(10);
+	let oViga = $state('');
+	let oTeeb = $state(false);
+	let loodud = $state(null); /* { kood, voti, nimi } */
+	let oKopeeritud = $state('');
+	async function looTest() {
+		oViga = '';
+		if (oNimi.trim().length < 2) { oViga = 'Lisa tunni või grupi nimi.'; return; }
+		if (!oTeemad.length) { oViga = 'Vali vähemalt üks teema.'; return; }
+		oTeeb = true;
+		try {
+			const r = await fetch('/api/koolitus', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ tegu: 'loo', nimi: oNimi, teemad: oTeemad, kysimusi: oMitu }) });
+			const j = await r.json().catch(() => null);
+			if (!j?.ok) { oViga = j?.viga || 'Testi loomine ei õnnestunud. Proovi uuesti.'; return; }
+			loodud = j;
+			track('koolitus', 'õpetaja lõi testi');
+			try {
+				const m = JSON.parse(localStorage.getItem('pm-koolitus-minu') || '[]');
+				m.unshift({ kood: j.kood, voti: j.voti, nimi: j.nimi, aeg: Date.now() });
+				localStorage.setItem('pm-koolitus-minu', JSON.stringify(m.slice(0, 20)));
+			} catch {}
+		} catch {
+			oViga = 'Ühendus katkes. Proovi uuesti.';
+		} finally {
+			oTeeb = false;
+		}
+	}
+	const opilaseLink = (k) => location.origin + '/liiklusohutus/koolitus/?kood=' + k;
+	const tulemusteLink = (l) => location.origin + '/liiklusohutus/koolitus/tulemused/#kood=' + l.kood + '&voti=' + l.voti;
+	async function kopeeri(tekst, mis) {
+		try { await navigator.clipboard.writeText(tekst); oKopeeritud = mis; setTimeout(() => (oKopeeritud = ''), 2000); } catch {}
+	}
+	/* QR ilma innerHTML-ita: moodulid ühe pathina */
+	function qr(tekst) {
+		const q = qrcode(0, 'M');
+		q.addData(tekst);
+		q.make();
+		const n = q.getModuleCount();
+		let d = '';
+		for (let y = 0; y < n; y++) for (let x = 0; x < n; x++) if (q.isDark(y, x)) d += `M${x} ${y}h1v1h-1z`;
+		return { n, d };
+	}
+	const oLulita = (t) => (oTeemad = oTeemad.includes(t) ? oTeemad.filter((x) => x !== t) : [...oTeemad, t]);
 
 	let jagatud = $state('');
 	async function jaga() {
@@ -154,7 +226,7 @@
 </script>
 
 <div class="kl" bind:this={ylal}>
-	{#if kood}<p class="kl-kood">Grupp: <b>{kood}</b></p>{/if}
+	{#if grupp}<p class="kl-kood">Grupp: <b>{grupp.nimi}</b> · {grupp.kood}</p>{:else if kood}<p class="kl-kood">Grupp: <b>{kood}</b></p>{/if}
 
 	{#if olek === 'algus'}
 		<div class="kl-kaart">
@@ -164,15 +236,66 @@
 				<li><b>Vastused</b><span>Näed, mis oli õige ja miks. Proovi olukorda simulaatoris.</span></li>
 				<li><b>Järeltest</b><span>{mitu()} uut küsimust. Vaata, kui palju juurde õppisid.</span></li>
 			</ol>
-			<fieldset class="kl-teemad">
-				<legend>Teemad</legend>
-				{#each TEEMAD as [id, nimi] (id)}
-					<button type="button" aria-pressed={valitud.includes(id)} onclick={() => lulita(id)}>{nimi}</button>
-				{/each}
-			</fieldset>
+			{#if grupp}
+				<p class="kl-grupi-teemad"><b>Teemad:</b> {grupp.teemad.map(teemaNimi).join(', ')}</p>
+			{:else}
+				<fieldset class="kl-teemad">
+					<legend>Teemad</legend>
+					{#each TEEMAD as [id, nimi] (id)}
+						<button type="button" aria-pressed={valitud.includes(id)} onclick={() => lulita(id)}>{nimi}</button>
+					{/each}
+				</fieldset>
+			{/if}
 			<button type="button" class="btn yel kl-suur" disabled={!valitud.length} onclick={alusta}>Alusta →</button>
-			<p class="kl-vaike">Umbes 10 minutit. Nime ei küsita.</p>
+			<p class="kl-vaike">Umbes {Math.max(5, mitu())} minutit. Nime ei küsita.</p>
 		</div>
+
+		{#if !grupp}
+			<div class="kl-kaart kl-opetaja">
+				{#if !opetaja && !loodud}
+					<div class="kl-op-rida">
+						<div><b>Õpetajale</b><span>Loo oma tunni test: õpilased avavad lingi või QR-koodi ja sina näed grupi tulemusi enne ja pärast.</span></div>
+						<button type="button" class="btn" onclick={() => (opetaja = true)}>Loo test →</button>
+					</div>
+				{:else if !loodud}
+					<h2>Loo oma tunni test</h2>
+					<label class="kl-silt" for="kl-onimi">Tunni või grupi nimi</label>
+					<input id="kl-onimi" class="kl-sisend" type="text" maxlength="80" placeholder="nt Viiking Autokool, B-kursus oktoober" bind:value={oNimi} />
+					<fieldset class="kl-teemad">
+						<legend>Teemad</legend>
+						{#each TEEMAD as [id, nimi] (id)}
+							<button type="button" aria-pressed={oTeemad.includes(id)} onclick={() => oLulita(id)}>{nimi}</button>
+						{/each}
+					</fieldset>
+					<fieldset class="kl-teemad">
+						<legend>Küsimusi eel- ja järeltestis</legend>
+						{#each [5, 10, 15] as n (n)}
+							<button type="button" aria-pressed={oMitu === n} onclick={() => (oMitu = n)}>{n}</button>
+						{/each}
+					</fieldset>
+					{#if oViga}<p class="kl-viga" role="alert">{oViga}</p>{/if}
+					<div class="kl-nupud">
+						<button type="button" class="btn yel" disabled={oTeeb} onclick={looTest}>{oTeeb ? 'Loon…' : 'Loo test'}</button>
+						<button type="button" class="btn" onclick={() => (opetaja = false)}>Tühista</button>
+					</div>
+				{:else}
+					{@const q = qr(opilaseLink(loodud.kood))}
+					<h2>Test on valmis</h2>
+					<p class="kl-lead"><b>{loodud.nimi}</b> · kood <b class="kl-kood-suur">{loodud.kood}</b></p>
+					<div class="kl-valmis">
+						<svg class="kl-qr" viewBox="-2 -2 {q.n + 4} {q.n + 4}" role="img" aria-label="QR-kood õpilaste lingiga"><rect x="-2" y="-2" width={q.n + 4} height={q.n + 4} fill="#fff" /><path d={q.d} fill="#0a0b0d" /></svg>
+						<div>
+							<p class="kl-silt">Õpilastele (näita QR-koodi või saada link)</p>
+							<div class="kl-link"><code>{opilaseLink(loodud.kood)}</code><button type="button" class="btn" onclick={() => kopeeri(opilaseLink(loodud.kood), 'opilane')}>{oKopeeritud === 'opilane' ? 'Kopeeritud ✓' : 'Kopeeri'}</button></div>
+							<p class="kl-silt">Sinu tulemused (ainult sulle, hoia alles)</p>
+							<div class="kl-link"><a href={tulemusteLink(loodud)} target="_blank" rel="noopener">Ava tulemused ↗</a><button type="button" class="btn" onclick={() => kopeeri(tulemusteLink(loodud), 'opetaja')}>{oKopeeritud === 'opetaja' ? 'Kopeeritud ✓' : 'Kopeeri link'}</button></div>
+							<p class="kl-vaike">Tulemuste link on ainus võti. Saada see endale e-postiga või salvesta järjehoidjasse. Selles brauseris on see ka meeles.</p>
+						</div>
+					</div>
+					<div class="kl-nupud"><button type="button" class="btn" onclick={() => { loodud = null; opetaja = true; oNimi = ''; }}>Loo veel üks test</button></div>
+				{/if}
+			</div>
+		{/if}
 	{:else if (olek === 'eel' || olek === 'jarel') && rida}
 		<div class="kl-kaart">
 			<div class="kl-ylal">
@@ -279,6 +402,20 @@
 	.kl-sammud li::before { content: counter(s); grid-row: span 2; width: 34px; height: 34px; border-radius: 50%; background: var(--yellow); color: var(--ink); font-weight: 800; display: grid; place-items: center; }
 	.kl-sammud b { font-size: 17px; line-height: 1.3; }
 	.kl-sammud span { color: var(--muted); font-size: 15px; }
+	.kl-grupi-teemad { margin: 0 0 var(--sp-5); font-size: 15px; }
+	.kl-op-rida { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-4); flex-wrap: wrap; }
+	.kl-op-rida div { display: grid; gap: 2px; flex: 1 1 320px; }
+	.kl-op-rida span { color: var(--muted); font-size: 15px; }
+	.kl-silt { display: block; font-weight: 700; font-size: 14px; margin: 0 0 6px; }
+	.kl-sisend { width: 100%; box-sizing: border-box; font: inherit; font-size: 16px; padding: 11px 14px; border: 1.5px solid var(--line); border-radius: 10px; margin-bottom: var(--sp-4); }
+	.kl-viga { color: #b4471a; font-weight: 600; margin: 0 0 var(--sp-3); }
+	.kl-kood-suur { font-size: 20px; letter-spacing: 0.06em; }
+	.kl-valmis { display: grid; grid-template-columns: 200px 1fr; gap: var(--sp-5); align-items: start; margin-bottom: var(--sp-4); }
+	.kl-qr { width: 200px; height: 200px; display: block; border: 1px solid var(--line); border-radius: 8px; }
+	.kl-link { display: flex; gap: var(--sp-2); align-items: center; margin-bottom: var(--sp-4); flex-wrap: wrap; }
+	.kl-link code { flex: 1 1 220px; font-size: 13px; background: #f4f5f7; padding: 10px 12px; border-radius: 8px; word-break: break-all; }
+	.kl-link a { flex: 1 1 220px; font-weight: 700; }
+	@media (max-width: 600px) { .kl-valmis { grid-template-columns: 1fr; } .kl-qr { width: 180px; height: 180px; } }
 	.kl-vaike { font-size: 13px; color: var(--muted); margin: var(--sp-3) 0 0; }
 	.kl-keskel { text-align: center; }
 	.kl-keskel.kl-nupud { justify-content: center; }

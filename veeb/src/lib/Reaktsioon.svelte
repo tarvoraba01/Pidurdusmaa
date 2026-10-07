@@ -525,6 +525,12 @@
 	.rk-ekraan.tais .rk-fs { top: calc(10px + env(safe-area-inset-top)); right: calc(10px + env(safe-area-inset-right)); }
 	.rk-kaart { position: absolute; inset: 0; z-index: 3; display: grid; place-items: center; padding: var(--sp-3); background: rgba(5,6,8,0.55); border-radius: var(--r-lg, 16px); animation: kaartSisse 0.25s ease-out; }
 	.rk-ekraan.tais .rk-kaart { border-radius: 0; }
+	/* täisekraanil tekst pildi peale (üles, taeva kohale), et pilt saaks kogu kõrguse */
+	.rk-ekraan.tais .rk-ala { position: relative; padding-bottom: 0; }
+	.rk-ekraan.tais .rk-tekst { position: absolute; left: 0; right: 0; top: 0; height: auto; padding: calc(14px + env(safe-area-inset-top)) 70px 34px; background: linear-gradient(rgba(0, 0, 0, 0.62), rgba(0, 0, 0, 0)); pointer-events: none; }
+	.rk-ekraan.tais .rk-tekst b { font-size: 28px; }
+	.rk-ekraan.tais .rk-tekst small { color: #e3e6ea; }
+	.rk-ekraan.tais .rk-pallid { position: absolute; left: calc(16px + env(safe-area-inset-left)); top: calc(18px + env(safe-area-inset-top)); pointer-events: none; }
 	@keyframes kaartSisse { from { opacity: 0; transform: translateY(8px); } }
 	.rk-kaart-sisu { position: relative; width: 100%; max-width: 440px; max-height: 100%; overflow: auto; background: #16181d; color: #fff; border: 1px solid #2b3039; border-radius: 16px; padding: var(--sp-5) var(--sp-4) var(--sp-4); text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
 	.rk-x { position: absolute; top: 6px; right: 6px; width: 40px; height: 40px; border: 0; background: transparent; color: #aab1bc; font-size: 28px; line-height: 1; cursor: pointer; border-radius: 10px; }

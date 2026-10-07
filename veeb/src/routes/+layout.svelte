@@ -169,6 +169,7 @@
 			<div class="dd" data-dd>
 				<button type="button" class="dd-btn" aria-expanded="false" aria-haspopup="true" aria-current={cur === 'sim' ? 'page' : undefined}>{t('Simulaatorid')} <Icon name="chev" /></button>
 				<div class="dd-menu" role="menu">
+					{#if lang === 'et'}<a role="menuitem" href="/liiklusohutus/koolitus/"><b>Koolitus: test + simulaatorid</b><span>Arvamused ja tõed · õpetajale oma tunni test</span></a>{/if}
 					<a role="menuitem" href={L('/liiklusohutus/reaktsioon/')}><b>{t('Mäng: kui kiiresti SINA pidurdad?')}</b><span>{t('Testi oma reaktsiooni ja jaga tulemust')}</span></a>
 					<a role="menuitem" href={L('/liiklusohutus/')}><b>{t('Peatumisteekond')}</b><span>{t('Kiirus, reaktsioon ja teeolud')}</span></a>
 					<a role="menuitem" href={L('/liiklusohutus/pimedas/')}><b>{t('Pimedas')}</b><span>{t('Kas jõuad jalakäija ees peatuda?')}</span></a>
@@ -222,6 +223,7 @@
 			<section class="pm-sek">
 				<h4>{t("Simulaatorid")}</h4>
 				<div class="pm-chips">
+					{#if lang === 'et'}<a href="/liiklusohutus/koolitus/"><Icon name="test" />Koolitus</a>{/if}
 					<a href={L('/liiklusohutus/reaktsioon/')}><Icon name="speed" />{t("Mäng")}</a>
 					<a href={L('/liiklusohutus/')}><Icon name="road" />{t("Peatumisteekond")}</a>
 					<a href={L('/liiklusohutus/pimedas/')}><Icon name="moon" />{t("Pimedas")}</a>
