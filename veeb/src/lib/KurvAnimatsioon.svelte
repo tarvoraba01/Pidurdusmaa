@@ -5,7 +5,7 @@
 	import { onMount, untrack } from 'svelte';
 	import { RADA } from '$lib/kurvisoit.js';
 
-	let { sim, pind = 'kuiv', auto = 'sedaan', t, LOC = 'et-EE' } = $props();
+	let { sim, pind = 'kuiv', auto = 'sedaan', haagis = false, t, LOC = 'et-EE' } = $props();
 
 	/* auto pealtvaates valitud tüübi järgi (m): pikkus, laius, nurgad, esi- ja tagasilla koht,
 	   tuuleklaasi ja tagaklaasi koht; maasturil katuseraamid, kaubikul kaubaruumi ribid */
@@ -148,6 +148,25 @@
 		let dp = n[3] - q[3];
 		dp = Math.atan2(Math.sin(dp), Math.cos(dp));
 		return { i, x: q[1] + (n[1] - q[1]) * k, y: q[2] + (n[2] - q[2]) * k, psi: q[3] + dp * k, kmh: q[4] + (n[4] - q[4]) * k, faas: q[7], useF: q[5], useR: q[6], lukk: q[9] || 0, t: Math.min(tSim, tLopp) };
+	});
+	/* haagis: aisa ots auto tagaosas; haagise telg järgib auto sõidujälge (vaatame
+	   jälge tagasi, kuni kaugus aisast on haagise pikkus). Joonis, mitte füüsika:
+	   haagise loksumist mudel ei arvesta. */
+	const haagisAsend = $derived.by(() => {
+		if (!haagis || !hetk || !sim) return null;
+		const r = sim.rada, k = autoSuur;
+		const hx = hetk.x - Math.cos(hetk.psi) * (A.L / 2 + 0.9) * k, hy = hetk.y - Math.sin(hetk.psi) * (A.L / 2 + 0.9) * k;
+		/* haagise telg: sõidujäljel (A.L/2 + 0,9 + 2,6) m auto keskmest tagapool */
+		const kaugus = (A.L / 2 + 0.9 + 2.6) * k;
+		let px = hx - Math.cos(hetk.psi) * 2.6 * k, py = hy - Math.sin(hetk.psi) * 2.6 * k;
+		let kaar = 0, ex = hetk.x, ey = hetk.y;
+		for (let j = hetk.i; j >= 0; j--) {
+			kaar += Math.hypot(r[j][1] - ex, r[j][2] - ey);
+			ex = r[j][1]; ey = r[j][2];
+			if (kaar >= kaugus) { px = ex; py = ey; break; }
+		}
+		const ang = Math.atan2(hy - py, hx - px);
+		return { x: hx, y: hy, deg: (ang * 180) / Math.PI };
 	});
 	const libiseb = $derived(hetk && hetk.faas < 3 && hetk.kmh > 4 && Math.max(hetk.useF, hetk.useR) > 0.97);
 
@@ -328,6 +347,19 @@
 			{#if lopp && sim.teelt}
 				<g transform="translate({hetk.x} {hetk.y}) scale({fs / 2})">
 					<path d="M0-2.6 .7-1 2.4-1.8 1.4-.3 2.8.6 1 .8 1.3 2.6 0 1.3-1.3 2.6-1 .8-2.8.6-1.4-.3-2.4-1.8-.7-1Z" class="ka-paug" />
+				</g>
+			{/if}
+			{#if haagisAsend}
+				<!-- haagis (aisa ots = 0, kast taga) -->
+				<g transform="translate({haagisAsend.x.toFixed(3)} {haagisAsend.y.toFixed(3)}) rotate({haagisAsend.deg.toFixed(2)}) scale({autoSuur})">
+					<path d="M0 0H-0.9" stroke="#2b2f36" stroke-width=".14" />
+					<rect x="-4.1" y="-0.98" width="3.2" height="1.96" rx=".2" fill="#000" opacity=".2" transform="translate(.15 .2)" />
+					<rect x="-2.95" y="-1.06" width=".7" height=".22" rx=".08" fill="#15171b" /><rect x="-2.95" y=".84" width=".7" height=".22" rx=".08" fill="#15171b" />
+					<rect x="-4.1" y="-0.9" width="3.2" height="1.8" rx=".18" fill="#c9ced6" stroke="#2b2f36" stroke-width=".09" />
+					{#if hetk.faas === 2 && !lopp}
+						<rect x="-4.18" y="-0.8" width=".16" height=".42" rx=".05" class="ka-pidur" />
+						<rect x="-4.18" y="0.38" width=".16" height=".42" rx=".05" class="ka-pidur" />
+					{/if}
 				</g>
 			{/if}
 			<!-- auto -->

@@ -563,6 +563,7 @@ export default {
 "Nähtavus pimedas: simulaator": "Visibility in the dark: simulator",
 "Pikivahe: simulaator": "Following distance: simulator",
 "Proovi ise: kas jõuad pidurdada?": "Try it yourself: can you brake in time?",
+"Haagis pikendab pidurdamist (pidurita haagist peatab ainult auto). Haagise loksumist ja kokkuvoltimist mudel ei arvesta, päriselt on kurvis pidurdamine haagisega veel ohtlikum.": "A trailer lengthens braking (an unbraked trailer is stopped by the car alone). The model ignores trailer sway and jackknifing; in reality braking in a curve with a trailer is even more dangerous.",
 "Lühidalt": "In short",
 "\">eemalda</button></span></th>": "\">remove</button></span></th>",
 "Jah": "Yes",

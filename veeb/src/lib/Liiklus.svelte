@@ -169,7 +169,7 @@
 		jeep_wrangler_jk: `<circle cx="5" cy="11.5" r="3.6" fill="currentColor"/><circle cx="5" cy="11.5" r="1.5" ${AKEN}/><path d="M7.5 18.5V9.5Q7.5 7.8 9 7.8H10V3.2Q10 2 11.2 2H40.5L44.6 7.8H55Q58 7.8 58 10.6V18.5Z" fill="currentColor"/><path d="M12.2 3.8H24.5V7.6H12.2Z M26.5 3.8H39.5L42.2 7.6H26.5Z" ${AKEN}/><path d="M10 18.8Q11 13.6 17.5 13.6Q24 13.6 25 18.8M40 18.8Q41 13.6 47.5 13.6Q54 13.6 55 18.8" stroke="currentColor" stroke-width="2.4" fill="none"/>` + RATAS(17.5, 5.4) + RATAS(47.5, 5.4),
 		vw_transporter: `<path d="M3 21V4.5Q3 2 5.5 2H46Q48.5 2 50 4L56 10.8Q60.5 11.8 61 15V21Z" fill="currentColor"/><path d="M43 4H46Q47.5 4 48.3 5.2L53 10.8H43Z" ${AKEN}/><path d="M38.5 3.5V19" stroke="var(--paper-2)" stroke-width="0.8" opacity=".5"/>` + RATAS(13) + RATAS(50.5)
 	};
-	let KR = $state({ kiirus: 80, pind: 'marg', kat: 'SUMMER_TOURING', esi: 8, taga: 2, auto: 'vw_passat_b8', abs: true, laad: 75 });
+	let KR = $state({ kiirus: 80, pind: 'marg', kat: 'SUMMER_TOURING', esi: 8, taga: 2, auto: 'vw_passat_b8', abs: true, laad: 75, haagis: 'ei', haagisKg: 750 });
 	/* Pikivahe ($lib/pikivahe.js): eesolev auto pidurdab järsult või peatub kohe */
 	let ees = $state('pidurdab');
 	let pvSek = $state(2);
@@ -561,7 +561,7 @@
 			for (const q of rada) if (q[0] >= 0 && q[1] >= takistus && q[2] > 0.5) { loog = { t: q[0], x: takistus, kmh: q[2] }; break; }
 			teed.push({
 				silt: B ? n : null,
-				autod: [{ nimi: B ? n : '', rada, varv: n === 'A' ? '#ffc20e' : '#7cc4ff', peamine: true }],
+				autod: [{ nimi: B ? n : '', rada, varv: n === 'A' ? '#ffc20e' : '#7cc4ff', peamine: true, haagis: s.haagis !== 'ei' }],
 				jk: { x: takistus, riided: naeb === 'hele' ? 'hele' : 'tume', helkur: naeb === 'helkur' || naeb === 'kaug', tNae: 0 },
 				valgus: takistus,
 				loog
@@ -622,7 +622,7 @@
 			pind: pindNimi(A),
 			teed: [{ silt: null, autod: [
 				{ nimi: t('Ees'), rada: L, varv: '#b8c2ce' },
-				{ nimi: t('Sina'), rada: F, varv: '#ffc20e', peamine: true }
+				{ nimi: t('Sina'), rada: F, varv: '#ffc20e', peamine: true, haagis: A.haagis !== 'ei' }
 			], jk: null, valgus: 0, loog }],
 			markNae: ees === 'seisab' ? t('ees peatub') : t('ees pidurdab'),
 			faasid: [t('Sõidad {s} s vahega', { s: pvSek }), ees === 'seisab' ? t('Eesolev auto peatus hetkega! Reageerid…') : t('Eesolev auto pidurdab! Reageerid…'), t('Pidurdad'), napp ? t('Peatud vahetult tema taga — varu ei jää') : tul && !tul.kokkuporge ? t('Peatud {m} m tema taga', { m: m(tul.jaabM) }) : t('Peatud')],
@@ -647,7 +647,8 @@
 	}
 	function krSoit(pind, kmh, esi, taga, rada = false, abs = KR.abs) {
 		const x = krSisend(pind, kmh);
-		return x && kurviSoit(P, { veh: x.veh, cond: x.cond, tyreF: x.tyre(esi), tyreR: x.tyre(taga), R: kurv, f0: x.f0, rada, abs });
+		const tKg = KR.haagis === 'ei' ? 0 : Math.min(+KR.haagisKg || 0, haagisMax(KR));
+		return x && kurviSoit(P, { veh: x.veh, cond: x.cond, tyreF: x.tyre(esi), tyreR: x.tyre(taga), R: kurv, f0: x.f0, rada, abs, trailerKg: tKg, trailerBrakes: KR.haagis === 'piduriga' });
 	}
 	const kr = $derived.by(() => {
 		if (!core || !P) return null;
@@ -673,7 +674,7 @@
 		switch (r.tulemus) {
 			case 'ok': return ['ok', kurv ? t('Püsib oma sõidurajal ja peatub') : t('Sirgel teel püsib auto otse ja peatub')];
 			case 'piiril': return ['hoiatus', t('Peatub oma rajal, aga haarde piiril')];
-			case 'vastu': return ['halb', t('Auto kandub vastassuunavööndisse')];
+			case 'vastu': return ['vastu', t('Auto kandub vastassuunavööndisse')];
 			case 'ringi': return ['halb', t('Tagaosa libiseb välja — auto pöörab ringi (ülejuhitavus)')];
 			case 'teelt': return ['halb', r.teeltPool === 'sisse' ? t('Auto libiseb kurvi sisekülje poole teelt välja') : t('Esirattad libisevad — auto ei pööra ja sõidab kurvist välja (alajuhitavus)')];
 			default: return ['halb', t('Tagaosa libiseb välja — auto pöörab ringi ja paiskub teelt välja')];
@@ -696,7 +697,7 @@
 	let kaartVoti = '';
 	$effect(() => {
 		if (!core || !P) return;
-		const voti = [kurv, KR.kat, KR.esi, KR.taga, KR.auto, KR.abs, KR.laad].join('|');
+		const voti = [kurv, KR.kat, KR.esi, KR.taga, KR.auto, KR.abs, KR.laad, KR.haagis, KR.haagisKg].join('|');
 		kaartVoti = voti;
 		/* arvutame väikeste tükkidena (≤ ~12 ms korraga), et telefonis leht ei hanguks */
 		const read = Object.fromEntries(KR_PIND.map(([p]) => [p, Array(KR_KIIRUSED.length).fill(null)]));
@@ -822,6 +823,18 @@
 				{/if}
 				<label class="lo-row" for="kr-laad"><span>{t("Koormus (juht, reisijad, pagas)")}</span><b class="lo-val">{KR.laad} {t("kg")}</b></label>
 				<input id="kr-laad" class="slider" type="range" min="75" max={laadMax({ tyyp: KR.auto })} step="25" bind:value={KR.laad} style="--p:{((Math.min(KR.laad, laadMax({ tyyp: KR.auto })) - 75) / (laadMax({ tyyp: KR.auto }) - 75)) * 100}%" />
+				{#if KR.haagis === 'ei'}
+					<button type="button" class="lo-haagis-lisa" onclick={() => (KR.haagis = 'pidurita')}>{t("+ Lisa haagis")}</button>
+				{:else}
+					<div class="lo-row"><span>{t("Haagis")}</span><button type="button" class="linkbtn lo-haagis-x" onclick={() => (KR.haagis = 'ei')}>{t("Eemalda")}</button></div>
+					<div class="lo-seg lo-seg2" role="group" aria-label={t("Haagis")}>
+						<button type="button" aria-pressed={KR.haagis === 'pidurita'} onclick={() => (KR.haagis = 'pidurita')}>{t("Pidurita")}</button>
+						<button type="button" aria-pressed={KR.haagis === 'piduriga'} onclick={() => (KR.haagis = 'piduriga')}>{t("Piduritega")}</button>
+					</div>
+					<label class="lo-row" for="kr-haagiskg"><span>{t("Haagise mass koos koormaga")}</span><b class="lo-val">{Math.min(KR.haagisKg, haagisMax(KR))} {t("kg")}</b></label>
+					<input id="kr-haagiskg" class="slider" type="range" min="100" max={haagisMax(KR)} step="50" bind:value={KR.haagisKg} style="--p:{((Math.min(KR.haagisKg, haagisMax(KR)) - 100) / (haagisMax(KR) - 100)) * 100}%" />
+					<p class="lo-kr-vihje">{t("Haagis pikendab pidurdamist (pidurita haagist peatab ainult auto). Haagise loksumist ja kokkuvoltimist mudel ei arvesta, päriselt on kurvis pidurdamine haagisega veel ohtlikum.")}</p>
+				{/if}
 			</fieldset>
 			<fieldset>
 				<legend>{t('ABS')}</legend>
@@ -1096,7 +1109,7 @@
 				{#if r.vastu && !r.teelt}<p class="lo-kt-varu">{t('Kui sel hetkel tuleb vastu auto, on see laupkokkupõrge: sina sõidad {k} km/h ja tema tuleb omakorda vastu.', { k: f0(r.vastuKmh) })}</p>{/if}
 				{#if kurv && KR.kiirus > r.piirKmh}<p class="lo-kt-varu">{t('Kiirus on selle kurvi jaoks liiga suur ka ilma pidurdamata.')}</p>{/if}
 			</div>
-			<KurvAnimatsioon sim={r} pind={KR.pind} auto={KR_AUTO.find((x) => x[0] === KR.auto)?.[2]} {t} {LOC} />
+			<KurvAnimatsioon sim={r} pind={KR.pind} auto={KR_AUTO.find((x) => x[0] === KR.auto)?.[2]} haagis={KR.haagis !== 'ei'} {t} {LOC} />
 
 			<h3 class="lo-kr-h3">{t('Kõik kiirused ja teeolud')}</h3>
 			<p class="lo-kr-alam">{t('Sama kurv, auto ja rehvid. Iga ruut on eraldi arvutus — klõpsa, et seda vaadata.')}</p>
@@ -2135,6 +2148,10 @@
 	}
 	.lo-kt-halb {
 		color: var(--bad);
+	}
+	/* vastassuunavöönd: oht, aga mitte veel avarii (sama oranž mis tabelis) */
+	.lo-kt-vastu {
+		color: #d9661a;
 	}
 	.lo-kt-varu {
 		display: block;

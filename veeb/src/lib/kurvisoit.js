@@ -65,6 +65,13 @@ export function kurviSoit(P, o) {
 	const { veh, cond, tyreF, tyreR } = o;
 	const T = tee(o.R);
 	const m = veh.kerbMassKg + (cond.payloadKg || 0);
+	/* HAAGIS (lihtsustatud): haagis järgneb autole jäigalt (loksumist ega „noa"
+	   kokkuvoltimist ei arvestata). Pikisuunas peab auto pidurdama ka haagise
+	   massi; inertspiduriga haagis pidurdab ise kuni 0,5 g (sama mis engine.js
+	   trailerBrakeG / trailerTyreEff). Külgjõu kannavad haagise oma rattad.
+	   Aisa surve tagasillale ~4 % haagise massist (kuni 75 kg). */
+	const mT = Math.max(0, +o.trailerKg || 0), haagisPidur = !!o.trailerBrakes;
+	const nina = Math.min(75, 0.04 * mT);
 	const Lw = veh.wheelbaseM, h = veh.cogHeightM;
 	const f0 = o.f0 ?? 0.6;
 	const a = Lw * (1 - f0), b = Lw * f0; // raskuskeskmest esi- ja tagasillani
@@ -153,7 +160,7 @@ export function kurviSoit(P, o) {
 
 		/* koormus sildadel (pikisuunaline ülekanne pidurdades) */
 		const NF = Math.max(0.05 * m * g, m * (g * f0 - (ax * h) / Lw));
-		const NR = Math.max(0.05 * m * g, m * g - NF);
+		const NR = Math.max(0.05 * m * g, m * g - NF) + nina * g;
 		const muF = mu(0, v), muR = mu(1, v);
 
 		/* esisild: ratta teljestik */
@@ -188,8 +195,9 @@ export function kurviSoit(P, o) {
 		/* keresse teljestikku */
 		const FxF = FxFw * cd - FyFw * sd, FyF = FxFw * sd + FyFw * cd;
 		const drag = (0.5 * 1.2 * (veh.cdaM2 || 0.7) * v * vx) + (P.CAL.crr || 0.012) * m * g * Math.sign(vx) * Math.min(1, Math.abs(vx));
-		const Fx = FxF + FxR - drag, Fy = FyF + FyR;
-		const axN = Fx / m;
+		const FxT = mT > 0 && pidurdab && haagisPidur && vx > 0.05 ? -ramp * Math.min(mu(1, v) * g * (P.CAL.trailerTyreEff || 0.85), (P.CAL.trailerBrakeG || 0.5) * g) * mT : 0;
+		const Fx = FxF + FxR - drag + FxT, Fy = FyF + FyR;
+		const axN = Fx / (m + mT);
 		ax = 0.8 * ax + 0.2 * axN;
 		vx += (axN + vy * r) * dt;
 		vy += (Fy / m - vx * r) * dt;

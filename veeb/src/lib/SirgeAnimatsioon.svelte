@@ -51,7 +51,7 @@
 		if (!stseen) return null;
 		let x0 = Infinity, x1 = -Infinity;
 		for (const tee of stseen.teed) {
-			for (const a of tee.autod) for (const q of a.rada) { if (q[1] - 5 < x0) x0 = q[1] - 5; if (q[1] > x1) x1 = q[1]; }
+			for (const a of tee.autod) for (const q of a.rada) { const taga = a.haagis ? 10 : 5; if (q[1] - taga < x0) x0 = q[1] - taga; if (q[1] > x1) x1 = q[1]; }
 			if (tee.jk) x1 = Math.max(x1, tee.jk.x);
 		}
 		x0 = Math.max(x0, x1 - 400);
@@ -302,6 +302,18 @@
 					{@const y = yRada(a.tee)}
 					{@const L = a.pikkus || 4.4}
 					<g transform="translate({(a.x - L / 2).toFixed(3)} {y}) scale({autoSuur})">
+						{#if a.haagis}
+							<!-- haagis: 3,2 m kast, 0,9 m tiisel -->
+							<path d="M{-L / 2} 0H{-L / 2 - 0.9}" stroke="#2b2f36" stroke-width=".14" />
+							<rect x={-L / 2 - 0.9 - 3.2} y="-0.98" width="3.2" height="1.96" rx=".2" fill="#000" opacity=".2" transform="translate(.15 .2)" />
+							<rect x={-L / 2 - 0.9 - 1.95} y="-1.06" width=".7" height=".22" rx=".08" fill="#15171b" /><rect x={-L / 2 - 0.9 - 1.95} y=".84" width=".7" height=".22" rx=".08" fill="#15171b" />
+							<rect x={-L / 2 - 0.9 - 3.2} y="-0.9" width="3.2" height="1.8" rx=".18" fill="#c9ced6" stroke="#2b2f36" stroke-width=".09" />
+							<path d="M{-L / 2 - 0.9 - 3.0} -.7H{-L / 2 - 1.1}M{-L / 2 - 0.9 - 3.0} .7H{-L / 2 - 1.1}" stroke="#2b2f36" stroke-width=".06" opacity=".35" />
+							{#if a.faas === 2}
+								<rect x={-L / 2 - 0.9 - 3.28} y="-0.8" width=".16" height=".42" rx=".05" class="sa-pidur" />
+								<rect x={-L / 2 - 0.9 - 3.28} y="0.38" width=".16" height=".42" rx=".05" class="sa-pidur" />
+							{/if}
+						{/if}
 						<rect x={-L / 2} y="-1.05" width={L} height="2.1" rx=".5" fill="#000" opacity=".22" transform="translate(.15 .2)" />
 						<rect x={-L / 2 + 0.6} y="-1.0" width=".72" height=".24" rx=".08" fill="#15171b" /><rect x={-L / 2 + 0.6} y=".76" width=".72" height=".24" rx=".08" fill="#15171b" />
 						<rect x={L / 2 - 1.4} y="-1.0" width=".72" height=".24" rx=".08" fill="#15171b" /><rect x={L / 2 - 1.4} y=".76" width=".72" height=".24" rx=".08" fill="#15171b" />

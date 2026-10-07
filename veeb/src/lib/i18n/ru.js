@@ -606,6 +606,7 @@ export default {
 "Nähtavus pimedas: simulaator": "Видимость в темноте: симулятор",
 "Pikivahe: simulaator": "Дистанция: симулятор",
 "Proovi ise: kas jõuad pidurdada?": "Попробуйте сами: успеете затормозить?",
+"Haagis pikendab pidurdamist (pidurita haagist peatab ainult auto). Haagise loksumist ja kokkuvoltimist mudel ei arvesta, päriselt on kurvis pidurdamine haagisega veel ohtlikum.": "Прицеп удлиняет торможение (прицеп без тормозов останавливает только автомобиль). Раскачивание и складывание прицепа модель не учитывает, в реальности торможение в повороте с прицепом ещё опаснее.",
 "Lühidalt": "Коротко",
 "\">eemalda</button></span></th>": "\">убрать</button></span></th>",
 "Jah": "Да",
