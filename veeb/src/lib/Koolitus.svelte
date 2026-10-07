@@ -17,6 +17,7 @@
 	let ylal; /* kerime küsimuse vahetudes ploki algusse */
 	let grupp = $state(null); /* { kood, nimi, teemad, kysimusi } — õpetaja loodud */
 	let sessioon = '';
+	let opNimi = $state(''); /* õpetaja testis kohustuslik: näeb ainult õpetaja */
 
 	onMount(() => {
 		try {
@@ -83,7 +84,7 @@
 		if (!grupp) return;
 		try {
 			fetch('/api/koolitus', { method: 'POST', headers: { 'Content-Type': 'application/json' }, keepalive: true,
-				body: JSON.stringify({ tegu: 'vastused', kood: grupp.kood, sessioon, etapp, read: list.map((r) => [r.q.id, r.vastus === r.q.o]) }) }).catch(() => {});
+				body: JSON.stringify({ tegu: 'vastused', kood: grupp.kood, sessioon, etapp, nimi: opNimi.trim().slice(0, 40), read: list.map((r) => [r.q.id, r.vastus === r.q.o]) }) }).catch(() => {});
 		} catch {}
 	}
 
@@ -238,6 +239,8 @@
 			</ol>
 			{#if grupp}
 				<p class="kl-grupi-teemad"><b>Teemad:</b> {grupp.teemad.map(teemaNimi).join(', ')}</p>
+				<label class="kl-silt" for="kl-opnimi">Sinu nimi <span class="kl-vabat">(näeb ainult õpetaja)</span></label>
+				<input id="kl-opnimi" class="kl-sisend" type="text" maxlength="40" autocomplete="name" required bind:value={opNimi} />
 			{:else}
 				<fieldset class="kl-teemad">
 					<legend>Teemad</legend>
@@ -246,8 +249,9 @@
 					{/each}
 				</fieldset>
 			{/if}
-			<button type="button" class="btn yel kl-suur" disabled={!valitud.length} onclick={alusta}>Alusta →</button>
-			<p class="kl-vaike">Umbes {Math.max(5, mitu())} minutit. Nime ei küsita.</p>
+			<button type="button" class="btn yel kl-suur" disabled={!valitud.length || (grupp && opNimi.trim().length < 2)} onclick={alusta}>Alusta →</button>
+			{#if grupp && opNimi.trim().length < 2}<p class="kl-vaike">Kirjuta oma nimi, et õpetaja näeks sinu tulemust.</p>{/if}
+			<p class="kl-vaike">Umbes {Math.max(5, mitu())} minutit.{grupp ? '' : ' Nime ei küsita.'}</p>
 		</div>
 
 		{#if !grupp}
@@ -405,6 +409,7 @@
 	.kl-sammud li::before { content: counter(s); grid-row: span 2; width: 34px; height: 34px; border-radius: 50%; background: var(--yellow); color: var(--ink); font-weight: 800; display: grid; place-items: center; }
 	.kl-sammud b { font-size: 17px; line-height: 1.3; }
 	.kl-sammud span { color: var(--muted); font-size: 15px; }
+	.kl-vabat { font-weight: 400; color: var(--muted); }
 	.kl-grupi-teemad { margin: 0 0 var(--sp-5); font-size: 15px; }
 	.kl-op-rida { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-4); flex-wrap: wrap; }
 	.kl-op-rida div { display: grid; gap: 2px; flex: 1 1 320px; }

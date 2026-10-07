@@ -51,7 +51,7 @@ export async function GET(event) {
 	if (!antud || !timingSafeEqual(Buffer.from(rasi(antud)), Buffer.from(g.voti_rasi))) return keelatud();
 	let read = [];
 	try {
-		read = (await sb('koolitus_vastused?kood=eq.' + encodeURIComponent(kood) + '&select=sessioon,etapp,kysimus,oige&order=aeg.asc&limit=20000', { aegMs: 15000 })) || [];
+		read = (await sb('koolitus_vastused?kood=eq.' + encodeURIComponent(kood) + '&select=aeg,sessioon,nimi,etapp,kysimus,oige&order=aeg.asc&limit=20000', { aegMs: 15000 })) || [];
 	} catch {
 		return puudub();
 	}
@@ -60,7 +60,9 @@ export async function GET(event) {
 	const kys = new Map();
 	const teemad = new Map();
 	for (const r of read) {
-		const s = sess.get(r.sessioon) || { eel: [0, 0], jarel: [0, 0] };
+		const s = sess.get(r.sessioon) || { eel: [0, 0], jarel: [0, 0], nimi: '', aeg: r.aeg, valed: { eel: [], jarel: [] } };
+		if (r.nimi) s.nimi = r.nimi;
+		if (!r.oige) s.valed[r.etapp].push(r.kysimus);
 		s[r.etapp][0] += r.oige ? 1 : 0;
 		s[r.etapp][1] += 1;
 		sess.set(r.sessioon, s);
@@ -84,6 +86,8 @@ export async function GET(event) {
 		nimi: g.nimi,
 		osalejaid: { eel: [...sess.values()].filter((s) => s.eel[1]).length, jarel: [...sess.values()].filter((s) => s.jarel[1]).length },
 		oigeid: { eel: prots(kokku('eel')), jarel: prots(kokku('jarel')) },
+		/* iga õpilane eraldi (sessioon = üks läbimine), vanemad ees */
+		opilased: [...sess.values()].map((s) => ({ nimi: s.nimi, aeg: s.aeg, eel: s.eel, jarel: s.jarel, valed: s.valed })),
 		teemad: [...teemad].map(([id, t]) => ({ id, eel: prots(t.eel), jarel: prots(t.jarel) })),
 		kysimused: [...kys]
 			.map(([id, q]) => ({ id, vastajaid: q.eel[1] + q.jarel[1], oige: prots([q.eel[0] + q.jarel[0], q.eel[1] + q.jarel[1]]) }))
@@ -129,10 +133,11 @@ export async function POST(event) {
 		const sessioon = String(b.sessioon || '');
 		const etapp = b.etapp === 'jarel' ? 'jarel' : b.etapp === 'eel' ? 'eel' : '';
 		if (!KOOD_RE.test(kood) || !SESS_RE.test(sessioon) || !etapp || !Array.isArray(b.read)) return vigane();
+		const nimi = String(b.nimi || '').replace(/[\u0000-\u001f<>]/g, '').trim().slice(0, 40) || null;
 		const read = b.read
 			.slice(0, 20)
 			.filter((r) => Array.isArray(r) && KYS.has(r[0]))
-			.map(([id, oige]) => ({ kood, sessioon, etapp, kysimus: id, oige: !!oige }));
+			.map(([id, oige]) => ({ kood, sessioon, etapp, kysimus: id, oige: !!oige, nimi }));
 		if (!read.length) return vigane();
 		try {
 			await sb('koolitus_vastused', { method: 'POST', prefer: 'return=minimal', body: read });

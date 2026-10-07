@@ -75,6 +75,35 @@
 			<p class="kt-vaike kt-printaeg">Seisuga {new Date().toLocaleString('et-EE', { dateStyle: 'short', timeStyle: 'short' })}</p>
 		</div>
 
+		{#if andmed.opilased?.length}
+			<div class="kt-kaart">
+				<h3>Õpilased</h3>
+				<p class="kt-vaike">Iga läbimine eraldi. Vajuta reale, et näha, milles õpilane eksis.</p>
+				<div class="kt-op kt-op-pea" aria-hidden="true"><span>Õpilane</span><span>Enne</span><span>Pärast</span><span>Muutus</span></div>
+				{#each andmed.opilased as o, nr (nr)}
+					{@const e = o.eel[1] ? Math.round((o.eel[0] / o.eel[1]) * 100) : null}
+					{@const j = o.jarel[1] ? Math.round((o.jarel[0] / o.jarel[1]) * 100) : null}
+					<details class="kt-opd">
+						<summary class="kt-op">
+							<span class="kt-opn">{o.nimi || 'Õpilane ' + (nr + 1)}</span>
+							<span>{o.eel[1] ? o.eel[0] + '/' + o.eel[1] : '–'}</span>
+							<span>{o.jarel[1] ? o.jarel[0] + '/' + o.jarel[1] : 'pooleli'}</span>
+							<span class:kt-plus={e !== null && j !== null && j > e} class:kt-miinus={e !== null && j !== null && j < e}>{e !== null && j !== null ? (j - e > 0 ? '+' : '') + (j - e) + ' p.p.' : ''}</span>
+						</summary>
+						<div class="kt-valed">
+							{#each [['eel', 'Eeltestis eksis'], ['jarel', 'Järeltestis eksis']] as [et, pealk] (et)}
+								{#if o.valed[et].length}
+									<p class="kt-vaike"><b>{pealk}:</b></p>
+									<ul>{#each o.valed[et] as id (id)}{@const q = kysimus(id)}{#if q}<li>{q.k} <span class="kt-vaike">Õige: {q.v[q.o]}</span></li>{/if}{/each}</ul>
+								{/if}
+							{/each}
+							{#if !o.valed.eel.length && !o.valed.jarel.length}<p class="kt-vaike">Kõik vastused õiged.</p>{/if}
+						</div>
+					</details>
+				{/each}
+			</div>
+		{/if}
+
 		{#if andmed.teemad.length}
 			<div class="kt-kaart">
 				<h3>Teemade kaupa</h3>
@@ -131,6 +160,19 @@
 	.kt-ras { padding-left: 20px; display: grid; gap: var(--sp-3); }
 	.kt-ras p { margin: 0 0 2px; }
 	.kt-minu { padding-left: 18px; }
+	.kt-op { display: grid; grid-template-columns: minmax(0, 1fr) 70px 70px 90px; gap: var(--sp-2); align-items: center; padding: 10px 4px; font-variant-numeric: tabular-nums; }
+	.kt-op-pea { font-size: 12px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; border-bottom: 1px solid var(--line); }
+	.kt-opd { border-bottom: 1px solid var(--line); }
+	.kt-opd summary { cursor: pointer; list-style: none; }
+	.kt-opd summary::-webkit-details-marker { display: none; }
+	.kt-opd summary:hover { background: #f7f8fa; }
+	.kt-opn { font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+	.kt-plus { color: #1f9d55; font-weight: 700; }
+	.kt-miinus { color: #b4471a; font-weight: 700; }
+	.kt-valed { padding: 0 4px var(--sp-3); }
+	.kt-valed ul { margin: 4px 0 var(--sp-2); padding-left: 18px; font-size: 14px; }
+	.kt-valed li { margin-bottom: 4px; }
+	@media (max-width: 600px) { .kt-op { grid-template-columns: minmax(0, 1fr) 52px 60px 70px; font-size: 14px; } }
 	.kt-nupud { display: flex; gap: var(--sp-2); flex-wrap: wrap; }
 	.kt-printaeg { display: none; }
 	/* print / PDF: ainult tulemused */
@@ -139,6 +181,7 @@
 		.kt-nupud { display: none; }
 		.kt-printaeg { display: block; }
 		.kt-kaart { border: 1px solid #ccc; break-inside: avoid; }
+		.kt-opd summary { break-inside: avoid; }
 		.kt-riba i { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 	}
 </style>

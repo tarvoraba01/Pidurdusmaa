@@ -161,5 +161,7 @@ create table if not exists public.koolitus_vastused (
 	kysimus text not null,
 	oige boolean not null
 );
+-- õpilase nimi/hüüdnimi on vabatahtlik (näeb ainult õpetaja)
+alter table public.koolitus_vastused add column if not exists nimi text;
 create index if not exists koolitus_vastused_kood on public.koolitus_vastused (kood, aeg);
 alter table public.koolitus_vastused enable row level security;
