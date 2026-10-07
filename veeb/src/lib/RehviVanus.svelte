@@ -11,6 +11,9 @@
 
 	let P = null, core = null;
 	let veh = $state(null);
+	let omaAuto = $state(null); /* kalkulaatoris valitud auto võti (koos mootoriga), kui on */
+	/* „Vali uued rehvid“: sama auto (ja tema mõõt) ning sama hooaeg */
+	const valikuLink = $derived(keel.L('/rehvi-valimine/') + '?' + (omaAuto ? 'auto=' + encodeURIComponent(omaAuto) + '&' : '') + 'hooaeg=' + (liik === 'talv' ? 'winter' : 'summer'));
 	let dot = $state('');
 	let liik = $state('suvi'); /* suvi | talv */
 	let muster = $state(5);
@@ -34,6 +37,7 @@
 		try { key = JSON.parse(sessionStorage.getItem('pm_veh') || 'null'); } catch {}
 		const byKey = (k) => core.vehicles.find((v) => v.key === k);
 		veh = (key && byKey(String(key).split('~')[0])) || byKey('vw_golf_8');
+		omaAuto = key && veh && veh.key === String(key).split('~')[0] ? String(key) : null;
 		valmis = true;
 	});
 
@@ -212,7 +216,7 @@
 					{/if}
 					<p class="rv-sel">{veh?.name} · {t('keskmine rehv (märghaardeklass C)')} · {t('ainult pidurdus, reaktsiooniaeg on lisaks.')}</p>
 					<div class="rv-nupud">
-						{#if halb}<a class="btn yel" href={keel.L('/rehvi-valimine/')} onclick={() => track('cta', 'valimine')}>{t('Vali uued rehvid')} →</a>{/if}
+						{#if halb}<a class="btn yel" href={valikuLink} onclick={() => track('cta', 'valimine')}>{t('Vali uued rehvid')} →</a>{/if}
 						<a class="btn" href={keel.L('/')} onclick={() => track('cta', 'kalkulaator')}>{t('Arvuta oma auto ja rehviga')}</a>
 					</div>
 				{:else}
