@@ -68,7 +68,11 @@
 				</div>
 				<p class="kt-vaike">Õigete vastuste osa. Järeltestis on uued ja trikiga küsimused.</p>
 			{/if}
-			<button type="button" class="btn" disabled={laeb} onclick={lae}>{laeb ? 'Laen…' : 'Värskenda'}</button>
+			<div class="kt-nupud">
+				<button type="button" class="btn" disabled={laeb} onclick={lae}>{laeb ? 'Laen…' : 'Värskenda'}</button>
+				<button type="button" class="btn" onclick={() => window.print()}>Prindi või salvesta PDF</button>
+			</div>
+			<p class="kt-vaike kt-printaeg">Seisuga {new Date().toLocaleString('et-EE', { dateStyle: 'short', timeStyle: 'short' })}</p>
 		</div>
 
 		{#if andmed.teemad.length}
@@ -127,4 +131,14 @@
 	.kt-ras { padding-left: 20px; display: grid; gap: var(--sp-3); }
 	.kt-ras p { margin: 0 0 2px; }
 	.kt-minu { padding-left: 18px; }
+	.kt-nupud { display: flex; gap: var(--sp-2); flex-wrap: wrap; }
+	.kt-printaeg { display: none; }
+	/* print / PDF: ainult tulemused */
+	@media print {
+		:global(.site-header), :global(.site-footer), :global(.kps), :global(.skip) { display: none !important; }
+		.kt-nupud { display: none; }
+		.kt-printaeg { display: block; }
+		.kt-kaart { border: 1px solid #ccc; break-inside: avoid; }
+		.kt-riba i { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+	}
 </style>

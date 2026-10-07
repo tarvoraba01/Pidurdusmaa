@@ -60,6 +60,14 @@
 			if (r >= 100 && r <= 3000) sobra = Math.round(r);
 			/* simulaatorilt tulles (?m=pime | ?m=tuled) õige režiim */
 			if (q.get('m') === 'pime' || q.get('m') === 'tuled') { reziim = q.get('m'); kiirus = reziim === 'pime' ? 50 : 90; }
+			/* koolitusest: olukord aadressis (?kiirus=70&ilm=vihm&riie=tume&vahe=1&mm=3) */
+			const kq = +q.get('kiirus');
+			if (kq >= 30 && kq <= 150 && kq % 10 === 0) kiirus = kq;
+			if (ILM.some((x) => x[0] === q.get('ilm'))) ilm = q.get('ilm');
+			if (NAHT.some((x) => x[0] === q.get('riie'))) riie = q.get('riie');
+			if ([0.5, 1, 2].includes(+q.get('vahe'))) vahe = +q.get('vahe');
+			const mq = +q.get('mm');
+			if (mq >= 0.5 && mq <= 8) muster = Math.round(mq * 10) / 10;
 		} catch {}
 		ctx = cv.getContext('2d');
 		suurus();

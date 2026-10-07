@@ -287,9 +287,12 @@
 						<div>
 							<p class="kl-silt">Õpilastele (näita QR-koodi või saada link)</p>
 							<div class="kl-link"><code>{opilaseLink(loodud.kood)}</code><button type="button" class="btn" onclick={() => kopeeri(opilaseLink(loodud.kood), 'opilane')}>{oKopeeritud === 'opilane' ? 'Kopeeritud ✓' : 'Kopeeri'}</button></div>
-							<p class="kl-silt">Sinu tulemused (ainult sulle, hoia alles)</p>
-							<div class="kl-link"><a href={tulemusteLink(loodud)} target="_blank" rel="noopener">Ava tulemused ↗</a><button type="button" class="btn" onclick={() => kopeeri(tulemusteLink(loodud), 'opetaja')}>{oKopeeritud === 'opetaja' ? 'Kopeeritud ✓' : 'Kopeeri link'}</button></div>
-							<p class="kl-vaike">Tulemuste link on ainus võti. Saada see endale e-postiga või salvesta järjehoidjasse. Selles brauseris on see ka meeles.</p>
+							<p class="kl-silt">Sinu tulemused (ainult sulle)</p>
+							<div class="kl-nupud">
+								<a class="btn yel" href={tulemusteLink(loodud)} target="_blank" rel="noopener">Ava tulemused ↗</a>
+								<a class="btn" href={'mailto:?subject=' + encodeURIComponent('Pidurdusmaa test: ' + loodud.nimi) + '&body=' + encodeURIComponent('Õpilaste link: ' + opilaseLink(loodud.kood) + '\n\nMinu tulemused (ainult mulle): ' + tulemusteLink(loodud))}>Saada endale e-postiga</a>
+							</div>
+							<p class="kl-vaike">Tulemuste leht avaneb ainult selle lingiga. Saada see endale e-postiga, siis leiad selle hiljem üles. Selles brauseris on see ka meeles.</p>
 						</div>
 					</div>
 					<div class="kl-nupud"><button type="button" class="btn" onclick={() => { loodud = null; opetaja = true; oNimi = ''; }}>Loo veel üks test</button></div>

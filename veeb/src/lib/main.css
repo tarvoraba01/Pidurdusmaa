@@ -1226,3 +1226,5 @@ body{padding-bottom:var(--tabbar-h, 0px)}
 /* koolituse hüpikaken (?upotus=1, iframe): ainult tööriist */
 html.upotus .skip,html.upotus .site-header,html.upotus .site-footer,html.upotus .kps,html.upotus .lo-hero,html.upotus .lo-info,html.upotus .lo-vaated,html.upotus .rk-rezh,html.upotus .panel-menu{display:none!important}
 html.upotus .lo-bg{padding-top:12px!important}
+/* hüpikaknas ainult see üks olukord: valmis võrdlused, tööriistad ja mängu seaded peidus */
+html.upotus .lo-naited,html.upotus .lo-tools,html.upotus .rk-seaded,html.upotus .rk-must,html.upotus .rk-mliug,html.upotus .rk-nupud,html.upotus .rk-kaart{display:none!important}
