@@ -407,8 +407,8 @@
 		<canvas bind:this={cv} class="rk-cv" aria-hidden="true"></canvas>
 		<span class="rk-tekst">
 			{#if olek === 'algus'}<b>{t('Vajuta, et alustada')}</b><small>{reziim === 'pime' ? t('Sõidad pimedas. Kui näed teel jalakäijat, vajuta kohe.') : t('Kui eesoleva auto pidurituled süttivad, vajuta kohe.')} {t('Arvutis ka tühikuklahv.')}</small>
-			{:else if olek === 'oota'}<b>{t('Sõidad…')}</b><small>{reziim === 'pime' ? t('Vaata teed') : t('Jälgi eesolevat autot')}</small>
-			{:else if olek === 'nyyd' || olek === 'soit'}<b>&nbsp;</b><small>&nbsp;</small>
+			{:else if olek === 'oota' || olek === 'nyyd'}<b>{t('Sõidad…')}</b><small>{reziim === 'pime' ? t('Vaata teed') : t('Jälgi eesolevat autot')}</small><!-- sama tekst ka ohuhetkel: muutuv tekst reedaks hetke -->
+			{:else if olek === 'soit'}<b>&nbsp;</b><small>&nbsp;</small>
 			{:else if olek === 'vara'}<b>{t('Liiga vara!')}</b><small>{t('Vajuta uuesti, et seda katset korrata')}</small>
 			{:else if viimane}<b class:punane={viimane.crash} class:roheline={!viimane.crash}>{lause(viimane)}</b><small>{viimane.vajutamata ? t('Ei vajutanud') : t('Reaktsioon') + ' ' + f2(viimane.r * 1000) + ' s'}{olek === 'vahe' ? ' · ' + t('Katse nr') + ' ' + tulemused.length + ' / ' + KATSEID + ' · ' + t('vajuta, et jätkata') : ' · ' + t('Vajuta, et uuesti proovida')}</small>{/if}
 		</span>
