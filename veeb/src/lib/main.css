@@ -264,18 +264,20 @@ input[type=range].slider.hele,.lo input[type=range].slider,.prio input[type=rang
 .mbar{display:grid;grid-template-columns:minmax(0,190px) minmax(0,1fr) 56px 96px;align-items:center;gap:var(--sp-3);width:100%;border:0;background:transparent;padding:var(--sp-1) 0;cursor:pointer;text-align:left;font-size:13px}
 .mbar .n{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:600}
 .mbar .t{height:12px;background:var(--paper-3);border-radius:2px;overflow:hidden}
-.mbar .t span{display:block;height:100%;background:#a9aeb7;border-radius:2px;transition:width .4s}
+/* riba = pidurdusjälg: kaks rehvijälge, mustriga, algus hele (pidur alles hakkab) */
+.mbar .t span{display:block;height:100%;border-radius:2px;transition:width .4s;--jalg:#8d939d;background:repeating-linear-gradient(90deg,transparent 0 3px,rgba(255,255,255,.28) 3px 4px),linear-gradient(180deg,var(--jalg) 0 38%,transparent 38% 62%,var(--jalg) 62% 100%);-webkit-mask-image:linear-gradient(90deg,rgba(0,0,0,.3),#000 45%);mask-image:linear-gradient(90deg,rgba(0,0,0,.3),#000 45%)}
 .mbar .v{font-weight:600;font-variant-numeric:tabular-nums;text-align:right}
 .mbar .d{color:var(--muted);font-size:12px;font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap}
 .mbar .d i{font-style:normal;color:var(--text);font-weight:600;margin-left:var(--sp-1)}
 .mbar[aria-pressed="true"] .n{text-decoration:underline;text-underline-offset:3px}
-.mbar[aria-pressed="true"] .t span{background:var(--red)}
+.mbar[aria-pressed="true"] .t span{--jalg:var(--red)}
 .mbar[aria-pressed="true"] .v{color:var(--red)}
 .mbar:hover .n{text-decoration:underline}
 .rs-links{display:flex;gap:var(--sp-4);margin-top:var(--sp-2);flex-wrap:wrap}
 .rs-nr{white-space:nowrap}
 .res-react{margin:var(--sp-2) 0 0;font-size:13.5px;color:var(--muted)}
-.rs-legal{margin:var(--sp-2) 0 0;font-size:11.5px;color:var(--muted)}
+.rs-legal{margin:var(--sp-5) 0 0;font-size:11.5px;color:var(--muted)}
+.rs-legal + .rs-legal{margin-top:2px}
 .rs-legal a{color:var(--muted)}
 .linkbtn{border:0;background:transparent;padding:0;font-size:13px;font-weight:600;color:var(--text);cursor:pointer;text-decoration:underline;text-underline-offset:3px;text-decoration-color:#c5cad3}
 .linkbtn:hover{text-decoration-color:var(--text)}

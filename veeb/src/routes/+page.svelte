@@ -234,7 +234,7 @@
 					<span class="eyebrow" style="color:var(--muted)">{t("Mis mõjutab pidurdusmaad")}</span>
 					<h2 id="s2">{t("Kuus asja, mida saad mõjutada")}</h2>
 					<p>
-						{t("Kõik arvud on arvutatud kalkulaatori sama mudeliga — sama auto, üks asi korraga muudetud.")}
+						{t("Kõik arvud samast mudelist: sama auto, üks asi korraga muudetud.")}
 					</p>
 				</div>
 				<div class="factors">
@@ -294,7 +294,7 @@
 					<div class="sim-h">
 						<span class="eyebrow">{t("Proovi ise")}</span>
 						<h2>{t("Vaata, mis juhtub päriselt")}</h2>
-						<p>{t("Neli simulaatorit samast mudelist: muuda kiirust, teeolusid ja rehve ning vaata animatsioonist, mis juhtub.")}</p>
+						<p>{t("Neli simulaatorit samast mudelist.")}<br />{t("Muuda kiirust, teeolusid ja rehve ning vaata animatsioonist, mis juhtub.")}</p>
 					</div>
 					<div class="sim-g">
 						<a class="sim-c sim-mang" href={keel.L('/liiklusohutus/reaktsioon/')}><Icon name="speed" /><b>{t("Mäng: kui kiiresti SINA pidurdad?")}</b><span>{t("Testi oma reaktsiooni, vaata oma peatumisteekonda ja jaga tulemust sõpradega.")}</span><em>{t("Mängi")} →</em></a>
