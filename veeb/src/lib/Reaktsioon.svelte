@@ -111,11 +111,11 @@
 		return { T, d: r.distanceM };
 	}
 	const pidurdusAjal = (J, tau) => { if (tau <= 0) return [0, J.T[0][2]]; const i = Math.min(J.T.length - 1, Math.floor(tau / 0.01)); return [J.T[i][1], J.T[i][2]]; };
-	let J = null;
-	function sina(tt, r, v0, Jx = J) { if (r == null || tt < r) return [v0 * tt, v0]; const x = pidurdusAjal(Jx, tt - r); return [v0 * r + x[0], x[1]]; }
+	let J = null, M = null; /* J = uued rehvid (eesolev auto), M = sinu auto valitud mustriga */
+	function sina(tt, r, v0, Jx = M) { if (r == null || tt < r) return [v0 * tt, v0]; const x = pidurdusAjal(Jx, tt - r); return [v0 * r + x[0], x[1]]; }
 	const kaugus = () => NAHT.find((x) => x[0] === riie)[1];
-	/* Jx = sinu auto pidurdus (vaikimisi uued rehvid); eesolev auto pidurdab alati uute rehvidega (J) */
-	function lopp(r, Jx = J) {
+	/* Jx = sinu auto pidurdus (vaikimisi valitud mustriga); eesolev auto pidurdab alati uute rehvidega (J) */
+	function lopp(r, Jx = M) {
 		const v0 = kiirus / 3.6;
 		if (reziim === 'pime') {
 			const Dk = D || kaugus(), vaja = v0 * r + Jx.d; /* sama nähtavuskaugus mis katses */
@@ -223,6 +223,7 @@
 		clearTimeout(taimer);
 		uusStseen();
 		J = jalg(kiirus);
+		M = muster < 8 ? jalg(kiirus, muster) : J;
 		tVajutus = null;
 		const viide = 2000 + Math.random() * 3500, v0 = kiirus / 3.6;
 		zOoteAlgus = z; tOoteAlgus = performance.now();
@@ -274,7 +275,6 @@
 		if (kaib) return;
 		const vali = (a) => a[Math.floor(Math.random() * a.length)];
 		ilm = vali(['kuiv', 'vihm', 'talv']);
-		if (!(ilm === 'talv' ? [8, 5, 4, 3] : [8, 5, 3, 1.6]).includes(muster)) muster = 8;
 		if (reziim === 'pime') { kiirus = vali([30, 50, 50, 70, 90, 110]); riie = vali(['tume', 'tume', 'hele', 'helkur']); }
 		else { kiirus = vali([50, 70, 90, 90, 110, 130]); vahe = vali([0.5, 1, 1, 2]); }
 		lahtesta();
@@ -292,11 +292,11 @@
 		if (!tulemused.length || kaib || !veh || !P) return [];
 		void [kiirus, vahe, riie, reziim, ilm, muster];
 		J = jalg(kiirus);
-		const Jm = muster < 8 ? jalg(kiirus, muster) : null;
+		M = muster < 8 ? jalg(kiirus, muster) : J;
 		const sinu = tulemusMs ? tulemusMs / 1000 : null;
 		return [
 			...(sinu ? [[t('Sina'), sinu, lopp(sinu), true]] : []),
-			...(sinu && Jm ? [[t('Sina, rehvi muster {mm} mm', { mm: String(muster).replace('.', ',') }), sinu, lopp(sinu, Jm), true]] : []),
+			...(sinu && M !== J ? [[t('Sina, uute rehvidega'), sinu, lopp(sinu, J), false]] : []),
 			[t('Tavaline juht liikluses'), 1, lopp(1), false],
 			[t('Tähelepanu mujal, nt telefon'), 2, lopp(2), false]
 		];
@@ -394,11 +394,12 @@
 			</div>
 		{/if}
 		<div class="rk-seg" role="group" aria-label={t('Ilm')}>
-			{#each ILM as [k, n] (k)}<button type="button" disabled={kaib} aria-pressed={ilm === k} onclick={() => seadista(() => { ilm = k; if (!(k === 'talv' ? [8, 5, 4, 3] : [8, 5, 3, 1.6]).includes(muster)) muster = 8; })}>{n}</button>{/each}
+			{#each ILM as [k, n] (k)}<button type="button" disabled={kaib} aria-pressed={ilm === k} onclick={() => seadista(() => (ilm = k))}>{n}</button>{/each}
 		</div>
-		<div class="rk-seg" role="group" aria-label={t('Sinu rehvide muster')}>
-			{#each (ilm === 'talv' ? [8, 5, 4, 3] : [8, 5, 3, 1.6]) as mm (mm)}<button type="button" disabled={kaib} aria-pressed={muster === mm} onclick={() => { muster = mm; track('muster', String(mm)); }}>{mm === 8 ? t('Uued rehvid') : String(mm).replace('.', ',') + ' mm'}</button>{/each}
-		</div>
+		<label class="rk-kiirus rk-mliug">
+			<span>{t('Rehvi muster')} <b>{muster >= 8 ? t('uus') + ' 8' : (+muster).toFixed(1).replace('.', ',')} {t('mm')}</b></span>
+			<input type="range" min="0.5" max="8" step="0.1" bind:value={muster} disabled={kaib} onchange={() => track('muster', String(muster))} aria-label={t('Sinu rehvide muster')} />
+		</label>
 		<button type="button" class="rk-juh" disabled={kaib} onclick={juhuslik}>{t('Juhuslik olukord')}</button>
 	</div>
 
@@ -451,19 +452,17 @@
 	{#if olek === 'tulemus' && read.length}
 		<div class="rk-tul">
 			{#if tulemusMs}<p class="rk-suur">{reziim === 'tuled' ? t('Sinu reaktsioon (3 katse mediaan)') : t('Sinu reaktsioon')}: <b>{f2(tulemusMs)} s</b>{#if sobra}{' · ' + (tulemusMs < sobra ? t('Sõbrast kiirem!') : tulemusMs > sobra ? t('Sõber oli kiirem') + ' (' + f2(sobra) + ' s)' : t('Täpselt sama kiire kui sõber!'))}{/if}</p>{/if}
-			<p class="rk-pea">{t('Sama olukord, erinev reaktsioon')} · {ilmNimi} · {kiirus} {t('km/h')}{reziim === 'pime' && D ? ' · ' + t('jalakäija nähtav') + ' ' + Math.round(D) + ' ' + t('m') : ''} · {veh.name}</p>
+			<p class="rk-pea">{t('Sama olukord, erinev reaktsioon')} · {ilmNimi} · {kiirus} {t('km/h')}{reziim === 'pime' && D ? ' · ' + t('jalakäija nähtav') + ' ' + Math.round(D) + ' ' + t('m') : ''}{muster < 8 ? ' · ' + t('Rehvi muster {mm} mm', { mm: (+muster).toFixed(1).replace('.', ',') }).toLowerCase() : ''} · {veh.name}</p>
 			<ol class="rk-read">
 				{#each read as [nimi, s, r, me] (nimi)}
 					<li class:me><span class="n">{nimi} <small>{f2(s * 1000)} s</small></span><span class="o" class:punane={r.crash}>{lause(r)}</span></li>
 				{/each}
 			</ol>
-			<div class="rk-must" role="group" aria-label={t('Sinu rehvide muster')}>
-				<span>{t('Proovi oma rehvidega')}:</span>
-				{#each (ilm === 'talv' ? [8, 5, 4, 3] : [8, 5, 3, 1.6]) as mm (mm)}
-					<button type="button" aria-pressed={muster === mm} onclick={() => { muster = mm; track('muster', String(mm)); }}>{mm === 8 ? t('uued') : String(mm).replace('.', ',') + ' mm'}</button>
-				{/each}
-			</div>
-			<p class="rk-sel">{t('Testis sa tead, et takistus tuleb. Liikluses mitte — seal on reaktsioon tavaliselt pikem.')}<br />{ilm === 'talv' ? t('Talvel lamellrehvid, tallatud lumi.') : t('Uued keskmised suverehvid.')} {reziim === 'tuled' ? t('Eesoleval autol on alati uued rehvid.') + ' ' : ''}{t('Sama arvutus, mis kalkulaatoris.')}{#if reziim === 'tuled'}<br />{t('Kui eesolev auto pidurdab sama hästi kui sina, ei muuda ilm tulemust: otsustavad pikivahe ja reaktsioon. Kui tal on paremad rehvid või ta sõidab millelegi otsa, peatub ta kiiremini kui sina, ja libedal teel on see vahe suurem.')}{/if}</p>
+			<label class="rk-kiirus rk-mliug">
+				<span>{t('Rehvi muster')} <b>{muster >= 8 ? t('uus') + ' 8' : (+muster).toFixed(1).replace('.', ',')} {t('mm')}</b></span>
+				<input type="range" min="0.5" max="8" step="0.1" bind:value={muster} onchange={() => track('muster', String(muster))} aria-label={t('Sinu rehvide muster')} />
+			</label>
+			<p class="rk-sel">{t('Testis sa tead, et takistus tuleb. Liikluses mitte — seal on reaktsioon tavaliselt pikem.')}<br />{ilm === 'talv' ? t('Talvel lamellrehvid, tallatud lumi.') : (muster < 8 ? t('Keskmised suverehvid.') : t('Uued keskmised suverehvid.'))} {reziim === 'tuled' ? t('Eesoleval autol on alati uued rehvid.') + ' ' : ''}{t('Sama arvutus, mis kalkulaatoris.')}{#if reziim === 'tuled'}<br />{t('Kui eesolev auto pidurdab sama hästi kui sina, ei muuda ilm tulemust: otsustavad pikivahe ja reaktsioon. Kui tal on paremad rehvid või ta sõidab millelegi otsa, peatub ta kiiremini kui sina, ja libedal teel on see vahe suurem.')}{/if}</p>
 			<div class="rk-nupud">
 				<button type="button" class="btn yel" onclick={() => { kaart = true; jagatud = ''; ekraan?.scrollIntoView({ block: 'center', behavior: 'smooth' }); }}>{t('Jaga tulemust')}</button>
 				<a class="btn" href={keel.L('/')}>{t('Arvuta oma auto ja rehvidega')}</a>
@@ -475,10 +474,6 @@
 
 <style>
 	.rk { max-width: 860px; margin: 0 auto; padding: var(--sp-6) 0 var(--sp-10); }
-	.rk-must { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp-2); margin: var(--sp-3) 0 0; font-size: 14px; }
-	.rk-must span { font-weight: 600; margin-right: var(--sp-1); }
-	.rk-must button { border: 1px solid var(--line); background: #fff; border-radius: 999px; padding: 5px 12px; font: inherit; font-weight: 600; cursor: pointer; }
-	.rk-must button[aria-pressed='true'] { background: var(--ink); color: #fff; border-color: var(--ink); }
 	.rk-rezh { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-1); background: #fff; border: 1px solid var(--line); padding: var(--sp-1); border-radius: 12px; }
 	.rk-rezh button { border: 0; background: transparent; padding: var(--sp-3); border-radius: 9px; font-weight: 700; font-size: 15px; color: var(--muted); cursor: pointer; }
 	.rk-rezh button[aria-selected='true'] { background: var(--ink); color: #fff; box-shadow: inset 0 -3px 0 var(--yellow); }
@@ -486,6 +481,7 @@
 	.rk-seg { display: flex; flex-wrap: wrap; gap: var(--sp-1); background: #fff; border: 1px solid var(--line); padding: var(--sp-1); border-radius: 10px; }
 	.rk-seg button { border: 0; background: transparent; padding: 6px 10px; border-radius: 7px; font-weight: 600; font-size: 13.5px; color: var(--muted); cursor: pointer; }
 	.rk-seg button[aria-pressed='true'] { background: var(--paper-2); color: var(--text); box-shadow: inset 0 -2px 0 var(--yellow); }
+	.rk-tul .rk-mliug { margin-top: var(--sp-3); }
 	.rk-kiirus { display: flex; align-items: center; gap: var(--sp-3); background: #fff; border: 1px solid var(--line); padding: 6px 12px; border-radius: 10px; font-size: 13.5px; color: var(--muted); font-weight: 600; flex: 1 1 260px; }
 	.rk-kiirus b { color: var(--text); font-family: var(--display); font-size: 18px; min-width: 76px; display: inline-block; }
 	.rk-kiirus input { flex: 1; accent-color: var(--ink); min-width: 120px; }
