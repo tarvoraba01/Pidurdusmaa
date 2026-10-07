@@ -84,9 +84,14 @@ function valgus(z, oo, lampL = 0) {
 
 const SILM = 2; /* juhi silmad auto esiotsast tagapool (m) */
 export function joonista(ctx, W, H, tee, o) {
-	try { joonistaStseen(ctx, W, H, tee, o); } catch (e) { /* üks vigane kaader ei tohi kapotti ära viia */ }
-	kapott(ctx, W, H, o, !!o.oo);
-	if (o.crash) klaas(ctx, W, H);
+	try { joonistaStseen(ctx, W, H, tee, o); } catch (e) { /* üks vigane kaader ei tohi salongi ära viia */ }
+	const k = kokpit(W, H);
+	try {
+		kapott(ctx, W, H, k, o);
+		klaasIlm(ctx, W, H, k, o);
+		if (o.crash) klaas(ctx, W, H);
+		salong(ctx, W, H, k, o);
+	} catch (e) { /* salong ei tohi mängu katki teha */ }
 }
 function joonistaStseen(ctx, W, H, tee, o) {
 	const oo = !!o.oo, talv = o.ilm === 'talv', vihm = o.ilm === 'vihm';
@@ -203,7 +208,7 @@ function joonistaStseen(ctx, W, H, tee, o) {
 	if (talv || vihm) {
 		const t = o.aeg || 0, n = talv ? 140 : 110, kiir = (o.kmh || 0) / 90;
 		ctx.fillStyle = talv ? 'rgba(255,255,255,0.85)' : 'rgba(200,215,235,0.45)';
-		ctx.strokeStyle = 'rgba(190,205,230,0.45)';
+		ctx.strokeStyle = 'rgba(190,205,230,0.45)'; ctx.lineWidth = 1;
 		for (let i = 0; i < n; i++) {
 			const sx = (Math.sin(i * 12.9898) * 43758.5453) % 1, sy = (Math.sin(i * 78.233) * 12345.678) % 1;
 			const mod = (x) => ((x % 1) + 1) % 1;
@@ -233,18 +238,212 @@ function klaas(ctx, W, H) {
 	}
 }
 
-function kapott(ctx, W, H, o, oo) {
-	const y0 = H * 0.9;
-	ctx.fillStyle = oo ? '#07080b' : '#15171c';
-	ctx.beginPath(); ctx.moveTo(0, H); ctx.lineTo(0, y0 + H * 0.03); ctx.quadraticCurveTo(W / 2, y0 - H * 0.035, W, y0 + H * 0.03); ctx.lineTo(W, H); ctx.fill();
-	ctx.fillStyle = 'rgba(255,255,255,0.05)';
-	ctx.beginPath(); ctx.moveTo(W * 0.2, y0 + H * 0.02); ctx.quadraticCurveTo(W / 2, y0 - H * 0.02, W * 0.8, y0 + H * 0.02); ctx.lineTo(W * 0.8, y0 + H * 0.03); ctx.quadraticCurveTo(W / 2, y0 - H * 0.01, W * 0.2, y0 + H * 0.03); ctx.fill();
-	/* spidomeeter */
-	const kmh = Math.round(o.kmh || 0);
-	ctx.fillStyle = 'rgba(0,0,0,0.55)'; const bw = W * 0.15, bh = H * 0.075;
-	ctx.fillRect(W / 2 - bw / 2, H - bh - H * 0.015, bw, bh);
-	ctx.fillStyle = kmh < 3 ? '#4ade80' : '#ffc20e'; ctx.font = `700 ${Math.round(H * 0.05)}px "Barlow Condensed", "Arial Narrow", sans-serif`; ctx.textAlign = 'center';
-	ctx.fillText(kmh + ' km/h', W / 2, H - H * 0.03); ctx.textAlign = 'left';
+/* ---------- salong: juhi vaade (esiklaas, piilarid, armatuur, rool) ----------
+   u = „maastikukaadri“ kõrgus: laial ekraanil H, kitsal (telefon püsti) W/1,6.
+   Kõik salongi mõõdud u järgi, all keskel; nii ei kata armatuur telefonis pool pilti. */
+function kokpit(W, H) {
+	const u = Math.min(H, W / 1.6), cx = W / 2;
+	const yd = H - 0.27 * u; /* armatuurlaua ülaserv */
+	return { u, cx, yd, katus: 0.055 * u };
+}
+
+/* kapott paistab läbi klaasi armatuuri kohal */
+function kapott(ctx, W, H, k, o) {
+	const { u, cx, yd } = k, oo = !!o.oo;
+	const y1 = yd - 0.05 * u, y2 = yd + 0.02 * u;
+	const g = ctx.createLinearGradient(0, y1, 0, y2);
+	g.addColorStop(0, oo ? '#121821' : '#3d4f66'); g.addColorStop(1, oo ? '#07090c' : '#1f2a38');
+	ctx.fillStyle = g;
+	ctx.beginPath(); ctx.moveTo(0, y2); ctx.lineTo(0, yd - 0.005 * u); ctx.quadraticCurveTo(cx, y1 - 0.02 * u, W, yd - 0.005 * u); ctx.lineTo(W, y2); ctx.fill();
+	/* läige kapoti serval */
+	ctx.strokeStyle = oo ? 'rgba(255,255,255,0.06)' : 'rgba(255,255,255,0.22)'; ctx.lineWidth = Math.max(1, 0.004 * u);
+	ctx.beginPath(); ctx.moveTo(W * 0.08, yd - 0.008 * u); ctx.quadraticCurveTo(cx, y1 - 0.012 * u, W * 0.92, yd - 0.008 * u); ctx.stroke();
+}
+
+/* vihm / lumi esiklaasil + kojamehed. Olek moodulis: piisad jäävad klaasile, kuni klaasipuhasti üle käib. */
+const KL = { piisad: [], t: null, ilm: '', nurk: 0 };
+const KOJA_MAX = 1.95; /* kojamehe pöördenurk (rad) */
+function kojamehed(k, W) {
+	const L = Math.min(0.36 * W, 0.62 * k.u * 1.6, k.yd * 0.98);
+	return [[W * 0.2, k.yd + 0.012 * k.u, L], [W * 0.6, k.yd + 0.012 * k.u, L * 0.94]];
+}
+function koja(t) {
+	/* üles-alla 1,3 s, rahuasendis 0,3 s */
+	const T = 1.6, p = (t % T) / T;
+	if (p > 0.8125) return 0;
+	const q = p / 0.8125;
+	return KOJA_MAX * (1 - Math.cos(2 * Math.PI * q)) / 2;
+}
+function klaasIlm(ctx, W, H, k, o) {
+	const t = o.aeg || 0, ilm = o.ilm, vihm = ilm === 'vihm', talv = ilm === 'talv', oo = !!o.oo;
+	if (KL.t === null || t < KL.t || ilm !== KL.ilm) { KL.piisad = []; KL.t = t; KL.ilm = ilm; KL.nurk = 0; }
+	const dt = Math.min(0.1, t - KL.t); KL.t = t;
+	const sadu = vihm || talv, kmh = o.kmh || 0, u = k.u;
+	const nurk = sadu ? koja(t) : 0, eel = KL.nurk; KL.nurk = nurk;
+	const P = kojamehed(k, W);
+	if (sadu) {
+		/* uued piisad: sõites tabab klaasi rohkem */
+		const kiirus = (vihm ? 26 : 9) * (0.5 + kmh / 70);
+		let n = kiirus * dt; if (Math.random() < n % 1) n = Math.ceil(n); else n = Math.floor(n);
+		for (let i = 0; i < n && KL.piisad.length < 320; i++) {
+			KL.piisad.push({ x: Math.random() * W, y: k.katus + Math.random() * (k.yd - k.katus), r: (vihm ? 1.5 + Math.random() * 3 : 1.6 + Math.random() * 2.8) * u / 400, a: 1, s: t });
+		}
+		/* õhuvool lükkab piisku kiirel sõidul üles, lumi sulab vaikselt */
+		const lukka = kmh > 45 ? (kmh - 45) * 0.0016 * u * dt : 0;
+		const lo = Math.min(eel, nurk), hi = Math.max(eel, nurk);
+		KL.piisad = KL.piisad.filter((d) => {
+			d.y -= lukka * (d.r / (2 * u / 400));
+			if (talv) d.a = Math.max(0, 1 - (t - d.s) / 9);
+			if (d.y < k.katus || d.a <= 0) return false;
+			for (const [px, py, L] of P) {
+				const dx = d.x - px, dy = py - d.y, r = Math.hypot(dx, dy);
+				if (r < L * 0.2 || r > L) continue;
+				const f = Math.atan2(dy, dx); /* 0 = paremale, π/2 = üles */
+				if (f >= lo - 0.03 && f <= hi + 0.03 && hi - lo > 0.0001) return false;
+			}
+			return true;
+		});
+		for (const d of KL.piisad) {
+			if (talv) {
+				ctx.fillStyle = `rgba(245,248,252,${0.75 * d.a})`;
+				ctx.beginPath(); ctx.arc(d.x, d.y, d.r, 0, 7); ctx.fill();
+			} else {
+				ctx.fillStyle = oo ? 'rgba(200,215,240,0.10)' : 'rgba(225,235,245,0.20)';
+				ctx.beginPath(); ctx.arc(d.x, d.y, d.r, 0, 7); ctx.fill();
+				ctx.strokeStyle = 'rgba(0,0,0,0.28)'; ctx.lineWidth = Math.max(0.8, d.r * 0.35);
+				ctx.beginPath(); ctx.arc(d.x, d.y, d.r * 0.8, 0.2 * Math.PI, 0.85 * Math.PI); ctx.stroke();
+				ctx.fillStyle = oo ? 'rgba(255,240,210,0.55)' : 'rgba(255,255,255,0.8)';
+				ctx.fillRect(d.x - d.r * 0.45, d.y - d.r * 0.5, Math.max(1, d.r * 0.35), Math.max(1, d.r * 0.35));
+			}
+		}
+	} else KL.piisad = [];
+	/* kojamehed (ka seistes on rahuasendis klaasi alaservas näha) */
+	ctx.lineCap = 'round';
+	for (const [px, py, L] of P) {
+		const c = Math.cos(nurk), sn = -Math.sin(nurk);
+		const ex = px + c * L, ey = py + sn * L;
+		ctx.strokeStyle = '#0c0d10'; ctx.lineWidth = Math.max(2, 0.009 * u);
+		ctx.beginPath(); ctx.moveTo(px, py); ctx.lineTo(ex, ey); ctx.stroke();
+		ctx.lineWidth = Math.max(3, 0.016 * u);
+		ctx.beginPath(); ctx.moveTo(px + c * L * 0.22, py + sn * L * 0.22); ctx.lineTo(ex, ey); ctx.stroke();
+	}
+	ctx.lineCap = 'butt';
+	/* armatuuri peegeldus klaasi alaosas (päeval) */
+	if (!oo) {
+		const g = ctx.createLinearGradient(0, k.yd - 0.12 * u, 0, k.yd);
+		g.addColorStop(0, 'rgba(255,255,255,0)'); g.addColorStop(1, 'rgba(255,255,255,0.07)');
+		ctx.fillStyle = g; ctx.fillRect(0, k.yd - 0.12 * u, W, 0.12 * u);
+	}
+}
+
+function salong(ctx, W, H, k, o) {
+	const { u, cx, yd, katus } = k, oo = !!o.oo;
+	const sis = oo ? '#0a0b0e' : '#1b1e24', sis2 = oo ? '#121419' : '#2a2e36';
+	/* katus ja piilarid */
+	ctx.fillStyle = sis;
+	ctx.beginPath(); ctx.moveTo(0, 0); ctx.lineTo(W, 0); ctx.lineTo(W, katus * 1.5); ctx.quadraticCurveTo(cx, katus * 0.6, 0, katus * 1.5); ctx.fill();
+	const pg = ctx.createLinearGradient(0, 0, W * 0.14, 0);
+	pg.addColorStop(0, sis); pg.addColorStop(1, sis2);
+	ctx.fillStyle = pg;
+	ctx.beginPath(); ctx.moveTo(0, 0); ctx.lineTo(W * 0.14, 0); ctx.lineTo(W * 0.035, yd); ctx.lineTo(0, yd); ctx.fill();
+	const pg2 = ctx.createLinearGradient(W, 0, W * 0.9, 0);
+	pg2.addColorStop(0, sis); pg2.addColorStop(1, sis2);
+	ctx.fillStyle = pg2;
+	ctx.beginPath(); ctx.moveTo(W, 0); ctx.lineTo(W * 0.915, 0); ctx.lineTo(W * 0.975, yd); ctx.lineTo(W, yd); ctx.fill();
+	/* tahavaatepeegel */
+	const mx = cx + 0.12 * W, mw = 0.3 * u, mh = 0.07 * u, my = katus + 0.035 * u;
+	ctx.fillStyle = sis; ctx.fillRect(mx - 0.006 * u, katus * 0.8, 0.012 * u, my - katus * 0.8);
+	ruut(ctx, mx - mw / 2, my, mw, mh, mh * 0.35); ctx.fillStyle = '#111317'; ctx.fill();
+	const mg = ctx.createLinearGradient(0, my, 0, my + mh);
+	if (oo) { mg.addColorStop(0, '#0b0e15'); mg.addColorStop(1, '#05060a'); }
+	else if (o.ilm === 'talv') { mg.addColorStop(0, '#c9d2dc'); mg.addColorStop(1, '#8e98a3'); }
+	else { mg.addColorStop(0, o.ilm === 'vihm' ? '#8a949e' : '#a9c8e6'); mg.addColorStop(0.55, '#5f6a62'); mg.addColorStop(1, '#3d4248'); }
+	ruut(ctx, mx - mw / 2 + 0.008 * u, my + 0.008 * u, mw - 0.016 * u, mh - 0.016 * u, mh * 0.28); ctx.fillStyle = mg; ctx.fill();
+
+	/* armatuurlaud */
+	const dg = ctx.createLinearGradient(0, yd - 0.04 * u, 0, H);
+	dg.addColorStop(0, sis2); dg.addColorStop(0.18, sis); dg.addColorStop(1, oo ? '#050607' : '#121418');
+	ctx.fillStyle = dg;
+	const bw = 0.42 * u; /* näidikuploki kapuuts */
+	ctx.beginPath(); ctx.moveTo(0, H); ctx.lineTo(0, yd + 0.01 * u); ctx.quadraticCurveTo(W * 0.2, yd - 0.006 * u, cx - bw - 0.04 * u, yd);
+	ctx.bezierCurveTo(cx - bw, yd - 0.005 * u, cx - bw * 0.85, yd - 0.06 * u, cx, yd - 0.06 * u);
+	ctx.bezierCurveTo(cx + bw * 0.85, yd - 0.06 * u, cx + bw, yd - 0.005 * u, cx + bw + 0.04 * u, yd);
+	ctx.quadraticCurveTo(W * 0.8, yd - 0.006 * u, W, yd + 0.01 * u); ctx.lineTo(W, H); ctx.fill();
+	/* õhuavad servades ja keskel */
+	ctx.fillStyle = oo ? '#040506' : '#0d0f12';
+	for (const ax of [W * 0.06, W * 0.86]) { ruut(ctx, ax, yd + 0.05 * u, W * 0.08, 0.035 * u, 0.012 * u); ctx.fill(); }
+
+	/* näidikuplokk */
+	const nx = cx, ny = yd + 0.115 * u, R = 0.1 * u;
+	ruut(ctx, cx - 0.37 * u, yd + 0.004 * u, 0.74 * u, 0.25 * u, 0.06 * u); ctx.fillStyle = '#07080a'; ctx.fill();
+	const kmh = Math.max(0, o.kmh || 0);
+	const rpm = kmh < 2 ? 0.8 : (() => { const g = [0, 18, 38, 62, 88, 118, 999]; let i = 1; while (kmh > g[i]) i++; const lo = g[i - 1], hi = Math.min(g[i], lo + 40); return 1.3 + Math.min(1, (kmh - lo) / (hi - lo)) * 1.6 + i * 0.12; })();
+	naidik(ctx, nx - 0.205 * u, ny, R, rpm, 8, 1, 1, 6.5, '×1000 rpm', oo);
+	naidik(ctx, nx + 0.205 * u, ny, R, kmh, 220, 10, 40, 0, 'km/h', oo);
+	/* keskmine ekraan: kiirus numbrina, käik, välistemperatuur */
+	const tmp = o.ilm === 'talv' ? -6 : o.ilm === 'vihm' ? 7 : 14;
+	ruut(ctx, nx - 0.085 * u, ny - 0.07 * u, 0.17 * u, 0.14 * u, 0.02 * u); ctx.fillStyle = '#0e1116'; ctx.fill();
+	ctx.textAlign = 'center';
+	ctx.fillStyle = kmh < 2.5 ? '#4ade80' : '#f4f6fa';
+	ctx.font = `700 ${Math.round(0.07 * u)}px "Barlow Condensed", "Arial Narrow", sans-serif`;
+	ctx.fillText(String(Math.round(kmh)), nx, ny + 0.02 * u);
+	ctx.fillStyle = '#9aa3b2'; ctx.font = `600 ${Math.round(0.022 * u)}px "Barlow Condensed", "Arial Narrow", sans-serif`;
+	ctx.fillText('km/h', nx, ny + 0.045 * u);
+	ctx.fillText('D', nx - 0.06 * u, ny - 0.045 * u);
+	ctx.fillStyle = tmp <= 3 ? '#7cc4ff' : '#9aa3b2';
+	ctx.fillText((tmp <= 3 ? '❄ ' : '') + (tmp < 0 ? '−' + Math.abs(tmp) : tmp) + '°C', nx + 0.045 * u, ny - 0.045 * u);
+	/* märgutuled: lähituled (Eestis alati), ohutuled pärast avariid / seisma jäädes */
+	const ly = yd + 0.215 * u, ls = 0.016 * u;
+	lahituli(ctx, nx - 0.03 * u, ly, ls);
+	if (o.crash && (o.aeg || 0) % 1 < 0.6) ohutuli(ctx, nx + 0.03 * u, ly, ls);
+
+	/* rool: ülemine kaar paistab, näidikud selle vahelt */
+	const rx = cx, ry = H + 0.42 * u, rr = 0.74 * u;
+	ctx.strokeStyle = oo ? '#08090b' : '#141518'; ctx.lineWidth = 0.07 * u;
+	ctx.beginPath(); ctx.arc(rx, ry, rr, Math.PI * 1.15, Math.PI * 1.85); ctx.stroke();
+	ctx.strokeStyle = oo ? 'rgba(255,255,255,0.04)' : 'rgba(255,255,255,0.10)'; ctx.lineWidth = Math.max(1, 0.006 * u);
+	ctx.beginPath(); ctx.arc(rx, ry, rr + 0.025 * u, Math.PI * 1.2, Math.PI * 1.8); ctx.stroke();
+	ctx.textAlign = 'left';
+}
+
+function ruut(ctx, x, y, w, h, r) {
+	ctx.beginPath(); ctx.moveTo(x + r, y); ctx.lineTo(x + w - r, y); ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+	ctx.lineTo(x + w, y + h - r); ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h); ctx.lineTo(x + r, y + h);
+	ctx.quadraticCurveTo(x, y + h, x, y + h - r); ctx.lineTo(x, y + r); ctx.quadraticCurveTo(x, y, x + r, y); ctx.closePath();
+}
+/* ümar näidik: 0 all vasakul, max all paremal (270°) */
+function naidik(ctx, x, y, R, val, max, peen, silt, punane, yhik, oo) {
+	const a0 = Math.PI * 0.75, a1 = Math.PI * 2.25, nurk = (v) => a0 + (Math.min(max, Math.max(0, v)) / max) * (a1 - a0);
+	ctx.fillStyle = '#0a0c10'; ctx.beginPath(); ctx.arc(x, y, R, 0, 7); ctx.fill();
+	ctx.strokeStyle = '#2c313a'; ctx.lineWidth = R * 0.05; ctx.beginPath(); ctx.arc(x, y, R * 0.97, 0, 7); ctx.stroke();
+	if (punane) { ctx.strokeStyle = '#d63a2a'; ctx.lineWidth = R * 0.07; ctx.beginPath(); ctx.arc(x, y, R * 0.84, nurk(punane), a1); ctx.stroke(); }
+	const hele = oo ? '#f4f1ea' : '#dfe3ea';
+	ctx.strokeStyle = hele; ctx.fillStyle = hele; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+	ctx.font = `600 ${Math.round(R * 0.2)}px "Barlow Condensed", "Arial Narrow", sans-serif`;
+	for (let v = 0; v <= max + 1e-6; v += peen) {
+		const a = nurk(v), suur = Math.abs(v / silt - Math.round(v / silt)) < 1e-6;
+		ctx.lineWidth = suur ? R * 0.035 : R * 0.018;
+		ctx.beginPath(); ctx.moveTo(x + Math.cos(a) * R * (suur ? 0.76 : 0.82), y + Math.sin(a) * R * (suur ? 0.76 : 0.82)); ctx.lineTo(x + Math.cos(a) * R * 0.9, y + Math.sin(a) * R * 0.9); ctx.stroke();
+		if (suur) ctx.fillText(String(v), x + Math.cos(a) * R * 0.6, y + Math.sin(a) * R * 0.6);
+	}
+	ctx.fillStyle = '#7d8696'; ctx.font = `600 ${Math.round(R * 0.13)}px "Barlow Condensed", "Arial Narrow", sans-serif`;
+	ctx.fillText(yhik, x, y + R * 0.42);
+	/* nõel */
+	const a = nurk(val);
+	ctx.strokeStyle = '#ff6a2a'; ctx.lineWidth = R * 0.045; ctx.lineCap = 'round';
+	ctx.beginPath(); ctx.moveTo(x - Math.cos(a) * R * 0.12, y - Math.sin(a) * R * 0.12); ctx.lineTo(x + Math.cos(a) * R * 0.86, y + Math.sin(a) * R * 0.86); ctx.stroke();
+	ctx.lineCap = 'butt';
+	ctx.fillStyle = '#20242b'; ctx.beginPath(); ctx.arc(x, y, R * 0.09, 0, 7); ctx.fill();
+	ctx.textBaseline = 'alphabetic';
+}
+function lahituli(ctx, x, y, s) {
+	ctx.strokeStyle = '#3ddc68'; ctx.fillStyle = '#3ddc68'; ctx.lineWidth = Math.max(1, s * 0.16);
+	ctx.beginPath(); ctx.moveTo(x - s * 0.1, y - s * 0.55); ctx.quadraticCurveTo(x - s * 0.8, y, x - s * 0.1, y + s * 0.55); ctx.closePath(); ctx.fill();
+	for (const d of [-0.4, 0, 0.4]) { ctx.beginPath(); ctx.moveTo(x + s * 0.1, y + d * s); ctx.lineTo(x + s * 0.75, y + d * s + s * 0.18); ctx.stroke(); }
+}
+function ohutuli(ctx, x, y, s) {
+	ctx.strokeStyle = '#ff4b3a'; ctx.lineWidth = Math.max(1, s * 0.18);
+	ctx.beginPath(); ctx.moveTo(x, y - s * 0.6); ctx.lineTo(x + s * 0.65, y + s * 0.5); ctx.lineTo(x - s * 0.65, y + s * 0.5); ctx.closePath(); ctx.stroke();
 }
 
 function objekt(ctx, ob, sx, sy, sc, L, udu, uduVarv, e) {
