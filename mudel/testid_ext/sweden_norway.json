@@ -6,7 +6,7 @@
   "season": "winter",
   "size": "205/60 R16",
   "car": "VW Golf (snow/ice ABS braking, per dackavisen.se)",
-  "tester": "Vi Bilägare, Arctic Falls, Älvsbyn (snow/ice)",
+  "tester": "Vi Bilägare, Arctic Falls, Älvsbyn (snow/ice) | jää ja lumi välja jäetud (2026-10-08): allika väärtused (2,5–3,6) ei ole meetrid",
   "url": "https://www.tyrereviews.com/Tyre-Tests/2020-Vi-Bilagare-Nordic-Friction-Winter-Tyre-Test.htm",
   "url_original": null,
   "disciplines": [
@@ -27,24 +27,6 @@
     "v_to": null,
     "temp_c": null,
     "note": "speed range not stated on tyrereviews page"
-   },
-   {
-    "id": "snow",
-    "surface": "snow",
-    "wet": false,
-    "v_from": null,
-    "v_to": null,
-    "temp_c": null,
-    "note": "speed range not stated on tyrereviews page"
-   },
-   {
-    "id": "ice",
-    "surface": "ice",
-    "wet": false,
-    "v_from": null,
-    "v_to": null,
-    "temp_c": null,
-    "note": "speed range not stated; short distances (2.5-3.6 m) suggest low start speed; Nexen value 2.54 unusually short - UNVERIFIED"
    }
   ],
   "tyres": [
@@ -54,9 +36,7 @@
     "label_wet": null,
     "results": {
      "dry": 28.69,
-     "wet": 43.12,
-     "snow": 11.5,
-     "ice": 3.54
+     "wet": 43.12
     },
     "aqua_kmh": 61.4,
     "note": "aqua = straight aquaplaning as listed on tyrereviews"
@@ -67,9 +47,7 @@
     "label_wet": null,
     "results": {
      "dry": 29.64,
-     "wet": 38.39,
-     "snow": 11.46,
-     "ice": 3.06
+     "wet": 38.39
     },
     "aqua_kmh": 64.1,
     "note": "aqua = straight aquaplaning as listed on tyrereviews"
@@ -80,9 +58,7 @@
     "label_wet": null,
     "results": {
      "dry": 29.38,
-     "wet": 34.41,
-     "snow": 11.61,
-     "ice": 3.35
+     "wet": 34.41
     },
     "aqua_kmh": 73.3,
     "note": "aqua = straight aquaplaning as listed on tyrereviews"
@@ -93,9 +69,7 @@
     "label_wet": null,
     "results": {
      "dry": 31.49,
-     "wet": 40.23,
-     "snow": 11.61,
-     "ice": 3.39
+     "wet": 40.23
     },
     "aqua_kmh": 65.3,
     "note": "aqua = straight aquaplaning as listed on tyrereviews"
@@ -106,9 +80,7 @@
     "label_wet": null,
     "results": {
      "dry": 32.28,
-     "wet": 39.2,
-     "snow": 11.3,
-     "ice": 2.54
+     "wet": 39.2
     },
     "aqua_kmh": 63.4,
     "note": "aqua = straight aquaplaning as listed on tyrereviews"
@@ -119,9 +91,7 @@
     "label_wet": null,
     "results": {
      "dry": 30.78,
-     "wet": 37.29,
-     "snow": 11.7,
-     "ice": 3.62
+     "wet": 37.29
     },
     "aqua_kmh": 65.2,
     "note": "aqua = straight aquaplaning as listed on tyrereviews"
@@ -132,9 +102,7 @@
     "label_wet": null,
     "results": {
      "dry": 30.22,
-     "wet": 38.15,
-     "snow": 11.58,
-     "ice": 3.34
+     "wet": 38.15
     },
     "aqua_kmh": 62.5,
     "note": "aqua = straight aquaplaning as listed on tyrereviews"
@@ -145,9 +113,7 @@
     "label_wet": null,
     "results": {
      "dry": 30.3,
-     "wet": 37.84,
-     "snow": 11.54,
-     "ice": 3.43
+     "wet": 37.84
     },
     "aqua_kmh": 63.3,
     "note": "aqua = straight aquaplaning as listed on tyrereviews"

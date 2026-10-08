@@ -1,0 +1,1761 @@
+[
+ {
+  "test_id": "ZaRulem-2015-W-175-65R14-studded",
+  "publication": "Za Rulem (За рулём)",
+  "year": 2015,
+  "season": "winter",
+  "size": "175/65 R14",
+  "car": "Lada Kalina",
+  "tester": "ZR / S. Mishin; AvtoVAZ polügoon Toljatti (jää-lumi jaanuar-veebruar, asfalt mai)",
+  "url": "https://www.zr.ru/d/story/aa/815274/134-135.pdf",
+  "url_original": "https://www.zr.ru/content/articles/815274-supertest-zimnix-shin-17565-r14-vezzhaem-v-zimu/",
+  "disciplines": [
+   {
+    "id": "ice",
+    "surface": "ice",
+    "wet": false,
+    "v_from": 30,
+    "v_to": 5,
+    "temp_c": null,
+    "note": ""
+   },
+   {
+    "id": "snow",
+    "surface": "snow",
+    "wet": false,
+    "v_from": 30,
+    "v_to": 5,
+    "temp_c": null,
+    "note": "lumi 30→5 km/h (mitte 40)"
+   },
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": 60,
+    "v_to": 5,
+    "temp_c": null,
+    "note": ""
+   },
+   {
+    "id": "dry",
+    "surface": "asphalt",
+    "wet": false,
+    "v_from": 80,
+    "v_to": 5,
+    "temp_c": null,
+    "note": ""
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Nokian Hakkapeliitta 8",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 13.6,
+     "snow": 8.7,
+     "wet": 21.5,
+     "dry": 36.1
+    },
+    "aqua_kmh": null,
+    "note": "1. koht, 939 p"
+   },
+   {
+    "name": "Continental ContiIceContact 2",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 14.2,
+     "snow": 8.4,
+     "wet": 20.7,
+     "dry": 35.1
+    },
+    "aqua_kmh": null,
+    "note": "2. koht, 932 p"
+   },
+   {
+    "name": "Nokian Nordman 5",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 15.2,
+     "snow": 8.8,
+     "wet": 22.0,
+     "dry": 37.7
+    },
+    "aqua_kmh": null,
+    "note": "3. koht, 884 p (tabelis 'Nordman 5')"
+   },
+   {
+    "name": "Formula Ice",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 15.3,
+     "snow": 9.2,
+     "wet": 21.1,
+     "dry": 36.8
+    },
+    "aqua_kmh": null,
+    "note": "4. koht, 877 p (Pirelli alabränd)"
+   },
+   {
+    "name": "Sava Eskimo Stud",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 14.3,
+     "snow": 8.9,
+     "wet": 21.1,
+     "dry": 36.2
+    },
+    "aqua_kmh": null,
+    "note": "5. koht, 868 p"
+   },
+   {
+    "name": "Bridgestone Blizzak Spike-01",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 14.7,
+     "snow": 9.1,
+     "wet": 22.6,
+     "dry": 38.2
+    },
+    "aqua_kmh": null,
+    "note": "6. koht, 867 p"
+   },
+   {
+    "name": "Yokohama iceGUARD iG55",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 14.9,
+     "snow": 9.3,
+     "wet": 23.3,
+     "dry": 38.7
+    },
+    "aqua_kmh": null,
+    "note": "7. koht, 859 p"
+   },
+   {
+    "name": "Toyo Observe G3-Ice",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 15.0,
+     "snow": 9.3,
+     "wet": 22.2,
+     "dry": 36.1
+    },
+    "aqua_kmh": null,
+    "note": "8. koht, 856 p"
+   },
+   {
+    "name": "Cordiant Snow Cross",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 14.9,
+     "snow": 8.8,
+     "wet": 23.5,
+     "dry": 38.8
+    },
+    "aqua_kmh": null,
+    "note": "9. koht, 855 p"
+   },
+   {
+    "name": "Avatyre Freeze",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 17.5,
+     "snow": 9.5,
+     "wet": 21.1,
+     "dry": 34.9
+    },
+    "aqua_kmh": null,
+    "note": "10. koht, 810 p; Q-indeks"
+   },
+   {
+    "name": "Aeolus Ice Challenger",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 18.1,
+     "snow": 9.0,
+     "wet": 20.5,
+     "dry": 34.8
+    },
+    "aqua_kmh": null,
+    "note": "11. koht, 804 p"
+   }
+  ]
+ },
+ {
+  "test_id": "ZaRulem-2016-W-195-65R15-studded",
+  "publication": "Za Rulem (За рулём)",
+  "year": 2016,
+  "season": "winter",
+  "size": "195/65 R15",
+  "car": "Skoda Octavia",
+  "tester": "ZR / S. Mishin; jää-lumi: Nokian 'White Hell' Tammijärvi (Soome), asfalt: AvtoVAZ polügoon Toljatti",
+  "url": "https://www.zr.ru/d/story/9e/902558/072.pdf",
+  "url_original": "https://www.zr.ru/content/articles/902558-dvenadtsat/",
+  "disciplines": [
+   {
+    "id": "ice",
+    "surface": "ice",
+    "wet": false,
+    "v_from": 30,
+    "v_to": 5,
+    "temp_c": null,
+    "note": ""
+   },
+   {
+    "id": "snow",
+    "surface": "snow",
+    "wet": false,
+    "v_from": 40,
+    "v_to": 5,
+    "temp_c": null,
+    "note": ""
+   },
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": 60,
+    "v_to": 5,
+    "temp_c": null,
+    "note": ""
+   },
+   {
+    "id": "dry",
+    "surface": "asphalt",
+    "wet": false,
+    "v_from": 80,
+    "v_to": 5,
+    "temp_c": null,
+    "note": ""
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Nokian Hakkapeliitta 8",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 13.2,
+     "snow": 16.8,
+     "wet": 20.8,
+     "dry": 33.4
+    },
+    "aqua_kmh": null,
+    "note": "1. koht, 929 p; tabel-PDF osa 2: /d/story/9e/902558/074.pdf"
+   },
+   {
+    "name": "Continental ContiIceContact 2",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 13.3,
+     "snow": 16.4,
+     "wet": 19.8,
+     "dry": 32.6
+    },
+    "aqua_kmh": null,
+    "note": "2. koht, 916 p"
+   },
+   {
+    "name": "Goodyear UltraGrip Ice Arctic",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 14.6,
+     "snow": 16.4,
+     "wet": 21.0,
+     "dry": 33.3
+    },
+    "aqua_kmh": null,
+    "note": "3. koht, 894 p"
+   },
+   {
+    "name": "Hankook Winter i*Pike RS+",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 15.6,
+     "snow": 16.7,
+     "wet": 21.7,
+     "dry": 34.4
+    },
+    "aqua_kmh": null,
+    "note": "4. koht, 874 p"
+   },
+   {
+    "name": "Nokian Nordman 5",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 16.9,
+     "snow": 16.8,
+     "wet": 21.5,
+     "dry": 34.1
+    },
+    "aqua_kmh": null,
+    "note": "5. koht, 871 p (tabelis 'Nordman 5')"
+   },
+   {
+    "name": "Cordiant Snow Cross",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 16.2,
+     "snow": 16.7,
+     "wet": 22.5,
+     "dry": 35.0
+    },
+    "aqua_kmh": null,
+    "note": "6.-7. koht, 863 p"
+   },
+   {
+    "name": "Toyo Observe G3-Ice",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 15.3,
+     "snow": 16.8,
+     "wet": 21.8,
+     "dry": 33.5
+    },
+    "aqua_kmh": null,
+    "note": "6.-7. koht, 863 p"
+   },
+   {
+    "name": "Michelin X-Ice North 3",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 18.0,
+     "snow": 16.2,
+     "wet": 21.0,
+     "dry": 32.9
+    },
+    "aqua_kmh": null,
+    "note": "8. koht, 861 p"
+   },
+   {
+    "name": "Dunlop SP Winter Ice 02",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 15.8,
+     "snow": 16.3,
+     "wet": 22.4,
+     "dry": 33.9
+    },
+    "aqua_kmh": null,
+    "note": "9. koht, 856 p"
+   },
+   {
+    "name": "Formula Ice",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 17.3,
+     "snow": 17.0,
+     "wet": 21.1,
+     "dry": 32.7
+    },
+    "aqua_kmh": null,
+    "note": "10. koht, 855 p (Pirelli alabränd)"
+   },
+   {
+    "name": "Matador MP 30 Sibir Ice 2",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 18.9,
+     "snow": 17.0,
+     "wet": 21.0,
+     "dry": 32.2
+    },
+    "aqua_kmh": null,
+    "note": "11. koht, 832 p"
+   },
+   {
+    "name": "Triangle IceLink",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 17.7,
+     "snow": 17.5,
+     "wet": 20.7,
+     "dry": 31.6
+    },
+    "aqua_kmh": null,
+    "note": "12. koht, 825 p"
+   }
+  ]
+ },
+ {
+  "test_id": "ZaRulem-2016-W-235-65R17-studded",
+  "publication": "Za Rulem (За рулём)",
+  "year": 2016,
+  "season": "winter",
+  "size": "235/65 R17",
+  "car": "Audi Q5",
+  "tester": "ZR / S. Mishin; jää-lumi: Nokian 'White Hell' Tammijärvi (Soome), asfalt: AvtoVAZ polügoon Toljatti (+5…+7 °C)",
+  "url": "https://www.zr.ru/d/story/09/904201/15.pdf",
+  "url_original": "https://www.zr.ru/content/articles/904201-velikolepnaya-semerka/",
+  "disciplines": [
+   {
+    "id": "ice",
+    "surface": "ice",
+    "wet": false,
+    "v_from": 30,
+    "v_to": 5,
+    "temp_c": null,
+    "note": ""
+   },
+   {
+    "id": "snow",
+    "surface": "snow",
+    "wet": false,
+    "v_from": 40,
+    "v_to": 5,
+    "temp_c": null,
+    "note": ""
+   },
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": 60,
+    "v_to": 5,
+    "temp_c": null,
+    "note": ""
+   },
+   {
+    "id": "dry",
+    "surface": "asphalt",
+    "wet": false,
+    "v_from": 80,
+    "v_to": 5,
+    "temp_c": null,
+    "note": ""
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Nokian Hakkapeliitta 8 SUV",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 14.4,
+     "snow": 17.4,
+     "wet": 20.1,
+     "dry": 33.0
+    },
+    "aqua_kmh": null,
+    "note": "1. koht, 943 p"
+   },
+   {
+    "name": "Goodyear UltraGrip Ice Arctic SUV 4x4",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 15.1,
+     "snow": 17.6,
+     "wet": 20.1,
+     "dry": 33.2
+    },
+    "aqua_kmh": null,
+    "note": "2. koht, 909 p"
+   },
+   {
+    "name": "Continental ContiIceContact 2 SUV",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 16.3,
+     "snow": 17.2,
+     "wet": 20.5,
+     "dry": 32.9
+    },
+    "aqua_kmh": null,
+    "note": "3. koht, 903 p"
+   },
+   {
+    "name": "Pirelli Ice Zero",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 15.6,
+     "snow": 19.0,
+     "wet": 20.6,
+     "dry": 33.2
+    },
+    "aqua_kmh": null,
+    "note": "4. koht, 893 p"
+   },
+   {
+    "name": "Michelin Latitude X-Ice North 2+",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 20.0,
+     "snow": 17.7,
+     "wet": 20.5,
+     "dry": 33.1
+    },
+    "aqua_kmh": null,
+    "note": "5. koht, 880 p"
+   },
+   {
+    "name": "Dunlop Grandtrek Ice 02",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 16.5,
+     "snow": 18.2,
+     "wet": 21.5,
+     "dry": 34.0
+    },
+    "aqua_kmh": null,
+    "note": "6. koht, 876 p"
+   },
+   {
+    "name": "Toyo Observe G3-Ice",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 17.5,
+     "snow": 17.8,
+     "wet": 21.6,
+     "dry": 33.9
+    },
+    "aqua_kmh": null,
+    "note": "7. koht, 861 p"
+   }
+  ],
+  "note": "Aasta tuletatud: artikli ID 904201 jääb 2016. a sügise (902558, 902942) ja 2017. a kevade (905863) vahele; artiklis aastat ei trükita."
+ },
+ {
+  "test_id": "ZaRulem-2017-W-185-65R15-studded",
+  "publication": "Za Rulem (За рулём)",
+  "year": 2017,
+  "season": "winter",
+  "size": "185/65 R15",
+  "car": "Kia Rio",
+  "tester": "ZR / S. Mishin; jää-lumi: Pirelli polügoon Älvsbyn (Rootsi), asfalt: AvtoVAZ polügoon Toljatti",
+  "url": "https://www.zr.ru/d/story/ff/908287/tablitsa.pdf",
+  "url_original": "https://www.zr.ru/content/articles/908287-pyatnashki/",
+  "disciplines": [
+   {
+    "id": "ice",
+    "surface": "ice",
+    "wet": false,
+    "v_from": 30,
+    "v_to": 5,
+    "temp_c": null,
+    "note": ""
+   },
+   {
+    "id": "snow",
+    "surface": "snow",
+    "wet": false,
+    "v_from": 40,
+    "v_to": 5,
+    "temp_c": null,
+    "note": ""
+   },
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": 60,
+    "v_to": 5,
+    "temp_c": null,
+    "note": ""
+   },
+   {
+    "id": "dry",
+    "surface": "asphalt",
+    "wet": false,
+    "v_from": 80,
+    "v_to": 5,
+    "temp_c": null,
+    "note": ""
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Nokian Hakkapeliitta 9",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 16.4,
+     "snow": 14.8,
+     "wet": 19.4,
+     "dry": 31.9
+    },
+    "aqua_kmh": null,
+    "note": "1. koht, 936 p"
+   },
+   {
+    "name": "Continental IceContact 2",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 16.5,
+     "snow": 14.8,
+     "wet": 18.9,
+     "dry": 32.8
+    },
+    "aqua_kmh": null,
+    "note": "2. koht, 914 p"
+   },
+   {
+    "name": "Goodyear UltraGrip Ice Arctic",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 16.7,
+     "snow": 14.9,
+     "wet": 20.0,
+     "dry": 33.1
+    },
+    "aqua_kmh": null,
+    "note": "3. koht, 898 p"
+   },
+   {
+    "name": "Nokian Nordman 7",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 18.5,
+     "snow": 14.9,
+     "wet": 20.4,
+     "dry": 33.6
+    },
+    "aqua_kmh": null,
+    "note": "4. koht, 888 p (tabelis 'Nordman 7')"
+   },
+   {
+    "name": "Cordiant Snow Cross",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 17.8,
+     "snow": 15.0,
+     "wet": 21.3,
+     "dry": 34.6
+    },
+    "aqua_kmh": null,
+    "note": "5. koht, 871 p"
+   },
+   {
+    "name": "Dunlop SP Winter Ice 02",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 18.5,
+     "snow": 15.1,
+     "wet": 20.2,
+     "dry": 34.0
+    },
+    "aqua_kmh": null,
+    "note": "6. koht, 852 p"
+   },
+   {
+    "name": "Nitto Therma Spike",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 20.3,
+     "snow": 15.5,
+     "wet": 22.3,
+     "dry": 34.6
+    },
+    "aqua_kmh": null,
+    "note": "7.-8. koht, 847 p"
+   },
+   {
+    "name": "Toyo Observe G3-Ice",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 20.7,
+     "snow": 15.5,
+     "wet": 20.9,
+     "dry": 33.6
+    },
+    "aqua_kmh": null,
+    "note": "7.-8. koht, 847 p"
+   },
+   {
+    "name": "Formula Ice",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 21.8,
+     "snow": 15.2,
+     "wet": 19.8,
+     "dry": 32.1
+    },
+    "aqua_kmh": null,
+    "note": "9.-10. koht, 841 p (Pirelli alabränd)"
+   },
+   {
+    "name": "Gislaved Nord Frost 200",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 21.1,
+     "snow": 15.1,
+     "wet": 20.2,
+     "dry": 33.2
+    },
+    "aqua_kmh": null,
+    "note": "9.-10. koht, 841 p"
+   },
+   {
+    "name": "Kumho WinterCraft ice Wi31",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 23.7,
+     "snow": 15.4,
+     "wet": 20.5,
+     "dry": 32.7
+    },
+    "aqua_kmh": null,
+    "note": "11. koht, 803 p"
+   }
+  ]
+ },
+ {
+  "test_id": "ZaRulem-2018-W-195-65R15-studded",
+  "publication": "Za Rulem (За рулём)",
+  "year": 2018,
+  "season": "winter",
+  "size": "195/65 R15",
+  "car": "VW Golf",
+  "tester": "ZR / S. Mishin; jää-lumi: Continental polügoon Arvidsjaur (Rootsi), jaanuar, -7…-14 °C; asfalt: AvtoVAZ polügoon Toljatti, aprill",
+  "url": "https://www.zr.ru/d/story/b0/913840/table.pdf",
+  "url_original": "https://www.zr.ru/content/articles/913840-vostok-protiv-zapada/",
+  "disciplines": [
+   {
+    "id": "ice",
+    "surface": "ice",
+    "wet": false,
+    "v_from": 20,
+    "v_to": 5,
+    "temp_c": null,
+    "note": ""
+   },
+   {
+    "id": "snow",
+    "surface": "snow",
+    "wet": false,
+    "v_from": 40,
+    "v_to": 5,
+    "temp_c": null,
+    "note": ""
+   },
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": 60,
+    "v_to": 5,
+    "temp_c": null,
+    "note": ""
+   },
+   {
+    "id": "dry",
+    "surface": "asphalt",
+    "wet": false,
+    "v_from": 80,
+    "v_to": 5,
+    "temp_c": null,
+    "note": ""
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Nokian Hakkapeliitta 9",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 6.9,
+     "snow": 17.4,
+     "wet": 18.9,
+     "dry": 31.4
+    },
+    "aqua_kmh": null,
+    "note": "1. koht, 915 p"
+   },
+   {
+    "name": "Continental IceContact 2",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 6.8,
+     "snow": 17.3,
+     "wet": 19.1,
+     "dry": 32.3
+    },
+    "aqua_kmh": null,
+    "note": "2.-3. koht, 905 p"
+   },
+   {
+    "name": "Hankook Winter i*Pike RS2 W429",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 6.6,
+     "snow": 16.9,
+     "wet": 20.8,
+     "dry": 33.3
+    },
+    "aqua_kmh": null,
+    "note": "2.-3. koht, 905 p (tabelis 'Hankook Winter i*Pike RS 2')"
+   },
+   {
+    "name": "Pirelli Ice Zero",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 7.1,
+     "snow": 17.6,
+     "wet": 19.0,
+     "dry": 31.5
+    },
+    "aqua_kmh": null,
+    "note": "4. koht, 888 p"
+   },
+   {
+    "name": "Goodyear UltraGrip Ice Arctic",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 7.3,
+     "snow": 17.5,
+     "wet": 18.8,
+     "dry": 30.7
+    },
+    "aqua_kmh": null,
+    "note": "5. koht, 877 p"
+   },
+   {
+    "name": "Nokian Nordman 7",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 7.5,
+     "snow": 17.6,
+     "wet": 20.5,
+     "dry": 31.9
+    },
+    "aqua_kmh": null,
+    "note": "6. koht, 874 p (tabelis 'Nordman 7')"
+   },
+   {
+    "name": "Gislaved Nord Frost 200",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 7.9,
+     "snow": 17.2,
+     "wet": 17.8,
+     "dry": 30.3
+    },
+    "aqua_kmh": null,
+    "note": "7. koht, 870 p"
+   },
+   {
+    "name": "Bridgestone Blizzak Spike-02",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 7.1,
+     "snow": 17.7,
+     "wet": 20.3,
+     "dry": 33.5
+    },
+    "aqua_kmh": null,
+    "note": "8. koht, 847 p"
+   },
+   {
+    "name": "Toyo Observe Ice-Freezer",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 7.9,
+     "snow": 18.2,
+     "wet": 20.0,
+     "dry": 32.6
+    },
+    "aqua_kmh": null,
+    "note": "9. koht, 840 p"
+   },
+   {
+    "name": "Nitto Therma Spike",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 8.1,
+     "snow": 18.1,
+     "wet": 21.7,
+     "dry": 32.6
+    },
+    "aqua_kmh": null,
+    "note": "10. koht, 821 p"
+   },
+   {
+    "name": "GT Radial IcePro 3",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 8.7,
+     "snow": 19.0,
+     "wet": 18.9,
+     "dry": 31.1
+    },
+    "aqua_kmh": null,
+    "note": "11. koht, 811 p"
+   },
+   {
+    "name": "Firestone Ice Cruiser 7",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 8.2,
+     "snow": 19.1,
+     "wet": 20.6,
+     "dry": 31.5
+    },
+    "aqua_kmh": null,
+    "note": "12. koht, 788 p"
+   }
+  ]
+ },
+ {
+  "test_id": "ZaRulem-2018-W-215-65R16-studded",
+  "publication": "Za Rulem (За рулём)",
+  "year": 2018,
+  "season": "winter",
+  "size": "215/65 R16",
+  "car": "VW Tiguan (jää/lumi), Renault Kaptur (asfalt)",
+  "tester": "ZR / S. Mishin; jää-lumi: Continental polügoon Arvidsjaur (Rootsi), jaanuar; asfalt: AvtoVAZ polügoon Toljatti, aprill",
+  "url": "https://www.zr.ru/d/story/a4/914852/070-071-2.pdf",
+  "url_original": "https://www.zr.ru/content/articles/914852-shipovannye-shiny-r16-test/",
+  "disciplines": [
+   {
+    "id": "ice",
+    "surface": "ice",
+    "wet": false,
+    "v_from": 20,
+    "v_to": 5,
+    "temp_c": null,
+    "note": ""
+   },
+   {
+    "id": "snow",
+    "surface": "snow",
+    "wet": false,
+    "v_from": 40,
+    "v_to": 5,
+    "temp_c": null,
+    "note": ""
+   },
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": 60,
+    "v_to": 5,
+    "temp_c": null,
+    "note": ""
+   },
+   {
+    "id": "dry",
+    "surface": "asphalt",
+    "wet": false,
+    "v_from": 80,
+    "v_to": 5,
+    "temp_c": null,
+    "note": ""
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Nokian Hakkapeliitta 9 SUV",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 7.1,
+     "snow": 18.0,
+     "wet": 18.6,
+     "dry": 31.3
+    },
+    "aqua_kmh": null,
+    "note": "1. koht, 927 p"
+   },
+   {
+    "name": "Continental IceContact 2 SUV",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 7.6,
+     "snow": 18.2,
+     "wet": 18.5,
+     "dry": 30.3
+    },
+    "aqua_kmh": null,
+    "note": "2. koht, 908 p"
+   },
+   {
+    "name": "Yokohama iceGUARD iG65",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 7.6,
+     "snow": 19.1,
+     "wet": 17.3,
+     "dry": 29.9
+    },
+    "aqua_kmh": null,
+    "note": "3. koht, 902 p"
+   },
+   {
+    "name": "Gislaved Nord Frost 200 SUV",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 8.6,
+     "snow": 18.0,
+     "wet": 17.8,
+     "dry": 29.6
+    },
+    "aqua_kmh": null,
+    "note": "4. koht, 888 p"
+   },
+   {
+    "name": "Nokian Nordman 7 SUV",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 8.3,
+     "snow": 18.6,
+     "wet": 19.4,
+     "dry": 30.1
+    },
+    "aqua_kmh": null,
+    "note": "5.-6. koht, 879 p (tabelis 'Nordman 7 SUV')"
+   },
+   {
+    "name": "Goodyear UltraGrip Ice Arctic",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 8.1,
+     "snow": 18.7,
+     "wet": 18.0,
+     "dry": 30.1
+    },
+    "aqua_kmh": null,
+    "note": "5.-6. koht, 879 p; 98T"
+   },
+   {
+    "name": "Michelin X-Ice North 3",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 8.8,
+     "snow": 18.2,
+     "wet": 20.1,
+     "dry": 30.8
+    },
+    "aqua_kmh": null,
+    "note": "7. koht, 864 p"
+   },
+   {
+    "name": "Nexen WinGuard WinSpike WH62",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 10.0,
+     "snow": 20.7,
+     "wet": 20.2,
+     "dry": 30.2
+    },
+    "aqua_kmh": null,
+    "note": "8. koht, 796 p"
+   }
+  ]
+ },
+ {
+  "test_id": "ZaRulem-2015-W-175-65R14-friction",
+  "publication": "Za Rulem (За рулём)",
+  "year": 2015,
+  "season": "winter",
+  "size": "175/65 R14",
+  "car": "Lada Kalina",
+  "tester": "ZR / S. Mishin; AvtoVAZ polügoon Toljatti (jää-lumi jaanuar-veebruar, asfalt mai)",
+  "url": "https://www.zr.ru/d/story/aa/815274/136-137.pdf",
+  "url_original": "https://www.zr.ru/content/articles/815274-supertest-zimnix-shin-17565-r14-vezzhaem-v-zimu/",
+  "disciplines": [
+   {
+    "id": "ice",
+    "surface": "ice",
+    "wet": false,
+    "v_from": 30,
+    "v_to": 5,
+    "temp_c": null,
+    "note": ""
+   },
+   {
+    "id": "snow",
+    "surface": "snow",
+    "wet": false,
+    "v_from": 30,
+    "v_to": 5,
+    "temp_c": null,
+    "note": "lumi 30→5 km/h (mitte 40)"
+   },
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": 60,
+    "v_to": 5,
+    "temp_c": null,
+    "note": ""
+   },
+   {
+    "id": "dry",
+    "surface": "asphalt",
+    "wet": false,
+    "v_from": 80,
+    "v_to": 5,
+    "temp_c": null,
+    "note": ""
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Nokian Hakkapeliitta R2",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "ice": 17.7,
+     "snow": 9.0,
+     "wet": 21.1,
+     "dry": 34.7
+    },
+    "aqua_kmh": null,
+    "note": "1. koht, 929 p"
+   },
+   {
+    "name": "Goodyear UltraGrip Ice 2",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "ice": 18.7,
+     "snow": 8.8,
+     "wet": 19.4,
+     "dry": 32.5
+    },
+    "aqua_kmh": null,
+    "note": "2. koht, 902 p"
+   },
+   {
+    "name": "Continental ContiVikingContact 6",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "ice": 18.7,
+     "snow": 9.4,
+     "wet": 19.4,
+     "dry": 32.7
+    },
+    "aqua_kmh": null,
+    "note": "3. koht, 887 p"
+   },
+   {
+    "name": "Nokian Nordman RS",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "ice": 17.8,
+     "snow": 9.3,
+     "wet": 24.4,
+     "dry": 35.5
+    },
+    "aqua_kmh": null,
+    "note": "4. koht, 884 p (tabelis 'Nordman RS')"
+   },
+   {
+    "name": "Toyo Observe GSi-5",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "ice": 19.5,
+     "snow": 8.9,
+     "wet": 20.8,
+     "dry": 34.2
+    },
+    "aqua_kmh": null,
+    "note": "5. koht, 878 p"
+   },
+   {
+    "name": "Bridgestone Blizzak VRX",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "ice": 19.8,
+     "snow": 9.3,
+     "wet": 20.0,
+     "dry": 32.6
+    },
+    "aqua_kmh": null,
+    "note": "6. koht, 865 p"
+   },
+   {
+    "name": "Cordiant Winter Drive",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "ice": 18.9,
+     "snow": 8.9,
+     "wet": 22.8,
+     "dry": 37.3
+    },
+    "aqua_kmh": null,
+    "note": "7. koht, 836 p"
+   }
+  ]
+ },
+ {
+  "test_id": "ZaRulem-2016-W-225-45R17-friction",
+  "publication": "Za Rulem (За рулём)",
+  "year": 2016,
+  "season": "winter",
+  "size": "225/45 R17",
+  "car": "VW Golf GTI",
+  "tester": "ZR / S. Mishin; jää-lumi: Nokian 'White Hell' Tammijärvi (Soome), märts; asfalt: AvtoVAZ polügoon Toljatti, aprill-mai",
+  "url": "https://www.zr.ru/d/story/1e/902942/064-065.pdf",
+  "url_original": "https://www.zr.ru/content/articles/902942-i-nikakikh-gvozdej/",
+  "disciplines": [
+   {
+    "id": "ice",
+    "surface": "ice",
+    "wet": false,
+    "v_from": 30,
+    "v_to": 5,
+    "temp_c": null,
+    "note": "PDF-i reapealkiri ebaselge (loetud 'lumi 30-5'), artikli tekst kinnitab: jää 30→5 km/h (Nokian ~15 m parim)"
+   },
+   {
+    "id": "snow",
+    "surface": "snow",
+    "wet": false,
+    "v_from": 40,
+    "v_to": 5,
+    "temp_c": null,
+    "note": ""
+   },
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": 60,
+    "v_to": 5,
+    "temp_c": null,
+    "note": ""
+   },
+   {
+    "id": "dry",
+    "surface": "asphalt",
+    "wet": false,
+    "v_from": 80,
+    "v_to": 5,
+    "temp_c": null,
+    "note": ""
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Continental ContiVikingContact 6",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "ice": 15.9,
+     "snow": 15.6,
+     "wet": 19.7,
+     "dry": 29.8
+    },
+    "aqua_kmh": null,
+    "note": "1. koht, 924 p"
+   },
+   {
+    "name": "Nokian Hakkapeliitta R2",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "ice": 15.4,
+     "snow": 16.0,
+     "wet": 21.6,
+     "dry": 31.7
+    },
+    "aqua_kmh": null,
+    "note": "2. koht, 915 p"
+   },
+   {
+    "name": "Goodyear UltraGrip Ice 2",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "ice": 16.5,
+     "snow": 16.2,
+     "wet": 20.2,
+     "dry": 28.8
+    },
+    "aqua_kmh": null,
+    "note": "3. koht, 899 p"
+   },
+   {
+    "name": "Pirelli Ice Zero FR",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "ice": 17.5,
+     "snow": 15.6,
+     "wet": 20.6,
+     "dry": 30.2
+    },
+    "aqua_kmh": null,
+    "note": "4. koht, 896 p"
+   },
+   {
+    "name": "Michelin X-Ice 3",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "ice": 16.1,
+     "snow": 16.2,
+     "wet": 21.2,
+     "dry": 29.9
+    },
+    "aqua_kmh": null,
+    "note": "5. koht, 895 p (X-Ice XI3)"
+   },
+   {
+    "name": "Hankook Winter i*cept iZ2 W616",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "ice": 17.0,
+     "snow": 15.7,
+     "wet": 21.8,
+     "dry": 30.6
+    },
+    "aqua_kmh": null,
+    "note": "6. koht, 882 p (tabelis 'Winter i*cept iZ²')"
+   },
+   {
+    "name": "Dunlop Winter Maxx WM01",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "ice": 17.2,
+     "snow": 16.0,
+     "wet": 22.4,
+     "dry": 31.7
+    },
+    "aqua_kmh": null,
+    "note": "7. koht, 866 p"
+   },
+   {
+    "name": "Bridgestone Blizzak VRX",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "ice": 17.5,
+     "snow": 16.2,
+     "wet": 21.4,
+     "dry": 30.1
+    },
+    "aqua_kmh": null,
+    "note": "8. koht, 864 p"
+   },
+   {
+    "name": "Toyo Observe GSi-5",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "ice": 16.8,
+     "snow": 15.8,
+     "wet": 25.6,
+     "dry": 33.1
+    },
+    "aqua_kmh": null,
+    "note": "9. koht, 839 p"
+   }
+  ]
+ },
+ {
+  "test_id": "ZaRulem-2017-W-205-55R16-friction",
+  "publication": "Za Rulem (За рулём)",
+  "year": 2017,
+  "season": "winter",
+  "size": "205/55 R16",
+  "car": "VW Golf VII",
+  "tester": "ZR / S. Mishin; jää-lumi: Pirelli polügoon Älvsbyn (Rootsi), veebruar; asfalt: AvtoVAZ polügoon Toljatti, mai",
+  "url": "https://www.zr.ru/d/story/ae/908974/070-2.pdf",
+  "url_original": "https://www.zr.ru/content/articles/908974-myagkoe-stseplenie/",
+  "disciplines": [
+   {
+    "id": "ice",
+    "surface": "ice",
+    "wet": false,
+    "v_from": 30,
+    "v_to": 5,
+    "temp_c": null,
+    "note": ""
+   },
+   {
+    "id": "snow",
+    "surface": "snow",
+    "wet": false,
+    "v_from": 40,
+    "v_to": 5,
+    "temp_c": null,
+    "note": ""
+   },
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": 60,
+    "v_to": 5,
+    "temp_c": null,
+    "note": "PDF-i reapealkirjas pind puudu; artikli tekst: märg asfalt 60 km/h (Continental 17.4 m parim)"
+   },
+   {
+    "id": "dry",
+    "surface": "asphalt",
+    "wet": false,
+    "v_from": 80,
+    "v_to": 5,
+    "temp_c": null,
+    "note": ""
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Nokian Hakkapeliitta R2",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "ice": 15.5,
+     "snow": 14.7,
+     "wet": 18.8,
+     "dry": 29.0
+    },
+    "aqua_kmh": null,
+    "note": "1. koht, 939 p"
+   },
+   {
+    "name": "Continental ContiVikingContact 6",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "ice": 16.1,
+     "snow": 14.9,
+     "wet": 17.4,
+     "dry": 29.1
+    },
+    "aqua_kmh": null,
+    "note": "2. koht, 912 p"
+   },
+   {
+    "name": "Hankook Winter i*cept iZ2 W616",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "ice": 15.6,
+     "snow": 14.9,
+     "wet": 19.5,
+     "dry": 29.2
+    },
+    "aqua_kmh": null,
+    "note": "3. koht, 909 p"
+   },
+   {
+    "name": "Goodyear UltraGrip Ice 2",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "ice": 15.6,
+     "snow": 14.7,
+     "wet": 18.3,
+     "dry": 29.1
+    },
+    "aqua_kmh": null,
+    "note": "4.-5. koht, 907 p"
+   },
+   {
+    "name": "Nokian Nordman RS2",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "ice": 15.7,
+     "snow": 15.0,
+     "wet": 19.0,
+     "dry": 29.1
+    },
+    "aqua_kmh": null,
+    "note": "4.-5. koht, 907 p (tabelis 'Nordman RS2')"
+   },
+   {
+    "name": "Pirelli Ice Zero FR",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "ice": 17.3,
+     "snow": 14.7,
+     "wet": 18.7,
+     "dry": 29.5
+    },
+    "aqua_kmh": null,
+    "note": "6.-7. koht, 888 p"
+   },
+   {
+    "name": "Toyo Observe GSi-5",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "ice": 15.5,
+     "snow": 14.8,
+     "wet": 21.6,
+     "dry": 30.7
+    },
+    "aqua_kmh": null,
+    "note": "6.-7. koht, 888 p"
+   },
+   {
+    "name": "Bridgestone Blizzak Revo GZ",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "ice": 17.3,
+     "snow": 15.1,
+     "wet": 19.2,
+     "dry": 28.6
+    },
+    "aqua_kmh": null,
+    "note": "8.-9. koht, 860 p"
+   },
+   {
+    "name": "Nitto SN2",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "ice": 16.9,
+     "snow": 14.8,
+     "wet": 21.6,
+     "dry": 30.6
+    },
+    "aqua_kmh": null,
+    "note": "8.-9. koht, 860 p"
+   }
+  ]
+ },
+ {
+  "test_id": "ZaRulem-2018-W-205-55R16-friction",
+  "publication": "Za Rulem (За рулём)",
+  "year": 2018,
+  "season": "winter",
+  "size": "205/55 R16",
+  "car": "VW Golf",
+  "tester": "ZR / S. Mishin; jää-lumi: Continental polügoon Arvidsjaur (Rootsi), jaanuar; asfalt: AvtoVAZ polügoon Toljatti",
+  "url": "http://www.zr.ru/d/story/ab/914603/22.pdf",
+  "url_original": "https://www.zr.ru/content/articles/914603-razrushiteli-traditsij/",
+  "disciplines": [
+   {
+    "id": "ice",
+    "surface": "ice",
+    "wet": false,
+    "v_from": 20,
+    "v_to": 5,
+    "temp_c": null,
+    "note": ""
+   },
+   {
+    "id": "snow",
+    "surface": "snow",
+    "wet": false,
+    "v_from": 40,
+    "v_to": 5,
+    "temp_c": null,
+    "note": ""
+   },
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": 60,
+    "v_to": 5,
+    "temp_c": null,
+    "note": ""
+   },
+   {
+    "id": "dry",
+    "surface": "asphalt",
+    "wet": false,
+    "v_from": 80,
+    "v_to": 5,
+    "temp_c": null,
+    "note": ""
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Pirelli Ice Zero FR",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "ice": 9.0,
+     "snow": 16.3,
+     "wet": 18.9,
+     "dry": 30.2
+    },
+    "aqua_kmh": null,
+    "note": "1. koht, 926 p"
+   },
+   {
+    "name": "Continental VikingContact 7",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "ice": 9.0,
+     "snow": 16.4,
+     "wet": 19.1,
+     "dry": 29.7
+    },
+    "aqua_kmh": null,
+    "note": "2. koht, 924 p"
+   },
+   {
+    "name": "Nokian Hakkapeliitta R3",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "ice": 9.4,
+     "snow": 16.7,
+     "wet": 19.3,
+     "dry": 30.0
+    },
+    "aqua_kmh": null,
+    "note": "3. koht, 922 p"
+   },
+   {
+    "name": "Nokian Nordman RS2",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "ice": 8.7,
+     "snow": 16.7,
+     "wet": 19.8,
+     "dry": 30.8
+    },
+    "aqua_kmh": null,
+    "note": "4. koht, 912 p (tabelis 'Nordman RS2')"
+   },
+   {
+    "name": "Goodyear UltraGrip Ice 2",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "ice": 9.2,
+     "snow": 16.3,
+     "wet": 19.5,
+     "dry": 29.6
+    },
+    "aqua_kmh": null,
+    "note": "5. koht, 900 p"
+   },
+   {
+    "name": "Dunlop Winter Maxx WM02",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "ice": 9.5,
+     "snow": 16.7,
+     "wet": 20.0,
+     "dry": 32.2
+    },
+    "aqua_kmh": null,
+    "note": "6. koht, 887 p"
+   },
+   {
+    "name": "Triangle Snowlink PL01",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "ice": 9.9,
+     "snow": 16.8,
+     "wet": 20.3,
+     "dry": 30.0
+    },
+    "aqua_kmh": null,
+    "note": "7. koht, 884 p"
+   },
+   {
+    "name": "Bridgestone Blizzak VRX",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "ice": 10.2,
+     "snow": 17.2,
+     "wet": 20.5,
+     "dry": 29.2
+    },
+    "aqua_kmh": null,
+    "note": "8. koht, 863 p"
+   },
+   {
+    "name": "Toyo Observe GSi-5",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "ice": 9.6,
+     "snow": 16.9,
+     "wet": 22.8,
+     "dry": 32.8
+    },
+    "aqua_kmh": null,
+    "note": "9. koht, 860 p"
+   },
+   {
+    "name": "Nitto SN2",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "ice": 9.9,
+     "snow": 16.8,
+     "wet": 22.7,
+     "dry": 33.0
+    },
+    "aqua_kmh": null,
+    "note": "10. koht, 853 p"
+   }
+  ]
+ }
+]

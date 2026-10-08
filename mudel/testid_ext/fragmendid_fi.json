@@ -1,0 +1,261 @@
+[
+ {
+  "test_id": "MOOTTORI-2018-W-NORDIC-205-55R16-PARTIAL",
+  "publication": "Moottori 10/2018",
+  "year": 2018,
+  "season": "winter",
+  "size": "205/55 R16",
+  "car": null,
+  "tester": "Moottori oma test (Jussi Saarinen); jääpidurdus = välisraja (-5 C) ja sisehalli (-9 C) keskmine. OSALINE: 8 lamellrehvist on artiklis meetrid ainult kahel",
+  "url": "https://moottori.fi/testi/moottorin-suuri-kitkarengastesti-totuus-pirelli-ice-zero-frn-menestyksen-takana/",
+  "url_original": null,
+  "disciplines": [
+   {
+    "id": "ice",
+    "surface": "ice",
+    "wet": false,
+    "v_from": 25,
+    "v_to": 5,
+    "temp_c": null,
+    "note": "25–5 km/h, välis- ja sisejää keskmine"
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Continental VikingContact 7",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "ice": 13.1
+    },
+    "aqua_kmh": null,
+    "note": "testi parim jääpidurdus"
+   },
+   {
+    "name": "Pirelli Ice Zero FR",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "ice": 13.2
+    },
+    "aqua_kmh": null,
+    "note": "2. koht 8-st jääpidurduses"
+   }
+  ]
+ },
+ {
+  "test_id": "TUULILASI-2018-W-NORDIC-205-55R16-PARTIAL",
+  "publication": "Tuulilasi 10/2018 (Test World)",
+  "year": 2018,
+  "season": "winter",
+  "size": "205/55 R16",
+  "car": null,
+  "tester": "Tuulilasi/Test World; numbrid Moottori 10/2018 võrdlusest. OSALINE: 8 lamellrehvist ainult 2",
+  "url": "https://moottori.fi/testi/moottorin-suuri-kitkarengastesti-totuus-pirelli-ice-zero-frn-menestyksen-takana/",
+  "url_original": null,
+  "disciplines": [
+   {
+    "id": "ice",
+    "surface": "ice",
+    "wet": false,
+    "v_from": 25,
+    "v_to": 5,
+    "temp_c": null,
+    "note": "25–5 km/h"
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Continental VikingContact 7",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "ice": 13.04
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Pirelli Ice Zero FR",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "ice": 15.43
+    },
+    "aqua_kmh": null,
+    "note": "8. koht 8-st; rehv toodetud nädal 38/2017 (vanem segu)"
+   }
+  ]
+ },
+ {
+  "test_id": "TUULILASI-2016-W-NORDIC-205-55R16-PARTIAL",
+  "publication": "Tuulilasi 13/2016 (Test World)",
+  "year": 2016,
+  "season": "winter",
+  "size": "205/55 R16",
+  "car": null,
+  "tester": "Tuulilasi/Test World; number Moottori 10/2018 võrdlusest. OSALINE: 9 lamellrehvist ainult 1",
+  "url": "https://moottori.fi/testi/moottorin-suuri-kitkarengastesti-totuus-pirelli-ice-zero-frn-menestyksen-takana/",
+  "url_original": null,
+  "disciplines": [
+   {
+    "id": "ice",
+    "surface": "ice",
+    "wet": false,
+    "v_from": 20,
+    "v_to": 5,
+    "temp_c": null,
+    "note": "20–5 km/h"
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Pirelli Ice Zero FR",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "ice": 16.88
+    },
+    "aqua_kmh": null,
+    "note": "8. koht 9-st"
+   }
+  ]
+ },
+ {
+  "test_id": "TM-2018-W-NORDIC-205-55R16-PARTIAL",
+  "publication": "Tekniikan Maailma 17/2018",
+  "year": 2018,
+  "season": "winter",
+  "size": "205/55 R16",
+  "car": null,
+  "tester": "TM; number Moottori 10/2018 võrdlusest. OSALINE: 10 lamellrehvist ainult 1",
+  "url": "https://moottori.fi/testi/moottorin-suuri-kitkarengastesti-totuus-pirelli-ice-zero-frn-menestyksen-takana/",
+  "url_original": null,
+  "disciplines": [
+   {
+    "id": "ice",
+    "surface": "ice",
+    "wet": false,
+    "v_from": 50,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "50–0 km/h"
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Pirelli Ice Zero FR",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "ice": 52.0
+    },
+    "aqua_kmh": null,
+    "note": "2. koht 10-st"
+   }
+  ]
+ },
+ {
+  "test_id": "TM-2017-W-NORDIC-205-55R16-PARTIAL",
+  "publication": "Tekniikan Maailma 17/2017",
+  "year": 2017,
+  "season": "winter",
+  "size": "205/55 R16",
+  "car": null,
+  "tester": "TM; number Moottori 10/2018 võrdlusest. OSALINE: 11 lamellrehvist ainult 1",
+  "url": "https://moottori.fi/testi/moottorin-suuri-kitkarengastesti-totuus-pirelli-ice-zero-frn-menestyksen-takana/",
+  "url_original": null,
+  "disciplines": [
+   {
+    "id": "ice",
+    "surface": "ice",
+    "wet": false,
+    "v_from": 50,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "50–0 km/h"
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Pirelli Ice Zero FR",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "ice": 65.1
+    },
+    "aqua_kmh": null,
+    "note": "10. koht 11-st"
+   }
+  ]
+ },
+ {
+  "test_id": "TM-2016-W-NORDIC-205-55R16-PARTIAL",
+  "publication": "Tekniikan Maailma 17/2016",
+  "year": 2016,
+  "season": "winter",
+  "size": "205/55 R16",
+  "car": null,
+  "tester": "TM; number Moottori 10/2018 võrdlusest. OSALINE: 12 lamellrehvist ainult 1",
+  "url": "https://moottori.fi/testi/moottorin-suuri-kitkarengastesti-totuus-pirelli-ice-zero-frn-menestyksen-takana/",
+  "url_original": null,
+  "disciplines": [
+   {
+    "id": "ice",
+    "surface": "ice",
+    "wet": false,
+    "v_from": 50,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "50–0 km/h"
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Pirelli Ice Zero FR",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "ice": 70.2
+    },
+    "aqua_kmh": null,
+    "note": "11. koht 12-st"
+   }
+  ]
+ },
+ {
+  "test_id": "MICHELIN-TESTWORLD-2018-W-PRESS-ice",
+  "publication": "Taloustaito (Michelini pressiüritus, mõõtis Test World)",
+  "year": 2018,
+  "season": "winter",
+  "size": null,
+  "car": "Volkswagen Golf",
+  "tester": "Test World Michelini tellimusel, Arvidsjaur (Rootsi), 13.3.2018",
+  "url": "https://www.taloustaito.fi/vapaalla/talvirenkaassa-250-nastaa---michelin-paransi-tuntuvasti-jaapitoa/",
+  "url_original": null,
+  "note": "TOOTJA TELLITUD demonstratsioon, mitte sõltumatu test. Rehvimõõtu artiklis ei öelda. Hakkapeliitta 9 (17,3–17,9 m) ja IceContact 2 (18,7–18,8 m) anti vahemikuna, mitte ühe numbrina – jäetud välja.",
+  "disciplines": [
+   {
+    "id": "ice",
+    "surface": "ice",
+    "wet": false,
+    "v_from": 30,
+    "v_to": 5,
+    "temp_c": null,
+    "note": "30→5 km/h"
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Michelin X-Ice North 4",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "ice": 15.5
+    },
+    "aqua_kmh": null,
+    "note": "tootja pressiüritus"
+   }
+  ]
+ }
+]
