@@ -12,7 +12,7 @@ export const ORG = {
 	url: BASE + '/',
 	logo: { '@type': 'ImageObject', url: BASE + '/apple-touch-icon.png', width: 180, height: 180 },
 	/* brändi profiilid: Google seob need saidiga (nimi „pidurdusmaa“ otsingus) */
-	sameAs: ['https://www.facebook.com/groups/1657504909045725', 'https://www.tiktok.com/@tarvoraba'],
+	sameAs: ['https://www.facebook.com/1433536999837225', 'https://www.facebook.com/groups/1657504909045725', 'https://www.tiktok.com/@tarvoraba'],
 	contactPoint: {
 		'@type': 'ContactPoint',
 		contactType: 'customer support',
