@@ -907,7 +907,7 @@ import UNIVERSAALID from './universaalid.json';
       }
       function vali(i) {
         var h = hits[i]; if (!h) return;
-        S.minu = h.e ? { e: h.e, n: h.n } : { t: h.t, n: h.n };
+        S.minu = h.e ? { e: h.e, n: h.n } : { t: h.t, n: h.n }; S._userSeason = false;
         valitudNimi = inp.value = h.n;
         hits = []; act = -1; naita(); list.hidden = true;
         vihje(h.s ? h.s.charAt(0).toUpperCase() + h.s.slice(1) + _t(' — võrdleme sama hooaja rehvidega.') : '');
@@ -1431,7 +1431,10 @@ import UNIVERSAALID from './universaalid.json';
         if (moodud.indexOf(m) < 0 && core.eprelSizes.indexOf(m) >= 0) moodud.push(m);
       });
       moodud = moodud.slice(0, 8);
-      var sea = SEASON[S.resSeason] || SEASON.summer, voti = moodud.join(',') + '|' + S.resSeason;
+      /* poe soovitus järgib VALITUD TEEOLUSID (Tarvo 8.10): kuiv/märg → suverehvid,
+         lumi/jää → talverehvid — mitte sinu praeguse rehvi tüüpi */
+      var poodHooaeg = (S.cond === 'snow' || S.cond === 'ice') ? 'winter' : 'summer';
+      var sea = SEASON[poodHooaeg], voti = moodud.join(',') + '|' + poodHooaeg;
       if (voti === poodVoti) return;
       poodVoti = voti;
       if (!core._tyreBySlug) { core._tyreBySlug = {}; core.tyres.forEach(function (t) { if (t.slug) core._tyreBySlug[t.slug] = t; }); }
@@ -1736,7 +1739,7 @@ import UNIVERSAALID from './universaalid.json';
           .concat(jHalvim && jHalvim !== cur && jHalvim !== jOma && jHalvim !== jParim ? [[_t('Halvim selles mõõdus'), jHalvim.d + react, false]] : [])
       };
       $('[data-r-whoshort]', el).innerHTML = esc(whoShort) + ' · ' + esc(c.label) + '<br>' +
-        (out.vehDefault ? _t('auto valimata — arvutatud VW Golf 8 järgi') : esc(out.veh.name)) + _t(' · vahemik ') + fmt(r.lowM + react) + '–' + fmt(r.highM + react) + _t(' m') +
+        (out.vehDefault ? _t('auto valimata — arvutatud VW Golf 8 järgi') + ' · ' : '') + _t('vahemik ') + fmt(r.lowM + react) + '–' + fmt(r.highM + react) + _t(' m') +
         minuVordlus(cur, rows, out, S, react);
       ilmad(cur, vmT, out, S, react);
 

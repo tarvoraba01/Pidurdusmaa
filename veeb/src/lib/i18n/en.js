@@ -595,6 +595,7 @@ export default {
 "Müra (dB) selle nimekirja rehvide seas": "Noise (dB) among the tyres in this list",
 "Veeretakistuse klass: A = 5 tähte": "Rolling resistance class: A = 5 stars",
 "Naastrehvidel EL-i märgist ei ole. Nimekirjas on testitud naastrehvid; pidurdusmaa on arvutatud sinu autoga testides mõõdetud haardest. Kas rehv selles mõõdus müügil on, näed hinnast.": "Studded tyres have no EU label. The list shows tested studded tyres; braking distance is calculated for your car from grip measured in tests. Whether the tyre is sold in this size, you can see from the price.",
+"vahemik ": "range ",
 "Lühidalt": "In short",
 "\">eemalda</button></span></th>": "\">remove</button></span></th>",
 "Jah": "Yes",

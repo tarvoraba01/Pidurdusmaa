@@ -20,7 +20,7 @@
 					<button type="button" data-r-mode="brake" aria-pressed="true">{t("Pidurdusteekond")}</button>
 					<button type="button" data-r-mode="stop" aria-pressed="false">{t("Peatumisteekond")}</button>
 				</div>
-				<p class="rs-l">
+				<p class="rs-l" hidden>
 					<span data-r-lbl>{t("Pidurdusteekond · pidur põhjas kuni seisuni")}</span>
 					<span class="tip" tabindex="0" data-tip={TIP} aria-label={TIP}>i</span>
 				</p>
