@@ -1435,7 +1435,8 @@ import UNIVERSAALID from './universaalid.json';
          lumi/jää → talverehvid — mitte sinu praeguse rehvi tüüpi */
       var poodHooaeg = (S.cond === 'snow' || S.cond === 'ice') ? 'winter' : 'summer';
       /* kuival/märjal: suverehvid ees, lamell- ja aastaringsed ka (nendega võib suvel sõita), märgiga */
-      var sea = poodHooaeg === 'winter' ? SEASON.winter
+      var sea = poodHooaeg === 'winter'
+        ? { long: _t('lamell-, aastaringsed ja naastrehvid'), eprel: SEASON.winter.eprel, tested: SEASON.winter.tested.concat(['WINTER_STUDDED']) }
         : { long: _t('suverehvid, ka lamell- ja aastaringsed'), eprel: [0, 1, 2, 3], tested: SEASON.summer.tested.concat(SEASON.winter.tested) };
       var voti = moodud.join(',') + '|' + poodHooaeg;
       if (voti === poodVoti) return;
@@ -1454,14 +1455,15 @@ import UNIVERSAALID from './universaalid.json';
               var e = bySlug[slug], t = core._tyreBySlug[slug], nimi, g = null;
               var kat = null;
               if (e) { if (sea.eprel.indexOf(e.catNr) < 0) return; nimi = e.mark + ' ' + e.name; g = e.g; kat = e.catNr; }
-              else if (t) { if (sea.tested.indexOf(t.category) < 0) return; nimi = t.name; kat = /^SUMMER/.test(t.category) ? 0 : t.category === 'ALL_SEASON' ? 1 : t.category === 'WINTER_CENTRAL' ? 2 : 3; }
+              else if (t) { if (sea.tested.indexOf(t.category) < 0) return; nimi = t.name; kat = /^SUMMER/.test(t.category) ? 0 : t.category === 'ALL_SEASON' ? 1 : t.category === 'WINTER_CENTRAL' ? 2 : t.category === 'WINTER_STUDDED' ? 4 : 3; }
               else return;
               var r = rr.slice().sort(function (a, b) { return a.hind - b.hind; })[0];
               list.push({ m: k.m, slug: slug, nimi: nimi, g: g, kat: kat, testitud: !!(t || (e && e.tested)), r: r });
             });
           });
           /* sinu mõõt ees (soodsaim ees), teised tehasemõõdud järel */
-          list.sort(function (a, b) { return ((a.m !== S.size) - (b.m !== S.size)) || (poodHooaeg === 'summer' ? (!!a.kat - !!b.kat) : 0) || (a.r.hind - b.r.hind); });
+          list.sort(function (a, b) { return ((a.m !== S.size) - (b.m !== S.size)) || (a.r.hind - b.r.hind); });
+          /* hinna järgi segamini; tüübi märk kaardil (hooaja filter jääb) */
           var ainultOma = !list.some(function (x) { return x.m !== S.size; });
           if (!list.length) { box.hidden = true; box.innerHTML = ''; return; }
           list = list.slice(0, 30);
@@ -1471,7 +1473,7 @@ import UNIVERSAALID from './universaalid.json';
               var ladu = r.laos === false ? _t('tellimisel') : (r.kogus > 0 ? _t('laos') + ' ' + (r.kogus >= 8 ? '8+' : r.kogus) + ' ' + _t('tk') : '');
               var pilt = r.pilt ? '<img src="' + CFG.home + 'api/pilt/' + encodeURIComponent(x.slug) + '/" alt="" width="72" height="86" loading="lazy" decoding="async">' : '<span class="pk-ring" aria-hidden="true"></span>';
               var ylal = '<span class="pk-m">' + esc(pretty(x.m)) + (x.m === S.size ? ' <i>' + _t('sinu') + '</i>' : '') + '</span>' +
-                '<span class="pk-pilt">' + pilt + '</span>' + (poodHooaeg === 'summer' && x.kat ? '<span class="kat-b kat-' + x.kat + '">' + KAT_KAART[x.kat] + '</span>' : '') + '<span class="pk-n">' + esc(x.nimi) + '</span>' +
+                '<span class="pk-pilt">' + pilt + '</span>' + (x.kat ? '<span class="kat-b kat-' + x.kat + '">' + KAT_KAART[x.kat] + '</span>' : '') + '<span class="pk-n">' + esc(x.nimi) + '</span>' +
                 (x.g ? '<small>' + _t('märghaare ') + esc(x.g) + (x.testitud ? _t(' · testitud') : '') + '</small>' : x.testitud ? '<small>' + _t('testitud') + '</small>' : '');
               return '<div class="pk">' + eelNupp(x.slug, x.m, x.nimi, r, ylal) +
                 '<b>' + hindTekst(r) + '</b><span class="pk-pood">' + esc(r.myyja) + '</span>' + (ladu ? '<small>' + ladu + '</small>' : '') + valiLink(r, x.nimi + ' ' + pretty(x.m)) + '</div>';
