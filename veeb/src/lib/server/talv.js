@@ -104,6 +104,8 @@ export function talveLeht(slug) {
 		const naast = t.category === 'WINTER_STUDDED';
 		const lamell = t.category === 'WINTER_NORDIC' && t.slug && moodusSlug.has(t.slug);
 		if (!naast && !lamell) continue;
+		/* ajakirjatestidest tuletatud vanad mudelid (viimane test enne 2020) ei ole enam müügil */
+		if (t.gSource === 'tuletatud' && ((t.tuletus || {}).viimane || 0) < 2020) continue;
 		const onCar = { ...t, size: label, gSize: t.gSize || t.size };
 		testitud.push({
 			slug: t.slug || null,
@@ -119,8 +121,8 @@ export function talveLeht(slug) {
 		});
 	}
 	testitud.sort((a, b) => (a.jaa ?? 999) - (b.jaa ?? 999));
-	const naastud = testitud.filter((x) => x.kat === 'WINTER_STUDDED');
-	const lamellid = testitud.filter((x) => x.kat !== 'WINTER_STUDDED');
+	const naastud = testitud.filter((x) => x.kat === 'WINTER_STUDDED').slice(0, 15);
+	const lamellid = testitud.filter((x) => x.kat !== 'WINTER_STUDDED').slice(0, 15);
 
 	/* märgise järgi: Põhjamaade lamellid; jäämärgiga ees, siis märghaare, siis müra */
 	const pohja = rows

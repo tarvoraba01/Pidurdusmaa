@@ -58,9 +58,9 @@
 					</div>
 				{/each}
 				<div class="qout" data-ct-out></div>
+				<button type="button" class="btn yel hv-vaata" data-vaata-rehve>{t("Vaata sobivaid rehve")} ↓</button>
 			</div>
 		</div>
-		<button type="button" class="btn yel hv-vaata" data-vaata-rehve>{t("Vaata sobivaid rehve")} ↓</button>
 
 		<div class="cmp-layout" style="margin-top:var(--sp-8)">
 			<aside class="filters" aria-label={t("Täpsemad seaded")}>

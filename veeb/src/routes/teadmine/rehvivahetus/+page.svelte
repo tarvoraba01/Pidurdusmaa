@@ -107,28 +107,34 @@
 		}
 	);
 
-	/* tänase seisu tekstid */
+	/* tänase seisu tekstid; „n päeva pärast“ — kliendis uueneb kuupäevaga */
+	const paevi = (d) => Math.max(0, Math.ceil((+d - +s.t) / 864e5));
+	const jaanud = (d) => {
+		const n = paevi(d);
+		if (!n) return '';
+		return ru ? ` · через ${n} ${n % 10 === 1 && n % 100 !== 11 ? 'день' : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20) ? 'дня' : 'дней'}` : ` · ${n} ${n === 1 ? 'päeva' : 'päeva'} pärast`;
+	};
 	const NAAST = $derived(
 		ru
 			? {
 					lubatud: ['Разрешена', `до ${Kk(h.naastLopp)}`],
-					talveoludes: ['Только при зимних условиях', s.t < h.naast ? `обычный срок с ${Kk(h.naast)}` : `до ${Kk(h.naastTalvLopp)}`],
-					keelatud: ['Запрещена', `с ${Kk(h.naast)} (при зимних условиях с ${Kk(h.naastTalv)})`]
+					talveoludes: ['Только при зимних условиях', s.t < h.naast ? `обычный срок с ${Kk(h.naast)}${jaanud(h.naast)}` : `до ${Kk(h.naastTalvLopp)}`],
+					keelatud: ['Запрещена', `с ${Kk(h.naast)}${jaanud(h.naast)} (при зимних условиях с ${Kk(h.naastTalv)})`]
 				}[s.naast]
 			: {
 					lubatud: ['Lubatud', `kuni ${Kk(h.naastLopp, 'ni')}`],
-					talveoludes: ['Ainult talviste teeolude korral', s.t < h.naast ? `muidu alates ${Kk(h.naast, 'st')}` : `kuni ${Kk(h.naastTalvLopp, 'ni')}`],
-					keelatud: ['Ei ole lubatud', `alates ${Kk(h.naast, 'st')} (talveoludes ${Kk(h.naastTalv, 'st')})`]
+					talveoludes: ['Ainult talviste teeolude korral', s.t < h.naast ? `muidu alates ${Kk(h.naast, 'st')}${jaanud(h.naast)}` : `kuni ${Kk(h.naastTalvLopp, 'ni')}`],
+					keelatud: ['Ei ole lubatud', `alates ${Kk(h.naast, 'st')}${jaanud(h.naast)} (talveoludes ${Kk(h.naastTalv, 'st')})`]
 				}[s.naast]
 	);
 	const TALV = $derived(
 		ru
 			? s.talv === 'kohustuslik'
 				? ['Обязательна', `до ${Kk(h.kohustusLopp)}`]
-				: ['Не обязательна', s.t < h.kohustus ? `обязательна с ${Kk(h.kohustus)}` : 'можно ездить на летней']
+				: ['Не обязательна', s.t < h.kohustus ? `обязательна с ${Kk(h.kohustus)}${jaanud(h.kohustus)}` : 'можно ездить на летней']
 			: s.talv === 'kohustuslik'
 				? ['Kohustuslikud', `kuni ${Kk(h.kohustusLopp, 'ni')}`]
-				: ['Ei ole kohustuslikud', s.t < h.kohustus ? `kohustuslikud alates ${Kk(h.kohustus, 'st')}` : 'võib sõita suverehvidega']
+				: ['Ei ole kohustuslikud', s.t < h.kohustus ? `kohustuslikud alates ${Kk(h.kohustus, 'st')}${jaanud(h.kohustus)}` : 'võib sõita suverehvidega']
 	);
 	const TA = ALLIKAD[0];
 	/* infomull: mida tähendab „talviste teeolude korral“ (määrus: naastrehvid

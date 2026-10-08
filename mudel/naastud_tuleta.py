@@ -118,78 +118,131 @@ def viited():
     return out, cal
 
 
-def _komponendid(rows):
-    """Testid ja rehvid on graaf: rehv seob testid, kus ta oli. Eraldi komponente
-    (nt ainult-naastu testid ilma ühegi ühise rehvita lamelli-testidega) ei saa
-    omavahel skaalale panna — igaüks saab oma nihke oma viidetest."""
-    parent = {}
-    def find(x):
-        while parent.setdefault(x, x) != x:
-            parent[x] = parent[parent[x]]; x = parent[x]
-        return x
-    def union(a, b):
-        parent[find(a)] = find(b)
-    for test, w, k, d in rows:
-        union(("t", test), ("r", k))
-    comp = collections.defaultdict(list)
-    for r in rows:
-        comp[find(("t", r[0]))].append(r)
-    return list(comp.values())
-
-
-def _sobita(rows):
-    tyres = {r[2] for r in rows}
-    b = {k: 0.0 for k in tyres}
-    a = {}
-    for _ in range(500):
-        num, den = collections.defaultdict(float), collections.defaultdict(float)
-        for test, w, k, d in rows:
-            num[test] += w * (math.log(d) - b[k]); den[test] += w
-        a = {t: num[t] / den[t] for t in num}
-        num2, den2 = collections.defaultdict(float), collections.defaultdict(float)
-        for test, w, k, d in rows:
-            num2[k] += w * (math.log(d) - a[test]); den2[k] += w
-        b_new = {k: num2[k] / den2[k] for k in num2}
-        m = sum(b_new.values()) / len(b_new)
-        b_new = {k: v - m for k, v in b_new.items()}
-        muutus = max(abs(b_new[k] - b[k]) for k in b_new)
-        b = b_new
-        if muutus < 1e-9:
-            break
-    return a, b
+def _wmedian(paarid):
+    """kaalutud mediaan [(väärtus, kaal)]"""
+    paarid = sorted(paarid)
+    kaal = sum(w for _, w in paarid)
+    acc = 0.0
+    for v, w in paarid:
+        acc += w
+        if acc >= kaal / 2:
+            return v
+    return paarid[-1][0]
 
 
 def lahenda(rows, viited):
-    """rows: [(test, kaal, võti, meetrid)]; viited: võti -> (b_mootor, kaal).
-    Iga seotud komponendi sees: kõik rehvid vabad, log d = a[test] + b[rehv]
-    (vaheldumisi vähimruudud); skaala = viiterehvide kaalutud mediaan
-    (b_mootor − b_sobitatud). Komponent ilma viideta jääb välja.
-    -> b vabadele, info, diagnostika."""
+    """rows: [(test, kaal, võti, meetrid)]; viited: võti -> (log mu mootoris, kaal).
+
+    Jäätestid on omavahel hajusad (sama paar rehve võib kahes testis anda
+    suhte 1,0 ja 2,0), seega mitte vähimruudud, vaid MEDIAANID:
+      * testi sees: rehvi log mu = kaalutud mediaan üle teadaolevate rehvide
+        (log mu_teada + log(d_teada / d_rehv)); d ∝ 1/mu ei sõltu kiirusest;
+      * üle testide: kaalutud mediaan (testi aasta kaal × teadaolevate kaal).
+    Teadaolevad = mootori mõõdetud rehvid (kaal 1); järgmistes käikudes on
+    äsja tuletatud rehvid ise viiteks (kaal 0,5 käigu kohta), et jõuda
+    vanade testideni, kus ühtegi mõõdetud rehvi ei ole.
+    -> log mu vabadele, info, None, diagnostika (viidete ristkontroll)."""
+    by_test = collections.defaultdict(list)
+    for test, w, k, d in rows:
+        by_test[test].append((w, k, d))
+    teada = {k: (v[0], v[1]) for k, v in viited.items()}
     out, info = {}, {}
-    diag = {"komponente": 0, "viiteid": 0, "valja": 0, "jaagid": []}
-    for comp in _komponendid(rows):
-        a, b = _sobita(comp)
-        paarid = sorted((viited[k][0] - b[k], viited[k][1]) for k in b if k in viited)
-        if not paarid:
-            diag["valja"] += len({r[2] for r in comp}); continue
-        kaal = sum(w for _, w in paarid); acc = 0.0; nihe = paarid[-1][0]
-        for v, w in paarid:
-            acc += w
-            if acc >= kaal / 2:
-                nihe = v; break
-        diag["komponente"] += 1; diag["viiteid"] += len(paarid)
-        diag["jaagid"] += [v - nihe for v, _ in paarid]
-        diag.setdefault("read", []).extend((k, round((viited[k][0] - b[k]) - nihe, 3), viited[k][1]) for k in b if k in viited)
-        for test, w, k, d in comp:
-            if k not in viited:
-                info.setdefault(k, {"n": 0, "testid": set(), "kaal": 0.0})
-                info[k]["n"] += 1; info[k]["testid"].add(test); info[k]["kaal"] += w
-        for k in b:
-            if k not in viited:
-                out[k] = b[k] + nihe
-    j = diag["jaagid"]
-    diag["sd"] = (sum(x * x for x in j) / len(j)) ** 0.5 if len(j) > 1 else 0.0
+    for kaik in range(4):
+        uued = {}
+        for k in {r[2] for r in rows if r[2] not in teada}:
+            hinnangud, testid = [], set()
+            for test, read in by_test.items():
+                oma = [r for r in read if r[1] == k]
+                if not oma:
+                    continue
+                w_test, _, d_oma = oma[0]
+                paarid = [(teada[kk][0] + math.log(dd / d_oma), teada[kk][1]) for _, kk, dd in read if kk in teada]
+                if not paarid:
+                    continue
+                hinnangud.append((_wmedian(paarid), w_test * sum(ww for _, ww in paarid) / len(paarid)))
+                testid.add(test)
+            if hinnangud:
+                uued[k] = (_wmedian(hinnangud), len(hinnangud), testid, sum(w for _, w in hinnangud))
+        if not uued:
+            break
+        for k, (v, n, testid, w) in uued.items():
+            teada[k] = (v, 0.5 ** (kaik + 1))
+            out[k] = v
+            info[k] = {"n": n, "testid": testid, "kaal": w, "kaik": kaik + 1}
+    # täpsustus: iga tuletatud rehv uuesti KÕIGI oma testide pealt (teised
+    # tuletatud kaaluga 0,5), kuni väärtused enam ei muutu — esimene käik
+    # nägi ainult teste, kus juba oli mõni teadaolev rehv
+    for _ in range(8):
+        muutus = 0.0
+        for k in list(out):
+            hinnangud, testid = [], set()
+            for test, read in by_test.items():
+                oma = [r for r in read if r[1] == k]
+                if not oma:
+                    continue
+                w_test, _, d_oma = oma[0]
+                paarid = [(teada[kk][0] + math.log(dd / d_oma), viited[kk][1] if kk in viited else 0.5)
+                          for _, kk, dd in read if kk in teada and kk != k]
+                if not paarid:
+                    continue
+                hinnangud.append((_wmedian(paarid), w_test * sum(ww for _, ww in paarid) / len(paarid)))
+                testid.add(test)
+            if hinnangud:
+                v = _wmedian(hinnangud)
+                muutus = max(muutus, abs(v - out[k]))
+                out[k] = v
+                teada[k] = (v, 0.5)
+                info[k] = {"n": len(hinnangud), "testid": testid, "kaal": sum(w for _, w in hinnangud)}
+        if muutus < 1e-4:
+            break
+    # diagnostika: iga mootori viide teiste viidete kaudu samast testist
+    jaagid = []
+    for k, (lv, _) in viited.items():
+        h = []
+        for test, read in by_test.items():
+            oma = [r for r in read if r[1] == k]
+            if not oma:
+                continue
+            paarid = [(viited[kk][0] + math.log(dd / oma[0][2]), viited[kk][1]) for _, kk, dd in read if kk in viited and kk != k]
+            if paarid:
+                h.append((_wmedian(paarid), oma[0][0]))
+        if h:
+            jaagid.append((k, round(_wmedian(h) - lv, 3), len(h)))
+    j = [x[1] for x in jaagid]
+    diag = {"komponente": 1, "viiteid": len(jaagid), "valja": len({r[2] for r in rows} - set(teada)),
+            "sd": (sum(x * x for x in j) / len(j)) ** 0.5 if len(j) > 1 else 0.0, "read": jaagid}
     return out, info, None, diag
+
+
+# Vene siseturu brändid, mida Eestis ei müüda — lehele ei pane
+VALJA_BRAND = {"kama", "cordiant", "viatti", "tunga", "avatyre", "amtel", "formula", "aurora", "aeolus", "cachland", "nereus", "mazzini", "maxtrek", "sunny", "doublestar", "minerva", "nitto", "cooper", "petlas", "greenmax", "landsail"}
+# nimi, mis ei ütle mudelit üheselt
+VALJA = {"kumho|wintercraftice", "pirelli|formulaice"}
+PRETTY = [
+    (re.compile(r"^Nordman\b"), "Nokian Nordman"),
+    (re.compile(r"^Hankook Winter i ?[Pp]ike RS2( W429)?$"), "Hankook Winter i*Pike RS2"),
+    (re.compile(r"^Hankook Winter [iI] ?[Cc]ept iZ2( W616)?$"), "Hankook Winter i*cept iZ2"),
+    (re.compile(r"^Hankook Winter i\*Pike RS W419$"), "Hankook Winter i*Pike RS"),
+    (re.compile(r"^Hankook Winter i\*Pike RS\+ W419D$"), "Hankook Winter i*Pike RS+"),
+    (re.compile(r"^Hankook Winter i\*cept IZ3 X$"), "Hankook Winter i*cept iZ3 X"),
+    (re.compile(r"^Roadstone "), "Nexen "),
+    (re.compile(r"^Westlake "), "Goodride "),
+    (re.compile(r"^Marshal WinterCraft"), "Kumho WinterCraft"),
+    (re.compile(r"^Gislaved Nord\*Frost"), "Gislaved Nord Frost"),
+    (re.compile(r"^Michelin X Ice "), "Michelin X-Ice "),
+    (re.compile(r"^Yokohama Ice Guard "), "Yokohama iceGUARD "),
+    (re.compile(r"^Sailun Ice Blazer WST 3$"), "Sailun Ice Blazer WST3"),
+    (re.compile(r"^Triangle IceLynk "), "Triangle IceLynx "),
+    (re.compile(r"^Pirelli IceZero "), "Pirelli Ice Zero "),
+    (re.compile(r"^BFGoodrich G Force Stud$"), "BFGoodrich g-Force Stud"),
+    (re.compile(r"^Nokian Hakkapeliitta 10p"), "Nokian Hakkapeliitta 10P"),
+]
+
+
+def ilus(nimi):
+    for rx, asendus in PRETTY:
+        nimi = rx.sub(asendus, nimi)
+    return nimi
 
 
 def main():
@@ -201,9 +254,9 @@ def main():
         fix = {k: v[pind] for k, v in ((kk, vv[1]) for kk, vv in ref.items()) if pind in v}
         b, info, a, diag = lahenda(r, fix)
         if diag:
-            print(f"{pind:5s}: komponente {diag['komponente']}, viiterehve {diag['viiteid']}, viidete jääkide hälve {diag['sd']*100:.1f} % (log), ilma viiteta rehve välja {diag['valja']}")
+            print(f"{pind:5s}: viiterehve ristkontrollis {diag['viiteid']}, hälve {diag['sd']*100:.1f} % (log), ilma viiteta välja {diag['valja']}")
             if os.environ.get("DIAG"):
-                for k, j, w in sorted(diag.get("read", []), key=lambda x: x[1]): print(f"       {k:40s} jääk {j:+.3f} kaal {w}")
+                for k, j, n in sorted(diag.get("read", []), key=lambda x: x[1]): print(f"       {k:40s} jääk {j:+.3f} teste {n}")
         for k, bb in b.items():
             tulemus[k][pind] = (math.exp(bb), info[k]["n"], sorted(info[k]["testid"]), info[k]["kaal"])
 

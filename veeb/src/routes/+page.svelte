@@ -102,9 +102,9 @@
 							</div>
 						{/each}
 						<div class="qout" data-ct-out></div>
+						<button type="button" class="btn yel hv-vaata" data-vaata-rehve>{t("Vaata sobivaid rehve")} ↓</button>
 					</div>
 				</div>
-				<button type="button" class="btn yel hv-vaata" data-vaata-rehve>{t("Vaata sobivaid rehve")} ↓</button>
 				<div class="hv-head">
 					<div class="list-filter">
 						<select class="lsel" data-brand aria-label={t("Mark")}

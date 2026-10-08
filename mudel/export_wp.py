@@ -416,6 +416,35 @@ def main():
             d["slug"] = slugify(t.name)
         tested.append(d)
 
+    # --- ajakirjatestidest tuletatud rehvid (naastud_tuleta.py): vanad ja
+    # märgiseta mudelid (Hakkapeliitta 8/9, IceContact 2, Nord Frost 200 …).
+    # gSource "tuletatud": mootor annab neile märgise-rehvi laiuse veapiiri.
+    try:
+        from .presets_tuletatud import TYRES_TULETATUD, TULETUS
+    except ImportError:
+        TYRES_TULETATUD, TULETUS = {}, {}
+    from .rehvinimi import voti as _voti
+    by_voti = {}
+    for k, m in mud.items():
+        by_voti.setdefault(_voti(m["nimi"], m["mark"]), []).append(k)
+    olemas = {_voti(t["name"]) for t in tested}
+    for key, t in TYRES_TULETATUD.items():
+        if _voti(t.name) in olemas:
+            continue
+        d = _tyre(key, t)
+        d["gSource"] = "tuletatud"
+        d["tests"] = []
+        meta = TULETUS.get(key, {})
+        d["tuletus"] = {"testid": meta.get("testid", []), "viimane": meta.get("viimane"),
+                        "n": {p: v["n"] for p, v in meta.get("pinnad", {}).items()}}
+        hits = by_voti.get(_voti(t.name), [])
+        if len(hits) == 1 and not mud[hits[0]].get("tested"):
+            d["slug"] = mud[hits[0]]["slug"]
+            mud[hits[0]]["tested"] = key
+        else:
+            d["slug"] = slugify(t.name)
+        tested.append(d)
+
     # --- variandid ja mõõt-nimega "mudelid" emamudelisse (SEO samm 5)
     from pidurdus.koondamine import koonda
     suunamised = koonda(mud, slugify)

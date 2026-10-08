@@ -1219,7 +1219,8 @@ body{padding-bottom:var(--tabbar-h, 0px)}
 .fbox[open]>summary .fbox-v{transform:rotate(180deg)}
 .fbox[open]>summary{margin-bottom:var(--sp-2)}
 .filters .fbox+.fbox{margin-top:var(--sp-4)}
-.hv-vaata{display:flex;justify-content:center;width:100%;margin-top:var(--sp-4)}
+.hv-vaata{display:inline-flex;margin-top:var(--sp-4)}
+@media (max-width:700px){.hv-vaata{display:flex;justify-content:center;width:100%}}
 [data-cmp-list],[data-cmp-head]{scroll-margin-top:84px}
 @media (max-width:900px){.cmp-layout>.filters{order:2}}
 /* koolituse hüpikaken (?upotus=1, iframe): ainult tööriist */
@@ -1231,3 +1232,9 @@ html.upotus .lo-naited,html.upotus .lo-tools,html.upotus .rk-seaded,html.upotus 
 html.upotus .rk-cv{max-height:calc(100vh - 150px);object-fit:contain}
 /* katsete täpid pildi vasakusse ülanurka, et all ei lõiguks ära */
 html.upotus .rk-ala{position:relative}html.upotus .rk-pallid{position:absolute;left:16px;top:16px;pointer-events:none}
+/* sobivuse kaardi tähed (1–5, selle mõõdu nimekirja sees) — numbrid jäävad alla kastidesse */
+.rcard .stars{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:var(--sp-2) var(--sp-5)}
+.rcard .st{display:inline-flex;align-items:baseline;gap:var(--sp-2);font-size:14px;white-space:nowrap}
+.rcard .st-l{color:var(--muted);font-weight:600}
+.rcard .st-s{color:#f5b301;letter-spacing:1px;font-size:16px}
+.rcard .st-s i{font-style:normal;color:#d9dce1}

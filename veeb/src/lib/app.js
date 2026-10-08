@@ -1177,7 +1177,7 @@ import UNIVERSAALID from './universaalid.json';
   /* ---- SINU REHV (valikuline): EPREL-i rida sinu mõõdus või testitud rehv */
   var KAT_HOOAEG = { 0: 'summer', 1: 'winter', 2: 'winter', 3: 'winter' };
   /* rehvi liik kaardil: lühike ja selge */
-  var KAT_KAART = { 0: _t('Suverehv'), 1: _t('Aastaringne'), 2: _t('Lamell (Kesk-Euroopa)'), 3: _t('Lamell (Põhjamaade)') };
+  var KAT_KAART = { 0: _t('Suverehv'), 1: _t('Aastaringne'), 2: _t('Lamell (Kesk-Euroopa)'), 3: _t('Lamell (Põhjamaade)'), 4: _t('Naastrehv') };
   var KAT_SILT = { 0: _t('suverehv'), 1: _t('aastaringne'), 2: _t('Kesk-Euroopa talverehv'), 3: _t('Põhjamaade talverehv') };
   function tyypHooaeg(cat) { return /^SUMMER/.test(cat) ? 'summer' : cat === 'WINTER_STUDDED' ? 'naast' : 'winter'; }
   function tyypSilt(cat) {
@@ -1240,6 +1240,9 @@ import UNIVERSAALID from './universaalid.json';
       core.tyres.forEach(function (t) {
         if (t.key === minuT) return;
         if (sea.tested.indexOf(t.category) < 0) return;
+        /* ajakirjatestidest tuletatud vanad mudelid (viimane test enne 2020)
+           ei ole enam müügil — võrdlusesse ainult siis, kui see on sinu rehv */
+        if (t.gSource === 'tuletatud' && ((t.tuletus || {}).viimane || 0) < 2020) return;
         /* Testitud rehv on SINU autole asjakohane ainult siis, kui seda mudelit
            müüakse sinu mõõdus (EPREL-is on rida) või test oligi selles mõõdus.
            18-tolline sportrehv 15-tollise auto tulemuste seas oleks eksitav. */
@@ -1279,6 +1282,14 @@ import UNIVERSAALID from './universaalid.json';
             name: CATNAME[c] + _t(' — kategooria keskmine'),
             sub: (cats[c] ? cats[c] + _t(' märgisega rehvimudelit sinu mõõdus · ') : '') + _t('märgis ei ütle ') + COND[ck].gen + _t(' kohta midagi') });
         });
+      }
+      /* Sinu rehviga võrdleme SAMA TÜÜBI rehve: Põhjamaade lamelli omanikule
+         ei ole „parim valik“ aastaringne rehv, mis märjal võidab, aga jääl
+         peatub kümneid meetreid hiljem (Tarvo 8.10). */
+      var omaKat = M && !M.puudu ? (M.t ? M.t.category : M.r ? M.r.cat : null) : null;
+      if (omaKat && /^(WINTER_NORDIC|WINTER_CENTRAL|ALL_SEASON)$/.test(omaKat)) {
+        var sama = rows.filter(function (x) { return x.own || (x.t ? x.t.category : x.cat) === omaKat; });
+        if (sama.length > 1) rows = sama;
       }
       rows.sort(function (a, b) { return a.d - b.d; });
       return { rows: rows, veh: veh, cond: cond, vehDefault: !core.vehByKey[S.veh], nSeason: inSeason.length, hiddenOther: hiddenOther, minu: M };
@@ -2058,7 +2069,7 @@ import UNIVERSAALID from './universaalid.json';
   }
   function tyreProps(r, veh) {
     var t = r.tested ? core.tyreByKey[r.tested] : null, P = {};
-    P.wet = { v: r.g, show: grade(r.g), src: 'off', score: FG[r.g] };
+    P.wet = r.g ? { v: r.g, show: grade(r.g), src: 'off', score: FG[r.g] } : null;
     var sim = simul(t, r, veh);
     var wb = { distanceM: sim.wb };
     P.wetb = { v: wb.distanceM, show: fmt(wb.distanceM) + _t(' m'), src: 'calc', score: -wb.distanceM,
@@ -2092,6 +2103,9 @@ import UNIVERSAALID from './universaalid.json';
                  show: est(_t('lumi ') + fmt(sb.distanceM) + _t(' m · jää ') + fmt(ib.distanceM) + _t(' m'), wEst), src: wEst ? 'est' : 'calc',
                  score: -(sb.distanceM + ib.distanceM),
                  sub: [ws.length ? ws.join(' + ') : _t('lume- ja jäämärk puudub'), ts ? _t('testis lumi ') + fmt(ts.m) + _t(' m') : '', ti ? _t('jää ') + fmt(ti.m) + _t(' m') : ''].filter(Boolean).join(' · ') };
+    /* tähtede jaoks eraldi (kaardi ülaosa) */
+    P.snow = { v: sb.distanceM, score: -sb.distanceM };
+    P.ice = { v: ib.distanceM, score: -ib.distanceM };
     return P;
   }
   /* VÕRDLUS LÜHIDALT: tulemus tavakeeles, enne tabelit (FB/Tarvo: „tulemustes
@@ -2385,6 +2399,25 @@ import UNIVERSAALID from './universaalid.json';
 
     /* ---- põhjused: miks see rehv sinu valikute järgi paistab */
     /* naastrehvid: EL-i märgist pole, seega viide testitud naastrehvidele selle mõõdu talverehvide lehel */
+    /* NAASTREHVID: EL-i märgist pole, mõõdu kaupa registrit pole. Nimekiri
+       tuleb testitud rehvidest (core.tyres): mõõdetud + ajakirjatestidest
+       tuletatud. Ostunimekirjas ainult rehvid, mida müüakse (hind selles
+       mõõdus) või mis on testis olnud 2020 või hiljem — vanemad mudelid
+       (Hakkapeliitta 8 jt) on valitavad kalkulaatoris „sinu rehvina“. */
+    var MARK2 = ['GT Radial', 'Nokian Tyres'];
+    function naastRead(h) {
+      return (core.tyres || []).filter(function (t) {
+        if (t.category !== 'WINTER_STUDDED' || !t.slug) return false;
+        var hind = h && h[t.slug + '@' + S.size] && h[t.slug + '@' + S.size].length;
+        var uus = t.gSource === 'test' || ((t.tuletus || {}).viimane || 0) >= 2020;
+        return hind || uus;
+      }).map(function (t) {
+        var nm = String(t.name), mk = nm.split(' ')[0];
+        MARK2.forEach(function (m) { if (nm.indexOf(m + ' ') === 0) mk = m; });
+        return { slug: t.slug, mark: mk, name: nm.slice(mk.length + 1), m: S.size, cat: 'WINTER_STUDDED', catNr: 4,
+                 g: null, f: null, db: null, nk: null, flags: FLAG.SNOW | FLAG.ICE, tested: t.key, tul: t.gSource === 'tuletatud' };
+      });
+    }
     function naastTeade() {
       var slug = pretty(S.size).toLowerCase().replace(/\//g, '-').replace(/\s+/g, '-');
       var url = LHOME + 'talverehvid/' + slug + '/';
@@ -2557,9 +2590,9 @@ import UNIVERSAALID from './universaalid.json';
       Promise.all([loadSize(S.size), Prices.size(S.size)]).then(function (res) {
         var rows = res[0], hd = res[1] || {}, hOn = !!hd.available, h = hd.hinnad || {};
         var veh = core.vehByKey[S.veh] || core.vehByKey[DEFAULT_VEH];
-        if (S.season === 'naast') { naastTeade(); return; }
         var cats = SEASON[S.season].eprel, qq = q ? norm(q.value) : '';
-        var seas = rows.filter(function (r) { return cats.indexOf(r.catNr) >= 0; });
+        var seas = S.season === 'naast' ? naastRead(h) : rows.filter(function (r) { return cats.indexOf(r.catNr) >= 0; });
+        if (S.season === 'naast' && !seas.length) { naastTeade(); return; }
         paintBrands(seas);
         var eriN = seas.filter(function (r) { return eriLiik(r) && (!S.rft || (S.rft === 'only') === onRft(r)); }).length;
         var list = seas.filter(function (r) {
@@ -2628,6 +2661,7 @@ import UNIVERSAALID from './universaalid.json';
         }
         if (head) head.innerHTML = '<b>' + list.length + '</b> ' + (list.length === 1 ? SEASON[S.season].yks : SEASON[S.season].osa) + _t(' mõõdus <b>') + esc(pretty(S.size)) + '</b>' +
           (S.rft ? (S.rft === 'only' ? _t(' · ainult run-flat') : _t(' · ilma run-flatita')) : '') +
+          (S.season === 'naast' ? ' ' + tip(_t('Naastrehvidel EL-i märgist ei ole. Nimekirjas on testitud naastrehvid; pidurdusmaa on arvutatud sinu autoga testides mõõdetud haardest. Kas rehv selles mõõdus müügil on, näed hinnast.')) : '') +
           (sortBy === 'price' && hOn ? _t(' · soodsaim hind enne') : valis && ws.length ? _t(' · järjestatud sinu valikute järgi') : mode === 'valik' ? ' · ' + HOOAEG_TXT[S.season] : _t(' · järjestatud märghaardumise klassi järgi')) +
           (hindPuudu ? _t('<br><small class="note">Poodide hindu veel ei ole — hinda järjestuses praegu ei arvestata.</small>') : '') +
           (eriN ? _t('<label class="eri-t"><input type="checkbox" data-eri') + (S.eri ? ' checked' : '') + _t('> Näita ka rajarehve ja muid erirehve (') + eriN + ') ' + tip(ERI_T) + '</label>' : '');
@@ -2641,6 +2675,14 @@ import UNIVERSAALID from './universaalid.json';
           if (!brandVal && !qq) altSizes($('[data-alt-sizes]', listEl), cats, joonis);
           drawTable(); return;
         }
+        /* TÄHED 1–5: vahe selle nimekirja parimaga. Iga täht maha = sammu
+           võrra pikem (pidurdus 3 %, jää 6 % — jäätestid hajuvad rohkem —
+           müra 1,5 dB). Nii ei saa 1 % vahe pärast ühte tähte. */
+        tahtVahemik = {};
+        ['wetb', 'dryb', 'snow', 'ice', 'noise'].forEach(function (k) {
+          var vals = list.map(function (x) { return x.P[k] && x.P[k].v; }).filter(function (v) { return v != null; });
+          tahtVahemik[k] = vals.length >= 2 ? Math.min.apply(null, vals) : null;
+        });
         var LIM = mode === 'valik' ? 20 : 30;
         listEl.innerHTML = list.slice(0, LIM).map(function (x, i) { return card(x, i, mode === 'valik' ? reasons(x, stats, sortBy === 'price' && hOn ? Object.assign({}, w, { price: 9 }) : w) : null); }).join('') +
           (list.length > LIM ? _t('<p class="note">Näidatakse ') + LIM + _t(' esimest ') + list.length + _t('-st.') + (mode === 'valik' ? _t(' Muuda valikuid, et järjestust muuta.') : _t(' Täpsusta otsingut.')) + '</p>' : '');
@@ -2687,17 +2729,37 @@ import UNIVERSAALID from './universaalid.json';
       if (Math.abs(d) < 0.5) return '<p class="rc-lause">' + _t('Märjal on pidurdusmaa sama mis selle mõõdu keskmisel rehvil.') + '</p>';
       return '<p class="rc-lause ' + (d > 0 ? 'hea' : 'halb') + '">' + _t('Märjal on pidurdusmaa') + ' <b>' + a + ' ' + _t('m') + ' ' + (d > 0 ? _t('lühem') : _t('pikem')) + '</b> ' + _t('kui selle mõõdu keskmisel rehvil.') + '</p>';
     }
+    var tahtVahemik = {};
+    function tahed(x) {
+      var P = x.P, r = x.r;
+      var SAMM = { wetb: 0.03, dryb: 0.03, snow: 0.03, ice: 0.06 };
+      var nr = function (k) {
+        var p = P[k], best = tahtVahemik[k];
+        if (!p || p.v == null || best == null) return null;
+        var mahas = k === 'noise' ? (p.v - best) / 1.5 : (p.v - best) / best / SAMM[k];
+        return Math.max(1, Math.min(5, 5 - Math.floor(mahas + 1e-9)));
+      };
+      var rida = [];
+      var lisa = function (silt, n, title) { if (n) rida.push('<span class="st" title="' + esc(title) + '"><span class="st-l">' + silt + '</span><span class="st-s" aria-label="' + n + '/5">' + '★★★★★'.slice(0, n) + '<i>' + '★★★★★'.slice(n) + '</i></span></span>'); };
+      var talv = S.season === 'winter' || S.season === 'naast';
+      if (talv) { lisa(_t('Jääl'), nr('ice'), _t('Pidurdusmaa jääl selle nimekirja rehvide seas')); lisa(_t('Lumel'), nr('snow'), _t('Pidurdusmaa lumel selle nimekirja rehvide seas')); }
+      lisa(_t('Märjal'), nr('wetb'), _t('Pidurdusmaa märjal selle nimekirja rehvide seas'));
+      if (!talv || S.season === 'naast') lisa(_t('Kuival'), nr('dryb'), _t('Pidurdusmaa kuival selle nimekirja rehvide seas'));
+      lisa(_t('Vaikus'), nr('noise'), _t('Müra (dB) selle nimekirja rehvide seas'));
+      if (r.f) lisa(_t('Kütus'), FG[r.f], _t('Veeretakistuse klass: A = 5 tähte'));
+      return rida.length ? '<div class="stars">' + rida.join('') + '</div>' : '';
+    }
     function card(x, i, why) {
       var r = x.r, id = r.slug + '@' + r.m, on = cmp.has(id);
       return _t('<article class="rcard') + (on ? ' on' : '') + '"><div class="rc-info">' +
-        '<div class="b">' + (why ? '<span class="rank">' + (i + 1) + '</span>' : '') + (KAT_KAART[r.catNr] ? '<span class="kat-b kat-' + r.catNr + '">' + KAT_KAART[r.catNr] + '</span>' : '') + (r.tested ? _t('<span style="color:var(--tested)">Sõltumatult testitud</span>') : _t('<span style="color:var(--muted)">EL-i märgis</span>')) +
+        '<div class="b">' + (why ? '<span class="rank">' + (i + 1) + '</span>' : '') + (KAT_KAART[r.catNr] ? '<span class="kat-b kat-' + r.catNr + '">' + KAT_KAART[r.catNr] + '</span>' : '') + (r.tul ? '<span style="color:var(--tested)">' + _t('Ajakirjatestid') + '</span>' : r.tested ? _t('<span style="color:var(--tested)">Sõltumatult testitud</span>') : _t('<span style="color:var(--muted)">EL-i märgis</span>')) +
           (onRft(r) ? '<span class="rft-b">Run-flat ' + tip(RFT_T) + '</span>' : '') +
           (eriLiik(r) ? '<span class="rft-b eri-b">' + esc(eriLiik(r)) + ' ' + tip(ERI_T) + '</span>' : '') + '</div>' +
         _t('<h3><a href="') + rTee(r.slug) + '/"><span class="mk">' + esc(r.mark) + '</span> ' + esc(r.name) + '</a></h3>' +
         (x.fit != null ? '<span class="fit" title="' + _t('Sobivus sinu valitud omaduste põhjal selles nimekirjas — mitte üldine hinne') + '">' + _t('Sobivus') + ' ' + x.fit + '%</span>' : '') + '</div>' +
         '<div class="rc-side"><img class="rpilt" alt="" width="96" height="112" decoding="async" hidden data-pilt="' + esc(id) + '">' +
         _t('<button type="button" class="add-btn" data-add="') + esc(id) + _t('" data-n="') + esc(r.mark + ' ' + r.name) + _t('" aria-pressed="') + on + '">' + (on ? _t('✓ Võrdluses') : _t('+ Võrdle')) + '</button></div>' +
-        (why && why.length ? '<ul class="why-list">' + why.map(function (t) { return t.charAt(0) === '!' ? '<li class="x">' + t.slice(1) + '</li>' : '<li>' + t + '</li>'; }).join('') + '</ul>' : '') +
+        (why ? tahed(x) + (why.filter(function (t) { return t.charAt(0) === '!'; }).length ? '<ul class="why-list">' + why.filter(function (t) { return t.charAt(0) === '!'; }).map(function (t) { return '<li class="x">' + t.slice(1) + '</li>'; }).join('') + '</ul>' : '') : '') +
         lause(x) + kiired(x) +
         '<div class="price"><div class="pl">' + _t('Hinnad poodides') + '</div>' + priceSlot(id) + '</div>' +
         (x.miss && x.miss.length ? _t('<p class="note" style="grid-column:1/-1;margin:0">Sobivuses arvestamata: ') + esc(x.miss.join(', ')) + '</p>' : '') + '</article>';
