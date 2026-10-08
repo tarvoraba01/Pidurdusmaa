@@ -1291,18 +1291,6 @@ import UNIVERSAALID from './universaalid.json';
         var sama = rows.filter(function (x) { return x.own || (x.t ? x.t.category : x.cat) === omaKat; });
         if (sama.length > 1) rows = sama;
       }
-      /* kuival/märjal teel talve- või aastaringse rehviga: näita ka suverehve,
-         et oleks näha, kui palju varem suverehv peatuks (Tarvo 8.10) */
-      if ((ck === 'dry' || ck === 'wet') && season !== 'summer' && !rowsFor._suvi) {
-        rowsFor._suvi = true;
-        try {
-          rowsFor(S, eprelRows, 'summer').rows.forEach(function (x) {
-            if (x.own) return;
-            x.suvi = true; x.id = 's' + x.id;
-            rows.push(x);
-          });
-        } finally { rowsFor._suvi = false; }
-      }
       rows.sort(function (a, b) { return a.d - b.d; });
       return { rows: rows, veh: veh, cond: cond, vehDefault: !core.vehByKey[S.veh], nSeason: inSeason.length, hiddenOther: hiddenOther, minu: M };
     }
@@ -1617,7 +1605,7 @@ import UNIVERSAALID from './universaalid.json';
         }
         return _t('<li><button type="button" class="mbar') + (x.kind === 'class' ? ' mcls' : '') + (x.kind === 'own' ? ' own' : '') + _t('" data-row="') + esc(x.id) + _t('" aria-pressed="') + (x.id === sel) + '"' +
           (x.kind === 'class' ? ' aria-expanded="' + (x.id === avatud) + '"' : '') + ' title="' + esc(x.kind === 'class' ? _t('Täht = EL-i rehvimärgise märghaarde klass ') + x.g + _t('. Sama klassi rehvid pidurdavad märjal ühtviisi — vajuta, et näha kõiki ') + x.n : (x.sub || '')) + '">' +
-          '<span class="n">' + (nmHtml || esc(nm)) + (x.suvi ? ' <small class="suvi-m">' + _t('suverehv') + '</small>' : '') + '</span>' +
+          '<span class="n">' + (nmHtml || esc(nm)) + '</span>' +
           _t('<span class="t" aria-hidden="true"><span style="width:') + (100 * x.d / max).toFixed(1) + '%"></span></span>' +
           '<span class="v">' + fmt(x.d) + _t(' m</span>') +
           '<span class="d">' + (dd < 0.05 ? '' : '+' + fmt(dd) + _t(' m <i>') + pct(dd, best) + '</i>') + '</span>' +
@@ -1643,18 +1631,16 @@ import UNIVERSAALID from './universaalid.json';
         var kes = (oma.gen || oma.mm ? _t('Sinu praegustest') : _t('Sinu rehvist')) + (oma.mm ? ' (' + mmT(oma.mm) + _t(' mm') + ')' : '');
         return '<span class="own-cmp">' + (vv >= 0.5 ? kes + _t(' peatub <b>') + fmt(vv) + _t(' m varem</b>') : kes + ': ' + fmt(oma.d + react) + ' m') + '</span>' + (talvMin || '');
       }
-      var muud = rows.filter(function (x) { return x.kind !== 'own' && !x.suvi; });
-      var suvi1 = rows.filter(function (x) { return x.suvi; })[0];
+      var muud = rows.filter(function (x) { return x.kind !== 'own'; });
       var h = '';
       if (muud.length) {
         var b = muud[0], vahe = cur.d - b.d;
-        var bn = (b.kind === 'class' ? b.g + _t('-klassi märgisega rehv') : b.kind === 'cat' ? CATNAME[b.cat].toLowerCase() + _t(' (keskmine)') : b.name) + (b.suvi ? ' (' + _t('suverehv') + ')' : '');
+        var bn = b.kind === 'class' ? b.g + _t('-klassi märgisega rehv') : b.kind === 'cat' ? CATNAME[b.cat].toLowerCase() + _t(' (keskmine)') : b.name;
         /* alla 5% vahe on mudeli veapiiri sees — ära soovita vahetust */
         h = vahe < 0.5 ? _t('<span class="own-cmp">Sinu rehv on selles võrdluses parim.</span>')
           : vahe / cur.d < 0.05 ? _t('<span class="own-cmp">Sinu rehv on parimate hulgas: vahe parimaga (') + esc(bn) + _t(') on ') + fmt(vahe) + _t(' m, see on veapiiri sees.</span>')
           : _t('<span class="own-cmp">Parim valik: <b>') + esc(bn) + _t('</b> — peatub <b>') + fmt(vahe) + _t(' m</b> varem.</span>');
       }
-      if (suvi1 && cur.d - suvi1.d >= 0.5) h += '<span class="own-cmp">' + _t('Suverehviga') + ' (' + esc(suvi1.kind === 'class' ? suvi1.g + _t('-klassi märgisega') : suvi1.name) + ') ' + _t('peatuksid') + ' <b>' + fmt(cur.d - suvi1.d) + ' ' + _t('m') + '</b> ' + _t('varem.') + '</span>';
       if (cur.mm && cur.dUus != null && cur.d - cur.dUus >= 0.3) h += _t('<span class="own-cmp">Uue mustriga peatuks sama rehv <b>') + fmt(cur.d - cur.dUus) + _t(' m</b> varem.</span>');
       if (talvMin) h += talvMin;
       if (cur.hooaeg === 'summer' && (S.cond === 'snow' || S.cond === 'ice')) {
@@ -1778,13 +1764,7 @@ import UNIVERSAALID from './universaalid.json';
       /* kompaktsed ribad: 5 rida, valitud alati sees */
       var LIMC = 5, omaR = rows.filter(function (x) { return x.kind === 'own'; })[0];
       var must = [cur].concat(omaR && omaR !== cur ? [omaR] : []);
-      var vabad = rows.filter(function (x) { return must.indexOf(x) < 0; });
-      /* suverehvid segamini: kuni 2 suverehvi + parimad sinu tüübist */
-      if (vabad.some(function (x) { return x.suvi; })) {
-        var sv = vabad.filter(function (x) { return x.suvi; }).slice(0, 2);
-        vabad = sv.concat(vabad.filter(function (x) { return !x.suvi; })).slice(0, LIMC - must.length);
-      }
-      var comp = vabad.slice(0, LIMC - must.length).concat(must)
+      var comp = rows.filter(function (x) { return must.indexOf(x) < 0; }).slice(0, LIMC - must.length).concat(must)
         .sort(function (a, b) { return a.d - b.d; });
       $('[data-r-mbars]', el).innerHTML = comp.map(function (x) {
         return row(x, best, max, true) + (x === cur && x.id === avatud && x.kind === 'class' && x.members.length ? pickPanel(x) : '');
