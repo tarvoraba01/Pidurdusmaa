@@ -70,7 +70,99 @@
 		}
 		return out;
 	});
-	const mootLd = $derived(mootKkk.length ? graph({ '@type': 'FAQPage', mainEntity: mootKkk.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) }) : undefined);
+	const mootLd = $derived(
+		data.liik === 'moot' && (mootKkk.length || data.parimadLd?.length)
+			? graph(
+					...(mootKkk.length ? [{ '@type': 'FAQPage', mainEntity: mootKkk.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) }] : []),
+					...(data.parimadLd?.length
+						? [{ '@type': 'ItemList', name: t('Parima märghaardumise klassiga ({g}) rehvid mõõdus {m}', { g: data.parimG, m: data.size.label }), itemListElement: data.parimadLd.map((r, i) => ({ '@type': 'ListItem', position: i + 1, name: r.nimi, url: 'https://pidurdusmaa.ee' + L('/rehvid/' + r.slug + '/') })) }]
+						: [])
+				)
+			: undefined
+	);
+
+	/* rehvilehe KKK: vastused ainult lehe andmetest (märgis, testid, mõõdud, autod) */
+	const PIND = { ASPHALT: ['kuival asfaldil', 'märjal asfaldil'], CONCRETE: ['märjal betoonil', 'märjal betoonil'], ICE: ['jääl', 'jääl'], SNOW_PACKED: ['lumel', 'lumel'] };
+	const rehvKkk = $derived.by(() => {
+		if (data.liik !== 'rehv' || !data.tyre) return [];
+		const ty = data.tyre, out = [];
+		const gs = [...new Set(data.sizes.map((z) => z.g).filter(Boolean))].sort();
+		if (gs.length) {
+			const g = gs.length === 1 ? gs[0] : gs[0] + '–' + gs[gs.length - 1];
+			out.push([
+				t('Milline on {rehv} märghaardumise klass?', { rehv: ty.name }),
+				(gs.length === 1 ? t('EL-i rehvimärgisel on {rehv} märghaardumise klass {g} kõigis andmebaasi mõõtudes.', { rehv: ty.name, g }) : t('EL-i rehvimärgisel on {rehv} märghaardumise klass {g}, olenevalt mõõdust.', { rehv: ty.name, g })) +
+					' ' + t('A on parim ja E halvim; A- ja E-klassi vahe on märjal 90 km/h pealt umbes 18 m pidurdusmaad.')
+			]);
+		}
+		if (data.vastusTalv) {
+			const v = data.vastus, w = data.vastusTalv;
+			out.push([
+				w.pind === 'ice' ? t('Kui pikk on {rehv} pidurdusmaa jääl?', { rehv: ty.name }) : t('Kui pikk on {rehv} pidurdusmaa lumel?', { rehv: ty.name }),
+				(w.pind === 'ice'
+					? t('Sõltumatu testi järgi peatub {rehv} {moot} jääl 50 km/h pealt umbes {d} meetriga ({auto}, ilma reaktsiooniajata).', { rehv: ty.name, moot: v.moot, d: num(w.d), auto: an(v.auto) })
+					: t('Sõltumatu testi järgi peatub {rehv} {moot} tallatud lumel 50 km/h pealt umbes {d} meetriga ({auto}, ilma reaktsiooniajata).', { rehv: ty.name, moot: v.moot, d: num(w.d), auto: an(v.auto) })) +
+					' ' + t('Arvutatud sama mudeliga mis kalkulaator; oma autoga näed tulemust kalkulaatoris.')
+			]);
+		}
+		if (data.parimTest) {
+			const k = data.parimTest, pind = (PIND[k.surf] || [String(k.surf).toLowerCase()])[k.wet ? 1 : 0];
+			out.push([
+				t('Kas {rehv} on sõltumatult testitud?', { rehv: ty.name }),
+				t('Jah. Testis {test} sai {rehv} {pind} {v} km/h pealt pidurdusmaaks {m} m, mis andis {pos}. koha {n} rehvi seas.', { test: t(k.src), rehv: ty.name, pind: t(pind), v: Math.round(k.v0), m: num(k.m), pos: k.pos, n: k.n }) +
+					(data.tests.length > 1 ? ' ' + t('Kõik mõõdetud tulemused on tabelis ülal.') : '')
+			]);
+		} else if (!data.tests.length && !data.ext.length && data.sizes.length) {
+			out.push([
+				t('Kas {rehv} on sõltumatult testitud?', { rehv: ty.name }),
+				t('Meie andmebaasis selle mudeli kohta sõltumatut pidurdustesti ei ole. Pidurdusmaa arvutatakse EL-i rehvimärgise märghaardumise klassi järgi, mis on mõõdupõhine ametlik mõõtmine.')
+			]);
+		}
+		if (data.mootudUnik.length) {
+			const n = data.mootudeArv, list = data.mootudUnik.slice(0, 6).map((z) => z.label);
+			out.push([
+				t('Mis mõõtudes {rehv} on olemas?', { rehv: ty.name }),
+				t(n === 1 ? 'EL-i rehviregistris on {rehv} andmebaasis {n} mõõdus: {list}.' : 'EL-i rehviregistris on {rehv} andmebaasis {n} mõõdus, näiteks {list}.', { rehv: ty.name, n, list: ja(list) }) +
+					(data.sobib.n ? ' ' + t('Tehase põhimõõduna sobib see näiteks autodele {autod}.', { autod: ja(data.sobib.list.slice(0, 3).map((c) => an(c.nimi))) }) : '')
+			]);
+		}
+		return out;
+	});
+	const rehvLd = $derived(
+		data.liik === 'rehv' && data.tyre
+			? graph(
+					{
+						/* NB: mitte 'Product' — Google nõuab Productil hinda (offers), arvustust
+						   või hinnangut, meil neid lehel pole (Search Console'i kriitiline viga). */
+						'@type': 'WebPage',
+						name: data.tyre.name + t(' — pidurdusmaa, märgis ja testid'),
+						description: kirjeldus,
+						url: 'https://pidurdusmaa.ee' + L('/rehvid/' + data.tyre.slug + '/'),
+						inLanguage: keel.lang,
+						about: { '@type': 'Brand', name: data.tyre.brand }
+					},
+					...(rehvKkk.length ? [{ '@type': 'FAQPage', mainEntity: rehvKkk.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) }] : [])
+				)
+			: undefined
+	);
+
+	/* vs-leht: üks lause, kumb oli lühem (tsiteeritav), + KKK */
+	const vsVastus = $derived.by(() => {
+		if (data.liik !== 'vs' || !data.kokku || !data.kokku.pea) return '';
+		const k = data.kokku, p = k.pea, A = data.a.name, B = data.b.name;
+		const pind = t((PIND[p.surf] || [String(p.surf).toLowerCase()])[p.wet ? 1 : 0]);
+		const voit = p.am < p.bm ? A : B, kaot = p.am < p.bm ? B : A;
+		const pea = p.am === p.bm
+			? t('{pind} {v} km/h pealt peatusid {a} ja {b} ühepikkuselt: {m} m ({test}).', { pind: pind.charAt(0).toUpperCase() + pind.slice(1), v: Math.round(p.v0), a: A, b: B, m: num(p.am), test: t(p.src) })
+			: t('{pind} {v} km/h pealt peatus {voit} {d} m lühemalt kui {kaot}: {am} m vs {bm} m ({test}).', { pind: pind.charAt(0).toUpperCase() + pind.slice(1), v: Math.round(p.v0), voit, kaot, d: num(p.d), am: num(Math.min(p.am, p.bm)), bm: num(Math.max(p.am, p.bm)), test: t(p.src) });
+		const koond = k.n > 1 ? ' ' + (k.a === k.b ? t('Kokku {n} mõõtmist: kumbki oli lühem {a} korral.', { n: k.n, a: k.a }) : t('Kokku {n} mõõtmist: {voit} oli lühem {x} korral, {kaot} {y} korral.', { n: k.n, voit: k.a > k.b ? A : B, kaot: k.a > k.b ? B : A, x: Math.max(k.a, k.b), y: Math.min(k.a, k.b) })) : '';
+		return pea + koond;
+	});
+	const vsLd = $derived(
+		data.liik === 'vs' && vsVastus
+			? graph({ '@type': 'FAQPage', mainEntity: [{ '@type': 'Question', name: t('Kumb on parem: {a} või {b}?', { a: data.a.name, b: data.b.name }), acceptedAnswer: { '@type': 'Answer', text: vsVastus + ' ' + t('Lühem pidurdusmaa on parem; vahe sõltub pinnast, nii et vaata tabelist seda pinda, millel sa päriselt sõidad.') } }] })
+			: undefined
+	);
 
 	function pctVahe(d, x, y) {
 		const p = (100 * d) / Math.min(x, y);
@@ -195,18 +287,8 @@
 			...(ty.brandSlug ? [[ty.brand, '/margid/' + ty.brandSlug + '/']] : []),
 			[ty.name, '/rehvid/' + ty.slug + '/']
 		]}
-		jsonld={{
-			'@context': 'https://schema.org',
-			/* NB: mitte 'Product' — Google nõuab Productil hinda (offers), arvustust
-			   või hinnangut, meil neid lehel pole (Search Console'i kriitiline viga).
-			   Kui kunagi on lehel päris hinnad, võib Producti + offers tagasi panna. */
-			'@type': 'WebPage',
-			name: ty.name + t(' — pidurdusmaa, märgis ja testid'),
-			description: kirjeldus,
-			url: 'https://pidurdusmaa.ee' + L('/rehvid/' + ty.slug + '/'),
-			inLanguage: keel.lang,
-			about: { '@type': 'Brand', name: ty.brand }
-		}}
+		jsonld={rehvLd}
+
 	/>
 
 	<section class="page-hero">
@@ -234,6 +316,12 @@
 					{t('{rehv} {moot}: pidurdusmaa märjal teel 90 km/h pealt umbes {d} m', { rehv: ty.name, moot: v.moot, d: v.d })}
 					<span class="vastus-alus">({t('{auto}, ilma reaktsiooniajata', { auto: an(v.auto) })}; {v.test ? t('sõltumatu testi järgi') : t('EL-i märgise klassi {g} järgi', { g: v.g })})</span>
 				</p>
+				{#if data.vastusTalv}
+					<p class="vastus" style="margin-top:0">
+						{data.vastusTalv.pind === 'ice' ? t('Jääl 50 km/h pealt umbes {d} m', { d: num(data.vastusTalv.d) }) : t('Tallatud lumel 50 km/h pealt umbes {d} m', { d: num(data.vastusTalv.d) })}
+						<span class="vastus-alus">({t('sõltumatu testi järgi')})</span>
+					</p>
+				{/if}
 			{/if}
 			<div class="pills">
 				{#if data.sizes.length}<span class="pill off">{t("EL-i märgis ·")} {data.mootudeArv} {data.mootudeArv === 1 ? t('mõõt') : t('mõõtu')}</span>{/if}
@@ -387,6 +475,13 @@
 					</div>
 				{/if}
 
+				{#if rehvKkk.length}
+					<div class="box">
+						<h2>{t('Korduma kippuvad küsimused')}</h2>
+						{#each rehvKkk as [q, a] (q)}<h3 style="font-size:17px;margin:var(--sp-4) 0 var(--sp-1)">{q}</h3><p style="margin:0">{a}</p>{/each}
+					</div>
+				{/if}
+
 				{#if data.vs.length}
 					<div class="box">
 						<h2>{t("Võrdle samas testis")}</h2>
@@ -456,8 +551,9 @@
 {:else}
 	<Meta
 		title={data.a.name + ' vs ' + data.b.name + t(' — mõõdetud pidurdusmaad')}
-		desc={t('Kaks rehvi samas sõltumatus testis, sama auto ja sama päev: {a} ja {b}. Pidurdusmaad märjal, kuival ja muudel pindadel.', { a: data.a.name, b: data.b.name })}
+		desc={(vsVastus ? vsVastus + ' ' : '') + t('Kaks rehvi samas sõltumatus testis, sama auto ja sama päev: {a} ja {b}. Pidurdusmaad märjal, kuival ja muudel pindadel.', { a: data.a.name, b: data.b.name })}
 		path="rehvid/{data.a.slug}-vs-{data.b.slug}/"
+		jsonld={vsLd}
 		image="/og/vs/{data.a.slug}-vs-{data.b.slug}.png"
 		crumbs={[
 			[t('Avaleht'), '/'],
@@ -472,6 +568,7 @@
 				<a href={L("/")}>{t("Avaleht")}</a><span>/</span><a href={L("/rehvid/")}>{t("Rehvid")}</a><span>/</span>{t("Võrdlus")}
 			</div>
 			<h1>{data.a.name} <span style="color:var(--yellow)">vs</span> {data.b.name}</h1>
+			{#if vsVastus}<p class="vastus">{vsVastus}</p>{/if}
 			<p>
 				{t("Mõlemad rehvid olid samas sõltumatus testis — sama auto, sama rada, sama päev. Siin on ainult mõõdetud tulemused.")}
 			</p>
@@ -516,6 +613,12 @@
 					</p>
 				</div>
 			{/each}
+			{#if vsVastus}
+				<div class="box">
+					<h2>{t('Kumb on parem: {a} või {b}?', { a: data.a.name, b: data.b.name })}</h2>
+					<p style="margin:0">{vsVastus} {t('Lühem pidurdusmaa on parem; vahe sõltub pinnast, nii et vaata tabelist seda pinda, millel sa päriselt sõidad.')}</p>
+				</div>
+			{/if}
 			<div class="box">
 				<h2>{t("Rehvide lehed")}</h2>
 				<p>{t("Märgise andmed kõigis mõõtudes ja arvutatud pidurdusmaa sinu autoga.")}</p>

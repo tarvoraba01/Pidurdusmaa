@@ -17,7 +17,13 @@
  */
 import http from 'node:http';
 import { readFileSync } from 'node:fs';
+import compression from 'compression';
 import { handler } from './handler.js';
+
+/* Tekstivastused (HTML, CSS, JS, JSON, SVG) tihendatakse (br/gzip) siinsamas:
+   core.json on 600 KB, suuremad lehed 200–400 KB — tihendatult 5–8× väiksemad.
+   Kui ees olev proksi juba tihendab, saadab ta selle läbi (Content-Encoding on olemas). */
+const tihenda = compression({ threshold: 1024 });
 
 /* Koondatud rehvimudelid (SEO samm 5): vana aadress → uus.
  * Nt /rehvid/michelin-pilot-sport-4-ao/ → /rehvid/michelin-pilot-sport-4/
@@ -145,12 +151,14 @@ const server = http.createServer((req, res) => {
 	   _app/immutable/* päised paneb adapter ise. */
 	if (!tee0.startsWith('/_app/')) {
 		if (tee0.startsWith('/data/')) res.setHeader('Cache-Control', /[?&]v=/.test(req.url || '') ? 'public, max-age=31536000, immutable' : 'public, max-age=300');
-		else if (tee0.startsWith('/fonts/')) res.setHeader('Cache-Control', 'public, max-age=2592000');
+		else if (tee0.startsWith('/fonts/')) res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
 		else if (tee0.endsWith('/') || tee0.endsWith('.html')) res.setHeader('Cache-Control', 'no-cache');
 	}
-	handler(req, res, () => {
-		res.statusCode = 404;
-		res.end('Not found');
+	tihenda(req, res, () => {
+		handler(req, res, () => {
+			res.statusCode = 404;
+			res.end('Not found');
+		});
 	});
 });
 

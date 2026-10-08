@@ -64,8 +64,10 @@
 		let raf = 0, t0 = performance.now(), nahtav = true;
 		const io = new IntersectionObserver((e) => { nahtav = e[0].isIntersecting; if (nahtav && !raf) { t0 = performance.now() - tt * 1000 / KORD; raf = requestAnimationFrame(samm); } }, { threshold: 0.05 });
 		io.observe(el);
+		/* 30 kaadrit sekundis: pidurdusanimatsioonile piisab, telefonis poole vähem tööd põhilõimele */
+		let viimane = 0;
 		function samm(n) {
-			tt = (((n - t0) / 1000) * KORD) % tKokku;
+			if (n - viimane >= 32) { viimane = n; tt = (((n - t0) / 1000) * KORD) % tKokku; }
 			raf = nahtav ? requestAnimationFrame(samm) : 0;
 		}
 		raf = requestAnimationFrame(samm);

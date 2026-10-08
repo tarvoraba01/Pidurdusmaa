@@ -11,3 +11,6 @@ node_modules/
 
 # ajutine prügikast, kustuta käsitsi
 _to_delete/
+
+# kohalik kasutuslogi (LOG_DIR vaikimisi ./data, kui server käib repo seest)
+veeb/data/

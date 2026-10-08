@@ -70,7 +70,7 @@
 	<title>{tiitel}</title>
 	<meta name="description" content={kirj} />
 	<link rel="canonical" href={canon} />
-	{#if noindex}<meta name="robots" content="noindex, follow" />{/if}
+	{#if noindex}<meta name="robots" content="noindex, follow" />{:else}<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />{/if}
 	<meta property="og:type" content={ogType} />
 	<meta property="og:site_name" content="Pidurdusmaa.ee" />
 	<meta property="og:title" content={title} />

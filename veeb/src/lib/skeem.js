@@ -56,7 +56,16 @@ import { AUTOR_NIMI } from './seaded.js';
 /** Artikli autor: inimene, kui nimi on seadetes, muidu organisatsioon. */
 export const AUTOR_ID = BASE + '/meist/#autor';
 export const AUTOR = AUTOR_NIMI
-	? { '@type': 'Person', '@id': AUTOR_ID, name: AUTOR_NIMI, url: BASE + '/meist/', worksFor: { '@id': ORG_ID } }
+	? {
+			'@type': 'Person',
+			'@id': AUTOR_ID,
+			name: AUTOR_NIMI,
+			url: BASE + '/meist/',
+			worksFor: { '@id': ORG_ID },
+			jobTitle: 'Asutaja',
+			knowsAbout: ['pidurdusmaa', 'rehvid', 'EL-i rehvimärgis', 'liiklusohutus'],
+			sameAs: ['https://www.tiktok.com/@tarvoraba']
+		}
 	: null;
 export const autorRef = () => (AUTOR ? { '@id': AUTOR_ID } : { '@id': ORG_ID });
 

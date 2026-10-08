@@ -96,13 +96,15 @@ function mootLeht(size) {
 	/* KKK ja sissejuhatus: ainult andmetest (märgis, testid, autod) */
 	const kl = Object.keys(klassid).filter((g) => 'ABCDE'.includes(g)).sort();
 	const parimG = kl[0] || null;
-	const parimad = parimG
+	const parimRead = parimG
 		? rows
 				.filter((r) => r[4] === parimG)
+				.filter((r, i, a) => a.findIndex((x) => x[0] === r[0]) === i)
 				.sort((a, b) => (b[9] ? 1 : 0) - (a[9] ? 1 : 0) || (a[6] ?? 99) - (b[6] ?? 99))
-				.slice(0, 3)
-				.map((r) => titleCase(r[1] + ' ' + r[2]))
 		: [];
+	const parimad = parimRead.slice(0, 3).map((r) => titleCase(r[1] + ' ' + r[2]));
+	/* ItemList (AI-otsing): parima märghaardeklassi rehvid, testitud ees */
+	const parimadLd = parimRead.slice(0, 10).map((r) => ({ slug: r[0], nimi: titleCase(r[1] + ' ' + r[2]) }));
 	/* klassivahe arvutatakse auto peal, millel see mõõt päriselt on; kui ühtki pole, jääb see küsimus ära */
 	const pohiAuto = koikAutod.find((c) => c.pohi) || koikAutod[0];
 	return {
@@ -111,6 +113,7 @@ function mootLeht(size) {
 		parimG,
 		parimN: parimG ? klassid[parimG] : 0,
 		parimad,
+		parimadLd,
 		nTest: rows.filter((r) => r[9]).length,
 		vahe: ((v) => (v && pohiAuto && v.autoKey === pohiAuto.key ? { ...v, auto: pohiAuto.nimi } : null))(pohiAuto ? klassiVahe(size.m, pohiAuto.key) : null),
 		sarnased: sarnasedMoodud(size),
@@ -197,6 +200,9 @@ function rehvLeht(t) {
 		: null;
 
 	const vastus = vastusLause(t, sizes);
+	/* talve- ja aastaringsel rehvil teine tsiteeritav fakt: jääl (või lumel) 50 km/h pealt,
+	   AINULT siis, kui rehv on sellel pinnal päriselt testitud (märgis jää kohta ei ütle midagi) */
+	const vastusTalv = vastus && /^(WINTER_|ALL_SEASON)/.test(t.cat) ? vastusTalvLause(t, sizes, vastus) : null;
 
 	const vs = vsLinksFor(t.slug)
 		.map((p) => {
@@ -245,8 +251,30 @@ function rehvLeht(t) {
 			n: new Set(sizes.map((z) => z.m)).size
 		},
 		ogPilt: ix.sitemap,
-		vastus
+		vastus,
+		vastusTalv,
+		/* KKK: testide kokkuvõte (parim koht) ainult lehe andmetest */
+		parimTest: parimTestKoht(tests)
 	};
+}
+
+/* Talverehvi fakt: „jääl 50 km/h pealt umbes X m“ (sama auto ja mõõt mis märja lausel).
+   Kui jäätesti pole, proovime lund. Mõlema puudumisel lauset ei tule. */
+function vastusTalvLause(t, sizes, v) {
+	const moot = sizes.find((z) => z.label === v.moot);
+	const auto = moot ? (autodMoodus(moot.m).find((c) => c.nimi === v.auto) || autodMoodus(moot.m)[0]) : null;
+	if (!moot || !auto || !auto.key) return null;
+	for (const o of ['ice', 'snow']) {
+		const x = arvuta({ a: auto.key, ab: false, m: moot.m, o, v: 50, r: 'e:' + t.slug, mm: null, rt: 0, l: 'et' });
+		if (x && !x.autoVaikimisi && x.alla === 'Sõltumatu test' && x.d > 3 && x.d < 200) return { pind: o, d: Math.round(x.d * 10) / 10 };
+	}
+	return null;
+}
+
+/* Parim koht sõltumatutes testides: { src, pos, n, pind } (1 = lühim pidurdusmaa) */
+function parimTestKoht(tests) {
+	const k = tests.filter((x) => x.pos && x.n > 1).sort((a, b) => a.pos / a.n - b.pos / b.n || a.pos - b.pos)[0];
+	return k ? { src: k.src_nimi, pos: k.pos, n: k.n, surf: k.surf, wet: k.wet, v0: k.v0, m: k.m } : null;
 }
 
 /* GEO: üks tsiteeritav fakt rehvilehe päisesse.
@@ -295,10 +323,22 @@ function vsLeht(a, b, shared) {
 			.filter(Boolean);
 		return { src, read };
 	});
+	/* kokkuvõte (vastus + KKK): mitmel pinnal kumb oli lühem; pealkirjaks märg asfalt, muidu esimene rida */
+	const read = plokid.flatMap((p) => p.read.map((r) => ({ ...r, src: p.src })));
+	const pea = read.find((r) => r.x.surf === 'ASPHALT' && r.x.wet) || read.find((r) => r.x.surf === 'ASPHALT') || read[0] || null;
+	const kokku = read.length
+		? {
+				a: read.filter((r) => r.d > 0).length,
+				b: read.filter((r) => r.d < 0).length,
+				n: read.length,
+				pea: pea ? { surf: pea.x.surf, wet: !!pea.x.wet, v0: pea.x.v0, am: pea.x.m, bm: pea.y.m, d: Math.round(Math.abs(pea.d) * 10) / 10, src: pea.src.nimi || '', aasta: pea.src.aasta || '' } : null
+			}
+		: null;
 	return {
 		liik: 'vs',
 		a: { slug: a.slug, name: a.name },
 		b: { slug: b.slug, name: b.name },
-		plokid
+		plokid,
+		kokku
 	};
 }

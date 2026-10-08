@@ -133,6 +133,14 @@
 
 <svelte:head>
 	{#if GSC_VERIFY}<meta name="google-site-verification" content={GSC_VERIFY} />{/if}
+	<!-- Esimese ekraani fondid ette: muidu leiab brauser need alles CSS-i järel (LCP hilineb) -->
+	{#if lang === 'ru'}
+		<link rel="preload" href="/fonts/inter-cyrillic-wght-normal.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+		<link rel="preload" href="/fonts/roboto-condensed-cyrillic-700-normal.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+	{:else}
+		<link rel="preload" href="/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+		<link rel="preload" href="/fonts/barlow-condensed-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+	{/if}
 </svelte:head>
 
 <a class="skip" href="#sisu">{t("Liigu sisu juurde")}</a>

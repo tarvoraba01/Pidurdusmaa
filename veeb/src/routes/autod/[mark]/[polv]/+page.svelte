@@ -27,6 +27,62 @@
 	const hj = (s) => (s ? String(s).replace(/ hj \(/, ' ' + t('hj') + ' (') : s);
 	const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;');
 	const pealkiri = $derived(t('{nimi} rehvimõõt ja pidurdusmaa', { nimi: a.nimi }));
+
+	/* KKK (AI-otsing / FAQPage): vastused ainult lehe andmetest */
+	const kuiv90 = $derived(data.pidurdus.find((x) => x.id === 'kuiv')?.r?.[90]?.peatumine);
+	const ja = (arr) => (arr.length < 2 ? arr.join('') : arr.slice(0, -1).join(', ') + ' ' + t('ja') + ' ' + arr[arr.length - 1]);
+	const kkk = $derived(
+		[
+			[
+				t('Mis rehvimõõt on autol {nimi}?', { nimi: a.nimi }),
+				t('Tehase põhimõõt on {moot}.', { moot: data.pohimoot }) +
+					(data.moodud.length > 1 ? ' ' + t('Tehase mõõte on kokku {n}: {list}.', { n: data.moodud.length, list: data.moodud.map((z) => z.label).join(', ') }) : '') +
+					' ' + t('Täpne mõõt on rehvi küljel ja juhiukse piirdel.')
+			],
+			marg90 && kuiv90
+				? [
+						t('Kui pikk on {nimi} pidurdusmaa?', { nimi: a.nimi }),
+						t('Keskmise suverehviga peatub {nimi} 90 km/h pealt kuival asfaldil umbes {k} meetriga ja märjal umbes {m} meetriga (koos 1 s reaktsiooniga).', { nimi: a.nimi, k: Math.round(kuiv90), m: Math.round(marg90) }) +
+							(lumi50 ? ' ' + t('Tallatud lumel 50 km/h pealt talverehviga umbes {l} m.', { l: Math.round(lumi50) }) : '') +
+							' ' + t('See on arvutatud hinnang, mitte mõõtmine; täpne tulemus sõltub rehvist.')
+					]
+				: null,
+			data.talv.length
+				? [
+						t('Millised talverehvid sobivad autole {nimi}?', { nimi: a.nimi }),
+						t('Põhimõõdus {moot} on EL-i rehvimärgise järgi head Põhjamaade talverehvid näiteks {list}.', { moot: data.pohimoot, list: ja(data.talv.slice(0, 3).map((r) => r.nimi)) }) +
+							' ' + t('Eesti talveks sobib naast- või Põhjamaade lamellrehv; talverehvid on kohustuslikud 1. detsembrist 1. märtsini.')
+					]
+				: null,
+			data.suvi.length
+				? [
+						t('Millised suverehvid sobivad autole {nimi}?', { nimi: a.nimi }),
+						t('Põhimõõdus {moot} on märghaardumise klassi järgi parimad suverehvid näiteks {list}.', { moot: data.pohimoot, list: ja(data.suvi.slice(0, 3).map((r) => r.nimi)) }) +
+							' ' + t('Sõltumatult testitud mudelid on nimekirjas eespool.')
+					]
+				: null,
+			[t('Kas autol {nimi} on ABS?', { nimi: a.nimi }), t(data.absTekst)]
+		].filter(Boolean)
+	);
+	const nimekiri = (nimi, list) =>
+		list.length ? [{ '@type': 'ItemList', name: nimi, itemListElement: list.map((r, i) => ({ '@type': 'ListItem', position: i + 1, name: r.nimi, url: BASE + L('/rehvid/' + r.slug + '/') })) }] : [];
+	const jsonld = $derived({
+		'@context': 'https://schema.org',
+		'@graph': [
+			{
+				'@type': 'WebPage',
+				name: pealkiri,
+				description: desc,
+				url: BASE + L(path),
+				inLanguage: keel.lang
+				/* NB: mitte 'Car' / 'Vehicle' / 'Product' — Google peab neid tooteks ja
+				   nõuab hinda või arvustusi; ilma nendeta on see Search Console'is viga */
+			},
+			{ '@type': 'FAQPage', mainEntity: kkk.map(([q, an]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: an } })) },
+			...nimekiri(t('Parimad suverehvid mõõdus {moot}', { moot: data.pohimoot }), data.suvi),
+			...nimekiri(t('Parimad talverehvid mõõdus {moot}', { moot: data.pohimoot }), data.talv)
+		]
+	});
 </script>
 
 <Meta
@@ -36,16 +92,7 @@
 	image="/og/auto/{a.mk}--{a.slug}.png"
 	imageAlt={t('{nimi} — rehvimõõt ja pidurdusmaa', { nimi: a.nimi })}
 	crumbs={[[t('Avaleht'), '/'], [t('Autod'), '/autod/'], [a.make, '/autod/' + a.mk + '/'], [a.model + ' ' + a.yearLabel, path]]}
-	jsonld={{
-		'@context': 'https://schema.org',
-		'@type': 'WebPage',
-		name: pealkiri,
-		description: desc,
-		url: BASE + L(path),
-		inLanguage: keel.lang
-		/* NB: mitte 'Car' / 'Vehicle' / 'Product' — Google peab neid tooteks ja
-		   nõuab hinda või arvustusi; ilma nendeta on see Search Console'is viga */
-	}}
+	{jsonld}
 />
 
 <section class="page-hero">
@@ -154,6 +201,12 @@
 			</div>
 		</div>
 
+		<div class="box">
+			<h2>{t('Korduma kippuvad küsimused')}</h2>
+			{#each kkk as [q, v] (q)}<h3 class="ad-kkk-k">{q}</h3><p class="ad-kkk-v">{v}</p>{/each}
+			{#if data.talvSlug}<p class="note"><a href={L('/talverehvid/' + data.talvSlug + '/')}>{t('Parimad talverehvid {m} — testid, naast ja lamell →', { m: data.pohimoot })}</a></p>{/if}
+		</div>
+
 		{#if data.muudPolved.length}
 			<div class="box">
 				<h2>{t('Teised põlvkonnad')}</h2>
@@ -170,6 +223,8 @@
 </div>
 
 <style>
+	.ad-kkk-k { font-size: 17px; margin: var(--sp-4) 0 var(--sp-1); }
+	.ad-kkk-v { margin: 0; }
 	:global(table.t.ad-kompakt) {
 		min-width: 0;
 	}

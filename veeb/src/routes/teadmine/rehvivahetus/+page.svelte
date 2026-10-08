@@ -17,7 +17,7 @@
 	const keel = useLang();
 	const ru = keel.lang === 'ru';
 	const L = keel.L;
-	const UUENDATUD = '2026-10-01';
+	const UUENDATUD = '2026-10-08';
 	const PATH = '/teadmine/rehvivahetus/';
 
 	const ehitus = new Date();
@@ -47,8 +47,8 @@
 						`Шипованная резина в Эстонии разрешена с ${kp(hh.naast, 'ru')} по ${kp(hh.naastLopp, 'ru')}. Если дорожные и погодные условия зимние, её можно использовать уже с ${kp(hh.naastTalv, 'ru')} и до ${kp(hh.naastTalvLopp, 'ru')}.`
 					],
 					[
-						'С какого числа зимняя резина обязательна в Эстонии?',
-						`Зимняя резина обязательна с ${kp(hh.kohustus, 'ru')} по ${kp(hh.kohustusLopp, 'ru')}. Нешипованная зимняя резина в это время должна иметь знак «три горные вершины и снежинка» (3PMSF), а глубина протектора зимней шины должна быть больше 3 мм.`
+						`Обязательна ли зимняя резина в Эстонии в ${hh.S} году и с какого числа?`,
+						`Да. Зимняя резина обязательна с ${kp(hh.kohustus, 'ru')} по ${kp(hh.kohustusLopp, 'ru')}. Нешипованная зимняя резина в это время должна иметь знак «три горные вершины и снежинка» (3PMSF), а глубина протектора зимней шины должна быть больше 3 мм.`
 					],
 					[
 						`Когда можно ставить летнюю резину в ${hh.S + 1} году?`,
@@ -69,8 +69,8 @@
 						`Naastrehvid on Eestis lubatud ${kp(hh.naast, 'et', false, 'st')} kuni ${kp(hh.naastLopp, 'et', false, 'ni')}. Kui tee- ja ilmastikuolud on talvised, tohib neid kasutada juba ${kp(hh.naastTalv, 'et', false, 'st')} ja kuni ${kp(hh.naastTalvLopp, 'et', false, 'ni')}.`
 					],
 					[
-						'Millal on talverehvid kohustuslikud?',
-						`Talverehvid on kohustuslikud ${kp(hh.kohustus, 'et', false, 'st')} kuni ${kp(hh.kohustusLopp, 'et', false, 'ni')}. Lamellrehvil peab sel ajal olema kolme mäetipu ja lumehelbe märk (3PMSF) ja talverehvi muster peab olema sügavam kui 3 mm.`
+						`Kas talverehvid on ${hh.S} kohustuslikud ja millal?`,
+						`Jah. Talverehvid on kohustuslikud ${kp(hh.kohustus, 'et', false, 'st')} kuni ${kp(hh.kohustusLopp, 'et', false, 'ni')}. Lamellrehvil peab sel ajal olema kolme mäetipu ja lumehelbe märk (3PMSF) ja talverehvi muster peab olema sügavam kui 3 mm.`
 					],
 					[
 						`Millal võib suverehvid alla panna ${hh.S + 1}?`,

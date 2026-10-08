@@ -16,8 +16,8 @@ const n = (x) => new Intl.NumberFormat('et-EE').format(x);
 const m = (x) => (Math.round(x * 10) / 10).toString().replace('.', ',');
 
 /* VW Golf 8, 205/55 R16, 90 km/h — samad valikud mis avalehe hero'l */
-function pidurdus(o, r) {
-	const x = arvuta({ a: 'vw_golf_8', ab: false, m: '20555R16', o, v: 90, r, mm: null, rt: 0, l: 'et' });
+function pidurdus(o, r, v = 90) {
+	const x = arvuta({ a: 'vw_golf_8', ab: false, m: '20555R16', o, v, r, mm: null, rt: 0, l: 'et' });
 	return x ? x.d : null;
 }
 
@@ -30,13 +30,17 @@ export function llmsTekst(lang = 'et') {
 	const lumi = pidurdus('snow', 'k:WINTER_NORDIC');
 	if (!kuiv || !marg || !lumi) throw new Error('llms.txt: pidurdusmaad ei saanud arvutada');
 	const reakts = 25; // 90 km/h × 1 s
+	/* jää 50 km/h: rehvitüüpide keskmised (sama mis talverehvide lehel) */
+	const jaaNaast = pidurdus('ice', 'k:WINTER_STUDDED', 50), jaaLamell = pidurdus('ice', 'k:WINTER_NORDIC', 50), jaaKesk = pidurdus('ice', 'k:WINTER_CENTRAL', 50), jaaSuvi = pidurdus('ice', 'k:SUMMER_TOURING', 50);
+	const lumiSuvi = pidurdus('snow', 'k:SUMMER_TOURING', 50), lumiTalv = pidurdus('snow', 'k:WINTER_NORDIC', 50);
+	const jaa = { naast: jaaNaast, lamell: jaaLamell, kesk: jaaKesk, suvi: jaaSuvi, lumiSuvi, lumiTalv };
 	const allikad = Object.values(c.sources || {})
 		.map((s) => (s.aasta && !String(s.nimi).includes(String(s.aasta)) ? `${s.nimi} ${s.aasta}` : s.nimi))
 		.sort()
 		.join(', ');
 	const nMud = n(Object.keys(models()).length), nMoot = n(c.eprelSizes.filter((m) => /^\d{5}R\d{2}C?$/.test(m)).length) /* ainult päris mõõdud (audit: ~690 võtit on nimest valesti loetud) */, nTest = n(c.tyres.length), nAuto = n(autod().polved.size);
 	const md = lang === 'et' ? m : (x) => (Math.round(x * 10) / 10).toString().replace('.', lang === 'en' ? '.' : ',');
-	if (lang === 'en' || lang === 'ru') return valisKeel(lang, { kuiv, marg, lumi, reakts, allikad, nMud, nMoot, nTest, nAuto, md });
+	if (lang === 'en' || lang === 'ru') return valisKeel(lang, { kuiv, marg, lumi, reakts, allikad, nMud, nMoot, nTest, nAuto, md, jaa });
 	const artiklid = (ARTIKLID || [])
 		.map((a) => `- [${a.title}](${BASE}${artikliTee(a)})${a.desc ? ': ' + a.desc : ''}`)
 		.join('\n');
@@ -67,10 +71,20 @@ Tsiteerimisel palun viita lehele ${BASE}/ või vastavale alamlehele.
 - [Koolitus](${BASE}/liiklusohutus/koolitus/): eeltest, selgitused simulaatoriga, järeltest; autokoolid loovad oma grupi testi
 - [Rehvi vanus](${BASE}/rehvi-vanus/): DOT-kood → rehvi vanus, mustri sügavus → pidurdusmaa
 
+## Levinud küsimused (lühivastused, samast mudelist)
+- Millal on talverehvid Eestis kohustuslikud? 1. detsembrist 1. märtsini. Naastrehvid on lubatud 15. oktoobrist 31. märtsini, talviste olude korral 1. oktoobrist 30. aprillini. Talverehvil peab olema kolme mäetipu ja lumehelbe märk (3PMSF); mustri sügavus üle 3 mm, suverehvil vähemalt 1,6 mm.
+- Millal talverehvid alla panna? Kui ööd on alla +7 °C või tuleb esimene lumi, mitte alles 1. detsembril: esimesel lumel 50 km/h pealt peatub suverehv umbes ${m(lumiSuvi)} m, Põhjamaade talverehv ${m(lumiTalv)} m (pidurdusmaa ilma reaktsiooniajata).
+- Naast või lamell? Jääl 50 km/h pealt peatub tüüpiline naastrehv umbes ${m(jaaNaast)} m, Põhjamaade lamellrehv ${m(jaaLamell)} m, Kesk-Euroopa talverehv ${m(jaaKesk)} m ja suverehv ${m(jaaSuvi)} m. Lumel ja kuival asfaldil on naastu ja lamelli vahe väike.
+- Kui palju loeb EL-i märgise märghaardumise klass? A- ja E-klassi suverehvi vahe on märjal asfaldil 90 km/h pealt umbes 18 m pidurdusmaad. Klass on mõõdupõhine: sama mudel võib teises mõõdus olla teise klassiga.
+- Mis on peatumisteekond? Reaktsiooniteekond + pidurdusteekond. 50 km/h pealt peatub auto kuival teel umbes 24 m ja märjal 27 m, 90 km/h pealt umbes 55 m ja 70 m (1 s reaktsiooniga). 1 s reaktsioon = 14 m 50 km/h juures ja 25 m 90 km/h juures.
+- Kui palju muudab kulunud muster? 3 mm mustriga suverehv peatub märjal 90 km/h pealt umbes 4 m kaugemal kui uus; sademevee roopas (3 mm vett) pikeneb pidurdusmaa 1,6 mm mustriga peaaegu kaks korda. Talverehvil on lumel 3 mm mustriga pidurdus umbes veerandi võrra pikem kui uuel.
+
 ## Andmed
-- [Rehvid ja mõõdud](${BASE}/rehvid/)
-- [Automudelid](${BASE}/autod/)
-- [Sõltumatud rehvitestid](${BASE}/testid/)
+- [Rehvid ja mõõdud](${BASE}/rehvid/): mõõdu lehel kõik selle mõõdu rehvid märgise klasside järgi, KKK ja autod, millel see on tehasemõõt
+- [Rehvimargid](${BASE}/margid/): iga margi mudelid, märgise klasside jaotus ja testitud mudelid
+- [Automudelid](${BASE}/autod/): ${nAuto} põlvkonda — tehase rehvimõõdud, mootorid, arvutatud pidurdusmaa, parimad rehvid põhimõõdus
+- [Sõltumatud rehvitestid](${BASE}/testid/): mõõdetud pidurdusmaad testi kaupa
+- Iga rehvi lehel (${BASE}/rehvid/<mudel>/): EL-i märgis mõõtude kaupa, sõltumatute testide tulemused ja koht, arvutatud pidurdusmaa valitud autoga, KKK
 
 ## Teadmised
 - [Kuidas pidurdusmaa arvutatakse](${BASE}/teadmine/kuidas-pidurdusmaa-arvutatakse/): metoodika, allikad, täpsus
@@ -81,7 +95,9 @@ ${artiklid}
 
 ## Muu
 - [Meist](${BASE}/meist/): kes teeb, andmeallikad, sõltumatus
-- [Partnerid ja poelingid](${BASE}/teadmine/partnerid/)
+- [Partnerid ja poelingid](${BASE}/teadmine/partnerid/): hinnad ja poelingid tulevad partnerpoodidest, järjestust need ei mõjuta
+- Autokoolidele: koolitus (${BASE}/liiklusohutus/koolitus/) on tasuta; õpetaja loob grupile testi, õpilased teevad eel- ja järeltesti, tulemused näeb õpetaja
+- Kõik lehed on eesti keeles, enamik ka vene keeles (/ru/), tööriistad inglise keeles (/en/)
 - [In English](${BASE}/en/) ([llms.txt](${BASE}/en/llms.txt)) · [На русском](${BASE}/ru/) ([llms.txt](${BASE}/ru/llms.txt))
 `;
 	return tekst;
@@ -150,12 +166,21 @@ When citing, please link to ${BASE}/en/ or the relevant page.
 - [Тест реакции](${L('/liiklusohutus/reaktsioon/')}): игра — как быстро вы тормозите
 - [Возраст шины](${L('/rehvi-vanus/')}): код DOT → возраст шины, глубина протектора → тормозной путь
 
+## Частые вопросы (короткие ответы, та же модель)
+- Когда в Эстонии обязательны зимние шины? С 1 декабря по 1 марта. Шипованные разрешены с 15 октября по 31 марта, при зимних условиях — с 1 октября по 30 апреля. На зимней шине должен быть знак «три горные вершины со снежинкой» (3PMSF); протектор глубже 3 мм, у летней — не менее 1,6 мм.
+- Когда ставить зимние шины? Когда ночью ниже +7 °C или выпал первый снег, а не 1 декабря: на первом снегу со скорости 50 км/ч летняя шина останавливается примерно за ${x.md(x.jaa.lumiSuvi)} м, нордическая зимняя — за ${x.md(x.jaa.lumiTalv)} м (тормозной путь без времени реакции).
+- Шипы или фрикционная? На льду со скорости 50 км/ч типичная шипованная шина останавливается примерно за ${x.md(x.jaa.naast)} м, нордическая фрикционная — за ${x.md(x.jaa.lamell)} м, центральноевропейская зимняя — за ${x.md(x.jaa.kesk)} м, летняя — за ${x.md(x.jaa.suvi)} м. На снегу и сухом асфальте разница между шипами и фрикционной небольшая.
+- Насколько важен класс сцепления на мокрой дороге? Разница между летними шинами класса A и E на мокром асфальте со скорости 90 км/ч — около 18 м тормозного пути. Класс привязан к размеру.
+- Что такое остановочный путь? Путь за время реакции + тормозной путь. Со скорости 50 км/ч автомобиль останавливается на сухой дороге примерно за 24 м, на мокрой — за 27 м; со скорости 90 км/ч — за 55 и 70 м (с реакцией 1 с).
+
 ## Данные${ET}
-- [Шины и размеры](${BASE}/rehvid/)
-- [Модели автомобилей](${BASE}/ru/autod/)
+- [Шины и размеры](${BASE}/rehvid/): страницы размеров и шин есть и на русском (/ru/rehvid/…) для самых распространённых
+- [Зимние шины по размерам](${BASE}/ru/talverehvid/): лучшие шипованные и фрикционные шины, тормозной путь на снегу и льду
+- [Модели автомобилей](${BASE}/ru/autod/): заводские размеры шин, двигатели, расчётный тормозной путь, лучшие шины
 - [Независимые тесты шин](${BASE}/testid/)
 - [Как рассчитывается тормозной путь](${BASE}/teadmine/kuidas-pidurdusmaa-arvutatakse/): методика, источники, точность
-- [Смена шин в Эстонии](${BASE}/ru/teadmine/rehvivahetus/)
+- [Смена шин в Эстонии](${BASE}/ru/teadmine/rehvivahetus/): все сроки по закону и что разрешено сегодня
+- [Обучение для автошкол](${BASE}/ru/liiklusohutus/koolitus/): бесплатный тест до и после с симуляторами; преподаватель создаёт тест для группы
 
 ## Другое
 - [Eesti keeles](${BASE}/) ([llms.txt](${BASE}/llms.txt)) · [In English](${BASE}/en/) ([llms.txt](${BASE}/en/llms.txt))
