@@ -1414,6 +1414,9 @@ import UNIVERSAALID from './universaalid.json';
       });
     }
     var poodVoti = null;
+    /* üks linnuke: suvel „ka lamell- ja aastaringsed“, talvel „ka aastaringsed“
+       (naastud ja lamellid jäävad talvel alati). Vaikimisi sees, meeles brauseris. */
+    var poodLaiem = store.get('poodLaiem', true) !== false;
     function poodiMoodud(S) {
       var box = $('[data-r-pood]', el);
       if (!box || !CFG.prices) return;
@@ -1438,7 +1441,7 @@ import UNIVERSAALID from './universaalid.json';
       var sea = poodHooaeg === 'winter'
         ? { long: _t('lamell-, aastaringsed ja naastrehvid'), eprel: SEASON.winter.eprel, tested: SEASON.winter.tested.concat(['WINTER_STUDDED']) }
         : { long: _t('suverehvid, ka lamell- ja aastaringsed'), eprel: [0, 1, 2, 3], tested: SEASON.summer.tested.concat(SEASON.winter.tested) };
-      var voti = moodud.join(',') + '|' + poodHooaeg;
+      var voti = moodud.join(',') + '|' + poodHooaeg + '|' + poodLaiem;
       if (voti === poodVoti) return;
       poodVoti = voti;
       if (!core._tyreBySlug) { core._tyreBySlug = {}; core.tyres.forEach(function (t) { if (t.slug) core._tyreBySlug[t.slug] = t; }); }
@@ -1463,11 +1466,14 @@ import UNIVERSAALID from './universaalid.json';
           });
           /* sinu mõõt ees (soodsaim ees), teised tehasemõõdud järel */
           list.sort(function (a, b) { return ((a.m !== S.size) - (b.m !== S.size)) || (a.r.hind - b.r.hind); });
+          var laiemN = list.filter(function (x) { return poodHooaeg === 'summer' ? x.kat : x.kat === 1; }).length;
+          if (!poodLaiem) list = list.filter(function (x) { return poodHooaeg === 'summer' ? !x.kat : x.kat !== 1; });
           /* hinna järgi segamini; tüübi märk kaardil (hooaja filter jääb) */
           var ainultOma = !list.some(function (x) { return x.m !== S.size; });
-          if (!list.length) { box.hidden = true; box.innerHTML = ''; return; }
+          if (!list.length && !laiemN) { box.hidden = true; box.innerHTML = ''; return; }
           list = list.slice(0, 30);
-          box.innerHTML = '<p class="rs-k">' + (ainultOma ? _t('Rehvid poodides mõõdus ') + esc(pretty(S.size)) : _t('Rehvid poodides — sinu mõõt ees')) + ' <span style="font-weight:500;color:var(--muted)">' + _t('(soodsaim ees · ') + sea.long + ')</span></p>' +
+          box.innerHTML = '<p class="rs-k">' + (ainultOma ? _t('Rehvid poodides mõõdus ') + esc(pretty(S.size)) : _t('Rehvid poodides — sinu mõõt ees')) + ' <span style="font-weight:500;color:var(--muted)">' + _t('(soodsaim ees)') + '</span></p>' +
+            (laiemN ? '<label class="eri-t pood-laiem"><input type="checkbox" data-pood-laiem' + (poodLaiem ? ' checked' : '') + '> ' + (poodHooaeg === 'summer' ? _t('Näita ka lamell- ja aastaringseid rehve') : _t('Näita ka aastaringseid rehve')) + '</label>' : '') +
             '<div class="pk-rida pk-moot">' + list.map(function (x) {
               var r = x.r;
               var ladu = r.laos === false ? _t('tellimisel') : (r.kogus > 0 ? _t('laos') + ' ' + (r.kogus >= 8 ? '8+' : r.kogus) + ' ' + _t('tk') : '');
@@ -1480,6 +1486,12 @@ import UNIVERSAALID from './universaalid.json';
             }).join('') + '</div>' +
             (!ainultOma ? '<p class="note" style="margin:0">' + _t('Mõõdud on selle auto tehase lubatud mõõdud. Teise mõõdu puhul kontrolli, et velg sobib.') + '</p>' : '');
           box.hidden = false;
+          var cb = $('[data-pood-laiem]', box);
+          if (cb) cb.addEventListener('change', function () {
+            poodLaiem = cb.checked; store.set('poodLaiem', poodLaiem);
+            Track('pood_laiem', (poodLaiem ? 'jah' : 'ei') + ' · ' + poodHooaeg);
+            poodiMoodud(S);
+          });
         });
     }
     function paintPrices(size, cur) {
