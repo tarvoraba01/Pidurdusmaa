@@ -419,7 +419,7 @@
 										<tr class={x.pos === 1 ? 'best' : ''}>
 											<td>{#if x.src.url}<a href={x.src.url} rel="nofollow noopener" target="_blank">{x.src.pub} {x.src.year}</a>{:else}{x.src.pub} {x.src.year}{/if}</td>
 											<td>{x.src.size || ''}</td>
-											<td>{t(x.d)} {Math.round(x.v0)}→{Math.round(x.v1)} {t('km/h')}</td>
+											<td>{t(x.d)} {#if x.v0 != null}{Math.round(x.v0)}→{Math.round(x.v1)} {t('km/h')}{:else}<span class="note">· {t('kiirus märkimata')}</span>{/if}</td>
 											<td class="n"><b>{num(x.m)} {t('m')}</b></td>
 											<td class="n">{x.pos} / {x.n}</td>
 											<td class="n">{num(x.best)} {t('m')}</td>

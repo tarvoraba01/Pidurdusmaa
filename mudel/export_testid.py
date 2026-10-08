@@ -74,8 +74,38 @@ def match(idx, name):
     return top[0] if len(top) == 1 else None
 
 
+def kiiruseta():
+    """Tulemused, mille kiirust allikas ei trüki (TM 2013, Test World 2020, Vi 2018 …).
+    Backtest jätab need välja (mudeli kontrolliks on kiirus vaja), aga lehel on
+    need mõõdetud fakt: koht samas testis samal pinnal ei sõltu kiirusest.
+    v0/v1 = None → leht näitab „kiirus märkimata“."""
+    out = []
+    for f in sorted(os.listdir(B.DATA)):
+        if not f.endswith(".json"):
+            continue
+        for t in json.load(open(os.path.join(B.DATA, f), encoding="utf-8")):
+            if t["test_id"] in B.SKIP_TESTS:
+                continue
+            ds = {x["id"]: x for x in t["disciplines"]}
+            size, _ = B.size_key(t["size"])
+            for ty in t["tyres"]:
+                for did, val in (ty.get("results") or {}).items():
+                    x = ds.get(did)
+                    if val is None or x is None or (t["test_id"], did) in B.SKIP:
+                        continue
+                    if x.get("v_from") is not None and x.get("v_to") is not None:
+                        continue  # need on juba B.load()-is
+                    if x["surface"] not in B.SURF:
+                        continue
+                    wet = bool(x.get("wet")) and x["surface"] in ("asphalt", "concrete")
+                    out.append(dict(test=t["test_id"], size=size, tyre=ty["name"].strip(), surface=x["surface"],
+                                    wet=wet, v0=None, v1=None, measured=float(val), disc=did))
+    return out
+
+
 def main():
     obs, _ = B.load()
+    obs += kiiruseta()
     idx = model_index()
     # koht testis: sama test + distsipliin
     grp = collections.defaultdict(list)
