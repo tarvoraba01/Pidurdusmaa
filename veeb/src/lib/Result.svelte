@@ -37,16 +37,13 @@
 				</p>
 				<p class="rs-who" data-r-whoshort>{t("Arvutan…")}</p>
 				<div class="rs-ilmad" data-r-ilmad role="group" aria-label={t("Sama rehv teistes teeoludes")} hidden></div>
-				<button type="button" class="rs-jaga" data-r-jaga
-					><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M8 7l4-4 4 4" /><path d="M7 10H5.5A1.5 1.5 0 0 0 4 11.5v8A1.5 1.5 0 0 0 5.5 21h13a1.5 1.5 0 0 0 1.5-1.5v-8a1.5 1.5 0 0 0-1.5-1.5H17" /></svg>{t('Jaga tulemust')}</button
-				>
 				<div class="r-price" data-r-price></div>
 				</div>
 			</div>
 			<div>
 				<p class="rs-k">{t("Kui palju muudab rehv?")}</p>
 				<p class="rs-expl">
-					{@html t("Sama auto ja kiirus, ainult rehv erineb. <b>Lühem riba = auto seisab varem.</b> Täht on EL-i rehvimärgise märghaarde klass: <span class=\"gr A\">A</span> pidurdab märjal kõige paremini.")}
+					{t("Sama auto ja kiirus, ainult rehv erineb.")}
 				</p>
 				<ol class="mbars" data-r-mbars></ol>
 				<div class="rs-links">
@@ -58,6 +55,7 @@
 						aria-controls="r-detail">{t("Kõik rehvid ja üksikasjad")}</button
 					>
 					<button type="button" class="linkbtn" data-how>{t("Kuidas arvutatakse?")}</button>
+					<button type="button" class="linkbtn rs-jaga" data-r-jaga>{t('Jaga tulemust')}</button>
 				</div>
 				<div class="r-pood" data-r-pood hidden></div>
 				<p class="rs-legal">

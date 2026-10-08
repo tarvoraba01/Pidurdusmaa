@@ -52,7 +52,9 @@ const MYRA = new Set(
 export function mudeliSonad(mudel, mark) {
 	let s = String(mudel || '').replace(/\([^)]*\)/g, ' '); // „Polaris North 6 (ContiVikingContact 6)“
 	s = s.replace(/\d{3}\s*[/ ]?\s*\d{2}\s*Z?R\s*F?\s*\d{2}\s*C?/gi, ' '); // mõõt
-	s = s.replace(/\b\d{2,3}(\/\d{2,3})?\s?[A-Z]\b/g, ' '); // 92Y, 104/102T
+	/* 92Y, 104/102T — aga ainult päris koormusindeksi vahemikus (60–130):
+	   „WinterContact TS 860 S“ 860 ei ole indeks ja „860 S“ peab nimme jääma */
+	s = s.replace(/\b(\d{2,3})(\/\d{2,3})?\s?[A-Z]\b/g, (k, n) => (+n >= 60 && +n <= 130 ? ' ' : k));
 	s = s.replace(/\bM\s*[+&/]\s*S\b/gi, ' '); // M+S (mitte „S“ üksi — Pilot Sport 4 S on eri rehv)
 	s = s.replace(/\+/g, ' plus '); // „UltraGrip Ice 2+“ ≠ „UltraGrip Ice 2“
 	/* margi sõnad välja ("Nokian Tyres Hakkapeliitta R5" → "hakkapeliitta r5") */

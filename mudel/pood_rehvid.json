@@ -1,0 +1,2653 @@
+{
+"allikas": "Poe kataloog (rehvivahetus.ee partner-API, 08.10.2026); ainult mudelid, mida EPREL-i korjes ei ole",
+"read": [
+{
+"pood": "rehvivahetus.ee",
+"mark": "Continental",
+"mudel": "VancoFourSeasons2",
+"moot": "20565R16C",
+"eu": "e b 73",
+"lisi": "107/105T"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber AT3",
+"moot": "20575R16C",
+"eu": "e c b 75dB",
+"lisi": "110/108R"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber AT3",
+"moot": "21560R17",
+"eu": "f e 72",
+"lisi": "96H FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber AT3",
+"moot": "21565R16",
+"eu": "f b 75",
+"lisi": "103/100S FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber AT3",
+"moot": "21565R16C",
+"eu": "e c b 75dB",
+"lisi": "109/107T"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber AT3",
+"moot": "22570R16",
+"eu": "f e 72",
+"lisi": "103T FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber AT3",
+"moot": "22575R16",
+"eu": "f b 75",
+"lisi": "115/112S LT FR OWL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber AT3",
+"moot": "23565R17",
+"eu": "d c b",
+"lisi": "108H XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber AT3",
+"moot": "23575R15",
+"eu": "e b b",
+"lisi": "110/107S LT FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber AT3",
+"moot": "23585R16",
+"eu": "f b 75",
+"lisi": "120/116S LT FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber AT3",
+"moot": "24565R17",
+"eu": "d d b 72dB",
+"lisi": "111H XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber AT3",
+"moot": "24570R16",
+"eu": "d d b",
+"lisi": "111H XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber AT3",
+"moot": "24575R16",
+"eu": "f b 75",
+"lisi": "120/116S LT FR OWL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber AT3",
+"moot": "25550R19",
+"eu": "d d b",
+"lisi": "107H XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber AT3",
+"moot": "25560R18",
+"eu": "d d b",
+"lisi": "112H XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber AT3",
+"moot": "25565R17",
+"eu": "f b 75",
+"lisi": "114/110S FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber AT3",
+"moot": "25570R15",
+"eu": "d d b 73dB",
+"lisi": "112T XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber AT3",
+"moot": "25570R16",
+"eu": "f b 75",
+"lisi": "120/117S LT FR OWL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber AT3",
+"moot": "26550R20",
+"eu": "e c 73",
+"lisi": "111V XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber AT3",
+"moot": "26560R18",
+"eu": "c c b",
+"lisi": "110H FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber AT3",
+"moot": "26565R17",
+"eu": "d d b",
+"lisi": "112H FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber AT3",
+"moot": "26570R16",
+"eu": "d d b 73dB",
+"lisi": "112H FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber AT3",
+"moot": "27555R20",
+"eu": "d c b 73dB",
+"lisi": "117H XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber AT3",
+"moot": "27565R18",
+"eu": "d c b 73dB",
+"lisi": "116T FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber AT3",
+"moot": "28545R22",
+"eu": "d c b",
+"lisi": "114H XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber AT3",
+"moot": "28570R17",
+"eu": "d c b 75dB",
+"lisi": "116/113S LT FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber AT3 LT",
+"moot": "20570R15C",
+"eu": "e b b",
+"lisi": "106/104S"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber AT3 LT",
+"moot": "23565R16C",
+"eu": "d b b",
+"lisi": "121/119R"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber AT3 LT",
+"moot": "26570R17",
+"eu": "e b b",
+"lisi": "121/118S FR OWL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber Cross A/S",
+"moot": "21565R16",
+"eu": "c c b 72dB",
+"lisi": "98H FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber Cross A/S",
+"moot": "21565R17",
+"eu": "c c b 72dB",
+"lisi": "99V FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber Cross A/S",
+"moot": "22560R18",
+"eu": "c c b 72dB",
+"lisi": "100H FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber Cross A/S",
+"moot": "23555R19",
+"eu": "c c b 72dB",
+"lisi": "105V XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber Cross A/S",
+"moot": "23555R20",
+"eu": "c c b 72dB",
+"lisi": "105V XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber Cross A/S",
+"moot": "26560R18",
+"eu": "c c b 73dB",
+"lisi": "110H FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber GT",
+"moot": "25560R17",
+"eu": "e c 72",
+"lisi": "106V FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber GT Plus",
+"moot": "19580R15",
+"eu": "d a b",
+"lisi": "96H FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber GT Plus",
+"moot": "21555R18",
+"eu": "c a b",
+"lisi": "99V XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber GT Plus",
+"moot": "21560R17",
+"eu": "c a b",
+"lisi": "96V FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber GT Plus",
+"moot": "21560R17",
+"eu": "c a b",
+"lisi": "96H FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber GT Plus",
+"moot": "22560R17",
+"eu": "c a b",
+"lisi": "99V FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber GT Plus",
+"moot": "22560R18",
+"eu": "c a b",
+"lisi": "100H FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber GT Plus",
+"moot": "22565R17",
+"eu": "c a b   72dB",
+"lisi": "106V XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber GT Plus",
+"moot": "23545R19",
+"eu": "c a b",
+"lisi": "99W XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber GT Plus",
+"moot": "23550R19",
+"eu": "c a b",
+"lisi": "99V FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber GT Plus",
+"moot": "23555R17",
+"eu": "c a b",
+"lisi": "99V FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber GT Plus",
+"moot": "23555R18",
+"eu": "c a b",
+"lisi": "100H FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber GT Plus",
+"moot": "23555R19",
+"eu": "c a b",
+"lisi": "105V XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber GT Plus",
+"moot": "23560R18",
+"eu": "c a b",
+"lisi": "103V FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber GT Plus",
+"moot": "23565R17",
+"eu": "c a b",
+"lisi": "108V XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber GT Plus",
+"moot": "24545R20",
+"eu": "c a b",
+"lisi": "103Y XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber GT Plus",
+"moot": "25540R21",
+"eu": "c a b",
+"lisi": "102Y XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber GT Plus",
+"moot": "25545R20",
+"eu": "c a b",
+"lisi": "105Y XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber GT Plus",
+"moot": "25550R19",
+"eu": "c a b",
+"lisi": "107Y XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber GT Plus",
+"moot": "25550R20",
+"eu": "c a b",
+"lisi": "109Y XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber GT Plus",
+"moot": "25555R18",
+"eu": "c a b",
+"lisi": "109Y XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber GT Plus",
+"moot": "25555R19",
+"eu": "c a b",
+"lisi": "111V XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber GT Plus",
+"moot": "25555R20",
+"eu": "c a b",
+"lisi": "110Y XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber GT Plus",
+"moot": "25560R18",
+"eu": "c a b",
+"lisi": "112V XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber GT Plus",
+"moot": "25565R17",
+"eu": "c a b",
+"lisi": "110H FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber GT Plus",
+"moot": "25570R16",
+"eu": "c a b",
+"lisi": "111H FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber GT Plus",
+"moot": "26540R21",
+"eu": "c a b",
+"lisi": "105Y XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber GT Plus",
+"moot": "26545R20",
+"eu": "c a b",
+"lisi": "108Y XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber GT Plus",
+"moot": "26565R17",
+"eu": "c a b",
+"lisi": "112H FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber GT Plus",
+"moot": "27535R22",
+"eu": "b a b",
+"lisi": "104Y XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber GT Plus",
+"moot": "27540R20",
+"eu": "c a b",
+"lisi": "106Y XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber GT Plus",
+"moot": "27540R22",
+"eu": "c a b",
+"lisi": "108Y XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber GT Plus",
+"moot": "27545R21",
+"eu": "c a b",
+"lisi": "110Y XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber GT Plus",
+"moot": "28540R21",
+"eu": "c a b",
+"lisi": "109Y XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber GT Plus",
+"moot": "28540R22",
+"eu": "c a b 73dB",
+"lisi": "110Y XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber GT Plus",
+"moot": "28545R19",
+"eu": "c a b",
+"lisi": "111W XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber GT Plus",
+"moot": "29535R21",
+"eu": "c a b",
+"lisi": "107Y XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber GT Plus",
+"moot": "31535R20",
+"eu": "c a 75",
+"lisi": "110Y XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber HTS60",
+"moot": "24575R16",
+"eu": "d c b",
+"lisi": "120/116S FR OWL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber HTS60",
+"moot": "24575R16",
+"eu": "e e 71",
+"lisi": "111S FR OWL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber HTS60",
+"moot": "26560R18",
+"eu": "e c 72",
+"lisi": "110T FR OWL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber HTS60",
+"moot": "26560R18",
+"eu": "d c b",
+"lisi": "110H FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber HTS60",
+"moot": "27550R20",
+"eu": "c d b 72dB",
+"lisi": "113H XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber HTS60",
+"moot": "28545R22",
+"eu": "b c b",
+"lisi": "114H XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Snow Grabber Plus",
+"moot": "21555R18",
+"eu": "d c b",
+"lisi": "99V XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Snow Grabber Plus",
+"moot": "22555R18",
+"eu": "d c b",
+"lisi": "102V XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Snow Grabber Plus",
+"moot": "23555R18",
+"eu": "d c b",
+"lisi": "104H XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Snow Grabber Plus",
+"moot": "23560R17",
+"eu": "d c b",
+"lisi": "106H XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Snow Grabber Plus",
+"moot": "23575R15",
+"eu": "d c b",
+"lisi": "109T XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Snow Grabber Plus",
+"moot": "25555R19",
+"eu": "d c b",
+"lisi": "111V XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Snow Grabber Plus",
+"moot": "26570R16",
+"eu": "d c b",
+"lisi": "112H FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Gislaved",
+"mudel": "EuroFrost 6",
+"moot": "21560R16",
+"eu": "d c b",
+"lisi": "99H XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Goodride",
+"mudel": "SnowMaster SW608",
+"moot": "15565R14",
+"eu": "d c b 71dB",
+"lisi": "75T"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Goodride",
+"mudel": "SnowMaster SW608",
+"moot": "17565R15",
+"eu": "d c b 71dB",
+"lisi": "84T"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Goodride",
+"mudel": "SuperEco Z-107",
+"moot": "22555R17",
+"eu": "c b b 72dB",
+"lisi": "101W XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Goodride",
+"mudel": "SW612",
+"moot": "20565R16C",
+"eu": "d c b  72dB",
+"lisi": "107/105T"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Goodyear",
+"mudel": "UG Ice 2+",
+"moot": "15570R19",
+"eu": "c d b",
+"lisi": "88T XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Goodyear",
+"mudel": "UG Ice 2+",
+"moot": "20555R17",
+"eu": "c e b",
+"lisi": "95T XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Goodyear",
+"mudel": "UG Ice 2+",
+"moot": "23540R19",
+"eu": "c e b",
+"lisi": "96T XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Goodyear",
+"mudel": "UG Ice 2+",
+"moot": "23545R19",
+"eu": "c d b",
+"lisi": "99T XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Goodyear",
+"mudel": "UG Ice 2+",
+"moot": "24540R20",
+"eu": "c e b",
+"lisi": "99T XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Goodyear",
+"mudel": "UG Ice SUV G1",
+"moot": "21555R18",
+"eu": "b e 72",
+"lisi": "99T XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Goodyear",
+"mudel": "UG Ice SUV G1",
+"moot": "21570R16",
+"eu": "c e 69",
+"lisi": "100T"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Goodyear",
+"mudel": "UG Ice SUV G1",
+"moot": "21570R16",
+"eu": "c e 69",
+"lisi": "100T"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Goodyear",
+"mudel": "UG Ice SUV G1",
+"moot": "22560R17",
+"eu": "C F 72",
+"lisi": "103T XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Goodyear",
+"mudel": "UG Ice SUV G1",
+"moot": "22560R18",
+"eu": "c e 70",
+"lisi": "104T XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Goodyear",
+"mudel": "UG Ice SUV G1",
+"moot": "24550R20",
+"eu": "c e 72",
+"lisi": "105T FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Goodyear",
+"mudel": "Wrangler AT ADV",
+"moot": "26560R18",
+"eu": "d c b 72dB",
+"lisi": "110T"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Kenda",
+"mudel": "MasterTrail KR101",
+"moot": "22570R15C",
+"eu": "a c b",
+"lisi": "116/114N"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Landspider",
+"mudel": "CityTraxx HP",
+"moot": "21550R17",
+"eu": "c b b 70dB",
+"lisi": "95W XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Landspider",
+"mudel": "CityTraxx HP",
+"moot": "22550R18",
+"eu": "c b b 70dB",
+"lisi": "99W XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Landspider",
+"mudel": "CityTraxx HP",
+"moot": "22555R18",
+"eu": "c b b 70dB",
+"lisi": "102W XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Landspider",
+"mudel": "CityTraxx HP",
+"moot": "23545R18",
+"eu": "c b b 70dB",
+"lisi": "98W XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Landspider",
+"mudel": "CityTraxx HP",
+"moot": "23555R18",
+"eu": "c b b 70dB",
+"lisi": "104W XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Landspider",
+"mudel": "CityTraxx HP",
+"moot": "25535R19",
+"eu": "c b b 70dB",
+"lisi": "96W XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Landspider",
+"mudel": "CityTraxx HP",
+"moot": "25535R20",
+"eu": "c b b 70dB",
+"lisi": "97W XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Landspider",
+"mudel": "CityTraxx HP",
+"moot": "25545R19",
+"eu": "c b b 70dB",
+"lisi": "104W XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Landspider",
+"mudel": "DuraTraxx VAN",
+"moot": "19570R15C",
+"eu": "c b b 71dB",
+"lisi": "104/102S"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Landspider",
+"mudel": "DuraTraxx VAN",
+"moot": "21565R15C",
+"eu": "c b b 71dB",
+"lisi": "104/102T"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Landspider",
+"mudel": "DuraTraxx VAN",
+"moot": "22565R16C",
+"eu": "c b b 71dB",
+"lisi": "112/110T"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Landspider",
+"mudel": "DuraTraxx VAN",
+"moot": "22570R15C",
+"eu": "c b b 71dB",
+"lisi": "112/110S"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Landspider",
+"mudel": "DuraTraxx VAN",
+"moot": "22575R16C",
+"eu": "c b b 71dB",
+"lisi": "121/120R"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Landspider",
+"mudel": "DuraTraxx VAN",
+"moot": "23565R16C",
+"eu": "c b b 71dB",
+"lisi": "115/113T"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Landspider",
+"mudel": "DuraTraxx VAN",
+"moot": "23565R16C",
+"eu": "c b b 71dB",
+"lisi": "121/119R"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Landspider",
+"mudel": "EuroTraxx HP",
+"moot": "18560R15",
+"eu": "c b b 70dB",
+"lisi": "88H XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Landspider",
+"mudel": "EuroTraxx HP",
+"moot": "20555R16",
+"eu": "c b b 70dB",
+"lisi": "91V"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Landspider",
+"mudel": "EuroTraxx HP",
+"moot": "21555R16",
+"eu": "c b b 70dB",
+"lisi": "97W XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Landspider",
+"mudel": "EuroTraxx HP",
+"moot": "21560R16",
+"eu": "c b b 70dB",
+"lisi": "99V XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Landspider",
+"mudel": "EuroTraxx HP",
+"moot": "21565R16",
+"eu": "c b b 70dB",
+"lisi": "98H"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Landspider",
+"mudel": "SnowTraxx HP",
+"moot": "16570R14",
+"eu": "d b b 70dB",
+"lisi": "85T XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Landspider",
+"mudel": "SnowTraxx HP",
+"moot": "17565R14",
+"eu": "d b b 70dB",
+"lisi": "86T XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Landspider",
+"mudel": "SnowTraxx HP",
+"moot": "18565R15",
+"eu": "c b b 70dB",
+"lisi": "92T XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Landspider",
+"mudel": "SnowTraxx HP",
+"moot": "19555R16",
+"eu": "c b b 71dB",
+"lisi": "91V XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Landspider",
+"mudel": "SnowTraxx HP",
+"moot": "19565R15",
+"eu": "c b b 71dB",
+"lisi": "95T XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Landspider",
+"mudel": "SnowTraxx HP",
+"moot": "21555R16",
+"eu": "c b b 71dB",
+"lisi": "97H XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Landspider",
+"mudel": "SnowTraxx HP",
+"moot": "21555R17",
+"eu": "c b b 71dB",
+"lisi": "98V XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Landspider",
+"mudel": "SnowTraxx HP",
+"moot": "21565R16",
+"eu": "c b b 71dB",
+"lisi": "98H"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Landspider",
+"mudel": "SnowTraxx HP",
+"moot": "22545R17",
+"eu": "c b b 71dB",
+"lisi": "94V XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Landspider",
+"mudel": "SnowTraxx HP",
+"moot": "22545R18",
+"eu": "c b b 71dB",
+"lisi": "95V XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Landspider",
+"mudel": "SnowTraxx HP",
+"moot": "22550R17",
+"eu": "c b b 71dB",
+"lisi": "98V XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Landspider",
+"mudel": "SnowTraxx HP",
+"moot": "22550R18",
+"eu": "c b b 71dB",
+"lisi": "99V XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Landspider",
+"mudel": "SnowTraxx HP",
+"moot": "22555R17",
+"eu": "c b b 71dB",
+"lisi": "101V XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Landspider",
+"mudel": "SnowTraxx HP",
+"moot": "22555R18",
+"eu": "c b b 71dB",
+"lisi": "102V XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Landspider",
+"mudel": "SnowTraxx HP",
+"moot": "22555R19",
+"eu": "c b b 71dB",
+"lisi": "103V XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Landspider",
+"mudel": "SnowTraxx HP",
+"moot": "22560R17",
+"eu": "c b b 71dB",
+"lisi": "99H"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Landspider",
+"mudel": "SnowTraxx HP",
+"moot": "22565R17",
+"eu": "c b b 71dB",
+"lisi": "102H"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Landspider",
+"mudel": "SnowTraxx HP",
+"moot": "24545R18",
+"eu": "c b b 71dB",
+"lisi": "100V XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Landspider",
+"mudel": "SnowTraxx HP",
+"moot": "25540R19",
+"eu": "c b b 72dB",
+"lisi": "100V XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Landspider",
+"mudel": "SnowTraxx HP",
+"moot": "25555R18",
+"eu": "c b b 72dB",
+"lisi": "109V XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Maxxis",
+"mudel": "Bravo MT753",
+"moot": "19580R14C",
+"eu": "c d b",
+"lisi": "106Q"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "DoubleStar DW09",
+"moot": "23555R20",
+"eu": "d c b 72dB",
+"lisi": "102H"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "EcoDrive",
+"moot": "15580R13",
+"eu": "d b b 70dB",
+"lisi": "79T"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "EcoDrive",
+"moot": "19550R15",
+"eu": "d b b 71dB",
+"lisi": "82V FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "EcoDrive",
+"moot": "19555R15",
+"eu": "d b b 71dB",
+"lisi": "85V FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "EcoDrive",
+"moot": "19565R15",
+"eu": "c b b 71dB",
+"lisi": "91V"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "EcoDrive",
+"moot": "20550R17",
+"eu": "c b b 72dB",
+"lisi": "93W XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "EcoDrive",
+"moot": "20555R16",
+"eu": "d b b",
+"lisi": "91V FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "EcoDrive",
+"moot": "21560R16",
+"eu": "c b b 72dB",
+"lisi": "99V XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "EcoDrive",
+"moot": "22545R17",
+"eu": "c b b 72dB",
+"lisi": "94W XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "EcoDrive",
+"moot": "22545R18",
+"eu": "c b b 72dB",
+"lisi": "95W XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "EcoDrive",
+"moot": "22545R19",
+"eu": "c b b 72dB",
+"lisi": "96W XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "EcoDrive",
+"moot": "23545R17",
+"eu": "c c b 72dB",
+"lisi": "97W XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "EcoDrive",
+"moot": "23560R18",
+"eu": "c b b 72dB",
+"lisi": "107V XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "EcoDrive",
+"moot": "23565R17",
+"eu": "c b b 72dB",
+"lisi": "108V XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NC1000",
+"moot": "19575R16C",
+"eu": "e b 71",
+"lisi": "107/105T"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NC1000",
+"moot": "22570R15C",
+"eu": "e e 70",
+"lisi": "112/110R"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NC1100",
+"moot": "19565R16C",
+"eu": "e b 71",
+"lisi": "104/102T"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NC1100",
+"moot": "23565R16C",
+"eu": "e b 71",
+"lisi": "115/113R"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NS3000",
+"moot": "16570R13",
+"eu": "e c 70",
+"lisi": "79T"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NS3000",
+"moot": "16570R14",
+"eu": "e c 70",
+"lisi": "85T XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NS3000",
+"moot": "17565R14",
+"eu": "e c 70",
+"lisi": "82T"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NS3000",
+"moot": "17570R13",
+"eu": "e c 70",
+"lisi": "82T"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NS3000",
+"moot": "19565R15",
+"eu": "e c 71",
+"lisi": "95H XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NS3000",
+"moot": "21560R16",
+"eu": "e c 71",
+"lisi": "99V XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NS5000",
+"moot": "17570R14",
+"eu": "e c 71",
+"lisi": "88T XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NS5000",
+"moot": "18555R15",
+"eu": "c c 71",
+"lisi": "82V"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NS5000",
+"moot": "18565R14",
+"eu": "e e 71",
+"lisi": "86T"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NS5000",
+"moot": "20560R16",
+"eu": "e e 71",
+"lisi": "96V XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NS5000",
+"moot": "20565R15",
+"eu": "d b 71",
+"lisi": "95H"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NS9000",
+"moot": "19555R16",
+"eu": "d b b",
+"lisi": "87V"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NS9000",
+"moot": "20545R16",
+"eu": "d b b",
+"lisi": "97W XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NS9000",
+"moot": "20545R17",
+"eu": "d b b",
+"lisi": "88W XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NS9000",
+"moot": "20550R16",
+"eu": "d b b",
+"lisi": "91W XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NS9000",
+"moot": "20555R17",
+"eu": "d b b",
+"lisi": "95W XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NS9000",
+"moot": "21555R16",
+"eu": "e b 71",
+"lisi": "97W XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NS9000",
+"moot": "22535R19",
+"eu": "e b 71",
+"lisi": "88W XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NS9000",
+"moot": "22540R18",
+"eu": "e b 71",
+"lisi": "92Y XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NS9000",
+"moot": "22545R18",
+"eu": "e b 71",
+"lisi": "95W XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NS9000",
+"moot": "23535R19",
+"eu": "e b 71",
+"lisi": "91W XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NS9000",
+"moot": "23545R17",
+"eu": "e b 71",
+"lisi": "97Y XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NS9000",
+"moot": "24535R19",
+"eu": "d b b 71dB",
+"lisi": "93W XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NS9000",
+"moot": "25550R19",
+"eu": "e b 72",
+"lisi": "107W XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NS9100",
+"moot": "19550R16",
+"eu": "d c b 71dB",
+"lisi": "88V XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NS9100",
+"moot": "23540R19",
+"eu": "e b 71",
+"lisi": "96W XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NS9100",
+"moot": "24535R20",
+"eu": "d c b",
+"lisi": "95Y XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NS9100",
+"moot": "24540R19",
+"eu": "e c 71",
+"lisi": "98W XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NS9100",
+"moot": "24545R19",
+"eu": "e c 71",
+"lisi": "102W XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NS9200",
+"moot": "23550R17",
+"eu": "c c b",
+"lisi": "100W XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NS9200",
+"moot": "23550R19",
+"eu": "c b b",
+"lisi": "103W XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NS9200",
+"moot": "23555R18",
+"eu": "b c b",
+"lisi": "104W XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NS9200",
+"moot": "25535R19",
+"eu": "c c b",
+"lisi": "96Y XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NS9200",
+"moot": "25540R19",
+"eu": "b c b",
+"lisi": "100Y XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NS9200",
+"moot": "25540R20",
+"eu": "c b b 73dB",
+"lisi": "101Y XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NS9200",
+"moot": "25545R18",
+"eu": "c b b",
+"lisi": "103W XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NS9200",
+"moot": "25545R19",
+"eu": "c b b",
+"lisi": "104W XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NS9200",
+"moot": "25550R20",
+"eu": "c b b",
+"lisi": "109W XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NS9200",
+"moot": "26545R20",
+"eu": "c b b",
+"lisi": "108W XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NS9200",
+"moot": "27535R19",
+"eu": "c b b",
+"lisi": "100Y XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NS9200",
+"moot": "27535R20",
+"eu": "c b b",
+"lisi": "102Y XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NS9200",
+"moot": "27545R20",
+"eu": "c b b",
+"lisi": "110W XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NS9200",
+"moot": "29535R21",
+"eu": "c b b",
+"lisi": "107Y XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NS9200",
+"moot": "31535R20",
+"eu": "c b b",
+"lisi": "110Y XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NU7000",
+"moot": "23575R15",
+"eu": "e c 72",
+"lisi": "105H"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NU7100",
+"moot": "21555R18",
+"eu": "c c b",
+"lisi": "95H FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NU7100",
+"moot": "22560R18",
+"eu": "c c b",
+"lisi": "100H FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NU7100",
+"moot": "24565R17",
+"eu": "d c b",
+"lisi": "107H FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NU7100",
+"moot": "26560R18",
+"eu": "d c b",
+"lisi": "110H FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "VanDrive",
+"moot": "20565R16C",
+"eu": "c c b 72dB",
+"lisi": "107/105T"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "VanDrive",
+"moot": "20575R16C",
+"eu": "c c b 72dB",
+"lisi": "110/108Q"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "VanDrive",
+"moot": "21565R16C",
+"eu": "c c b 72dB",
+"lisi": "109/107T"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "VanDrive",
+"moot": "21575R16C",
+"eu": "c c b 72dB",
+"lisi": "113/111Q"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "VanDrive",
+"moot": "22565R16C",
+"eu": "c c b 72dB",
+"lisi": "112/110T"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "VanDrive",
+"moot": "22570R15C",
+"eu": "c c b 72dB",
+"lisi": "112/110R"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "VanDrive",
+"moot": "23565R16C",
+"eu": "c c b 72dB",
+"lisi": "115/113R"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "WinterSafe 2",
+"moot": "16570R14",
+"eu": "d c b",
+"lisi": "81T"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "WinterSafe 2",
+"moot": "17570R13",
+"eu": "d c b",
+"lisi": "82T"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "WinterSafe 2",
+"moot": "17570R14",
+"eu": "d c b",
+"lisi": "84T"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "WinterSafe 2",
+"moot": "18555R15",
+"eu": "d c b",
+"lisi": "82T FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "WinterSafe 2",
+"moot": "18560R15",
+"eu": "d c b",
+"lisi": "88T XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "WinterSafe 2",
+"moot": "18565R14",
+"eu": "d c b",
+"lisi": "86T"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "WinterSafe 2",
+"moot": "19555R15",
+"eu": "d c b",
+"lisi": "85T FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "WinterSafe 2",
+"moot": "19555R16",
+"eu": "d c b",
+"lisi": "87H FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "WinterSafe 2",
+"moot": "19565R15",
+"eu": "d c b",
+"lisi": "91T"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "WinterSafe 2",
+"moot": "20550R17",
+"eu": "c c b",
+"lisi": "93H XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "WinterSafe 2",
+"moot": "20555R16",
+"eu": "c c b",
+"lisi": "91H FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "WinterSafe 2",
+"moot": "21555R16",
+"eu": "c c b",
+"lisi": "93H FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "WinterSafe 2",
+"moot": "21555R17",
+"eu": "d c b",
+"lisi": "98T XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "WinterSafe 2",
+"moot": "21560R16",
+"eu": "c c b",
+"lisi": "99H XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "WinterSafe 2",
+"moot": "21565R16",
+"eu": "d c b",
+"lisi": "102H XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "WinterSafe 2",
+"moot": "22540R18",
+"eu": "c c b",
+"lisi": "92H XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "WinterSafe 2",
+"moot": "22545R17",
+"eu": "c c b",
+"lisi": "94H XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "WinterSafe 2",
+"moot": "22545R18",
+"eu": "c c b",
+"lisi": "95H XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "WinterSafe 2",
+"moot": "22550R17",
+"eu": "c c b",
+"lisi": "94H FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "WinterSafe 2",
+"moot": "22555R16",
+"eu": "c c b",
+"lisi": "95H FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "WinterSafe 2",
+"moot": "22555R17",
+"eu": "d c b",
+"lisi": "97H"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "WinterSafe 2",
+"moot": "23535R19",
+"eu": "c c b",
+"lisi": "91H XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "WinterSafe 2",
+"moot": "23545R17",
+"eu": "c c b",
+"lisi": "97H XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "WinterSafe 2",
+"moot": "24545R18",
+"eu": "c c b",
+"lisi": "96H FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "WinterSafe 3",
+"moot": "20555R16",
+"eu": "c c b 72dB",
+"lisi": "91V"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "WinterSafe 3",
+"moot": "20560R16",
+"eu": "c c b 72dB",
+"lisi": "92H"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "WinterSafe 3",
+"moot": "21555R17",
+"eu": "c c b 72dB",
+"lisi": "98V XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "WinterSafe 3",
+"moot": "21560R16",
+"eu": "c c b 72dB",
+"lisi": "99H XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "WinterSafe 3",
+"moot": "21560R17",
+"eu": "c c b 72dB",
+"lisi": "100V XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "WinterSafe 3",
+"moot": "22545R17",
+"eu": "c c b 72dB",
+"lisi": "94V XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "WinterSafe 3",
+"moot": "22555R18",
+"eu": "c c b 72dB",
+"lisi": "102V XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "WinterSafe 3",
+"moot": "23555R18",
+"eu": "c c b 72dB",
+"lisi": "104V XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "WinterSafe N2",
+"moot": "21560R17",
+"eu": "d b b",
+"lisi": "100T FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "WinterSafe N2",
+"moot": "22555R18",
+"eu": "d b b 71dB",
+"lisi": "98S FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "WinterSafe N2",
+"moot": "22560R18",
+"eu": "d b b",
+"lisi": "100S FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "WinterSafe N2",
+"moot": "22565R17",
+"eu": "d b b",
+"lisi": "102T FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "WinterSafe N2",
+"moot": "23545R18",
+"eu": "d b b",
+"lisi": "94T FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "WinterSafe N2",
+"moot": "23555R18",
+"eu": "d b b",
+"lisi": "100S FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "WinterSafe N2",
+"moot": "23560R18",
+"eu": "d b b",
+"lisi": "103T FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "WinterSafe N2",
+"moot": "24545R19",
+"eu": "d b b",
+"lisi": "102T XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "WinterSafe N2",
+"moot": "24545R20",
+"eu": "d b b",
+"lisi": "103T FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "WinterSafe N2",
+"moot": "25545R20",
+"eu": "d b b",
+"lisi": "105T XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "WinterSafe N2",
+"moot": "25550R19",
+"eu": "d b b",
+"lisi": "107T FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "WinterSafe N2",
+"moot": "27550R20",
+"eu": "d b b",
+"lisi": "113T FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "WinterSafe Van 2",
+"moot": "19560R16C",
+"eu": "d a b",
+"lisi": "99/97T"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "WinterSafe Van 2",
+"moot": "19575R16C",
+"eu": "d a b",
+"lisi": "107/105R"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "WinterSafe Van 2",
+"moot": "20575R16C",
+"eu": "c a b",
+"lisi": "110/108R"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "WinterSafe Van 2",
+"moot": "21565R15C",
+"eu": "d a b",
+"lisi": "104/102R"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "WinterSafe Van 2",
+"moot": "21570R15C",
+"eu": "c a b",
+"lisi": "109/107R"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "WinterSafe Van 2",
+"moot": "21575R16C",
+"eu": "c a b",
+"lisi": "113/111R"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "WinterSafe Van 2",
+"moot": "22565R16C",
+"eu": "c a b",
+"lisi": "112/110R"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "WinterSafe Van 2",
+"moot": "22575R16C",
+"eu": "c a b",
+"lisi": "121/120R"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "WinterSafe Van 3",
+"moot": "20565R16C",
+"eu": "d c b 72dB",
+"lisi": "107/105T"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "WinterSafe Van 3",
+"moot": "21565R16C",
+"eu": "d c b 72dB",
+"lisi": "109/107R"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "WinterSafe Van 3",
+"moot": "21575R16C",
+"eu": "d c b 72dB",
+"lisi": "113/111Q"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "WinterSafe Van 3",
+"moot": "22565R16C",
+"eu": "d c b 72dB",
+"lisi": "112/110R"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "WinterSafe Van 3",
+"moot": "23565R16C",
+"eu": "d c b 72dB",
+"lisi": "115/113R"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "WinterSafe X2",
+"moot": "23550R19",
+"eu": "d c b",
+"lisi": "99H FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "WinterSafe X2",
+"moot": "23555R17",
+"eu": "d c b",
+"lisi": "103H XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "WinterSafe X2",
+"moot": "23555R19",
+"eu": "d c b",
+"lisi": "105V XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "WinterSafe X2",
+"moot": "24540R18",
+"eu": "d c b",
+"lisi": "93H FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "WinterSafe X2",
+"moot": "27545R20",
+"eu": "d c b",
+"lisi": "110V XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "WinterTrac",
+"moot": "17565R14",
+"eu": "d c b 71dB",
+"lisi": "82H"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "WinterTrac",
+"moot": "18565R14",
+"eu": "c c b 71dB",
+"lisi": "86H"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "WinterTrac",
+"moot": "18565R15",
+"eu": "c c b 71dB",
+"lisi": "88H"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "WinterTrac",
+"moot": "19565R15",
+"eu": "d c b 72dB",
+"lisi": "91H"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "WinterTrac",
+"moot": "22555R17",
+"eu": "c b 72",
+"lisi": "101V XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Pirelli",
+"mudel": "Scorpion S3",
+"moot": "25540R20",
+"eu": "b a a   69dB",
+"lisi": "101Y XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Rotalla",
+"mudel": "W Race S330",
+"moot": "25555R20",
+"eu": "c c b",
+"lisi": "110V XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Sailun",
+"mudel": "Atrezzo ZSR2 EcoPoint3",
+"moot": "21550R17",
+"eu": "b a a 69dB",
+"lisi": "95W XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Sailun",
+"mudel": "Atrezzo ZSR2 EcoPoint3",
+"moot": "22540R18",
+"eu": "c a a 69dB",
+"lisi": "92Y XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Sailun",
+"mudel": "Atrezzo ZSR2 EcoPoint3",
+"moot": "23540R19",
+"eu": "b a a 69dB",
+"lisi": "96Y XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Sailun",
+"mudel": "Atrezzo ZSR2 EcoPoint3",
+"moot": "23545R18",
+"eu": "b a a 69dB",
+"lisi": "98Y XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Sailun",
+"mudel": "Atrezzo ZSR2 EcoPoint3",
+"moot": "24535R19",
+"eu": "b a a 69dB",
+"lisi": "93Y XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Sailun",
+"mudel": "Atrezzo ZSR2 EcoPoint3",
+"moot": "24540R18",
+"eu": "b a a 69dB",
+"lisi": "97Y XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Sailun",
+"mudel": "Atrezzo ZSR2 EcoPoint3",
+"moot": "24545R18",
+"eu": "b a a 69dB",
+"lisi": "100Y XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Sailun",
+"mudel": "Atrezzo ZSR2 EcoPoint3",
+"moot": "25550R19",
+"eu": "b a b 72dB",
+"lisi": "107Y XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Sailun",
+"mudel": "Atrezzo ZSR2 EcoPoint3",
+"moot": "27535R19",
+"eu": "b a a 69dB",
+"lisi": "100Y XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Tracmax",
+"mudel": "X-privilo RS01+",
+"moot": "24540R21",
+"eu": "c c b 72dB",
+"lisi": "100Y XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Tracmax",
+"mudel": "X-privilo RS01+",
+"moot": "25540R21",
+"eu": "c c b 71dB",
+"lisi": "102Y XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Tracmax",
+"mudel": "X-privilo RS01+",
+"moot": "26535R21",
+"eu": "c c b 72dB",
+"lisi": "101Y XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Tracmax",
+"mudel": "X-privilo RS01+",
+"moot": "26540R21",
+"eu": "c c b 72dB",
+"lisi": "105Y XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Tracmax",
+"mudel": "X-privilo RS01+",
+"moot": "26545R20",
+"eu": "c c b 72dB",
+"lisi": "108Y XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Tracmax",
+"mudel": "X-privilo RS01+",
+"moot": "26545R21",
+"eu": "c c b 72dB",
+"lisi": "108Y XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Tracmax",
+"mudel": "X-privilo RS01+",
+"moot": "26550R20",
+"eu": "c c b 72dB",
+"lisi": "111W XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Tracmax",
+"mudel": "X-privilo RS01+",
+"moot": "27530R21",
+"eu": "c c b 72dB",
+"lisi": "98Y XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Tracmax",
+"mudel": "X-privilo RS01+",
+"moot": "27535R22",
+"eu": "c c b 72dB",
+"lisi": "104Y XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Tracmax",
+"mudel": "X-privilo RS01+",
+"moot": "27540R21",
+"eu": "c c b 72dB",
+"lisi": "107Y XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Tracmax",
+"mudel": "X-privilo RS01+",
+"moot": "27540R22",
+"eu": "c c b 72dB",
+"lisi": "108Y XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Tracmax",
+"mudel": "X-privilo RS01+",
+"moot": "27545R20",
+"eu": "c c b 72dB",
+"lisi": "110Y XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Tracmax",
+"mudel": "X-privilo RS01+",
+"moot": "27545R21",
+"eu": "c b b 72dB",
+"lisi": "110Y XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Tracmax",
+"mudel": "X-privilo RS01+",
+"moot": "27545R21",
+"eu": "c c b 72dB",
+"lisi": "110W XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Tracmax",
+"mudel": "X-privilo RS01+",
+"moot": "27555R20",
+"eu": "c b b 72dB",
+"lisi": "117W XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Tracmax",
+"mudel": "X-privilo RS01+",
+"moot": "28535R21",
+"eu": "c c b 72dB",
+"lisi": "105Y XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Tracmax",
+"mudel": "X-privilo RS01+",
+"moot": "28535R22",
+"eu": "c c a 72dB",
+"lisi": "106Y XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Tracmax",
+"mudel": "X-privilo RS01+",
+"moot": "28540R21",
+"eu": "c c a 72dB",
+"lisi": "109Y XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Tracmax",
+"mudel": "X-privilo RS01+",
+"moot": "28545R21",
+"eu": "c c a 72dB",
+"lisi": "113Y XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Tracmax",
+"mudel": "X-privilo RS01+",
+"moot": "28545R22",
+"eu": "c c a 72dB",
+"lisi": "114Y XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Tracmax",
+"mudel": "X-privilo RS01+",
+"moot": "29535R21",
+"eu": "c b b 72dB",
+"lisi": "107Y XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Tracmax",
+"mudel": "X-privilo RS01+",
+"moot": "29540R20",
+"eu": "c c a 72dB",
+"lisi": "110Y XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Tracmax",
+"mudel": "X-privilo RS01+",
+"moot": "29540R21",
+"eu": "c c a 72dB",
+"lisi": "111Y XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Tracmax",
+"mudel": "X-privilo RS01+",
+"moot": "30540R20",
+"eu": "c c b 72dB",
+"lisi": "112Y XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Tracmax",
+"mudel": "X-privilo RS01+",
+"moot": "31530R21",
+"eu": "c c b 72dB",
+"lisi": "105Y XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Tracmax",
+"mudel": "X-privilo RS01+",
+"moot": "31530R22",
+"eu": "c c b 72dB",
+"lisi": "107Y XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Tracmax",
+"mudel": "X-privilo RS01+",
+"moot": "31535R20",
+"eu": "c c a 72dB",
+"lisi": "110Y XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Tracmax",
+"mudel": "X-privilo RS01+",
+"moot": "31535R21",
+"eu": "c c b 72dB",
+"lisi": "111Y XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Tracmax",
+"mudel": "X-privilo RS01+",
+"moot": "31540R21",
+"eu": "c c b 72dB",
+"lisi": "115Y XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Triangle",
+"mudel": "PL01",
+"moot": "20555R16",
+"eu": "D D B",
+"lisi": "94R"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Triangle",
+"mudel": "PL02",
+"moot": "24550R19",
+"eu": "c c b",
+"lisi": "105V XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Triangle",
+"mudel": "PL02",
+"moot": "28550R20",
+"eu": "d c b",
+"lisi": "116H XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Winrun",
+"mudel": "R330",
+"moot": "27540R22",
+"eu": "c b b   71dB",
+"lisi": "107W XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Winrun",
+"mudel": "R330",
+"moot": "28545R22",
+"eu": "c b a   72dB",
+"lisi": "114W XL"
+}
+]
+}

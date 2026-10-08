@@ -309,6 +309,11 @@
 						>{t("tüüp tuletatud")}</span
 					>
 				{/if}
+				{#if ty.pood}
+					· <span title={t("Seda mudelit EL-i registris EPREL ei ole; märgise klassid on müüja kataloogist")}
+						>{t("märgis poe andmetel")}</span
+					>
+				{/if}
 			</p>
 			{#if data.vastus}
 				{@const v = data.vastus}
@@ -433,7 +438,11 @@
 					<div class="box">
 						<h2>{t("EL-i rehvimärgis")}</h2>
 						<p class="sub">
+							{#if ty.pood}
+								{@html t("Märgise klassid müüja ({pood}) kataloogist, mõõdu kaupa — seda mudelit EL-i registris EPREL ei ole. Sama tootja deklaratsioon, aga käsitsi sisestatud. <a href=\"/teadmine/rehvimargis/\">Mida klassid tähendavad?</a>", { pood: ty.pood })}
+							{:else}
 							{@html t("Ametlikud andmed EL-i tooteregistrist EPREL, mõõdu kaupa. Klass on mõõdupõhine. <a href=\"/teadmine/rehvimargis/\">Mida klassid tähendavad?</a>")}
+							{/if}
 						</p>
 						<div class="tbl-wrap">
 							<table class="t">

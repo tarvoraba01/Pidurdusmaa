@@ -221,7 +221,9 @@ function rehvLeht(t) {
 			cat: t.cat,
 			testedKey: t.tested ? t.tested.key : '',
 			testSize: t.tested ? t.tested.size : '',
-			oletus: !!(t.model && String(t.model.katAlus || '').startsWith('OLETUS'))
+			oletus: !!(t.model && String(t.model.katAlus || '').startsWith('OLETUS')),
+			/* mudel on poe kataloogist (EPREL-i korjes puudub): märgis müüja andmetel */
+			pood: t.model && t.model.allikas === 'pood' ? String(t.model.pood || 'pood') : null
 		},
 		sizes,
 		/* ühe mõõdu kohta võib olla mitu rida (koormusindeks, tootjavariant AO/MO/XL) */
