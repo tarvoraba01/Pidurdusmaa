@@ -461,7 +461,6 @@
 	{#if olek === 'tulemus' && read.length}
 		<div class="rk-tul">
 			{#if tulemusMs}<p class="rk-suur">{reziim === 'tuled' ? t('Sinu reaktsioon (3 katse mediaan)') : t('Sinu reaktsioon')}: <b>{f2(tulemusMs)} s</b>{#if sobra}{' · ' + (tulemusMs < sobra ? t('Sõbrast kiirem!') : tulemusMs > sobra ? t('Sõber oli kiirem') + ' (' + f2(sobra) + ' s)' : t('Täpselt sama kiire kui sõber!'))}{/if}</p>{/if}
-			<p class="rk-pea">{t('Sama olukord, erinev reaktsioon')} · {ilmNimi} · {kiirus} {t('km/h')}{reziim === 'pime' && D ? ' · ' + t('jalakäija nähtav') + ' ' + Math.round(D) + ' ' + t('m') : ''}{muster < 8 ? ' · ' + t('Rehvi muster {mm} mm', { mm: (+muster).toFixed(1).replace('.', ',') }).toLowerCase() : ''} · {veh.name}</p>
 			<ol class="rk-read">
 				{#each read as [nimi, s, r, me] (nimi)}
 					<li class:me><span class="n">{nimi} <small>{f2(s * 1000)} s</small></span><span class="o" class:punane={r.crash}>{lause(r)}</span></li>
