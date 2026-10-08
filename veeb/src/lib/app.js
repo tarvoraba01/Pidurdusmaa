@@ -1434,7 +1434,10 @@ import UNIVERSAALID from './universaalid.json';
       /* poe soovitus järgib VALITUD TEEOLUSID (Tarvo 8.10): kuiv/märg → suverehvid,
          lumi/jää → talverehvid — mitte sinu praeguse rehvi tüüpi */
       var poodHooaeg = (S.cond === 'snow' || S.cond === 'ice') ? 'winter' : 'summer';
-      var sea = SEASON[poodHooaeg], voti = moodud.join(',') + '|' + poodHooaeg;
+      /* kuival/märjal: suverehvid ees, lamell- ja aastaringsed ka (nendega võib suvel sõita), märgiga */
+      var sea = poodHooaeg === 'winter' ? SEASON.winter
+        : { long: _t('suverehvid, ka lamell- ja aastaringsed'), eprel: [0, 1, 2, 3], tested: SEASON.summer.tested.concat(SEASON.winter.tested) };
+      var voti = moodud.join(',') + '|' + poodHooaeg;
       if (voti === poodVoti) return;
       poodVoti = voti;
       if (!core._tyreBySlug) { core._tyreBySlug = {}; core.tyres.forEach(function (t) { if (t.slug) core._tyreBySlug[t.slug] = t; }); }
@@ -1449,15 +1452,16 @@ import UNIVERSAALID from './universaalid.json';
               var slug = id.split('@')[0], rr = k.h[id];
               if (!rr || !rr.length || id.split('@')[1] !== k.m) return;
               var e = bySlug[slug], t = core._tyreBySlug[slug], nimi, g = null;
-              if (e) { if (sea.eprel.indexOf(e.catNr) < 0) return; nimi = e.mark + ' ' + e.name; g = e.g; }
-              else if (t) { if (sea.tested.indexOf(t.category) < 0) return; nimi = t.name; }
+              var kat = null;
+              if (e) { if (sea.eprel.indexOf(e.catNr) < 0) return; nimi = e.mark + ' ' + e.name; g = e.g; kat = e.catNr; }
+              else if (t) { if (sea.tested.indexOf(t.category) < 0) return; nimi = t.name; kat = /^SUMMER/.test(t.category) ? 0 : t.category === 'ALL_SEASON' ? 1 : t.category === 'WINTER_CENTRAL' ? 2 : 3; }
               else return;
               var r = rr.slice().sort(function (a, b) { return a.hind - b.hind; })[0];
-              list.push({ m: k.m, slug: slug, nimi: nimi, g: g, testitud: !!(t || (e && e.tested)), r: r });
+              list.push({ m: k.m, slug: slug, nimi: nimi, g: g, kat: kat, testitud: !!(t || (e && e.tested)), r: r });
             });
           });
           /* sinu mõõt ees (soodsaim ees), teised tehasemõõdud järel */
-          list.sort(function (a, b) { return ((a.m !== S.size) - (b.m !== S.size)) || (a.r.hind - b.r.hind); });
+          list.sort(function (a, b) { return ((a.m !== S.size) - (b.m !== S.size)) || (poodHooaeg === 'summer' ? (!!a.kat - !!b.kat) : 0) || (a.r.hind - b.r.hind); });
           var ainultOma = !list.some(function (x) { return x.m !== S.size; });
           if (!list.length) { box.hidden = true; box.innerHTML = ''; return; }
           list = list.slice(0, 30);
@@ -1467,7 +1471,7 @@ import UNIVERSAALID from './universaalid.json';
               var ladu = r.laos === false ? _t('tellimisel') : (r.kogus > 0 ? _t('laos') + ' ' + (r.kogus >= 8 ? '8+' : r.kogus) + ' ' + _t('tk') : '');
               var pilt = r.pilt ? '<img src="' + CFG.home + 'api/pilt/' + encodeURIComponent(x.slug) + '/" alt="" width="72" height="86" loading="lazy" decoding="async">' : '<span class="pk-ring" aria-hidden="true"></span>';
               var ylal = '<span class="pk-m">' + esc(pretty(x.m)) + (x.m === S.size ? ' <i>' + _t('sinu') + '</i>' : '') + '</span>' +
-                '<span class="pk-pilt">' + pilt + '</span><span class="pk-n">' + esc(x.nimi) + '</span>' +
+                '<span class="pk-pilt">' + pilt + '</span>' + (poodHooaeg === 'summer' && x.kat ? '<span class="kat-b kat-' + x.kat + '">' + KAT_KAART[x.kat] + '</span>' : '') + '<span class="pk-n">' + esc(x.nimi) + '</span>' +
                 (x.g ? '<small>' + _t('märghaare ') + esc(x.g) + (x.testitud ? _t(' · testitud') : '') + '</small>' : x.testitud ? '<small>' + _t('testitud') + '</small>' : '');
               return '<div class="pk">' + eelNupp(x.slug, x.m, x.nimi, r, ylal) +
                 '<b>' + hindTekst(r) + '</b><span class="pk-pood">' + esc(r.myyja) + '</span>' + (ladu ? '<small>' + ladu + '</small>' : '') + valiLink(r, x.nimi + ' ' + pretty(x.m)) + '</div>';

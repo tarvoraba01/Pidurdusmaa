@@ -834,6 +834,7 @@ export default {
 "Veeretakistuse klass: A = 5 tähte": "Класс сопротивления качению: A = 5 звёзд",
 "Naastrehvidel EL-i märgist ei ole. Nimekirjas on testitud naastrehvid; pidurdusmaa on arvutatud sinu autoga testides mõõdetud haardest. Kas rehv selles mõõdus müügil on, näed hinnast.": "У шипованных шин нет маркировки ЕС. В списке протестированные шипованные шины; тормозной путь рассчитан для вашего авто по сцеплению, измеренному в тестах. Продаётся ли шина в этом размере, видно по цене.",
 "vahemik ": "диапазон ",
+"suverehvid, ka lamell- ja aastaringsed": "летние шины, а также фрикционные и всесезонные",
 "Lühidalt": "Коротко",
 "\">eemalda</button></span></th>": "\">убрать</button></span></th>",
 "Jah": "Да",
