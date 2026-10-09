@@ -1,5 +1,6 @@
 <script>
 	import Meta from '$lib/Meta.svelte';
+	import AutoPilt from '$lib/AutoPilt.svelte';
 	import { BASE } from '$lib/skeem.js';
 	import { useT, useLang, autoNimi } from '$lib/i18n.js';
 	/* Tekstid: eesti keel on lähtetekst, vene tõlge $lib/i18n/ru.js (/ru/autod/…) */
@@ -15,6 +16,9 @@
 	const f1 = (x) => (x == null ? '–' : (Math.round(x * 10) / 10).toFixed(1).replace('.', DEC));
 	const marg90 = $derived(data.pidurdus.find((x) => x.id === 'marg')?.r?.[90]?.peatumine);
 	const lumi50 = $derived(data.pidurdus.find((x) => x.id === 'lumiT')?.r?.[50]?.peatumine);
+	/* heros pidurdusmaa (pidur põhja kuni seisuni, ilma reaktsioonita) — sama mõiste mis kalkulaatori suur number */
+	const margP = $derived(data.pidurdus.find((x) => x.id === 'marg')?.r?.[90]?.pidurdus);
+	const lumiP = $derived(data.pidurdus.find((x) => x.id === 'lumiT')?.r?.[50]?.pidurdus);
 	const nMootoreid = $derived(data.mootorid.length);
 	const desc = $derived(
 		t(nMootoreid === 1 ? '{nimi}: rehvimõõt {moot}, {n} mootor.' : '{nimi}: rehvimõõt {moot}, {n} mootorit.', { nimi: a.nimi, moot: data.pohimoot, n: nMootoreid }) +
@@ -95,40 +99,87 @@
 	{jsonld}
 />
 
-<section class="page-hero">
-	<div class="wrap">
-		<div class="crumbs">
-			<a href={L('/')}>{t('Avaleht')}</a><span>/</span><a href={L('/autod/')}>{t('Autod')}</a><span>/</span><a href={L('/autod/' + a.mk + '/')}>{a.make}</a><span
-				>/</span
-			>{a.model}
-			{a.yearLabel}
+<section class="page-hero ad-hero">
+	<div class="wrap ad-hero-in">
+		<div class="ad-hero-txt">
+			<div class="crumbs">
+				<a href={L('/')}>{t('Avaleht')}</a><span>/</span><a href={L('/autod/')}>{t('Autod')}</a><span>/</span><a href={L('/autod/' + a.mk + '/')}>{a.make}</a><span
+					>/</span
+				>{a.model}
+				{a.yearLabel}
+			</div>
+			<p class="ad-mark">{a.make}</p>
+			<h1>{a.model} <span class="ad-aastad">{a.yearLabel}</span></h1>
+			<p class="ad-lyhi">{t('Rehvid ja pidurdusmaa')}</p>
+			<ul class="ad-faktid">
+				<li><small>{t('Rehvimõõt')}</small><b>{data.pohimoot}</b></li>
+				{#if margP}<li><small>{t('Märjal 90→0')}</small><b>~{Math.round(margP)} {t('m')}</b></li>{/if}
+				{#if lumiP}<li><small>{t('Lumel 50→0')}</small><b>~{Math.round(lumiP)} {t('m')}</b></li>{/if}
+			</ul>
 		</div>
-		<h1>{t('{nimi} rehvid ja pidurdusmaa', { nimi: a.nimi })}</h1>
-		<p>
-			{@html t('Tehase põhimõõt on <b>{moot}</b>.', { moot: esc(data.pohimoot) })}{#if marg90}{' '}{@html t('Märjal asfaldil 90 km/h pealt peatub see auto keskmise (C-klassi) suverehviga umbes <b>{m} meetriga</b>', { m: Math.round(marg90) })}{#if lumi50}{@html t(', tallatud lumel 50 km/h pealt talverehviga umbes <b>{m} meetriga</b>', { m: Math.round(lumi50) })}{/if}.{/if}
-		</p>
-		<p class="ad-cta">
-			<a class="btn yel" href={L('/') + autoQ}>{t('Arvuta oma rehviga')}</a>
-			<a class="btn" href={L('/rehvi-valimine/') + autoQ}>{t('Leia sobiv rehv')}</a>
-		</p>
+		<div class="ad-pilt"><AutoPilt keha={a.keha} moot={data.pohimoot} /></div>
 	</div>
 </section>
 
-<div class="body-sec">
+<!-- rehvivalik selle auto jaoks: sama nimekiri mis /rehvi-valimine/, lihtsustatud (app.js initTyres, data-auto) -->
+<div class="body-sec ad-valik" data-cmp-page data-mode="valik" data-auto={a.key} data-lihtne>
 	<div class="wrap">
-		<div class="box">
-			<h2>{t('Tehase rehvimõõdud')}</h2>
-			<p class="sub">{t('Mõõdud, millega see põlvkond tehasest tuli. Täpne mõõt on rehvi küljel ja juhiukse piirdel.')}</p>
-			<ul class="ad-moodud">
-				{#each data.moodud as z (z.m)}
-					<li class:pohi={z.pohi}>
-						{#if z.slug}<a href={L("/rehvid/" + z.slug + "/")}>{z.label}</a>{:else}{z.label}{/if}
-						{#if z.pohi}<span class="pill">{t('põhimõõt')}</span>{/if}
-					</li>
+		<div class="box ad-samm">
+			<h2 class="ad-sh"><span>1</span>{t('Vali oma mootor')}</h2>
+			<p class="sub">{t('Mootoril võib olla oma rehvimõõt ja mass — nii on rehvid ja pidurdusmaa täpselt sinu autole.')}</p>
+			<div class="ad-mootorid" role="group" aria-label={t('Mootor')}>
+				{#each data.mootorid as m (m.key)}
+					<button type="button" class="ad-mootor" data-mootor={m.key} aria-pressed={m.key === a.key ? 'true' : 'false'}>
+						<b>{an(hj(m.silt)) || a.model}</b>
+						<span>{[m.kytus ? t(m.kytus) : '', m.aastad].filter(Boolean).join(' · ')}</span>
+						<span class="ad-m-moot">{m.moot || data.pohimoot}</span>
+					</button>
 				{/each}
-			</ul>
+			</div>
 		</div>
 
+		<div class="box ad-samm">
+			<h2 class="ad-sh"><span>2</span>{t('Sinu autole sobivad rehvid')}</h2>
+			<div class="ad-seaded">
+				<div class="lseg ad-hooaeg" role="group" aria-label={t('Rehvi liik')}>
+					<button type="button" data-season="summer">{t('Suverehv')}</button>
+					<button type="button" data-season="winter">{t('Lamell')}</button>
+					<button type="button" data-season="naast">{t('Naast')}</button>
+				</div>
+				<label class="ad-moot">
+					<span>{t('Rehvimõõt')}</span>
+					<select class="lsel" data-f="size"><option value={data.moodud.find((z) => z.pohi)?.m || ''}>{data.pohimoot}</option></select>
+				</label>
+			</div>
+			<div class="list-filter">
+				<select class="lsel" data-brand aria-label={t('Mark')}><option value="">{t('Kõik margid')}</option></select>
+				<input class="lsel" type="search" data-q placeholder={t('Otsi marki või mudelit')} aria-label={t('Otsi rehvi')} style="background-image:none" />
+			</div>
+			<p class="note" data-cmp-head style="margin:0 0 var(--sp-3);font-size:15px"></p>
+			<div class="res-list" data-cmp-list>
+				<!-- enne JS-i (ja otsingumootoritele): parimad märgise järgi põhimõõdus -->
+				{#each [['suvi', data.suvi], ['talv', data.talv]] as [k, list] (k)}
+					{#if list.length}
+						<p class="note"><b>{t(PEALKIRI[k], { moot: data.pohimoot })}</b></p>
+						<ul class="ad-ssr">
+							{#each list as r (r.slug)}<li><a href={L('/rehvid/' + r.slug + '/')}>{r.nimi}</a> · {r.g || '–'}{#if r.testitud} · {t('testitud')}{/if}</li>{/each}
+						</ul>
+					{/if}
+				{/each}
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="cmp-tray" data-tray hidden>
+	<div class="wrap">
+		<div class="chips" data-tray-chips></div>
+		<a class="btn yel sm" href={L('/vordle-rehve/')} data-tray-go>{t('Võrdle kõrvuti →')}</a>
+	</div>
+</div>
+
+<div class="body-sec" style="padding-top:0">
+	<div class="wrap">
 		<div class="box">
 			<h2>{t('Pidurdusmaa')}</h2>
 			<p class="sub">
@@ -150,56 +201,6 @@
 				</table>
 			</div>
 			<p class="note">{t(data.absTekst)} {t('Hinnang, mitte mõõtmine — päris pidurdusmaa sõltub konkreetsest rehvist, teest ja juhist.')}</p>
-		</div>
-
-		{#each [['suvi', data.suvi], ['talv', data.talv], ['aastaring', data.aastaring]] as [k, list] (k)}
-			{#if list.length}
-				<div class="box">
-					<h2>{t(PEALKIRI[k], { moot: data.pohimoot })}</h2>
-					<p class="sub">{t('Sõltumatult testitud mudelid eespool, seejärel EL-i märgise märghaardumise klassi järgi.')}</p>
-					<div class="tbl-wrap">
-						<!-- hinnad: app.js lisab veeru „Hind“, kui poodides on selle mõõdu pakkumisi -->
-						<table class="t" data-hinnad={data.pohimoot.replace(/[/ ]/g, '')} data-hinnad-koht="autoleht">
-							<thead><tr><th>{t('Rehv')}</th><th>{t('Märghaardumine')}</th><th class="n">{t('Müra')}</th></tr></thead>
-							<tbody>
-								{#each list as r (r.slug)}
-									<tr data-pid={r.slug} data-n={r.nimi}>
-										<td
-											><a href={L("/rehvid/" + r.slug + "/")}>{r.nimi}</a>{#if r.testitud}
-												<span class="pill test" style="margin-left:var(--sp-2)">{t('testitud')}</span>{/if}</td
-										>
-										<td>{r.g || '–'}</td>
-										<td class="n">{r.db ? r.db + ' dB' : '–'}</td>
-									</tr>
-								{/each}
-							</tbody>
-						</table>
-					</div>
-					{#if k === 'talv' && data.talvSlug}<p class="note"><a href={L('/talverehvid/' + data.talvSlug + '/')}>{t('Parimad talverehvid {m} — testid, naast ja lamell →', { m: data.pohimoot })}</a></p>{/if}
-					{#if data.pohimootSlug}<p class="note"><a href={L("/rehvid/" + data.pohimootSlug + "/")}>{t('Kõik rehvid mõõdus {moot} →', { moot: data.pohimoot })}</a></p>{/if}
-				</div>
-			{/if}
-		{/each}
-
-		<div class="box">
-			<h2>{t('Mootorid')}</h2>
-			<p class="sub">{t('Tehase mootorid. Kui mootoril on oma rehvimõõt või mass, arvestab kalkulaator seda.')}</p>
-			<div class="tbl-wrap">
-				<table class="t">
-					<thead><tr><th>{t('Mootor')}</th><th>{t('Kütus')}</th><th>{t('Aastad')}</th><th>{t('Rehvimõõt')}</th><th class="n">{t('Tühimass')}</th></tr></thead>
-					<tbody>
-						{#each data.mootorid as m (m.key)}
-							<tr>
-								<td><a href={L('/') + '?auto=' + encodeURIComponent(m.key)}>{an(hj(m.silt)) || a.model}</a></td>
-								<td>{m.kytus ? t(m.kytus) : '–'}</td>
-								<td>{m.aastad || '–'}</td>
-								<td>{m.moot || '–'}</td>
-								<td class="n">{m.mass ? m.mass + ' ' + t('kg') : '–'}</td>
-							</tr>
-						{/each}
-					</tbody>
-				</table>
-			</div>
 		</div>
 
 		<div class="box">
@@ -224,6 +225,49 @@
 </div>
 
 <style>
+	/* ---- hero: auto pilt + põhifaktid */
+	.ad-hero { padding-bottom: var(--sp-8); }
+	.ad-hero-in { display: grid; grid-template-columns: 1.05fr 1fr; gap: var(--sp-8); align-items: center; }
+	.ad-mark { color: var(--yellow) !important; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; font-size: 14px !important; margin: var(--sp-4) 0 var(--sp-1) !important; }
+	.ad-aastad { color: #9aa2ae; font-size: 0.5em; letter-spacing: 0.02em; white-space: nowrap; }
+	.ad-lyhi { font-size: 18px; margin: 0 0 var(--sp-5) !important; }
+	.ad-faktid { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: var(--sp-3); }
+	.ad-faktid li { background: var(--ink-3); border: 1px solid var(--line-d, #2a2f39); border-radius: 14px; padding: 10px 16px; display: grid; gap: 2px; min-width: 128px; }
+	.ad-faktid small { color: #9aa2ae; font-size: 12.5px; }
+	.ad-faktid b { color: #fff; font-size: 22px; font-family: var(--display); letter-spacing: 0.01em; }
+	.ad-pilt { max-width: 520px; justify-self: center; width: 100%; }
+	@media (max-width: 820px) {
+		.ad-hero-in { grid-template-columns: 1fr; gap: var(--sp-4); }
+		.ad-pilt { order: 2; max-width: 420px; }
+		.ad-faktid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--sp-2); }
+		.ad-faktid li { min-width: 0; padding: 8px 10px; border-radius: 12px; }
+		.ad-faktid small { font-size: 11.5px; }
+		.ad-faktid b { font-size: 18px; white-space: nowrap; }
+		.ad-sh { font-size: 26px; }
+	}
+	/* ---- 1. mootor, 2. rehvid */
+	.ad-valik { padding-bottom: var(--sp-6); }
+	.ad-samm { margin-bottom: var(--sp-6); }
+	.ad-sh { display: flex; align-items: center; gap: var(--sp-3); margin: 0 0 var(--sp-2); }
+	.ad-sh span { display: inline-grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; background: var(--yellow); color: var(--yellow-ink); font-size: 18px; flex: none; }
+	.ad-mootorid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: var(--sp-3); max-height: 340px; overflow-y: auto; padding: 2px; }
+	.ad-mootor { text-align: left; display: grid; gap: 3px; padding: 12px 14px; border: 1.5px solid var(--line); border-radius: 14px; background: #fff; cursor: pointer; font: inherit; color: inherit; transition: border-color 0.15s, background 0.15s; }
+	.ad-mootor:hover { border-color: #c5cad3; }
+	.ad-mootor b { font-size: 15px; line-height: 1.3; }
+	.ad-mootor span { color: var(--muted); font-size: 13px; }
+	.ad-mootor .ad-m-moot { justify-self: start; margin-top: 4px; padding: 2px 9px; border-radius: 999px; background: var(--bg-2, #f3f4f6); color: var(--text); font-weight: 600; font-size: 12.5px; }
+	.ad-mootor[aria-pressed='true'] { border-color: var(--yellow); background: var(--yellow-soft); box-shadow: 0 0 0 2px var(--yellow) inset; }
+	.ad-mootor[aria-pressed='true'] .ad-m-moot { background: var(--yellow); color: var(--yellow-ink); }
+	@media (max-width: 640px) {
+		/* telefonis üks rida, keritav külgsuunas */
+		.ad-mootorid { display: flex; overflow-x: auto; max-height: none; scroll-snap-type: x mandatory; padding-bottom: var(--sp-2); }
+		.ad-mootor { flex: 0 0 78%; scroll-snap-align: start; }
+	}
+	.ad-seaded { display: flex; flex-wrap: wrap; gap: var(--sp-3) var(--sp-5); align-items: end; margin: var(--sp-3) 0 var(--sp-4); }
+	.ad-hooaeg button { min-width: 96px; }
+	.ad-moot { display: grid; gap: 4px; font-size: 13px; color: var(--muted); font-weight: 600; }
+	.ad-moot select { min-width: 210px; }
+	.ad-ssr { margin: 0 0 var(--sp-4); padding-left: var(--sp-5); }
 	.ad-kkk-k { font-size: 17px; margin: var(--sp-4) 0 var(--sp-1); }
 	.ad-kkk-v { margin: 0; }
 	:global(table.t.ad-kompakt) {

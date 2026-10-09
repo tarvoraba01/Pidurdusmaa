@@ -133,7 +133,7 @@ export function polveLeht(p) {
 	const allikad = [...new Set([baas.oemSrc, ...rows.flatMap(() => [])].filter(Boolean))];
 
 	return {
-		auto: { mk: p.mk, slug: p.slug, make: p.make, model: p.model, yearLabel: p.yearLabel, nimi: polveNimi(p), key: baas.key },
+		auto: { mk: p.mk, slug: p.slug, make: p.make, model: p.model, yearLabel: p.yearLabel, nimi: polveNimi(p), key: baas.key, keha: baas.body || 'SOIDUAUTO' },
 		pohimoot: pretty(pohiN),
 		pohimootSlug: sizeModelCount(pohiN) >= SIZE_MIN_MODELS ? sizeSlug(pohiN) : null,
 		moodud,

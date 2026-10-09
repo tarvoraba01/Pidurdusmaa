@@ -2312,6 +2312,10 @@ import UNIVERSAALID from './universaalid.json';
     if (qs.get('auto')) S.veh = qs.get('auto');
     if (qs.get('moot')) S.size = qs.get('moot');
     if (qs.get('hooaeg') && SEASON[qs.get('hooaeg')]) S.season = qs.get('hooaeg') === 'all' ? 'winter' : qs.get('hooaeg'); /* vanad lingid: aastaringne on nüüd lamelliga koos */
+    /* AUTOLEHT (/autod/…): auto on lehe oma, mootor valitakse kaartidelt; hooaeg kuupäeva järgi */
+    var autoLeht = root.dataset.auto ? $$('[data-mootor]', root) : null;
+    if (autoLeht && !autoLeht.length) autoLeht = null;
+    if (autoLeht && !qs.get('hooaeg')) { var kuu = new Date().getMonth() + 1; S.season = kuu >= 10 || kuu <= 3 ? 'winter' : 'summer'; }
     if (qs.get('rehvid')) {
       var known = {}; cmp.list().forEach(function (x) { known[x.id] = x.n; });
       cmp.set(qs.get('rehvid').split(',').filter(Boolean).map(function (id) { return { id: id, n: known[id] || id.split('@')[0] }; }));
@@ -2323,8 +2327,33 @@ import UNIVERSAALID from './universaalid.json';
     function dropOtherSizes(was) {
       if (S.size !== was && !restoring) cmp.set(cmp.list().filter(function (x) { return x.id.split('@')[1] === S.size; }));
     }
+    var valiMootor = null;
     if (ext) {
       ext.on(function (v) { var was = S.size; S.veh = v.veh; S.size = v.size; dropOtherSizes(was); draw(); });
+    } else if (autoLeht) {
+      var sizeSelA = $('[data-f=size]', root);
+      valiMootor = function (key, kasutaja) {
+        var tee = function () {
+          var veh = core.vehByKey[key] || core.vehByKey[root.dataset.auto];
+          if (!veh) return;
+          var was = S.size;
+          S.veh = veh.key;
+          S.size = sizeOptions(sizeSelA, veh, norm(veh.oemSize));
+          autoLeht.forEach(function (b) {
+            var on = b.dataset.mootor === veh.key;
+            b.setAttribute('aria-pressed', String(on));
+            /* telefonis on kaardid ühes keritavas reas — valitu nähtavale (ainult rida, mitte lehte) */
+            if (on && b.parentNode.scrollWidth > b.parentNode.clientWidth) b.parentNode.scrollLeft = b.offsetLeft - b.parentNode.offsetLeft - 8;
+          });
+          dropOtherSizes(was);
+          /* kasutaja valik jääb meelde (kalkulaator ja rehvilehed teavad sama autot) */
+          if (kasutaja) { save(); Track('autoleht_mootor', veh.name); }
+          draw();
+        };
+        if (key.indexOf('~') > 0 && !core.vehByKey[key]) laeMootorid().then(tee); else tee();
+      };
+      autoLeht.forEach(function (b) { b.addEventListener('click', function () { valiMootor(b.dataset.mootor, true); }); });
+      sizeSelA.addEventListener('change', function () { var was = S.size; S.size = sizeSelA.value; dropOtherSizes(was); draw(); });
     } else {
       var sizeSel = $('[data-f=size]', root);
       picker = VehPicker(root, function (key) {
@@ -2545,8 +2574,10 @@ import UNIVERSAALID from './universaalid.json';
       sortBar.className = 'sortbar';
       sortBar.setAttribute('role', 'group');
       sortBar.setAttribute('aria-label', _t('Järjesta'));
-      sortBar.innerHTML = _t('<span>Järjesta:</span><button type="button" data-sort="fit" aria-pressed="true">Sobivus</button>') +
-        _t('<button type="button" data-sort="price" aria-pressed="false">Hind</button>');
+      sortBar.innerHTML = root.hasAttribute('data-lihtne')
+        ? '<span>' + _t('Järjesta:') + '</span><button type="button" data-sort="fit" aria-pressed="true">' + _t('Lühim pidurdusmaa') + '</button><button type="button" data-sort="price" aria-pressed="false">' + _t('Odavaim') + '</button>'
+        : _t('<span>Järjesta:</span><button type="button" data-sort="fit" aria-pressed="true">Sobivus</button>') +
+          _t('<button type="button" data-sort="price" aria-pressed="false">Hind</button>');
       head.parentNode.insertBefore(sortBar, head.nextSibling);
       $$('[data-sort]', sortBar).forEach(function (b) {
         b.addEventListener('click', function () {
@@ -2923,7 +2954,12 @@ import UNIVERSAALID from './universaalid.json';
     }
 
     /* auto taastatakse ALLES NÜÜD, kui kõik joonistajad on olemas */
-    if (!ext && S.veh && core.vehByKey[S.veh]) { restoring = true; picker.set(S.veh); restoring = false; } else draw();
+    if (autoLeht) {
+      /* sinu salvestatud auto, kui see on selle lehe mootorite seas; muidu põlvkonna põhirida */
+      var minu = store.get('veh', '');
+      var keys = autoLeht.map(function (b) { return b.dataset.mootor; });
+      valiMootor(keys.indexOf(minu) >= 0 ? minu : root.dataset.auto, false);
+    } else if (!ext && S.veh && core.vehByKey[S.veh]) { restoring = true; picker.set(S.veh); restoring = false; } else draw();
   }
 
   /* ============================================================ REHVILEHT
