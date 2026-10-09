@@ -108,13 +108,15 @@
 				>{a.model}
 				{a.yearLabel}
 			</div>
+			<a class="ad-tagasi" href={L('/autod/' + a.mk + '/')}>← {t('Kõik {mark} mudelid', { mark: a.make })}</a>
 			<p class="ad-mark">{a.make}</p>
 			<h1>{a.model} <span class="ad-aastad">{a.yearLabel}</span></h1>
-			<p class="ad-lyhi">{t('Rehvid ja pidurdusmaa')}</p>
+			<p class="ad-lyhi" data-ad-mootor>{t('Rehvid ja pidurdusmaa')}</p>
+			<!-- numbrid uuenevad mootori valikuga (app.js initTyres, autoleht) -->
 			<ul class="ad-faktid">
-				<li><small>{t('Rehvimõõt')}</small><b>{data.pohimoot}</b></li>
-				{#if margP}<li><small>{t('Märjal 90→0')}</small><b>~{Math.round(margP)} {t('m')}</b></li>{/if}
-				{#if lumiP}<li><small>{t('Lumel 50→0')}</small><b>~{Math.round(lumiP)} {t('m')}</b></li>{/if}
+				<li><small>{t('Rehvimõõt')}</small><b data-ad-moot>{data.pohimoot}</b></li>
+				{#if margP}<li><small>{t('Märjal 90→0')}</small><b data-ad-marg>~{Math.round(margP)} {t('m')}</b></li>{/if}
+				{#if lumiP}<li><small>{t('Lumel 50→0')}</small><b data-ad-lumi>~{Math.round(lumiP)} {t('m')}</b></li>{/if}
 			</ul>
 		</div>
 		<div class="ad-pilt"><AutoPilt keha={a.keha} moot={data.pohimoot} /></div>
@@ -228,6 +230,8 @@
 	/* ---- hero: auto pilt + põhifaktid */
 	.ad-hero { padding-bottom: var(--sp-8); }
 	.ad-hero-in { display: grid; grid-template-columns: 1.05fr 1fr; gap: var(--sp-8); align-items: center; }
+	.ad-tagasi { display: inline-block; margin-top: var(--sp-4); padding: 6px 14px; border-radius: 999px; background: var(--ink-3); border: 1px solid var(--line-d, #2a2f39); color: #dfe3e8; font-size: 14px; font-weight: 600; text-decoration: none; }
+	.ad-tagasi:hover { border-color: var(--yellow); color: #fff; }
 	.ad-mark { color: var(--yellow) !important; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; font-size: 14px !important; margin: var(--sp-4) 0 var(--sp-1) !important; }
 	.ad-aastad { color: #9aa2ae; font-size: 0.5em; letter-spacing: 0.02em; white-space: nowrap; }
 	.ad-lyhi { font-size: 18px; margin: 0 0 var(--sp-5) !important; }

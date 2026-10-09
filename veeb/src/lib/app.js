@@ -2328,6 +2328,26 @@ import UNIVERSAALID from './universaalid.json';
       if (S.size !== was && !restoring) cmp.set(cmp.list().filter(function (x) { return x.id.split('@')[1] === S.size; }));
     }
     var valiMootor = null;
+    /* autolehe hero: mootori rehvimõõt ja pidurdusmaad (sama arvutus mis serveris: keskmine C-klassi rehv, ilma reaktsioonita) */
+    function autoHero(veh) {
+      var hero = $('.ad-hero');
+      if (!hero) return;
+      var mm = pretty(S.size);
+      $$('[data-ad-moot]', hero).forEach(function (e) { e.textContent = mm; });
+      var gC = (core.gClass && core.gClass.C) || {};
+      var rehv = function (cat) {
+        return { key: 'x', name: 'x', category: cat, wetGripIndex: (gC[cat] || gC._ || [1.3])[0], treadDepthMm: 8, treadDepthNewMm: 8,
+                 ageYears: 1, pressureBar: null, loadCapacityKg: null, studded: false, size: mm, gSource: 'label' };
+      };
+      var pane = function (sel, cat, ck, kmh) {
+        var el = $(sel, hero); if (!el) return;
+        try { var r = calc(rehv(cat), veh, condObj(ck, kmh)); if (r && r.distanceM) el.textContent = '~' + Math.round(r.distanceM) + ' ' + _t('m'); } catch (e) {}
+      };
+      pane('[data-ad-marg]', 'SUMMER_TOURING', 'wet', 90);
+      pane('[data-ad-lumi]', 'WINTER_NORDIC', 'snow', 50);
+      var b = $('[data-mootor="' + veh.key + '"] b', root), ml = $('[data-ad-mootor]', hero);
+      if (b && ml) ml.textContent = b.textContent;
+    }
     if (ext) {
       ext.on(function (v) { var was = S.size; S.veh = v.veh; S.size = v.size; dropOtherSizes(was); draw(); });
     } else if (autoLeht) {
@@ -2346,6 +2366,7 @@ import UNIVERSAALID from './universaalid.json';
             if (on && b.parentNode.scrollWidth > b.parentNode.clientWidth) b.parentNode.scrollLeft = b.offsetLeft - b.parentNode.offsetLeft - 8;
           });
           dropOtherSizes(was);
+          autoHero(veh);
           /* kasutaja valik jääb meelde (kalkulaator ja rehvilehed teavad sama autot) */
           if (kasutaja) { save(); Track('autoleht_mootor', veh.name); }
           draw();

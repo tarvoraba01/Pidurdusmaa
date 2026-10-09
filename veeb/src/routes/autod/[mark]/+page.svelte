@@ -23,6 +23,22 @@
 		return n + ' ' + SONA.et[s][n === 1 ? 0 : 1];
 	};
 	const f1 = (x) => String(x.toFixed(1)).replace('.', ',');
+	/* otsing lehe sees: mudeli nimi, põlvkond või aasta (nt „golf 2015“, „e90“) */
+	let q = $state('');
+	const lihtne = (x) => String(x || '').toLowerCase().normalize('NFKD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, ' ').trim();
+	const sobib = (p, x, sonad) => {
+		const hay = ' ' + lihtne(x.model + ' ' + p.nimi + ' ' + p.yearLabel) + ' ';
+		return sonad.every((w) => {
+			if (/^\d{4}$/.test(w)) { const a = +w; return p.a0 && a >= p.a0 && a <= (p.a1 || 9999); }
+			return hay.includes(' ' + w);
+		});
+	};
+	const naha = $derived.by(() => {
+		const sonad = lihtne(q).split(' ').filter(Boolean);
+		if (!sonad.length) return data.mudelid;
+		return data.mudelid.map((x) => ({ ...x, polved: x.polved.filter((p) => sobib(p, x, sonad)) })).filter((x) => x.polved.length);
+	});
+	const naide = $derived(data.mudelid.length ? an(data.mudelid[0].model) + ' 2015' : '2015');
 	const desc = $derived(
 		t('{nimi}: {mudelid} mudelit, {n} põlvkonda — tehase rehvimõõdud, mootorid ja pidurdusmaa.', { nimi: m.nimi, mudelid: data.mudelid.length, n: data.n }) +
 			' ' + data.mudelid.slice(0, 4).map((x) => an(x.model)).join(', ') + '.'
@@ -36,15 +52,34 @@
 	crumbs={[[t('Avaleht'), '/'], [t('Autod'), '/autod/'], [m.nimi, path]]}
 />
 
-<section class="page-hero">
+<section class="page-hero mk-hero">
 	<div class="wrap">
 		<div class="crumbs"><a href={L('/')}>{t('Avaleht')}</a><span>/</span><a href={L('/autod/')}>{t('Autod')}</a><span>/</span>{m.nimi}</div>
+		<a class="mk-tagasi" href={L('/autod/')}>← {t('Kõik margid')}</a>
 		<h1>{m.nimi}</h1>
-		<p>{t('Vali mudel ja põlvkond: näed tehase rehvimõõte, mootoreid, pidurdusmaad ja parimaid rehve.')}</p>
+		<p>{t('Vali oma auto mudel ja aastad — näed rehvimõõtu, pidurdusmaad ja sobivaid rehve.')}</p>
+		<input class="lsel mk-otsi" type="search" bind:value={q} placeholder={t('Otsi mudelit, nt {naide}', { naide: naide })} aria-label={t('Otsi mudelit')} />
 	</div>
 </section>
+<div class="body-sec">
+	<div class="wrap">
+		{#if !naha.length}<p class="note">{t('Sellist mudelit ei leidnud. Proovi lühemalt, nt ainult mudeli nimi.')}</p>{/if}
+		<div class="mk-grid">
+			{#each naha as x (x.model)}
+				<div class="mk-mudel">
+					<h2>{an(x.model)}</h2>
+					<ul>
+						{#each x.polved as p (p.slug)}
+							<li><a href={L('/autod/' + m.slug + '/' + p.slug + '/')}><span class="mk-p">{an(p.lyhi)}</span><span class="mk-m">{p.moot}</span><span class="mk-nool" aria-hidden="true">→</span></a></li>
+						{/each}
+					</ul>
+				</div>
+			{/each}
+		</div>
+	</div>
+</div>
 {#if S}
-	<div class="body-sec" style="padding-bottom:0">
+	<div class="body-sec" style="padding-top:0">
 		<div class="wrap">
 			<div class="box">
 				<p style="margin:0">
@@ -67,22 +102,19 @@
 		</div>
 	</div>
 {/if}
-<div class="body-sec">
-	<div class="wrap">
-		{#each data.mudelid as x (x.model)}
-			<div class="box">
-				<h2>{m.nimi} {an(x.model)}</h2>
-				<div class="tbl-wrap">
-					<table class="t">
-						<thead><tr><th>{t('Põlvkond')}</th><th>{t('Tehase põhimõõt')}</th></tr></thead>
-						<tbody>
-							{#each x.polved as p (p.slug)}
-								<tr><td><a href={L('/autod/' + m.slug + '/' + p.slug + '/')}>{an(p.nimi)}</a></td><td>{p.moot}</td></tr>
-							{/each}
-						</tbody>
-					</table>
-				</div>
-			</div>
-		{/each}
-	</div>
-</div>
+
+
+<style>
+	.mk-tagasi { display: inline-block; margin: var(--sp-4) 0 var(--sp-2); padding: 6px 14px; border-radius: 999px; background: var(--ink-3); border: 1px solid var(--line-d, #2a2f39); color: #dfe3e8; font-size: 14px; font-weight: 600; text-decoration: none; }
+	.mk-tagasi:hover { border-color: var(--yellow); color: #fff; }
+	.mk-otsi { margin-top: var(--sp-5); max-width: 520px; width: 100%; height: 52px; font-size: 17px; background-image: none; }
+	.mk-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: var(--sp-4); align-items: start; }
+	.mk-mudel { background: #fff; border: 1px solid var(--line); border-radius: 16px; padding: var(--sp-4); }
+	.mk-mudel h2 { font-size: 24px; margin: 0 0 var(--sp-2); }
+	.mk-mudel ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
+	.mk-mudel a { display: flex; align-items: center; gap: var(--sp-3); padding: 9px 12px; border-radius: 10px; background: var(--bg-2, #f5f6f8); text-decoration: none; color: var(--text); }
+	.mk-mudel a:hover { background: var(--yellow-soft); }
+	.mk-p { flex: 1; font-weight: 600; white-space: nowrap; }
+	.mk-m { color: var(--muted); font-size: 13.5px; white-space: nowrap; }
+	.mk-nool { color: var(--muted); }
+</style>

@@ -65,7 +65,7 @@
 		{@const [fx] = k.rattad[1]}
 		<g class="ap-silt">
 			<rect x={fx - 48} y={MAA + 12} width="96" height="24" rx="12" fill="#ffc20e" />
-			<text x={fx} y={MAA + 28.5} text-anchor="middle" font-size="13" font-weight="700" fill="#171200">{moot}</text>
+			<text data-ad-moot x={fx} y={MAA + 28.5} text-anchor="middle" font-size="13" font-weight="700" fill="#171200">{moot}</text>
 		</g>
 	{/if}
 </svg>

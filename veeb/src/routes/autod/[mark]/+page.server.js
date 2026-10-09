@@ -14,7 +14,9 @@ export function load({ params }) {
 	for (const p of m.polved) {
 		let x = mudelid.find((y) => y.model === p.model);
 		if (!x) mudelid.push((x = { model: p.model, polved: [] }));
-		x.polved.push({ slug: p.slug, yearLabel: p.yearLabel, nimi: polveNimi(p), moot: pretty(String(p.rows[0].oemSize).toUpperCase().replace(/[/ ]/g, '')) });
+		const aastad = (String(p.yearLabel).match(/\d{4}/g) || []).map(Number);
+		x.polved.push({ slug: p.slug, yearLabel: p.yearLabel, lyhi: p.yearLabel, nimi: polveNimi(p), moot: pretty(String(p.rows[0].oemSize).toUpperCase().replace(/[/ ]/g, '')),
+			a0: aastad[0] || null, a1: aastad.length > 1 ? aastad[1] : /\+/.test(p.yearLabel) ? 9999 : aastad[0] || null });
 	}
 	/* sissejuhatus ainult andmetest: kerede tüübid, tehase mõõdud, mass,
 	   pidurdusmaa sama mudeliga mis kalkulaator */
