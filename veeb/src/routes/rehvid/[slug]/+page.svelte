@@ -70,6 +70,16 @@
 		}
 		return out;
 	});
+	/* otsingutulemuse kirjeldus: mitu suve-, talve- ja aastaringset rehvi selles mõõdus */
+	const mootDesc = $derived.by(() => {
+		if (data.liik !== 'moot') return '';
+		const k = (...ci) => data.grupid.filter((g) => ci.includes(g.ci)).reduce((s, g) => s + g.list.length, 0);
+		const s = k(0), w = k(2, 3), a = k(1);
+		return (s && w
+			? t('{m} rehvid: {s} suverehvi, {w} talverehvi ja {a} aastaringset rehvi EL-i rehvimärgise järgi.', { m: data.size.label, s, w, a })
+			: t('Kõik {m} mõõdus rehvid EL-i rehvimärgise järgi.', { m: data.size.label })) +
+			' ' + t('Märghaardumise klass, müra ja sõltumatud testid — vaata, kui palju muutub pidurdusmaa.');
+	});
 	const mootLd = $derived(
 		data.liik === 'moot' && (mootKkk.length || data.parimadLd?.length)
 			? graph(
@@ -172,8 +182,8 @@
 
 {#if data.liik === 'moot'}
 	<Meta
-		title={t('Rehvid {m} — {n} rehvimudelit märgise andmetega', { m: data.size.label, n: data.n })}
-		desc={t('Kõik {m} mõõdus rehvid EL-i rehvimärgise järgi: märghaardumise klass, veeretakistus ja müra. Võrdle ja vaata, kui palju muutub pidurdusmaa.', { m: data.size.label })}
+		title={t('{m} rehvid — {n} mudelit, märgised ja testid', { m: data.size.label, n: data.n })}
+		desc={mootDesc}
 		path="rehvid/{data.size.slug}/"
 		image={data.noindex ? undefined : `/og/m/${data.size.slug}.png`}
 		noindex={data.noindex}

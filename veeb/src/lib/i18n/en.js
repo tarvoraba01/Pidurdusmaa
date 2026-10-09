@@ -575,6 +575,7 @@ export default {
 "Keskmised suverehvid.": "Average summer tyres.",
 "Peatud viimasel hetkel, vahet alla 10 cm": "Stopped at the last moment, less than 10 cm to spare",
 "Peatumine": "Stopping",
+"Rehvi kalkulaator — rehvimõõt, läbimõõt, külje kõrgus ja spidomeeter": "Tyre calculator — tyre size, diameter, sidewall height and speedometer",
 "Rehvikalkulaator — rehvimõõt, läbimõõt, külje kõrgus ja spidomeeter": "Tyre calculator — tyre size, diameter, sidewall height and speedometer",
 "Seda mudelit praegu poes ei ole. Vaata sama mõõdu rehve.": "This model is not in the shop right now. See tyres in the same size.",
 "Vaata": "View",

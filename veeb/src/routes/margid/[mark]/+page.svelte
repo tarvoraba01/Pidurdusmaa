@@ -7,6 +7,41 @@
 	const m = $derived(data.mark);
 	const info = $derived(MARGI_INFO[m.slug] || '');
 	const path = $derived('/margid/' + m.slug + '/');
+	/* KKK: vastused ainult lehe andmetest (märgise jaotus, testitud mudelid, kategooriad, mõõdud) */
+	const ja = (a) => (a.length < 2 ? a.join('') : a.slice(0, -1).join(', ') + ' ja ' + a[a.length - 1]);
+	const kat = (...k) => data.kategooriad.filter((x) => k.includes(x.kat)).flatMap((x) => x.list);
+	const kkk = $derived.by(() => {
+		const out = [];
+		const n = m.nimi;
+		if (data.jaotus.length || data.testitud.length) {
+			out.push([
+				`Kas ${n} rehvid on head?`,
+				(data.jaotus.length ? `EL-i rehvimärgise järgi on ${n} rehvide märghaardumise klassid kõigis mõõtudes: ${data.jaotus.map(([g, p]) => g + ' ' + p + '%').join(', ')}. ` : '') +
+					(data.testitud.length
+						? `Sõltumatutes testides on olnud ${data.testitud.length === 1 ? '1 mudel' : data.testitud.length + ' mudelit'}, näiteks ${ja(data.testitud.slice(0, 3).map((x) => x.name))}. `
+						: `Ükski ${n} mudel ei ole meie andmetes olnud sõltumatus pidurdustestis, seega põhineb hinnang ainult märgisel. `) +
+					'Sama mudel võib eri mõõdus olla eri klassiga, nii et vaata oma mõõdu andmeid mudeli lehelt.'
+			]);
+		}
+		/* naastrehvidel EL-i märgist ei ole — need tulevad testitud rehvide hulgast */
+		const nimi = (x) => (x.toLowerCase().startsWith(n.toLowerCase()) ? x : n + ' ' + x);
+		const talv = [...new Set([
+			...data.testitud.filter((x) => /^WINTER_(STUDDED|NORDIC)$/i.test(x.category)).map((x) => x.name),
+			...kat('WINTER_STUDDED', 'WINTER_NORDIC').map((x) => nimi(x.nimi))
+		])];
+		if (talv.length) {
+			out.push([
+				`Millised ${n} talverehvid sobivad Eesti talveks?`,
+				`Eesti talveks sobivad naast- ja Põhjamaade lamellrehvid. ` +
+					(talv.length === 1 ? `${n} valikus on selline ${talv[0]}.` : `${n} valikus on neid vähemalt ${talv.length}, näiteks ${ja(talv.slice(0, 4))}.`) +
+					(kat('WINTER_CENTRAL').length ? ` Kesk-Euroopa talverehvid (${kat('WINTER_CENTRAL').length} mudelit) on mõeldud märjale ja lörtsisele talvele ning pidurdavad jääl pikemalt.` : '')
+			]);
+		}
+		if (data.topMoodud.length) {
+			out.push([`Millistes mõõtudes on ${n} rehve kõige rohkem?`, `Kõige rohkem ${n} mudeleid on mõõtudes ${ja(data.topMoodud.map((z) => z.label + ' (' + z.k + ')'))}. Kokku on ${n} rehve EL-i registris ${data.mootudKokku} mõõdus.`]);
+		}
+		return out;
+	});
 	const desc = $derived(
 		(info ? `${m.nimi} on ${info} ` : '') +
 		`${m.nimi} rehvid: ${data.mudeleid} mudelit EL-i rehvimärgise andmetega` +
@@ -16,19 +51,24 @@
 </script>
 
 <Meta
-	title="{m.nimi} rehvid — mudelid, märgised ja testid"
+	title="{m.nimi} rehvid — {data.mudeleid} mudelit, testid ja märgised"
 	{desc}
 	path="margid/{m.slug}/"
 	noindex={data.noindex}
 	crumbs={[['Avaleht', '/'], ['Rehvid', '/rehvid/'], ['Margid', '/margid/'], [m.nimi, path]]}
 	jsonld={{
 		'@context': 'https://schema.org',
-		'@type': 'CollectionPage',
-		name: m.nimi + ' rehvid',
-		description: desc,
-		url: BASE + path,
-		inLanguage: 'et',
-		about: { '@type': 'Brand', name: m.nimi }
+		'@graph': [
+			{
+				'@type': 'CollectionPage',
+				name: m.nimi + ' rehvid',
+				description: desc,
+				url: BASE + path,
+				inLanguage: 'et',
+				about: { '@type': 'Brand', name: m.nimi }
+			},
+			...(kkk.length ? [{ '@type': 'FAQPage', mainEntity: kkk.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) }] : [])
+		]
 	}}
 />
 
@@ -89,6 +129,12 @@
 				</div>
 			</div>
 		{/each}
+		{#if kkk.length}
+			<div class="box">
+				<h2>Korduma kippuvad küsimused</h2>
+				{#each kkk as [q, a] (q)}<h3 style="font-size:17px;margin:var(--sp-4) 0 var(--sp-1)">{q}</h3><p style="margin:0">{a}</p>{/each}
+			</div>
+		{/if}
 		<p class="srcline">
 			Märghaardumise klass on mõõdupõhine: vahemik „A–C“ tähendab, et mudeli eri mõõdud on eri klassis.
 			<a href="/teadmine/rehvimargis/">Mida klassid tähendavad?</a>

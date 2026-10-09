@@ -5,7 +5,7 @@
 </script>
 
 <Meta
-	title="Rehvitootjad — kõik margid"
+	title="Rehvimargid — kõik rehvitootjad ja mudelid"
 	desc="Rehvimargid tähestiku järgi: iga tootja rehvimudelid EL-i rehvimärgise andmetega ja sõltumatute testide tulemustega."
 	path="margid/"
 	crumbs={[['Avaleht', '/'], ['Rehvid', '/rehvid/'], ['Margid', '/margid/']]}

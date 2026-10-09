@@ -16,7 +16,7 @@
 	const jaa = (k) => mm(ty(k)?.jaa);
 	const auto = n ? autoNimi(keel.lang, n.auto) : '';
 
-	const pealkiri = t('Parimad talverehvid 2026/2027 mõõdu järgi');
+	const pealkiri = t('Talverehvid 2026/2027 — parimad naast- ja lamellrehvid');
 	const desc = t('Talverehvid Eesti levinumates mõõtudes: testitud naast- ja lamellrehvid, pidurdusmaa lumel ja jääl ning Põhjamaade rehvid EL-i märgise järgi.');
 
 	const vastus = n
@@ -55,7 +55,7 @@
 <section class="page-hero">
 	<div class="wrap">
 		<div class="crumbs"><a href={L('/')}>{t('Avaleht')}</a><span>/</span>{t('Talverehvid')}</div>
-		<h1>{t('Parimad talverehvid mõõdu järgi')}</h1>
+		<h1>{t('Talverehvid 2026/2027: parimad mõõdu järgi')}</h1>
 		{#if vastus}<p>{vastus}</p>{/if}
 		<p>{t('Vali oma rehvimõõt: näed testitud naast- ja lamellrehve, nende pidurdusmaad lumel ja jääl ning kõiki Põhjamaade talverehve selles mõõdus.')}</p>
 	</div>

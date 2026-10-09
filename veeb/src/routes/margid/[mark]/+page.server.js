@@ -65,7 +65,7 @@ export function load({ params }) {
 			mootMudelid.set(z.m, (mootMudelid.get(z.m) || 0) + 1);
 		}
 	}
-	const jaotus = klassiKokku >= 10 ? KLASSID.split('').filter((g) => klassiArv[g]).map((g) => [g, Math.round((100 * klassiArv[g]) / klassiKokku)]) : [];
+	const jaotus = klassiKokku >= 10 ? KLASSID.split('').filter((g) => klassiArv[g]).map((g) => [g, Math.round((100 * klassiArv[g]) / klassiKokku)]).filter(([, p]) => p > 0) : [];
 	const topMoodud = [...mootMudelid.entries()]
 		.filter(([, k]) => k >= 2)
 		.sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
