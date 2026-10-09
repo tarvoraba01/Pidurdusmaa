@@ -1241,3 +1241,8 @@ html.upotus .rk-ala{position:relative}html.upotus .rk-pallid{position:absolute;l
 .pk .kat-b{margin:2px 0 0;font-size:11px;padding:1px 7px}
 .kat-b.kat-4{background:#fde8e8;color:#8a1f1f}
 .pood-laiem{display:flex;margin:0 0 var(--sp-3)}
+
+/* auto- ja mõõdulehe tabelite hinnaveerg (app.js hinnaTabelid) */
+.ht-rida{display:block;margin-top:4px;font-size:14px}
+.ht-osta{white-space:nowrap;font-weight:600}
+.ht-pood{font-weight:400;color:var(--muted)}

@@ -158,11 +158,12 @@
 					<h2>{t(PEALKIRI[k], { moot: data.pohimoot })}</h2>
 					<p class="sub">{t('Sõltumatult testitud mudelid eespool, seejärel EL-i märgise märghaardumise klassi järgi.')}</p>
 					<div class="tbl-wrap">
-						<table class="t">
+						<!-- hinnad: app.js lisab veeru „Hind“, kui poodides on selle mõõdu pakkumisi -->
+						<table class="t" data-hinnad={data.pohimoot.replace(/[/ ]/g, '')} data-hinnad-koht="autoleht">
 							<thead><tr><th>{t('Rehv')}</th><th>{t('Märghaardumine')}</th><th class="n">{t('Müra')}</th></tr></thead>
 							<tbody>
 								{#each list as r (r.slug)}
-									<tr>
+									<tr data-pid={r.slug} data-n={r.nimi}>
 										<td
 											><a href={L("/rehvid/" + r.slug + "/")}>{r.nimi}</a>{#if r.testitud}
 												<span class="pill test" style="margin-left:var(--sp-2)">{t('testitud')}</span>{/if}</td

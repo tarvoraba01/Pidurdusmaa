@@ -552,6 +552,8 @@ export default {
 "Kiirus, reaktsioon ja teeolud": "Speed, reaction and road conditions",
 "Kas jõuad jalakäija ees peatuda?": "Can you stop for the pedestrian?",
 "Kui eesolev auto järsult pidurdab": "When the car ahead brakes hard",
+"Osta": "Buy",
+"Arvuta oma autoga": "Calculate for your car",
 "Kus osta": "Where to buy",
 "Hinnad poodidest, uuenevad mitu korda päevas. Järjestus pidurdusmaa järgi ei sõltu poest.": "Prices from shops, updated several times a day. The braking-distance ranking does not depend on the shop.",
 "jalakäija nähtav": "pedestrian visible at",

@@ -219,13 +219,13 @@
 						<h2>{KAT[gr.ci] ?? ''}</h2>
 						<p class="sub">{gr.list.length} {t("mudelit · järjestatud märghaardumise klassi, siis müra järgi")}</p>
 						<div class="tbl-wrap">
-							<table class="t">
+							<table class="t" data-hinnad={data.size.m} data-hinnad-koht="mooduleht">
 								<thead>
 									<tr><th>{t("Rehv")}</th><th>{t("Märghaare")}</th><th>{t("Veeretakistus")}</th><th class="n">{t("Müra")}</th><th>{t("Test")}</th></tr>
 								</thead>
 								<tbody>
 									{#each gr.list as r, ri (r.slug + '#' + ri)}
-										<tr>
+										<tr data-pid={r.slug} data-n={r.nimi}>
 											<td><a href={L("/rehvid/" + r.slug + "/")}>{r.nimi}</a></td>
 											<td><Grade g={r.g} /></td>
 											<td><Grade g={r.f} /></td>
@@ -372,6 +372,11 @@
 						</div>
 					</div>
 					<div data-tw-out><p class="note">{t("Arvutan…")}</p></div>
+					<!-- täidab app.js: Osta = valitud mõõdu soodsaim pakkumine, Arvuta = kalkulaator selle rehviga -->
+					<p class="tw-cta">
+						<a class="btn yel" data-tw-osta hidden>{t('Kus osta')}</a>
+						<a class="btn" data-tw-arvuta data-base={L('/')} href={L('/') + '#kalkulaator'}>{t('Arvuta oma autoga')} <span class="arr" aria-hidden="true">→</span></a>
+					</p>
 				</div>
 
 				{#if data.tests.length}
@@ -529,7 +534,7 @@
 							>{t("Võrdle seda rehvi →")}</button
 						>
 						<!-- poed: täidab app.js (rehviPilt → /api/rehv/<slug>/), peidus kui hindu pole -->
-						<div class="rp-poed" data-rehv-poed data-nimi={ty.name} hidden>
+						<div class="rp-poed" id="kus-osta" data-rehv-poed data-nimi={ty.name} hidden>
 							<h3>{t('Kus osta')}</h3>
 							<div class="rp-list" data-rehv-poed-list></div>
 							<p class="srcline">{t('Hinnad poodidest, uuenevad mitu korda päevas. Järjestus pidurdusmaa järgi ei sõltu poest.')}</p>
@@ -654,6 +659,11 @@
 	.vastus { font-size: 17px; font-weight: 600; max-width: 62ch; margin: 6px 0 10px; }
 	.vastus-alus { font-weight: 400; color: var(--muted-d, inherit); font-size: 14px; }
 	.rp-poed { margin-top: var(--sp-5); }
+	/* rehvi vidina nupud: ost ja kalkulaator kohe tulemuse all (telefonis ei pea „Kus osta“ kastini kerima) */
+	.tw-cta { display: flex; flex-wrap: wrap; gap: var(--sp-3); margin: var(--sp-5) 0 0; }
+	.tw-cta .btn { flex: 1 1 220px; }
+	.tw-cta .btn[hidden] { display: none; }
+	.tw-cta :global(.tw-pood) { font-weight: 500; font-size: 13px; opacity: 0.75; }
 	.rp-poed h3 { font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin: 0 0 var(--sp-2); }
 	.rp-list { display: grid; gap: var(--sp-2); }
 	:global(.rp-pood) { display: grid; grid-template-columns: 1fr auto; gap: 2px var(--sp-2); align-items: center; padding: 10px 12px; border: 1px solid var(--line); border-radius: 10px; text-decoration: none; color: var(--text); background: #fff; }

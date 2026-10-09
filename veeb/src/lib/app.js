@@ -932,6 +932,22 @@ import UNIVERSAALID from './universaalid.json';
       list.addEventListener('mousedown', function (e) { e.preventDefault(); });
       list.addEventListener('click', function (e) { var li = e.target.closest('[data-i]'); if (li) vali(+li.dataset.i); });
       inp.addEventListener('blur', function () { setTimeout(function () { list.hidden = true; inp.setAttribute('aria-expanded', 'false'); }, 120); });
+      /* rehvilehelt „Arvuta oma autoga“: ?minu=<märgise slug> või ?minu=t:<testitud rehvi võti> */
+      var qMinu = String(qsc.get('minu') || '');
+      function pane(h) {
+        S.minu = h.e ? { e: h.e, n: h.n } : { t: h.t, n: h.n }; S._userSeason = false;
+        valitudNimi = inp.value = h.n;
+        recalc();
+      }
+      if (/^t:[\w.-]+$/.test(qMinu)) {
+        var tk = core.tyreByKey[qMinu.slice(2)];
+        if (tk) pane({ t: tk.key, n: tk.name });
+      } else if (/^[a-z0-9-]{1,120}$/.test(qMinu)) {
+        loadSize(S.size).then(function (rows) {
+          var r = rows.filter(function (x) { return x.slug === qMinu; })[0];
+          if (r && !S.minu) pane({ e: r.slug, n: r.mark + ' ' + r.name });
+        });
+      }
     })();
 
     /* mustrisügavus (valikuline): kulunud praegused rehvid vs uued.
@@ -2914,7 +2930,47 @@ import UNIVERSAALID from './universaalid.json';
       b.addEventListener('click', function () { ck = b.dataset.twCond; $$('[data-tw-cond]', root).forEach(function (x) { x.setAttribute('aria-pressed', x === b); }); go(); });
     });
     sSel.addEventListener('change', go);
+    var ostaB = $('[data-tw-osta]', root), arvB = $('[data-tw-arvuta]', root);
+    var mootHinnad = {};
+    /* „Osta“: valitud mõõdu soodsaim pakkumine (andmed tulevad samast /api/rehv päringust, mis „Kus osta“ kastil) */
+    function osta() {
+      if (!ostaB) return;
+      var d = rehvAndmed && rehvAndmed.slug === root.dataset.slug ? rehvAndmed.d : null, m = sSel.value;
+      var list = d && d.hinnad ? d.hinnad.filter(function (r) { return r.url; }) : [];
+      /* üldpäring vaatab ainult mudeli 10 levinumat mõõtu — valitud mõõdu hinnad küsime eraldi (üks kord mõõdu kohta) */
+      if (d && d.available && m && !mootHinnad[m] && !list.some(function (x) { return x.moot === m; })) {
+        mootHinnad[m] = fetch(CFG.home + 'api/rehv/' + encodeURIComponent(root.dataset.slug) + '/?moot=' + encodeURIComponent(m), { credentials: 'omit' })
+          .then(function (r) { return r.ok ? r.json() : null; })
+          .then(function (x) { mootHinnad[m] = (x && x.hinnad) || []; if (sSel.value === m) osta(); })
+          .catch(function () { mootHinnad[m] = []; });
+      }
+      if (Array.isArray(mootHinnad[m])) list = list.concat(mootHinnad[m].filter(function (r) { return r.url; }));
+      var r = list.filter(function (x) { return x.moot === m; }).sort(function (a, b) { return a.hind - b.hind; })[0];
+      var nimi = root.dataset.name || '';
+      if (r) {
+        ostaB.href = poeLink(r.url, 'rehvileht', nimi);
+        ostaB.setAttribute('target', '_blank'); ostaB.setAttribute('rel', 'nofollow sponsored noopener');
+        ostaB.dataset.pood = r.myyja; ostaB.dataset.rehv = nimi;
+        ostaB.innerHTML = esc(_t('Osta')) + ' · ' + esc(hindTekst(r)) + ' <span class="tw-pood">' + esc(r.myyja) + '</span> <span class="arr" aria-hidden="true">→</span>';
+        ostaB.hidden = false;
+      } else if ((list.length || (d && d.otsi)) && $('#kus-osta')) {
+        /* selles mõõdus pakkumist pole — teised mõõdud / poe nimekiri „Kus osta“ kastis */
+        ostaB.href = '#kus-osta';
+        ostaB.removeAttribute('target'); ostaB.removeAttribute('rel');
+        delete ostaB.dataset.pood;
+        ostaB.innerHTML = esc(_t('Kus osta')) + ' <span class="arr" aria-hidden="true">↓</span>';
+        ostaB.hidden = false;
+      } else ostaB.hidden = true;
+    }
+    twOsta = osta;
+    function arvuta() {
+      if (!arvB) return;
+      var m = sSel.value || norm(veh.oemSize);
+      var minu = tested ? 't:' + tested : root.dataset.slug;
+      arvB.href = (arvB.getAttribute('data-base') || '/') + '?moot=' + encodeURIComponent(m) + '&minu=' + encodeURIComponent(minu) + (core.vehByKey[myVeh] ? '&auto=' + encodeURIComponent(myVeh) : '') + '#kalkulaator';
+    }
     function go() {
+      osta(); arvuta();
       var z = sizes.filter(function (x) { return x.m === sSel.value; })[0];
       var t = tested ? Object.assign({}, core.tyreByKey[tested]) : null;
       var mSel = z ? z.m : norm(veh.oemSize);
@@ -3058,7 +3114,7 @@ import UNIVERSAALID from './universaalid.json';
     fetch(CFG.home + 'api/rehv/' + encodeURIComponent(slug) + '/', { credentials: 'omit' })
       .then(function (r) { return r.ok ? r.json() : null; })
       .then(function (d) {
-        poed(d);
+        poed(d, slug);
         if (!d || !d.pilt) return;
         var img = new Image();
         img.alt = _t('Rehvi pilt');
@@ -3078,7 +3134,10 @@ import UNIVERSAALID from './universaalid.json';
 
   /* Rehvi lehel „Kus osta“: iga poe soodsaim pakkumine (mõõt, laoseis, hind),
      odavaim ees. Link läheb poe tootelehele (rel=sponsored, UTM / Awini link). */
-  function poed(d) {
+  var rehvAndmed = null, twOsta = null;
+  function poed(d, slug) {
+    rehvAndmed = d ? { slug: slug, d: d } : null;
+    if (twOsta) twOsta();
     var box = $('[data-rehv-poed]');
     if (!box || !d) return;
     var nimi = box.getAttribute('data-nimi') || '';
@@ -3106,6 +3165,45 @@ import UNIVERSAALID from './universaalid.json';
     Track('poed_rehvilehel', nimi + ' · ' + list.length);
   }
 
+  /* Auto- ja mõõdulehe rehvitabelid: <table data-hinnad="20555R16"> ridadega <tr data-pid="slug">.
+     Kui poodides on hindu, lisatakse veerg „Hind“ — rida viib otse poe tootele.
+     Hindadeta (pakkuja maas, mõõdus pole) jääb tabel täpselt selliseks, nagu oli. */
+  function hinnaTabelid() {
+    var tabelid = $$('table[data-hinnad]').filter(function (x) { return !x._hinnad; });
+    if (!tabelid.length) return;
+    var mood = {};
+    tabelid.forEach(function (x) { x._hinnad = true; var m = x.getAttribute('data-hinnad'); if (/^\d{5}R\d{2}C?$/.test(m)) (mood[m] = mood[m] || []).push(x); });
+    Object.keys(mood).forEach(function (m) {
+      fetch(CFG.home + 'api/hinnad?moot=' + encodeURIComponent(m), { credentials: 'omit' })
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (d) {
+          if (!d || !d.available || !d.hinnad) return;
+          var koht = $('[data-hinnad-koht]') ? $('[data-hinnad-koht]').getAttribute('data-hinnad-koht') : 'tabel';
+          mood[m].forEach(function (tbl) {
+            var read = $$('tr[data-pid]', tbl), on = 0;
+            var lahtrid = read.map(function (tr) {
+              var list = (d.hinnad[tr.getAttribute('data-pid') + '@' + m] || []).filter(function (r) { return r.url; });
+              var r = list[0];
+              if (!r) return '';
+              on++;
+              var nimi = tr.getAttribute('data-n') || '';
+              return '<a class="ht-osta" href="' + esc(poeLink(r.url, koht, nimi)) + '" target="_blank" rel="nofollow sponsored noopener" data-pood="' + esc(r.myyja) + '" data-rehv="' + esc(nimi) + '">' + esc(_t('Osta')) + ' ' + esc(hindTekst(r)) + ' <span class="ht-pood">· ' + esc(r.myyja) + '</span> →</a>';
+            });
+            if (!on) return;
+            /* hind rehvi nime alla (mitte eraldi veergu): telefonis on tabel külgsuunas keritav ja viimane veerg jääks ekraanist välja */
+            read.forEach(function (tr, i) {
+              if (!lahtrid[i]) return;
+              var td = tr.cells[0]; if (!td) return;
+              var sp = document.createElement('span'); sp.className = 'ht-rida'; sp.innerHTML = lahtrid[i];
+              td.appendChild(sp);
+            });
+            Track('hinnad_tabelis', koht + ' · ' + m + ' · ' + on);
+          });
+        })
+        .catch(function () {});
+    });
+  }
+
   /* partneri kaardi klikk statistikasse (üks kuular kogu saidile) */
   var partnerKuular = false;
   function initPage() {
@@ -3128,6 +3226,7 @@ import UNIVERSAALID from './universaalid.json';
     $$('[data-dd].open').forEach(function (dd) { dd.classList.remove('open'); $('.dd-btn', dd).setAttribute('aria-expanded', 'false'); });
     tablesA11y();
     rehviPilt();
+    hinnaTabelid();
     var needs = $('[data-calc]') || $('[data-cmp-page]') || $('[data-tw]');
     cmp.paint();
     /* Sama lehe uuesti avamine (nt logo peale vajutus avalehel) jätab DOM-i

@@ -564,6 +564,8 @@ export default {
 "Kiirus, reaktsioon ja teeolud": "Скорость, реакция и дорожные условия",
 "Kas jõuad jalakäija ees peatuda?": "Успеете остановиться перед пешеходом?",
 "Kui eesolev auto järsult pidurdab": "Если машина впереди резко тормозит",
+"Osta": "Купить",
+"Arvuta oma autoga": "Рассчитать для своей машины",
 "Kus osta": "Где купить",
 "Hinnad poodidest, uuenevad mitu korda päevas. Järjestus pidurdusmaa järgi ei sõltu poest.": "Цены из магазинов, обновляются несколько раз в день. Рейтинг по тормозному пути не зависит от магазина.",
 "jalakäija nähtav": "пешеход виден с",
