@@ -1735,6 +1735,20 @@ import UNIVERSAALID from './universaalid.json';
       $('[data-r-rt]', el).value = String(rt);
       $('[data-r-splittxt]', el).innerHTML = _t('Reageerimisteekond <b>') + fmt(react) + _t(' m</b> + pidurdusteekond <b>') + fmt(r.distanceM) + _t(' m</b>');
       $('[data-r-big]', el).textContent = fmt(r.distanceM + react);
+      /* TÄHED tulemuse all: sama reegel mis rehvivalikus — 5 tähte = selle mõõdu sama
+         tüüpi rehvide parim; iga täht maha = pidurdusmaa 3 % pikem (jääl 6 %, jäätestid hajuvad rohkem) */
+      var tEl = $('[data-r-tahed]', el);
+      if (tEl) {
+        /* asukoht selle mõõdu parima ja halvima vahel (A-klass ≈ 4–5, E ≈ 1). Protsendisamm oli siin liiga karm:
+           üks erandlikult hea testirehv tegi A-klassi märgisega rehvist 1 tähe. */
+        var ulat = max - best;
+        var nT = best > 0 && rows.length >= 2 && ulat > 0.05 ? Math.max(1, Math.min(5, 5 - Math.round(4 * (r.distanceM - best) / ulat))) : 0;
+        if (nT) {
+          tEl.innerHTML = '<span class="st-s" aria-label="' + nT + '/5">' + '★★★★★'.slice(0, nT) + '<i>' + '★★★★★'.slice(nT) + '</i></span>';
+          tEl.title = _t('5 tähte = selle mõõdu sama tüüpi rehvide lühim pidurdusmaa, 1 täht = pikim.');
+          tEl.hidden = false;
+        } else tEl.hidden = true;
+      }
       if (!el._rbound) {
         el._rbound = true;
         $$('[data-r-mode]', el).forEach(function (b) {

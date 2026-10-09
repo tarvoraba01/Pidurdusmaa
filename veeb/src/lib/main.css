@@ -251,6 +251,10 @@ input[type=range].slider.hele,.lo input[type=range].slider,.prio input[type=rang
 .rs-num svg{width:44px;height:44px;color:var(--red)}
 .rs-num b{font-family:var(--body);font-weight:800;font-size:52px;line-height:1;color:var(--red);letter-spacing:-.02em;font-variant-numeric:tabular-nums}
 .rs-num small{font-size:30px;font-weight:700;color:var(--red)}
+.rs-tahed{display:flex;align-items:baseline;justify-content:center;gap:var(--sp-2);margin:0 0 var(--sp-1)}
+.rs-tahed .st-s{color:#f5b301;letter-spacing:2px;font-size:22px;line-height:1}
+.rs-tahed .st-s i{font-style:normal;color:#d9dce1}
+.rs-tahed .rs-tl{font-size:12.5px;color:var(--muted)}
 .rs-who{margin:0;text-align:center;font-size:12.5px;color:var(--muted);line-height:1.4}
 .rs-ilmad{margin:var(--sp-3) 0 0}
 .rs-ig{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--sp-1);background:var(--paper-2);padding:var(--sp-1);border-radius:10px}

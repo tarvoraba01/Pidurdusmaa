@@ -25,6 +25,8 @@
 					<span class="tip" tabindex="0" data-tip={TIP} aria-label={TIP}>i</span>
 				</p>
 				<p class="rs-num"><Icon name="car" /><b data-r-big>—</b><small>{t("m")}</small></p>
+				<!-- tähed: täidab app.js (sama tähereegel mis rehvivalikus) -->
+				<p class="rs-tahed" data-r-tahed hidden></p>
 				<p class="rs-split" data-r-split hidden>
 					<label for="r-rt">{t("Reaktsiooniaeg")}</label>
 					<select id="r-rt" class="lsel rs-rt" data-r-rt>

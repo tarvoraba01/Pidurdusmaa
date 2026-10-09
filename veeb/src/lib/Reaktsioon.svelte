@@ -312,6 +312,17 @@
 
 	/* kaardil ja pildil: mediaanreaktsiooni tulemus (mitte viimane katse), sama mis tabelis „Sina“ */
 	const kaardiTul = $derived(read.length && read[0][3] ? read[0][2] : viimane);
+	/* pimeda olukorra kokkupõrge, mida ei väldiks ka kohene reaktsioon: pidurdusmaa üksi on pikem kui
+	   kaugus, kust jalakäija nähtavale tuli. See on mängu õppetund — ütleme selle välja, muidu tundub viga. */
+	const voimatu = $derived.by(() => {
+		void read;
+		/* 0,2 s = inimese kiireim realistlik reaktsioon (ja sedagi ainult siis, kui ootad ohtu) */
+		if (reziim !== 'pime' || !kaardiTul?.crash || !M || !D) return null;
+		const vaja = (kiirus / 3.6) * 0.2 + M.d;
+		if (vaja <= D) return null;
+		return { d: Math.round(D), p: Math.round(vaja) };
+	});
+	const OLUD = { kuiv: t('kuival teel'), vihm: t('märjal teel'), talv: t('lumel') };
 	const LOC = keel.lang === 'en' ? 'en-GB' : keel.lang === 'ru' ? 'ru-RU' : 'et-EE';
 	const f1 = (x) => x.toLocaleString(LOC, { minimumFractionDigits: 1, maximumFractionDigits: 1 });
 	const f2 = (ms) => (ms / 1000).toLocaleString(LOC, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
@@ -438,6 +449,7 @@
 				<button type="button" class="rk-x" onclick={() => (kaart = false)} aria-label={t('Sulge')}>×</button>
 				{#if tulemusMs}<p class="rk-k-pea">{reziim === 'tuled' ? t('Sinu reaktsioon (3 katse mediaan)') : t('Sinu reaktsioon')}</p><p class="rk-k-aeg">{f2(tulemusMs)} <small>s</small></p>{/if}
 				<p class="rk-k-lause" class:punane={kaardiTul.crash}>{lause(kaardiTul)}</p>
+				{#if voimatu}<p class="rk-k-miks">{t('Seda poleks vältinud ka väga kiire reaktsioon: jalakäija tuli nähtavale {d} m kaugusel, aga {olud} kulub {v} km/h pealt peatumiseks ka 0,2-sekundilise reaktsiooniga {p} m.', { d: voimatu.d, olud: OLUD[ilm], v: kiirus, p: voimatu.p })} {riie === 'helkur' ? '' : t('Helkuriga oleks ta nähtav umbes 140 m pealt.')}</p>{/if}
 				{#if sobra && tulemusMs}<p class="rk-k-sober">{tulemusMs < sobra ? t('Sõbrast kiirem!') : tulemusMs > sobra ? t('Sõber oli kiirem') + ' (' + f2(sobra) + ' s)' : t('Täpselt sama kiire kui sõber!')}</p>{/if}
 				<div class="rk-jaga">
 					<button type="button" class="btn yel" onclick={jaga}>{t('Jaga storysse')}</button>
@@ -531,6 +543,7 @@
 	.rk-ekraan.tais .rk-ala { flex: 1 1 auto; min-height: 0; border-radius: 0; padding-bottom: var(--sp-3); }
 	.rk-ekraan.tais .rk-cv { flex: 1 1 auto; min-height: 0; aspect-ratio: auto; height: 100%; }
 	.rk-ekraan.tais .rk-fs { top: calc(10px + env(safe-area-inset-top)); right: calc(10px + env(safe-area-inset-right)); }
+	.rk-k-miks { margin: calc(-1 * var(--sp-2)) 0 var(--sp-4); font-size: 14px; line-height: 1.45; color: #c9ced6; max-width: 34em; }
 	.rk-kaart { position: absolute; inset: 0; z-index: 3; display: grid; place-items: center; padding: var(--sp-3); background: rgba(5,6,8,0.55); border-radius: var(--r-lg, 16px); animation: kaartSisse 0.25s ease-out; }
 	.rk-ekraan.tais .rk-kaart { border-radius: 0; }
 	/* täisekraanil tekst pildi peale (üles, taeva kohale), et pilt saaks kogu kõrguse */
