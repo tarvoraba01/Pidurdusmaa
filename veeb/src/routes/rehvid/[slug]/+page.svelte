@@ -600,6 +600,21 @@
 	</section>
 	<div class="body-sec">
 		<div class="wrap">
+			<!-- ost: mõlema rehvi soodsaim pakkumine poodides (täidab app.js vsOsta; ilma hindadeta link rehvi lehele) -->
+			<div class="box vs-osta">
+				<h2>{t('Kus osta')}</h2>
+				<div class="vs-osta-grid">
+					{#each [data.a, data.b] as r (r.slug)}
+						<div class="vs-o" data-vs-osta={r.slug} data-nimi={r.name} data-moot={String(data.plokid[0]?.src?.moot || '').replace(/[/ ]/g, '').toUpperCase()}>
+							<b class="vs-o-n">{r.name}</b>
+							<span class="vs-o-h" data-vs-hind>{t('Laen hindu…')}</span>
+							<a class="btn yel" data-vs-link hidden>{t('Osta')} →</a>
+							<a class="vs-o-r" href={L('/rehvid/' + r.slug + '/')}>{t('Kõik mõõdud ja pidurdusmaa →')}</a>
+						</div>
+					{/each}
+				</div>
+				<p class="srcline">{t('Hinnad poodidest, soodsaim mõõt. Õige hinna näed oma mõõdus rehvi lehel.')}</p>
+			</div>
 			{#each data.plokid as p, pi (pi)}
 				<div class="box">
 					<h2>{t(p.src.nimi)}</h2>
@@ -656,6 +671,13 @@
 {/if}
 
 <style>
+	.vs-osta-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-3); }
+	.vs-o { display: grid; gap: var(--sp-2); align-content: start; padding: var(--sp-4); border: 1px solid var(--line); border-radius: 14px; }
+	.vs-o-n { font-size: 17px; }
+	.vs-o-h { color: var(--muted); font-size: 14px; }
+	.vs-o .btn[hidden] { display: none; }
+	.vs-o-r { font-size: 14px; }
+	@media (max-width: 640px) { .vs-osta-grid { grid-template-columns: 1fr; } }
 	.vastus { font-size: 17px; font-weight: 600; max-width: 62ch; margin: 6px 0 10px; }
 	.vastus-alus { font-weight: 400; color: var(--muted-d, inherit); font-size: 14px; }
 	.rp-poed { margin-top: var(--sp-5); }

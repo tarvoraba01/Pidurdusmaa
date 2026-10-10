@@ -3275,6 +3275,31 @@ import UNIVERSAALID from './universaalid.json';
     });
   }
 
+  /* Võrdluslehel (rehv A vs B) „Kus osta“: kummagi rehvi soodsaim pakkumine (mis tahes mõõdus, mõõt öeldakse) */
+  function vsOsta() {
+    $$('[data-vs-osta]').forEach(function (el) {
+      if (el._osta) return; el._osta = true;
+      var slug = el.getAttribute('data-vs-osta'), nimi = el.getAttribute('data-nimi') || '';
+      var hT = $('[data-vs-hind]', el), a = $('[data-vs-link]', el);
+      var moot = el.getAttribute('data-moot') || '';
+      var too = function (q) { return fetch(CFG.home + 'api/rehv/' + encodeURIComponent(slug) + '/' + q, { credentials: 'omit' }).then(function (r) { return r.ok ? r.json() : null; }); };
+      /* esmalt testi mõõt (selles mõõdus neid võrreldi), siis mudeli levinumad mõõdud */
+      (/^\d{5}R\d{2}C?$/.test(moot) ? too('?moot=' + moot).then(function (d) { return d && d.hinnad && d.hinnad.length ? d : too(''); }) : too(''))
+        .then(function (d) {
+          var list = d && d.hinnad ? d.hinnad.filter(function (r) { return r.url; }).sort(function (x, y) { return x.hind - y.hind; }) : [];
+          var r = list[0], url = r ? r.url : (d && d.otsi && d.otsi.url);
+          if (!url) { hT.textContent = _t('Poodides praegu hinda ei ole.'); return; }
+          hT.textContent = r ? _t('alates') + ' ' + hindTekst(r) + ' · ' + pretty(r.moot) + ' · ' + r.myyja : (d.otsi.myyja + ' · ' + _t('vaata sama mõõdu rehve'));
+          a.href = poeLink(url, 'vordlusleht', nimi);
+          a.setAttribute('target', '_blank'); a.setAttribute('rel', 'nofollow sponsored noopener');
+          a.dataset.pood = r ? r.myyja : d.otsi.myyja; a.dataset.rehv = nimi;
+          if (!r) a.textContent = _t('Vaata poodi') + ' →';
+          a.hidden = false;
+        })
+        .catch(function () { hT.textContent = _t('Poodides praegu hinda ei ole.'); });
+    });
+  }
+
   /* partneri kaardi klikk statistikasse (üks kuular kogu saidile) */
   var partnerKuular = false;
   function initPage() {
@@ -3298,6 +3323,7 @@ import UNIVERSAALID from './universaalid.json';
     tablesA11y();
     rehviPilt();
     hinnaTabelid();
+    vsOsta();
     var needs = $('[data-calc]') || $('[data-cmp-page]') || $('[data-tw]');
     cmp.paint();
     /* Sama lehe uuesti avamine (nt logo peale vajutus avalehel) jätab DOM-i
