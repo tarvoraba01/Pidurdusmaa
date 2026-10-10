@@ -115,6 +115,8 @@ import UNIVERSAALID from './universaalid.json';
     var x = /^(\d{3})(\d{2})R(\d{2})(C?)$/.exec(m || '');
     return x ? x[1] + '/' + x[2] + ' R' + x[3] + x[4] : m;
   }
+  /* üks võrdleja kogu lehele: localeCompare(…, 'et', {…}) loob iga võrdluse jaoks uue collatori */
+  var KOLL = new Intl.Collator('et'), KOLL_N = new Intl.Collator('et', { numeric: true });
   function norm(s) { return String(s || '').toUpperCase().replace(/[^0-9A-Z]/g, ''); }
   function titleCase(s) {
     /* sama reegel mis PHP pm_title_case: kõik suurtähtedes -> 3+ tähega sõnad,
@@ -341,7 +343,8 @@ import UNIVERSAALID from './universaalid.json';
       .then(function (r) { return r.ok ? r.json() : {}; })
       .catch(function () { return {}; })
       .then(function (m) {
-        Object.keys(m).forEach(function (k) {
+        var autod = Object.keys(m);
+        var tykk = function (k) {
           var v = core.vehByKey[k];
           if (!v || v.virt) return;
           m[k].forEach(function (e) {
@@ -359,7 +362,18 @@ import UNIVERSAALID from './universaalid.json';
             core.vehicles.push(x);     /* sama massiiv, mida autovalik kasutab */
             core.vehByKey[x.key] = x;
           });
+        };
+        /* ~150 autot korraga, vahepeal saab brauser kasutajale vastata */
+        return new Promise(function (valmis) {
+          var i = 0;
+          (function samm() {
+            var lopp = Math.min(i + 150, autod.length);
+            for (; i < lopp; i++) tykk(autod[i]);
+            if (i < autod.length) setTimeout(samm, 0); else valmis();
+          })();
         });
+      })
+      .then(function () {
         try { document.dispatchEvent(new CustomEvent('pm:mootorid')); } catch (e) {}
         return core;
       });
@@ -539,7 +553,7 @@ import UNIVERSAALID from './universaalid.json';
     function uniq(arr) { var s = {}; return arr.filter(function (x) { return s[x[0]] ? false : (s[x[0]] = 1); }); }
     var GEN = 'Ei leia oma autot';
     var makes = uniq(V.map(function (v) { return [v.make, v.make]; })).filter(function (m) { return m[0] !== GEN; })
-      .sort(function (a, b) { return a[1].localeCompare(b[1], 'et'); });
+      .sort(function (a, b) { return KOLL.compare(a[1], b[1]); });
     /* üldised tüüpautod nimekirja lõppu, selge sildiga */
     if (V.some(function (v) { return v.make === GEN; })) makes.push([GEN, _t('— Ei leia oma autot? Vali tüüp —')]);
     opts(sel.make, makes, _t('Vali mark'));
@@ -549,7 +563,7 @@ import UNIVERSAALID from './universaalid.json';
       if (from === 'make') {
         var models = uniq(V.filter(function (v) { return v.make === mk; }).map(function (v) { return [v.model, v.model]; })
           .concat(Object.keys(UNI).filter(function (id) { return id.indexOf(mk + '|') === 0; }).map(function (id) { var n = id.slice(mk.length + 1); return [n, n]; })))
-          .sort(function (a, b) { return a[1].localeCompare(b[1], 'et', { numeric: true }); });
+          .sort(function (a, b) { return KOLL_N.compare(a[1], b[1]); });
         opts(sel.model, mk ? models : [], mk ? _t('Vali mudel') : '—');
         md = sel.model.value; from = 'model';
       }
@@ -670,7 +684,7 @@ import UNIVERSAALID from './universaalid.json';
         }
         out.push({ x: x, s: score });
       });
-      out.sort(function (a, b) { return b.s - a.s || (b.x.y0 - a.x.y0) || a.x.v.name.localeCompare(b.x.v.name, 'et'); });
+      out.sort(function (a, b) { return b.s - a.s || (b.x.y0 - a.x.y0) || KOLL.compare(a.x.v.name, b.x.v.name); });
       return out.slice(0, 8).map(function (o) { return o.x.v; });
     }
     function show() {
@@ -709,8 +723,8 @@ import UNIVERSAALID from './universaalid.json';
   function sizeOptions(el, veh, current) {
     var oem = veh ? norm(veh.oemSize) : null;
     var fab = veh && veh.oemSizes && veh.oemSizes.length ? veh.oemSizes.map(norm) : (oem ? [oem] : []);
-    var list = core.sizes.filter(function (s) { return s.n >= 5; }).slice()
-      .sort(function (a, b) { return a.label.localeCompare(b.label, 'et', { numeric: true }); });
+    var list = core._mootSort || (core._mootSort = core.sizes.filter(function (s) { return s.n >= 5; })
+      .sort(function (a, b) { return KOLL_N.compare(a.label, b.label); }));
     var h = '';
     if (fab.length) {
       /* KÕIK selle põlvkonna tehasemõõdud, mitte ainult üks: enamikul
@@ -1572,7 +1586,7 @@ import UNIVERSAALID from './universaalid.json';
         if (da !== db) return da - db;
         var fa = F.indexOf(a.f), fb = F.indexOf(b.f);
         if (fa !== fb) return (fa < 0 ? 9 : fa) - (fb < 0 ? 9 : fb);
-        return (a.mark + a.name).localeCompare(b.mark + b.name, 'et');
+        return KOLL.compare(a.mark + a.name, b.mark + b.name);
       });
       return { list: list, hind: hind };
     }
@@ -2328,6 +2342,20 @@ import UNIVERSAALID from './universaalid.json';
       if (S.size !== was && !restoring) cmp.set(cmp.list().filter(function (x) { return x.id.split('@')[1] === S.size; }));
     }
     var valiMootor = null;
+    /* Autolehel on nimekiri hero ja mootorite all. Sadade rehvide pidurdusmaa
+       arvutus ootab, kuni nimekiri on ekraani lähedal — leht avaneb kiiremini. */
+    var lykkaObs = null;
+    function lykka() {
+      var list = $('[data-cmp-list]', root) || root;
+      if (!('IntersectionObserver' in window) || list.getBoundingClientRect().top < innerHeight * 1.5) return false;
+      if (lykkaObs) return true;
+      lykkaObs = new IntersectionObserver(function (e) {
+        if (!e.some(function (x) { return x.isIntersecting; })) return;
+        lykkaObs.disconnect(); lykkaObs = null; draw();
+      }, { rootMargin: '600px 0px' });
+      lykkaObs.observe(list);
+      return true;
+    }
     /* autolehe hero: mootori rehvimõõt ja pidurdusmaad (sama arvutus mis serveris: keskmine C-klassi rehv, ilma reaktsioonita) */
     function autoHero(veh) {
       var hero = $('.ad-hero');
@@ -2367,6 +2395,7 @@ import UNIVERSAALID from './universaalid.json';
           });
           dropOtherSizes(was);
           autoHero(veh);
+          if (!kasutaja && lykka()) return;
           /* kasutaja valik jääb meelde (kalkulaator ja rehvilehed teavad sama autot) */
           if (kasutaja) { save(); Track('autoleht_mootor', veh.name); }
           draw();
@@ -2616,7 +2645,7 @@ import UNIVERSAALID from './universaalid.json';
       if (!brandSel) return;
       var n = {};
       rows.forEach(function (r) { n[r.mark] = (n[r.mark] || 0) + 1; });
-      var names = Object.keys(n).sort(function (a, b) { return a.localeCompare(b, 'et'); });
+      var names = Object.keys(n).sort(function (a, b) { return KOLL.compare(a, b); });
       if (brandVal && names.indexOf(brandVal) < 0) brandVal = '';
       brandSel.innerHTML = _t('<option value="">Kõik margid (') + names.length + ')</option>' +
         names.map(function (m) { return _t('<option value="') + esc(m) + '"' + (m === brandVal ? ' selected' : '') + '>' + esc(m) + ' · ' + n[m] + '</option>'; }).join('');
