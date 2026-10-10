@@ -40,12 +40,17 @@ export function normMoot(s) {
 	return m ? `${m[1]}${m[2]}R${m[3]}${m[4] ? 'C' : ''}` : null;
 }
 
+/* autotootja sobivusmärgid (Mercedes MO1, Porsche N0–N5/NA0, Audi AO/RO1, BMW *, Volvo VOL, Jaguar J …):
+   sama rehv, ainult heakskiidu märk — mõlemal poolel ära */
+const OE = /^(mo|mo1|moe|ao|ao1|ro1|ro2|r01|n[0-5]|n[a-f][0-9]|j|lr|frv|vol|volfr|goe|tpc|ar)$/;
+
 /* lühendid mudelinimes */
 const SONA_ALIAS = { ug: 'ultragrip' };
 
 /* mudelinimest ära: mõõt, indeksid ja lisamärgid, mis ei muuda mudelit */
+/* NB: „winter“, „summer“, „all season“ EI ole müra — „Scorpion“ ja „Scorpion Winter“, „Scorpion Zero“ ja „Scorpion Zero All Season“ on eri rehvid */
 const MYRA = new Set(
-	'xl rf rft runflat ssr zp extra load reinf reinforced fr mfs tl tubeless 3pmsf pmsf fsl bsw studded naast naastrehv suverehv talverehv lamellrehv aastaringne summer winter allseason all season'.split(
+	'xl rf rft runflat ssr zp extra load reinf reinforced fr mfs tl tubeless 3pmsf pmsf fsl bsw studded naast naastrehv suverehv talverehv lamellrehv aastaringne'.split(
 		' '
 	)
 );
@@ -62,7 +67,7 @@ export function mudeliSonad(mudel, mark) {
 	let w = norm(s)
 		.split(' ')
 		.map((x) => SONA_ALIAS[x] || x)
-		.filter((x) => x && !MYRA.has(x) && !markW.has(x));
+		.filter((x) => x && !MYRA.has(x) && !markW.has(x) && !OE.test(x));
 	/* Hankooki tehasekood (W429, K135, H750) — üks pood kirjutab, teine mitte */
 	if (normMark(mark) === 'hankook') {
 		const ilma = w.filter((x) => !/^[khwrz]\d{3}[a-z]?$/.test(x));
@@ -124,6 +129,30 @@ export function leiaRehv(toode, read) {
 			if (aK.length && bK.length && aK.join(' ') !== bK.join(' ')) continue;
 			if (kokku(bS, r[1]) === kokku(aS, toode.mark)) return r[0];
 		}
+	}
+	/* ainult tehasekood („V906“, „TS870P“, „W330A“): sobib, kui täpselt ühel sama margi
+	   rehvil on see kood nimes (eraldi sõnana või nime lõpus kokkukirjutatult) */
+	if (aK.length && !aS.length) {
+		const vasted = new Set();
+		for (const r of read) {
+			if (normMark(r[1]) !== mk) continue;
+			const w = norm(r[2]).split(' '), j = w.join('');
+			if (aK.every((k) => w.includes(k) || j.endsWith(k))) vasted.add(r[0]);
+		}
+		if (vasted.size === 1) return [...vasted][0];
+	}
+	/* kood + sõnad ühel pool, ainult kood teisel („WinterCraft WS71“ ↔ „WS71“): koodid samad */
+	if (aK.length) {
+		const vasted = new Set();
+		for (const r of read) {
+			if (normMark(r[1]) !== mk) continue;
+			const meie = mudeliSonad(r[2], r[1]);
+			const bK = meie.filter(kood), bS = meie.filter((x) => !kood(x));
+			/* „HA32+“ ≠ „HA32“: pluss on eri mudel */
+			if (aS.includes('plus') !== bS.includes('plus')) continue;
+			if (bK.length && bK.join(' ') === aK.join(' ') && (!bS.length || !aS.length)) vasted.add(r[0]);
+		}
+		if (vasted.size === 1) return [...vasted][0];
 	}
 	return parimSkoor >= 0.85 ? parim : null;
 }
