@@ -18,7 +18,10 @@ const MAX_MALUS = 300;
 const malu = new Map(); // slug -> { tyyp, andmed, aeg }
 const PAEV = 86400 * 1000;
 
-const puudub = () => new Response('Pilti ei ole', { status: 404, headers: { ...PAISED, 'Cache-Control': 'public, max-age=3600' } });
+/* pilti pole: lühike vahemälu (pärast serveri restarti tekib pildi allikas alles hinnapäringuga) */
+const puudub = () => new Response('Pilti ei ole', { status: 404, headers: { ...PAISED, 'Cache-Control': 'public, max-age=300' } });
+/* ajutine viga (pakkuja aeglane/maas): ära jäta brauserisse meelde */
+const ajutine = () => new Response('Pilt ajutiselt kättesaamatu', { status: 503, headers: { ...PAISED, 'Cache-Control': 'no-store' } });
 
 export async function GET(event) {
 	if (!piirang('pilt', event, 120, 60)) return liigaPalju();
@@ -33,13 +36,14 @@ export async function GET(event) {
 		try {
 			const r = await paring(p, allikas.url, { maxBaite: 3_000_000, aegMs: 8000 });
 			const tyyp = r.tyyp.split(';')[0].trim().toLowerCase();
+			if (r.status >= 500 || r.status === 429) return ajutine();
 			if (r.status !== 200 || !TYYBID.includes(tyyp)) return puudub();
 			k = { tyyp, andmed: r.andmed, aeg: Date.now() };
 			malu.delete(slug);
 			malu.set(slug, k);
 			while (malu.size > MAX_MALUS) malu.delete(malu.keys().next().value);
 		} catch {
-			return puudub();
+			return ajutine();
 		}
 	}
 	return new Response(k.andmed, {

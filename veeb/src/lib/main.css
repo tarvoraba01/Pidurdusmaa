@@ -1250,3 +1250,51 @@ html.upotus .rk-ala{position:relative}html.upotus .rk-pallid{position:absolute;l
 .ht-rida{display:block;margin-top:4px;font-size:14px}
 .ht-osta{white-space:nowrap;font-weight:600}
 .ht-pood{font-weight:400;color:var(--muted)}
+/* AUTOLEHT: rehvid väikeste ruutudena (3 rida laiusel, telefonis 1–2) */
+.res-list.rk-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(250px,100%),1fr));gap:var(--sp-3);align-items:stretch}
+.res-list.rk-list>.note,.res-list.rk-list>.box{grid-column:1/-1}
+.rcard.rk{display:flex;flex-direction:column;gap:var(--sp-2);padding:var(--sp-4);align-items:stretch}
+.rk-top{display:flex;align-items:center;gap:var(--sp-2);flex-wrap:wrap;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.04em}
+.rk-top .rank{margin:0}
+.rk-test{color:var(--tested)}
+.rk-pilt{display:flex;justify-content:center;align-items:center;height:104px}
+.rk-pilt img{max-height:100px;width:auto;object-fit:contain}
+.rk-pilt .pk-ring{width:70px;height:70px}
+.rcard.rk h3{font-size:16px;line-height:1.3}
+.rcard.rk .stars{gap:2px var(--sp-3)}
+.rcard.rk .st{font-size:12.5px}
+.rcard.rk .st-s{font-size:13px}
+.rk-nr{display:grid;grid-template-columns:1fr 1fr;gap:var(--sp-2);margin-top:auto}
+.rk-n{background:var(--soft,#f4f5f7);border-radius:8px;padding:var(--sp-2) var(--sp-3);display:grid;gap:2px}
+.rk-n span{font-size:12.5px;color:var(--muted);font-weight:600}
+.rk-n small{font-weight:500}
+.rk-n b{font-size:18px}
+.rk-hind .none{font-size:13px;color:var(--muted);font-style:italic}
+.rk-osta{display:flex;align-items:center;justify-content:space-between;gap:var(--sp-2);text-decoration:none;color:inherit;border:1px solid var(--line);border-radius:10px;padding:var(--sp-2) var(--sp-3)}
+a.rk-osta:hover{border-color:#e6ae00}
+.rk-h{display:grid;line-height:1.25}
+.rk-h b{font-size:17px;color:#15803d}
+.rk-h small{font-size:12px;color:var(--muted)}
+.rk-o{background:var(--yellow);color:#171200;font-weight:700;border-radius:999px;padding:6px 12px;font-size:14px;white-space:nowrap}
+.rcard.rk .add-btn{align-self:flex-start}
+.rcard.rk .stars{display:grid;grid-template-columns:auto 1fr;gap:1px var(--sp-3)}
+.rcard.rk .st{display:contents}
+.rcard.rk .st:nth-child(n+4){display:none}
+.rk-pilt .pk-ring{width:58px;height:58px;border-width:9px;opacity:.18}
+.rk-top{flex-wrap:nowrap;white-space:nowrap;overflow:hidden}
+.rk-top .kat-b{margin-right:0;overflow:hidden;text-overflow:ellipsis}
+@media (max-width:560px){
+  .res-list.rk-list{grid-template-columns:1fr 1fr;gap:var(--sp-2)}
+  .rcard.rk{padding:var(--sp-3);gap:6px}
+  .rcard.rk .stars{display:none}
+  .rk-pilt{height:72px}.rk-pilt img{max-height:70px}.rk-pilt .pk-ring{width:44px;height:44px;border-width:7px}
+  .rcard.rk h3{font-size:14.5px}
+  .rk-nr{grid-template-columns:1fr;gap:4px}
+  .rk-n{padding:6px var(--sp-2);grid-template-columns:1fr auto;align-items:baseline}
+  .rk-n span{font-size:11.5px}.rk-n small{display:none}.rk-n b{font-size:15px}
+  .rk-osta{flex-direction:column;align-items:stretch;padding:6px var(--sp-2);gap:6px}
+  .rk-h b{font-size:15px}.rk-o{text-align:center;padding:6px 8px;font-size:13px}
+  .rk-top{font-size:10.5px}.rk-top .kat-b{font-size:10.5px;padding:2px 6px}.rk-test{display:none}
+  .rcard.rk .add-btn{font-size:13px;padding:6px 10px}
+}
+.rk-nr{margin-top:0}.rk-hind{margin-top:auto}

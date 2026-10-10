@@ -127,6 +127,7 @@ export function teisenda(s, meieMoodud) {
 	const li = valja(s, 'koormusindeks'), si = valja(s, 'kiirusindeks');
 	const pilt = valja(s, 'pilt');
 	const ean = valja(s, 'ean');
+	const kood = valja(s, 'kood');
 	return {
 		mark,
 		mudel,
@@ -137,9 +138,84 @@ export function teisenda(s, meieMoodud) {
 		lisi: [li, si].filter(Boolean).join(' ').slice(0, 30) || undefined,
 		ean: /^\d{8,14}$/.test(ean) ? ean : undefined,
 		pilt: /^https:\/\//.test(pilt) ? pilt : undefined,
-		url: poeLinkMoodule(moot, kat),
+		/* tootekoodiga otsing annab poes täpselt selle toote; täpne link ja hind tulevad taustal (tapsusta) */
+		kood: /^[\w.-]{1,30}$/.test(kood) ? kood : undefined,
+		url: /^[\w.-]{1,30}$/.test(kood) ? `${POOD}pood/shopsearch/${encodeURIComponent(kood)}` : poeLinkMoodule(moot, kat),
+		/* voo soovitushind võib poe hinnast ±5% erineda, kuni täpne hind on poest kontrollitud */
+		umbes: true,
 		myyja: 'tirespot.ee'
 	};
+}
+
+/* ---------------------------------------------------------------- täpsustus
+ * Voos pole tootelinki ja poe hind võib soovitushinnast veidi erineda.
+ * Poe otsing tootekoodiga (/pood/shopsearch/<kood>) annab täpselt selle toote
+ * kaardi: lingi tootelehele, tegeliku hinna ja pildi. Seda tehakse ainult
+ * mõõtudele, mida keegi vaatab, taustal, 2 korraga, tulemus 12 h meeles. */
+const TAPNE_MS = 12 * 3600 * 1000;
+const tapne = new Map(); // kood -> { url, hind, pilt, aeg } | { puudub: true, aeg }
+const jarjekord = new Set();
+let toolisi = 0;
+
+/** Poe otsingutulemuse HTML → toote kaardid. */
+export function loeOtsing(html) {
+	const kaardid = [];
+	for (const osa of String(html).split(/class="item\s/).slice(1)) {
+		const href = /href="\/?(pood\/toode\/[^"#?]+)"/.exec(osa);
+		const hind = /class="price[^"]*">\s*([\d.]+)\s*€/.exec(osa);
+		if (!href || !hind) continue;
+		const pealkiri = (/title="([^"]*)"/.exec(osa) || [])[1] || '';
+		const pilt = (/data-bg="(https:\/\/[^"]+)"/.exec(osa) || [])[1];
+		kaardid.push({ url: POOD + href[1], hind: +hind[1], pealkiri, pilt });
+	}
+	return kaardid;
+}
+
+/** Mitme vaste korral õige mõõduga kaart; muidu ainus. */
+export function valiKaart(kaardid, moot) {
+	if (kaardid.length === 1) return kaardid[0];
+	const m = /^(\d{3})(\d{2})R(\d{2})/.exec(moot || '');
+	const silt = m ? `${m[1]}/${m[2]}R${m[3]}` : null;
+	const oiged = silt ? kaardid.filter((k) => k.pealkiri.includes(silt)) : [];
+	return oiged.length === 1 ? oiged[0] : null;
+}
+
+function tapsusta(pakkuja, ctx, read) {
+	for (const r of read) {
+		if (!r.kood) continue;
+		const t = tapne.get(r.kood);
+		if (t && Date.now() - t.aeg < TAPNE_MS) continue;
+		jarjekord.add(r.kood + '|' + r.moot);
+	}
+	while (toolisi < 2 && jarjekord.size) {
+		toolisi++;
+		(async () => {
+			try {
+				while (jarjekord.size) {
+					const v = jarjekord.values().next().value;
+					jarjekord.delete(v);
+					const [kood, moot] = v.split('|');
+					try {
+						const r = await ctx.paring(pakkuja, `${POOD}pood/shopsearch/${encodeURIComponent(kood)}`, { maxBaite: 3_000_000, aegMs: 10_000 });
+						if (r.status !== 200) throw new Error('HTTP ' + r.status);
+						const k = valiKaart(loeOtsing(r.andmed.toString('utf-8')), moot);
+						tapne.set(kood, k && k.hind > 5 && k.hind < 5000 ? { url: k.url, hind: k.hind, pilt: k.pilt, aeg: Date.now() } : { puudub: true, aeg: Date.now() });
+					} catch {
+						/* ajutine viga: proovib järgmisel vaatamisel uuesti */
+					}
+					while (tapne.size > 30000) tapne.delete(tapne.keys().next().value);
+				}
+			} finally {
+				toolisi--;
+			}
+		})();
+	}
+}
+
+function koosTapsusega(r) {
+	const t = r.kood && tapne.get(r.kood);
+	if (!t || t.puudub || Date.now() - t.aeg > TAPNE_MS) return r;
+	return { ...r, url: t.url, hind: t.hind, umbes: false, pilt: r.pilt || t.pilt };
 }
 
 async function laeKoik(pakkuja, { muutuja, voog }) {
@@ -202,7 +278,7 @@ export default {
 	hostid: ['www.tirespot.ee', 'tirespot.ee', 'eu.erply.com', 'cdn-old.erply.com'],
 	poeHostid: ['www.tirespot.ee', 'tirespot.ee'],
 	env: ['PAKKUJA_TIRESPOT_URL'],
-	ttlHinnad: 600,
+	ttlHinnad: 120, /* täpsustatud link ja hind jõuavad lehele kiiresti */
 
 	async soojenda(ctx) {
 		await lae(this, ctx);
@@ -212,10 +288,14 @@ export default {
 		if (!indeks) await lae(this, ctx);
 		else if (Date.now() - laetud > VARSKE_MS) lae(this, ctx).catch(() => {});
 		if (Date.now() - laetud > MAX_VANUS_MS) throw new Error('tirespot: andmed üle 48 h vanad ja värskendus ei õnnestu');
-		return indeks.get(moot) || [];
+		const read = indeks.get(moot) || [];
+		if (ctx.paring) tapsusta(this, ctx, read);
+		return read.map(koosTapsusega);
 	},
 
 	lisaOlek() {
-		return { ...info, viga: viimaneViga ? viimaneViga.teade : null, laadib: !!laadib };
+		let tapseid = 0;
+		for (const t of tapne.values()) if (!t.puudub) tapseid++;
+		return { ...info, viga: viimaneViga ? viimaneViga.teade : null, laadib: !!laadib, tapseid, jarjekorras: jarjekord.size };
 	}
 };

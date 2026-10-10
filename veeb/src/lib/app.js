@@ -2277,6 +2277,15 @@ import UNIVERSAALID from './universaalid.json';
     }
     return '<span class="none">' + (avail ? _t('Selle rehvi hinda müüjatelt hetkel pole') : _t('Hinnad pole hetkel saadaval')) + '</span> ' + tip(PRICE_T);
   }
+  /* väike kaart: odavaim pakkumine + mitu poodi kokku */
+  function hindVaike(rows, nimi) {
+    if (!rows || !rows.length) return '<span class="none">' + _t('Hinda poodidest pole') + '</span>';
+    var r = rows.slice().sort(function (a, b) { return a.hind - b.hind; })[0];
+    var sisu = '<span class="rk-h"><b>' + (rows.length > 1 ? _t('al') + ' ' : '') + hindTekst(r) + '</b><small>' + esc(r.myyja) + (rows.length > 1 ? ' · ' + rows.length + ' ' + _t('poodi') : '') + '</small></span>';
+    return r.url
+      ? '<a class="rk-osta" href="' + esc(poeLink(r.url, 'autoleht', nimi)) + '" target="_blank" rel="nofollow sponsored noopener" data-pood="' + esc(r.myyja) + '" data-rehv="' + esc(nimi) + '">' + sisu + '<span class="rk-o">' + _t('Osta') + ' →</span></a>'
+      : '<div class="rk-osta">' + sisu + '</div>';
+  }
   function fillPrices(box) {
     var els = $$('[data-price]', box);
     if (!els.length) return;
@@ -2285,13 +2294,15 @@ import UNIVERSAALID from './universaalid.json';
       var h = (d && d.hinnad) || {};
       els.forEach(function (e) {
         var kaart = e.closest('article'), n = kaart && kaart.querySelector('[data-n]');
-        e.innerHTML = priceHtml(h[e.dataset.price], !!(d && d.available), e.dataset.price, n ? n.dataset.n : '');
+        e.innerHTML = e.hasAttribute('data-kompakt')
+          ? hindVaike(h[e.dataset.price], n ? n.dataset.n : '')
+          : priceHtml(h[e.dataset.price], !!(d && d.available), e.dataset.price, n ? n.dataset.n : '');
       });
       /* pakkuja pilt kaardile (meie serveri kaudu); kui laadimine ebaõnnestub, jääb peidetuks */
       $$('img[data-pilt]', box).forEach(function (im) {
         var rows = h[im.dataset.pilt];
         if (!rows || !rows.some(function (r) { return r.pilt; }) || im.getAttribute('src')) return;
-        im.onload = function () { im.hidden = false; };
+        im.onload = function () { im.hidden = false; var rg = im.nextElementSibling; if (rg && rg.classList.contains('pk-ring')) rg.hidden = true; };
         im.onerror = function () { im.hidden = true; };
         im.src = CFG.home + 'api/pilt/' + encodeURIComponent(im.dataset.pilt.split('@')[0]) + '/';
       });
@@ -2583,7 +2594,9 @@ import UNIVERSAALID from './universaalid.json';
     }
 
     /* ---- nimekiri */
-    var listEl = $('[data-cmp-list]', root), head = $('[data-cmp-head]', root), q = $('[data-q]', root);
+    var listEl = $('[data-cmp-list]', root);
+    if (listEl && root.dataset.auto) listEl.classList.add('rk-list');
+    var head = $('[data-cmp-head]', root), q = $('[data-q]', root);
     var brandSel = $('[data-brand]', root), brandVal = qs.get('mark') || '';
     var qT = null, viimaneQ = '';
     if (q) q.addEventListener('input', function () {
@@ -2881,7 +2894,27 @@ import UNIVERSAALID from './universaalid.json';
       if (r.f) lisa(_t('Kütus'), FG[r.f], _t('Veeretakistuse klass: A = 5 tähte'));
       return rida.length ? '<div class="stars">' + rida.join('') + '</div>' : '';
     }
+    /* AUTOLEHT: väike ruut (3 rida laiusel) — pilt, nimi, 2 põhinumbrit, odavaim hind.
+       Kõik muu (kõik numbrid, kõik poed) on rehvi lehel. */
+    function kaartVaike(x, i) {
+      var r = x.r, P = x.P, id = r.slug + '@' + r.m, on = cmp.has(id), nimi = r.mark + ' ' + r.name;
+      var talv = S.season === 'winter' || S.season === 'naast';
+      var nr = function (silt, v, alam) { return '<div class="rk-n"><span>' + silt + ' <small>' + alam + '</small></span><b>' + v + '</b></div>'; };
+      var n1 = P.wetb ? nr(_t('Märjal'), P.wetb.show, '90→0') : '';
+      var n2 = talv && P.ice && P.ice.v ? nr(_t('Jääl'), fmt(P.ice.v) + ' ' + _t('m'), '50→0') : (P.dryb ? nr(_t('Kuival'), P.dryb.show.replace(/<[^>]+>/g, ''), '90→0') : '');
+      return '<article class="rcard rk' + (on ? ' on' : '') + '">' +
+        '<div class="rk-top"><span class="rank">' + (i + 1) + '</span>' + (KAT_KAART[r.catNr] ? '<span class="kat-b kat-' + r.catNr + '">' + KAT_KAART[r.catNr] + '</span>' : '') +
+          (r.tested || r.tul ? '<span class="rk-test">' + _t('Testitud') + '</span>' : '') + '</div>' +
+        '<a class="rk-pilt" href="' + rTee(r.slug) + '/" tabindex="-1" aria-hidden="true"><img class="rpilt" alt="" width="84" height="100" decoding="async" hidden data-pilt="' + esc(id) + '"><span class="pk-ring"></span></a>' +
+        '<h3><a href="' + rTee(r.slug) + '/"><span class="mk">' + esc(r.mark) + '</span> ' + esc(r.name) + '</a></h3>' +
+        tahed(x) +
+        '<div class="rk-nr">' + n1 + n2 + '</div>' +
+        '<div class="rk-hind" data-price="' + esc(id) + '" data-kompakt><span class="none">' + _t('Laen hindu…') + '</span></div>' +
+        '<button type="button" class="add-btn" data-add="' + esc(id) + '" data-n="' + esc(nimi) + '" aria-pressed="' + on + '">' + (on ? _t('✓ Võrdluses') : _t('+ Võrdle')) + '</button>' +
+        '</article>';
+    }
     function card(x, i, why) {
+      if (autoLeht) return kaartVaike(x, i);
       var r = x.r, id = r.slug + '@' + r.m, on = cmp.has(id);
       return _t('<article class="rcard') + (on ? ' on' : '') + '"><div class="rc-info">' +
         '<div class="b">' + (why ? '<span class="rank">' + (i + 1) + '</span>' : '') + (KAT_KAART[r.catNr] ? '<span class="kat-b kat-' + r.catNr + '">' + KAT_KAART[r.catNr] + '</span>' : '') + (r.tul ? '<span style="color:var(--tested)">' + _t('Ajakirjatestid') + '</span>' : r.tested ? _t('<span style="color:var(--tested)">Sõltumatult testitud</span>') : _t('<span style="color:var(--muted)">EL-i märgis</span>')) +
@@ -3499,7 +3532,19 @@ import UNIVERSAALID from './universaalid.json';
      siis see sündmus enam ei tule ja päis (burger, rippmenüü), infodialoog
      ja infomullid jääksid käivitamata. Käivitame kohe, kui DOM on valmis. */
   var booted = false;
+  /* Rehvi pilt ei laadinud (pakkuja ajutiselt maas): katkise pildi asemel tavaline rehvirõngas */
+  var pildiKuular = false;
+  function pildiVead() {
+    if (pildiKuular) return; pildiKuular = true;
+    document.addEventListener('error', function (e) {
+      var im = e.target;
+      if (!im || im.tagName !== 'IMG' || String(im.getAttribute('src') || '').indexOf('api/pilt/') < 0) return;
+      var r = document.createElement('span'); r.className = 'pk-ring'; r.setAttribute('aria-hidden', 'true');
+      if (im.parentNode) im.parentNode.replaceChild(r, im);
+    }, true);
+  }
   function boot() {
+    pildiVead();
     if (booted) return; booted = true;
     initHeader(); initHow(); initTips(); initPwa();
     if (!window.PM_DEFER) initPage();
