@@ -253,7 +253,7 @@
 					<h4>{t("Otsi")}</h4>
 					<a class="pm-row" href={L('/autod/')}><Icon name="car" />{t("Autod ja rehvimõõdud")}</a>
 					<a class="pm-row" href={L('/rehvid/')}><Icon name="tyre" />{t("Kõik rehvid")}</a>
-					<a class="pm-row" href="/testid/"><Icon name="test" />{t("Sõltumatud testid")}</a>
+					<a class="pm-row" href="/testid/"><Icon name="test" />{t("Rehvitestid")}</a>
 				</section>
 			</div>
 
@@ -339,7 +339,7 @@
 					<li><a href={L('/autod/')}>{t("Autod")}</a></li>
 					<li><a href={L('/rehvid/')}>{t("Rehvid")}</a></li>
 					<li><a href={L('/talverehvid/')}>{t("Talverehvid mõõdu järgi")}</a></li>
-					<li><a href="/testid/">{t("Sõltumatud testid")}</a></li>
+					<li><a href="/testid/">{t("Rehvitestid")}</a></li>
 					<li><a href="/teadmine/kuidas-pidurdusmaa-arvutatakse/">{t("Kuidas arvutatakse")}</a></li>
 					<li><a href="/margid/">{t("Rehvimargid")}</a></li>
 					<li><a href="/teadmine/">{t("Teadmine")}</a></li>

@@ -590,6 +590,7 @@ export default {
 "vaata sama mõõdu rehve": "see tyres in the same size",
 "Vaata poodi": "View shop",
 "Hinnad poodidest. Ees testi mõõt, siis teised mõõdud; odavaim ees.": "Shop prices. Test size first, then other sizes; cheapest first.",
+"Rehvitestid": "Tyre tests",
 "Osta": "Buy",
 "Arvuta oma autoga": "Calculate for your car",
 "Kus osta": "Where to buy",
