@@ -600,6 +600,7 @@ export default {
 "alates": "от",
 "vaata sama mõõdu rehve": "шины того же размера",
 "Vaata poodi": "В магазин",
+"Hinnad poodidest. Ees testi mõõt, siis teised mõõdud; odavaim ees.": "Цены из магазинов. Сначала размер теста, затем другие размеры; дешевле — выше.",
 "Osta": "Купить",
 "Arvuta oma autoga": "Рассчитать для своей машины",
 "Kus osta": "Где купить",

@@ -13,6 +13,8 @@
 	import { graph } from '$lib/skeem.js';
 
 	let { data } = $props();
+	/* võrdluslehe testi mõõt (nt „205/55 R16“): „Kus osta“ näitab selle mõõdu pakkumisi esimesena */
+	const vsTestMoot = $derived(data.plokid?.[0]?.src?.moot || '');
 	const KAT = { 0: t('Suverehvid'), 1: t('Aastaringsed rehvid'), 2: t('Talverehvid (Kesk-Euroopa)'), 3: t('Talverehvid (Põhjamaade)') };
 
 	/* „märg asfalt, 80→0 km/h“ → tõlgitud pind + kiirus */
@@ -600,21 +602,6 @@
 	</section>
 	<div class="body-sec">
 		<div class="wrap">
-			<!-- ost: mõlema rehvi soodsaim pakkumine poodides (täidab app.js vsOsta; ilma hindadeta link rehvi lehele) -->
-			<div class="box vs-osta">
-				<h2>{t('Kus osta')}</h2>
-				<div class="vs-osta-grid">
-					{#each [data.a, data.b] as r (r.slug)}
-						<div class="vs-o" data-vs-osta={r.slug} data-nimi={r.name} data-moot={String(data.plokid[0]?.src?.moot || '').replace(/[/ ]/g, '').toUpperCase()}>
-							<b class="vs-o-n">{r.name}</b>
-							<span class="vs-o-h" data-vs-hind>{t('Laen hindu…')}</span>
-							<a class="btn yel" data-vs-link hidden>{t('Osta')} →</a>
-							<a class="vs-o-r" href={L('/rehvid/' + r.slug + '/')}>{t('Kõik mõõdud ja pidurdusmaa →')}</a>
-						</div>
-					{/each}
-				</div>
-				<p class="srcline">{t('Hinnad poodidest, soodsaim mõõt. Õige hinna näed oma mõõdus rehvi lehel.')}</p>
-			</div>
 			{#each data.plokid as p, pi (pi)}
 				<div class="box">
 					<h2>{t(p.src.nimi)}</h2>
@@ -652,6 +639,21 @@
 					</p>
 				</div>
 			{/each}
+			<!-- ost testide all: kummagi rehvi kõik pakkumised (testi mõõt ees), täidab app.js vsOsta -->
+			<div class="box vs-osta">
+				<h2>{t('Kus osta')}</h2>
+				<div class="vs-osta-grid">
+					{#each [data.a, data.b] as r (r.slug)}
+						<div class="vs-o" data-vs-osta={r.slug} data-nimi={r.name} data-moot={String(vsTestMoot).replace(/[/ ]/g, '').toUpperCase()}>
+							<h3 class="vs-o-n">{r.name}{#if vsTestMoot}<span>&nbsp;· {vsTestMoot}</span>{/if}</h3>
+							<p class="vs-o-h" data-vs-hind>{t('Laen hindu…')}</p>
+							<div class="vs-o-list" data-vs-list></div>
+							<a class="vs-o-r" href={L('/rehvid/' + r.slug + '/')}>{t('Kõik mõõdud ja pidurdusmaa →')}</a>
+						</div>
+					{/each}
+				</div>
+				<p class="srcline">{t('Hinnad poodidest. Ees testi mõõt, siis teised mõõdud; odavaim ees.')}</p>
+			</div>
 			{#if vsVastus}
 				<div class="box">
 					<h2>{t('Kumb on parem: {a} või {b}?', { a: data.a.name, b: data.b.name })}</h2>
@@ -671,11 +673,12 @@
 {/if}
 
 <style>
-	.vs-osta-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-3); }
-	.vs-o { display: grid; gap: var(--sp-2); align-content: start; padding: var(--sp-4); border: 1px solid var(--line); border-radius: 14px; }
-	.vs-o-n { font-size: 17px; }
-	.vs-o-h { color: var(--muted); font-size: 14px; }
-	.vs-o .btn[hidden] { display: none; }
+	.vs-osta-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-4); }
+	.vs-o { display: grid; gap: var(--sp-2); align-content: start; }
+	.vs-o-n { font-size: 18px; margin: 0; }
+	.vs-o-h { color: var(--muted); font-size: 14px; margin: 0; }
+	.vs-o-h:empty { display: none; }
+	.vs-o-list { display: grid; gap: var(--sp-2); max-height: 330px; overflow-y: auto; padding-right: 4px; }
 	.vs-o-r { font-size: 14px; }
 	@media (max-width: 640px) { .vs-osta-grid { grid-template-columns: 1fr; } }
 	.vastus { font-size: 17px; font-weight: 600; max-width: 62ch; margin: 6px 0 10px; }
