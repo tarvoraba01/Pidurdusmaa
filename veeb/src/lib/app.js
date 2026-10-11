@@ -318,7 +318,17 @@ import UNIVERSAALID from './universaalid.json';
         var vaja = false;
         try { vaja = String(store.get('veh', '') || '').indexOf('~') > 0 || String(qa || '').indexOf('~') > 0; } catch (e) {}
         if (vaja) return laeMootorid().then(function () { return core; });
-        setTimeout(laeMootorid, 1200);
+        /* Mootorid (~700 KB) alles siis, kui kasutaja hakkab autot valima — või kui brauser on
+           vaba (mitte kohe lehe avanemise ajal: see aeglustas telefonis lehte üle sekundi). */
+        var mootLae = function () {
+          document.removeEventListener('focusin', mootLae, true);
+          document.removeEventListener('pointerdown', mootLae, true);
+          laeMootorid();
+        };
+        document.addEventListener('focusin', mootLae, true);
+        document.addEventListener('pointerdown', mootLae, true);
+        if ('requestIdleCallback' in window) requestIdleCallback(mootLae, { timeout: 10000 });
+        else setTimeout(mootLae, 6000);
         return core;
       });
   }
