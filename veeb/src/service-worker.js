@@ -25,7 +25,7 @@ const KOIK = [APP, LEHED, ANDMED, PILDID, STAATILINE];
 
 /* ette: rakenduse failid, fondid, ikoonid + avaleht ja simulaatorid */
 const ETTE = build
-	.concat(files.filter((f) => /^\/(fonts\/.*\.woff2|favicon\.(svg|ico)|icon-[\w-]+\.png|apple-touch-icon\.png|manifest\.webmanifest|img\/hero-car\.jpg)$/.test(f)));
+	.concat(files.filter((f) => /^\/(fonts\/.*\.woff2|favicon\.(svg|ico)|icon-[\w-]+\.png|apple-touch-icon\.png|manifest\.webmanifest)$/.test(f)));
 const ETTE_LEHED = ['/', '/liiklusohutus/', '/liiklusohutus/pimedas/', '/liiklusohutus/pikivahe/', '/liiklusohutus/kurv/'];
 
 self.addEventListener('install', (e) => {
