@@ -595,6 +595,7 @@ export default {
 "poodi": "shops",
 "Hinda poodidest pole": "No shop prices yet",
 "Jääl 50→0": "On ice 50→0",
+"sobivad rehvid": "matching tyres",
 "Osta": "Buy",
 "Arvuta oma autoga": "Calculate for your car",
 "Kus osta": "Where to buy",

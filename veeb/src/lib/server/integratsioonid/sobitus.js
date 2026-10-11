@@ -62,6 +62,7 @@ export function mudeliSonad(mudel, mark) {
 	s = s.replace(/\b(\d{2,3})(\/\d{2,3})?\s?[A-Z]\b/g, (k, n) => (+n >= 60 && +n <= 130 ? ' ' : k));
 	s = s.replace(/\bM\s*[+&/]\s*S\b/gi, ' '); // M+S (mitte „S“ üksi — Pilot Sport 4 S on eri rehv)
 	s = s.replace(/\+/g, ' plus '); // „UltraGrip Ice 2+“ ≠ „UltraGrip Ice 2“
+	s = s.replace(/\b([A-Za-z]{1,3})-(\d{1,4}[A-Za-z]?)\b/g, '$1$2'); // „AT-771“ = „AT771“, „SP-02“ = „SP02“
 	/* margi sõnad välja ("Nokian Tyres Hakkapeliitta R5" → "hakkapeliitta r5") */
 	const markW = new Set(norm(mark).split(' '));
 	let w = norm(s)
@@ -119,7 +120,8 @@ export function leiaRehv(toode, read) {
 	if (kokkuVaste) return kokkuVaste;
 	/* tehasekoodiga või ilma: „EffexSport TH202“ = „EffeXSport“, aga
 	   „IcePlus S210“ ≠ „IcePlus S220“ (mõlemal kood ja need erinevad) */
-	const kood = (x) => /^[a-z]{1,3}\d{2,4}[a-z]?$/.test(x);
+	/* tehasekood: „TS870“, „W330A“, ka lühike „WP6“, „AP3“, „SP5“ (aga mitte „R5“, „P7“) */
+	const kood = (x) => /^[a-z]{1,3}\d{2,4}[a-z]?$/.test(x) || /^(?!pz)[a-z]{2,3}\d$/.test(x); /* PZ4/PZ5 = P Zero põlvkond, mitte kood */
 	const [aK, aS] = [sonad.filter(kood), sonad.filter((x) => !kood(x))];
 	if (aS.length) {
 		for (const r of read) {
@@ -151,6 +153,18 @@ export function leiaRehv(toode, read) {
 			/* „HA32+“ ≠ „HA32“: pluss on eri mudel */
 			if (aS.includes('plus') !== bS.includes('plus')) continue;
 			if (bK.length && bK.join(' ') === aK.join(' ') && (!bS.length || !aS.length)) vasted.add(r[0]);
+		}
+		if (vasted.size === 1) return [...vasted][0];
+	}
+	/* „SOTTOZERO 3“ = „WINTER SOTTOZERO 3“: ainus vahe on sõna „winter“ ja nimes on number
+	   (ilma numbrita mitte: „Scorpion“ ≠ „Scorpion Winter“) */
+	if (sonad.some((x) => /\d/.test(x))) {
+		const vasted = new Set();
+		const ilmaW = (w) => w.filter((x) => x !== 'winter').join(' ');
+		for (const r of read) {
+			if (normMark(r[1]) !== mk) continue;
+			const meie = mudeliSonad(r[2], r[1]);
+			if (meie.includes('winter') !== sonad.includes('winter') && ilmaW(meie) === ilmaW(sonad)) vasted.add(r[0]);
 		}
 		if (vasted.size === 1) return [...vasted][0];
 	}

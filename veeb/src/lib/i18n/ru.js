@@ -606,6 +606,7 @@ export default {
 "poodi": "магазинов",
 "Hinda poodidest pole": "Цен в магазинах нет",
 "Jääl 50→0": "На льду 50→0",
+"sobivad rehvid": "подходящие шины",
 "Osta": "Купить",
 "Arvuta oma autoga": "Рассчитать для своей машины",
 "Kus osta": "Где купить",

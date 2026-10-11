@@ -1321,3 +1321,4 @@ a.rk-osta:hover{border-color:#e6ae00}
   .cmp-tray .chip span{overflow:hidden;text-overflow:ellipsis}
   .cmp-tray .btn{flex:none;white-space:nowrap;padding:8px 12px;font-size:14px}
 }
+.vh-auto{display:flex;width:fit-content;max-width:100%;margin-top:var(--sp-2);white-space:normal;text-align:left}

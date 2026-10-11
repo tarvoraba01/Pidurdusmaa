@@ -1014,7 +1014,9 @@ import UNIVERSAALID from './universaalid.json';
       /* link auto lehele (/autod/<mark>/<mudel-põlvkond>/), sama slug mis serveris */
       var al = veh && veh.make && veh.model && veh.make !== 'Ei leia oma autot'
         ? (LANG === 'ru' ? '/ru' : '') + '/autod/' + slugA(veh.make.split(' /')[0]) + '/' + slugA((veh.modelEt || veh.model) + ' ' + (veh.yearLabelEt || veh.yearLabel)) + '/' : '';
-      $('[data-veh-hint]', root).innerHTML = esc(hint) + (al ? _t(' · <a href="') + esc(al) + _t('">auto leht</a>') : '');
+      /* selge nupp: valitud autole sobivad rehvid koos hindade ja „Osta“ nuppudega autolehel */
+      var aNimi = veh ? [(veh.modelEt || veh.model), veh.gen].filter(Boolean).join(' ') : '';
+      $('[data-veh-hint]', root).innerHTML = esc(hint) + (al ? '<a class="btn yel sm vh-auto" href="' + esc(al) + '">' + esc(aNimi) + ': ' + _t('sobivad rehvid') + ' →</a>' : '');
     });
     S.size = sizeOptions(sizeSel, null, S.size);
 
