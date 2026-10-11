@@ -594,6 +594,7 @@ export default {
 "al": "from",
 "poodi": "shops",
 "Hinda poodidest pole": "No shop prices yet",
+"Jääl 50→0": "On ice 50→0",
 "Osta": "Buy",
 "Arvuta oma autoga": "Calculate for your car",
 "Kus osta": "Where to buy",

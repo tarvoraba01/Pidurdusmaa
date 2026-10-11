@@ -3022,14 +3022,46 @@ import UNIVERSAALID from './universaalid.json';
           }).join('') + '</tr>';
         });
         h += '</tbody></table></div>';
-        h += _t('<p class="swipe-hint">Libista, et näha kõiki →</p><div class="swipe">') + items.map(function (x) {
-          return '<div class="sc"><h3>' + esc(x.r.mark + ' ' + x.r.name) + '</h3><dl>' + ROWS.map(function (row) {
-            if (!row[1]) return '<dt class="g">' + esc(row[0]) + '</dt>';
-            if (row[1] === 'price') return '<dt>' + esc(row[0]) + '</dt><dd>' + priceSlot(x.r.slug + '@' + x.r.m) + '</dd>';
-            var p = x.P[row[1]];
-            return '<dt>' + esc(row[0]) + '</dt><dd>' + (p ? p.show : '<span style="font-weight:500;color:var(--muted)">' + '–' + '</span>') + '</dd>';
-          }).join('') + '</dl></div>';
-        }).join('') + '</div></div>';
+        /* TELEFON: üks omadus korraga, kõik rehvid selle all üksteise all (numbrimärk = rehv).
+           Kõrvuti libistamisel nägi korraga ainult üht rehvi — võrrelda ei saanud. */
+        var MV = ['#f5b301', '#3b82f6', '#16a34a', '#a855f7'];
+        var lyh = function (x) { return items.filter(function (y) { return y.r.mark === x.r.mark; }).length === items.length ? x.r.name : x.r.mark + ' ' + x.r.name; };
+        var chip = function (i) { return '<span class="mv-c" style="background:' + MV[i % 4] + '">' + (i + 1) + '</span>'; };
+        h += '<div class="mvord"><ol class="mv-rehvid">' + items.map(function (x, i) {
+          return '<li>' + chip(i) + '<a href="' + rTee(x.r.slug) + '/">' + esc(x.r.mark + ' ' + x.r.name) + '</a><small>' + esc(pretty(x.r.m)) + '</small></li>';
+        }).join('') + '</ol>';
+        /* telefonis talv kahe reana (lumi, jää), et numbrid mahuks ja parim oleks näha */
+        var ROWS_M = [];
+        ROWS.forEach(function (row) {
+          if (row[1] === 'winter') { ROWS_M.push([_t('Lumel 50→0'), 'snow', 'max']); ROWS_M.push([_t('Jääl 50→0'), 'ice', 'max']); }
+          else ROWS_M.push(row);
+        });
+        ROWS_M.forEach(function (row) {
+          if (!row[1]) { h += '<h4 class="mv-g">' + esc(row[0]) + '</h4>'; return; }
+          var k = row[1];
+          h += '<div class="mv-r"><div class="mv-l">' + (k === 'rft' ? 'Run-flat' : esc(row[0])) + '</div>';
+          if (k === 'price') {
+            h += items.map(function (x, i) { return '<div class="mv-v mv-hind">' + chip(i) + '<span class="mv-n">' + esc(lyh(x)) + '</span>' + priceSlot(x.r.slug + '@' + x.r.m) + '</div>'; }).join('') + '</div>';
+            return;
+          }
+          var vals = items.map(function (x) { return x.P[k] && x.P[k].score != null ? x.P[k].score : null; });
+          var present = vals.filter(function (v) { return v != null; });
+          var bestV = row[2] && present.length > 1 ? Math.max.apply(null, present) : null;
+          h += items.map(function (x, i) {
+            var p = x.P[k], v;
+            if (k === 'rft') v = onRft(x.r) ? _t('Jah') : _t('Ei');
+            else if (k === 'snow' || k === 'ice') v = p && p.v ? (x.P.winter && x.P.winter.src === 'est' ? '<span class="est">≈</span>' : '') + fmt(p.v) + ' ' + _t('m') : '–';
+            else v = p ? p.show : '–';
+            var win = bestV != null && vals[i] === bestV && present.filter(function (q) { return q === bestV; }).length < present.length;
+            var extra = '';
+            if ((k === 'wetb' || k === 'dryb' || k === 'aqua' || k === 'snow' || k === 'ice') && bestV != null && vals[i] != null && vals[i] < bestV) {
+              var diff = p.v + bestV;
+              if (diff > 0.05) extra = '<span class="pct">+' + fmt(diff) + ' ' + _t('m') + '</span>';
+            }
+            return '<div class="mv-v' + (win ? ' win' : '') + '">' + chip(i) + '<span class="mv-n">' + esc(lyh(x)) + '</span>' + (extra || '<span></span>') + '<b>' + v + '</b></div>';
+          }).join('') + '</div>';
+        });
+        h += '</div></div>';
         tblBox.innerHTML = h;
         fillPrices(tblBox);
         $$('[data-xrm]', tblBox).forEach(function (b) { b.addEventListener('click', function () { cmp.toggle({ id: b.dataset.xrm }); draw(); }); });
