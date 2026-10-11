@@ -34,5 +34,6 @@ export function awin(mid, url) {
 
 export const PARTNERID = [
 	{ nimi: 'Rehvivahetus.ee', link: utm('https://www.rehvivahetus.ee/'), logo: 'rehvivahetus.svg' },
+	{ nimi: 'Tirespot.ee', link: utm('https://www.tirespot.ee/'), logo: 'tirespot.svg' },
 	{ nimi: 'Dignicy', link: utm('https://dignicy.ee/'), logo: 'dignicy.svg' }
 ];
