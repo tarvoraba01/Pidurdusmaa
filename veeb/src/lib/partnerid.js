@@ -35,6 +35,8 @@ export function awin(mid, url) {
 export const PARTNERID = [
 	{ nimi: 'Rehvivahetus.ee', link: utm('https://www.rehvivahetus.ee/'), logo: 'rehvivahetus.svg' },
 	{ nimi: 'Tirespot.ee', link: utm('https://www.tirespot.ee/'), logo: 'tirespot.svg' },
+	/* logo puudub veel (intercars24.ee on Cloudflare'i taga) — ruudus on nimi; lisa logo: static/img/partnerid/intercars.svg ja logo: 'intercars.svg' */
+	{ nimi: 'Inter Cars', link: utm('https://www.intercars24.ee/') },
 	{ nimi: 'Dignicy', link: utm('https://dignicy.ee/'), logo: 'dignicy.svg' },
 	/* videote eestikeelne hääl; tasuta, mitte partnerlink (TartuNLP luba 12.10.2026) */
 	{ nimi: 'Neurokõne (TartuNLP)', link: 'https://neurokone.ee/', logo: 'neurokone.svg', tasuta: true }
