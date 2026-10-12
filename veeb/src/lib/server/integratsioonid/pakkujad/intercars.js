@@ -65,10 +65,16 @@ export function teisenda(s, meieMoodud) {
 	const nimi = valja(s, 'Name');
 	const m = MOOT_RE.exec(nimi);
 	if (!m) return null;
-	const moot = normMoot(`${m[1]}/${m[2]} R${m[3]}${m[4] ? ' C' : ''}`);
+	/* C-rehv (kaubik): „R16C“, aga voos tavaliselt lõpus „… 109/107 R C“ või topeltkoormusindeks */
+	const sabas = nimi.slice(m.index + m[0].length);
+	const c = !!m[4] || /\sC\s*$/.test(nimi) || (/Kaubik/i.test(kat) && /^\s*\d{2,3}\/\d{2,3}\s?[A-Z]?\b/.test(sabas)); /* maasturi LT 121/118Q ei ole C */
+	const moot = normMoot(`${m[1]}/${m[2]} R${m[3]}${c ? ' C' : ''}`);
 	if (!moot || (meieMoodud && !meieMoodud.has(moot))) return null;
 	const hind = Math.round(arv(valja(s, 'Price')) * 100) / 100;
 	if (!(hind > 5 && hind < 5000)) return null;
+	/* naastrehvid („917831STUD“, „Naastrehv …“): EL-i märgist pole, sama nimega lamell on teine rehv */
+	const kood = valja(s, 'Description').split(',')[0].trim();
+	if (/STUD$/i.test(kood) || /naast/i.test(nimi) || /naast/i.test(kat)) return null;
 	const markRaw = valja(s, 'Vendor');
 	if (!markRaw) return null;
 	/* „MICHELIN“ → „Michelin“ (sobitus võrdleb normaliseeritult, see on lihtsalt loetavus) */
@@ -79,7 +85,7 @@ export function teisenda(s, meieMoodud) {
 	const pilt = valja(s, 'Picture');
 	const gtin = valja(s, 'GTIN');
 	const laos = /laos/i.test(valja(s, 'InStore'));
-	const lisi = (nimi.slice(m.index + m[0].length).match(/^\s*(\d{2,3}(?:\/\d{2,3})?[A-Z])/) || [])[1];
+	const lisi = (sabas.match(/^\s*(\d{2,3}(?:\/\d{2,3})?\s?[A-Z])\b/) || [])[1];
 	return {
 		mark,
 		mudel,
