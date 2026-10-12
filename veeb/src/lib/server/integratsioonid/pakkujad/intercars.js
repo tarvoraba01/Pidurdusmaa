@@ -72,9 +72,9 @@ export function teisenda(s, meieMoodud) {
 	if (!moot || (meieMoodud && !meieMoodud.has(moot))) return null;
 	const hind = Math.round(arv(valja(s, 'Price')) * 100) / 100;
 	if (!(hind > 5 && hind < 5000)) return null;
-	/* naastrehvid („917831STUD“, „Naastrehv …“): EL-i märgist pole, sama nimega lamell on teine rehv */
+	/* naastrehv („917831STUD“, „Naastrehv …“): sobitatakse ainult meie naastrehvide hulgast (koond.js) */
 	const kood = valja(s, 'Description').split(',')[0].trim();
-	if (/STUD$/i.test(kood) || /naast/i.test(nimi) || /naast/i.test(kat)) return null;
+	const naast = /STUD$/i.test(kood) || /naast/i.test(nimi) || /naast/i.test(kat);
 	const markRaw = valja(s, 'Vendor');
 	if (!markRaw) return null;
 	/* „MICHELIN“ → „Michelin“ (sobitus võrdleb normaliseeritult, see on lihtsalt loetavus) */
@@ -96,6 +96,7 @@ export function teisenda(s, meieMoodud) {
 		ean: /^\d{8,14}$/.test(gtin) ? gtin : undefined,
 		pilt: /^https:\/\//.test(pilt) ? pilt : undefined,
 		url: /^https:\/\//.test(url) ? url : undefined,
+		...(naast ? { naast: true } : {}),
 		myyja: 'intercars24.ee'
 	};
 }

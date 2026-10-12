@@ -122,7 +122,10 @@ export function teisenda(s, meieMoodud) {
 	const mark = valja(s, 'tootja');
 	/* „TURANZA T005  AO  B-Silent“, „W.DRIVE (WY01)    Lääne-euroopa lamell“: mudel on osa enne topelttühikut;
 	   autotootja märgised (AO, MO, *) ei muuda mudelit */
-	const mudel = puhastaNimi(valja(s, 'nimi'), mark);
+	const toores = valja(s, 'nimi');
+	const mudel = puhastaNimi(toores, mark);
+	/* „… Naastrehvid“, „Naastutatud“: sobitub ainult meie naastrehvide hulgast (koond.js) */
+	const naast = /naast/i.test(toores);
 	if (!mark || !mudel) return null;
 	const li = valja(s, 'koormusindeks'), si = valja(s, 'kiirusindeks');
 	const pilt = valja(s, 'pilt');
@@ -143,6 +146,7 @@ export function teisenda(s, meieMoodud) {
 		url: /^[\w.-]{1,30}$/.test(kood) ? `${POOD}pood/shopsearch/${encodeURIComponent(kood)}` : poeLinkMoodule(moot, kat),
 		/* voo soovitushind võib poe hinnast ±5% erineda, kuni täpne hind on poest kontrollitud */
 		umbes: true,
+		...(naast ? { naast: true } : {}),
 		myyja: 'tirespot.ee'
 	};
 }

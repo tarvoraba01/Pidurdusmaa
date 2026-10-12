@@ -19,16 +19,23 @@ import { pusivusOlek } from './pusivus.js';
 
 /* Testitud rehvid (sh naastrehvid, millel EL-i märgist ja seega EPREL-i
    rida pole) samal kujul nagu eprelSize read: [slug, mark, mudel]. */
-let _testRead = null;
+let _testRead = null, _naastRead = null;
 function testRead() {
-	if (!_testRead)
-		_testRead = (core().tyres || [])
-			.filter((t) => t.slug && t.name)
-			.map((t) => {
-				const [mark, ...m] = String(t.name).split(' ');
-				return [t.slug, mark, m.join(' ')];
-			});
+	if (!_testRead) {
+		const rida = (t) => {
+			const [mark, ...m] = String(t.name).split(' ');
+			return [t.slug, mark, m.join(' ')];
+		};
+		const koik = (core().tyres || []).filter((t) => t.slug && t.name);
+		_testRead = koik.filter((t) => t.category !== 'WINTER_STUDDED').map(rida);
+		_naastRead = koik.filter((t) => t.category === 'WINTER_STUDDED').map(rida);
+	}
 	return _testRead;
+}
+/* Naastrehvid (EL-i märgist pole): ainult meie testitud/tuletatud naastrehvide seast */
+function naastRead() {
+	testRead();
+	return _naastRead;
 }
 
 const ctx = { muutuja, jsonParing, paring, voog };
@@ -90,7 +97,11 @@ async function tooted(p, moot) {
 export async function hinnadMoodus(moot) {
 	const pakkujad = aktiivsed();
 	if (!pakkujad.length) return { available: false, hinnad: {} };
+	/* lamell/suverehv: märgise read + testitud mitte-naastrehvid; naastrehv (pakkuja paneb
+	   t.naast = true): AINULT naastrehvide seast — muidu saaks naastrehv sama nimega
+	   lamellrehvi märgise andmed (nt „Vanpro Winter“ naastuga vs ilma) */
 	const read = eprelSize(moot).concat(testRead());
+	const readNaast = naastRead();
 	const hinnad = {};
 	await Promise.all(
 		pakkujad.map(async (p) => {
@@ -111,7 +122,7 @@ export async function hinnadMoodus(moot) {
 				const hind = Number(t.hind);
 				if (!(hind > 5 && hind < 5000)) continue;
 				if (normMoot(t.moot) !== moot) continue;
-				const slug = leiaRehv(t, read);
+				const slug = leiaRehv(t, t.naast ? readNaast : read);
 				if (!slug) continue;
 				sob++;
 				const id = slug + '@' + moot;
