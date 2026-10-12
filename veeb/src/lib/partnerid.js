@@ -33,11 +33,16 @@ export function awin(mid, url) {
 }
 
 export const PARTNERID = [
-	{ nimi: 'Rehvivahetus.ee', link: utm('https://www.rehvivahetus.ee/'), logo: 'rehvivahetus.svg' },
-	{ nimi: 'Tirespot.ee', link: utm('https://www.tirespot.ee/'), logo: 'tirespot.svg' },
+	{ nimi: 'Rehvivahetus.ee', link: utm('https://www.rehvivahetus.ee/'), logo: 'rehvivahetus.svg',
+		kirjeldus: 'Rehvid, veljed ja rehvivahetus — üle 30 aasta.', roll: 'Hinnad ja laoseis rehvikaartidel' },
+	{ nimi: 'Tirespot.ee', link: utm('https://www.tirespot.ee/'), logo: 'tirespot.svg',
+		kirjeldus: 'Rehvipood, rehvivahetus ja autoremont Pärnus.', roll: 'Hinnad ja laoseis rehvikaartidel' },
 	/* logo puudub veel (intercars24.ee on Cloudflare'i taga) — ruudus on nimi; lisa logo: static/img/partnerid/intercars.svg ja logo: 'intercars.svg' */
-	{ nimi: 'Inter Cars', link: utm('https://www.intercars24.ee/') },
-	{ nimi: 'Dignicy', link: utm('https://dignicy.ee/'), logo: 'dignicy.svg' },
+	{ nimi: 'Inter Cars', link: utm('https://www.intercars24.ee/'),
+		kirjeldus: 'Autovaruosad ja rehvid, e-pood intercars24.ee.', roll: 'Hinnad ja laoseis rehvikaartidel' },
+	{ nimi: 'Dignicy', link: utm('https://dignicy.ee/'), logo: 'dignicy.svg',
+		kirjeldus: 'Veebilehed, e-poed ja tehisaru lahendused Eesti ettevõtetele.', roll: 'Arenduspartner' },
 	/* videote eestikeelne hääl; tasuta, mitte partnerlink (TartuNLP luba 12.10.2026) */
-	{ nimi: 'Neurokõne (TartuNLP)', link: 'https://neurokone.ee/', logo: 'neurokone.svg', tasuta: true }
+	{ nimi: 'Neurokõne (TartuNLP)', link: 'https://neurokone.ee/', logo: 'neurokone.svg', tasuta: true,
+		kirjeldus: 'Tartu Ülikooli eestikeelne kõnesüntees.', roll: 'Meie videote hääl' }
 ];

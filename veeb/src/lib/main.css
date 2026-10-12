@@ -991,13 +991,21 @@ textarea.lin{resize:vertical;min-height:140px}
 .aff a{color:inherit}
 .prose p.aff-legal{margin-top:var(--sp-8);font-size:13px;color:var(--muted)}
 
-/* partnerite ruudukesed */
-.partn{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(150px,100%),1fr));gap:var(--sp-3);margin:var(--sp-4) 0}
-.prose a.partn-k{display:flex;align-items:center;justify-content:center;height:112px;padding:var(--sp-4);border:1px solid var(--line);border-radius:var(--r);background:#fff;text-decoration:none;color:var(--ink);transition:border-color .15s,box-shadow .15s,transform .15s}
-.prose a.partn-k:hover{border-color:#c5cad3;box-shadow:var(--shadow);transform:translateY(-1px)}
+/* partnerite kaardid: logo + kes + mida teevad */
+.prose p.partn-sissejuhatus{font-size:18px;margin-bottom:var(--sp-5)}
+.partn{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(260px,100%),1fr));gap:var(--sp-4);margin:var(--sp-4) 0 var(--sp-8)}
+.prose a.partn-k{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:var(--r-lg,14px);background:#fff;text-decoration:none;color:var(--text);overflow:hidden;transition:border-color .15s,box-shadow .15s,transform .15s}
+.prose a.partn-k:hover{border-color:#e6ae00;box-shadow:var(--shadow);transform:translateY(-2px)}
 .prose a.partn-k:focus-visible{outline:2px solid var(--yellow);outline-offset:2px}
-.partn-k img{max-height:52px;max-width:min(100%,190px);width:auto;object-fit:contain;margin:0;border-radius:0}
-.partn-k b{font-size:18px}
+.partn-logo{display:flex;align-items:center;justify-content:center;height:130px;padding:var(--sp-5);background:#fafafb;border-bottom:1px solid var(--line)}
+.partn-logo img{max-height:64px;max-width:min(100%,220px);width:auto;object-fit:contain;margin:0;border-radius:0}
+.partn-logo b{font-size:24px;letter-spacing:-.01em}
+.partn-info{display:flex;flex-direction:column;gap:4px;padding:var(--sp-4) var(--sp-5) var(--sp-5);flex:1}
+.partn-roll{align-self:flex-start;font-size:11.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:#7a5a00;background:#fff4cf;border-radius:999px;padding:2px 9px;margin-bottom:4px}
+.partn-info strong{font-size:17px}
+.partn-kirj{font-size:14.5px;color:var(--muted);line-height:1.45}
+.partn-ava{margin-top:auto;padding-top:var(--sp-3);font-weight:700;font-size:14px;color:var(--text)}
+.prose a.partn-k:hover .partn-ava{text-decoration:underline}
 
 /* ABS-i hoiatustuli variandi kõrval: kustunud = ABS-i pole, põleb = ABS olemas */
 .abs-lamp{display:inline-flex;align-items:center;gap:7px;flex:none;padding:2px 8px 2px 2px;background:none;border:0;border-radius:999px;font:inherit;font-size:12.5px;font-weight:600;color:var(--muted-d);cursor:pointer;line-height:1;white-space:nowrap}
