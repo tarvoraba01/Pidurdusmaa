@@ -38,7 +38,7 @@ export const PARTNERID = [
 	{ nimi: 'Tirespot.ee', link: utm('https://www.tirespot.ee/'), logo: 'tirespot.svg',
 		kirjeldus: 'Rehvipood, rehvivahetus ja autoremont Pärnus.', roll: 'Hinnad ja laoseis rehvikaartidel' },
 	/* logo puudub veel (intercars24.ee on Cloudflare'i taga) — ruudus on nimi; lisa logo: static/img/partnerid/intercars.svg ja logo: 'intercars.svg' */
-	{ nimi: 'Inter Cars', link: utm('https://www.intercars24.ee/'),
+	{ nimi: 'Inter Cars', link: utm('https://www.intercars24.ee/'), logo: 'intercars.png',
 		kirjeldus: 'Autovaruosad ja rehvid, e-pood intercars24.ee.', roll: 'Hinnad ja laoseis rehvikaartidel' },
 	{ nimi: 'Dignicy', link: utm('https://dignicy.ee/'), logo: 'dignicy.svg',
 		kirjeldus: 'Veebilehed, e-poed ja tehisaru lahendused Eesti ettevõtetele.', roll: 'Arenduspartner' },
