@@ -4048,6 +4048,638 @@
 "moot": "20575R16",
 "eu": "e c b 75dB",
 "lisi": "110/108R"
+},
+{
+"pood": "tirespot.ee",
+"mark": "Triangle",
+"mudel": "PL02",
+"moot": "23555R18",
+"eu": "c d 72dB",
+"lisi": "104"
+},
+{
+"pood": "tirespot.ee",
+"mark": "Triangle",
+"mudel": "PL02",
+"moot": "25535R19",
+"eu": "d d 73dB",
+"lisi": "96"
+},
+{
+"pood": "tirespot.ee",
+"mark": "Triangle",
+"mudel": "PL02",
+"moot": "22550R18",
+"eu": "d d 72dB",
+"lisi": "99"
+},
+{
+"pood": "tirespot.ee",
+"mark": "Triangle",
+"mudel": "PL02",
+"moot": "24535R20",
+"eu": "d c 72dB",
+"lisi": "95"
+},
+{
+"pood": "tirespot.ee",
+"mark": "Winrun",
+"mudel": "R330",
+"moot": "24535R20",
+"eu": "d c 71dB",
+"lisi": "95"
+},
+{
+"pood": "tirespot.ee",
+"mark": "Triangle",
+"mudel": "PL02",
+"moot": "24545R20",
+"eu": "d d 72dB",
+"lisi": "103"
+},
+{
+"pood": "tirespot.ee",
+"mark": "Winrun",
+"mudel": "R330",
+"moot": "23550R20",
+"eu": "c b 71dB",
+"lisi": "104"
+},
+{
+"pood": "tirespot.ee",
+"mark": "Winrun",
+"mudel": "R330",
+"moot": "27550R21",
+"eu": "d c 71dB",
+"lisi": "113"
+},
+{
+"pood": "tirespot.ee",
+"mark": "Triangle",
+"mudel": "PL02",
+"moot": "26570R18",
+"eu": "c c 72dB",
+"lisi": "116"
+},
+{
+"pood": "tirespot.ee",
+"mark": "Triangle",
+"mudel": "PL02",
+"moot": "22545R18",
+"eu": "c d 72dB",
+"lisi": "95"
+},
+{
+"pood": "tirespot.ee",
+"mark": "Triangle",
+"mudel": "PL02",
+"moot": "27545R20",
+"eu": "d d 73dB",
+"lisi": "110"
+},
+{
+"pood": "tirespot.ee",
+"mark": "Triangle",
+"mudel": "PL02",
+"moot": "24545R17",
+"eu": "d d 72dB",
+"lisi": "99"
+},
+{
+"pood": "tirespot.ee",
+"mark": "Triangle",
+"mudel": "PL02",
+"moot": "25535R20",
+"eu": "d c 73dB",
+"lisi": "97"
+},
+{
+"pood": "tirespot.ee",
+"mark": "Winrun",
+"mudel": "R330",
+"moot": "25535R20",
+"eu": "d c 71dB",
+"lisi": "102"
+},
+{
+"pood": "tirespot.ee",
+"mark": "Triangle",
+"mudel": "PL02",
+"moot": "27535R19",
+"eu": "c c 73dB",
+"lisi": "100"
+},
+{
+"pood": "tirespot.ee",
+"mark": "Triangle",
+"mudel": "PL02",
+"moot": "24550R18",
+"eu": "d d 72dB",
+"lisi": "104"
+},
+{
+"pood": "tirespot.ee",
+"mark": "Winrun",
+"mudel": "R330",
+"moot": "28540R22",
+"eu": "d c 72dB",
+"lisi": "110"
+},
+{
+"pood": "tirespot.ee",
+"mark": "Triangle",
+"mudel": "PL02",
+"moot": "26540R20",
+"eu": "d d 73dB",
+"lisi": "104"
+},
+{
+"pood": "tirespot.ee",
+"mark": "Triangle",
+"mudel": "PL02",
+"moot": "23545R18",
+"eu": "d d 72dB",
+"lisi": "98"
+},
+{
+"pood": "tirespot.ee",
+"mark": "Triangle",
+"mudel": "PL02",
+"moot": "23535R19",
+"eu": "d d 72dB",
+"lisi": "91"
+},
+{
+"pood": "tirespot.ee",
+"mark": "Triangle",
+"mudel": "PL02",
+"moot": "25550R19",
+"eu": "c c 73dB",
+"lisi": "107"
+},
+{
+"pood": "tirespot.ee",
+"mark": "Pirelli",
+"mudel": "Scorpion S3",
+"moot": "25550R19",
+"eu": "b a",
+"lisi": "107"
+},
+{
+"pood": "tirespot.ee",
+"mark": "Triangle",
+"mudel": "PL02",
+"moot": "27540R20",
+"eu": "d d 73dB",
+"lisi": "106"
+},
+{
+"pood": "tirespot.ee",
+"mark": "Winrun",
+"mudel": "R330",
+"moot": "27540R20",
+"eu": "d c 71dB",
+"lisi": "102"
+},
+{
+"pood": "tirespot.ee",
+"mark": "Triangle",
+"mudel": "PL02",
+"moot": "24535R19",
+"eu": "d c 72dB",
+"lisi": "93"
+},
+{
+"pood": "tirespot.ee",
+"mark": "Triangle",
+"mudel": "PL02",
+"moot": "25540R20",
+"eu": "c c 73dB",
+"lisi": "101"
+},
+{
+"pood": "tirespot.ee",
+"mark": "Triangle",
+"mudel": "PL02",
+"moot": "26545R20",
+"eu": "c c 73dB",
+"lisi": "108"
+},
+{
+"pood": "tirespot.ee",
+"mark": "Pirelli",
+"mudel": "Scorpion S3",
+"moot": "26545R20",
+"eu": "b a",
+"lisi": "108"
+},
+{
+"pood": "tirespot.ee",
+"mark": "Triangle",
+"mudel": "PL01",
+"moot": "23570R16",
+"eu": "d d 72dB",
+"lisi": "109"
+},
+{
+"pood": "tirespot.ee",
+"mark": "Winrun",
+"mudel": "R330",
+"moot": "27535R20",
+"eu": "d c 71dB",
+"lisi": "102"
+},
+{
+"pood": "tirespot.ee",
+"mark": "Triangle",
+"mudel": "PL02",
+"moot": "28560R18",
+"eu": "d c 73dB",
+"lisi": "120"
+},
+{
+"pood": "tirespot.ee",
+"mark": "Goodyear",
+"mudel": "UG Ice 2+",
+"moot": "23535R20",
+"eu": "c d 72dB",
+"lisi": "92"
+},
+{
+"pood": "tirespot.ee",
+"mark": "Winrun",
+"mudel": "R330",
+"moot": "26535R22",
+"eu": "c b 71dB",
+"lisi": "102"
+},
+{
+"pood": "tirespot.ee",
+"mark": "Winrun",
+"mudel": "R330",
+"moot": "24535R21",
+"eu": "d c 71dB",
+"lisi": "96"
+},
+{
+"pood": "tirespot.ee",
+"mark": "Winrun",
+"mudel": "R330",
+"moot": "30530R21",
+"eu": "c b 72dB",
+"lisi": "104"
+},
+{
+"pood": "tirespot.ee",
+"mark": "Triangle",
+"mudel": "PL02",
+"moot": "23560R19",
+"eu": "c d 72dB",
+"lisi": "107"
+},
+{
+"pood": "tirespot.ee",
+"mark": "Triangle",
+"mudel": "PL02",
+"moot": "23545R17",
+"eu": "d d 72dB",
+"lisi": "97"
+},
+{
+"pood": "tirespot.ee",
+"mark": "Winrun",
+"mudel": "R330",
+"moot": "23545R17",
+"eu": "d c 71dB",
+"lisi": "97"
+},
+{
+"pood": "tirespot.ee",
+"mark": "Triangle",
+"mudel": "PL02",
+"moot": "23540R19",
+"eu": "e d 72dB",
+"lisi": "96"
+},
+{
+"pood": "tirespot.ee",
+"mark": "Triangle",
+"mudel": "PL02",
+"moot": "25545R19",
+"eu": "d d 73dB",
+"lisi": "104"
+},
+{
+"pood": "tirespot.ee",
+"mark": "Triangle",
+"mudel": "PL02",
+"moot": "23560R18",
+"eu": "c d 72dB",
+"lisi": "107"
+},
+{
+"pood": "tirespot.ee",
+"mark": "Triangle",
+"mudel": "PL02",
+"moot": "31535R20",
+"eu": "d c 72dB",
+"lisi": "110"
+},
+{
+"pood": "tirespot.ee",
+"mark": "Winrun",
+"mudel": "R330",
+"moot": "31535R20",
+"eu": "d c 72dB",
+"lisi": "106"
+},
+{
+"pood": "tirespot.ee",
+"mark": "Triangle",
+"mudel": "PL02",
+"moot": "26545R21",
+"eu": "c c 73dB",
+"lisi": "108"
+},
+{
+"pood": "tirespot.ee",
+"mark": "Winrun",
+"mudel": "R330",
+"moot": "28535R22",
+"eu": "c b 72dB",
+"lisi": "106"
+},
+{
+"pood": "tirespot.ee",
+"mark": "Triangle",
+"mudel": "PL02",
+"moot": "25570R16",
+"eu": "c c 72dB",
+"lisi": "111"
+},
+{
+"pood": "tirespot.ee",
+"mark": "Winrun",
+"mudel": "R330",
+"moot": "29540R22",
+"eu": "c b 72dB",
+"lisi": "112"
+},
+{
+"pood": "tirespot.ee",
+"mark": "Triangle",
+"mudel": "PL02",
+"moot": "24545R18",
+"eu": "d d 72dB",
+"lisi": "100"
+},
+{
+"pood": "tirespot.ee",
+"mark": "Triangle",
+"mudel": "PL02",
+"moot": "23555R19",
+"eu": "c d 72dB",
+"lisi": "105"
+},
+{
+"pood": "tirespot.ee",
+"mark": "Triangle",
+"mudel": "PL02",
+"moot": "25555R19",
+"eu": "c d 73dB",
+"lisi": "111"
+},
+{
+"pood": "tirespot.ee",
+"mark": "Triangle",
+"mudel": "PL02",
+"moot": "25550R20",
+"eu": "c c 73dB",
+"lisi": "109"
+},
+{
+"pood": "tirespot.ee",
+"mark": "Triangle",
+"mudel": "PL02",
+"moot": "27545R21",
+"eu": "c c 73dB",
+"lisi": "110"
+},
+{
+"pood": "tirespot.ee",
+"mark": "Winrun",
+"mudel": "R330",
+"moot": "28535R20",
+"eu": "d c 72dB",
+"lisi": "104"
+},
+{
+"pood": "tirespot.ee",
+"mark": "Triangle",
+"mudel": "PL02",
+"moot": "24540R20",
+"eu": "d c 72dB",
+"lisi": "99"
+},
+{
+"pood": "tirespot.ee",
+"mark": "Winrun",
+"mudel": "R330",
+"moot": "24540R20",
+"eu": "d c 71dB",
+"lisi": "95"
+},
+{
+"pood": "tirespot.ee",
+"mark": "Triangle",
+"mudel": "PL02",
+"moot": "22540R18",
+"eu": "d d 72dB",
+"lisi": "92"
+},
+{
+"pood": "tirespot.ee",
+"mark": "Triangle",
+"mudel": "PL02",
+"moot": "22555R18",
+"eu": "d d 72dB",
+"lisi": "102"
+},
+{
+"pood": "tirespot.ee",
+"mark": "Triangle",
+"mudel": "PL02",
+"moot": "24545R19",
+"eu": "c d 72dB",
+"lisi": "102"
+},
+{
+"pood": "tirespot.ee",
+"mark": "Triangle",
+"mudel": "PL02",
+"moot": "22555R19",
+"eu": "d d 71dB",
+"lisi": "99"
+},
+{
+"pood": "tirespot.ee",
+"mark": "Winrun",
+"mudel": "R330",
+"moot": "24540R19",
+"eu": "d c 71dB",
+"lisi": "98"
+},
+{
+"pood": "tirespot.ee",
+"mark": "Triangle",
+"mudel": "PL02",
+"moot": "26570R16",
+"eu": "c c 72dB",
+"lisi": "112"
+},
+{
+"pood": "tirespot.ee",
+"mark": "Triangle",
+"mudel": "PL02",
+"moot": "27540R19",
+"eu": "d d 73dB",
+"lisi": "105"
+},
+{
+"pood": "tirespot.ee",
+"mark": "Winrun",
+"mudel": "R330",
+"moot": "27540R19",
+"eu": "d c 71dB",
+"lisi": "101"
+},
+{
+"pood": "tirespot.ee",
+"mark": "Triangle",
+"mudel": "PL02",
+"moot": "27540R21",
+"eu": "c c 73dB",
+"lisi": "107"
+},
+{
+"pood": "tirespot.ee",
+"mark": "Triangle",
+"mudel": "PL02",
+"moot": "25555R20",
+"eu": "c c 73dB",
+"lisi": "110"
+},
+{
+"pood": "tirespot.ee",
+"mark": "Winrun",
+"mudel": "R330",
+"moot": "29530R20",
+"eu": "d c 72dB",
+"lisi": "101"
+},
+{
+"pood": "tirespot.ee",
+"mark": "Winrun",
+"mudel": "R330",
+"moot": "30530R20",
+"eu": "d c 72dB",
+"lisi": "103"
+},
+{
+"pood": "tirespot.ee",
+"mark": "Winrun",
+"mudel": "R330",
+"moot": "27535R18",
+"eu": "d c 71dB",
+"lisi": "99"
+},
+{
+"pood": "tirespot.ee",
+"mark": "Winrun",
+"mudel": "R330",
+"moot": "32535R22",
+"eu": "c b 72dB",
+"lisi": "114"
+},
+{
+"pood": "tirespot.ee",
+"mark": "Triangle",
+"mudel": "PL02",
+"moot": "23565R17",
+"eu": "c d 72dB",
+"lisi": "108"
+},
+{
+"pood": "tirespot.ee",
+"mark": "Triangle",
+"mudel": "PL02",
+"moot": "24540R18",
+"eu": "d d 72dB",
+"lisi": "97"
+},
+{
+"pood": "tirespot.ee",
+"mark": "Triangle",
+"mudel": "PL02",
+"moot": "25540R19",
+"eu": "d d 73dB",
+"lisi": "100"
+},
+{
+"pood": "tirespot.ee",
+"mark": "Triangle",
+"mudel": "PL02",
+"moot": "24565R17",
+"eu": "c c 72dB",
+"lisi": "111"
+},
+{
+"pood": "tirespot.ee",
+"mark": "Winrun",
+"mudel": "R330",
+"moot": "26535R21",
+"eu": "b b 71dB",
+"lisi": "101"
+},
+{
+"pood": "tirespot.ee",
+"mark": "Triangle",
+"mudel": "PL02",
+"moot": "25555R18",
+"eu": "c c 73dB",
+"lisi": "109"
+},
+{
+"pood": "tirespot.ee",
+"mark": "Triangle",
+"mudel": "PL02",
+"moot": "26560R18",
+"eu": "d d 73dB",
+"lisi": "114"
+},
+{
+"pood": "tirespot.ee",
+"mark": "Triangle",
+"mudel": "PL02",
+"moot": "25560R18",
+"eu": "c c 73dB",
+"lisi": "112"
+},
+{
+"pood": "tirespot.ee",
+"mark": "Triangle",
+"mudel": "PL02",
+"moot": "24570R16",
+"eu": "c c 72dB",
+"lisi": "111"
+},
+{
+"pood": "tirespot.ee",
+"mark": "Triangle",
+"mudel": "PL02",
+"moot": "25565R17",
+"eu": "c c 73dB",
+"lisi": "114"
 }
 ]
 }

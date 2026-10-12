@@ -1,5 +1,5 @@
 {
-"allikas": "rehvivahetus.ee e-poe kataloog (avalik mõõdunimekiri, 12.10.2026): EPREL-i mudelid, mille see mõõt meie EPREL-i korjes puudub",
+"allikas": "rehvivahetus.ee e-poe kataloog (avalik mõõdunimekiri, 12.10.2026): EPREL-i mudelid, mille see mõõt meie EPREL-i korjes puudub; tirespot.ee e-poe tootelehed (12.10.2026)",
 "read": [
 {
 "pood": "rehvivahetus.ee",
@@ -2718,6 +2718,5217 @@
 "moot": "25555R18C",
 "eu": "c a b 73dB",
 "lisi": "120R CP"
+},
+{
+"pood": "tirespot.ee",
+"slug": "gt-radial-4seasons",
+"mark": "GT Radial",
+"mudel": "4SEASONS",
+"moot": "20555R16",
+"eu": "c b 72dB",
+"lisi": "94"
+},
+{
+"pood": "tirespot.ee",
+"slug": "sailun-atrezzo-4seasons",
+"mark": "SAILUN",
+"mudel": "ATREZZO 4 SEASONS",
+"moot": "20555R16",
+"eu": "d c 72dB",
+"lisi": "91"
+},
+{
+"pood": "tirespot.ee",
+"slug": "sailun-atrezzo-4seasons",
+"mark": "SAILUN",
+"mudel": "ATREZZO 4 SEASONS",
+"moot": "20555R16",
+"eu": "d c 72dB",
+"lisi": "94"
+},
+{
+"pood": "tirespot.ee",
+"slug": "sailun-atrezzo-4seasons-ev",
+"mark": "SAILUN",
+"mudel": "ATREZZO 4 SEASONS EV",
+"moot": "20555R16",
+"eu": "c b 71dB",
+"lisi": "94"
+},
+{
+"pood": "tirespot.ee",
+"slug": "sailun-atrezzo-4seasons-ultra",
+"mark": "SAILUN",
+"mudel": "ATREZZO 4SEASONS ULTRA",
+"moot": "20555R16",
+"eu": "c a 70dB",
+"lisi": "94"
+},
+{
+"pood": "tirespot.ee",
+"slug": "gt-radial-climateactive",
+"mark": "GT Radial",
+"mudel": "CLIMATEACTIVE",
+"moot": "20555R16",
+"eu": "c a 69dB",
+"lisi": "94"
+},
+{
+"pood": "tirespot.ee",
+"slug": "triangle-effexsport",
+"mark": "Triangle",
+"mudel": "EFFEXSPORT TH202",
+"moot": "20555R16",
+"eu": "c b 71dB",
+"lisi": "91"
+},
+{
+"pood": "tirespot.ee",
+"slug": "gt-radial-fe2-evo",
+"mark": "GT Radial",
+"mudel": "FE2 EVO",
+"moot": "20555R16",
+"eu": "c a 69dB",
+"lisi": "91"
+},
+{
+"pood": "tirespot.ee",
+"slug": "sailun-ice-blazer-alpine",
+"mark": "SAILUN",
+"mudel": "ICE BLAZER ALPINE+",
+"moot": "20555R16",
+"eu": "d c 72dB",
+"lisi": "94"
+},
+{
+"pood": "tirespot.ee",
+"slug": "michelin-pilot-sport-4",
+"mark": "Michelin",
+"mudel": "PILOT SPORT 4",
+"moot": "20555R16",
+"eu": "c a",
+"lisi": "94"
+},
+{
+"pood": "tirespot.ee",
+"slug": "continental-wintercontact-ts-860-s",
+"mark": "Continental",
+"mudel": "TS860S",
+"moot": "20555R16",
+"eu": "c c",
+"lisi": "91"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-107",
+"mark": "GOODRIDE",
+"mudel": "Z-107",
+"moot": "20555R16",
+"eu": "c b 71dB",
+"lisi": "94"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-401",
+"mark": "GOODRIDE",
+"mudel": "Z-401",
+"moot": "20555R16",
+"eu": "c c 72dB",
+"lisi": "91"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-401",
+"mark": "GOODRIDE",
+"mudel": "Z-401",
+"moot": "20555R16",
+"eu": "c c 72dB",
+"lisi": "91"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-401",
+"mark": "GOODRIDE",
+"mudel": "Z-401",
+"moot": "20555R16",
+"eu": "c c 72dB",
+"lisi": "94"
+},
+{
+"pood": "tirespot.ee",
+"slug": "pirelli-cinturato-p7-p7c2",
+"mark": "Pirelli",
+"mudel": "CINTURATO P7 P7C2",
+"moot": "23555R18",
+"eu": "a b 68dB",
+"lisi": "104"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodyear-eagle-f1-asymmetric-3-suv",
+"mark": "Goodyear",
+"mudel": "EAGLE F1 ASYMMETRIC 3 SUV AO1",
+"moot": "23555R18",
+"eu": "a a 70dB",
+"lisi": "100"
+},
+{
+"pood": "tirespot.ee",
+"slug": "hankook-kinergy-4s-2-x",
+"mark": "Hankook",
+"mudel": "Kinergy 4S 2 X",
+"moot": "23555R18",
+"eu": "c b",
+"lisi": "104"
+},
+{
+"pood": "tirespot.ee",
+"slug": "hankook-kinergy-4s-2-x",
+"mark": "Hankook",
+"mudel": "KINERGY 4S2 X H750A",
+"moot": "23555R18",
+"eu": "c b 72dB",
+"lisi": "104"
+},
+{
+"pood": "tirespot.ee",
+"slug": "pirelli-powergy-2",
+"mark": "Pirelli",
+"mudel": "POWERGY 2",
+"moot": "23555R18",
+"eu": "b b",
+"lisi": "104"
+},
+{
+"pood": "tirespot.ee",
+"slug": "pirelli-powergy-2",
+"mark": "Pirelli",
+"mudel": "POWERGY 2",
+"moot": "23555R18",
+"eu": "b b 69dB",
+"lisi": "104"
+},
+{
+"pood": "tirespot.ee",
+"slug": "pirelli-powergy-winter",
+"mark": "Pirelli",
+"mudel": "POWERGY WINTER",
+"moot": "23555R18",
+"eu": "c c 71dB",
+"lisi": "104"
+},
+{
+"pood": "tirespot.ee",
+"slug": "maxxis-sp5",
+"mark": "Maxxis",
+"mudel": "PREMITRA ICE 5 SP5 SUV",
+"moot": "23555R18",
+"eu": "c d 71dB",
+"lisi": "104"
+},
+{
+"pood": "tirespot.ee",
+"slug": "maxxis-wp6",
+"mark": "Maxxis",
+"mudel": "PREMITRA SNOW WP6 SUV",
+"moot": "23555R18",
+"eu": "c b 69dB",
+"lisi": "104"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-sw618",
+"mark": "GOODRIDE",
+"mudel": "SW618",
+"moot": "23555R18",
+"eu": "d e 72dB",
+"lisi": "104"
+},
+{
+"pood": "tirespot.ee",
+"slug": "continental-contiwintercontact-ts-830-p",
+"mark": "Continental",
+"mudel": "TS830P",
+"moot": "23555R18",
+"eu": "d c",
+"lisi": "104"
+},
+{
+"pood": "tirespot.ee",
+"slug": "continental-ultracontact-nxt",
+"mark": "Continental",
+"mudel": "ULTRAContact NXT",
+"moot": "23555R18",
+"eu": "a a",
+"lisi": "104"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-401",
+"mark": "GOODRIDE",
+"mudel": "Z-401",
+"moot": "23555R18",
+"eu": "c c 72dB",
+"lisi": "100"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-107",
+"mark": "GOODRIDE",
+"mudel": "Z-107",
+"moot": "21545R17",
+"eu": "d b 72dB",
+"lisi": "91"
+},
+{
+"pood": "tirespot.ee",
+"slug": "sailun-atrezzo-zsr2",
+"mark": "SAILUN",
+"mudel": "ATREZZO ZSR2",
+"moot": "21555R16",
+"eu": "b a 69dB",
+"lisi": "97"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-401",
+"mark": "GOODRIDE",
+"mudel": "Z-401",
+"moot": "21555R16",
+"eu": "c c 72dB",
+"lisi": "97"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-107",
+"mark": "GOODRIDE",
+"mudel": "Z-107",
+"moot": "17565R15",
+"eu": "d b 70dB",
+"lisi": "84"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-401",
+"mark": "GOODRIDE",
+"mudel": "Z-401",
+"moot": "17565R15",
+"eu": "d c 71dB",
+"lisi": "84"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-507",
+"mark": "GOODRIDE",
+"mudel": "Z507",
+"moot": "25535R19",
+"eu": "c c 72dB",
+"lisi": "96"
+},
+{
+"pood": "tirespot.ee",
+"slug": "maxxis-ap3",
+"mark": "Maxxis",
+"mudel": "ALLSEASON AP3 SUV",
+"moot": "22560R18",
+"eu": "d b 72dB",
+"lisi": "104"
+},
+{
+"pood": "tirespot.ee",
+"slug": "pirelli-cinturato-p7-p7c2",
+"mark": "Pirelli",
+"mudel": "CINTURATO P7 P7C2",
+"moot": "22560R18",
+"eu": "a b 71dB",
+"lisi": "104"
+},
+{
+"pood": "tirespot.ee",
+"slug": "maxxis-sp5",
+"mark": "Maxxis",
+"mudel": "PREMITRA ICE 5 SP5 SUV",
+"moot": "22560R18",
+"eu": "c d 69dB",
+"lisi": "104"
+},
+{
+"pood": "tirespot.ee",
+"slug": "maxxis-wp6",
+"mark": "Maxxis",
+"mudel": "PREMITRA SNOW WP6 SUV",
+"moot": "22560R18",
+"eu": "d b 70dB",
+"lisi": "104"
+},
+{
+"pood": "tirespot.ee",
+"slug": "pirelli-scorpion-winter-2",
+"mark": "Pirelli",
+"mudel": "SCORPION WINTER 2",
+"moot": "22560R18",
+"eu": "c a 71dB",
+"lisi": "104"
+},
+{
+"pood": "tirespot.ee",
+"slug": "continental-wintercontact-ts-860-s",
+"mark": "Continental",
+"mudel": "TS860S",
+"moot": "22560R18",
+"eu": "d c",
+"lisi": "104"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-107",
+"mark": "GOODRIDE",
+"mudel": "Z-107",
+"moot": "22560R18",
+"eu": "c b 71dB",
+"lisi": "100"
+},
+{
+"pood": "tirespot.ee",
+"slug": "continental-contiwintercontact-ts-830-p",
+"mark": "Continental",
+"mudel": "TS830P",
+"moot": "22550R18",
+"eu": "d c",
+"lisi": "99"
+},
+{
+"pood": "tirespot.ee",
+"slug": "continental-contiwintercontact-ts-830-p",
+"mark": "Continental",
+"mudel": "TS830P",
+"moot": "22550R18",
+"eu": "d c",
+"lisi": "99"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-401",
+"mark": "GOODRIDE",
+"mudel": "Z-401",
+"moot": "22550R18",
+"eu": "c c 72dB",
+"lisi": "95"
+},
+{
+"pood": "tirespot.ee",
+"slug": "pirelli-pzero-winter-2",
+"mark": "Pirelli",
+"mudel": "P ZERO WINTER 2",
+"moot": "22540R19",
+"eu": "c a",
+"lisi": "93"
+},
+{
+"pood": "tirespot.ee",
+"slug": "pirelli-powergy-2",
+"mark": "Pirelli",
+"mudel": "POWERGY 2",
+"moot": "22540R19",
+"eu": "b b",
+"lisi": "93"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-401",
+"mark": "GOODRIDE",
+"mudel": "Z-401",
+"moot": "22540R19",
+"eu": "d c 72dB",
+"lisi": "93"
+},
+{
+"pood": "tirespot.ee",
+"slug": "yokohama-advan-sport",
+"mark": "Yokohama",
+"mudel": "ADVAN SPORT V105S",
+"moot": "24535R20",
+"eu": "d a 72dB",
+"lisi": ""
+},
+{
+"pood": "tirespot.ee",
+"slug": "yokohama-advan-sport",
+"mark": "Yokohama",
+"mudel": "ADVAN SPORT V107A",
+"moot": "24535R20",
+"eu": "d a 71dB",
+"lisi": ""
+},
+{
+"pood": "tirespot.ee",
+"slug": "yokohama-advan-sport",
+"mark": "Yokohama",
+"mudel": "ADVAN SPORT V105T",
+"moot": "24545R20",
+"eu": "d a 69dB",
+"lisi": "103"
+},
+{
+"pood": "tirespot.ee",
+"slug": "pirelli-cinturato-p7-blue",
+"mark": "Pirelli",
+"mudel": "CINTURATO P7 BLUE NF0",
+"moot": "24545R20",
+"eu": "b a 70dB",
+"lisi": "103"
+},
+{
+"pood": "tirespot.ee",
+"slug": "michelin-crossclimate-3",
+"mark": "Michelin",
+"mudel": "CROSSCLIMATE 3",
+"moot": "24545R20",
+"eu": "b b",
+"lisi": "99"
+},
+{
+"pood": "tirespot.ee",
+"slug": "continental-crosscontact-h-t",
+"mark": "Continental",
+"mudel": "CROSSCONTACT H/T",
+"moot": "24545R20",
+"eu": "c c",
+"lisi": "103"
+},
+{
+"pood": "tirespot.ee",
+"slug": "michelin-pilot-sport-4",
+"mark": "Michelin",
+"mudel": "PILOT SPORT 4",
+"moot": "24545R20",
+"eu": "d a",
+"lisi": "99"
+},
+{
+"pood": "tirespot.ee",
+"slug": "michelin-pilot-sport-4",
+"mark": "Michelin",
+"mudel": "PILOT SPORT 4",
+"moot": "24545R20",
+"eu": "b a",
+"lisi": "103"
+},
+{
+"pood": "tirespot.ee",
+"slug": "michelin-pilot-sport-4",
+"mark": "Michelin",
+"mudel": "PILOT SPORT 4 NF0",
+"moot": "24545R20",
+"eu": "b a 71dB",
+"lisi": "103"
+},
+{
+"pood": "tirespot.ee",
+"slug": "michelin-pilot-sport-ev",
+"mark": "Michelin",
+"mudel": "PILOT SPORT EV",
+"moot": "24545R20",
+"eu": "a b",
+"lisi": "103"
+},
+{
+"pood": "tirespot.ee",
+"slug": "pirelli-scorpion-verde",
+"mark": "Pirelli",
+"mudel": "SCORPION VERDE",
+"moot": "24545R20",
+"eu": "c b",
+"lisi": "103"
+},
+{
+"pood": "tirespot.ee",
+"slug": "pirelli-scorpion-verde",
+"mark": "Pirelli",
+"mudel": "SCORPION VERDE",
+"moot": "24545R20",
+"eu": "c b 69dB",
+"lisi": "103"
+},
+{
+"pood": "tirespot.ee",
+"slug": "bridgestone-turanza-t005ad",
+"mark": "Bridgestone",
+"mudel": "TURANZA T005AD",
+"moot": "24545R20",
+"eu": "b a 71dB",
+"lisi": "103"
+},
+{
+"pood": "tirespot.ee",
+"slug": "maxxis-vs5",
+"mark": "Maxxis",
+"mudel": "VICTRA SPORT VS5 SUV",
+"moot": "24545R20",
+"eu": "c a 72dB",
+"lisi": "103"
+},
+{
+"pood": "tirespot.ee",
+"slug": "maxxis-ap3",
+"mark": "Maxxis",
+"mudel": "ALLSEASON AP3 SUV",
+"moot": "23545R20",
+"eu": "d b 72dB",
+"lisi": "100"
+},
+{
+"pood": "tirespot.ee",
+"slug": "maxxis-wp6",
+"mark": "Maxxis",
+"mudel": "PREMITRA SNOW WP6 SUV",
+"moot": "23545R20",
+"eu": "d b 70dB",
+"lisi": "100"
+},
+{
+"pood": "tirespot.ee",
+"slug": "maxxis-sp5",
+"mark": "Maxxis",
+"mudel": "PREMITRA ICE 5 SP5 SUV",
+"moot": "23550R20",
+"eu": "c d 71dB",
+"lisi": "104"
+},
+{
+"pood": "tirespot.ee",
+"slug": "maxxis-sp5",
+"mark": "Maxxis",
+"mudel": "PREMITRA ICE 5 SP5 SUV",
+"moot": "27550R20",
+"eu": "c d 71dB",
+"lisi": "113"
+},
+{
+"pood": "tirespot.ee",
+"slug": "maxxis-sp5",
+"mark": "Maxxis",
+"mudel": "PREMITRA ICE 5 SP5 SUV",
+"moot": "23565R18",
+"eu": "c d 69dB",
+"lisi": "110"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-401",
+"mark": "GOODRIDE",
+"mudel": "Z-401",
+"moot": "18555R14",
+"eu": "d c 71dB",
+"lisi": "80"
+},
+{
+"pood": "tirespot.ee",
+"slug": "maxxis-ap3",
+"mark": "Maxxis",
+"mudel": "ALLSEASON AP3 SUV",
+"moot": "28545R20",
+"eu": "c b 75dB",
+"lisi": "112"
+},
+{
+"pood": "tirespot.ee",
+"slug": "yokohama-advan-sport",
+"mark": "Yokohama",
+"mudel": "ADVAN SPORT V105T",
+"moot": "28540R21",
+"eu": "d a 72dB",
+"lisi": "109"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-sw618",
+"mark": "GOODRIDE",
+"mudel": "SW618",
+"moot": "21570R15",
+"eu": "d e 72dB",
+"lisi": "98"
+},
+{
+"pood": "tirespot.ee",
+"slug": "yokohama-advan-sport",
+"mark": "Yokohama",
+"mudel": "ADVAN SPORT V107C",
+"moot": "27535R22",
+"eu": "c a 72dB",
+"lisi": "104"
+},
+{
+"pood": "tirespot.ee",
+"slug": "falken-eurowinter-hs01",
+"mark": "Falken",
+"mudel": "EUROWINTER HS01 MFS",
+"moot": "24540R21",
+"eu": "e c 71dB",
+"lisi": "96"
+},
+{
+"pood": "tirespot.ee",
+"slug": "michelin-pilot-sport-ev",
+"mark": "Michelin",
+"mudel": "PILOT SPORT EV",
+"moot": "24540R21",
+"eu": "b b",
+"lisi": "100"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-su318",
+"mark": "GOODRIDE",
+"mudel": "SU318 H/T",
+"moot": "23575R16",
+"eu": "d c 71dB",
+"lisi": "108"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodyear-efficientgrip-suv",
+"mark": "Goodyear",
+"mudel": "EFFICIENTGRIP SUV",
+"moot": "26570R18",
+"eu": "d b 70dB",
+"lisi": "116"
+},
+{
+"pood": "tirespot.ee",
+"slug": "sailun-terramax-a-t",
+"mark": "SAILUN",
+"mudel": "TERRAMAX A/T",
+"moot": "26570R18",
+"eu": "d b 73dB",
+"lisi": "124/121"
+},
+{
+"pood": "tirespot.ee",
+"slug": "pirelli-cinturato-p7-p7c2",
+"mark": "Pirelli",
+"mudel": "CINTURATO P7 P7C2",
+"moot": "21555R17",
+"eu": "a b 70dB",
+"lisi": "94"
+},
+{
+"pood": "tirespot.ee",
+"slug": "pirelli-cinturato-winter-3",
+"mark": "Pirelli",
+"mudel": "CINTURATO WINTER 3",
+"moot": "21555R17",
+"eu": "c a",
+"lisi": "98"
+},
+{
+"pood": "tirespot.ee",
+"slug": "continental-ecocontact-7",
+"mark": "Continental",
+"mudel": "ECOContact 7",
+"moot": "21555R17",
+"eu": "a a",
+"lisi": "94"
+},
+{
+"pood": "tirespot.ee",
+"slug": "continental-ecocontact-7",
+"mark": "Continental",
+"mudel": "ECOCONTACT 7",
+"moot": "21555R17",
+"eu": "a a 71dB",
+"lisi": "94"
+},
+{
+"pood": "tirespot.ee",
+"slug": "pirelli-powergy-winter",
+"mark": "Pirelli",
+"mudel": "POWERGY WINTER",
+"moot": "21555R17",
+"eu": "c c",
+"lisi": "98"
+},
+{
+"pood": "tirespot.ee",
+"slug": "pirelli-powergy-winter",
+"mark": "Pirelli",
+"mudel": "POWERGY WINTER",
+"moot": "21555R17",
+"eu": "c c 71dB",
+"lisi": "98"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-107",
+"mark": "GOODRIDE",
+"mudel": "Z-107",
+"moot": "21555R17",
+"eu": "c b 72dB",
+"lisi": "98"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-401",
+"mark": "GOODRIDE",
+"mudel": "Z-401",
+"moot": "21555R17",
+"eu": "c c 72dB",
+"lisi": "98"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-507",
+"mark": "GOODRIDE",
+"mudel": "Z507",
+"moot": "21555R17",
+"eu": "c c 72dB",
+"lisi": "98"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-107",
+"mark": "GOODRIDE",
+"mudel": "Z-107",
+"moot": "19560R15",
+"eu": "d b 71dB",
+"lisi": "88"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-401",
+"mark": "GOODRIDE",
+"mudel": "Z-401",
+"moot": "19560R15",
+"eu": "d c 72dB",
+"lisi": "88"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-401",
+"mark": "GOODRIDE",
+"mudel": "Z-401",
+"moot": "19555R15",
+"eu": "d c 72dB",
+"lisi": "89"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-401",
+"mark": "GOODRIDE",
+"mudel": "Z-401",
+"moot": "19555R15",
+"eu": "d c 72dB",
+"lisi": "89"
+},
+{
+"pood": "tirespot.ee",
+"slug": "pirelli-cinturato-p7-p7c2",
+"mark": "Pirelli",
+"mudel": "CINTURATO P7 P7C2",
+"moot": "22545R18",
+"eu": "b b 69dB",
+"lisi": "91"
+},
+{
+"pood": "tirespot.ee",
+"slug": "pirelli-cinturato-p7-p7c2",
+"mark": "Pirelli",
+"mudel": "CINTURATO P7 P7C2",
+"moot": "22545R18",
+"eu": "a a 71dB",
+"lisi": "95"
+},
+{
+"pood": "tirespot.ee",
+"slug": "pirelli-cinturato-p7-p7c2",
+"mark": "Pirelli",
+"mudel": "CINTURATO P7 P7C2",
+"moot": "22545R18",
+"eu": "a b 69dB",
+"lisi": "95"
+},
+{
+"pood": "tirespot.ee",
+"slug": "pirelli-cinturato-p7-p7c2",
+"mark": "Pirelli",
+"mudel": "CINTURATO P7 P7C2",
+"moot": "22545R18",
+"eu": "b b 69dB",
+"lisi": "95"
+},
+{
+"pood": "tirespot.ee",
+"slug": "sailun-ice-blazer-arctic-evo",
+"mark": "SAILUN",
+"mudel": "ICE BLAZER ARCTIC EVO",
+"moot": "22545R18",
+"eu": "d d 71dB",
+"lisi": "91"
+},
+{
+"pood": "tirespot.ee",
+"slug": "pirelli-powergy-2",
+"mark": "Pirelli",
+"mudel": "POWERGY 2",
+"moot": "22545R18",
+"eu": "b b",
+"lisi": "95"
+},
+{
+"pood": "tirespot.ee",
+"slug": "pirelli-powergy-2",
+"mark": "Pirelli",
+"mudel": "POWERGY 2",
+"moot": "22545R18",
+"eu": "b a 69dB",
+"lisi": "95"
+},
+{
+"pood": "tirespot.ee",
+"slug": "pirelli-powergy-winter",
+"mark": "Pirelli",
+"mudel": "POWERGY WINTER",
+"moot": "22545R18",
+"eu": "c c",
+"lisi": "95"
+},
+{
+"pood": "tirespot.ee",
+"slug": "pirelli-powergy-winter",
+"mark": "Pirelli",
+"mudel": "POWERGY WINTER",
+"moot": "22545R18",
+"eu": "c c 71dB",
+"lisi": "95"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-sa37",
+"mark": "GOODRIDE",
+"mudel": "SA37",
+"moot": "22545R18",
+"eu": "d b 72dB",
+"lisi": "95"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-sw618",
+"mark": "GOODRIDE",
+"mudel": "SW618",
+"moot": "22545R18",
+"eu": "d e 72dB",
+"lisi": "95"
+},
+{
+"pood": "tirespot.ee",
+"slug": "continental-ultracontact-nxt",
+"mark": "Continental",
+"mudel": "ULTRAContact NXT",
+"moot": "22545R18",
+"eu": "a a",
+"lisi": "95"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-107",
+"mark": "GOODRIDE",
+"mudel": "Z-107",
+"moot": "22545R18",
+"eu": "c b 72dB",
+"lisi": "95"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-401",
+"mark": "GOODRIDE",
+"mudel": "Z-401",
+"moot": "22545R18",
+"eu": "c c 72dB",
+"lisi": "95"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-507",
+"mark": "GOODRIDE",
+"mudel": "Z507",
+"moot": "22545R18",
+"eu": "c c 72dB",
+"lisi": "95"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-401",
+"mark": "GOODRIDE",
+"mudel": "Z-401",
+"moot": "18560R14",
+"eu": "d c 71dB",
+"lisi": "82"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-107",
+"mark": "GOODRIDE",
+"mudel": "Z-107",
+"moot": "16570R14",
+"eu": "d b 70dB",
+"lisi": "81"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-401",
+"mark": "GOODRIDE",
+"mudel": "Z-401",
+"moot": "16570R14",
+"eu": "d c 71dB",
+"lisi": "81"
+},
+{
+"pood": "tirespot.ee",
+"slug": "sailun-atrezzo-4seasons-ultra",
+"mark": "SAILUN",
+"mudel": "ATREZZO 4SEASONS ULTRA",
+"moot": "22555R17",
+"eu": "b a 70dB",
+"lisi": "101"
+},
+{
+"pood": "tirespot.ee",
+"slug": "sailun-atrezzo-elite2",
+"mark": "SAILUN",
+"mudel": "ATREZZO ELITE2",
+"moot": "22555R17",
+"eu": "c a 70dB",
+"lisi": "97"
+},
+{
+"pood": "tirespot.ee",
+"slug": "pirelli-cinturato-p7-p7c2",
+"mark": "Pirelli",
+"mudel": "CINTURATO P7 P7C2",
+"moot": "22555R17",
+"eu": "a b 69dB",
+"lisi": "97"
+},
+{
+"pood": "tirespot.ee",
+"slug": "pirelli-cinturato-p7-p7c2",
+"mark": "Pirelli",
+"mudel": "CINTURATO P7 P7C2",
+"moot": "22555R17",
+"eu": "a b 69dB",
+"lisi": "97"
+},
+{
+"pood": "tirespot.ee",
+"slug": "pirelli-cinturato-p7-p7c2",
+"mark": "Pirelli",
+"mudel": "CINTURATO P7 P7C2",
+"moot": "22555R17",
+"eu": "a a 70dB",
+"lisi": "101"
+},
+{
+"pood": "tirespot.ee",
+"slug": "triangle-effexsport",
+"mark": "Triangle",
+"mudel": "EFFEXSPORT TH202",
+"moot": "22555R17",
+"eu": "c b 72dB",
+"lisi": "101"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-sw628",
+"mark": "GOODRIDE",
+"mudel": "SW628",
+"moot": "22555R17",
+"eu": "d c 72dB",
+"lisi": "97"
+},
+{
+"pood": "tirespot.ee",
+"slug": "gt-radial-winterpro2-sport",
+"mark": "GT Radial",
+"mudel": "WINTERPRO 2 SPORT",
+"moot": "22555R17",
+"eu": "c b 70dB",
+"lisi": "101"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-401",
+"mark": "GOODRIDE",
+"mudel": "Z-401",
+"moot": "22555R17",
+"eu": "c c 72dB",
+"lisi": "101"
+},
+{
+"pood": "tirespot.ee",
+"slug": "maxxis-ap3",
+"mark": "Maxxis",
+"mudel": "ALLSEASON AP3 SUV",
+"moot": "27545R20",
+"eu": "c b 73dB",
+"lisi": "110"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-sw618",
+"mark": "GOODRIDE",
+"mudel": "SW618",
+"moot": "27545R20",
+"eu": "d e 73dB",
+"lisi": "110"
+},
+{
+"pood": "tirespot.ee",
+"slug": "continental-contiwintercontact-ts-830-p",
+"mark": "Continental",
+"mudel": "TS830P",
+"moot": "27545R20",
+"eu": "d c",
+"lisi": "110"
+},
+{
+"pood": "tirespot.ee",
+"slug": "maxxis-vs5",
+"mark": "Maxxis",
+"mudel": "VICTRA SPORT VS5 SUV",
+"moot": "27545R20",
+"eu": "c a 71dB",
+"lisi": "110"
+},
+{
+"pood": "tirespot.ee",
+"slug": "maxxis-wp6",
+"mark": "Maxxis",
+"mudel": "PREMITRA SNOW WP6 SUV",
+"moot": "21550R18",
+"eu": "d b 70dB",
+"lisi": "92"
+},
+{
+"pood": "tirespot.ee",
+"slug": "yokohama-advan-sport",
+"mark": "Yokohama",
+"mudel": "ADVAN SPORT V105S",
+"moot": "24545R17",
+"eu": "d a 72dB",
+"lisi": "99"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-107",
+"mark": "GOODRIDE",
+"mudel": "Z-107",
+"moot": "24545R17",
+"eu": "c b 72dB",
+"lisi": "99"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-401",
+"mark": "GOODRIDE",
+"mudel": "Z-401",
+"moot": "24545R17",
+"eu": "c c 72dB",
+"lisi": "99"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-401",
+"mark": "GOODRIDE",
+"mudel": "Z-401",
+"moot": "24545R17",
+"eu": "c c 72dB",
+"lisi": "99"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-107",
+"mark": "GOODRIDE",
+"mudel": "Z-107",
+"moot": "21545R16",
+"eu": "d b 72dB",
+"lisi": "90"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-401",
+"mark": "GOODRIDE",
+"mudel": "Z-401",
+"moot": "21545R16",
+"eu": "d c 72dB",
+"lisi": "90"
+},
+{
+"pood": "tirespot.ee",
+"slug": "yokohama-advan-sport",
+"mark": "Yokohama",
+"mudel": "ADVAN SPORT V107E",
+"moot": "27535R19",
+"eu": "d a 70dB",
+"lisi": "100"
+},
+{
+"pood": "tirespot.ee",
+"slug": "sailun-ice-blazer-arctic-evo",
+"mark": "SAILUN",
+"mudel": "ICE BLAZER ARCTIC EVO",
+"moot": "27535R19",
+"eu": "d d 71dB",
+"lisi": "100"
+},
+{
+"pood": "tirespot.ee",
+"slug": "kumho-ps72",
+"mark": "Kumho",
+"mudel": "PS72",
+"moot": "27535R19",
+"eu": "c a 73dB",
+"lisi": "100"
+},
+{
+"pood": "tirespot.ee",
+"slug": "kumho-ps91",
+"mark": "Kumho",
+"mudel": "PS91",
+"moot": "27535R19",
+"eu": "d a 73dB",
+"lisi": "100"
+},
+{
+"pood": "tirespot.ee",
+"slug": "sailun-atrezzo-zsr",
+"mark": "SAILUN",
+"mudel": "ATREZZO ZSR",
+"moot": "24550R18",
+"eu": "d b 71dB",
+"lisi": "100"
+},
+{
+"pood": "tirespot.ee",
+"slug": "sailun-ice-blazer-arctic-evo",
+"mark": "SAILUN",
+"mudel": "ICE BLAZER ARCTIC EVO",
+"moot": "24550R18",
+"eu": "c e 72dB",
+"lisi": "100"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-sw618",
+"mark": "GOODRIDE",
+"mudel": "SW618",
+"moot": "24550R18",
+"eu": "d e 72dB",
+"lisi": "104"
+},
+{
+"pood": "tirespot.ee",
+"slug": "yokohama-advan-sport",
+"mark": "Yokohama",
+"mudel": "ADVAN SPORT V107D",
+"moot": "27535R21",
+"eu": "c a 72dB",
+"lisi": ""
+},
+{
+"pood": "tirespot.ee",
+"slug": "michelin-pilot-sport-4",
+"mark": "Michelin",
+"mudel": "PILOT SPORT 4",
+"moot": "27535R21",
+"eu": "d b",
+"lisi": "103"
+},
+{
+"pood": "tirespot.ee",
+"slug": "yokohama-advan-sport",
+"mark": "Yokohama",
+"mudel": "ADVAN SPORT V107E",
+"moot": "24550R19",
+"eu": "a b 70dB",
+"lisi": "105"
+},
+{
+"pood": "tirespot.ee",
+"slug": "maxxis-ap3",
+"mark": "Maxxis",
+"mudel": "ALLSEASON AP3 SUV",
+"moot": "24550R19",
+"eu": "c b 72dB",
+"lisi": "105"
+},
+{
+"pood": "tirespot.ee",
+"slug": "yokohama-bluearth-winter-v905",
+"mark": "Yokohama",
+"mudel": "BLUEARTH *WINTER V905",
+"moot": "24550R19",
+"eu": "d c 71dB",
+"lisi": "105"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodyear-eagle-f1-asymmetric-suv",
+"mark": "Goodyear",
+"mudel": "EAGLE F1 ASYMMETRIC SUV",
+"moot": "24550R19",
+"eu": "b b 71dB",
+"lisi": "105"
+},
+{
+"pood": "tirespot.ee",
+"slug": "sailun-ice-blazer-arctic-evo",
+"mark": "SAILUN",
+"mudel": "ICE BLAZER ARCTIC EVO",
+"moot": "24550R19",
+"eu": "c d 71dB",
+"lisi": "105"
+},
+{
+"pood": "tirespot.ee",
+"slug": "continental-wintercontact-ts-860-s",
+"mark": "Continental",
+"mudel": "TS860S",
+"moot": "24550R19",
+"eu": "c c",
+"lisi": "105"
+},
+{
+"pood": "tirespot.ee",
+"slug": "yokohama-advan-sport",
+"mark": "Yokohama",
+"mudel": "ADVAN SPORT V107C",
+"moot": "28540R22",
+"eu": "c a 71dB",
+"lisi": "110"
+},
+{
+"pood": "tirespot.ee",
+"slug": "maxxis-sp5",
+"mark": "Maxxis",
+"mudel": "PREMITRA ICE 5 SP5 SUV",
+"moot": "26540R22",
+"eu": "d d 71dB",
+"lisi": "106"
+},
+{
+"pood": "tirespot.ee",
+"slug": "yokohama-advan-sport",
+"mark": "Yokohama",
+"mudel": "ADVAN SPORT V105S",
+"moot": "26540R20",
+"eu": "d a 73dB",
+"lisi": "104"
+},
+{
+"pood": "tirespot.ee",
+"slug": "kumho-ps91",
+"mark": "Kumho",
+"mudel": "PS91",
+"moot": "26540R20",
+"eu": "d a 72dB",
+"lisi": "104"
+},
+{
+"pood": "tirespot.ee",
+"slug": "yokohama-advan-sport",
+"mark": "Yokohama",
+"mudel": "ADVAN SPORT V107A",
+"moot": "28540R20",
+"eu": "d a 71dB",
+"lisi": "108"
+},
+{
+"pood": "tirespot.ee",
+"slug": "yokohama-advan-sport",
+"mark": "Yokohama",
+"mudel": "ADVAN SPORT V107E",
+"moot": "28540R20",
+"eu": "a b 69dB",
+"lisi": "108"
+},
+{
+"pood": "tirespot.ee",
+"slug": "michelin-pilot-sport-ev",
+"mark": "Michelin",
+"mudel": "PILOT SPORT EV",
+"moot": "28540R20",
+"eu": "a b",
+"lisi": "108"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-sw618",
+"mark": "GOODRIDE",
+"mudel": "SW618",
+"moot": "22565R16",
+"eu": "d e 72dB",
+"lisi": "100"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-sl369",
+"mark": "GOODRIDE",
+"mudel": "SL369 A/T",
+"moot": "21580R16",
+"eu": "d d 72dB",
+"lisi": "107"
+},
+{
+"pood": "tirespot.ee",
+"slug": "kumho-ps71",
+"mark": "Kumho",
+"mudel": "PS71 SUV",
+"moot": "23565R19",
+"eu": "c b 72dB",
+"lisi": "109"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-solmax-1-suv",
+"mark": "GOODRIDE",
+"mudel": "SOLMAX 1 SUV",
+"moot": "23565R19",
+"eu": "c c 72dB",
+"lisi": "109"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-sw618",
+"mark": "GOODRIDE",
+"mudel": "SW618",
+"moot": "21550R17",
+"eu": "d e 72dB",
+"lisi": "95"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-107",
+"mark": "GOODRIDE",
+"mudel": "Z-107",
+"moot": "21550R17",
+"eu": "c b 72dB",
+"lisi": "95"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-401",
+"mark": "GOODRIDE",
+"mudel": "Z-401",
+"moot": "21550R17",
+"eu": "c c 72dB",
+"lisi": "95"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-507",
+"mark": "GOODRIDE",
+"mudel": "Z507",
+"moot": "21550R17",
+"eu": "c c 72dB",
+"lisi": "95"
+},
+{
+"pood": "tirespot.ee",
+"slug": "michelin-alpin-7",
+"mark": "Michelin",
+"mudel": "ALPIN 7",
+"moot": "22545R17",
+"eu": "c b 71dB",
+"lisi": "91"
+},
+{
+"pood": "tirespot.ee",
+"slug": "pirelli-cinturato-winter-2",
+"mark": "Pirelli",
+"mudel": "CINTURATO WINTER 2",
+"moot": "22545R17",
+"eu": "d b",
+"lisi": "91"
+},
+{
+"pood": "tirespot.ee",
+"slug": "pirelli-cinturato-winter-2",
+"mark": "Pirelli",
+"mudel": "CINTURATO WINTER 2",
+"moot": "22545R17",
+"eu": "c b",
+"lisi": "94"
+},
+{
+"pood": "tirespot.ee",
+"slug": "continental-contiecocontact-5",
+"mark": "Continental",
+"mudel": "ECOContact 5",
+"moot": "22545R17",
+"eu": "c b",
+"lisi": "91"
+},
+{
+"pood": "tirespot.ee",
+"slug": "pirelli-powergy",
+"mark": "Pirelli",
+"mudel": "POWERGY",
+"moot": "22545R17",
+"eu": "b a 68dB",
+"lisi": "94"
+},
+{
+"pood": "tirespot.ee",
+"slug": "continental-wintercontact-ts-860-s",
+"mark": "Continental",
+"mudel": "TS860S",
+"moot": "22545R17",
+"eu": "c c",
+"lisi": "91"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-107",
+"mark": "GOODRIDE",
+"mudel": "Z-107",
+"moot": "22545R17",
+"eu": "c b 72dB",
+"lisi": "94"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-401",
+"mark": "GOODRIDE",
+"mudel": "Z-401",
+"moot": "22545R17",
+"eu": "c c 72dB",
+"lisi": "94"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-401",
+"mark": "GOODRIDE",
+"mudel": "Z-401",
+"moot": "22545R17",
+"eu": "c c 72dB",
+"lisi": "94"
+},
+{
+"pood": "tirespot.ee",
+"slug": "pirelli-cinturato-p7-p7c2",
+"mark": "Pirelli",
+"mudel": "Cinturato P7 P7C2",
+"moot": "23545R18",
+"eu": "b b 69dB",
+"lisi": "98"
+},
+{
+"pood": "tirespot.ee",
+"slug": "pirelli-cinturato-p7-p7c2",
+"mark": "Pirelli",
+"mudel": "CINTURATO P7 P7C2",
+"moot": "23545R18",
+"eu": "b a 70dB",
+"lisi": "94"
+},
+{
+"pood": "tirespot.ee",
+"slug": "pirelli-cinturato-p7-p7c2",
+"mark": "Pirelli",
+"mudel": "CINTURATO P7 P7C2",
+"moot": "23545R18",
+"eu": "b a 70dB",
+"lisi": "94"
+},
+{
+"pood": "tirespot.ee",
+"slug": "pirelli-cinturato-p7-p7c2",
+"mark": "Pirelli",
+"mudel": "CINTURATO P7 P7C2",
+"moot": "23545R18",
+"eu": "a a 71dB",
+"lisi": "98"
+},
+{
+"pood": "tirespot.ee",
+"slug": "pirelli-cinturato-p7-p7c2",
+"mark": "Pirelli",
+"mudel": "CINTURATO P7 P7C2 RE0",
+"moot": "23545R18",
+"eu": "a a 72dB",
+"lisi": "98"
+},
+{
+"pood": "tirespot.ee",
+"slug": "hankook-ion-st-as",
+"mark": "Hankook",
+"mudel": "ION ST AS IH61",
+"moot": "23545R18",
+"eu": "b d",
+"lisi": "98"
+},
+{
+"pood": "tirespot.ee",
+"slug": "pirelli-powergy-winter",
+"mark": "Pirelli",
+"mudel": "POWERGY WINTER",
+"moot": "23545R18",
+"eu": "c c",
+"lisi": "98"
+},
+{
+"pood": "tirespot.ee",
+"slug": "pirelli-powergy-winter",
+"mark": "Pirelli",
+"mudel": "POWERGY WINTER",
+"moot": "23545R18",
+"eu": "c c 71dB",
+"lisi": "98"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-sw618",
+"mark": "GOODRIDE",
+"mudel": "SW618",
+"moot": "23545R18",
+"eu": "d e 72dB",
+"lisi": "98"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-107",
+"mark": "GOODRIDE",
+"mudel": "Z-107",
+"moot": "23545R18",
+"eu": "c b 72dB",
+"lisi": "98"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-401",
+"mark": "GOODRIDE",
+"mudel": "Z-401",
+"moot": "23545R18",
+"eu": "c c 72dB",
+"lisi": "98"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-401",
+"mark": "GOODRIDE",
+"mudel": "Z-401",
+"moot": "23545R18",
+"eu": "c c 72dB",
+"lisi": "98"
+},
+{
+"pood": "tirespot.ee",
+"slug": "pirelli-cinturato-winter-3",
+"mark": "Pirelli",
+"mudel": "CINTURATO WINTER 3",
+"moot": "20555R17",
+"eu": "c b 72dB",
+"lisi": "95"
+},
+{
+"pood": "tirespot.ee",
+"slug": "pirelli-powergy-2",
+"mark": "Pirelli",
+"mudel": "POWERGY 2",
+"moot": "20555R17",
+"eu": "b b",
+"lisi": "95"
+},
+{
+"pood": "tirespot.ee",
+"slug": "pirelli-winter-sottozero-3",
+"mark": "Pirelli",
+"mudel": "SOTTO ZERO 3",
+"moot": "20555R17",
+"eu": "c b",
+"lisi": "91"
+},
+{
+"pood": "tirespot.ee",
+"slug": "continental-contiwintercontact-ts-830-p",
+"mark": "Continental",
+"mudel": "TS830P",
+"moot": "20555R17",
+"eu": "c d",
+"lisi": "95"
+},
+{
+"pood": "tirespot.ee",
+"slug": "continental-contiwintercontact-ts-830-p",
+"mark": "Continental",
+"mudel": "TS830P",
+"moot": "20555R17",
+"eu": "d c",
+"lisi": "95"
+},
+{
+"pood": "tirespot.ee",
+"slug": "pirelli-winter-sottozero-3",
+"mark": "Pirelli",
+"mudel": "WINTER SOTTOZERO 3",
+"moot": "20555R17",
+"eu": "c b 71dB",
+"lisi": "91"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-401",
+"mark": "GOODRIDE",
+"mudel": "Z-401",
+"moot": "20555R17",
+"eu": "c c 72dB",
+"lisi": "95"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-107",
+"mark": "GOODRIDE",
+"mudel": "Z-107",
+"moot": "23535R19",
+"eu": "d b 72dB",
+"lisi": "91"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodyear-eagle-f1-asymmetric-2-suv",
+"mark": "Goodyear",
+"mudel": "EAGLE F1 ASYMMETRIC 2 SUV",
+"moot": "25550R19",
+"eu": "c a",
+"lisi": "103"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodyear-eagle-f1-asymmetric-2-suv",
+"mark": "Goodyear",
+"mudel": "EAGLE F1 ASYMMETRIC 2 SUV",
+"moot": "25550R19",
+"eu": "c a 72dB",
+"lisi": "103"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodyear-eagle-f1-asymmetric-suv",
+"mark": "Goodyear",
+"mudel": "EAGLE F1 ASYMMETRIC SUV",
+"moot": "25550R19",
+"eu": "c b",
+"lisi": "107"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodyear-eagle-f1-asymmetric-suv",
+"mark": "Goodyear",
+"mudel": "EAGLE F1 ASYMMETRIC SUV",
+"moot": "25550R19",
+"eu": "c b 72dB",
+"lisi": "107"
+},
+{
+"pood": "tirespot.ee",
+"slug": "yokohama-advan-sport",
+"mark": "Yokohama",
+"mudel": "ADVAN SPORT V105S",
+"moot": "22545R19",
+"eu": "d a 72dB",
+"lisi": ""
+},
+{
+"pood": "tirespot.ee",
+"slug": "continental-wintercontact-ts-860-s",
+"mark": "Continental",
+"mudel": "TS860S",
+"moot": "22545R19",
+"eu": "c c",
+"lisi": "96"
+},
+{
+"pood": "tirespot.ee",
+"slug": "continental-wintercontact-ts-860-s",
+"mark": "Continental",
+"mudel": "TS860S",
+"moot": "22545R19",
+"eu": "d c",
+"lisi": "96"
+},
+{
+"pood": "tirespot.ee",
+"slug": "yokohama-advan-sport",
+"mark": "Yokohama",
+"mudel": "ADVAN SPORT V107D",
+"moot": "27540R20",
+"eu": "c a 72dB",
+"lisi": ""
+},
+{
+"pood": "tirespot.ee",
+"slug": "pirelli-pzero-winter-2",
+"mark": "Pirelli",
+"mudel": "P ZERO WINTER 2",
+"moot": "27540R20",
+"eu": "c a",
+"lisi": "109"
+},
+{
+"pood": "tirespot.ee",
+"slug": "pirelli-pzero-winter-2",
+"mark": "Pirelli",
+"mudel": "P ZERO WINTER 2",
+"moot": "27540R20",
+"eu": "c a 71dB",
+"lisi": "109"
+},
+{
+"pood": "tirespot.ee",
+"slug": "michelin-pilot-sport-4",
+"mark": "Michelin",
+"mudel": "PILOT SPORT 4",
+"moot": "27540R20",
+"eu": "c a",
+"lisi": "102"
+},
+{
+"pood": "tirespot.ee",
+"slug": "michelin-pilot-sport-4",
+"mark": "Michelin",
+"mudel": "PILOT SPORT 4",
+"moot": "27540R20",
+"eu": "c a",
+"lisi": "106"
+},
+{
+"pood": "tirespot.ee",
+"slug": "hankook-ventus-s1-evo3",
+"mark": "Hankook",
+"mudel": "VENTUS S1 EVO 3 K127C",
+"moot": "27540R20",
+"eu": "c a 73dB",
+"lisi": "106"
+},
+{
+"pood": "tirespot.ee",
+"slug": "maxxis-vs5",
+"mark": "Maxxis",
+"mudel": "VICTRA SPORT VS5 SUV",
+"moot": "27540R20",
+"eu": "c a 71dB",
+"lisi": "106"
+},
+{
+"pood": "tirespot.ee",
+"slug": "sailun-atrezzo-4seasons",
+"mark": "SAILUN",
+"mudel": "ATREZZO 4 SEASONS",
+"moot": "18565R15",
+"eu": "d c 71dB",
+"lisi": "88"
+},
+{
+"pood": "tirespot.ee",
+"slug": "sailun-atrezzo-elite2",
+"mark": "SAILUN",
+"mudel": "ATREZZO ELITE2",
+"moot": "18565R15",
+"eu": "c a 70dB",
+"lisi": "92"
+},
+{
+"pood": "tirespot.ee",
+"slug": "gt-radial-fe2",
+"mark": "GT Radial",
+"mudel": "FE2",
+"moot": "18565R15",
+"eu": "c a 69dB",
+"lisi": "88"
+},
+{
+"pood": "tirespot.ee",
+"slug": "gt-radial-fe2-evo",
+"mark": "GT Radial",
+"mudel": "FE2 EVO",
+"moot": "18565R15",
+"eu": "c a 69dB",
+"lisi": "88"
+},
+{
+"pood": "tirespot.ee",
+"slug": "sailun-ice-blazer-arctic",
+"mark": "SAILUN",
+"mudel": "ICE BLAZER ARCTIC",
+"moot": "18565R15",
+"eu": "c e 70dB",
+"lisi": "88"
+},
+{
+"pood": "tirespot.ee",
+"slug": "triangle-reliax-touring",
+"mark": "Triangle",
+"mudel": "RELIAXTOURING TE307",
+"moot": "18565R15",
+"eu": "d b 70dB",
+"lisi": "88"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-sw618",
+"mark": "GOODRIDE",
+"mudel": "Sw618",
+"moot": "18565R15",
+"eu": "d e 71dB",
+"lisi": "88"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-107",
+"mark": "GOODRIDE",
+"mudel": "Z-107",
+"moot": "18565R15",
+"eu": "d b 70dB",
+"lisi": "88"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-401",
+"mark": "GOODRIDE",
+"mudel": "Z-401",
+"moot": "18565R15",
+"eu": "c c 71dB",
+"lisi": "92"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-107",
+"mark": "GOODRIDE",
+"mudel": "Z-107",
+"moot": "24535R19",
+"eu": "d b 72dB",
+"lisi": "93"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-107",
+"mark": "GOODRIDE",
+"mudel": "Z-107",
+"moot": "21540R17",
+"eu": "d b 72dB",
+"lisi": "87"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-401",
+"mark": "GOODRIDE",
+"mudel": "Z-401",
+"moot": "21540R17",
+"eu": "d c 72dB",
+"lisi": "87"
+},
+{
+"pood": "tirespot.ee",
+"slug": "yokohama-advan-sport",
+"mark": "Yokohama",
+"mudel": "ADVAN SPORT V107A",
+"moot": "25540R20",
+"eu": "d a 71dB",
+"lisi": "101"
+},
+{
+"pood": "tirespot.ee",
+"slug": "pirelli-cinturato-p7-p7c2",
+"mark": "Pirelli",
+"mudel": "CINTURATO P7 P7C2",
+"moot": "25540R20",
+"eu": "a a 72dB",
+"lisi": "101"
+},
+{
+"pood": "tirespot.ee",
+"slug": "continental-ecocontact-7",
+"mark": "Continental",
+"mudel": "ECOContact 7",
+"moot": "25540R20",
+"eu": "a b",
+"lisi": "104"
+},
+{
+"pood": "tirespot.ee",
+"slug": "continental-ecocontact-7",
+"mark": "Continental",
+"mudel": "ECOContact 7",
+"moot": "25540R20",
+"eu": "a b",
+"lisi": "101"
+},
+{
+"pood": "tirespot.ee",
+"slug": "michelin-pilot-sport-3",
+"mark": "Michelin",
+"mudel": "PILOT SPORT 3",
+"moot": "25540R20",
+"eu": "d a",
+"lisi": "101"
+},
+{
+"pood": "tirespot.ee",
+"slug": "pirelli-powergy-2",
+"mark": "Pirelli",
+"mudel": "POWERGY 2",
+"moot": "25540R20",
+"eu": "b b",
+"lisi": "101"
+},
+{
+"pood": "tirespot.ee",
+"slug": "pirelli-powergy",
+"mark": "Pirelli",
+"mudel": "POWERGY",
+"moot": "25540R20",
+"eu": "b a 70dB",
+"lisi": "101"
+},
+{
+"pood": "tirespot.ee",
+"slug": "maxxis-sp5",
+"mark": "Maxxis",
+"mudel": "PREMITRA ICE 5 SP5 SUV",
+"moot": "25540R20",
+"eu": "d d 71dB",
+"lisi": "101"
+},
+{
+"pood": "tirespot.ee",
+"slug": "pirelli-scorpion-all-season-sf2",
+"mark": "Pirelli",
+"mudel": "SCORPION ALL SEASON SF2",
+"moot": "25540R20",
+"eu": "a a",
+"lisi": "101"
+},
+{
+"pood": "tirespot.ee",
+"slug": "yokohama-advan-sport",
+"mark": "Yokohama",
+"mudel": "ADVAN SPORT V105T",
+"moot": "26545R20",
+"eu": "d a 73dB",
+"lisi": "108"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-sa37",
+"mark": "GOODRIDE",
+"mudel": "SA37",
+"moot": "26545R20",
+"eu": "c b 73dB",
+"lisi": "108"
+},
+{
+"pood": "tirespot.ee",
+"slug": "bfgoodrich-all-terrain-t-a-ko2",
+"mark": "BFGoodrich",
+"mudel": "ALL TERRAIN T/A KO2",
+"moot": "23570R16",
+"eu": "e b",
+"lisi": "104"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-sl369",
+"mark": "GOODRIDE",
+"mudel": "SL369 A/T",
+"moot": "23570R16",
+"eu": "d d 71dB",
+"lisi": "106"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-401",
+"mark": "GOODRIDE",
+"mudel": "Z-401",
+"moot": "20545R16",
+"eu": "d c 72dB",
+"lisi": "87"
+},
+{
+"pood": "tirespot.ee",
+"slug": "continental-ecocontact-6-q",
+"mark": "Continental",
+"mudel": "ECOContact 6 Q",
+"moot": "27535R20",
+"eu": "a b",
+"lisi": "102"
+},
+{
+"pood": "tirespot.ee",
+"slug": "continental-ecocontact-6-q",
+"mark": "Continental",
+"mudel": "ECOCONTACT 6Q",
+"moot": "27535R20",
+"eu": "a b 70dB",
+"lisi": "102"
+},
+{
+"pood": "tirespot.ee",
+"slug": "triangle-effexsport",
+"mark": "Triangle",
+"mudel": "EFFEXSPORT TH202",
+"moot": "27535R20",
+"eu": "d a 73dB",
+"lisi": "102"
+},
+{
+"pood": "tirespot.ee",
+"slug": "bfgoodrich-all-terrain-t-a-ko3",
+"mark": "BFGoodrich",
+"mudel": "ALL TERRAIN T/A KO3",
+"moot": "28560R18",
+"eu": "e c",
+"lisi": "118"
+},
+{
+"pood": "tirespot.ee",
+"slug": "kumho-ps91",
+"mark": "Kumho",
+"mudel": "PS91",
+"moot": "27530R20",
+"eu": "d a 73dB",
+"lisi": "97"
+},
+{
+"pood": "tirespot.ee",
+"slug": "dunlop-sp-sport-maxx-gt",
+"mark": "Dunlop",
+"mudel": "SP SPORT MAXX GT",
+"moot": "27530R20",
+"eu": "d b",
+"lisi": "97"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-sw618",
+"mark": "GOODRIDE",
+"mudel": "Sw618",
+"moot": "27530R20",
+"eu": "d e 73dB",
+"lisi": "97"
+},
+{
+"pood": "tirespot.ee",
+"slug": "yokohama-advan-sport",
+"mark": "Yokohama",
+"mudel": "ADVAN SPORT V107C",
+"moot": "28545R22",
+"eu": "c a 71dB",
+"lisi": "114"
+},
+{
+"pood": "tirespot.ee",
+"slug": "kumho-ps72",
+"mark": "Kumho",
+"mudel": "PS72",
+"moot": "20540R18",
+"eu": "d a 72dB",
+"lisi": "86"
+},
+{
+"pood": "tirespot.ee",
+"slug": "maxxis-vs5",
+"mark": "Maxxis",
+"mudel": "VICTRA SPORT VS5 SUV",
+"moot": "29540R20",
+"eu": "c a 71dB",
+"lisi": "110"
+},
+{
+"pood": "tirespot.ee",
+"slug": "continental-ecocontact-6",
+"mark": "Continental",
+"mudel": "ECOContact 6",
+"moot": "24535R21",
+"eu": "b b",
+"lisi": "96"
+},
+{
+"pood": "tirespot.ee",
+"slug": "continental-ecocontact-6-q",
+"mark": "Continental",
+"mudel": "ECOContact 6 Q",
+"moot": "24535R21",
+"eu": "b b",
+"lisi": "96"
+},
+{
+"pood": "tirespot.ee",
+"slug": "continental-ecocontact-6-q",
+"mark": "Continental",
+"mudel": "ECOCONTACT 6Q ContiSilent",
+"moot": "24535R21",
+"eu": "b b 70dB",
+"lisi": "96"
+},
+{
+"pood": "tirespot.ee",
+"slug": "continental-wintercontact-ts-860-s",
+"mark": "Continental",
+"mudel": "TS860S",
+"moot": "24535R21",
+"eu": "c c",
+"lisi": "96"
+},
+{
+"pood": "tirespot.ee",
+"slug": "yokohama-advan-sport",
+"mark": "Yokohama",
+"mudel": "ADVAN SPORT V107A",
+"moot": "29535R20",
+"eu": "d a 71dB",
+"lisi": "105"
+},
+{
+"pood": "tirespot.ee",
+"slug": "kumho-ps72",
+"mark": "Kumho",
+"mudel": "PS72",
+"moot": "29535R20",
+"eu": "c a 75dB",
+"lisi": "105"
+},
+{
+"pood": "tirespot.ee",
+"slug": "yokohama-advan-sport",
+"mark": "Yokohama",
+"mudel": "ADVAN SPORT V105W",
+"moot": "32530R21",
+"eu": "d a 72dB",
+"lisi": ""
+},
+{
+"pood": "tirespot.ee",
+"slug": "michelin-pilot-sport-4",
+"mark": "Michelin",
+"mudel": "PILOT SPORT 4",
+"moot": "32530R21",
+"eu": "c b",
+"lisi": "108"
+},
+{
+"pood": "tirespot.ee",
+"slug": "yokohama-geolandar-a-t4-g018",
+"mark": "Yokohama",
+"mudel": "G018",
+"moot": "25570R15",
+"eu": "e b",
+"lisi": "112"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-solmax-1-suv",
+"mark": "GOODRIDE",
+"mudel": "SOLMAX 1 SUV",
+"moot": "23560R19",
+"eu": "c c 72dB",
+"lisi": "107"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-sl369",
+"mark": "GOODRIDE",
+"mudel": "SL369 A/T",
+"moot": "25570R17",
+"eu": "d d 72dB",
+"lisi": "112"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-sl309",
+"mark": "GOODRIDE",
+"mudel": "SL309",
+"moot": "18575R16",
+"eu": "d c 73dB",
+"lisi": "104/102"
+},
+{
+"pood": "tirespot.ee",
+"slug": "sailun-atrezzo-zsr",
+"mark": "SAILUN",
+"mudel": "ATREZZO ZSR",
+"moot": "19555R16",
+"eu": "d b 71dB",
+"lisi": "87"
+},
+{
+"pood": "tirespot.ee",
+"slug": "continental-contiwintercontact-ts-830-p",
+"mark": "Continental",
+"mudel": "TS830P",
+"moot": "19555R16",
+"eu": "d d",
+"lisi": "87"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-401",
+"mark": "GOODRIDE",
+"mudel": "Z-401",
+"moot": "19555R16",
+"eu": "c c 72dB",
+"lisi": "91"
+},
+{
+"pood": "tirespot.ee",
+"slug": "yokohama-advan-sport",
+"mark": "Yokohama",
+"mudel": "ADVAN SPORT V103S",
+"moot": "22550R17",
+"eu": "d c 71dB",
+"lisi": "94"
+},
+{
+"pood": "tirespot.ee",
+"slug": "pirelli-powergy-2",
+"mark": "Pirelli",
+"mudel": "POWERGY 2",
+"moot": "22550R17",
+"eu": "b b",
+"lisi": "98"
+},
+{
+"pood": "tirespot.ee",
+"slug": "pirelli-powergy-2",
+"mark": "Pirelli",
+"mudel": "POWERGY 2",
+"moot": "22550R17",
+"eu": "b b 69dB",
+"lisi": "98"
+},
+{
+"pood": "tirespot.ee",
+"slug": "continental-wintercontact-ts-870",
+"mark": "Continental",
+"mudel": "TS870",
+"moot": "22550R17",
+"eu": "c b",
+"lisi": "98"
+},
+{
+"pood": "tirespot.ee",
+"slug": "maxxis-ap3",
+"mark": "Maxxis",
+"mudel": "ALLSEASON AP3 SUV",
+"moot": "23550R18",
+"eu": "c b 72dB",
+"lisi": "101"
+},
+{
+"pood": "tirespot.ee",
+"slug": "continental-ecocontact-6-q",
+"mark": "Continental",
+"mudel": "ECOContact 6 Q",
+"moot": "23550R18",
+"eu": "a b",
+"lisi": "101"
+},
+{
+"pood": "tirespot.ee",
+"slug": "pirelli-scorpion-winter-2",
+"mark": "Pirelli",
+"mudel": "SCORPION WINTER 2",
+"moot": "23550R18",
+"eu": "c a",
+"lisi": "101"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-107",
+"mark": "GOODRIDE",
+"mudel": "Z-107",
+"moot": "23545R17",
+"eu": "c b 72dB",
+"lisi": "97"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-401",
+"mark": "GOODRIDE",
+"mudel": "Z-401",
+"moot": "23545R17",
+"eu": "c c 72dB",
+"lisi": "97"
+},
+{
+"pood": "tirespot.ee",
+"slug": "maxxis-ap3",
+"mark": "Maxxis",
+"mudel": "ALLSEASON AP3 SUV",
+"moot": "25545R20",
+"eu": "c b 73dB",
+"lisi": "105"
+},
+{
+"pood": "tirespot.ee",
+"slug": "pirelli-pzero-winter-2",
+"mark": "Pirelli",
+"mudel": "P ZERO WINTER 2",
+"moot": "25545R20",
+"eu": "a b 71dB",
+"lisi": "105"
+},
+{
+"pood": "tirespot.ee",
+"slug": "michelin-pilot-sport-5-energy",
+"mark": "Michelin",
+"mudel": "PILOT SPORT 5 ENERGY",
+"moot": "25545R20",
+"eu": "a a 73dB",
+"lisi": "105"
+},
+{
+"pood": "tirespot.ee",
+"slug": "michelin-primacy-5-energy",
+"mark": "Michelin",
+"mudel": "PRIMACY 5 ENERGY",
+"moot": "25545R20",
+"eu": "a a 69dB",
+"lisi": "101"
+},
+{
+"pood": "tirespot.ee",
+"slug": "pirelli-cinturato-p7-p7c2",
+"mark": "Pirelli",
+"mudel": "CINTURATO P7 P7C2",
+"moot": "23540R19",
+"eu": "b a 69dB",
+"lisi": "96"
+},
+{
+"pood": "tirespot.ee",
+"slug": "pirelli-powergy-2",
+"mark": "Pirelli",
+"mudel": "POWERGY 2",
+"moot": "23540R19",
+"eu": "b b 69dB",
+"lisi": "96"
+},
+{
+"pood": "tirespot.ee",
+"slug": "pirelli-powergy",
+"mark": "Pirelli",
+"mudel": "POWERGY",
+"moot": "23540R19",
+"eu": "b a 70dB",
+"lisi": "96"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-507",
+"mark": "GOODRIDE",
+"mudel": "Z507",
+"moot": "23540R19",
+"eu": "c c 72dB",
+"lisi": "96"
+},
+{
+"pood": "tirespot.ee",
+"slug": "continental-allseasoncontact",
+"mark": "Continental",
+"mudel": "ALLSEASONContact",
+"moot": "25545R19",
+"eu": "b b",
+"lisi": "100"
+},
+{
+"pood": "tirespot.ee",
+"slug": "pirelli-cinturato-all-season-sf-2",
+"mark": "Pirelli",
+"mudel": "CINTURATO ALL SEASON SF2",
+"moot": "25545R19",
+"eu": "b a",
+"lisi": "100"
+},
+{
+"pood": "tirespot.ee",
+"slug": "pirelli-cinturato-p7-p7c2",
+"mark": "Pirelli",
+"mudel": "CINTURATO P7 P7C2",
+"moot": "25545R19",
+"eu": "a b 69dB",
+"lisi": "104"
+},
+{
+"pood": "tirespot.ee",
+"slug": "pirelli-cinturato-winter-2",
+"mark": "Pirelli",
+"mudel": "CINTURATO WINTER 2",
+"moot": "25545R19",
+"eu": "c a",
+"lisi": "100"
+},
+{
+"pood": "tirespot.ee",
+"slug": "triangle-advantex-suv",
+"mark": "Triangle",
+"mudel": "ADVANTEX SUV TR259",
+"moot": "23560R18",
+"eu": "c c 72dB",
+"lisi": "107"
+},
+{
+"pood": "tirespot.ee",
+"slug": "triangle-agilex-a-t",
+"mark": "Triangle",
+"mudel": "AGILEX A/T TR292",
+"moot": "23560R18",
+"eu": "d c 71dB",
+"lisi": "103"
+},
+{
+"pood": "tirespot.ee",
+"slug": "maxxis-ap3",
+"mark": "Maxxis",
+"mudel": "ALLSEASON AP3 SUV",
+"moot": "23560R18",
+"eu": "c b 72dB",
+"lisi": "107"
+},
+{
+"pood": "tirespot.ee",
+"slug": "sailun-atrezzo-zsr-suv",
+"mark": "SAILUN",
+"mudel": "ATREZZO ZSR SUV",
+"moot": "23560R18",
+"eu": "c b 70dB",
+"lisi": "107"
+},
+{
+"pood": "tirespot.ee",
+"slug": "giti-gitisynergy-h2",
+"mark": "Giti",
+"mudel": "GITISYNERGY H2",
+"moot": "23560R18",
+"eu": "a a 71dB",
+"lisi": "103"
+},
+{
+"pood": "tirespot.ee",
+"slug": "sailun-ice-blazer-alpine-evo2",
+"mark": "SAILUN",
+"mudel": "ICE BLAZER ALPINE EVO2",
+"moot": "23560R18",
+"eu": "b b 71dB",
+"lisi": "107"
+},
+{
+"pood": "tirespot.ee",
+"slug": "maxxis-sp5",
+"mark": "Maxxis",
+"mudel": "PREMITRA ICE 5 SP5 SUV",
+"moot": "23560R18",
+"eu": "c d 69dB",
+"lisi": "107"
+},
+{
+"pood": "tirespot.ee",
+"slug": "maxxis-wp6",
+"mark": "Maxxis",
+"mudel": "PREMITRA SNOW WP6 SUV",
+"moot": "23560R18",
+"eu": "c b 69dB",
+"lisi": "107"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-sw628",
+"mark": "GOODRIDE",
+"mudel": "SW628",
+"moot": "23560R18",
+"eu": "d c 72dB",
+"lisi": "103"
+},
+{
+"pood": "tirespot.ee",
+"slug": "sailun-terramax-cvr",
+"mark": "SAILUN",
+"mudel": "TERRAMAX CVR",
+"moot": "23560R18",
+"eu": "c d 71dB",
+"lisi": "103"
+},
+{
+"pood": "tirespot.ee",
+"slug": "gt-radial-winterpro2-sport",
+"mark": "GT Radial",
+"mudel": "WINTERPRO 2 SPORT",
+"moot": "23560R18",
+"eu": "c b 71dB",
+"lisi": "107"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-401",
+"mark": "GOODRIDE",
+"mudel": "Z-401",
+"moot": "23560R18",
+"eu": "c c 72dB",
+"lisi": "107"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-507",
+"mark": "GOODRIDE",
+"mudel": "Z507",
+"moot": "23560R18",
+"eu": "c c 72dB",
+"lisi": "107"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-sl369",
+"mark": "GOODRIDE",
+"mudel": "SL369 A/T",
+"moot": "23560R16",
+"eu": "d d 71dB",
+"lisi": "100"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodyear-efficientgrip-suv",
+"mark": "Goodyear",
+"mudel": "EFFICIENTGRIP SUV",
+"moot": "22560R16",
+"eu": "b b",
+"lisi": "102"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-sw618",
+"mark": "GOODRIDE",
+"mudel": "SW618",
+"moot": "22560R16",
+"eu": "d e 72dB",
+"lisi": "98"
+},
+{
+"pood": "tirespot.ee",
+"slug": "pirelli-cinturato-p7-p7c2",
+"mark": "Pirelli",
+"mudel": "CINTURATO P7 P7C2",
+"moot": "25540R18",
+"eu": "b b 70dB",
+"lisi": "99"
+},
+{
+"pood": "tirespot.ee",
+"slug": "sailun-ice-blazer-arctic-evo",
+"mark": "SAILUN",
+"mudel": "ICE BLAZER ARCTIC EVO",
+"moot": "25540R18",
+"eu": "d d 71dB",
+"lisi": "95"
+},
+{
+"pood": "tirespot.ee",
+"slug": "continental-wintercontact-ts-860-s",
+"mark": "Continental",
+"mudel": "TS860S",
+"moot": "25540R18",
+"eu": "c c",
+"lisi": "99"
+},
+{
+"pood": "tirespot.ee",
+"slug": "triangle-advantex-suv",
+"mark": "Triangle",
+"mudel": "ADVANTEX SUV TR259",
+"moot": "22565R17",
+"eu": "c c 72dB",
+"lisi": "106"
+},
+{
+"pood": "tirespot.ee",
+"slug": "triangle-agilex-a-t",
+"mark": "Triangle",
+"mudel": "AGILEX A/T TR292",
+"moot": "22565R17",
+"eu": "d c 72dB",
+"lisi": "106"
+},
+{
+"pood": "tirespot.ee",
+"slug": "bfgoodrich-all-terrain-t-a-ko3",
+"mark": "BFGoodrich",
+"mudel": "ALL TERRAIN T/A KO3",
+"moot": "22565R17",
+"eu": "e c",
+"lisi": "107"
+},
+{
+"pood": "tirespot.ee",
+"slug": "sailun-atrezzo-4seasons-pro",
+"mark": "SAILUN",
+"mudel": "ATREZZO 4SEASONS PRO",
+"moot": "22565R17",
+"eu": "b b 72dB",
+"lisi": "106"
+},
+{
+"pood": "tirespot.ee",
+"slug": "pirelli-cinturato-p7-p7c2",
+"mark": "Pirelli",
+"mudel": "CINTURATO P7 P7C2",
+"moot": "22565R17",
+"eu": "c a 70dB",
+"lisi": "106"
+},
+{
+"pood": "tirespot.ee",
+"slug": "gt-radial-fe2-evo",
+"mark": "GT Radial",
+"mudel": "FE2 EVO",
+"moot": "22565R17",
+"eu": "c a 69dB",
+"lisi": "102"
+},
+{
+"pood": "tirespot.ee",
+"slug": "maxxis-sp5",
+"mark": "Maxxis",
+"mudel": "PREMITRA ICE 5 SP5 SUV",
+"moot": "22565R17",
+"eu": "c d 69dB",
+"lisi": "102"
+},
+{
+"pood": "tirespot.ee",
+"slug": "maxxis-wp6",
+"mark": "Maxxis",
+"mudel": "PREMITRA SNOW WP6 SUV",
+"moot": "22565R17",
+"eu": "c b 70dB",
+"lisi": "106"
+},
+{
+"pood": "tirespot.ee",
+"slug": "triangle-protract",
+"mark": "Triangle",
+"mudel": "PROTRACT TE301",
+"moot": "22565R17",
+"eu": "c d 71dB",
+"lisi": "102"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-sw628",
+"mark": "GOODRIDE",
+"mudel": "SW628",
+"moot": "22565R17",
+"eu": "d c 72dB",
+"lisi": "102"
+},
+{
+"pood": "tirespot.ee",
+"slug": "gt-radial-winterpro2-sport",
+"mark": "GT Radial",
+"mudel": "WINTERPRO 2 SPORT",
+"moot": "22565R17",
+"eu": "c b 70dB",
+"lisi": "106"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-401",
+"mark": "GOODRIDE",
+"mudel": "Z-401",
+"moot": "22565R17",
+"eu": "c c 72dB",
+"lisi": "106"
+},
+{
+"pood": "tirespot.ee",
+"slug": "yokohama-advan-sport",
+"mark": "Yokohama",
+"mudel": "ADVAN SPORT V105S",
+"moot": "31535R20",
+"eu": "c b 71dB",
+"lisi": "110"
+},
+{
+"pood": "tirespot.ee",
+"slug": "yokohama-advan-sport",
+"mark": "Yokohama",
+"mudel": "ADVAN SPORT V107D",
+"moot": "31535R20",
+"eu": "c a 72dB",
+"lisi": ""
+},
+{
+"pood": "tirespot.ee",
+"slug": "michelin-pilot-sport-4",
+"mark": "Michelin",
+"mudel": "PILOT SPORT 4",
+"moot": "31535R20",
+"eu": "c a",
+"lisi": "110"
+},
+{
+"pood": "tirespot.ee",
+"slug": "kumho-ps72",
+"mark": "Kumho",
+"mudel": "PS72",
+"moot": "31535R20",
+"eu": "c a 75dB",
+"lisi": "110"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-sw618",
+"mark": "GOODRIDE",
+"mudel": "SW618",
+"moot": "24560R18",
+"eu": "d e 72dB",
+"lisi": "105"
+},
+{
+"pood": "tirespot.ee",
+"slug": "maxxis-sp5",
+"mark": "Maxxis",
+"mudel": "PREMITRA ICE 5 SP5 SUV",
+"moot": "26545R21",
+"eu": "c d 71dB",
+"lisi": "104"
+},
+{
+"pood": "tirespot.ee",
+"slug": "pirelli-scorpion-winter",
+"mark": "Pirelli",
+"mudel": "SCORPION WINTER",
+"moot": "26545R21",
+"eu": "c c",
+"lisi": "108"
+},
+{
+"pood": "tirespot.ee",
+"slug": "continental-wintercontact-ts-850-p",
+"mark": "Continental",
+"mudel": "TS850P",
+"moot": "26545R21",
+"eu": "b b",
+"lisi": "108"
+},
+{
+"pood": "tirespot.ee",
+"slug": "continental-wintercontact-8-s",
+"mark": "Continental",
+"mudel": "WINTERCONTACT 8 S",
+"moot": "26545R21",
+"eu": "b b",
+"lisi": "108"
+},
+{
+"pood": "tirespot.ee",
+"slug": "bfgoodrich-all-terrain-t-a-ko3",
+"mark": "BFGoodrich",
+"mudel": "ALL TERRAIN T/A KO3",
+"moot": "23575R15",
+"eu": "e c",
+"lisi": "110"
+},
+{
+"pood": "tirespot.ee",
+"slug": "kumho-ps72",
+"mark": "Kumho",
+"mudel": "PS72",
+"moot": "25530R19",
+"eu": "d a 72dB",
+"lisi": "91"
+},
+{
+"pood": "tirespot.ee",
+"slug": "triangle-agilex-a-t",
+"mark": "Triangle",
+"mudel": "AGILEX A/T TR292",
+"moot": "25570R16",
+"eu": "c c 73dB",
+"lisi": "115"
+},
+{
+"pood": "tirespot.ee",
+"slug": "bfgoodrich-all-terrain-t-a-ko2",
+"mark": "BFGoodrich",
+"mudel": "ALL TERRAIN T/A KO2",
+"moot": "25570R16",
+"eu": "e b",
+"lisi": "120"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-sl369",
+"mark": "GOODRIDE",
+"mudel": "SL369 A/T",
+"moot": "25570R16",
+"eu": "d d 72dB",
+"lisi": "111"
+},
+{
+"pood": "tirespot.ee",
+"slug": "michelin-e-primacy",
+"mark": "Michelin",
+"mudel": "E PRIMACY",
+"moot": "19560R18",
+"eu": "a b",
+"lisi": "96"
+},
+{
+"pood": "tirespot.ee",
+"slug": "bfgoodrich-all-terrain-t-a-ko2",
+"mark": "BFGoodrich",
+"mudel": "ALL TERRAIN T/A KO2",
+"moot": "22575R16",
+"eu": "e b",
+"lisi": "115"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-su318",
+"mark": "GOODRIDE",
+"mudel": "SU318 H/T",
+"moot": "22575R16",
+"eu": "d c 71dB",
+"lisi": "104"
+},
+{
+"pood": "tirespot.ee",
+"slug": "bfgoodrich-all-terrain-t-a-ko3",
+"mark": "BFGoodrich",
+"mudel": "ALL TERRAIN T/A KO3",
+"moot": "25570R18",
+"eu": "e c",
+"lisi": "117"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-sl369",
+"mark": "GOODRIDE",
+"mudel": "SL369 A/T",
+"moot": "25575R17",
+"eu": "d d 72dB",
+"lisi": "115"
+},
+{
+"pood": "tirespot.ee",
+"slug": "triangle-agilex-a-t",
+"mark": "Triangle",
+"mudel": "AGILEX A/T TR292",
+"moot": "23585R16",
+"eu": "d b 72dB",
+"lisi": "120/116"
+},
+{
+"pood": "tirespot.ee",
+"slug": "bfgoodrich-all-terrain-t-a-ko3",
+"mark": "BFGoodrich",
+"mudel": "ALL TERRAIN T/A KO3",
+"moot": "23585R16",
+"eu": "e c",
+"lisi": "120"
+},
+{
+"pood": "tirespot.ee",
+"slug": "hankook-dynapro-at2-xtreme",
+"mark": "Hankook",
+"mudel": "DYNAPRO AT2 XTREME",
+"moot": "23585R16",
+"eu": "e c",
+"lisi": "120"
+},
+{
+"pood": "tirespot.ee",
+"slug": "yokohama-geolandar-a-t4-g018",
+"mark": "Yokohama",
+"mudel": "GEOLANDAR A/T4 G018",
+"moot": "23585R16",
+"eu": "e b 75dB",
+"lisi": "120/116"
+},
+{
+"pood": "tirespot.ee",
+"slug": "hankook-ion-st-as-suv",
+"mark": "Hankook",
+"mudel": "ION ST AS SUV IH61A",
+"moot": "21560R17",
+"eu": "b d 70dB",
+"lisi": "96"
+},
+{
+"pood": "tirespot.ee",
+"slug": "maxxis-sp5",
+"mark": "Maxxis",
+"mudel": "PREMITRA ICE 5 SP5 SUV",
+"moot": "21560R17",
+"eu": "c d 69dB",
+"lisi": "100"
+},
+{
+"pood": "tirespot.ee",
+"slug": "maxxis-wp6",
+"mark": "Maxxis",
+"mudel": "PREMITRA SNOW WP6 SUV",
+"moot": "21560R17",
+"eu": "c b 70dB",
+"lisi": "100"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodyear-vector-4seasons-gen-3-suv",
+"mark": "Goodyear",
+"mudel": "VECTOR 4SEASONS GEN 3 SUV",
+"moot": "21560R17",
+"eu": "b b 71dB",
+"lisi": "100"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-401",
+"mark": "GOODRIDE",
+"mudel": "Z-401",
+"moot": "21560R17",
+"eu": "c c 72dB",
+"lisi": "96"
+},
+{
+"pood": "tirespot.ee",
+"slug": "yokohama-advan-sport",
+"mark": "Yokohama",
+"mudel": "ADVAN SPORT V105S",
+"moot": "24545R18",
+"eu": "d a 72dB",
+"lisi": "100"
+},
+{
+"pood": "tirespot.ee",
+"slug": "pirelli-cinturato-p7-p7c2",
+"mark": "Pirelli",
+"mudel": "CINTURATO P7 P7C2",
+"moot": "24545R18",
+"eu": "a a 70dB",
+"lisi": "96"
+},
+{
+"pood": "tirespot.ee",
+"slug": "pirelli-cinturato-p7-p7c2",
+"mark": "Pirelli",
+"mudel": "CINTURATO P7 P7C2",
+"moot": "24545R18",
+"eu": "a b 69dB",
+"lisi": "100"
+},
+{
+"pood": "tirespot.ee",
+"slug": "pirelli-cinturato-p7-p7c2",
+"mark": "Pirelli",
+"mudel": "CINTURATO P7 P7C2",
+"moot": "24545R18",
+"eu": "a b 69dB",
+"lisi": "100"
+},
+{
+"pood": "tirespot.ee",
+"slug": "kumho-ps91",
+"mark": "Kumho",
+"mudel": "PS91",
+"moot": "24545R18",
+"eu": "b b 70dB",
+"lisi": "100"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-107",
+"mark": "GOODRIDE",
+"mudel": "Z-107",
+"moot": "24545R18",
+"eu": "c b 72dB",
+"lisi": "100"
+},
+{
+"pood": "tirespot.ee",
+"slug": "continental-contiwintercontact-ts-830-p",
+"mark": "Continental",
+"mudel": "TS830P",
+"moot": "20545R17",
+"eu": "d c",
+"lisi": "88"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-107",
+"mark": "GOODRIDE",
+"mudel": "Z-107",
+"moot": "20545R17",
+"eu": "d b 72dB",
+"lisi": "88"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-401",
+"mark": "GOODRIDE",
+"mudel": "Z-401",
+"moot": "20545R17",
+"eu": "d c 72dB",
+"lisi": "88"
+},
+{
+"pood": "tirespot.ee",
+"slug": "continental-ecocontact-6-q",
+"mark": "Continental",
+"mudel": "ECOContact 6 Q",
+"moot": "21565R17",
+"eu": "a b",
+"lisi": "99"
+},
+{
+"pood": "tirespot.ee",
+"slug": "maxxis-wp6",
+"mark": "Maxxis",
+"mudel": "PREMITRA SNOW WP6 SUV",
+"moot": "21565R17",
+"eu": "c b 70dB",
+"lisi": "103"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-401",
+"mark": "GOODRIDE",
+"mudel": "Z-401",
+"moot": "21565R17",
+"eu": "c c 72dB",
+"lisi": "99"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-401",
+"mark": "GOODRIDE",
+"mudel": "Z-401",
+"moot": "21565R17",
+"eu": "c c 72dB",
+"lisi": "99"
+},
+{
+"pood": "tirespot.ee",
+"slug": "bfgoodrich-all-terrain-t-a-ko3",
+"mark": "BFGoodrich",
+"mudel": "ALL TERRAIN T/A KO3",
+"moot": "21570R16",
+"eu": "e c",
+"lisi": "100"
+},
+{
+"pood": "tirespot.ee",
+"slug": "hankook-dynapro-hpx",
+"mark": "Hankook",
+"mudel": "DYNAPRO HPX RA43",
+"moot": "21570R16",
+"eu": "c d 70dB",
+"lisi": "100"
+},
+{
+"pood": "tirespot.ee",
+"slug": "hankook-dynapro-hpx",
+"mark": "Hankook",
+"mudel": "DYNAPRO HPX RA43",
+"moot": "21570R16",
+"eu": "c d",
+"lisi": "100"
+},
+{
+"pood": "tirespot.ee",
+"slug": "yokohama-advan-winter-v907",
+"mark": "Yokohama",
+"mudel": "ADVAN WINTER V907",
+"moot": "23555R19",
+"eu": "c b 71dB",
+"lisi": "105"
+},
+{
+"pood": "tirespot.ee",
+"slug": "maxxis-ap3",
+"mark": "Maxxis",
+"mudel": "ALLSEASON AP3 SUV",
+"moot": "23555R19",
+"eu": "c b 72dB",
+"lisi": "105"
+},
+{
+"pood": "tirespot.ee",
+"slug": "michelin-alpin-7",
+"mark": "Michelin",
+"mudel": "ALPIN 7",
+"moot": "23555R19",
+"eu": "b b",
+"lisi": "105"
+},
+{
+"pood": "tirespot.ee",
+"slug": "michelin-alpin-7",
+"mark": "Michelin",
+"mudel": "ALPIN 7",
+"moot": "23555R19",
+"eu": "b b 71dB",
+"lisi": "105"
+},
+{
+"pood": "tirespot.ee",
+"slug": "continental-premiumcontact-6",
+"mark": "Continental",
+"mudel": "PREMIUMContact 6",
+"moot": "23555R19",
+"eu": "b a",
+"lisi": "105"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodyear-excellence",
+"mark": "Goodyear",
+"mudel": "EXCELLENCE",
+"moot": "23555R19",
+"eu": "c c 71dB",
+"lisi": "101"
+},
+{
+"pood": "tirespot.ee",
+"slug": "pirelli-powergy-2",
+"mark": "Pirelli",
+"mudel": "POWERGY 2",
+"moot": "23555R19",
+"eu": "b b",
+"lisi": "105"
+},
+{
+"pood": "tirespot.ee",
+"slug": "pirelli-powergy-2-winter",
+"mark": "Pirelli",
+"mudel": "POWERGY 2 WINTER",
+"moot": "23555R19",
+"eu": "c b 69dB",
+"lisi": "105"
+},
+{
+"pood": "tirespot.ee",
+"slug": "pirelli-powergy-2",
+"mark": "Pirelli",
+"mudel": "POWERGY 2",
+"moot": "23555R19",
+"eu": "b b 69dB",
+"lisi": "105"
+},
+{
+"pood": "tirespot.ee",
+"slug": "pirelli-powergy-winter",
+"mark": "Pirelli",
+"mudel": "POWERGY WINTER",
+"moot": "23555R19",
+"eu": "c c",
+"lisi": "105"
+},
+{
+"pood": "tirespot.ee",
+"slug": "pirelli-powergy-winter",
+"mark": "Pirelli",
+"mudel": "POWERGY WINTER",
+"moot": "23555R19",
+"eu": "c c 71dB",
+"lisi": "105"
+},
+{
+"pood": "tirespot.ee",
+"slug": "pirelli-powergy",
+"mark": "Pirelli",
+"mudel": "POWERGY",
+"moot": "23555R19",
+"eu": "b a 70dB",
+"lisi": "105"
+},
+{
+"pood": "tirespot.ee",
+"slug": "maxxis-wp6",
+"mark": "Maxxis",
+"mudel": "PREMITRA SNOW WP6 SUV",
+"moot": "23555R19",
+"eu": "c b 69dB",
+"lisi": "105"
+},
+{
+"pood": "tirespot.ee",
+"slug": "pirelli-scorpion-zero-all-season",
+"mark": "Pirelli",
+"mudel": "SCORPION ZERO ALL SEASON",
+"moot": "23555R19",
+"eu": "b b",
+"lisi": "101"
+},
+{
+"pood": "tirespot.ee",
+"slug": "yokohama-advan-winter-v907",
+"mark": "Yokohama",
+"mudel": "V907 ADVAN WINTER",
+"moot": "23555R19",
+"eu": "c b",
+"lisi": "105"
+},
+{
+"pood": "tirespot.ee",
+"slug": "maxxis-vs5",
+"mark": "Maxxis",
+"mudel": "VICTRA SPORT VS5 SUV",
+"moot": "23555R19",
+"eu": "b a 71dB",
+"lisi": "101"
+},
+{
+"pood": "tirespot.ee",
+"slug": "kumho-ws51",
+"mark": "Kumho",
+"mudel": "WINTERCRAFT ICE SUV WS51",
+"moot": "23555R19",
+"eu": "c d 72dB",
+"lisi": "105"
+},
+{
+"pood": "tirespot.ee",
+"slug": "continental-premiumcontact-6",
+"mark": "Continental",
+"mudel": "PREMIUMContact 6",
+"moot": "25555R19",
+"eu": "b a",
+"lisi": "111"
+},
+{
+"pood": "tirespot.ee",
+"slug": "bfgoodrich-all-terrain-t-a-ko3",
+"mark": "BFGoodrich",
+"mudel": "ALL TERRAIN T/A KO3",
+"moot": "26565R17",
+"eu": "e c",
+"lisi": "116"
+},
+{
+"pood": "tirespot.ee",
+"slug": "maxxis-sp5",
+"mark": "Maxxis",
+"mudel": "PREMITRA ICE 5 SP5 SUV",
+"moot": "26565R17",
+"eu": "c d 71dB",
+"lisi": "112"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-solmax-1-suv",
+"mark": "GOODRIDE",
+"mudel": "SOLMAX 1 SUV",
+"moot": "26565R17",
+"eu": "c c 72dB",
+"lisi": "112"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-401",
+"mark": "GOODRIDE",
+"mudel": "Z-401",
+"moot": "21545R18",
+"eu": "c c 72dB",
+"lisi": "93"
+},
+{
+"pood": "tirespot.ee",
+"slug": "pirelli-scorpion-winter-2",
+"mark": "Pirelli",
+"mudel": "SCORPION WINTER 2",
+"moot": "25550R20",
+"eu": "c a",
+"lisi": "109"
+},
+{
+"pood": "tirespot.ee",
+"slug": "pirelli-scorpion-zero",
+"mark": "Pirelli",
+"mudel": "SCORPION ZERO",
+"moot": "25550R20",
+"eu": "c b",
+"lisi": "109"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-sw618",
+"mark": "GOODRIDE",
+"mudel": "Sw618",
+"moot": "25550R20",
+"eu": "d e 73dB",
+"lisi": "109"
+},
+{
+"pood": "tirespot.ee",
+"slug": "maxxis-sp5",
+"mark": "Maxxis",
+"mudel": "PREMITRA ICE 5 SP5 SUV",
+"moot": "27545R21",
+"eu": "c d 71dB",
+"lisi": "110"
+},
+{
+"pood": "tirespot.ee",
+"slug": "continental-wintercontact-ts-860-s",
+"mark": "Continental",
+"mudel": "TS860S",
+"moot": "26550R19",
+"eu": "c c",
+"lisi": "110"
+},
+{
+"pood": "tirespot.ee",
+"slug": "maxxis-vs5",
+"mark": "Maxxis",
+"mudel": "VICTRA SPORT VS5 SUV",
+"moot": "26550R19",
+"eu": "c a 71dB",
+"lisi": "110"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-401",
+"mark": "GOODRIDE",
+"mudel": "Z-401",
+"moot": "21565R15",
+"eu": "d c 72dB",
+"lisi": "96"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-sl369",
+"mark": "GOODRIDE",
+"mudel": "SL369 A/T",
+"moot": "27570R16",
+"eu": "d d 72dB",
+"lisi": "114"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-su318",
+"mark": "GOODRIDE",
+"mudel": "SU318 H/T",
+"moot": "26570R15",
+"eu": "c c 72dB",
+"lisi": "112"
+},
+{
+"pood": "tirespot.ee",
+"slug": "triangle-agilex-a-t",
+"mark": "Triangle",
+"mudel": "AGILEX A/T TR292",
+"moot": "20580R16",
+"eu": "d b 72dB",
+"lisi": "110/108"
+},
+{
+"pood": "tirespot.ee",
+"slug": "sailun-terramax-a-t",
+"mark": "SAILUN",
+"mudel": "TERRAMAX A/T",
+"moot": "20580R16",
+"eu": "d a 73dB",
+"lisi": "110/108"
+},
+{
+"pood": "tirespot.ee",
+"slug": "continental-wintercontact-ts-850-p",
+"mark": "Continental",
+"mudel": "TS850P",
+"moot": "21560R18",
+"eu": "d b",
+"lisi": "98"
+},
+{
+"pood": "tirespot.ee",
+"slug": "continental-wintercontact-ts-850-p",
+"mark": "Continental",
+"mudel": "TS850P",
+"moot": "21560R18",
+"eu": "c b",
+"lisi": "102"
+},
+{
+"pood": "tirespot.ee",
+"slug": "yokohama-bluearth-winter-v905",
+"mark": "Yokohama",
+"mudel": "BLUEARTH *WINTER V905",
+"moot": "24540R20",
+"eu": "c c 71dB",
+"lisi": "99"
+},
+{
+"pood": "tirespot.ee",
+"slug": "continental-contisportcontact-5",
+"mark": "Continental",
+"mudel": "SPORTContact 5",
+"moot": "24540R20",
+"eu": "c a",
+"lisi": "95"
+},
+{
+"pood": "tirespot.ee",
+"slug": "michelin-crossclimate-3-sport",
+"mark": "Michelin",
+"mudel": "CROSSCLIMATE 3 SPORT",
+"moot": "24540R20",
+"eu": "b a",
+"lisi": "99"
+},
+{
+"pood": "tirespot.ee",
+"slug": "michelin-e-primacy",
+"mark": "Michelin",
+"mudel": "E PRIMACY",
+"moot": "24540R20",
+"eu": "a b",
+"lisi": "99"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodyear-eagle-f1-asymmetric-5",
+"mark": "Goodyear",
+"mudel": "EAGLE F1 ASYMMETRIC 5",
+"moot": "24540R20",
+"eu": "a a",
+"lisi": "99"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodyear-efficientgrip-performance-2",
+"mark": "Goodyear",
+"mudel": "EFFICIENTGRIP PERFORMANCE 2",
+"moot": "24540R20",
+"eu": "a a 70dB",
+"lisi": "99"
+},
+{
+"pood": "tirespot.ee",
+"slug": "pirelli-pzero-winter",
+"mark": "Pirelli",
+"mudel": "P ZERO WINTER",
+"moot": "24540R20",
+"eu": "c b",
+"lisi": "99"
+},
+{
+"pood": "tirespot.ee",
+"slug": "pirelli-pzero-winter",
+"mark": "Pirelli",
+"mudel": "P ZERO WINTER",
+"moot": "24540R20",
+"eu": "c b 72dB",
+"lisi": "99"
+},
+{
+"pood": "tirespot.ee",
+"slug": "maxxis-sp5",
+"mark": "Maxxis",
+"mudel": "PREMITRA ICE 5 SP5",
+"moot": "24540R20",
+"eu": "c d 71dB",
+"lisi": "99"
+},
+{
+"pood": "tirespot.ee",
+"slug": "michelin-primacy-5-energy",
+"mark": "Michelin",
+"mudel": "PRIMACY 5 ENERGY",
+"moot": "24540R20",
+"eu": "a b 72dB",
+"lisi": "99"
+},
+{
+"pood": "tirespot.ee",
+"slug": "kumho-ps72",
+"mark": "Kumho",
+"mudel": "PS72",
+"moot": "24540R20",
+"eu": "c a 72dB",
+"lisi": "99"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-sa37",
+"mark": "GOODRIDE",
+"mudel": "SA37",
+"moot": "24540R20",
+"eu": "d b 72dB",
+"lisi": "99"
+},
+{
+"pood": "tirespot.ee",
+"slug": "pirelli-winter-sottozero-3",
+"mark": "Pirelli",
+"mudel": "SOTTO ZERO 3",
+"moot": "24540R20",
+"eu": "c b",
+"lisi": "99"
+},
+{
+"pood": "tirespot.ee",
+"slug": "continental-contiwintercontact-ts-830-p",
+"mark": "Continental",
+"mudel": "TS830P",
+"moot": "24540R20",
+"eu": "d c",
+"lisi": "99"
+},
+{
+"pood": "tirespot.ee",
+"slug": "yokohama-bluearth-winter-v905",
+"mark": "Yokohama",
+"mudel": "V905 BLUEARTH WINTER",
+"moot": "24540R20",
+"eu": "c c",
+"lisi": "99"
+},
+{
+"pood": "tirespot.ee",
+"slug": "pirelli-winter-sottozero-3",
+"mark": "Pirelli",
+"mudel": "WINTER SOTTOZERO 3",
+"moot": "24540R20",
+"eu": "c b 72dB",
+"lisi": "99"
+},
+{
+"pood": "tirespot.ee",
+"slug": "yokohama-advan-sport",
+"mark": "Yokohama",
+"mudel": "ADVAN SPORT V105S",
+"moot": "26540R18",
+"eu": "d a 73dB",
+"lisi": ""
+},
+{
+"pood": "tirespot.ee",
+"slug": "bfgoodrich-all-terrain-t-a-ko3",
+"mark": "BFGoodrich",
+"mudel": "ALL TERRAIN T/A KO3",
+"moot": "26560R20",
+"eu": "e c",
+"lisi": "121"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-su318",
+"mark": "GOODRIDE",
+"mudel": "SU318 H/T",
+"moot": "26575R15",
+"eu": "c c 72dB",
+"lisi": "112"
+},
+{
+"pood": "tirespot.ee",
+"slug": "pirelli-cinturato-p7-p7c2",
+"mark": "Pirelli",
+"mudel": "CINTURATO P7 P7C2",
+"moot": "22540R18",
+"eu": "c a 70dB",
+"lisi": "92"
+},
+{
+"pood": "tirespot.ee",
+"slug": "pirelli-cinturato-winter-3",
+"mark": "Pirelli",
+"mudel": "CINTURATO WINTER 3",
+"moot": "22540R18",
+"eu": "c a",
+"lisi": "92"
+},
+{
+"pood": "tirespot.ee",
+"slug": "pirelli-powergy-winter",
+"mark": "Pirelli",
+"mudel": "POWERGY WINTER",
+"moot": "22540R18",
+"eu": "c c",
+"lisi": "92"
+},
+{
+"pood": "tirespot.ee",
+"slug": "pirelli-powergy-winter",
+"mark": "Pirelli",
+"mudel": "POWERGY WINTER",
+"moot": "22540R18",
+"eu": "c c 71dB",
+"lisi": "92"
+},
+{
+"pood": "tirespot.ee",
+"slug": "continental-wintercontact-ts-860-s",
+"mark": "Continental",
+"mudel": "TS860S",
+"moot": "22540R18",
+"eu": "c c",
+"lisi": "92"
+},
+{
+"pood": "tirespot.ee",
+"slug": "continental-ultracontact",
+"mark": "Continental",
+"mudel": "ULTRACONTACT",
+"moot": "22540R18",
+"eu": "b a 70dB",
+"lisi": "92"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodyear-vector-all-season-4",
+"mark": "Goodyear",
+"mudel": "VECTOR ALL SEASON 4",
+"moot": "22540R18",
+"eu": "c b 72dB",
+"lisi": "92"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-107",
+"mark": "GOODRIDE",
+"mudel": "Z-107",
+"moot": "22540R18",
+"eu": "c b 72dB",
+"lisi": "92"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-401",
+"mark": "GOODRIDE",
+"mudel": "Z-401",
+"moot": "22540R18",
+"eu": "d c 72dB",
+"lisi": "92"
+},
+{
+"pood": "tirespot.ee",
+"slug": "pirelli-powergy-2",
+"mark": "Pirelli",
+"mudel": "POWERGY 2",
+"moot": "22555R18",
+"eu": "b b",
+"lisi": "102"
+},
+{
+"pood": "tirespot.ee",
+"slug": "pirelli-powergy-2-winter",
+"mark": "Pirelli",
+"mudel": "POWERGY 2 WINTER",
+"moot": "22555R18",
+"eu": "c c 71dB",
+"lisi": "102"
+},
+{
+"pood": "tirespot.ee",
+"slug": "pirelli-powergy-2",
+"mark": "Pirelli",
+"mudel": "POWERGY 2",
+"moot": "22555R18",
+"eu": "b b 69dB",
+"lisi": "102"
+},
+{
+"pood": "tirespot.ee",
+"slug": "pirelli-powergy-winter",
+"mark": "Pirelli",
+"mudel": "POWERGY WINTER",
+"moot": "22555R18",
+"eu": "c c",
+"lisi": "102"
+},
+{
+"pood": "tirespot.ee",
+"slug": "pirelli-powergy-winter",
+"mark": "Pirelli",
+"mudel": "POWERGY WINTER",
+"moot": "22555R18",
+"eu": "c c 71dB",
+"lisi": "102"
+},
+{
+"pood": "tirespot.ee",
+"slug": "maxxis-sp5",
+"mark": "Maxxis",
+"mudel": "PREMITRA ICE 5 SP5 SUV",
+"moot": "22555R18",
+"eu": "c d 69dB",
+"lisi": "102"
+},
+{
+"pood": "tirespot.ee",
+"slug": "maxxis-wp6",
+"mark": "Maxxis",
+"mudel": "PREMITRA SNOW WP6 SUV",
+"moot": "22555R18",
+"eu": "d b 70dB",
+"lisi": "102"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-sw618",
+"mark": "GOODRIDE",
+"mudel": "SW618",
+"moot": "22555R18",
+"eu": "d e 72dB",
+"lisi": "98"
+},
+{
+"pood": "tirespot.ee",
+"slug": "hankook-winter-i-cept-evo-4",
+"mark": "Hankook",
+"mudel": "WINTER I*CEPT EVO4 W340",
+"moot": "22555R18",
+"eu": "b b 72dB",
+"lisi": "102"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-107",
+"mark": "GOODRIDE",
+"mudel": "Z-107",
+"moot": "22555R18",
+"eu": "c b 71dB",
+"lisi": "98"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-401",
+"mark": "GOODRIDE",
+"mudel": "Z-401",
+"moot": "22555R18",
+"eu": "c c 72dB",
+"lisi": "98"
+},
+{
+"pood": "tirespot.ee",
+"slug": "maxxis-sp5",
+"mark": "Maxxis",
+"mudel": "PREMITRA ICE 5 SP5 SUV",
+"moot": "21555R18",
+"eu": "c d 69dB",
+"lisi": "99"
+},
+{
+"pood": "tirespot.ee",
+"slug": "maxxis-wp6",
+"mark": "Maxxis",
+"mudel": "PREMITRA SNOW WP6 SUV",
+"moot": "21555R18",
+"eu": "c b 70dB",
+"lisi": "99"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-401",
+"mark": "GOODRIDE",
+"mudel": "Z-401",
+"moot": "21555R18",
+"eu": "d c 72dB",
+"lisi": "99"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-507",
+"mark": "GOODRIDE",
+"mudel": "Z507",
+"moot": "21555R18",
+"eu": "c c 72dB",
+"lisi": "99"
+},
+{
+"pood": "tirespot.ee",
+"slug": "continental-contiwintercontact-ts-830-p",
+"mark": "Continental",
+"mudel": "TS830P",
+"moot": "23540R18",
+"eu": "d c",
+"lisi": "95"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-107",
+"mark": "GOODRIDE",
+"mudel": "Z-107",
+"moot": "23540R18",
+"eu": "c b 72dB",
+"lisi": "95"
+},
+{
+"pood": "tirespot.ee",
+"slug": "michelin-crossclimate-3",
+"mark": "Michelin",
+"mudel": "CROSSCLIMATE 3",
+"moot": "24545R19",
+"eu": "b b",
+"lisi": "102"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodyear-excellence",
+"mark": "Goodyear",
+"mudel": "EXCELLENCE",
+"moot": "24545R19",
+"eu": "d c 71dB",
+"lisi": "98"
+},
+{
+"pood": "tirespot.ee",
+"slug": "hankook-winter-i-cept-ion",
+"mark": "Hankook",
+"mudel": "IW01 WINTER I'CEPT ION",
+"moot": "24545R19",
+"eu": "c b",
+"lisi": "98"
+},
+{
+"pood": "tirespot.ee",
+"slug": "michelin-pilot-sport",
+"mark": "Michelin",
+"mudel": "PILOT SPORT",
+"moot": "24545R19",
+"eu": "c a",
+"lisi": "102"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-sa37",
+"mark": "GOODRIDE",
+"mudel": "SA37",
+"moot": "24545R19",
+"eu": "d b 71dB",
+"lisi": "98"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-507",
+"mark": "GOODRIDE",
+"mudel": "Z507",
+"moot": "24545R19",
+"eu": "c c 72dB",
+"lisi": "102"
+},
+{
+"pood": "tirespot.ee",
+"slug": "maxxis-ap3",
+"mark": "Maxxis",
+"mudel": "ALLSEASON AP3 SUV",
+"moot": "22555R19",
+"eu": "d b 72dB",
+"lisi": "103"
+},
+{
+"pood": "tirespot.ee",
+"slug": "maxxis-sp5",
+"mark": "Maxxis",
+"mudel": "PREMITRA ICE 5 SP5 SUV",
+"moot": "22555R19",
+"eu": "c d 69dB",
+"lisi": "103"
+},
+{
+"pood": "tirespot.ee",
+"slug": "sailun-ice-blazer-arctic-evo",
+"mark": "SAILUN",
+"mudel": "ICE BLAZER ARCTIC EVO",
+"moot": "24540R19",
+"eu": "d d 71dB",
+"lisi": "98"
+},
+{
+"pood": "tirespot.ee",
+"slug": "pirelli-powergy-2",
+"mark": "Pirelli",
+"mudel": "POWERGY 2",
+"moot": "24540R19",
+"eu": "b b",
+"lisi": "98"
+},
+{
+"pood": "tirespot.ee",
+"slug": "pirelli-powergy-2",
+"mark": "Pirelli",
+"mudel": "POWERGY 2",
+"moot": "24540R19",
+"eu": "b b 69dB",
+"lisi": "98"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-107",
+"mark": "GOODRIDE",
+"mudel": "Z-107",
+"moot": "24540R19",
+"eu": "c b 72dB",
+"lisi": "98"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-401",
+"mark": "GOODRIDE",
+"mudel": "Z-401",
+"moot": "24540R19",
+"eu": "c c 72dB",
+"lisi": "98"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-507",
+"mark": "GOODRIDE",
+"mudel": "Z507",
+"moot": "24540R19",
+"eu": "c c 72dB",
+"lisi": "98"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-507",
+"mark": "GOODRIDE",
+"mudel": "Z507",
+"moot": "23545R19",
+"eu": "c c 72dB",
+"lisi": "99"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-401",
+"mark": "GOODRIDE",
+"mudel": "Z-401",
+"moot": "15570R13",
+"eu": "d c 71dB",
+"lisi": "75"
+},
+{
+"pood": "tirespot.ee",
+"slug": "kumho-wp51",
+"mark": "Kumho",
+"mudel": "WINTERCRAFT WP51",
+"moot": "20560R15",
+"eu": "e c 70dB",
+"lisi": "91"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-107",
+"mark": "GOODRIDE",
+"mudel": "Z-107",
+"moot": "20560R15",
+"eu": "c b 71dB",
+"lisi": "91"
+},
+{
+"pood": "tirespot.ee",
+"slug": "sailun-atrezzo-4seasons",
+"mark": "SAILUN",
+"mudel": "ATREZZO 4 SEASONS",
+"moot": "19565R15",
+"eu": "d c 72dB",
+"lisi": "91"
+},
+{
+"pood": "tirespot.ee",
+"slug": "sailun-atrezzo-4seasons",
+"mark": "SAILUN",
+"mudel": "ATREZZO 4 SEASONS",
+"moot": "19565R15",
+"eu": "d c 72dB",
+"lisi": "95"
+},
+{
+"pood": "tirespot.ee",
+"slug": "sailun-atrezzo-4seasons-ultra",
+"mark": "SAILUN",
+"mudel": "ATREZZO 4SEASONS ULTRA",
+"moot": "19565R15",
+"eu": "d a 70dB",
+"lisi": "95"
+},
+{
+"pood": "tirespot.ee",
+"slug": "gt-radial-fe2-evo",
+"mark": "GT Radial",
+"mudel": "FE2 EVO",
+"moot": "19565R15",
+"eu": "c a 69dB",
+"lisi": "91"
+},
+{
+"pood": "tirespot.ee",
+"slug": "sailun-ice-blazer-alpine",
+"mark": "SAILUN",
+"mudel": "ICE BLAZER ALPINE+",
+"moot": "19565R15",
+"eu": "d c 72dB",
+"lisi": "91"
+},
+{
+"pood": "tirespot.ee",
+"slug": "sailun-ice-blazer-alpine",
+"mark": "SAILUN",
+"mudel": "ICE BLAZER ALPINE+",
+"moot": "19565R15",
+"eu": "d c 72dB",
+"lisi": "95"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-sw618",
+"mark": "GOODRIDE",
+"mudel": "SW618",
+"moot": "19565R15",
+"eu": "d e 72dB",
+"lisi": "91"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-401",
+"mark": "GOODRIDE",
+"mudel": "Z-401",
+"moot": "19565R15",
+"eu": "c c 72dB",
+"lisi": "95"
+},
+{
+"pood": "tirespot.ee",
+"slug": "kumho-ps91",
+"mark": "Kumho",
+"mudel": "PS91",
+"moot": "27540R19",
+"eu": "d a 72dB",
+"lisi": "105"
+},
+{
+"pood": "tirespot.ee",
+"slug": "pirelli-scorpion-winter-3",
+"mark": "Pirelli",
+"mudel": "SCORPION WINTER 3",
+"moot": "25540R21",
+"eu": "b a 72dB",
+"lisi": "102"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-sw618",
+"mark": "GOODRIDE",
+"mudel": "SW618",
+"moot": "19570R14",
+"eu": "d e 72dB",
+"lisi": "91"
+},
+{
+"pood": "tirespot.ee",
+"slug": "hankook-ventus-s1-evo3",
+"mark": "Hankook",
+"mudel": "VENTUS S1 EVO 3 K127C",
+"moot": "27540R21",
+"eu": "b b 70dB",
+"lisi": "107"
+},
+{
+"pood": "tirespot.ee",
+"slug": "maxxis-ap3",
+"mark": "Maxxis",
+"mudel": "ALLSEASON AP3 SUV",
+"moot": "25555R20",
+"eu": "c b 73dB",
+"lisi": "110"
+},
+{
+"pood": "tirespot.ee",
+"slug": "sailun-atrezzo-zsr-suv",
+"mark": "SAILUN",
+"mudel": "ATREZZO ZSR SUV",
+"moot": "25555R20",
+"eu": "c b 72dB",
+"lisi": "110"
+},
+{
+"pood": "tirespot.ee",
+"slug": "hankook-ventus-s1-evo3-suv",
+"mark": "Hankook",
+"mudel": "Ventus S1 evo3 SUV",
+"moot": "25555R20",
+"eu": "c a",
+"lisi": "110"
+},
+{
+"pood": "tirespot.ee",
+"slug": "kumho-ha32",
+"mark": "Kumho",
+"mudel": "SOLUS 4S HA32",
+"moot": "25555R20",
+"eu": "b a 72dB",
+"lisi": "110"
+},
+{
+"pood": "tirespot.ee",
+"slug": "hankook-ventus-s1-evo3-suv",
+"mark": "Hankook",
+"mudel": "VENTUS S1 EVO 3 SUV K127A",
+"moot": "25555R20",
+"eu": "c a 73dB",
+"lisi": "110"
+},
+{
+"pood": "tirespot.ee",
+"slug": "bfgoodrich-all-terrain-t-a-ko3",
+"mark": "BFGoodrich",
+"mudel": "ALL TERRAIN T/A KO3",
+"moot": "26570R17",
+"eu": "e c",
+"lisi": "118"
+},
+{
+"pood": "tirespot.ee",
+"slug": "continental-premiumcontact-6",
+"mark": "Continental",
+"mudel": "PREMIUMCONTACT 6",
+"moot": "28545R21",
+"eu": "b b 73dB",
+"lisi": "113"
+},
+{
+"pood": "tirespot.ee",
+"slug": "hankook-winter-i-cept-ion",
+"mark": "Hankook",
+"mudel": "IW01 WINTER I'CEPT ION",
+"moot": "21545R20",
+"eu": "d b",
+"lisi": "95"
+},
+{
+"pood": "tirespot.ee",
+"slug": "yokohama-advan-sport",
+"mark": "Yokohama",
+"mudel": "ADVAN SPORT V105T",
+"moot": "31540R21",
+"eu": "d a 72dB",
+"lisi": "111"
+},
+{
+"pood": "tirespot.ee",
+"slug": "kumho-ps72",
+"mark": "Kumho",
+"mudel": "PS72",
+"moot": "30530R20",
+"eu": "c a 75dB",
+"lisi": "103"
+},
+{
+"pood": "tirespot.ee",
+"slug": "maxxis-ap3",
+"mark": "Maxxis",
+"mudel": "ALLSEASON AP3 SUV",
+"moot": "22550R19",
+"eu": "d b 72dB",
+"lisi": "100"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-401",
+"mark": "GOODRIDE",
+"mudel": "Z-401",
+"moot": "23555R17",
+"eu": "c c 72dB",
+"lisi": "103"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-507",
+"mark": "GOODRIDE",
+"mudel": "Z507",
+"moot": "23555R17",
+"eu": "c c 72dB",
+"lisi": "103"
+},
+{
+"pood": "tirespot.ee",
+"slug": "maxxis-ap3",
+"mark": "Maxxis",
+"mudel": "ALLSEASON AP3 SUV",
+"moot": "23565R17",
+"eu": "d b 72dB",
+"lisi": "108"
+},
+{
+"pood": "tirespot.ee",
+"slug": "maxxis-sp5",
+"mark": "Maxxis",
+"mudel": "PREMITRA ICE 5 SP5 SUV",
+"moot": "23565R17",
+"eu": "c d 69dB",
+"lisi": "108"
+},
+{
+"pood": "tirespot.ee",
+"slug": "maxxis-wp6",
+"mark": "Maxxis",
+"mudel": "PREMITRA SNOW WP6 SUV",
+"moot": "23565R17",
+"eu": "c b 69dB",
+"lisi": "108"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-sw618",
+"mark": "GOODRIDE",
+"mudel": "Sw618",
+"moot": "23565R17",
+"eu": "d e 72dB",
+"lisi": "104"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-401",
+"mark": "GOODRIDE",
+"mudel": "Z-401",
+"moot": "18565R14",
+"eu": "d c 71dB",
+"lisi": "86"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-401",
+"mark": "GOODRIDE",
+"mudel": "Z-401",
+"moot": "18565R14",
+"eu": "d c 71dB",
+"lisi": "86"
+},
+{
+"pood": "tirespot.ee",
+"slug": "pirelli-cinturato-p7-p7c2",
+"mark": "Pirelli",
+"mudel": "CINTURATO P7 P7C2",
+"moot": "24540R18",
+"eu": "b b 69dB",
+"lisi": "97"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-107",
+"mark": "GOODRIDE",
+"mudel": "Z-107",
+"moot": "24540R18",
+"eu": "c b 72dB",
+"lisi": "97"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-401",
+"mark": "GOODRIDE",
+"mudel": "Z-401",
+"moot": "24540R18",
+"eu": "c c 72dB",
+"lisi": "97"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-507",
+"mark": "GOODRIDE",
+"mudel": "Z507",
+"moot": "24540R18",
+"eu": "c c 72dB",
+"lisi": "97"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-107",
+"mark": "GOODRIDE",
+"mudel": "Z-107",
+"moot": "19550R15",
+"eu": "d b 71dB",
+"lisi": "82"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-401",
+"mark": "GOODRIDE",
+"mudel": "Z-401",
+"moot": "19550R15",
+"eu": "d c 72dB",
+"lisi": "82"
+},
+{
+"pood": "tirespot.ee",
+"slug": "sailun-atrezzo-zsr2",
+"mark": "SAILUN",
+"mudel": "ATREZZO ZSR2",
+"moot": "22555R16",
+"eu": "b a 69dB",
+"lisi": "99"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-401",
+"mark": "GOODRIDE",
+"mudel": "Z-401",
+"moot": "22555R16",
+"eu": "c c 72dB",
+"lisi": "99"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-507",
+"mark": "GOODRIDE",
+"mudel": "Z507",
+"moot": "25540R19",
+"eu": "c c 72dB",
+"lisi": "100"
+},
+{
+"pood": "tirespot.ee",
+"slug": "gt-radial-fe2-evo",
+"mark": "GT Radial",
+"mudel": "FE2 EVO",
+"moot": "21560R16",
+"eu": "c a 69dB",
+"lisi": "99"
+},
+{
+"pood": "tirespot.ee",
+"slug": "sailun-ice-blazer-alpine",
+"mark": "SAILUN",
+"mudel": "ICE BLAZER ALPINE+",
+"moot": "21560R16",
+"eu": "d c 72dB",
+"lisi": "99"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-401",
+"mark": "GOODRIDE",
+"mudel": "Z-401",
+"moot": "21560R16",
+"eu": "c c 72dB",
+"lisi": "99"
+},
+{
+"pood": "tirespot.ee",
+"slug": "maxxis-ap3",
+"mark": "Maxxis",
+"mudel": "ALLSEASON AP3 SUV",
+"moot": "23550R19",
+"eu": "c b 72dB",
+"lisi": "103"
+},
+{
+"pood": "tirespot.ee",
+"slug": "continental-allseasoncontact",
+"mark": "Continental",
+"mudel": "ALLSEASONContact",
+"moot": "23550R19",
+"eu": "b b",
+"lisi": "99"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodyear-eagle-f1-asymmetric-3-suv",
+"mark": "Goodyear",
+"mudel": "EAGLE F1 ASYMMETRIC 3 SUV",
+"moot": "23550R19",
+"eu": "c a",
+"lisi": "99"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodyear-eagle-f1-asymmetric-3-suv",
+"mark": "Goodyear",
+"mudel": "EAGLE F1 ASYMMETRIC 3 SUV",
+"moot": "23550R19",
+"eu": "c a 71dB",
+"lisi": "99"
+},
+{
+"pood": "tirespot.ee",
+"slug": "pirelli-pzero-winter",
+"mark": "Pirelli",
+"mudel": "P ZERO WINTER",
+"moot": "23550R19",
+"eu": "c b",
+"lisi": "99"
+},
+{
+"pood": "tirespot.ee",
+"slug": "maxxis-sp5",
+"mark": "Maxxis",
+"mudel": "PREMITRA ICE 5 SP5 SUV",
+"moot": "23550R19",
+"eu": "c d 71dB",
+"lisi": "103"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-sw618",
+"mark": "GOODRIDE",
+"mudel": "SW618",
+"moot": "23550R19",
+"eu": "d e 72dB",
+"lisi": "99"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodyear-vector-all-season-4",
+"mark": "Goodyear",
+"mudel": "VECTOR ALL SEASON 4",
+"moot": "23550R19",
+"eu": "b a 72dB",
+"lisi": "99"
+},
+{
+"pood": "tirespot.ee",
+"slug": "pirelli-winter-sottozero-3",
+"mark": "Pirelli",
+"mudel": "WINTER SOTTOZERO 3",
+"moot": "23550R19",
+"eu": "c b 71dB",
+"lisi": "99"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-507",
+"mark": "GOODRIDE",
+"mudel": "Z507",
+"moot": "23550R19",
+"eu": "c c 72dB",
+"lisi": "103"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-solmax-1-suv",
+"mark": "GOODRIDE",
+"mudel": "SOLMAX 1 SUV",
+"moot": "24565R17",
+"eu": "c c 71dB",
+"lisi": "107"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-su318",
+"mark": "GOODRIDE",
+"mudel": "SU318 H/T",
+"moot": "24565R17",
+"eu": "d c 71dB",
+"lisi": "107"
+},
+{
+"pood": "tirespot.ee",
+"slug": "yokohama-advan-sport",
+"mark": "Yokohama",
+"mudel": "ADVAN SPORT V105T",
+"moot": "26550R20",
+"eu": "d a 73dB",
+"lisi": "111"
+},
+{
+"pood": "tirespot.ee",
+"slug": "gt-radial-4seasons",
+"mark": "GT Radial",
+"mudel": "4SEASONS",
+"moot": "18560R15",
+"eu": "c b 71dB",
+"lisi": "88"
+},
+{
+"pood": "tirespot.ee",
+"slug": "sailun-atrezzo-4seasons",
+"mark": "SAILUN",
+"mudel": "ATREZZO 4 SEASONS",
+"moot": "18560R15",
+"eu": "c c 71dB",
+"lisi": "88"
+},
+{
+"pood": "tirespot.ee",
+"slug": "sailun-atrezzo-4seasons-ultra",
+"mark": "SAILUN",
+"mudel": "ATREZZO 4SEASONS ULTRA",
+"moot": "18560R15",
+"eu": "c a 70dB",
+"lisi": "88"
+},
+{
+"pood": "tirespot.ee",
+"slug": "triangle-reliax-touring",
+"mark": "Triangle",
+"mudel": "RELIAXTOURING TE307",
+"moot": "18560R15",
+"eu": "d b 71dB",
+"lisi": "88"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-sw618",
+"mark": "GOODRIDE",
+"mudel": "Sw618",
+"moot": "18560R15",
+"eu": "e e 71dB",
+"lisi": "84"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-401",
+"mark": "GOODRIDE",
+"mudel": "Z-401",
+"moot": "18560R15",
+"eu": "c c 71dB",
+"lisi": "88"
+},
+{
+"pood": "tirespot.ee",
+"slug": "bfgoodrich-all-terrain-t-a-ko3",
+"mark": "BFGoodrich",
+"mudel": "ALL TERRAIN T/A KO3",
+"moot": "22570R16",
+"eu": "e c",
+"lisi": "102"
+},
+{
+"pood": "tirespot.ee",
+"slug": "maxxis-sp5",
+"mark": "Maxxis",
+"mudel": "PREMITRA ICE 5 SP5 SUV",
+"moot": "23555R20",
+"eu": "c d 71dB",
+"lisi": "105"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-solmax-1-suv",
+"mark": "GOODRIDE",
+"mudel": "SOLMAX 1 SUV",
+"moot": "25560R17",
+"eu": "c c 73dB",
+"lisi": "110"
+},
+{
+"pood": "tirespot.ee",
+"slug": "bfgoodrich-all-terrain-t-a-ko3",
+"mark": "BFGoodrich",
+"mudel": "ALL TERRAIN T/A KO3",
+"moot": "27555R20",
+"eu": "e c",
+"lisi": "115"
+},
+{
+"pood": "tirespot.ee",
+"slug": "hankook-ventus-s1-evo3-suv",
+"mark": "Hankook",
+"mudel": "Ventus S1 evo3 SUV",
+"moot": "27555R20",
+"eu": "c a",
+"lisi": "117"
+},
+{
+"pood": "tirespot.ee",
+"slug": "yokohama-advan-sport",
+"mark": "Yokohama",
+"mudel": "ADVAN SPORT V107E",
+"moot": "31535R21",
+"eu": "c a 70dB",
+"lisi": "111"
+},
+{
+"pood": "tirespot.ee",
+"slug": "yokohama-advan-sport",
+"mark": "Yokohama",
+"mudel": "ADVAN SPORT V105S",
+"moot": "26530R19",
+"eu": "d a 73dB",
+"lisi": ""
+},
+{
+"pood": "tirespot.ee",
+"slug": "yokohama-advan-sport",
+"mark": "Yokohama",
+"mudel": "ADVAN SPORT V107D",
+"moot": "31535R22",
+"eu": "c a 72dB",
+"lisi": ""
+},
+{
+"pood": "tirespot.ee",
+"slug": "yokohama-advan-sport",
+"mark": "Yokohama",
+"mudel": "ADVAN SPORT V107E",
+"moot": "31535R22",
+"eu": "c a 72dB",
+"lisi": "111"
+},
+{
+"pood": "tirespot.ee",
+"slug": "triangle-sportex",
+"mark": "Triangle",
+"mudel": "SPORTEX TH201",
+"moot": "26530R20",
+"eu": "d c 73dB",
+"lisi": "94"
+},
+{
+"pood": "tirespot.ee",
+"slug": "yokohama-advan-sport",
+"mark": "Yokohama",
+"mudel": "ADVAN SPORT V105S",
+"moot": "28530R19",
+"eu": "d a 74dB",
+"lisi": ""
+},
+{
+"pood": "tirespot.ee",
+"slug": "kumho-ps91",
+"mark": "Kumho",
+"mudel": "PS91",
+"moot": "28530R19",
+"eu": "d a 71dB",
+"lisi": "98"
+},
+{
+"pood": "tirespot.ee",
+"slug": "yokohama-advan-sport",
+"mark": "Yokohama",
+"mudel": "ADVAN SPORT V107D",
+"moot": "32540R22",
+"eu": "c a 72dB",
+"lisi": "114"
+},
+{
+"pood": "tirespot.ee",
+"slug": "bfgoodrich-all-terrain-t-a-ko3",
+"mark": "BFGoodrich",
+"mudel": "ALL TERRAIN T/A KO3",
+"moot": "28570R17",
+"eu": "e c",
+"lisi": "121"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-sl369",
+"mark": "GOODRIDE",
+"mudel": "SL369 A/T",
+"moot": "28570R17",
+"eu": "d d 74dB",
+"lisi": "117"
+},
+{
+"pood": "tirespot.ee",
+"slug": "pirelli-powergy-2",
+"mark": "Pirelli",
+"mudel": "POWERGY 2",
+"moot": "20550R17",
+"eu": "b b",
+"lisi": "93"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-401",
+"mark": "GOODRIDE",
+"mudel": "Z-401",
+"moot": "20550R17",
+"eu": "c c 72dB",
+"lisi": "93"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-401",
+"mark": "GOODRIDE",
+"mudel": "Z-401",
+"moot": "20550R17",
+"eu": "c c 72dB",
+"lisi": "93"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-107",
+"mark": "GOODRIDE",
+"mudel": "Z-107",
+"moot": "17565R14",
+"eu": "d b 70dB",
+"lisi": "82"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-401",
+"mark": "GOODRIDE",
+"mudel": "Z-401",
+"moot": "17565R14",
+"eu": "d c 71dB",
+"lisi": "82"
+},
+{
+"pood": "tirespot.ee",
+"slug": "maxxis-sp5",
+"mark": "Maxxis",
+"mudel": "PREMITRA ICE 5 SP5 SUV",
+"moot": "22560R17",
+"eu": "c d 69dB",
+"lisi": "99"
+},
+{
+"pood": "tirespot.ee",
+"slug": "maxxis-wp6",
+"mark": "Maxxis",
+"mudel": "PREMITRA SNOW WP6 SUV",
+"moot": "22560R17",
+"eu": "c b 70dB",
+"lisi": "103"
+},
+{
+"pood": "tirespot.ee",
+"slug": "pirelli-scorpion-winter",
+"mark": "Pirelli",
+"mudel": "SCORPION WINTER",
+"moot": "22560R17",
+"eu": "c c",
+"lisi": "103"
+},
+{
+"pood": "tirespot.ee",
+"slug": "continental-contiwintercontact-ts-830-p",
+"mark": "Continental",
+"mudel": "TS830P",
+"moot": "22560R17",
+"eu": "d c",
+"lisi": "99"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-507",
+"mark": "GOODRIDE",
+"mudel": "Z507",
+"moot": "22560R17",
+"eu": "c c 72dB",
+"lisi": "103"
+},
+{
+"pood": "tirespot.ee",
+"slug": "yokohama-advan-sport",
+"mark": "Yokohama",
+"mudel": "ADVAN SPORT V105T",
+"moot": "25555R18",
+"eu": "d a 73dB",
+"lisi": "109"
+},
+{
+"pood": "tirespot.ee",
+"slug": "bfgoodrich-all-terrain-t-a-ko3",
+"mark": "BFGoodrich",
+"mudel": "ALL TERRAIN T/A KO3",
+"moot": "25555R18",
+"eu": "e c",
+"lisi": "109"
+},
+{
+"pood": "tirespot.ee",
+"slug": "maxxis-wp6",
+"mark": "Maxxis",
+"mudel": "PREMITRA SNOW WP6 SUV",
+"moot": "25555R18",
+"eu": "c c 69dB",
+"lisi": "109"
+},
+{
+"pood": "tirespot.ee",
+"slug": "continental-wintercontact-ts-860-s",
+"mark": "Continental",
+"mudel": "TS860S",
+"moot": "25555R18",
+"eu": "c c",
+"lisi": "109"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-sw628",
+"mark": "GOODRIDE",
+"mudel": "SW628",
+"moot": "20560R16",
+"eu": "d c 72dB",
+"lisi": "92"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-107",
+"mark": "GOODRIDE",
+"mudel": "Z-107",
+"moot": "20560R16",
+"eu": "c b 71dB",
+"lisi": "92"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-401",
+"mark": "GOODRIDE",
+"mudel": "Z-401",
+"moot": "20560R16",
+"eu": "c c 72dB",
+"lisi": "96"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-401",
+"mark": "GOODRIDE",
+"mudel": "Z-401",
+"moot": "19545R16",
+"eu": "d c 72dB",
+"lisi": "84"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-401",
+"mark": "GOODRIDE",
+"mudel": "Z-401",
+"moot": "19545R16",
+"eu": "d c 72dB",
+"lisi": "84"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodyear-eagle-f1-asymmetric-suv",
+"mark": "Goodyear",
+"mudel": "EAGLE F1 ASYMMETRIC SUV",
+"moot": "25560R18",
+"eu": "b c",
+"lisi": "112"
+},
+{
+"pood": "tirespot.ee",
+"slug": "bfgoodrich-all-terrain-t-a-ko2",
+"mark": "BFGoodrich",
+"mudel": "ALL TERRAIN T/A KO2",
+"moot": "24570R16",
+"eu": "e b",
+"lisi": "113"
+},
+{
+"pood": "tirespot.ee",
+"slug": "triangle-advantex",
+"mark": "Triangle",
+"mudel": "ADVANTEX TC101",
+"moot": "21565R16",
+"eu": "c c 72dB",
+"lisi": "102"
+},
+{
+"pood": "tirespot.ee",
+"slug": "triangle-advantex-suv",
+"mark": "Triangle",
+"mudel": "ADVANTEX SUV TR259",
+"moot": "21565R16",
+"eu": "d c 72dB",
+"lisi": "102"
+},
+{
+"pood": "tirespot.ee",
+"slug": "bfgoodrich-all-terrain-t-a-ko3",
+"mark": "BFGoodrich",
+"mudel": "ALL TERRAIN T/A KO3",
+"moot": "21565R16",
+"eu": "e c",
+"lisi": "103"
+},
+{
+"pood": "tirespot.ee",
+"slug": "sailun-atrezzo-4seasons",
+"mark": "SAILUN",
+"mudel": "ATREZZO 4 SEASONS",
+"moot": "21565R16",
+"eu": "c c 72dB",
+"lisi": "102"
+},
+{
+"pood": "tirespot.ee",
+"slug": "gt-radial-climateactive",
+"mark": "GT Radial",
+"mudel": "CLIMATEACTIVE",
+"moot": "21565R16",
+"eu": "c a 70dB",
+"lisi": "102"
+},
+{
+"pood": "tirespot.ee",
+"slug": "gt-radial-fe2-evo",
+"mark": "GT Radial",
+"mudel": "FE2 EVO",
+"moot": "21565R16",
+"eu": "c a 69dB",
+"lisi": "98"
+},
+{
+"pood": "tirespot.ee",
+"slug": "sailun-ice-blazer-alpine",
+"mark": "SAILUN",
+"mudel": "ICE BLAZER ALPINE+",
+"moot": "21565R16",
+"eu": "d c 72dB",
+"lisi": "98"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-sw618",
+"mark": "GOODRIDE",
+"mudel": "SW618",
+"moot": "21565R16",
+"eu": "d e 72dB",
+"lisi": "98"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-401",
+"mark": "GOODRIDE",
+"mudel": "Z-401",
+"moot": "21565R16",
+"eu": "c c 72dB",
+"lisi": "98"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-401",
+"mark": "GOODRIDE",
+"mudel": "Z-401",
+"moot": "21565R16",
+"eu": "c c 72dB",
+"lisi": "98"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-401",
+"mark": "GOODRIDE",
+"mudel": "Z-401",
+"moot": "18555R16",
+"eu": "c c 71dB",
+"lisi": "87"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-401",
+"mark": "GOODRIDE",
+"mudel": "Z-401",
+"moot": "18555R16",
+"eu": "c c 71dB",
+"lisi": "87"
+},
+{
+"pood": "tirespot.ee",
+"slug": "yokohama-advan-sport",
+"mark": "Yokohama",
+"mudel": "ADVAN SPORT V103B",
+"moot": "29535R21",
+"eu": "d b 74dB",
+"lisi": "107"
+},
+{
+"pood": "tirespot.ee",
+"slug": "yokohama-advan-sport",
+"mark": "Yokohama",
+"mudel": "ADVAN SPORT V105T",
+"moot": "29535R21",
+"eu": "d a 74dB",
+"lisi": "107"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-z-107",
+"mark": "GOODRIDE",
+"mudel": "Z-107",
+"moot": "21540R18",
+"eu": "d b 72dB",
+"lisi": "89"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodride-sl369",
+"mark": "GOODRIDE",
+"mudel": "SL369 A/T",
+"moot": "28550R20",
+"eu": "d d 72dB",
+"lisi": "116"
+},
+{
+"pood": "tirespot.ee",
+"slug": "yokohama-advan-sport",
+"mark": "Yokohama",
+"mudel": "ADVAN SPORT V105T",
+"moot": "29540R21",
+"eu": "d a 72dB",
+"lisi": "111"
+},
+{
+"pood": "tirespot.ee",
+"slug": "bfgoodrich-all-terrain-t-a-ko3",
+"mark": "BFGoodrich",
+"mudel": "ALL TERRAIN T/A KO3",
+"moot": "25565R17",
+"eu": "e c",
+"lisi": "114"
+},
+{
+"pood": "tirespot.ee",
+"slug": "yokohama-advan-sport",
+"mark": "Yokohama",
+"mudel": "ADVAN SPORT V107D",
+"moot": "31530R21",
+"eu": "d a 72dB",
+"lisi": ""
+},
+{
+"pood": "tirespot.ee",
+"slug": "continental-contisportcontact-5",
+"mark": "Continental",
+"mudel": "SPORTCONTACT 5",
+"moot": "31530R21",
+"eu": "c a 74dB",
+"lisi": "105"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodyear-eagle-f1-supersport-r",
+"mark": "Goodyear",
+"mudel": "EAGLE F1 SUPERSPORT R",
+"moot": "25545R21",
+"eu": "b a",
+"lisi": "106"
+},
+{
+"pood": "tirespot.ee",
+"slug": "maxxis-sp5",
+"mark": "Maxxis",
+"mudel": "PREMITRA ICE 5 SP5 SUV",
+"moot": "25545R21",
+"eu": "c d 71dB",
+"lisi": "106"
+},
+{
+"pood": "tirespot.ee",
+"slug": "bfgoodrich-all-terrain-t-a-ko3",
+"mark": "BFGoodrich",
+"mudel": "ALL TERRAIN T/A KO3",
+"moot": "27565R17",
+"eu": "e c",
+"lisi": "118"
+},
+{
+"pood": "tirespot.ee",
+"slug": "yokohama-advan-sport",
+"mark": "Yokohama",
+"mudel": "ADVAN SPORT V107F",
+"moot": "25535R21",
+"eu": "d a 70dB",
+"lisi": "98"
+},
+{
+"pood": "tirespot.ee",
+"slug": "continental-ecocontact-6-q",
+"mark": "Continental",
+"mudel": "ECOContact 6 Q",
+"moot": "25535R21",
+"eu": "b a",
+"lisi": "101"
+},
+{
+"pood": "tirespot.ee",
+"slug": "continental-ecocontact-6-q",
+"mark": "Continental",
+"mudel": "ECOContact 6 Q",
+"moot": "25535R21",
+"eu": "b b",
+"lisi": "101"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodyear-eagle-f1-asymmetric-5",
+"mark": "Goodyear",
+"mudel": "EAGLE F1 ASYMMETRIC 5",
+"moot": "25535R21",
+"eu": "c a",
+"lisi": "101"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodyear-eagle-f1-asymmetric-5",
+"mark": "Goodyear",
+"mudel": "EAGLE F1 ASYMMETRIC 5",
+"moot": "25535R21",
+"eu": "c a 72dB",
+"lisi": "101"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodyear-eagle-f1-asymmetric-5",
+"mark": "Goodyear",
+"mudel": "EAGLE F1 ASYMMETRIC 5",
+"moot": "25535R21",
+"eu": "c a 72dB",
+"lisi": "101"
+},
+{
+"pood": "tirespot.ee",
+"slug": "continental-ecocontact-6-q",
+"mark": "Continental",
+"mudel": "ECOCONTACT 6Q ContiSilent",
+"moot": "25535R21",
+"eu": "b a 73dB",
+"lisi": "101"
+},
+{
+"pood": "tirespot.ee",
+"slug": "pirelli-pzero-winter-2",
+"mark": "Pirelli",
+"mudel": "P ZERO WINTER 2",
+"moot": "25535R21",
+"eu": "c a",
+"lisi": "98"
+},
+{
+"pood": "tirespot.ee",
+"slug": "bridgestone-turanza-t005",
+"mark": "Bridgestone",
+"mudel": "TURANZA T005",
+"moot": "25535R21",
+"eu": "c a 70dB",
+"lisi": "101"
+},
+{
+"pood": "tirespot.ee",
+"slug": "goodyear-ultragrip-performance",
+"mark": "Goodyear",
+"mudel": "ULTRA GRIP PERFORMANCE+",
+"moot": "25535R21",
+"eu": "c c",
+"lisi": "98"
+},
+{
+"pood": "tirespot.ee",
+"slug": "yokohama-advan-sport",
+"mark": "Yokohama",
+"mudel": "ADVAN SPORT V105E",
+"moot": "31530R22",
+"eu": "c a 73dB",
+"lisi": ""
+},
+{
+"pood": "tirespot.ee",
+"slug": "pirelli-carrier-winter",
+"mark": "Pirelli",
+"mudel": "WINTER CARRIER",
+"moot": "23565R16",
+"eu": "c a",
+"lisi": "115"
+},
+{
+"pood": "tirespot.ee",
+"slug": "michelin-pilot-alpin-5-suv",
+"mark": "Michelin",
+"mudel": "PILOT ALPIN 5 SUV",
+"moot": "31530R23",
+"eu": "c c",
+"lisi": "108"
 }
 ]
 }
