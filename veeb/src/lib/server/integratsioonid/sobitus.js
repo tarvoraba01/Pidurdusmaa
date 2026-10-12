@@ -45,7 +45,7 @@ export function normMoot(s) {
 const OE = /^(mo|mo1|moe|ao|ao1|ro1|ro2|r01|n[0-5]|n[a-f][0-9]|j|lr|frv|vol|volfr|goe|tpc|ar)$/;
 
 /* lühendid mudelinimes */
-const SONA_ALIAS = { ug: 'ultragrip' };
+const SONA_ALIAS = { ug: 'ultragrip', hkpl: 'hakkapeliitta', iceiynx: 'icelynx' }; /* EPREL: „HKPL R3“ = Hakkapeliitta R3 */
 
 /* mudelinimest ära: mõõt, indeksid ja lisamärgid, mis ei muuda mudelit */
 /* NB: „winter“, „summer“, „all season“ EI ole müra — „Scorpion“ ja „Scorpion Winter“, „Scorpion Zero“ ja „Scorpion Zero All Season“ on eri rehvid */
@@ -70,9 +70,12 @@ export function mudeliSonad(mudel, mark) {
 		.map((x) => SONA_ALIAS[x] || x)
 		.filter((x) => x && !MYRA.has(x) && !markW.has(x) && !OE.test(x));
 	/* Hankooki tehasekood (W429, K135, H750) — üks pood kirjutab, teine mitte */
+	/* „Winter i*cept X RW10“ = „i-Cept X“: Hankooki talvesarjal (i*cept, i*pike) ei erista
+	   sõna „winter“ midagi ja RW/RA-kood (RW10, RW15) on tehasekood nagu W429 */
 	if (normMark(mark) === 'hankook') {
-		const ilma = w.filter((x) => !/^[khwrz]\d{3}[a-z]?$/.test(x));
+		const ilma = w.filter((x) => !/^([khwrz]\d{3}[a-z]?|r[wa]\d{2})$/.test(x));
 		if (ilma.length) w = ilma;
+		if (w.some((x) => /^i?(cept|pike)$/.test(x))) w = w.filter((x) => x !== 'winter');
 	}
 	return w;
 }

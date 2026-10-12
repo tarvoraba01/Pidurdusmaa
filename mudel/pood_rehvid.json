@@ -1,5 +1,5 @@
 {
-"allikas": "Poe kataloog (rehvivahetus.ee partner-API, 08.10.2026); ainult mudelid, mida EPREL-i korjes ei ole",
+"allikas": "Poe kataloog (rehvivahetus.ee partner-API, 08.10.2026); ainult mudelid, mida EPREL-i korjes ei ole; + e-poe mõõdunimekiri 12.10.2026 (samade mudelite puuduvad mõõdud)",
 "read": [
 {
 "pood": "rehvivahetus.ee",
@@ -2648,6 +2648,1406 @@
 "moot": "28545R22",
 "eu": "c b a   72dB",
 "lisi": "114W XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NS9000",
+"moot": "20555R16",
+"eu": "d b b",
+"lisi": "91V FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Sailun",
+"mudel": "Atrezzo ZSR2 EcoPoint3",
+"moot": "20555R16",
+"eu": "b a a 69dB",
+"lisi": "94Y XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NS9000",
+"moot": "22545R17",
+"eu": "e b 71dB",
+"lisi": "94Y XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Sailun",
+"mudel": "Atrezzo ZSR2 EcoPoint3",
+"moot": "22545R17",
+"eu": "b a a 69dB",
+"lisi": "94Y XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NS9100",
+"moot": "21555R17",
+"eu": "e e 71dB",
+"lisi": "98W XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Sailun",
+"mudel": "Atrezzo ZSR2 EcoPoint3",
+"moot": "21555R17",
+"eu": "b a a 69dB",
+"lisi": "98W XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NS9000",
+"moot": "22550R17",
+"eu": "e b 71dB",
+"lisi": "98W XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "WinterTrac",
+"moot": "22550R17",
+"eu": "c c b 72dB",
+"lisi": "98H XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Sailun",
+"mudel": "Atrezzo ZSR2 EcoPoint3",
+"moot": "22550R17",
+"eu": "b a a 69dB",
+"lisi": "98W XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NU7100",
+"moot": "21560R17",
+"eu": "c c b",
+"lisi": "96H FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Goodyear",
+"mudel": "UG Ice SUV G1",
+"moot": "21560R17",
+"eu": "b e b",
+"lisi": "96T"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NS9100",
+"moot": "23555R17",
+"eu": "e c 71dB",
+"lisi": "103W XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NS9000",
+"moot": "20550R17",
+"eu": "d b b",
+"lisi": "93Y XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Sailun",
+"mudel": "Atrezzo ZSR2 EcoPoint3",
+"moot": "23555R18",
+"eu": "b a b 71dB",
+"lisi": "100V FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber AT3",
+"moot": "23555R18",
+"eu": "f e 72dB",
+"lisi": "104H XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber Cross A/S",
+"moot": "23555R18",
+"eu": "c c b 72dB",
+"lisi": "104V XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Sailun",
+"mudel": "Atrezzo ZSR2 EcoPoint3",
+"moot": "22545R18",
+"eu": "b a a 69dB",
+"lisi": "95Y XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NS9000",
+"moot": "21550R17",
+"eu": "e b 71dB",
+"lisi": "95W XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NS9000",
+"moot": "24545R18",
+"eu": "e b 71dB",
+"lisi": "100W XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NS9200",
+"moot": "22555R18",
+"eu": "b c b",
+"lisi": "102W XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber GT Plus",
+"moot": "22555R18",
+"eu": "c a b",
+"lisi": "98V FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NU7000",
+"moot": "23565R17",
+"eu": "e c 72dB",
+"lisi": "108V XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber HTS60",
+"moot": "23565R17",
+"eu": "e e 72dB",
+"lisi": "108H XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NU7100",
+"moot": "22560R17",
+"eu": "c c b",
+"lisi": "99H FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NS3000",
+"moot": "19560R15",
+"eu": "e c 71dB",
+"lisi": "88H"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NS9000",
+"moot": "23545R18",
+"eu": "e b 71dB",
+"lisi": "98Y XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NS9200",
+"moot": "23555R19",
+"eu": "c c b",
+"lisi": "105V XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Sailun",
+"mudel": "Atrezzo ZSR2 EcoPoint3",
+"moot": "23555R19",
+"eu": "b a b 71dB",
+"lisi": "105Y XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber AT3",
+"moot": "23555R19",
+"eu": "e e 72dB",
+"lisi": "105H XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NS9200",
+"moot": "23550R18",
+"eu": "b c b",
+"lisi": "101W XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber GT Plus",
+"moot": "23550R18",
+"eu": "c a b",
+"lisi": "97V FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Goodyear",
+"mudel": "UG Ice SUV G1",
+"moot": "23550R18",
+"eu": "b e 70dB",
+"lisi": "101T XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NS9200",
+"moot": "25545R20",
+"eu": "c c b",
+"lisi": "105W XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Snow Grabber Plus",
+"moot": "25545R20",
+"eu": "d c b",
+"lisi": "105V XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Goodyear",
+"mudel": "UG Ice SUV G1",
+"moot": "25545R20",
+"eu": "c e 72dB",
+"lisi": "105T XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NS9000",
+"moot": "24540R18",
+"eu": "e b 71dB",
+"lisi": "97W XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NS5000",
+"moot": "18560R14",
+"eu": "e e 71dB",
+"lisi": "82H"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Sailun",
+"mudel": "Atrezzo ZSR2 EcoPoint3",
+"moot": "24540R19",
+"eu": "b a a 69dB",
+"lisi": "98Y XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber GT Plus",
+"moot": "21565R17",
+"eu": "c a b",
+"lisi": "99V FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "WinterSafe 2",
+"moot": "17565R14",
+"eu": "d c b",
+"lisi": "82T"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NS9000",
+"moot": "22555R16",
+"eu": "e b 71dB",
+"lisi": "99W XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "WinterSafe 2",
+"moot": "20560R16",
+"eu": "c c b",
+"lisi": "92H"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NS9000",
+"moot": "21545R17",
+"eu": "d b b",
+"lisi": "91W XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "WinterSafe Van 2",
+"moot": "23565R16C",
+"eu": "c a b",
+"lisi": "115/113R"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Sailun",
+"mudel": "Atrezzo ZSR2 EcoPoint3",
+"moot": "25535R19",
+"eu": "b a a 69dB",
+"lisi": "96Y XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NS9200",
+"moot": "22545R19",
+"eu": "c c b",
+"lisi": "96W XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NS5000",
+"moot": "19555R15",
+"eu": "e e 71dB",
+"lisi": "85 V"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NU7000",
+"moot": "23560R18",
+"eu": "e c 72dB",
+"lisi": "107H XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber HTS60",
+"moot": "23560R18",
+"eu": "e e 71dB",
+"lisi": "103H FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber AT3",
+"moot": "23560R18",
+"eu": "e e 72dB",
+"lisi": "107H XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NU7000",
+"moot": "21570R16",
+"eu": "e c 72dB",
+"lisi": "100H"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber AT3",
+"moot": "21570R16",
+"eu": "f e 72dB",
+"lisi": "100T FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NU7100",
+"moot": "22555R19",
+"eu": "d c b",
+"lisi": "99V FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber GT Plus",
+"moot": "22555R19",
+"eu": "c a b",
+"lisi": "99V FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Snow Grabber Plus",
+"moot": "22555R19",
+"eu": "d c b",
+"lisi": "103V XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Sailun",
+"mudel": "Atrezzo ZSR2 EcoPoint3",
+"moot": "23550R19",
+"eu": "b a b 71dB",
+"lisi": "103W XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Sailun",
+"mudel": "Atrezzo ZSR2 EcoPoint3",
+"moot": "24545R19",
+"eu": "b a a 69dB",
+"lisi": "102Y XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NU7000",
+"moot": "21565R16",
+"eu": "e c 72dB",
+"lisi": "98H"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber GT Plus",
+"moot": "21565R16",
+"eu": "c a b",
+"lisi": "98H FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber AT3",
+"moot": "27545R20",
+"eu": "e e 73dB",
+"lisi": "110H XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber GT Plus",
+"moot": "27545R20",
+"eu": "c a b",
+"lisi": "110Y XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Goodyear",
+"mudel": "UG Ice SUV G1",
+"moot": "27545R20",
+"eu": "b e 70dB",
+"lisi": "110T XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NS9200",
+"moot": "22550R18",
+"eu": "c b b",
+"lisi": "99W XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Sailun",
+"mudel": "Atrezzo ZSR2 EcoPoint3",
+"moot": "22550R18",
+"eu": "b a a 69dB",
+"lisi": "99Y XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Snow Grabber Plus",
+"moot": "22550R18",
+"eu": "d c b",
+"lisi": "99V XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Tracmax",
+"mudel": "X-privilo RS01+",
+"moot": "27540R20",
+"eu": "c c b 72dB",
+"lisi": "106Y XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NS9100",
+"moot": "27540R20",
+"eu": "e c 72dB",
+"lisi": "102W XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber AT3",
+"moot": "27540R20",
+"eu": "f e 73dB",
+"lisi": "106H XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NU7000",
+"moot": "25555R18",
+"eu": "e c 72dB",
+"lisi": "109V XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber AT3",
+"moot": "25555R18",
+"eu": "f e 73dB",
+"lisi": "109H XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Goodyear",
+"mudel": "UG Ice SUV G1",
+"moot": "25555R18",
+"eu": "b e 70dB",
+"lisi": "109T"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NS9200",
+"moot": "25555R19",
+"eu": "c b b 73dB",
+"lisi": "111W XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber AT3",
+"moot": "25555R19",
+"eu": "d d b 73dB",
+"lisi": "111H XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Goodyear",
+"mudel": "UG Ice SUV G1",
+"moot": "25555R19",
+"eu": "b e 72dB",
+"lisi": "111T XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NS9000",
+"moot": "22555R17",
+"eu": "e b 71dB",
+"lisi": "101W XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "WinterSafe Van 2",
+"moot": "22570R15C",
+"eu": "c a b",
+"lisi": "112/110R"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Goodyear",
+"mudel": "UG Ice SUV G1",
+"moot": "25550R19",
+"eu": "b e 69dB",
+"lisi": "107T XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NC1100",
+"moot": "20565R16C",
+"eu": "e b 71dB",
+"lisi": "107/105T"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "WinterSafe Van 2",
+"moot": "20565R16C",
+"eu": "d a b",
+"lisi": "107/105R"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "WinterSafe Van 2",
+"moot": "19570R15C",
+"eu": "d a b",
+"lisi": "104/102R"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NC1000",
+"moot": "19570R15C",
+"eu": "e e 70dB",
+"lisi": "104/102R"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NC1000",
+"moot": "22565R16C",
+"eu": "e e 70dB",
+"lisi": "112/110R "
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Snow Grabber Plus",
+"moot": "26560R18",
+"eu": "d c b",
+"lisi": "114H XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Goodyear",
+"mudel": "UG Ice SUV G1",
+"moot": "26560R18",
+"eu": "b e 69dB",
+"lisi": "114T XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NS9000",
+"moot": "24545R17",
+"eu": "e b 71dB",
+"lisi": "99W XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NS9200",
+"moot": "24545R20",
+"eu": "c b b",
+"lisi": "103W XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NS9000",
+"moot": "23540R18",
+"eu": "e b 71dB",
+"lisi": "95W XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NS5000",
+"moot": "19550R15",
+"eu": "e c 71dB",
+"lisi": "82V"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NS5000",
+"moot": "18565R15",
+"eu": "e e 71dB",
+"lisi": "88H"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "WinterSafe 2",
+"moot": "18565R15",
+"eu": "d c b",
+"lisi": "88T"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NU7000",
+"moot": "26565R17",
+"eu": "e c 72dB",
+"lisi": "112H"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber HTS60",
+"moot": "26565R17",
+"eu": "e c 72dB",
+"lisi": "112T FR OWL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Goodyear",
+"mudel": "Wrangler AT ADV",
+"moot": "26565R17",
+"eu": "d d b",
+"lisi": "112T"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Goodyear",
+"mudel": "UG Ice SUV G1",
+"moot": "26565R17",
+"eu": "c e 70dB",
+"lisi": "112T FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NS3000",
+"moot": "15565R14",
+"eu": "e c 70dB",
+"lisi": "75T"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "EcoDrive",
+"moot": "15565R14",
+"eu": "d b b 70dB",
+"lisi": "75T"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "WinterSafe 2",
+"moot": "15565R14",
+"eu": "e c b",
+"lisi": "75T"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NC1100",
+"moot": "21570R15C",
+"eu": "e b 71dB",
+"lisi": "109/107S"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NS3000",
+"moot": "18570R14",
+"eu": "e c 70dB",
+"lisi": "88T"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Goodyear",
+"mudel": "UG Ice 2+",
+"moot": "25540R20",
+"eu": "c e b",
+"lisi": "101T XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NU7000",
+"moot": "22565R17",
+"eu": "e c 72dB",
+"lisi": "102H"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber AT3",
+"moot": "22565R17",
+"eu": "f e 72dB",
+"lisi": "102H FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NS9200",
+"moot": "22540R19",
+"eu": "d b b",
+"lisi": "93Y XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NS9000",
+"moot": "19545R16",
+"eu": "d b b",
+"lisi": "84V XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber AT3",
+"moot": "23560R16",
+"eu": "f e 72dB",
+"lisi": "100H FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "WinterSafe X2",
+"moot": "25550R20",
+"eu": "d c b",
+"lisi": "109H XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Goodyear",
+"mudel": "UG Ice SUV G1",
+"moot": "25550R20",
+"eu": "c e b",
+"lisi": "109T XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NU7100",
+"moot": "25560R18",
+"eu": "d c b",
+"lisi": "112H XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Goodyear",
+"mudel": "UG Ice SUV G1",
+"moot": "25560R18",
+"eu": "c d b",
+"lisi": "112T XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NS9100",
+"moot": "25535R20",
+"eu": "e c 72dB",
+"lisi": "97Y XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Sailun",
+"mudel": "Atrezzo ZSR2 EcoPoint3",
+"moot": "25535R20",
+"eu": "b a a 69dB",
+"lisi": "97Y XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NS5000",
+"moot": "18560R15",
+"eu": "e e 71dB",
+"lisi": "88H XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NS9000",
+"moot": "21540R17",
+"eu": "d b b",
+"lisi": "87W XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Rotalla",
+"mudel": "W Race S330",
+"moot": "24535R20",
+"eu": "c c b",
+"lisi": "95V XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NS3000",
+"moot": "15580R13",
+"eu": "e c 70dB",
+"lisi": "79T"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "WinterSafe 2",
+"moot": "15580R13",
+"eu": "e c b",
+"lisi": "79T"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Goodyear",
+"mudel": "UG Ice SUV G1",
+"moot": "24570R16",
+"eu": "c e 69dB",
+"lisi": "111T XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "WinterSafe 2",
+"moot": "16570R13",
+"eu": "d c b",
+"lisi": "79T"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber HTS60",
+"moot": "24565R17",
+"eu": "e e 72dB",
+"lisi": "111T XL FR OWL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Goodyear",
+"mudel": "Wrangler AT ADV",
+"moot": "24565R17",
+"eu": "d d b",
+"lisi": "111T XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Snow Grabber Plus",
+"moot": "26545R20",
+"eu": "d c b",
+"lisi": "108V XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NS9000",
+"moot": "20540R17",
+"eu": "d b b",
+"lisi": "84W XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Sailun",
+"mudel": "Atrezzo ZSR2 EcoPoint3",
+"moot": "27545R21",
+"eu": "b a b 72dB",
+"lisi": "110Y XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Goodyear",
+"mudel": "UG Ice SUV G1",
+"moot": "27545R21",
+"eu": "b d b",
+"lisi": "110T XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Goodyear",
+"mudel": "UG Ice SUV G1",
+"moot": "23550R20",
+"eu": "b e b",
+"lisi": "104T XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NC1100",
+"moot": "20570R15C",
+"eu": "e b 71dB",
+"lisi": "106/104R"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber HTS60",
+"moot": "23570R16",
+"eu": "e e 71dB",
+"lisi": "106T FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber AT3",
+"moot": "23570R16",
+"eu": "e b b",
+"lisi": "110/107S LT FR OWL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NS9200",
+"moot": "25540R18",
+"eu": "c b b",
+"lisi": "99Y XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Sailun",
+"mudel": "Atrezzo ZSR2 EcoPoint3",
+"moot": "27540R19",
+"eu": "b a a 69dB",
+"lisi": "105Y XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NU7000",
+"moot": "22570R16",
+"eu": "e c 72dB",
+"lisi": "103H "
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NS9200",
+"moot": "24540R20",
+"eu": "c b b",
+"lisi": "99Y XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NC1100",
+"moot": "21565R16C",
+"eu": "e b 71dB",
+"lisi": "109/107T"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "WinterSafe Van 2",
+"moot": "21565R16C",
+"eu": "c a b",
+"lisi": "109/107R"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Tracmax",
+"mudel": "X-privilo RS01+",
+"moot": "27550R20",
+"eu": "c c b 72dB",
+"lisi": "113W XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Goodyear",
+"mudel": "UG Ice SUV G1",
+"moot": "27550R20",
+"eu": "b d b",
+"lisi": "113T XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber HTS60",
+"moot": "25555R20",
+"eu": "e c 72dB",
+"lisi": "107H FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber AT3",
+"moot": "25555R20",
+"eu": "e c b",
+"lisi": "110H XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Goodyear",
+"mudel": "UG Ice SUV G1",
+"moot": "25555R20",
+"eu": "b d b",
+"lisi": "110T XL "
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Sailun",
+"mudel": "Atrezzo ZSR2 EcoPoint3",
+"moot": "26545R21",
+"eu": "b a b 72dB",
+"lisi": "108W XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Tracmax",
+"mudel": "X-privilo RS01+",
+"moot": "27535R21",
+"eu": "c c b 72dB",
+"lisi": "103Y XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NS9200",
+"moot": "27530R20",
+"eu": "c b b",
+"lisi": "97Y XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber HTS60",
+"moot": "24560R18",
+"eu": "e e 71dB",
+"lisi": "105H FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NS9200",
+"moot": "27540R21",
+"eu": "c b b",
+"lisi": "107Y XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NC1100",
+"moot": "17565R14C",
+"eu": "e b 71dB",
+"lisi": "90/88T"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber AT3",
+"moot": "28560R18",
+"eu": "e e 75dB",
+"lisi": "116H FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Goodyear",
+"mudel": "UG Ice SUV G1",
+"moot": "28560R18",
+"eu": "b d b",
+"lisi": "116T"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Goodyear",
+"mudel": "Wrangler AT ADV",
+"moot": "23575R15",
+"eu": "d d b",
+"lisi": "109T XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber HTS60",
+"moot": "26570R17",
+"eu": "e c 72dB",
+"lisi": "115S FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber AT3",
+"moot": "26570R17",
+"eu": "d d b 73dB",
+"lisi": "115T FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Winrun",
+"mudel": "R330",
+"moot": "28545R20",
+"eu": "d c a 72dB",
+"lisi": "112W XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Tracmax",
+"mudel": "X-privilo RS01+",
+"moot": "28540R22",
+"eu": "c c b 72dB",
+"lisi": "110Y XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Sailun",
+"mudel": "Atrezzo ZSR2 EcoPoint3",
+"moot": "31540R21",
+"eu": "b a b 74dB",
+"lisi": "115Y XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NS9200",
+"moot": "28530R20",
+"eu": "c b b 75dB",
+"lisi": "99Y XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Nordexx",
+"mudel": "NS9200",
+"moot": "25530R19",
+"eu": "d b b",
+"lisi": "91Y XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Tracmax",
+"mudel": "X-privilo RS01+",
+"moot": "24535R21",
+"eu": "c c b 72dB",
+"lisi": "96Y XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Winrun",
+"mudel": "R330",
+"moot": "25535R21",
+"eu": "d c b",
+"lisi": "98W XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber HTS60",
+"moot": "24570R17",
+"eu": "e e 71dB",
+"lisi": "110T FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber AT3",
+"moot": "24570R17",
+"eu": "e c 72dB",
+"lisi": "114T XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Goodyear",
+"mudel": "UG Ice SUV G1",
+"moot": "26555R19",
+"eu": "b d b",
+"lisi": "113T XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Snow Grabber Plus",
+"moot": "22575R16",
+"eu": "e c b",
+"lisi": "104T FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Winrun",
+"mudel": "R330",
+"moot": "27535R22",
+"eu": "c b b",
+"lisi": "104Y XL "
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Winrun",
+"mudel": "R330",
+"moot": "31535R22",
+"eu": "c b a 72dB",
+"lisi": "111W XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber AT3",
+"moot": "26570R15",
+"eu": "e e 73dB",
+"lisi": "112T FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Winrun",
+"mudel": "R330",
+"moot": "31530R22",
+"eu": "c b a",
+"lisi": "107Y XL "
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Winrun",
+"mudel": "R330",
+"moot": "28530R21",
+"eu": "d c a",
+"lisi": "100W XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber HTS60",
+"moot": "25570R15",
+"eu": "e c 72dB",
+"lisi": "108S FR OWL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber AT3",
+"moot": "19580R15",
+"eu": "f e 72dB",
+"lisi": "96T FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "Winrun",
+"mudel": "R330",
+"moot": "32540R22",
+"eu": "c b a 72dB",
+"lisi": "114Y"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber AT3",
+"moot": "25560R20",
+"eu": "d d b 73dB",
+"lisi": "113H XL"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber HTS60",
+"moot": "23570R17",
+"eu": "e e 72dB",
+"lisi": "111T XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber AT3",
+"moot": "25565R19",
+"eu": "d e b 73dB",
+"lisi": "114H XL FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber HTS60",
+"moot": "23575R16",
+"eu": "e e 71dB",
+"lisi": "108S FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber HTS60",
+"moot": "23585R16",
+"eu": "e c 72dB",
+"lisi": "120/116R FR"
+},
+{
+"pood": "rehvivahetus.ee",
+"mark": "General Tire",
+"mudel": "Grabber AT3",
+"moot": "20575R16",
+"eu": "e c b 75dB",
+"lisi": "110/108R"
 }
 ]
 }

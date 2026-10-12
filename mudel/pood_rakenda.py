@@ -32,6 +32,7 @@ from eprel_convert import LAMELL, TALV  # noqa: E402
 from eprel_dedup import koonda_read  # noqa: E402
 
 SRC = os.path.join(os.path.dirname(__file__), "pood_rehvid.json")
+SRC_MOODUD = os.path.join(os.path.dirname(__file__), "pood_moodud.json")
 OK = re.compile(r"^\d{5}R\d{2}C?$")
 KAT_NR = ["SUMMER_TOURING", "ALL_SEASON", "WINTER_CENTRAL", "WINTER_NORDIC"]
 LIPP_POOD = 16
@@ -117,6 +118,10 @@ def main(data):
     vanad = {s for s, m in models.items() if m.get("allikas") == "pood"}
     for s in vanad:
         del models[s]
+    # ... ja EPREL-i mudelitele poe järgi lisatud mõõdud (z["pood"]) samuti
+    for m in models.values():
+        if any(z.get("pood") for z in m.get("sizes", [])):
+            m["sizes"] = [z for z in m["sizes"] if not z.get("pood")]
     for f in os.listdir(edir):
         if not f.endswith(".json"):
             continue
@@ -171,6 +176,41 @@ def main(data):
                                 LIPP_POOD | (2 if len(z["gAll"]) > 1 else 0) | (4 if z["snow"] else 0), None])
 
     models.update(uued)
+
+    # EPREL-i mudel on olemas, aga see MÕÕT on meie korjes puudu (pood_moodud.json, slug juba
+    # seotud sobitus.js-iga). Lisame mõõdu poe märgisega; rida saab sama lipu 16.
+    lisatud = 0
+    if os.path.exists(SRC_MOODUD):
+        mgrp = defaultdict(list)
+        for r in json.load(open(SRC_MOODUD, encoding="utf-8"))["read"]:
+            if OK.match(r.get("moot") or "") and loe_eu(r.get("eu")) and r.get("slug") in models:
+                mgrp[(r["slug"], r["moot"], r.get("pood", "pood"))].append(r)
+        for (slug, moot, pood), rr in sorted(mgrp.items()):
+            m = models[slug]
+            if m.get("allikas") == "pood" or m.get("kat") not in KAT_NR:
+                continue
+            if any(z["m"] == moot for z in m["sizes"]):
+                continue
+            lab = [loe_eu(r["eu"]) for r in rr]
+            margid = sorted({x[1] for x in lab}, key="ABCDEFG".index)
+            marg = margid[-1]
+            esimene = next(x for x in lab if x[1] == marg)
+            li, si = set(), set()
+            for r in rr:
+                a, b = loe_lisi(r.get("lisi"))
+                li.update(a)
+                si.update(b)
+            ref = m["sizes"][0] if m["sizes"] else {}
+            snow = bool(ref.get("snow")) if ref else m["kat"] != "SUMMER_TOURING"
+            ice = bool(ref.get("ice")) if ref else False
+            m["sizes"].append({"m": moot, "g": marg, "gAll": margid, "f": esimene[0], "db": esimene[3],
+                               "nk": esimene[2], "li": sorted(li), "si": sorted(si), "snow": snow, "ice": ice,
+                               "pood": pood})
+            per[moot].append([slug, m["mark"], m["nimi"], KAT_NR.index(m["kat"]), marg, esimene[0], esimene[3],
+                              esimene[2], LIPP_POOD | (2 if len(margid) > 1 else 0) | (4 if snow else 0) | (8 if ice else 0), None])
+            lisatud += 1
+    stat["EPREL-i mudelile mõõt poest"] = lisatud
+
     json.dump(models, open(mp, "w", encoding="utf-8"), ensure_ascii=False, separators=(",", ":"))
 
     uued_moodud = []
