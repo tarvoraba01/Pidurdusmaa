@@ -2292,11 +2292,16 @@ import UNIVERSAALID from './universaalid.json';
   /* väike kaart: odavaim pakkumine + mitu poodi kokku */
   function hindVaike(rows, nimi) {
     if (!rows || !rows.length) return '<span class="none">' + _t('Hinda poodidest pole') + '</span>';
-    var r = rows.slice().sort(function (a, b) { return a.hind - b.hind; })[0];
-    var sisu = '<span class="rk-h"><b>' + (rows.length > 1 ? _t('al') + ' ' : '') + hindTekst(r) + '</b><small>' + esc(r.myyja) + (rows.length > 1 ? ' · ' + rows.length + ' ' + _t('poodi') : '') + '</small></span>';
-    return r.url
-      ? '<a class="rk-osta" href="' + esc(poeLink(r.url, 'autoleht', nimi)) + '" target="_blank" rel="nofollow sponsored noopener" data-pood="' + esc(r.myyja) + '" data-rehv="' + esc(nimi) + '">' + sisu + '<span class="rk-o">' + _t('Osta') + ' →</span></a>'
-      : '<div class="rk-osta">' + sisu + '</div>';
+    /* iga pood oma real (odavaim ees) — kõik müüjad on kaardil võrdselt nähtavad */
+    var list = rows.slice().sort(function (a, b) { return a.hind - b.hind; });
+    var MAX = 3;
+    var h = list.slice(0, MAX).map(function (r) {
+      var sisu = '<span class="rk-p">' + esc(r.myyja) + '</span><b>' + hindTekst(r) + '</b>';
+      return r.url
+        ? '<a class="rk-osta" href="' + esc(poeLink(r.url, 'autoleht', nimi)) + '" target="_blank" rel="nofollow sponsored noopener" data-pood="' + esc(r.myyja) + '" data-rehv="' + esc(nimi) + '">' + sisu + '<span class="rk-o">' + _t('Osta') + ' →</span></a>'
+        : '<div class="rk-osta">' + sisu + '</div>';
+    }).join('');
+    return '<div class="rk-poed">' + h + (list.length > MAX ? '<small class="rk-veel">+' + (list.length - MAX) + ' ' + _t('poodi') + '</small>' : '') + '</div>';
   }
   function fillPrices(box) {
     var els = $$('[data-price]', box);
