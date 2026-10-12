@@ -607,6 +607,8 @@ export default {
 "Hinda poodidest pole": "Цен в магазинах нет",
 "Jääl 50→0": "На льду 50→0",
 "sobivad rehvid": "подходящие шины",
+" test — pidurdusmaa ja märgis": " тест — тормозной путь и маркировка",
+"{test} testis {pind} {v} km/h: {m} m ({pos}./{n})": "{test}: {pind} {v} км/ч — {m} м ({pos}-е место из {n})",
 "Osta": "Купить",
 "Arvuta oma autoga": "Рассчитать для своей машины",
 "Kus osta": "Где купить",

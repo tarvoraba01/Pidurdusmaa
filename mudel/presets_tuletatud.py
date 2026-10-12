@@ -7,42 +7,44 @@ sama testi sees mõõdetud rehvide suhtes (d ∝ 1/mu). Vt naastud_tuleta.py.
 from .model import Tyre, TyreCategory as C
 
 TYRES_TULETATUD = {
+    "t_antares_grip_60_ice": Tyre('Antares GRIP 60 ice', C.WINTER_STUDDED, 1.139, mu_dry_override=0.7883, mu_ice_override=0.2039, studded=True, size='205/55 R16', g_source="test"),
     "t_bfgoodrich_g_force_stud": Tyre('BFGoodrich g-Force Stud', C.WINTER_STUDDED, 1.256, mu_dry_override=0.876, mu_snow_override=0.3873, mu_ice_override=0.1835, studded=True, size='205/55 R16', g_source="test"),
     "t_bridgestone_blizzak_dm_v3": Tyre('Bridgestone Blizzak DM-V3', C.WINTER_NORDIC, 1.217, mu_dry_override=0.8678, mu_snow_override=0.3753, mu_ice_override=0.1924, size='235/55 R18', g_source="test"),
     "t_bridgestone_blizzak_ice": Tyre('Bridgestone Blizzak Ice', C.WINTER_NORDIC, 1.129, mu_dry_override=0.8643, mu_snow_override=0.3673, mu_ice_override=0.1919, size='225/45 R17', g_source="test"),
-    "t_bridgestone_blizzak_revo_gz": Tyre('Bridgestone Blizzak Revo GZ', C.WINTER_NORDIC, 1.108, mu_dry_override=0.8463, mu_snow_override=0.3597, mu_ice_override=0.1721, size='205/55 R16', g_source="test"),
+    "t_bridgestone_blizzak_revo_gz": Tyre('Bridgestone Blizzak Revo GZ', C.WINTER_NORDIC, 1.102, mu_dry_override=0.8463, mu_snow_override=0.3599, mu_ice_override=0.1721, size='205/55 R16', g_source="test"),
     "t_bridgestone_blizzak_spike_01": Tyre('Bridgestone Blizzak Spike-01', C.WINTER_STUDDED, 1.188, mu_dry_override=0.8302, mu_snow_override=0.3669, mu_ice_override=0.1845, studded=True, size='205/55 R16', g_source="test"),
     "t_bridgestone_blizzak_spike_02": Tyre('Bridgestone Blizzak Spike-02', C.WINTER_STUDDED, 1.185, mu_dry_override=0.7619, mu_snow_override=0.3755, mu_ice_override=0.2265, studded=True, size='195/65 R15', g_source="test"),
-    "t_bridgestone_blizzak_vrx": Tyre('Bridgestone Blizzak VRX', C.WINTER_NORDIC, 1.142, mu_dry_override=0.8508, mu_snow_override=0.3526, mu_ice_override=0.1791, size='205/55 R16', g_source="test"),
-    "t_bridgestone_blizzak_ws70": Tyre('Bridgestone Blizzak WS70', C.WINTER_NORDIC, 1.139, mu_dry_override=0.889, mu_snow_override=0.3588, mu_ice_override=0.1703, size='205/55 R16', g_source="test"),
-    "t_bridgestone_blizzak_ws80": Tyre('Bridgestone Blizzak WS80', C.WINTER_NORDIC, 1.118, mu_dry_override=0.864, mu_snow_override=0.3625, mu_ice_override=0.1712, size='205/55 R16', g_source="test"),
+    "t_bridgestone_blizzak_vrx": Tyre('Bridgestone Blizzak VRX', C.WINTER_NORDIC, 1.136, mu_dry_override=0.8508, mu_snow_override=0.3526, mu_ice_override=0.1791, size='205/55 R16', g_source="test"),
+    "t_bridgestone_blizzak_ws70": Tyre('Bridgestone Blizzak WS70', C.WINTER_NORDIC, 1.139, mu_dry_override=0.889, mu_snow_override=0.3593, mu_ice_override=0.1703, size='205/55 R16', g_source="test"),
+    "t_bridgestone_blizzak_ws80": Tyre('Bridgestone Blizzak WS80', C.WINTER_NORDIC, 1.118, mu_dry_override=0.864, mu_snow_override=0.3626, mu_ice_override=0.1712, size='205/55 R16', g_source="test"),
     "t_bridgestone_noranza_001": Tyre('Bridgestone Noranza 001', C.WINTER_STUDDED, 1.223, mu_dry_override=0.8088, mu_snow_override=0.3786, mu_ice_override=0.2302, studded=True, size='205/55 R16', g_source="test"),
-    "t_continental_contiicecontact": Tyre('Continental ContiIceContact', C.WINTER_STUDDED, 1.117, mu_dry_override=0.8633, mu_snow_override=0.371, mu_ice_override=0.2002, studded=True, size='205/55 R16', g_source="test"),
+    "t_continental_contiicecontact": Tyre('Continental ContiIceContact', C.WINTER_STUDDED, 1.117, mu_dry_override=0.8633, mu_snow_override=0.3715, mu_ice_override=0.2002, studded=True, size='205/55 R16', g_source="test"),
     "t_continental_icecontact_2": Tyre('Continental IceContact 2', C.WINTER_STUDDED, 1.297, mu_dry_override=0.8287, mu_snow_override=0.3838, mu_ice_override=0.2199, studded=True, size='205/55 R16', g_source="test"),
     "t_continental_icecontact_2_suv": Tyre('Continental IceContact 2 SUV', C.WINTER_STUDDED, 1.258, mu_dry_override=0.8309, mu_snow_override=0.3804, mu_ice_override=0.2316, studded=True, size='215/65 R16', g_source="test"),
-    "t_continental_contivikingcontact_5": Tyre('Continental ContiVikingContact 5', C.WINTER_NORDIC, 1.152, mu_dry_override=0.8571, mu_snow_override=0.3556, mu_ice_override=0.1586, size='205/55 R16', g_source="test"),
-    "t_continental_contivikingcontact_6": Tyre('Continental ContiVikingContact 6', C.WINTER_NORDIC, 1.222, mu_dry_override=0.842, mu_snow_override=0.3646, mu_ice_override=0.1742, size='205/55 R16', g_source="test"),
-    "t_continental_vikingcontact_7": Tyre('Continental VikingContact 7', C.WINTER_NORDIC, 1.17, mu_dry_override=0.8483, mu_snow_override=0.376, mu_ice_override=0.2115, size='225/45 R17', g_source="test"),
+    "t_continental_contivikingcontact_5": Tyre('Continental ContiVikingContact 5', C.WINTER_NORDIC, 1.152, mu_dry_override=0.8571, mu_snow_override=0.3561, mu_ice_override=0.1586, size='205/55 R16', g_source="test"),
+    "t_continental_contivikingcontact_6": Tyre('Continental ContiVikingContact 6', C.WINTER_NORDIC, 1.216, mu_dry_override=0.842, mu_snow_override=0.3647, mu_ice_override=0.1742, size='205/55 R16', g_source="test"),
+    "t_continental_vikingcontact_7": Tyre('Continental VikingContact 7', C.WINTER_NORDIC, 1.17, mu_dry_override=0.8559, mu_snow_override=0.376, mu_ice_override=0.2115, size='225/45 R17', g_source="test"),
     "t_dunlop_grandtrek_ice_02": Tyre('Dunlop Grandtrek Ice 02', C.WINTER_STUDDED, 1.213, mu_dry_override=0.804, mu_snow_override=0.3599, mu_ice_override=0.1975, studded=True, size='235/65 R17', g_source="test"),
     "t_dunlop_ice_touch": Tyre('Dunlop Ice Touch', C.WINTER_STUDDED, 1.274, mu_dry_override=0.9151, mu_snow_override=0.3683, mu_ice_override=0.2139, studded=True, size='205/55 R16', g_source="test"),
-    "t_dunlop_winter_maxx_wm01": Tyre('Dunlop Winter Maxx WM01', C.WINTER_NORDIC, 1.091, mu_dry_override=0.7915, mu_snow_override=0.3605, mu_ice_override=0.1859, size='225/45 R17', g_source="test"),
-    "t_dunlop_winter_maxx_wm02": Tyre('Dunlop Winter Maxx WM02', C.WINTER_NORDIC, 1.117, mu_dry_override=0.7956, mu_snow_override=0.3632, mu_ice_override=0.1923, size='205/55 R16', g_source="test"),
+    "t_dunlop_winter_maxx_wm01": Tyre('Dunlop Winter Maxx WM01', C.WINTER_NORDIC, 1.085, mu_dry_override=0.7915, mu_snow_override=0.3605, mu_ice_override=0.1859, size='225/45 R17', g_source="test"),
+    "t_dunlop_winter_maxx_wm02": Tyre('Dunlop Winter Maxx WM02', C.WINTER_NORDIC, 1.107, mu_dry_override=0.7956, mu_snow_override=0.3632, mu_ice_override=0.1923, size='205/55 R16', g_source="test"),
     "t_dunlop_sp_winter_ice_02": Tyre('Dunlop SP Winter Ice 02', C.WINTER_STUDDED, 1.223, mu_dry_override=0.7968, mu_snow_override=0.3769, mu_ice_override=0.2143, studded=True, size='185/65 R15', g_source="test"),
     "t_falken_winterpeak_f_ice_1": Tyre('Falken Winterpeak F-Ice 1', C.WINTER_STUDDED, 1.252, mu_dry_override=0.7986, mu_snow_override=0.3856, mu_ice_override=0.258, studded=True, size='225/45 R17', g_source="test"),
+    "t_federal_himalaya_iceo": Tyre('Federal Himalaya ICEO', C.WINTER_NORDIC, 1.182, mu_dry_override=0.8375, mu_snow_override=0.3787, mu_ice_override=0.1714, size='205/55 R16', g_source="test"),
     "t_firestone_ice_cruiser_7": Tyre('Firestone Ice Cruiser 7', C.WINTER_STUDDED, 1.167, mu_dry_override=0.8103, mu_snow_override=0.348, mu_ice_override=0.1962, studded=True, size='195/65 R15', g_source="test"),
     "t_gislaved_nord_frost_100": Tyre('Gislaved Nord Frost 100', C.WINTER_STUDDED, 1.351, mu_dry_override=0.8743, mu_snow_override=0.3711, mu_ice_override=0.172, studded=True, size='205/55 R16', g_source="test"),
     "t_gislaved_nord_frost_200": Tyre('Gislaved Nord Frost 200', C.WINTER_STUDDED, 1.223, mu_dry_override=0.8301, mu_snow_override=0.3855, mu_ice_override=0.2036, studded=True, size='205/55 R16', g_source="test"),
     "t_gislaved_nord_frost_200_suv": Tyre('Gislaved Nord Frost 200 SUV', C.WINTER_STUDDED, 1.378, mu_dry_override=0.8639, mu_snow_override=0.3846, mu_ice_override=0.2055, studded=True, size='215/65 R16', g_source="test"),
-    "t_gislaved_soft_frost_200": Tyre('Gislaved Soft Frost 200', C.WINTER_NORDIC, 1.106, mu_dry_override=0.8624, mu_snow_override=0.362, mu_ice_override=0.1848, size='205/55 R16', g_source="test"),
+    "t_gislaved_soft_frost_200": Tyre('Gislaved Soft Frost 200', C.WINTER_NORDIC, 1.106, mu_dry_override=0.8624, mu_snow_override=0.3743, mu_ice_override=0.1848, size='205/55 R16', g_source="test"),
     "t_goodride_icemaster_spike_z_506": Tyre('Goodride IceMaster Spike Z-506', C.WINTER_STUDDED, 1.296, mu_dry_override=0.8237, mu_snow_override=0.3814, mu_ice_override=0.2195, studded=True, size='235/60 R18', g_source="test"),
     "t_goodyear_ultragrip_600": Tyre('Goodyear UltraGrip 600', C.WINTER_STUDDED, 1.276, mu_dry_override=0.8346, mu_snow_override=0.3726, mu_ice_override=0.1821, studded=True, size='205/55 R16', g_source="test"),
     "t_goodyear_ultragrip_arctic_2_suv": Tyre('Goodyear UltraGrip Arctic 2 SUV', C.WINTER_STUDDED, 1.312, mu_dry_override=0.8044, mu_snow_override=0.3865, mu_ice_override=0.2972, studded=True, size='235/60 R18', g_source="test"),
     "t_goodyear_ultragrip_ice_2": Tyre('Goodyear UltraGrip Ice 2', C.WINTER_NORDIC, 1.267, mu_dry_override=0.8534, mu_snow_override=0.3721, mu_ice_override=0.2049, size='195/65 R15', g_source="test"),
     "t_goodyear_ultragrip_ice_arctic": Tyre('Goodyear UltraGrip Ice Arctic', C.WINTER_STUDDED, 1.264, mu_dry_override=0.8314, mu_snow_override=0.3819, mu_ice_override=0.2173, studded=True, size='225/50 R17', g_source="test"),
     "t_goodyear_ultragrip_ice_arctic_suv_4x4": Tyre('Goodyear UltraGrip Ice Arctic SUV 4x4', C.WINTER_STUDDED, 1.297, mu_dry_override=0.8234, mu_snow_override=0.3722, mu_ice_override=0.2158, studded=True, size='235/65 R17', g_source="test"),
-    "t_gt_radial_champiro_ice_pro": Tyre('GT Radial Champiro Ice Pro', C.WINTER_STUDDED, 1.233, mu_dry_override=0.8957, mu_snow_override=0.3316, mu_ice_override=0.1555, studded=True, size='205/55 R16', g_source="test"),
+    "t_gt_radial_champiro_ice_pro": Tyre('GT Radial Champiro Ice Pro', C.WINTER_STUDDED, 1.233, mu_dry_override=0.8957, mu_snow_override=0.3321, mu_ice_override=0.1555, studded=True, size='205/55 R16', g_source="test"),
     "t_gt_radial_ice_pro_3": Tyre('GT Radial Ice Pro 3', C.WINTER_STUDDED, 1.272, mu_dry_override=0.8207, mu_snow_override=0.3825, mu_ice_override=0.1895, studded=True, size='195/65 R15', g_source="test"),
-    "t_hankook_winter_i_cept_iz2": Tyre('Hankook Winter i*cept iZ2', C.WINTER_NORDIC, 1.14, mu_dry_override=0.82, mu_snow_override=0.369, mu_ice_override=0.1908, size='225/45 R17', g_source="test"),
+    "t_hankook_winter_i_cept_iz2": Tyre('Hankook Winter i*cept iZ2', C.WINTER_NORDIC, 1.14, mu_dry_override=0.82, mu_snow_override=0.3722, mu_ice_override=0.1908, size='225/45 R17', g_source="test"),
     "t_hankook_winter_i_cept_iz3_x": Tyre('Hankook Winter i*cept iZ3 X', C.WINTER_NORDIC, 1.11, mu_dry_override=0.8286, mu_snow_override=0.3779, mu_ice_override=0.1801, size='235/60 R18', g_source="test"),
     "t_hankook_winter_i_pike_rs": Tyre('Hankook Winter i*Pike RS', C.WINTER_STUDDED, 1.248, mu_dry_override=0.8466, mu_snow_override=0.369, mu_ice_override=0.2115, studded=True, size='205/55 R16', g_source="test"),
     "t_hankook_winter_i_pike_rs2": Tyre('Hankook Winter i*Pike RS2', C.WINTER_STUDDED, 1.245, mu_dry_override=0.8087, mu_snow_override=0.387, mu_ice_override=0.2377, studded=True, size='225/45 R17', g_source="test"),
@@ -55,21 +57,21 @@ TYRES_TULETATUD = {
     "t_linglong_greenmax_winter_grip": Tyre('Linglong GreenMax Winter Grip', C.WINTER_STUDDED, 1.245, mu_dry_override=0.9238, mu_snow_override=0.3607, mu_ice_override=0.1609, studded=True, size='205/55 R16', g_source="test"),
     "t_linglong_green_max_winter_grip_2": Tyre('Linglong Green-Max Winter Grip 2', C.WINTER_STUDDED, 1.171, mu_dry_override=0.8514, mu_snow_override=0.3855, mu_ice_override=0.2302, studded=True, size='205/55 R16', g_source="test"),
     "t_linglong_winter_unicorn": Tyre('Linglong Winter Unicorn', C.WINTER_NORDIC, 1.081, mu_dry_override=0.84, mu_snow_override=0.3817, mu_ice_override=0.2031, size='205/55 R16', g_source="test"),
-    "t_marshal_i_zen_kw31": Tyre("Marshal I'Zen KW31", C.WINTER_NORDIC, 1.04, mu_dry_override=0.8463, mu_snow_override=0.3552, mu_ice_override=0.1868, size='205/55 R16', g_source="test"),
+    "t_marshal_izen_kw31": Tyre('Marshal iZen KW31', C.WINTER_NORDIC, 1.113, mu_dry_override=0.8167, mu_snow_override=0.3673, mu_ice_override=0.1753, size='205/55 R16', g_source="test"),
     "t_kumho_wintercraft_ice_wi31": Tyre('Kumho WinterCraft Ice Wi31', C.WINTER_STUDDED, 1.23, mu_dry_override=0.8373, mu_snow_override=0.3581, mu_ice_override=0.1892, studded=True, size='205/55 R16', g_source="test"),
     "t_matador_mp_30_sibir_ice_2": Tyre('Matador MP 30 Sibir Ice 2', C.WINTER_STUDDED, 1.286, mu_dry_override=0.8209, mu_snow_override=0.3744, mu_ice_override=0.1791, studded=True, size='205/55 R16', g_source="test"),
     "t_maxxis_premitra_ice_nord_5_suv": Tyre('Maxxis Premitra Ice Nord 5 SUV', C.WINTER_STUDDED, 1.334, mu_dry_override=0.886, mu_snow_override=0.3419, mu_ice_override=0.1992, studded=True, size='235/55 R18', g_source="test"),
     "t_michelin_latitude_x_ice_north_2": Tyre('Michelin Latitude X-Ice North 2+', C.WINTER_STUDDED, 1.272, mu_dry_override=0.8259, mu_snow_override=0.3701, mu_ice_override=0.1629, studded=True, size='235/65 R17', g_source="test"),
-    "t_michelin_x_ice_3": Tyre('Michelin X-Ice 3', C.WINTER_NORDIC, 1.153, mu_dry_override=0.8392, mu_snow_override=0.356, mu_ice_override=0.1986, size='225/45 R17', g_source="test"),
-    "t_michelin_x_ice_north_3": Tyre('Michelin X-Ice North 3', C.WINTER_STUDDED, 1.176, mu_dry_override=0.8211, mu_snow_override=0.3739, mu_ice_override=0.1757, studded=True, size='215/65 R16', g_source="test"),
+    "t_michelin_x_ice_3": Tyre('Michelin X-Ice 3', C.WINTER_NORDIC, 1.146, mu_dry_override=0.8392, mu_snow_override=0.356, mu_ice_override=0.1986, size='225/45 R17', g_source="test"),
+    "t_michelin_x_ice_north_3": Tyre('Michelin X-Ice North 3', C.WINTER_STUDDED, 1.176, mu_dry_override=0.8211, mu_snow_override=0.3743, mu_ice_override=0.1757, studded=True, size='215/65 R16', g_source="test"),
     "t_michelin_x_ice_north_4_suv": Tyre('Michelin X-Ice North 4 SUV', C.WINTER_STUDDED, 1.239, mu_dry_override=0.8007, mu_snow_override=0.3862, mu_ice_override=0.2593, studded=True, size='235/60 R18', g_source="test"),
     "t_michelin_x_ice_snow_suv": Tyre('Michelin X-Ice Snow SUV', C.WINTER_NORDIC, 1.111, mu_dry_override=0.7951, mu_snow_override=0.3782, mu_ice_override=0.1978, size='235/60 R18', g_source="test"),
-    "t_michelin_x_ice_xi3": Tyre('Michelin X-Ice XI3', C.WINTER_NORDIC, 1.171, mu_dry_override=0.8252, mu_snow_override=0.3625, mu_ice_override=0.1692, size='205/55 R16', g_source="test"),
+    "t_michelin_x_ice_xi3": Tyre('Michelin X-Ice XI3', C.WINTER_NORDIC, 1.171, mu_dry_override=0.8252, mu_snow_override=0.3626, mu_ice_override=0.1692, size='205/55 R16', g_source="test"),
     "t_nankang_ice_activa_2": Tyre('Nankang Ice Activa 2', C.WINTER_NORDIC, 1.144, mu_dry_override=0.7923, mu_snow_override=0.378, mu_ice_override=0.1924, size='205/55 R16', g_source="test"),
     "t_nankang_ice_activa_grip_2_suv": Tyre('Nankang Ice Activa Grip 2 SUV', C.WINTER_STUDDED, 1.155, mu_dry_override=0.7954, mu_snow_override=0.3995, mu_ice_override=0.2349, studded=True, size='215/65 R17', g_source="test"),
     "t_nankang_ice_activa_ice_1": Tyre('Nankang Ice Activa Ice-1', C.WINTER_NORDIC, 1.245, mu_dry_override=0.8361, mu_snow_override=0.3648, mu_ice_override=0.1466, size='195/65 R15', g_source="test"),
-    "t_nexen_winguard_ice": Tyre('Nexen WinGuard ice', C.WINTER_NORDIC, 1.01, mu_dry_override=0.7988, mu_snow_override=0.3543, mu_ice_override=0.1708, size='195/65 R15', g_source="test"),
-    "t_nexen_winguard_ice_plus": Tyre('Nexen WinGuard Ice Plus', C.WINTER_NORDIC, 1.048, mu_dry_override=0.7897, mu_snow_override=0.3574, mu_ice_override=0.1725, size='205/55 R16', g_source="test"),
+    "t_nexen_winguard_ice": Tyre('Nexen WinGuard ice', C.WINTER_NORDIC, 0.998, mu_dry_override=0.8045, mu_snow_override=0.3543, mu_ice_override=0.1708, size='195/65 R15', g_source="test"),
+    "t_nexen_winguard_ice_plus": Tyre('Nexen WinGuard Ice Plus', C.WINTER_NORDIC, 1.048, mu_dry_override=0.7897, mu_snow_override=0.3696, mu_ice_override=0.1725, size='205/55 R16', g_source="test"),
     "t_nexen_winguard_ice_plus_wh43": Tyre('Nexen Winguard Ice Plus WH43', C.WINTER_NORDIC, 1.117, mu_dry_override=0.8024, mu_snow_override=0.3788, mu_ice_override=0.1932, size='205/55 R16', g_source="test"),
     "t_nexen_winguard_winspike": Tyre('Nexen WinGuard WinSpike', C.WINTER_STUDDED, 1.164, mu_dry_override=0.8157, mu_snow_override=0.3697, mu_ice_override=0.1449, studded=True, size='205/55 R16', g_source="test"),
     "t_nexen_winguard_winspike_3": Tyre('Nexen WinGuard WinSpike 3', C.WINTER_STUDDED, 1.35, mu_dry_override=0.8352, mu_snow_override=0.3672, mu_ice_override=0.2197, studded=True, size='235/60 R18', g_source="test"),
@@ -83,7 +85,7 @@ TYRES_TULETATUD = {
     "t_nokian_hakkapeliitta_9": Tyre('Nokian Hakkapeliitta 9', C.WINTER_STUDDED, 1.26, mu_dry_override=0.8129, mu_snow_override=0.387, mu_ice_override=0.2417, studded=True, size='205/60 R16', g_source="test"),
     "t_nokian_hakkapeliitta_9_suv": Tyre('Nokian Hakkapeliitta 9 SUV', C.WINTER_STUDDED, 1.251, mu_dry_override=0.8044, mu_snow_override=0.3846, mu_ice_override=0.2481, studded=True, size='255/55 R19', g_source="test"),
     "t_nokian_hakkapeliitta_r2": Tyre('Nokian Hakkapeliitta R2', C.WINTER_NORDIC, 1.125, mu_dry_override=0.8346, mu_snow_override=0.3616, mu_ice_override=0.1806, size='225/45 R17', g_source="test"),
-    "t_nokian_hakkapeliitta_r3": Tyre('Nokian Hakkapeliitta R3', C.WINTER_NORDIC, 1.178, mu_dry_override=0.8505, mu_snow_override=0.3832, mu_ice_override=0.1993, size='205/55 R16', g_source="test"),
+    "t_nokian_hakkapeliitta_r3": Tyre('Nokian Hakkapeliitta R3', C.WINTER_NORDIC, 1.178, mu_dry_override=0.8539, mu_snow_override=0.3832, mu_ice_override=0.1993, size='205/55 R16', g_source="test"),
     "t_nokian_hakkapeliitta_r3_suv": Tyre('Nokian Hakkapeliitta R3 SUV', C.WINTER_NORDIC, 1.239, mu_dry_override=0.8497, mu_snow_override=0.382, mu_ice_override=0.2154, size='215/65 R16', g_source="test"),
     "t_nokian_hakkapeliitta_r5_suv": Tyre('Nokian Hakkapeliitta R5 SUV', C.WINTER_NORDIC, 1.26, mu_dry_override=0.8197, mu_snow_override=0.3801, mu_ice_override=0.1933, size='235/60 R18', g_source="test"),
     "t_nokian_nordman_5": Tyre('Nokian Nordman 5', C.WINTER_STUDDED, 1.22, mu_dry_override=0.8114, mu_snow_override=0.3747, mu_ice_override=0.1784, studded=True, size='195/65 R15', g_source="test"),
@@ -94,35 +96,38 @@ TYRES_TULETATUD = {
     "t_nokian_nordman_north_9": Tyre('Nokian Nordman North 9', C.WINTER_STUDDED, 1.253, mu_dry_override=0.8051, mu_snow_override=0.3932, mu_ice_override=0.2513, studded=True, size='225/45 R17', g_source="test"),
     "t_nokian_nordman_north_9_suv": Tyre('Nokian Nordman North 9 SUV', C.WINTER_STUDDED, 1.224, mu_dry_override=0.8012, mu_snow_override=0.3961, mu_ice_override=0.2425, studded=True, size='215/65 R17', g_source="test"),
     "t_nokian_nordman_north_rs3_suv": Tyre('Nokian Nordman North RS3 SUV', C.WINTER_NORDIC, 1.1, mu_dry_override=0.8317, mu_snow_override=0.3739, mu_ice_override=0.1966, size='235/60 R18', g_source="test"),
-    "t_nokian_nordman_rs": Tyre('Nokian Nordman RS', C.WINTER_NORDIC, 0.972, mu_dry_override=0.7813, mu_snow_override=0.3499, mu_ice_override=0.147, size='205/55 R16', g_source="test"),
+    "t_nokian_nordman_rs": Tyre('Nokian Nordman RS', C.WINTER_NORDIC, 0.967, mu_dry_override=0.7813, mu_snow_override=0.3499, mu_ice_override=0.147, size='205/55 R16', g_source="test"),
     "t_nokian_nordman_rs_2": Tyre('Nokian Nordman RS 2', C.WINTER_NORDIC, 1.088, mu_dry_override=0.8317, mu_snow_override=0.3627, mu_ice_override=0.1896, size='195/65 R15', g_source="test"),
     "t_nokian_nordman_rs2_suv": Tyre('Nokian Nordman RS2 SUV', C.WINTER_NORDIC, 1.15, mu_dry_override=0.8148, mu_snow_override=0.377, mu_ice_override=0.2086, size='215/65 R16', g_source="test"),
     "t_pirelli_ice_friction": Tyre('Pirelli Ice Friction', C.WINTER_NORDIC, 1.2, mu_dry_override=0.8571, mu_snow_override=0.3811, mu_ice_override=0.195, size='235/60 R18', g_source="test"),
-    "t_pirelli_winter_icecontrol": Tyre('Pirelli Winter IceControl', C.WINTER_NORDIC, 1.143, mu_dry_override=0.8449, mu_snow_override=0.355, mu_ice_override=0.176, size='205/55 R16', g_source="test"),
-    "t_pirelli_ice_zero": Tyre('Pirelli Ice Zero', C.WINTER_STUDDED, 1.266, mu_dry_override=0.8234, mu_snow_override=0.3696, mu_ice_override=0.2163, studded=True, size='195/65 R15', g_source="test"),
+    "t_pirelli_winter_icecontrol": Tyre('Pirelli Winter IceControl', C.WINTER_NORDIC, 1.143, mu_dry_override=0.8449, mu_snow_override=0.3554, mu_ice_override=0.176, size='205/55 R16', g_source="test"),
+    "t_pirelli_ice_zero": Tyre('Pirelli Ice Zero', C.WINTER_STUDDED, 1.266, mu_dry_override=0.8234, mu_snow_override=0.3701, mu_ice_override=0.2163, studded=True, size='195/65 R15', g_source="test"),
     "t_pirelli_ice_zero_asimmetrico": Tyre('Pirelli Ice Zero Asimmetrico', C.WINTER_NORDIC, 1.061, mu_dry_override=0.825, mu_snow_override=0.3752, mu_ice_override=0.1916, size='225/45 R17', g_source="test"),
-    "t_pirelli_ice_zero_fr": Tyre('Pirelli Ice Zero FR', C.WINTER_NORDIC, 1.183, mu_dry_override=0.8483, mu_snow_override=0.3697, mu_ice_override=0.1948, size='195/65 R15', g_source="test"),
+    "t_pirelli_ice_zero_fr": Tyre('Pirelli Ice Zero FR', C.WINTER_NORDIC, 1.15, mu_dry_override=0.8483, mu_snow_override=0.3697, mu_ice_override=0.1944, size='205/55 R16', g_source="test"),
     "t_pirelli_scorpion_icezero_2": Tyre('Pirelli Scorpion IceZero 2', C.WINTER_STUDDED, 1.338, mu_dry_override=0.8262, mu_snow_override=0.3879, mu_ice_override=0.2072, studded=True, size='235/60 R18', g_source="test"),
     "t_radar_dimax_ice": Tyre('Radar Dimax Ice', C.WINTER_NORDIC, 1.078, mu_dry_override=0.8056, mu_snow_override=0.367, mu_ice_override=0.1483, size='225/45 R17', g_source="test"),
-    "t_sailun_ice_blazer_wsl2": Tyre('Sailun Ice Blazer WSL2', C.WINTER_NORDIC, 1.158, mu_dry_override=0.8013, mu_snow_override=0.3443, mu_ice_override=0.1674, size='195/65 R15', g_source="test"),
+    "t_sailun_ice_blazer_wsl2": Tyre('Sailun Ice Blazer WSL2', C.WINTER_NORDIC, 1.145, mu_dry_override=0.807, mu_snow_override=0.3443, mu_ice_override=0.1674, size='195/65 R15', g_source="test"),
     "t_sailun_ice_blazer_wst3": Tyre('Sailun Ice Blazer WST3', C.WINTER_STUDDED, 1.204, mu_dry_override=0.7906, mu_snow_override=0.3669, mu_ice_override=0.1691, studded=True, size='215/65 R16', g_source="test"),
-    "t_sailun_winterpro_sw61": Tyre('Sailun Winterpro SW61', C.WINTER_NORDIC, 1.273, mu_dry_override=0.8543, mu_snow_override=0.3444, mu_ice_override=0.1799, size='205/55 R16', g_source="test"),
+    "t_sailun_winterpro_sw61": Tyre('Sailun Winterpro SW61', C.WINTER_NORDIC, 1.273, mu_dry_override=0.8543, mu_snow_override=0.3562, mu_ice_override=0.1799, size='205/55 R16', g_source="test"),
     "t_sava_eskimo_ice": Tyre('Sava Eskimo Ice', C.WINTER_NORDIC, 1.132, mu_dry_override=0.7824, mu_snow_override=0.3773, mu_ice_override=0.2105, size='205/55 R16', g_source="test"),
     "t_sava_eskimo_stud": Tyre('Sava Eskimo Stud', C.WINTER_STUDDED, 1.272, mu_dry_override=0.846, mu_snow_override=0.3752, mu_ice_override=0.186, studded=True, size='205/55 R16', g_source="test"),
-    "t_tigar_ice": Tyre('Tigar Ice', C.WINTER_STUDDED, 1.384, mu_dry_override=0.8321, mu_snow_override=0.3545, mu_ice_override=0.1894, studded=True, size='205/55 R16', g_source="test"),
+    "t_sunfull_sf_w11": Tyre('Sunfull SF W11', C.WINTER_STUDDED, 1.431, mu_dry_override=0.8412, mu_ice_override=0.1952, studded=True, size='205/55 R16', g_source="test"),
+    "t_tigar_ice": Tyre('Tigar Ice', C.WINTER_STUDDED, 1.385, mu_dry_override=0.8321, mu_snow_override=0.3545, mu_ice_override=0.1894, studded=True, size='205/55 R16', g_source="test"),
     "t_tigar_suv_ice": Tyre('Tigar SUV Ice', C.WINTER_STUDDED, 1.406, mu_dry_override=0.8983, mu_snow_override=0.3624, mu_ice_override=0.1709, studded=True, size='235/60 R18', g_source="test"),
     "t_toyo_observe_g3_ice": Tyre('Toyo Observe G3-Ice', C.WINTER_STUDDED, 1.207, mu_dry_override=0.8064, mu_snow_override=0.3672, mu_ice_override=0.1811, studded=True, size='185/65 R15', g_source="test"),
-    "t_toyo_observe_gsi_5": Tyre('Toyo Observe GSi-5', C.WINTER_NORDIC, 0.98, mu_dry_override=0.781, mu_snow_override=0.365, mu_ice_override=0.1903, size='205/55 R16', g_source="test"),
-    "t_toyo_observe_gsi_6": Tyre('Toyo Observe GSi-6', C.WINTER_NORDIC, 1.099, mu_dry_override=0.8347, mu_snow_override=0.367, mu_ice_override=0.1983, size='195/65 R15', g_source="test"),
-    "t_toyo_observe_gsi_6_hp": Tyre('Toyo Observe GSi-6 HP', C.WINTER_NORDIC, 1.194, mu_dry_override=0.8428, mu_snow_override=0.369, mu_ice_override=0.19, size='205/55 R16', g_source="test"),
+    "t_toyo_observe_gsi_5": Tyre('Toyo Observe GSi-5', C.WINTER_NORDIC, 0.971, mu_dry_override=0.781, mu_snow_override=0.365, mu_ice_override=0.1903, size='205/55 R16', g_source="test"),
+    "t_toyo_observe_gsi_6": Tyre('Toyo Observe GSi-6', C.WINTER_NORDIC, 1.086, mu_dry_override=0.8406, mu_snow_override=0.367, mu_ice_override=0.1983, size='195/65 R15', g_source="test"),
+    "t_toyo_observe_gsi_6_hp": Tyre('Toyo Observe GSi-6 HP', C.WINTER_NORDIC, 1.194, mu_dry_override=0.8428, mu_snow_override=0.3816, mu_ice_override=0.19, size='205/55 R16', g_source="test"),
     "t_toyo_observe_ice_freezer": Tyre('Toyo Observe Ice-Freezer', C.WINTER_STUDDED, 1.202, mu_dry_override=0.8134, mu_snow_override=0.3627, mu_ice_override=0.1655, studded=True, size='205/60 R16', g_source="test"),
     "t_toyo_observe_ice_freezer_suv": Tyre('Toyo Observe Ice-Freezer SUV', C.WINTER_STUDDED, 1.177, mu_dry_override=0.8029, mu_snow_override=0.3768, mu_ice_override=0.1851, studded=True, size='215/65 R16', g_source="test"),
     "t_triangle_icelink": Tyre('Triangle IceLink', C.WINTER_STUDDED, 1.271, mu_dry_override=0.8549, mu_snow_override=0.3597, mu_ice_override=0.1767, studded=True, size='195/65 R15', g_source="test"),
     "t_triangle_icelink_sport_utility": Tyre('Triangle Icelink Sport Utility', C.WINTER_STUDDED, 1.315, mu_dry_override=0.8639, mu_snow_override=0.3718, mu_ice_override=0.1634, studded=True, size='215/65 R16', g_source="test"),
     "t_triangle_icelynx_ti501": Tyre('Triangle IceLynx TI501', C.WINTER_STUDDED, 1.453, mu_dry_override=0.8533, mu_snow_override=0.3821, mu_ice_override=0.1444, studded=True, size='235/60 R18', g_source="test"),
     "t_triangle_snowlink_pl01": Tyre('Triangle Snowlink PL01', C.WINTER_NORDIC, 1.09, mu_dry_override=0.8547, mu_snow_override=0.361, mu_ice_override=0.182, size='225/45 R17', g_source="test"),
-    "t_vredestein_nord_trac_2": Tyre('Vredestein Nord-Trac 2', C.WINTER_NORDIC, 1.159, mu_dry_override=0.8696, mu_snow_override=0.3543, mu_ice_override=0.1605, size='205/55 R16', g_source="test"),
-    "t_yokohama_iceguard_ig50_plus": Tyre('Yokohama iceGUARD iG50 Plus', C.WINTER_NORDIC, 1.17, mu_snow_override=0.3618, mu_ice_override=0.1578, size='205/55 R16', g_source="test"),
+    "t_vredestein_nord_trac_2": Tyre('Vredestein Nord-Trac 2', C.WINTER_NORDIC, 1.159, mu_dry_override=0.8696, mu_snow_override=0.3548, mu_ice_override=0.1605, size='205/55 R16', g_source="test"),
+    "t_winrun_winter_max_s1_wr60": Tyre('Winrun Winter Max S1 WR60', C.WINTER_STUDDED, 1.288, mu_dry_override=0.7999, mu_ice_override=0.1834, studded=True, size='205/55 R16', g_source="test"),
+    "t_yokohama_iceguard_ig50_plus": Tyre('Yokohama iceGUARD iG50 Plus', C.WINTER_NORDIC, 1.17, mu_snow_override=0.3619, mu_ice_override=0.1578, size='205/55 R16', g_source="test"),
+    "t_yokohama_iceguard_ig53": Tyre('Yokohama iceGUARD iG53', C.WINTER_NORDIC, 1.026, mu_dry_override=0.7933, mu_snow_override=0.3878, mu_ice_override=0.1978, size='205/55 R16', g_source="test"),
     "t_yokohama_iceguard_ig55": Tyre('Yokohama iceGUARD iG55', C.WINTER_STUDDED, 1.152, mu_dry_override=0.7905, mu_snow_override=0.359, mu_ice_override=0.182, studded=True, size='175/65 R14', g_source="test"),
     "t_yokohama_iceguard_ig60": Tyre('Yokohama IceGuard IG60', C.WINTER_NORDIC, 1.122, mu_dry_override=0.7972, mu_snow_override=0.377, mu_ice_override=0.2073, size='215/65 R16', g_source="test"),
     "t_yokohama_iceguard_ig65": Tyre('Yokohama iceGUARD iG65', C.WINTER_STUDDED, 1.297, mu_dry_override=0.842, mu_snow_override=0.375, mu_ice_override=0.2072, studded=True, size='235/60 R18', g_source="test"),
@@ -130,6 +135,40 @@ TYRES_TULETATUD = {
 
 # mis testidest ja mitme vaatlusega iga väärtus tuli (leht näitab)
 TULETUS = {
+ "t_antares_grip_60_ice": {
+  "nimi": "Antares GRIP 60 ice",
+  "pinnad": {
+   "ice": {
+    "mu": 0.2039,
+    "n": 1,
+    "testid": [
+     "TESTIRENKAAT-2023-W-205-55R16-studded"
+    ],
+    "kaal": 0.18
+   },
+   "dry": {
+    "mu": 0.7883,
+    "n": 1,
+    "testid": [
+     "TESTIRENKAAT-2023-W-205-55R16-studded"
+    ],
+    "kaal": 0.35
+   },
+   "wet": {
+    "mu": 1.1386,
+    "n": 1,
+    "testid": [
+     "TESTIRENKAAT-2023-W-205-55R16-studded"
+    ],
+    "kaal": 0.35
+   }
+  },
+  "testid": [
+   "TESTIRENKAAT-2023-W-205-55R16-studded"
+  ],
+  "viimane": 2023,
+  "g_allikas": "test"
+ },
  "t_bfgoodrich_g_force_stud": {
   "nimi": "BFGoodrich g-Force Stud",
   "pinnad": {
@@ -291,7 +330,7 @@ TULETUS = {
     "kaal": 0.09
    },
    "snow": {
-    "mu": 0.3597,
+    "mu": 0.3599,
     "n": 1,
     "testid": [
      "ZaRulem-2017-W-205-55R16-friction"
@@ -307,7 +346,7 @@ TULETUS = {
     "kaal": 0.18
    },
    "wet": {
-    "mu": 1.1077,
+    "mu": 1.1018,
     "n": 1,
     "testid": [
      "ZaRulem-2017-W-205-55R16-friction"
@@ -449,7 +488,7 @@ TULETUS = {
     "kaal": 0.5
    },
    "wet": {
-    "mu": 1.1421,
+    "mu": 1.1357,
     "n": 3,
     "testid": [
      "ZaRulem-2015-W-175-65R14-friction",
@@ -479,7 +518,7 @@ TULETUS = {
     "kaal": 0.11
    },
    "snow": {
-    "mu": 0.3588,
+    "mu": 0.3593,
     "n": 1,
     "testid": [
      "TM-2013-W-205-55R16"
@@ -522,7 +561,7 @@ TULETUS = {
     "kaal": 0.31
    },
    "snow": {
-    "mu": 0.3625,
+    "mu": 0.3626,
     "n": 2,
     "testid": [
      "TM-2015-W-205-55R16",
@@ -625,7 +664,7 @@ TULETUS = {
     "kaal": 0.11
    },
    "snow": {
-    "mu": 0.371,
+    "mu": 0.3715,
     "n": 1,
     "testid": [
      "TM-2013-W-205-55R16"
@@ -789,7 +828,7 @@ TULETUS = {
     "kaal": 0.11
    },
    "snow": {
-    "mu": 0.3556,
+    "mu": 0.3561,
     "n": 1,
     "testid": [
      "TM-2013-W-205-55R16"
@@ -835,7 +874,7 @@ TULETUS = {
     "kaal": 0.55
    },
    "snow": {
-    "mu": 0.3646,
+    "mu": 0.3647,
     "n": 5,
     "testid": [
      "TM-2015-W-205-55R16",
@@ -858,7 +897,7 @@ TULETUS = {
     "kaal": 0.61
    },
    "wet": {
-    "mu": 1.2222,
+    "mu": 1.2157,
     "n": 4,
     "testid": [
      "TM-2015-W-205-55R16",
@@ -884,12 +923,13 @@ TULETUS = {
   "pinnad": {
    "ice": {
     "mu": 0.2115,
-    "n": 12,
+    "n": 13,
     "testid": [
      "MOOTTORI-2018-W-NORDIC-205-55R16-PARTIAL",
      "TEKNIKENSVARLD-2021-W-205-55R16",
      "TM-2020-W-205-55R16-mixed",
      "TUULILASI-2018-W-NORDIC-205-55R16-PARTIAL",
+     "TYREREVIEWS-2022-W-205-55R16",
      "VIBILAGARE-2022-W-NORDIC-235-55R18",
      "VIBILAGARE-2023-W-NORDIC-225-45R17",
      "ViBilagare-2019-W-225-50R17",
@@ -899,30 +939,32 @@ TULETUS = {
      "ZaRulem-2021-W-215-65R16-friction",
      "ZaRulem-2022-W-195-65R15-friction"
     ],
-    "kaal": 2.14
+    "kaal": 2.37
    },
    "snow": {
     "mu": 0.376,
-    "n": 9,
-    "testid": [
-     "TEKNIKENSVARLD-2021-W-205-55R16",
-     "TM-2020-W-205-55R16-mixed",
-     "VIBILAGARE-2022-W-NORDIC-235-55R18",
-     "VIBILAGARE-2023-W-NORDIC-225-45R17",
-     "ViBilagare-2019-W-225-50R17",
-     "ZaRulem-2018-W-205-55R16-friction",
-     "ZaRulem-2019-W-195-65R15-friction",
-     "ZaRulem-2021-W-215-65R16-friction",
-     "ZaRulem-2022-W-195-65R15-friction"
-    ],
-    "kaal": 2.23
-   },
-   "dry": {
-    "mu": 0.8483,
     "n": 10,
     "testid": [
      "TEKNIKENSVARLD-2021-W-205-55R16",
      "TM-2020-W-205-55R16-mixed",
+     "TYREREVIEWS-2022-W-205-55R16",
+     "VIBILAGARE-2022-W-NORDIC-235-55R18",
+     "VIBILAGARE-2023-W-NORDIC-225-45R17",
+     "ViBilagare-2019-W-225-50R17",
+     "ZaRulem-2018-W-205-55R16-friction",
+     "ZaRulem-2019-W-195-65R15-friction",
+     "ZaRulem-2021-W-215-65R16-friction",
+     "ZaRulem-2022-W-195-65R15-friction"
+    ],
+    "kaal": 2.49
+   },
+   "dry": {
+    "mu": 0.8559,
+    "n": 11,
+    "testid": [
+     "TEKNIKENSVARLD-2021-W-205-55R16",
+     "TM-2020-W-205-55R16-mixed",
+     "TYREREVIEWS-2022-W-205-55R16",
      "VIBILAGARE-2022-W-NORDIC-235-55R18",
      "VIBILAGARE-2023-W-NORDIC-225-45R17",
      "ViBilagare-2020-W-205-60R16",
@@ -932,14 +974,15 @@ TULETUS = {
      "ZaRulem-2021-W-215-65R16-friction",
      "ZaRulem-2022-W-195-65R15-friction"
     ],
-    "kaal": 3.2
+    "kaal": 3.62
    },
    "wet": {
     "mu": 1.1702,
-    "n": 11,
+    "n": 12,
     "testid": [
      "TEKNIKENSVARLD-2021-W-205-55R16",
      "TM-2020-W-205-55R16-mixed",
+     "TYREREVIEWS-2022-W-205-55R16",
      "VIBILAGARE-2022-W-NORDIC-235-55R18",
      "VIBILAGARE-2023-W-NORDIC-225-45R17",
      "ViBilagare-2019-W-225-50R17",
@@ -950,7 +993,7 @@ TULETUS = {
      "ZaRulem-2021-W-215-65R16-friction",
      "ZaRulem-2022-W-195-65R15-friction"
     ],
-    "kaal": 3.49
+    "kaal": 3.91
    }
   },
   "testid": [
@@ -958,6 +1001,7 @@ TULETUS = {
    "TEKNIKENSVARLD-2021-W-205-55R16",
    "TM-2020-W-205-55R16-mixed",
    "TUULILASI-2018-W-NORDIC-205-55R16-PARTIAL",
+   "TYREREVIEWS-2022-W-205-55R16",
    "VIBILAGARE-2022-W-NORDIC-235-55R18",
    "VIBILAGARE-2023-W-NORDIC-225-45R17",
    "ViBilagare-2019-W-225-50R17",
@@ -1083,7 +1127,7 @@ TULETUS = {
     "kaal": 0.16
    },
    "wet": {
-    "mu": 1.0911,
+    "mu": 1.085,
     "n": 1,
     "testid": [
      "ZaRulem-2016-W-225-45R17-friction"
@@ -1125,7 +1169,7 @@ TULETUS = {
     "kaal": 0.2
    },
    "wet": {
-    "mu": 1.1175,
+    "mu": 1.1066,
     "n": 1,
     "testid": [
      "ZaRulem-2018-W-205-55R16-friction"
@@ -1231,6 +1275,48 @@ TULETUS = {
    "VIBILAGARE-2023-W-STUDDED-225-45R17"
   ],
   "viimane": 2023,
+  "g_allikas": "test"
+ },
+ "t_federal_himalaya_iceo": {
+  "nimi": "Federal Himalaya ICEO",
+  "pinnad": {
+   "ice": {
+    "mu": 0.1714,
+    "n": 1,
+    "testid": [
+     "TYREREVIEWS-2022-W-205-55R16"
+    ],
+    "kaal": 0.22
+   },
+   "snow": {
+    "mu": 0.3787,
+    "n": 1,
+    "testid": [
+     "TYREREVIEWS-2022-W-205-55R16"
+    ],
+    "kaal": 0.26
+   },
+   "dry": {
+    "mu": 0.8375,
+    "n": 1,
+    "testid": [
+     "TYREREVIEWS-2022-W-205-55R16"
+    ],
+    "kaal": 0.42
+   },
+   "wet": {
+    "mu": 1.1817,
+    "n": 1,
+    "testid": [
+     "TYREREVIEWS-2022-W-205-55R16"
+    ],
+    "kaal": 0.42
+   }
+  },
+  "testid": [
+   "TYREREVIEWS-2022-W-205-55R16"
+  ],
+  "viimane": 2022,
   "g_allikas": "test"
  },
  "t_firestone_ice_cruiser_7": {
@@ -1452,7 +1538,7 @@ TULETUS = {
     "kaal": 0.24
    },
    "snow": {
-    "mu": 0.362,
+    "mu": 0.3743,
     "n": 2,
     "testid": [
      "ZaRulem-2019-W-195-65R15-friction",
@@ -1857,7 +1943,7 @@ TULETUS = {
     "kaal": 0.11
    },
    "snow": {
-    "mu": 0.3316,
+    "mu": 0.3321,
     "n": 1,
     "testid": [
      "TM-2013-W-205-55R16"
@@ -1957,7 +2043,7 @@ TULETUS = {
     "kaal": 1.76
    },
    "snow": {
-    "mu": 0.369,
+    "mu": 0.3722,
     "n": 9,
     "testid": [
      "TEKNIKENSVARLD-2021-W-205-55R16",
@@ -2524,46 +2610,51 @@ TULETUS = {
   "viimane": 2020,
   "g_allikas": "test"
  },
- "t_marshal_i_zen_kw31": {
-  "nimi": "Marshal I'Zen KW31",
+ "t_marshal_izen_kw31": {
+  "nimi": "Marshal iZen KW31",
   "pinnad": {
    "ice": {
-    "mu": 0.1868,
-    "n": 1,
+    "mu": 0.1753,
+    "n": 2,
     "testid": [
+     "TYREREVIEWS-2025-W-205-55R16",
      "ZaRulem-2020-W-205-55R16-friction"
     ],
-    "kaal": 0.12
+    "kaal": 0.57
    },
    "snow": {
-    "mu": 0.3552,
-    "n": 1,
+    "mu": 0.3673,
+    "n": 2,
     "testid": [
+     "TYREREVIEWS-2025-W-205-55R16",
      "ZaRulem-2020-W-205-55R16-friction"
     ],
-    "kaal": 0.25
+    "kaal": 0.52
    },
    "dry": {
-    "mu": 0.8463,
-    "n": 1,
+    "mu": 0.8167,
+    "n": 2,
     "testid": [
+     "TYREREVIEWS-2025-W-205-55R16",
      "ZaRulem-2020-W-205-55R16-friction"
     ],
-    "kaal": 0.25
+    "kaal": 1.14
    },
    "wet": {
-    "mu": 1.0396,
-    "n": 1,
+    "mu": 1.1125,
+    "n": 2,
     "testid": [
+     "TYREREVIEWS-2025-W-205-55R16",
      "ZaRulem-2020-W-205-55R16-friction"
     ],
-    "kaal": 0.25
+    "kaal": 1.14
    }
   },
   "testid": [
+   "TYREREVIEWS-2025-W-205-55R16",
    "ZaRulem-2020-W-205-55R16-friction"
   ],
-  "viimane": 2020,
+  "viimane": 2025,
   "g_allikas": "test"
  },
  "t_matador_mp_30_sibir_ice_2": {
@@ -2725,7 +2816,7 @@ TULETUS = {
     "kaal": 0.16
    },
    "wet": {
-    "mu": 1.1529,
+    "mu": 1.1464,
     "n": 1,
     "testid": [
      "ZaRulem-2016-W-225-45R17-friction"
@@ -2755,7 +2846,7 @@ TULETUS = {
     "kaal": 0.59
    },
    "snow": {
-    "mu": 0.3739,
+    "mu": 0.3743,
     "n": 5,
     "testid": [
      "TM-2013-W-205-55R16",
@@ -2907,7 +2998,7 @@ TULETUS = {
     "kaal": 0.42
    },
    "snow": {
-    "mu": 0.3625,
+    "mu": 0.3626,
     "n": 3,
     "testid": [
      "TM-2013-W-205-55R16",
@@ -3097,7 +3188,7 @@ TULETUS = {
     "kaal": 0.22
    },
    "dry": {
-    "mu": 0.7988,
+    "mu": 0.8045,
     "n": 1,
     "testid": [
      "ZaRulem-2019-W-195-65R15-friction"
@@ -3105,7 +3196,7 @@ TULETUS = {
     "kaal": 0.22
    },
    "wet": {
-    "mu": 1.0101,
+    "mu": 0.9982,
     "n": 1,
     "testid": [
      "ZaRulem-2019-W-195-65R15-friction"
@@ -3131,7 +3222,7 @@ TULETUS = {
     "kaal": 0.12
    },
    "snow": {
-    "mu": 0.3574,
+    "mu": 0.3696,
     "n": 1,
     "testid": [
      "ZaRulem-2020-W-205-55R16-friction"
@@ -3857,7 +3948,7 @@ TULETUS = {
     "kaal": 1.09
    },
    "dry": {
-    "mu": 0.8505,
+    "mu": 0.8539,
     "n": 7,
     "testid": [
      "TEKNIKENSVARLD-2021-W-205-55R16",
@@ -4406,7 +4497,7 @@ TULETUS = {
     "kaal": 0.28
    },
    "wet": {
-    "mu": 0.9718,
+    "mu": 0.9666,
     "n": 2,
     "testid": [
      "TM-2015-W-205-55R16",
@@ -4580,7 +4671,7 @@ TULETUS = {
     "kaal": 0.11
    },
    "snow": {
-    "mu": 0.355,
+    "mu": 0.3554,
     "n": 1,
     "testid": [
      "TM-2013-W-205-55R16"
@@ -4626,7 +4717,7 @@ TULETUS = {
     "kaal": 0.59
    },
    "snow": {
-    "mu": 0.3696,
+    "mu": 0.3701,
     "n": 5,
     "testid": [
      "TM-2013-W-205-55R16",
@@ -4716,14 +4807,16 @@ TULETUS = {
   "nimi": "Pirelli Ice Zero FR",
   "pinnad": {
    "ice": {
-    "mu": 0.1948,
-    "n": 11,
+    "mu": 0.1944,
+    "n": 13,
     "testid": [
      "MOOTTORI-2018-W-NORDIC-205-55R16-PARTIAL",
+     "TESTIRENKAAT-2023-W-205-55R16-friction",
      "TM-2015-W-205-55R16",
      "TM-2016-W-205-55R16-friction",
      "TM-2020-W-205-55R16-mixed",
      "TUULILASI-2018-W-NORDIC-205-55R16-PARTIAL",
+     "TYREREVIEWS-2022-W-205-55R16",
      "ZaRulem-2016-W-225-45R17-friction",
      "ZaRulem-2017-W-205-55R16-friction",
      "ZaRulem-2018-W-205-55R16-friction",
@@ -4731,29 +4824,32 @@ TULETUS = {
      "ZaRulem-2020-W-205-55R16-friction",
      "ZaRulem-2022-W-195-65R15-friction"
     ],
-    "kaal": 1.48
+    "kaal": 2.06
    },
    "snow": {
     "mu": 0.3697,
-    "n": 8,
+    "n": 9,
     "testid": [
      "TM-2015-W-205-55R16",
      "TM-2016-W-205-55R16-friction",
      "TM-2020-W-205-55R16-mixed",
+     "TYREREVIEWS-2022-W-205-55R16",
      "ZaRulem-2016-W-225-45R17-friction",
      "ZaRulem-2017-W-205-55R16-friction",
      "ZaRulem-2018-W-205-55R16-friction",
      "ZaRulem-2019-W-195-65R15-friction",
      "ZaRulem-2022-W-195-65R15-friction"
     ],
-    "kaal": 1.6
+    "kaal": 1.86
    },
    "dry": {
     "mu": 0.8483,
-    "n": 9,
+    "n": 11,
     "testid": [
+     "TESTIRENKAAT-2023-W-205-55R16-friction",
      "TM-2015-W-205-55R16",
      "TM-2020-W-205-55R16-mixed",
+     "TYREREVIEWS-2022-W-205-55R16",
      "ViBilagare-2020-W-205-60R16",
      "ZaRulem-2016-W-225-45R17-friction",
      "ZaRulem-2017-W-205-55R16-friction",
@@ -4762,14 +4858,16 @@ TULETUS = {
      "ZaRulem-2020-W-205-55R16-friction",
      "ZaRulem-2022-W-195-65R15-friction"
     ],
-    "kaal": 2.08
+    "kaal": 3.21
    },
    "wet": {
-    "mu": 1.1825,
-    "n": 9,
+    "mu": 1.1495,
+    "n": 11,
     "testid": [
+     "TESTIRENKAAT-2023-W-205-55R16-friction",
      "TM-2015-W-205-55R16",
      "TM-2020-W-205-55R16-mixed",
+     "TYREREVIEWS-2022-W-205-55R16",
      "ViBilagare-2020-W-205-60R16",
      "ZaRulem-2016-W-225-45R17-friction",
      "ZaRulem-2017-W-205-55R16-friction",
@@ -4778,15 +4876,17 @@ TULETUS = {
      "ZaRulem-2020-W-205-55R16-friction",
      "ZaRulem-2022-W-195-65R15-friction"
     ],
-    "kaal": 2.08
+    "kaal": 3.21
    }
   },
   "testid": [
    "MOOTTORI-2018-W-NORDIC-205-55R16-PARTIAL",
+   "TESTIRENKAAT-2023-W-205-55R16-friction",
    "TM-2015-W-205-55R16",
    "TM-2016-W-205-55R16-friction",
    "TM-2020-W-205-55R16-mixed",
    "TUULILASI-2018-W-NORDIC-205-55R16-PARTIAL",
+   "TYREREVIEWS-2022-W-205-55R16",
    "ViBilagare-2020-W-205-60R16",
    "ZaRulem-2016-W-225-45R17-friction",
    "ZaRulem-2017-W-205-55R16-friction",
@@ -4795,7 +4895,7 @@ TULETUS = {
    "ZaRulem-2020-W-205-55R16-friction",
    "ZaRulem-2022-W-195-65R15-friction"
   ],
-  "viimane": 2022,
+  "viimane": 2023,
   "g_allikas": "test"
  },
  "t_pirelli_scorpion_icezero_2": {
@@ -4907,7 +5007,7 @@ TULETUS = {
     "kaal": 0.22
    },
    "dry": {
-    "mu": 0.8013,
+    "mu": 0.807,
     "n": 1,
     "testid": [
      "ZaRulem-2019-W-195-65R15-friction"
@@ -4915,7 +5015,7 @@ TULETUS = {
     "kaal": 0.22
    },
    "wet": {
-    "mu": 1.1584,
+    "mu": 1.1447,
     "n": 1,
     "testid": [
      "ZaRulem-2019-W-195-65R15-friction"
@@ -4997,7 +5097,7 @@ TULETUS = {
     "kaal": 0.12
    },
    "snow": {
-    "mu": 0.3444,
+    "mu": 0.3562,
     "n": 1,
     "testid": [
      "ZaRulem-2020-W-205-55R16-friction"
@@ -5124,16 +5224,51 @@ TULETUS = {
   "viimane": 2021,
   "g_allikas": "test"
  },
+ "t_sunfull_sf_w11": {
+  "nimi": "Sunfull SF W11",
+  "pinnad": {
+   "ice": {
+    "mu": 0.1952,
+    "n": 1,
+    "testid": [
+     "TESTIRENKAAT-2023-W-205-55R16-studded"
+    ],
+    "kaal": 0.18
+   },
+   "dry": {
+    "mu": 0.8412,
+    "n": 1,
+    "testid": [
+     "TESTIRENKAAT-2023-W-205-55R16-studded"
+    ],
+    "kaal": 0.35
+   },
+   "wet": {
+    "mu": 1.4309,
+    "n": 1,
+    "testid": [
+     "TESTIRENKAAT-2023-W-205-55R16-studded"
+    ],
+    "kaal": 0.35
+   }
+  },
+  "testid": [
+   "TESTIRENKAAT-2023-W-205-55R16-studded"
+  ],
+  "viimane": 2023,
+  "g_allikas": "test"
+ },
  "t_tigar_ice": {
   "nimi": "Tigar Ice",
   "pinnad": {
    "ice": {
     "mu": 0.1894,
-    "n": 1,
+    "n": 2,
     "testid": [
+     "TESTIRENKAAT-2023-W-205-55R16-studded",
      "ZaRulem-2021-W-205-55R16-studded"
     ],
-    "kaal": 0.16
+    "kaal": 0.34
    },
    "snow": {
     "mu": 0.3545,
@@ -5145,25 +5280,28 @@ TULETUS = {
    },
    "dry": {
     "mu": 0.8321,
-    "n": 1,
+    "n": 2,
     "testid": [
+     "TESTIRENKAAT-2023-W-205-55R16-studded",
      "ZaRulem-2021-W-205-55R16-studded"
     ],
-    "kaal": 0.32
+    "kaal": 0.67
    },
    "wet": {
     "mu": 1.3845,
-    "n": 1,
+    "n": 2,
     "testid": [
+     "TESTIRENKAAT-2023-W-205-55R16-studded",
      "ZaRulem-2021-W-205-55R16-studded"
     ],
-    "kaal": 0.32
+    "kaal": 0.67
    }
   },
   "testid": [
+   "TESTIRENKAAT-2023-W-205-55R16-studded",
    "ZaRulem-2021-W-205-55R16-studded"
   ],
-  "viimane": 2021,
+  "viimane": 2023,
   "g_allikas": "test"
  },
  "t_tigar_suv_ice": {
@@ -5310,7 +5448,7 @@ TULETUS = {
     "kaal": 0.67
    },
    "wet": {
-    "mu": 0.9803,
+    "mu": 0.9707,
     "n": 4,
     "testid": [
      "ZaRulem-2015-W-175-65R14-friction",
@@ -5350,7 +5488,7 @@ TULETUS = {
     "kaal": 0.22
    },
    "dry": {
-    "mu": 0.8347,
+    "mu": 0.8406,
     "n": 1,
     "testid": [
      "ZaRulem-2019-W-195-65R15-friction"
@@ -5358,7 +5496,7 @@ TULETUS = {
     "kaal": 0.22
    },
    "wet": {
-    "mu": 1.0986,
+    "mu": 1.0857,
     "n": 1,
     "testid": [
      "ZaRulem-2019-W-195-65R15-friction"
@@ -5385,7 +5523,7 @@ TULETUS = {
     "kaal": 0.41
    },
    "snow": {
-    "mu": 0.369,
+    "mu": 0.3816,
     "n": 2,
     "testid": [
      "TM-2020-W-205-55R16-mixed",
@@ -5701,7 +5839,7 @@ TULETUS = {
     "kaal": 0.11
    },
    "snow": {
-    "mu": 0.3543,
+    "mu": 0.3548,
     "n": 1,
     "testid": [
      "TM-2013-W-205-55R16"
@@ -5731,6 +5869,40 @@ TULETUS = {
   "viimane": 2013,
   "g_allikas": "test"
  },
+ "t_winrun_winter_max_s1_wr60": {
+  "nimi": "Winrun Winter Max S1 WR60",
+  "pinnad": {
+   "ice": {
+    "mu": 0.1834,
+    "n": 1,
+    "testid": [
+     "TESTIRENKAAT-2023-W-205-55R16-studded"
+    ],
+    "kaal": 0.18
+   },
+   "dry": {
+    "mu": 0.7999,
+    "n": 1,
+    "testid": [
+     "TESTIRENKAAT-2023-W-205-55R16-studded"
+    ],
+    "kaal": 0.35
+   },
+   "wet": {
+    "mu": 1.2883,
+    "n": 1,
+    "testid": [
+     "TESTIRENKAAT-2023-W-205-55R16-studded"
+    ],
+    "kaal": 0.35
+   }
+  },
+  "testid": [
+   "TESTIRENKAAT-2023-W-205-55R16-studded"
+  ],
+  "viimane": 2023,
+  "g_allikas": "test"
+ },
  "t_yokohama_iceguard_ig50_plus": {
   "nimi": "Yokohama iceGUARD iG50 Plus",
   "pinnad": {
@@ -5743,7 +5915,7 @@ TULETUS = {
     "kaal": 0.17
    },
    "snow": {
-    "mu": 0.3618,
+    "mu": 0.3619,
     "n": 1,
     "testid": [
      "TM-2016-W-205-55R16-friction"
@@ -5756,6 +5928,48 @@ TULETUS = {
   ],
   "viimane": 2016,
   "g_allikas": "D-klassi keskpunkt (märg mõõtmata)"
+ },
+ "t_yokohama_iceguard_ig53": {
+  "nimi": "Yokohama iceGUARD iG53",
+  "pinnad": {
+   "ice": {
+    "mu": 0.1978,
+    "n": 1,
+    "testid": [
+     "TYREREVIEWS-2022-W-205-55R16"
+    ],
+    "kaal": 0.22
+   },
+   "snow": {
+    "mu": 0.3878,
+    "n": 1,
+    "testid": [
+     "TYREREVIEWS-2022-W-205-55R16"
+    ],
+    "kaal": 0.26
+   },
+   "dry": {
+    "mu": 0.7933,
+    "n": 1,
+    "testid": [
+     "TYREREVIEWS-2022-W-205-55R16"
+    ],
+    "kaal": 0.42
+   },
+   "wet": {
+    "mu": 1.0258,
+    "n": 1,
+    "testid": [
+     "TYREREVIEWS-2022-W-205-55R16"
+    ],
+    "kaal": 0.42
+   }
+  },
+  "testid": [
+   "TYREREVIEWS-2022-W-205-55R16"
+  ],
+  "viimane": 2022,
+  "g_allikas": "test"
  },
  "t_yokohama_iceguard_ig55": {
   "nimi": "Yokohama iceGUARD iG55",

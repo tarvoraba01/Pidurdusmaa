@@ -117,6 +117,10 @@ export function teisenda(x, meieMoodud) {
 	t.url = otse ? otse.trim() : poeLinkMoodule(t);
 	if (otse) t.otse = true;
 	t.ct = /kaubik/i.test(t.carType) ? 2 : 1;
+	/* naastrehv (e-poes „… Naast TA“, „Naastrehv“): sobitub AINULT meie naastrehvide
+	   hulgast (koond.js) — muidu jääks ta sidumata või saaks lamellrehvi märgise.
+	   Välja nimi pole API kirjelduses kindel, seega vaatame kõiki tekstivälju. */
+	if (Object.values(x).some((v) => typeof v === 'string' && /\bnaast/i.test(v))) t.naast = true;
 	t.voti = epoeVoti(mark, nimi, moot, t.lisi);
 	delete t.carType;
 	return t;

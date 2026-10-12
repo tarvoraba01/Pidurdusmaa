@@ -28,7 +28,8 @@
 		if (keel.lang === 'et' || !data.descOsad || !data.tyre) return data.desc;
 		const o = data.descOsad;
 		const osad = [];
-		if (o.testid) osad.push(t('sõltumatu testi pidurdusmaad'));
+		if (o.fakt) osad.push(t('{test} testis {pind} {v} km/h: {m} m ({pos}./{n})', { test: o.fakt.src, pind: t(o.fakt.pind), v: o.fakt.v, m: num(o.fakt.m), pos: o.fakt.pos, n: o.fakt.n }));
+		else if (o.testid) osad.push(t('sõltumatu testi pidurdusmaad'));
 		if (o.g) osad.push(t('märjal haardumise klass {g}', { g: o.g }));
 		if (o.db) osad.push(t('müra {db} dB', { db: o.db }));
 		if (o.n) osad.push(t(o.n === 1 ? '{n} mõõt' : '{n} mõõtu', { n: o.n }));
@@ -147,7 +148,7 @@
 						/* NB: mitte 'Product' — Google nõuab Productil hinda (offers), arvustust
 						   või hinnangut, meil neid lehel pole (Search Console'i kriitiline viga). */
 						'@type': 'WebPage',
-						name: data.tyre.name + t(' — pidurdusmaa, märgis ja testid'),
+						name: data.tyre.name + (data.testitud ? t(' test — pidurdusmaa ja märgis') : t(' — pidurdusmaa, märgis ja testid')),
 						description: kirjeldus,
 						url: 'https://pidurdusmaa.ee' + L('/rehvid/' + data.tyre.slug + '/'),
 						inLanguage: keel.lang,
@@ -287,7 +288,7 @@
 {:else if data.liik === 'rehv'}
 	{@const ty = data.tyre}
 	<Meta
-		title={ty.name + t(' — pidurdusmaa, märgis ja testid')}
+		title={ty.name + (data.testitud ? t(' test — pidurdusmaa ja märgis') : t(' — pidurdusmaa, märgis ja testid'))}
 		desc={kirjeldus}
 		path="rehvid/{ty.slug}/"
 		canonical={data.canonical}

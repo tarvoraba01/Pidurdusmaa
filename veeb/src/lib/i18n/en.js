@@ -596,6 +596,8 @@ export default {
 "Hinda poodidest pole": "No shop prices yet",
 "Jääl 50→0": "On ice 50→0",
 "sobivad rehvid": "matching tyres",
+" test — pidurdusmaa ja märgis": " test — braking distance and label",
+"{test} testis {pind} {v} km/h: {m} m ({pos}./{n})": "{test} test: {pind} {v} km/h {m} m ({pos} of {n})",
 "Osta": "Buy",
 "Arvuta oma autoga": "Calculate for your car",
 "Kus osta": "Where to buy",

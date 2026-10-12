@@ -6,7 +6,7 @@
  * mis kalkulaator (nagu sitemap.xml) — käsitsi kirjutatud arve siin pole,
  * peale metoodikalehe täpsusnumbrite, mis on sealt sõna-sõnalt üle võetud.
  */
-import { core, models } from '$lib/server/andmed.js';
+import { core, models, extKokkuvote } from '$lib/server/andmed.js';
 import { autod } from '$lib/server/autod.js';
 import { arvuta } from '$lib/server/jaga.js';
 import { ARTIKLID, artikliTee } from '$lib/artiklid.js';
@@ -39,8 +39,9 @@ export function llmsTekst(lang = 'et') {
 		.sort()
 		.join(', ');
 	const nMud = n(Object.keys(models()).length), nMoot = n(c.eprelSizes.filter((m) => /^\d{5}R\d{2}C?$/.test(m)).length) /* ainult päris mõõdud (audit: ~690 võtit on nimest valesti loetud) */, nTest = n(c.tyres.length), nAuto = n(autod().polved.size);
+	const ext = extKokkuvote(); /* ajakirjatestid (testid_ext.json) */
 	const md = lang === 'et' ? m : (x) => (Math.round(x * 10) / 10).toString().replace('.', lang === 'en' ? '.' : ',');
-	if (lang === 'en' || lang === 'ru') return valisKeel(lang, { kuiv, marg, lumi, reakts, allikad, nMud, nMoot, nTest, nAuto, md, jaa });
+	if (lang === 'en' || lang === 'ru') return valisKeel(lang, { kuiv, marg, lumi, reakts, allikad, nMud, nMoot, nTest, nAuto, md, jaa, ext });
 	const artiklid = (ARTIKLID || [])
 		.map((a) => `- [${a.title}](${BASE}${artikliTee(a)})${a.desc ? ': ' + a.desc : ''}`)
 		.join('\n');
@@ -55,7 +56,7 @@ Lühifaktid (arvutatud sama mudeliga mis kalkulaator; VW Golf 8, 205/55 R16, uus
 - Reaktsiooniaeg 1 s lisab 90 km/h juures ${reakts} m; peatumisteekond märjal on seega umbes ${m(reakts + marg)} m.
 - Pidurdusmaa kasvab kiiruse ruudus: kahekordne kiirus ≈ neljakordne pidurdusmaa.
 
-Andmed: ${nMud} rehvimudelit EL-i rehvimärgise andmebaasist (EPREL), ${nMoot} rehvimõõtu, ${nTest} rehvi sõltumatutes testides (${allikad}), ${nAuto} automudeli põlvkonda tehase rehvimõõtudega.
+Andmed: ${nMud} rehvimudelit EL-i rehvimärgise andmebaasist (EPREL), ${nMoot} rehvimõõtu, ${nTest} rehvi sõltumatutes testides (${allikad}), lisaks ${n(ext.teste)} ajakirjatesti aastatest ${ext.min}–${ext.max} (${ext.pub}) — kokku ${n(ext.mudeleid)} rehvimudelil on lehel mõõdetud pidurdusmaad; ${nAuto} automudeli põlvkonda tehase rehvimõõtudega.
 
 Täpsus: 369 mõõdetud pidurdusmaa vastu on mudeli jääkviga asfaldil (märg ja kuiv) 4,4%, betoonil 6,6%, lumel 5,5%, jääl 6,9%. Tulemused on arvutatud hinnangud, mitte mõõtmised. Rehvide järjestust ei müüda: see tuleb ainult andmetest.
 
@@ -118,7 +119,7 @@ Key facts (same model as the calculator; VW Golf 8, 205/55 R16, typical new tyre
 - A 1 s reaction time adds ${x.reakts} m at 90 km/h, so the stopping distance on wet roads is about ${x.md(x.reakts + x.marg)} m.
 - Braking distance grows with the square of speed: double the speed ≈ four times the braking distance.
 
-Data: ${x.nMud} tyre models from the EU tyre label database (EPREL), ${x.nMoot} tyre sizes, ${x.nTest} tyres in independent tests (${x.allikad}), ${x.nAuto} car model generations with factory tyre sizes.
+Data: ${x.nMud} tyre models from the EU tyre label database (EPREL), ${x.nMoot} tyre sizes, ${x.nTest} tyres in independent tests (${x.allikad}), plus ${x.ext.teste} magazine tests from ${x.ext.min}–${x.ext.max} (${x.ext.pub}) — ${x.ext.mudeleid} tyre models have measured braking distances on their page; ${x.nAuto} car model generations with factory tyre sizes.
 
 Accuracy: against 369 measured braking distances the model's residual error is 4.4% on asphalt (wet and dry), 6.6% on concrete, 5.5% on snow and 6.9% on ice. Results are calculated estimates, not measurements. Tyre rankings are not for sale: they come from the data only.
 
@@ -152,7 +153,7 @@ When citing, please link to ${BASE}/en/ or the relevant page.
 - Время реакции 1 с добавляет на 90 км/ч ${x.reakts} м, поэтому остановочный путь на мокрой дороге около ${x.md(x.reakts + x.marg)} м.
 - Тормозной путь растёт пропорционально квадрату скорости: вдвое большая скорость ≈ вчетверо больший тормозной путь.
 
-Данные: ${x.nMud} моделей шин из базы европейской маркировки (EPREL), ${x.nMoot} размеров шин, ${x.nTest} шин в независимых тестах (${x.allikad}), ${x.nAuto} поколений моделей автомобилей с заводскими размерами шин.
+Данные: ${x.nMud} моделей шин из базы европейской маркировки (EPREL), ${x.nMoot} размеров шин, ${x.nTest} шин в независимых тестах (${x.allikad}), а также ${x.ext.teste} журнальных тестов ${x.ext.min}–${x.ext.max} гг. (${x.ext.pub}) — у ${x.ext.mudeleid} моделей шин на странице измеренный тормозной путь; ${x.nAuto} поколений моделей автомобилей с заводскими размерами шин.
 
 Точность: по 369 измеренным тормозным путям остаточная ошибка модели на асфальте (мокром и сухом) 4,4%, на бетоне 6,6%, на снегу 5,5%, на льду 6,9%. Результаты — расчётные оценки, а не измерения. Рейтинг шин не продаётся: он основан только на данных.
 

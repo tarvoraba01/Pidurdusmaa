@@ -163,6 +163,20 @@ export function extTests(slug) {
 	return d.rehvid[slug].map((x) => ({ ...x, src: d.allikad[x.t] || {} }));
 }
 
+/** Ajakirjatestide kokkuvõte llms.txt jaoks: testide arv, aastad, väljaanded (sagedamad ees). */
+export function extKokkuvote() {
+	const d = json('testid_ext.json');
+	if (!d || !d.allikad) return { teste: 0, mudeleid: 0, min: '', max: '', pub: '' };
+	const a = Object.values(d.allikad), aastad = a.map((x) => x.year).filter(Boolean);
+	const c = new Map();
+	for (const x of a) {
+		const p = String(x.pub || '').split(/ \/ | \(/)[0].trim();
+		if (p) c.set(p, (c.get(p) || 0) + 1);
+	}
+	const pub = [...c.entries()].sort((x, y) => y[1] - x[1]).slice(0, 8).map((x) => x[0]).join(', ');
+	return { teste: a.length, mudeleid: Object.keys(d.rehvid || {}).length, min: Math.min(...aastad), max: Math.max(...aastad), pub };
+}
+
 /** Mõõdetud testid, kus MÕLEMAD rehvid olid koos (sama auto, sama päev). */
 export function sharedSources(a, b) {
 	if (!a || !b || !a.tested || !b.tested || a.slug === b.slug) return [];

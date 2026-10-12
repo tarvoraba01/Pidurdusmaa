@@ -1,0 +1,2698 @@
+[
+ {
+  "test_id": "TYREREVIEWS-2022-W-205-55R16",
+  "publication": "Tyre Reviews",
+  "year": 2022,
+  "season": "winter",
+  "size": "205/55 R16",
+  "car": "VW Golf 8",
+  "tester": "Tyre Reviews",
+  "url": "https://www.tire-reviews.com/Tire-Tests/2022-Tire-Reviews-Studless-Winter-Tire-Test.htm",
+  "url_original": "https://tyrereviews.com/Tyre-Tests/2022-Tyre-Reviews-Studless-Winter-Tyre-Test.htm/Results-Grid",
+  "disciplines": [
+   {
+    "id": "dry",
+    "surface": "asphalt",
+    "wet": false,
+    "v_from": 100,
+    "v_to": 5,
+    "temp_c": null,
+    "note": "studded reference not braked on dry/wet (facility rules)"
+   },
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": 80,
+    "v_to": 5,
+    "temp_c": null,
+    "note": ""
+   },
+   {
+    "id": "snow",
+    "surface": "snow",
+    "wet": false,
+    "v_from": 40,
+    "v_to": 5,
+    "temp_c": null,
+    "note": ""
+   },
+   {
+    "id": "ice",
+    "surface": "ice",
+    "wet": false,
+    "v_from": 20,
+    "v_to": 5,
+    "temp_c": null,
+    "note": ""
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Michelin X Ice Snow",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "dry": 47.88,
+     "wet": 35.59,
+     "snow": 15.81,
+     "ice": 10.14
+    },
+    "aqua_kmh": 80.11,
+    "note": ""
+   },
+   {
+    "name": "Nokian Hakkapeliitta R5",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "dry": 47.45,
+     "wet": 35.21,
+     "snow": 15.51,
+     "ice": 10.18
+    },
+    "aqua_kmh": 71.46,
+    "note": ""
+   },
+   {
+    "name": "Continental VikingContact 7",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "dry": 45.87,
+     "wet": 35.03,
+     "snow": 15.63,
+     "ice": 10.34
+    },
+    "aqua_kmh": 75.12,
+    "note": ""
+   },
+   {
+    "name": "Pirelli Ice Zero FR",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "dry": 46.66,
+     "wet": 35.94,
+     "snow": 15.9,
+     "ice": 10.68
+    },
+    "aqua_kmh": 75.71,
+    "note": ""
+   },
+   {
+    "name": "Yokohama iceGUARD iG53",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "dry": 49.49,
+     "wet": 38.72,
+     "snow": 15.37,
+     "ice": 10.97
+    },
+    "aqua_kmh": 75.99,
+    "note": ""
+   },
+   {
+    "name": "Continental WinterContact TS 870",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "dry": 41.27,
+     "wet": 25.78,
+     "snow": 16.0,
+     "ice": 12.71
+    },
+    "aqua_kmh": 99.45,
+    "note": "Central European reference"
+   },
+   {
+    "name": "Cooper Weathermaster S100",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "dry": 49.47,
+     "wet": 37.76,
+     "snow": 15.85,
+     "ice": 11.97
+    },
+    "aqua_kmh": 76.46,
+    "note": ""
+   },
+   {
+    "name": "Nokian Hakkapeliitta 10",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "snow": 15.5,
+     "ice": 7.7
+    },
+    "aqua_kmh": null,
+    "note": "studded reference; no dry/wet braking"
+   },
+   {
+    "name": "Federal Himalaya ICEO",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "dry": 46.88,
+     "wet": 33.61,
+     "snow": 15.74,
+     "ice": 12.66
+    },
+    "aqua_kmh": 79.61,
+    "note": "Results-Grid prints 'Federal Himalaya ICE'"
+   }
+  ]
+ },
+ {
+  "test_id": "TYREREVIEWS-2025-W-205-55R16",
+  "publication": "Tyre Reviews",
+  "year": 2025,
+  "season": "winter",
+  "size": "205/55 R16",
+  "car": "VW Golf",
+  "tester": "Tyre Reviews",
+  "url": "https://www.tyrereviews.com/Article/The-Best-Snow-Tyres-for-2025.htm",
+  "url_original": null,
+  "disciplines": [
+   {
+    "id": "dry",
+    "surface": "asphalt",
+    "wet": false,
+    "v_from": 100,
+    "v_to": 5,
+    "temp_c": 3.5,
+    "note": "average temperature as printed"
+   },
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": 80,
+    "v_to": 5,
+    "temp_c": null,
+    "note": ""
+   },
+   {
+    "id": "snow",
+    "surface": "snow",
+    "wet": false,
+    "v_from": 40,
+    "v_to": 5,
+    "temp_c": -2.5,
+    "note": "average temperature as printed"
+   },
+   {
+    "id": "ice",
+    "surface": "ice",
+    "wet": false,
+    "v_from": 20,
+    "v_to": 5,
+    "temp_c": -4.5,
+    "note": "average temperature as printed"
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Continental VikingContact 8",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "dry": 45.6,
+     "wet": 42.4,
+     "snow": 16.81,
+     "ice": 7.31
+    },
+    "aqua_kmh": 56.6,
+    "note": ""
+   },
+   {
+    "name": "Goodyear UltraGrip Ice 3",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "dry": 48.5,
+     "wet": 43.7,
+     "snow": 16.44,
+     "ice": 7.29
+    },
+    "aqua_kmh": 60.4,
+    "note": ""
+   },
+   {
+    "name": "Nokian Hakkapeliitta R5",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "dry": 45.3,
+     "wet": 37.7,
+     "snow": 16.67,
+     "ice": 8.41
+    },
+    "aqua_kmh": 58.5,
+    "note": ""
+   },
+   {
+    "name": "Michelin X Ice Snow",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "dry": 48.6,
+     "wet": 46.2,
+     "snow": 16.67,
+     "ice": 6.97
+    },
+    "aqua_kmh": 57.3,
+    "note": ""
+   },
+   {
+    "name": "Marshal iZen KW31",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "dry": 47.7,
+     "wet": 44.4,
+     "snow": 17.11,
+     "ice": 8.59
+    },
+    "aqua_kmh": 56.2,
+    "note": ""
+   },
+   {
+    "name": "Nokian Hakkapeliitta 10",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "snow": 16.51,
+     "ice": 6.1
+    },
+    "aqua_kmh": null,
+    "note": "studded reference (printed with 'Ref'); no dry/wet braking"
+   },
+   {
+    "name": "Continental WinterContact TS 870",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "dry": 43.4,
+     "wet": 33.4,
+     "snow": 17.02,
+     "ice": 11.59
+    },
+    "aqua_kmh": 86.0,
+    "note": "Central European reference (printed with 'Ref')"
+   }
+  ]
+ },
+ {
+  "test_id": "TESTIRENKAAT-2023-W-205-55R16-friction",
+  "publication": "Testirenkaat",
+  "year": 2023,
+  "season": "winter",
+  "size": "205/55 R16",
+  "car": null,
+  "tester": null,
+  "url": "https://reviews.tyrereviews.com/Article/2023-Studless-vs-Studded-Snow-Tyre-Test.htm",
+  "url_original": null,
+  "disciplines": [
+   {
+    "id": "dry",
+    "surface": "asphalt",
+    "wet": false,
+    "v_from": 80,
+    "v_to": 5,
+    "temp_c": null,
+    "note": ""
+   },
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": 80,
+    "v_to": 5,
+    "temp_c": null,
+    "note": ""
+   },
+   {
+    "id": "ice",
+    "surface": "ice",
+    "wet": false,
+    "v_from": 25,
+    "v_to": 5,
+    "temp_c": null,
+    "note": ""
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Goodyear UltraGrip Ice 3",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "dry": 31.25,
+     "wet": 38.49,
+     "ice": 14.75
+    },
+    "aqua_kmh": null,
+    "note": "mixed test: 4 friction vs 4 budget studded (same 8-tyre layout as Moottori 9/2023 test by Test Finland Oy, moottori.fi 20.9.2023)"
+   },
+   {
+    "name": "Nokian Hakkapeliitta R5",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "dry": 31.12,
+     "wet": 43.16,
+     "ice": 15.02
+    },
+    "aqua_kmh": null,
+    "note": "mixed test: 4 friction vs 4 budget studded (same 8-tyre layout as Moottori 9/2023 test by Test Finland Oy, moottori.fi 20.9.2023)"
+   },
+   {
+    "name": "Michelin X Ice Snow",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "dry": 31.82,
+     "wet": 41.98,
+     "ice": 15.3
+    },
+    "aqua_kmh": null,
+    "note": "mixed test: 4 friction vs 4 budget studded (same 8-tyre layout as Moottori 9/2023 test by Test Finland Oy, moottori.fi 20.9.2023)"
+   },
+   {
+    "name": "Pirelli Ice Zero FR",
+    "category": "winter_nordic",
+    "label_wet": null,
+    "results": {
+     "dry": 30.67,
+     "wet": 41.06,
+     "ice": 15.92
+    },
+    "aqua_kmh": null,
+    "note": "mixed test: 4 friction vs 4 budget studded (same 8-tyre layout as Moottori 9/2023 test by Test Finland Oy, moottori.fi 20.9.2023); listed as 'Pirelli Winter Ice Zero FR' in category list"
+   }
+  ]
+ },
+ {
+  "test_id": "TESTIRENKAAT-2023-W-205-55R16-studded",
+  "publication": "Testirenkaat",
+  "year": 2023,
+  "season": "winter",
+  "size": "205/55 R16",
+  "car": null,
+  "tester": null,
+  "url": "https://reviews.tyrereviews.com/Article/2023-Studless-vs-Studded-Snow-Tyre-Test.htm",
+  "url_original": null,
+  "disciplines": [
+   {
+    "id": "dry",
+    "surface": "asphalt",
+    "wet": false,
+    "v_from": 80,
+    "v_to": 5,
+    "temp_c": null,
+    "note": ""
+   },
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": 80,
+    "v_to": 5,
+    "temp_c": null,
+    "note": ""
+   },
+   {
+    "id": "ice",
+    "surface": "ice",
+    "wet": false,
+    "v_from": 25,
+    "v_to": 5,
+    "temp_c": null,
+    "note": ""
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Tigar Ice",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "dry": 31.32,
+     "wet": 33.62,
+     "ice": 16.42
+    },
+    "aqua_kmh": null,
+    "note": "mixed test: 4 friction vs 4 budget studded (same 8-tyre layout as Moottori 9/2023 test by Test Finland Oy, moottori.fi 20.9.2023)"
+   },
+   {
+    "name": "Sunfull SF W11",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "dry": 30.98,
+     "wet": 32.53,
+     "ice": 15.93
+    },
+    "aqua_kmh": null,
+    "note": "mixed test: 4 friction vs 4 budget studded (same 8-tyre layout as Moottori 9/2023 test by Test Finland Oy, moottori.fi 20.9.2023)"
+   },
+   {
+    "name": "Antares GRIP 60 ice",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "dry": 33.06,
+     "wet": 40.88,
+     "ice": 15.25
+    },
+    "aqua_kmh": null,
+    "note": "mixed test: 4 friction vs 4 budget studded (same 8-tyre layout as Moottori 9/2023 test by Test Finland Oy, moottori.fi 20.9.2023)"
+   },
+   {
+    "name": "Winrun Winter Max S1 WR60",
+    "category": "winter_studded",
+    "label_wet": null,
+    "results": {
+     "dry": 32.58,
+     "wet": 36.13,
+     "ice": 16.95
+    },
+    "aqua_kmh": null,
+    "note": "mixed test: 4 friction vs 4 budget studded (same 8-tyre layout as Moottori 9/2023 test by Test Finland Oy, moottori.fi 20.9.2023)"
+   }
+  ]
+ },
+ {
+  "test_id": "AUTOBILD-2026-W-225-55R18",
+  "publication": "AUTO BILD",
+  "year": 2026,
+  "season": "winter",
+  "size": "225/55 R18",
+  "car": "BMW X1",
+  "tester": "AUTO BILD (test sites Ivalo, Papenburg, Pferdsfeld per reifenlab.de)",
+  "url": "https://www.autobild.de/produkttests/winterreifen-test-225-55-r18-28829397.html",
+  "url_original": "https://www.thetirelab.com/autobild/winter/2026/225-55-r18/",
+  "disciplines": [
+   {
+    "id": "dry",
+    "surface": "asphalt",
+    "wet": false,
+    "v_from": 100,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "autobild.de row 'Bremsen – Trocken (Bremsweg aus Tempo 100 in Meter)'; thetirelab label 'Dry braking (100→0 km/h)'; article dated 05.10.2026, print AUTO BILD 39/2026"
+   },
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": 100,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "autobild.de row 'Bremsen – Nässe (Bremsweg aus Tempo 100 in Meter)'; thetirelab label 'Wet braking (100→0 km/h)'"
+   },
+   {
+    "id": "snow",
+    "surface": "snow",
+    "wet": false,
+    "v_from": 50,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "snow braking values and label 'Snow braking (50→0 km/h)' from thetirelab.com / reifenlab.de (url_original); not in autobild.de online table"
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Hankook Winter i*cept evo 4",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "dry": 42.14,
+     "wet": 45.2,
+     "snow": 28.4
+    },
+    "aqua_kmh": 83.0,
+    "note": ""
+   },
+   {
+    "name": "Pirelli Cinturato Winter 3",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "dry": 42.32,
+     "wet": 44.4,
+     "snow": 29.0
+    },
+    "aqua_kmh": null,
+    "note": "aquaplaning shown as '-' on autobild.de"
+   },
+   {
+    "name": "Michelin Pilot Alpin 5",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "dry": 41.8,
+     "wet": 47.1,
+     "snow": 27.7
+    },
+    "aqua_kmh": 80.7,
+    "note": ""
+   },
+   {
+    "name": "Goodyear UltraGrip Performance 3",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "dry": 41.31,
+     "wet": 48.1,
+     "snow": 28.1
+    },
+    "aqua_kmh": 78.1,
+    "note": ""
+   },
+   {
+    "name": "Bridgestone Blizzak 6",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "dry": 43.09,
+     "wet": 48.1,
+     "snow": 28.5
+    },
+    "aqua_kmh": 78.9,
+    "note": "wet: autobild.de table prints 48,1; reifenlab.de/thetirelab.com print 46.8 for this tyre"
+   },
+   {
+    "name": "Falken Eurowinter HS02 Pro",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "dry": 43.61,
+     "wet": 48.2,
+     "snow": 29.4
+    },
+    "aqua_kmh": 77.3,
+    "note": ""
+   },
+   {
+    "name": "Linglong Sport Master Winter",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "dry": 42.32,
+     "wet": 48.8,
+     "snow": 28.2
+    },
+    "aqua_kmh": 75.9,
+    "note": ""
+   },
+   {
+    "name": "Matador MP93 Nordicca",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "dry": 43.45,
+     "wet": 48.8,
+     "snow": 29.0
+    },
+    "aqua_kmh": 77.0,
+    "note": ""
+   },
+   {
+    "name": "Prinx Winter Excelia",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "dry": 43.55,
+     "wet": 50.5,
+     "snow": 28.9
+    },
+    "aqua_kmh": 78.6,
+    "note": ""
+   },
+   {
+    "name": "Zeetex WH1000 SUV",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "dry": 43.42,
+     "wet": 57.5,
+     "snow": 31.8
+    },
+    "aqua_kmh": 73.9,
+    "note": ""
+   }
+  ]
+ },
+ {
+  "test_id": "AUTOBILD-2026-A-225-55R18",
+  "publication": "AUTO BILD",
+  "year": 2026,
+  "season": "allseason",
+  "size": "225/55 R18",
+  "car": "Mini Countryman",
+  "tester": "AUTO BILD",
+  "url": "https://www.autobild.de/produkttests/ganzjahresreifen-test-225-55-r18-28841901.html",
+  "url_original": "https://www.thetirelab.com/autobild/allseason/2026/225-55-r18/",
+  "disciplines": [
+   {
+    "id": "dry",
+    "surface": "asphalt",
+    "wet": false,
+    "v_from": 100,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "row 'Bremsen – Trocken (Bremsweg aus Tempo 100 in Metern)'; end speed not printed, standstill assumed; article dated 11.10.2026"
+   },
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": 100,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "row 'Bremsen – Nässe (Bremsweg aus Tempo 100 in Meter)'; end speed not printed, standstill assumed"
+   },
+   {
+    "id": "snow",
+    "surface": "snow",
+    "wet": false,
+    "v_from": 50,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "row 'Bremsen – Schnee (Bremsweg aus Tempo 50 in Metern)'; end speed not printed, standstill assumed"
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Goodyear Vector All Season 4",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 39.61,
+     "wet": 52.2,
+     "snow": 26.8
+    },
+    "aqua_kmh": null,
+    "note": "aquaplaning values on page are in an unlabelled row, not recorded"
+   },
+   {
+    "name": "Vredestein Quatrac Pro 2",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 39.4,
+     "wet": 51.8,
+     "snow": 25.9
+    },
+    "aqua_kmh": null,
+    "note": "aquaplaning values on page are in an unlabelled row, not recorded"
+   },
+   {
+    "name": "Continental AllSeasonContact 2",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 39.49,
+     "wet": 52.6,
+     "snow": 26.5
+    },
+    "aqua_kmh": null,
+    "note": "aquaplaning values on page are in an unlabelled row, not recorded"
+   },
+   {
+    "name": "Michelin CrossClimate 3",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 40.01,
+     "wet": 55.2,
+     "snow": 24.9
+    },
+    "aqua_kmh": null,
+    "note": "aquaplaning values on page are in an unlabelled row, not recorded"
+   },
+   {
+    "name": "Pirelli Cinturato All Season SF 3",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 39.33,
+     "wet": 53.1,
+     "snow": 29.4
+    },
+    "aqua_kmh": null,
+    "note": "aquaplaning values on page are in an unlabelled row, not recorded"
+   },
+   {
+    "name": "Nokian Seasonproof 2",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 41.54,
+     "wet": 53.6,
+     "snow": 28.8
+    },
+    "aqua_kmh": null,
+    "note": "aquaplaning values on page are in an unlabelled row, not recorded"
+   },
+   {
+    "name": "Bridgestone Turanza All season 6",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 39.11,
+     "wet": 54.6,
+     "snow": 27.1
+    },
+    "aqua_kmh": null,
+    "note": "aquaplaning values on page are in an unlabelled row, not recorded"
+   },
+   {
+    "name": "Laufenn G Fit 4S LH71",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 41.94,
+     "wet": 52.3,
+     "snow": 25.9
+    },
+    "aqua_kmh": null,
+    "note": "aquaplaning values on page are in an unlabelled row, not recorded"
+   },
+   {
+    "name": "Cooper Tires All Season",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 42.6,
+     "wet": 56.3,
+     "snow": 25.8
+    },
+    "aqua_kmh": null,
+    "note": "aquaplaning values on page are in an unlabelled row, not recorded"
+   },
+   {
+    "name": "Dunlop All Season 2",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 43.86,
+     "wet": 57.0,
+     "snow": 25.9
+    },
+    "aqua_kmh": null,
+    "note": "aquaplaning values on page are in an unlabelled row, not recorded"
+   },
+   {
+    "name": "Delinte AW6",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 39.28,
+     "wet": 59.3,
+     "snow": 31.5
+    },
+    "aqua_kmh": null,
+    "note": "aquaplaning values on page are in an unlabelled row, not recorded"
+   },
+   {
+    "name": "TriangleTire TA-01 Season X",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 42.73,
+     "wet": 59.5,
+     "snow": 26.6
+    },
+    "aqua_kmh": null,
+    "note": "aquaplaning values on page are in an unlabelled row, not recorded"
+   }
+  ]
+ },
+ {
+  "test_id": "ADAC-2026-A-185-65R15",
+  "publication": "ADAC",
+  "year": 2026,
+  "season": "allseason",
+  "size": "185/65 R15",
+  "car": null,
+  "tester": "ADAC (with ÖAMTC/TCS partners); published 23.06.2026; test car not named (photo caption mentions Škoda Fabia)",
+  "url": "https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/ganzjahresreifen/185-65-r15-2026/",
+  "url_original": null,
+  "disciplines": [
+   {
+    "id": "dry",
+    "surface": "asphalt",
+    "wet": false,
+    "v_from": 100,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "ADAC 'Bremsweg (100 - 0 km/h) trocken in m' (range 39,5-45,0); per-tyre values from each tyre's ADAC detail page (url in tyre note)"
+   },
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": 80,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "ADAC 'Bremsweg (80 - 0 km/h) nasser Asphalt in m' (32,4-38,3)"
+   },
+   {
+    "id": "wet_concrete",
+    "surface": "concrete",
+    "wet": true,
+    "v_from": 80,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "ADAC 'Bremsweg (80 - 0 km/h) nasser Beton in m' (38,7-44,5)"
+   },
+   {
+    "id": "snow",
+    "surface": "snow",
+    "wet": false,
+    "v_from": 30,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "ADAC 'Bremsen Schnee (30 - 0 km/h) in m' (11,3-13,1)"
+   },
+   {
+    "id": "ice",
+    "surface": "ice",
+    "wet": false,
+    "v_from": 20,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "ADAC 'Bremsen Eis (20 - 0 km/h) in m' (20,3-23,0)"
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Continental AllSeasonContact 2",
+    "category": "allseason",
+    "label_wet": "B",
+    "results": {
+     "dry": 42.1,
+     "wet": 32.8,
+     "wet_concrete": 39.3,
+     "snow": 11.7,
+     "ice": 21.1
+    },
+    "aqua_kmh": 88.2,
+    "note": "ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/ganzjahresreifen/185-65-r15-2026/continental-allseasoncontact-2-id-5176/; EU label B/B/B 71 dB"
+   },
+   {
+    "name": "Pirelli Cinturato All Season SF 3",
+    "category": "allseason",
+    "label_wet": "A",
+    "results": {
+     "dry": 40.1,
+     "wet": 34.9,
+     "wet_concrete": 42.0,
+     "snow": 11.8,
+     "ice": 21.0
+    },
+    "aqua_kmh": 85.9,
+    "note": "ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/ganzjahresreifen/185-65-r15-2026/pirelli-cinturato-all-season-sf-3-id-5177/; EU label C/A/B 71 dB (label value shown in a misaligned table row)"
+   },
+   {
+    "name": "Michelin CrossClimate 2",
+    "category": "allseason",
+    "label_wet": "B",
+    "results": {
+     "dry": 39.6,
+     "wet": 35.2,
+     "wet_concrete": 41.0,
+     "snow": 11.6,
+     "ice": 21.8
+    },
+    "aqua_kmh": 85.9,
+    "note": "ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/ganzjahresreifen/185-65-r15-2026/michelin-crossclimate-2-id-5178/; EU label C/B/B 69 dB"
+   },
+   {
+    "name": "Vredestein Quatrac",
+    "category": "allseason",
+    "label_wet": "B",
+    "results": {
+     "dry": 42.0,
+     "wet": 35.1,
+     "wet_concrete": 41.0,
+     "snow": 12.4,
+     "ice": 22.3
+    },
+    "aqua_kmh": 86.0,
+    "note": "ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/ganzjahresreifen/185-65-r15-2026/vredestein-quatrac-id-5179/; EU label C/B/B 70 dB"
+   },
+   {
+    "name": "Hankook Kinergy 4S 2",
+    "category": "allseason",
+    "label_wet": "B",
+    "results": {
+     "dry": 42.1,
+     "wet": 36.5,
+     "wet_concrete": 42.7,
+     "snow": 11.8,
+     "ice": 22.1
+    },
+    "aqua_kmh": 89.4,
+    "note": "ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/ganzjahresreifen/185-65-r15-2026/hankook-kinergy-4s-2-id-5180/; EU label C/B/B 71 dB"
+   },
+   {
+    "name": "Goodyear Vector 4Seasons Gen-3",
+    "category": "allseason",
+    "label_wet": "B",
+    "results": {
+     "dry": 44.4,
+     "wet": 34.2,
+     "wet_concrete": 39.0,
+     "snow": 11.3,
+     "ice": 20.3
+    },
+    "aqua_kmh": 86.5,
+    "note": "ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/ganzjahresreifen/185-65-r15-2026/goodyear-vector-4seasons-gen-3-id-5181/; EU label C/B/B 70 dB"
+   },
+   {
+    "name": "Nokian Tyres Seasonproof 2",
+    "category": "allseason",
+    "label_wet": "A",
+    "results": {
+     "dry": 41.5,
+     "wet": 32.4,
+     "wet_concrete": 39.0,
+     "snow": 12.3,
+     "ice": 22.2
+    },
+    "aqua_kmh": 91.9,
+    "note": "ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/ganzjahresreifen/185-65-r15-2026/nokian-tyres-seasonproof-2-id-5182/; EU label B/A/A 68 dB"
+   },
+   {
+    "name": "GT Radial ClimateActive",
+    "category": "allseason",
+    "label_wet": "B",
+    "results": {
+     "dry": 42.4,
+     "wet": 35.4,
+     "wet_concrete": 40.9,
+     "snow": 11.9,
+     "ice": 20.9
+    },
+    "aqua_kmh": 87.3,
+    "note": "ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/ganzjahresreifen/185-65-r15-2026/gt-radial-climateactive-id-5183/; EU label C/B/B 69 dB"
+   },
+   {
+    "name": "Nexen N'Blue 4Season 2",
+    "category": "allseason",
+    "label_wet": "B",
+    "results": {
+     "dry": 42.6,
+     "wet": 35.6,
+     "wet_concrete": 40.8,
+     "snow": 12.1,
+     "ice": 20.5
+    },
+    "aqua_kmh": 81.1,
+    "note": "ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/ganzjahresreifen/185-65-r15-2026/nexen-nblue-4season-2-id-5184/; EU label C/B/B 71 dB"
+   },
+   {
+    "name": "Dunlop All Season 2",
+    "category": "allseason",
+    "label_wet": "C",
+    "results": {
+     "dry": 45.0,
+     "wet": 38.0,
+     "wet_concrete": 44.4,
+     "snow": 11.3,
+     "ice": 20.7
+    },
+    "aqua_kmh": 84.9,
+    "note": "ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/ganzjahresreifen/185-65-r15-2026/dunlop-all-season-2-id-5185/; EU label C/C/B 71 dB"
+   },
+   {
+    "name": "Milever All Season Versat MC545",
+    "category": "allseason",
+    "label_wet": "C",
+    "results": {
+     "dry": 43.0,
+     "wet": 37.1,
+     "wet_concrete": 43.5,
+     "snow": 11.6,
+     "ice": 21.5
+    },
+    "aqua_kmh": 75.8,
+    "note": "ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/ganzjahresreifen/185-65-r15-2026/milever-all-season-versat-mc545-id-5186/; EU label C/C/A 67 dB"
+   },
+   {
+    "name": "Norauto 4 Seasons 2",
+    "category": "allseason",
+    "label_wet": "B",
+    "results": {
+     "dry": 42.3,
+     "wet": 37.1,
+     "wet_concrete": 43.9,
+     "snow": 12.1,
+     "ice": 21.2
+    },
+    "aqua_kmh": 87.1,
+    "note": "ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/ganzjahresreifen/185-65-r15-2026/norauto-4-seasons-2-id-5187/; EU label C/B/B 71 dB"
+   },
+   {
+    "name": "Bridgestone Weather Control A005-Evo",
+    "category": "allseason",
+    "label_wet": "A",
+    "results": {
+     "dry": 42.2,
+     "wet": 32.6,
+     "wet_concrete": 38.7,
+     "snow": 12.9,
+     "ice": 22.5
+    },
+    "aqua_kmh": 90.1,
+    "note": "ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/ganzjahresreifen/185-65-r15-2026/bridgestone-weather-control-a005-evo-id-5188/; EU label C/A/B 70 dB"
+   },
+   {
+    "name": "Mastersteel All Weather 2",
+    "category": "allseason",
+    "label_wet": "B",
+    "results": {
+     "dry": 39.5,
+     "wet": 34.0,
+     "wet_concrete": 40.6,
+     "snow": 12.7,
+     "ice": 23.0
+    },
+    "aqua_kmh": 75.8,
+    "note": "ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/ganzjahresreifen/185-65-r15-2026/mastersteel-all-weather-2-id-5189/; EU label C/B/B 71 dB"
+   },
+   {
+    "name": "Roadhog RGAS02",
+    "category": "allseason",
+    "label_wet": "B",
+    "results": {
+     "dry": 40.0,
+     "wet": 35.1,
+     "wet_concrete": 40.3,
+     "snow": 13.1,
+     "ice": 22.5
+    },
+    "aqua_kmh": 74.7,
+    "note": "ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/ganzjahresreifen/185-65-r15-2026/roadhog-rgas02-id-5190/; EU label C/B/B 71 dB"
+   },
+   {
+    "name": "Tomason Allseason",
+    "category": "allseason",
+    "label_wet": "C",
+    "results": {
+     "dry": 44.0,
+     "wet": 38.3,
+     "wet_concrete": 44.5,
+     "snow": 12.3,
+     "ice": 21.0
+    },
+    "aqua_kmh": 80.4,
+    "note": "ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/ganzjahresreifen/185-65-r15-2026/tomason-allseason-id-5191/; EU label D/C/B 71 dB"
+   }
+  ]
+ },
+ {
+  "test_id": "PROMOBIL-2026-A-225-75R16C-PARTIAL",
+  "publication": "promobil",
+  "year": 2026,
+  "season": "allseason",
+  "size": "225/75 R16 C",
+  "car": "Fiat Ducato",
+  "tester": "promobil (issue 10/2026)",
+  "url": "https://www.promobil.de/zubehoer/6-allwetterreifen-im-test-dieser-reifen-ist-der-klare-sieger/",
+  "url_original": "https://www.reifenlab.de/promobil/allseason/2026/225-75-r16/van/",
+  "disciplines": [
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": 80,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "wet braking 80 km/h to standstill per promobil.de article"
+   },
+   {
+    "id": "snow",
+    "surface": "snow",
+    "wet": false,
+    "v_from": 50,
+    "v_to": 10,
+    "temp_c": null,
+    "note": "snow braking 50 -> 10 km/h per promobil.de article"
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Continental VanContact 4Season",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "wet": 39.1,
+     "snow": 31.9
+    },
+    "aqua_kmh": null,
+    "note": "values from promobil.de article text (only tyre with all distances printed)"
+   },
+   {
+    "name": "Goodyear Vector 4Seasons Cargo",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "wet": 36.6
+    },
+    "aqua_kmh": null,
+    "note": "shortest wet braking; value from reifenlab.de results page"
+   },
+   {
+    "name": "Michelin Agilis CrossClimate",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {},
+    "aqua_kmh": null,
+    "note": "shortest dry braking; value from reifenlab.de results page"
+   }
+  ]
+ },
+ {
+  "test_id": "ADAC-2025-W-225-40R18",
+  "publication": "ADAC",
+  "year": 2025,
+  "season": "winter",
+  "size": "225/40 R18",
+  "car": "VW Golf",
+  "tester": "ADAC (with ÖAMTC/TCS partners); published 23.09.2025",
+  "url": "https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/winterreifen/225-40-r18/",
+  "url_original": null,
+  "disciplines": [
+   {
+    "id": "dry",
+    "surface": "asphalt",
+    "wet": false,
+    "v_from": 100,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "ADAC 'Bremsweg (100 - 0 km/h) trocken in m' (range 41,4-46,2); per-tyre values from each tyre's ADAC detail page (url in tyre note)"
+   },
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": 80,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "ADAC 'Bremsweg (80 - 0 km/h) nasser Asphalt in m' (31,7-47,1)"
+   },
+   {
+    "id": "wet_concrete",
+    "surface": "concrete",
+    "wet": true,
+    "v_from": 80,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "ADAC 'Bremsweg (80 - 0 km/h) nasser Beton in m' (36,5-53,0)"
+   },
+   {
+    "id": "snow",
+    "surface": "snow",
+    "wet": false,
+    "v_from": 30,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "ADAC 'Bremsen Schnee (30 - 0 km/h) in m' (9,2-12,2)"
+   },
+   {
+    "id": "ice",
+    "surface": "ice",
+    "wet": false,
+    "v_from": 20,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "ADAC 'Bremsen Eis (20 - 0 km/h) in m' (15,2-21,1)"
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Goodyear UltraGrip Performance 3",
+    "category": "winter_central",
+    "label_wet": "B",
+    "results": {
+     "dry": 42.3,
+     "wet": 31.7,
+     "wet_concrete": 36.6,
+     "snow": 9.7,
+     "ice": 16.7
+    },
+    "aqua_kmh": 77.1,
+    "note": "ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/winterreifen/225-40-r18/goodyear-ultragrip-performance-3-id-5050/; EU label D/B/B 71 dB"
+   },
+   {
+    "name": "Michelin Pilot Alpin 5",
+    "category": "winter_central",
+    "label_wet": "B",
+    "results": {
+     "dry": 41.4,
+     "wet": 32.2,
+     "wet_concrete": 36.9,
+     "snow": 9.4,
+     "ice": 16.3
+    },
+    "aqua_kmh": 75.2,
+    "note": "ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/winterreifen/225-40-r18/michelin-pilot-alpin-5-id-5051/; EU label D/B/B 70 dB"
+   },
+   {
+    "name": "Bridgestone Blizzak 6",
+    "category": "winter_central",
+    "label_wet": "B",
+    "results": {
+     "dry": 43.8,
+     "wet": 32.3,
+     "wet_concrete": 36.5,
+     "snow": 9.6,
+     "ice": 16.2
+    },
+    "aqua_kmh": 74.9,
+    "note": "ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/winterreifen/225-40-r18/bridgestone-blizzak-6-id-5052/; EU label C/B/B 70 dB"
+   },
+   {
+    "name": "Dunlop Winter Sport 5",
+    "category": "winter_central",
+    "label_wet": "C",
+    "results": {
+     "dry": 44.0,
+     "wet": 34.4,
+     "wet_concrete": 38.9,
+     "snow": 9.5,
+     "ice": 16.8
+    },
+    "aqua_kmh": 73.2,
+    "note": "ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/winterreifen/225-40-r18/dunlop-winter-sport-5-id-5053/; EU label D/C/B 72 dB"
+   },
+   {
+    "name": "Hankook Winter i*cept evo3 W330",
+    "category": "winter_central",
+    "label_wet": "B",
+    "results": {
+     "dry": 43.7,
+     "wet": 32.9,
+     "wet_concrete": 37.5,
+     "snow": 9.7,
+     "ice": 17.4
+    },
+    "aqua_kmh": 74.0,
+    "note": "ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/winterreifen/225-40-r18/hankook-winter-icept-evo3-w330-id-5054/; EU label D/B/B 72 dB"
+   },
+   {
+    "name": "Continental WinterContact TS 870 P",
+    "category": "winter_central",
+    "label_wet": "B",
+    "results": {
+     "dry": 42.6,
+     "wet": 33.0,
+     "wet_concrete": 38.0,
+     "snow": 9.8,
+     "ice": 18.1
+    },
+    "aqua_kmh": 75.2,
+    "note": "ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/winterreifen/225-40-r18/continental-wintercontact-ts-870-p-id-5055/; EU label C/B/B 71 dB"
+   },
+   {
+    "name": "Kleber Krisalp HP3",
+    "category": "winter_central",
+    "label_wet": "B",
+    "results": {
+     "dry": 44.2,
+     "wet": 35.0,
+     "wet_concrete": 40.7,
+     "snow": 9.4,
+     "ice": 16.8
+    },
+    "aqua_kmh": 76.9,
+    "note": "ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/winterreifen/225-40-r18/kleber-krisalp-hp3-id-5056/; EU label D/B/A 69 dB"
+   },
+   {
+    "name": "Nokian Tyres Snowproof P",
+    "category": "winter_central",
+    "label_wet": "B",
+    "results": {
+     "dry": 42.2,
+     "wet": 33.4,
+     "wet_concrete": 37.7,
+     "snow": 10.0,
+     "ice": 16.0
+    },
+    "aqua_kmh": 67.8,
+    "note": "ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/winterreifen/225-40-r18/nokian-tyres-snowproof-p-id-5057/; EU label C/B/B 70 dB"
+   },
+   {
+    "name": "Momo W-20 North Pole",
+    "category": "winter_central",
+    "label_wet": "B",
+    "results": {
+     "dry": 43.1,
+     "wet": 32.7,
+     "wet_concrete": 36.6,
+     "snow": 9.8,
+     "ice": 16.7
+    },
+    "aqua_kmh": 71.1,
+    "note": "ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/winterreifen/225-40-r18/momo-w-20-north-pole-id-5058/; EU label D/B/B 72 dB"
+   },
+   {
+    "name": "Ceat WinterDrive",
+    "category": "winter_central",
+    "label_wet": "C",
+    "results": {
+     "dry": 42.0,
+     "wet": 34.5,
+     "wet_concrete": 39.7,
+     "snow": 9.7,
+     "ice": 15.5
+    },
+    "aqua_kmh": 71.5,
+    "note": "ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/winterreifen/225-40-r18/ceat-winterdrive-id-5059/; EU label D/C/B 70 dB"
+   },
+   {
+    "name": "Matador MP93 Nordicca",
+    "category": "winter_central",
+    "label_wet": "C",
+    "results": {
+     "dry": 45.1,
+     "wet": 34.9,
+     "wet_concrete": 40.9,
+     "snow": 9.7,
+     "ice": 16.8
+    },
+    "aqua_kmh": 72.3,
+    "note": "ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/winterreifen/225-40-r18/matador-mp93-nordicca-id-5060/; EU label C/C/B 72 dB"
+   },
+   {
+    "name": "Uniroyal WinterExpert",
+    "category": "winter_central",
+    "label_wet": "B",
+    "results": {
+     "dry": 43.9,
+     "wet": 32.9,
+     "wet_concrete": 38.1,
+     "snow": 9.7,
+     "ice": 17.4
+    },
+    "aqua_kmh": 72.1,
+    "note": "ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/winterreifen/225-40-r18/uniroyal-winterexpert-id-5061/; EU label D/B/B 72 dB"
+   },
+   {
+    "name": "Fulda Kristall Control HP2",
+    "category": "winter_central",
+    "label_wet": "C",
+    "results": {
+     "dry": 45.3,
+     "wet": 35.9,
+     "wet_concrete": 40.0,
+     "snow": 9.7,
+     "ice": 17.0
+    },
+    "aqua_kmh": 74.0,
+    "note": "ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/winterreifen/225-40-r18/fulda-kristall-control-hp2-id-5062/; EU label D/C/B 72 dB"
+   },
+   {
+    "name": "Semperit Speed-Grip 5",
+    "category": "winter_central",
+    "label_wet": "B",
+    "results": {
+     "dry": 44.3,
+     "wet": 33.3,
+     "wet_concrete": 37.6,
+     "snow": 9.6,
+     "ice": 17.0
+    },
+    "aqua_kmh": 74.2,
+    "note": "ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/winterreifen/225-40-r18/semperit-speed-grip-5-id-5063/; EU label D/B/B 72 dB"
+   },
+   {
+    "name": "GT Radial WinterPro 2 Sport",
+    "category": "winter_central",
+    "label_wet": "B",
+    "results": {
+     "dry": 45.0,
+     "wet": 36.3,
+     "wet_concrete": 40.8,
+     "snow": 9.7,
+     "ice": 17.0
+    },
+    "aqua_kmh": 73.4,
+    "note": "ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/winterreifen/225-40-r18/gt-radial-winterpro-2-sport-id-5064/; EU label D/B/B 70 dB"
+   },
+   {
+    "name": "Giti GitiWinter W2",
+    "category": "winter_central",
+    "label_wet": "B",
+    "results": {
+     "dry": 45.2,
+     "wet": 34.7,
+     "wet_concrete": 40.0,
+     "snow": 10.0,
+     "ice": 17.8
+    },
+    "aqua_kmh": 78.9,
+    "note": "ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/winterreifen/225-40-r18/giti-gitiwinter-w2-id-5065/; EU label D/B/B 71 dB"
+   },
+   {
+    "name": "Point S Winter S",
+    "category": "winter_central",
+    "label_wet": "C",
+    "results": {
+     "dry": 44.5,
+     "wet": 35.0,
+     "wet_concrete": 40.4,
+     "snow": 9.7,
+     "ice": 16.7
+    },
+    "aqua_kmh": 73.5,
+    "note": "ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/winterreifen/225-40-r18/point-s-winter-s-id-5066/; EU label C/C/B 72 dB"
+   },
+   {
+    "name": "Firestone Winterhawk 4",
+    "category": "winter_central",
+    "label_wet": "B",
+    "results": {
+     "dry": 45.2,
+     "wet": 33.0,
+     "wet_concrete": 38.2,
+     "snow": 9.7,
+     "ice": 16.1
+    },
+    "aqua_kmh": 73.8,
+    "note": "ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/winterreifen/225-40-r18/firestone-winterhawk-4-id-5067/; EU label D/B/B 71 dB"
+   },
+   {
+    "name": "Maxxis Premitra Snow WP6",
+    "category": "winter_central",
+    "label_wet": "B",
+    "results": {
+     "dry": 45.2,
+     "wet": 36.4,
+     "wet_concrete": 41.0,
+     "snow": 9.7,
+     "ice": 17.5
+    },
+    "aqua_kmh": 74.6,
+    "note": "ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/winterreifen/225-40-r18/maxxis-premitra-snow-wp6-id-5068/; EU label D/B/B 70 dB"
+   },
+   {
+    "name": "Apollo Aspire XP Winter",
+    "category": "winter_central",
+    "label_wet": "B",
+    "results": {
+     "dry": 43.8,
+     "wet": 34.2,
+     "wet_concrete": 38.9,
+     "snow": 9.8,
+     "ice": 16.6
+    },
+    "aqua_kmh": 72.6,
+    "note": "ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/winterreifen/225-40-r18/apollo--aspire-xp-winter-id-5069/; EU label D/B/B 72 dB"
+   },
+   {
+    "name": "Radar Dimax Winter",
+    "category": "winter_central",
+    "label_wet": "B",
+    "results": {
+     "dry": 44.1,
+     "wet": 36.7,
+     "wet_concrete": 41.7,
+     "snow": 9.5,
+     "ice": 15.8
+    },
+    "aqua_kmh": 67.7,
+    "note": "ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/winterreifen/225-40-r18/radar-dimax-winter-id-5070/; EU label C/B/B 72 dB"
+   },
+   {
+    "name": "Nankang Winter Activa 4",
+    "category": "winter_central",
+    "label_wet": "B",
+    "results": {
+     "dry": 44.8,
+     "wet": 35.6,
+     "wet_concrete": 41.4,
+     "snow": 10.3,
+     "ice": 19.1
+    },
+    "aqua_kmh": 71.9,
+    "note": "ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/winterreifen/225-40-r18/nankang-winter-activa-4-id-5071/; EU label D/B/B 71 dB"
+   },
+   {
+    "name": "Landsail Winter Lander",
+    "category": "winter_central",
+    "label_wet": "B",
+    "results": {
+     "dry": 42.5,
+     "wet": 32.8,
+     "wet_concrete": 36.9,
+     "snow": 12.2,
+     "ice": 16.7
+    },
+    "aqua_kmh": 71.1,
+    "note": "ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/winterreifen/225-40-r18/landsail-winter-lander-id-5072/; EU label C/B/B 72 dB"
+   },
+   {
+    "name": "Petlas SnowMaster 2 Sport",
+    "category": "winter_central",
+    "label_wet": "B",
+    "results": {
+     "dry": 43.9,
+     "wet": 35.5,
+     "wet_concrete": 41.0,
+     "snow": 10.4,
+     "ice": 16.9
+    },
+    "aqua_kmh": 65.8,
+    "note": "ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/winterreifen/225-40-r18/petlas-snowmaster-2-sport-id-5073/; EU label C/B/B 72 dB"
+   },
+   {
+    "name": "Imperial Snowdragon UHP",
+    "category": "winter_central",
+    "label_wet": "C",
+    "results": {
+     "dry": 44.6,
+     "wet": 37.8,
+     "wet_concrete": 43.6,
+     "snow": 10.3,
+     "ice": 17.4
+    },
+    "aqua_kmh": 68.7,
+    "note": "ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/winterreifen/225-40-r18/imperial-snowdragon-uhp-id-5074/; EU label C/C/B 72 dB"
+   },
+   {
+    "name": "Tomket Snowroad Pro 3",
+    "category": "winter_central",
+    "label_wet": "C",
+    "results": {
+     "dry": 44.8,
+     "wet": 40.4,
+     "wet_concrete": 47.3,
+     "snow": 10.0,
+     "ice": 15.9
+    },
+    "aqua_kmh": 67.9,
+    "note": "ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/winterreifen/225-40-r18/tomket-snowroad-pro-3-id-5075/; EU label D/C/B 72 dB"
+   },
+   {
+    "name": "Star Performer Stratos UHP",
+    "category": "winter_central",
+    "label_wet": "C",
+    "results": {
+     "dry": 44.4,
+     "wet": 39.9,
+     "wet_concrete": 47.1,
+     "snow": 9.9,
+     "ice": 17.4
+    },
+    "aqua_kmh": 66.8,
+    "note": "ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/winterreifen/225-40-r18/star-performer-stratos-uhp-id-5076/; EU label D/C/B 72 dB"
+   },
+   {
+    "name": "Goodride SW608",
+    "category": "winter_central",
+    "label_wet": "C",
+    "results": {
+     "dry": 45.0,
+     "wet": 38.5,
+     "wet_concrete": 44.7,
+     "snow": 10.5,
+     "ice": 18.2
+    },
+    "aqua_kmh": 72.1,
+    "note": "ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/winterreifen/225-40-r18/goodride-sw608-id-5077/; EU label D/C/B 72 dB"
+   },
+   {
+    "name": "Evergreen EW66",
+    "category": "winter_central",
+    "label_wet": "C",
+    "results": {
+     "dry": 46.2,
+     "wet": 42.3,
+     "wet_concrete": 47.7,
+     "snow": 9.7,
+     "ice": 21.1
+    },
+    "aqua_kmh": 70.8,
+    "note": "ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/winterreifen/225-40-r18/evergreen-ew66-id-5078/; EU label D/C/B 72 dB"
+   },
+   {
+    "name": "CST Medallion Winter WCP1",
+    "category": "winter_central",
+    "label_wet": "B",
+    "results": {
+     "dry": 43.3,
+     "wet": 35.3,
+     "wet_concrete": 40.2,
+     "snow": 10.9,
+     "ice": 19.3
+    },
+    "aqua_kmh": 75.1,
+    "note": "ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/winterreifen/225-40-r18/cst-medallion-winter-wcp1-id-5079/; EU label D/B/B 71 dB"
+   },
+   {
+    "name": "Syron Everest 2",
+    "category": "winter_central",
+    "label_wet": "C",
+    "results": {
+     "dry": 46.0,
+     "wet": 47.1,
+     "wet_concrete": 53.0,
+     "snow": 9.2,
+     "ice": 15.2
+    },
+    "aqua_kmh": 61.6,
+    "note": "ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/winterreifen/225-40-r18/syron-everest-2-id-5080/; EU label D/C/B 72 dB"
+   }
+  ]
+ },
+ {
+  "test_id": "ADAC-2025-A-225-45R17",
+  "publication": "ADAC",
+  "year": 2025,
+  "season": "allseason",
+  "size": "225/45 R17",
+  "car": "VW Golf",
+  "tester": "ADAC (with ÖAMTC/TCS partners); published 24.06.2025",
+  "url": "https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/ganzjahresreifen/225-45-r17/",
+  "url_original": null,
+  "disciplines": [
+   {
+    "id": "dry",
+    "surface": "asphalt",
+    "wet": false,
+    "v_from": 100,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "ADAC 'Bremsweg (100 - 0 km/h) trocken in m' (range 38,0-45,3); per-tyre values from each tyre's ADAC detail page (url in tyre note)"
+   },
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": 80,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "ADAC 'Bremsweg (80 - 0 km/h) nasser Asphalt in m' (31,3-42,6)"
+   },
+   {
+    "id": "wet_concrete",
+    "surface": "concrete",
+    "wet": true,
+    "v_from": 80,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "ADAC 'Bremsweg (80 - 0 km/h) nasser Beton in m' (38,4-52,6)"
+   },
+   {
+    "id": "snow",
+    "surface": "snow",
+    "wet": false,
+    "v_from": 30,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "ADAC 'Bremsen Schnee (30 - 0 km/h) in m' (9,0-12,5)"
+   },
+   {
+    "id": "ice",
+    "surface": "ice",
+    "wet": false,
+    "v_from": 20,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "ADAC 'Bremsen Eis (20 - 0 km/h) in m' (14,2-18,7)"
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Goodyear Vector 4Seasons Gen-3",
+    "category": "allseason",
+    "label_wet": "B",
+    "results": {
+     "dry": 42.8,
+     "wet": 33.2,
+     "wet_concrete": 39.1,
+     "snow": 9.1,
+     "ice": 14.7
+    },
+    "aqua_kmh": 74.9,
+    "note": "ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/ganzjahresreifen/225-45-r17/goodyear-vector-4seasons-gen-3-id-5035/; EU label C/B/B 70 dB"
+   },
+   {
+    "name": "Continental AllSeasonContact 2",
+    "category": "allseason",
+    "label_wet": "B",
+    "results": {
+     "dry": 40.8,
+     "wet": 31.3,
+     "wet_concrete": 38.4,
+     "snow": 9.2,
+     "ice": 15.6
+    },
+    "aqua_kmh": 73.0,
+    "note": "ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/ganzjahresreifen/225-45-r17/continental-allseasoncontact-2-id-5034/; EU label C/B/B 71 dB"
+   },
+   {
+    "name": "Pirelli Cinturato All Season SF3",
+    "category": "allseason",
+    "label_wet": "A",
+    "results": {
+     "dry": 38.0,
+     "wet": 32.5,
+     "wet_concrete": 38.8,
+     "snow": 9.8,
+     "ice": 15.4
+    },
+    "aqua_kmh": 78.3,
+    "note": "ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/ganzjahresreifen/225-45-r17/pirelli-cinturato-all-season-sf3-id-5036/; EU label C/A/B 71 dB"
+   },
+   {
+    "name": "Bridgestone Turanza All Season 6",
+    "category": "allseason",
+    "label_wet": "B",
+    "results": {
+     "dry": 38.5,
+     "wet": 31.6,
+     "wet_concrete": 38.5,
+     "snow": 9.6,
+     "ice": 15.5
+    },
+    "aqua_kmh": 78.5,
+    "note": "ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/ganzjahresreifen/225-45-r17/bridgestone-turanza-all-season-6-id-5037/; EU label C/B/B 70 dB"
+   },
+   {
+    "name": "Michelin Crossclimate 2",
+    "category": "allseason",
+    "label_wet": "B",
+    "results": {
+     "dry": 38.9,
+     "wet": 33.6,
+     "wet_concrete": 40.5,
+     "snow": 9.0,
+     "ice": 14.8
+    },
+    "aqua_kmh": 76.0,
+    "note": "ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/ganzjahresreifen/225-45-r17/michelin-crossclimate-2-id-5038/; EU label C/B/B 71 dB"
+   },
+   {
+    "name": "Dunlop All Season 2",
+    "category": "allseason",
+    "label_wet": "B",
+    "results": {
+     "dry": 43.2,
+     "wet": 33.7,
+     "wet_concrete": 40.2,
+     "snow": 9.2,
+     "ice": 14.8
+    },
+    "aqua_kmh": 75.3,
+    "note": "ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/ganzjahresreifen/225-45-r17/dunlop-all-season-2-id-5039/; EU label C/B/B 72 dB"
+   },
+   {
+    "name": "BFGoodrich Advantage All-Season",
+    "category": "allseason",
+    "label_wet": "B",
+    "results": {
+     "dry": 39.3,
+     "wet": 34.3,
+     "wet_concrete": 42.1,
+     "snow": 9.3,
+     "ice": 15.3
+    },
+    "aqua_kmh": 77.1,
+    "note": "ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/ganzjahresreifen/225-45-r17/bfgoodrich-advantage-all-season-id-5040/; EU label C/B/A 69 dB"
+   },
+   {
+    "name": "Viking FourTech Plus",
+    "category": "allseason",
+    "label_wet": "B",
+    "results": {
+     "dry": 43.9,
+     "wet": 34.1,
+     "wet_concrete": 39.7,
+     "snow": 9.5,
+     "ice": 15.7
+    },
+    "aqua_kmh": 75.7,
+    "note": "ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/ganzjahresreifen/225-45-r17/viking-fourtech-plus-id-5041/; EU label C/B/B 72 dB"
+   },
+   {
+    "name": "Vredestein Quatrac Pro+",
+    "category": "allseason",
+    "label_wet": "B",
+    "results": {
+     "dry": 43.1,
+     "wet": 33.4,
+     "wet_concrete": 39.7,
+     "snow": 9.6,
+     "ice": 16.5
+    },
+    "aqua_kmh": 70.6,
+    "note": "ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/ganzjahresreifen/225-45-r17/vredestein-quatrac-proplus-id-5042/; EU label D/B/B 72 dB"
+   },
+   {
+    "name": "Barum Quartaris 5",
+    "category": "allseason",
+    "label_wet": "C",
+    "results": {
+     "dry": 45.3,
+     "wet": 35.6,
+     "wet_concrete": 43.3,
+     "snow": 9.0,
+     "ice": 15.5
+    },
+    "aqua_kmh": 73.3,
+    "note": "ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/ganzjahresreifen/225-45-r17/barum-quartaris-5-id-5043/; EU label C/C/B 72 dB"
+   },
+   {
+    "name": "Nexen N´Blue 4Season 2",
+    "category": "allseason",
+    "label_wet": "A",
+    "results": {
+     "dry": 40.6,
+     "wet": 33.6,
+     "wet_concrete": 41.0,
+     "snow": 9.0,
+     "ice": 14.2
+    },
+    "aqua_kmh": 71.7,
+    "note": "ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/ganzjahresreifen/225-45-r17/nexen-nblue-4season-2-id-5044/; EU label D/A/B 72 dB"
+   },
+   {
+    "name": "Superia Ecoblue2 4S",
+    "category": "allseason",
+    "label_wet": "C",
+    "results": {
+     "dry": 41.9,
+     "wet": 37.6,
+     "wet_concrete": 46.5,
+     "snow": 9.2,
+     "ice": 15.2
+    },
+    "aqua_kmh": 70.4,
+    "note": "ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/ganzjahresreifen/225-45-r17/superia-ecoblue2-4s-id-5045/; EU label C/C/A 68 dB"
+   },
+   {
+    "name": "CST Medallion All Season ACP1",
+    "category": "allseason",
+    "label_wet": "B",
+    "results": {
+     "dry": 44.7,
+     "wet": 36.6,
+     "wet_concrete": 44.4,
+     "snow": 9.6,
+     "ice": 18.7
+    },
+    "aqua_kmh": 75.4,
+    "note": "ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/ganzjahresreifen/225-45-r17/cst-medallion-all-season-acp1-id-5046/; EU label C/B/B 71 dB"
+   },
+   {
+    "name": "APlus AS909",
+    "category": "allseason",
+    "label_wet": "C",
+    "results": {
+     "dry": 42.2,
+     "wet": 39.1,
+     "wet_concrete": 49.6,
+     "snow": 9.4,
+     "ice": 14.7
+    },
+    "aqua_kmh": 66.4,
+    "note": "ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/ganzjahresreifen/225-45-r17/aplus-as909-id-5047/; EU label C/C/B 71 dB"
+   },
+   {
+    "name": "Arivo Carlorful A/S",
+    "category": "allseason",
+    "label_wet": "C",
+    "results": {
+     "dry": 42.2,
+     "wet": 42.6,
+     "wet_concrete": 52.6,
+     "snow": 9.6,
+     "ice": 15.4
+    },
+    "aqua_kmh": 65.6,
+    "note": "ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/ganzjahresreifen/225-45-r17/arivo-carlorful-a-s-id-5048/; EU label C/C/B 71 dB"
+   },
+   {
+    "name": "Petlas Multi Action PT565",
+    "category": "allseason",
+    "label_wet": "C",
+    "results": {
+     "dry": 43.9,
+     "wet": 36.3,
+     "wet_concrete": 44.0,
+     "snow": 12.5,
+     "ice": 18.2
+    },
+    "aqua_kmh": 76.0,
+    "note": "ADAC detail page: https://www.adac.de/rund-ums-fahrzeug/ausstattung-technik-zubehoer/reifen/reifentest/ganzjahresreifen/225-45-r17/petlas-multi-action-pt565-id-5049/; EU label C/C/B 72 dB"
+   }
+  ]
+ },
+ {
+  "test_id": "REIFENTESTER-2025-W-215-55R17",
+  "publication": "Die Reifentester",
+  "year": 2025,
+  "season": "winter",
+  "size": "215/55 R17",
+  "car": "VW Passat Variant / Skoda Superb Combi",
+  "tester": "Die Reifentester (per Tyre Reviews)",
+  "url": "https://www.tyrereviews.com/Article/2025-Die-Reifentester-Winter-Tyre-Test.htm",
+  "url_original": null,
+  "disciplines": [
+   {
+    "id": "dry",
+    "surface": "asphalt",
+    "wet": false,
+    "v_from": 100,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "source heading: Dry braking in meters (100 - 0 km/h)"
+   },
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": 80,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "source heading: Wet braking in meters (80 - 0 km/h)"
+   },
+   {
+    "id": "snow",
+    "surface": "snow",
+    "wet": false,
+    "v_from": 50,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "source heading: Snow braking in meters (50 - 0 km/h)"
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Continental WinterContact TS 870 P",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "dry": 40.08,
+     "wet": 30.02,
+     "snow": 25.62
+    },
+    "aqua_kmh": 89.2,
+    "note": ""
+   },
+   {
+    "name": "Goodyear Vector 4Seasons Gen 3",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 40.65,
+     "wet": 31.08,
+     "snow": 26.39
+    },
+    "aqua_kmh": 87.5,
+    "note": "all-season reference tyre ('Ref')"
+   },
+   {
+    "name": "Bridgestone Blizzak 6",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "dry": 40.92,
+     "wet": 29.99,
+     "snow": 26.43
+    },
+    "aqua_kmh": 89.4,
+    "note": ""
+   },
+   {
+    "name": "Goodyear UltraGrip Performance 3",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "dry": 41.19,
+     "wet": 31.36,
+     "snow": 24.94
+    },
+    "aqua_kmh": 90.1,
+    "note": ""
+   },
+   {
+    "name": "Michelin Alpin 7",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "dry": 41.59,
+     "wet": 31.66,
+     "snow": 25.52
+    },
+    "aqua_kmh": 89.5,
+    "note": ""
+   },
+   {
+    "name": "Pirelli Cinturato Winter 2",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "dry": 41.86,
+     "wet": 31.25,
+     "snow": 25.41
+    },
+    "aqua_kmh": 89.3,
+    "note": ""
+   },
+   {
+    "name": "Nokian Snowproof 2",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "dry": 42.54,
+     "wet": 31.01,
+     "snow": 25.95
+    },
+    "aqua_kmh": 92.4,
+    "note": ""
+   },
+   {
+    "name": "Vredestein Wintrac Pro plus",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "dry": 43.06,
+     "wet": 30.77,
+     "snow": 26.08
+    },
+    "aqua_kmh": 92.0,
+    "note": ""
+   }
+  ]
+ },
+ {
+  "test_id": "SPORTAUTO-2025-W-275-35R19",
+  "publication": "sport auto",
+  "year": 2025,
+  "season": "winter",
+  "size": "275/35 R19",
+  "car": "BMW M4 (RWD)",
+  "tester": "sport auto, Finland (per Tyre Reviews)",
+  "url": "https://www.tyrereviews.com/Article/2025-High-Performance-Winter-Tyre-Test.htm",
+  "url_original": "https://thetirelab.com/sportauto/winter/2025/275-35-r19/",
+  "disciplines": [
+   {
+    "id": "dry",
+    "surface": "asphalt",
+    "wet": false,
+    "v_from": 100,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "Tyre Reviews heading prints no speed; thetirelab.com states 'dry braking from 100–0 km/h'"
+   },
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": 80,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "source heading: Wet braking in meters (80 - 0 km/h)"
+   },
+   {
+    "id": "snow",
+    "surface": "snow",
+    "wet": false,
+    "v_from": 50,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "source heading: Snow braking in meters (50 - 0 km/h)"
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Michelin Pilot Alpin 5",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "dry": 41.1,
+     "wet": 32.2,
+     "snow": 26.2
+    },
+    "aqua_kmh": 92.0,
+    "note": ""
+   },
+   {
+    "name": "Bridgestone Blizzak 6",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "dry": 43.5,
+     "wet": 31.7,
+     "snow": 26.7
+    },
+    "aqua_kmh": 86.5,
+    "note": ""
+   },
+   {
+    "name": "Goodyear UltraGrip Performance 3",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "dry": 41.8,
+     "wet": 32.3,
+     "snow": 26.8
+    },
+    "aqua_kmh": 90.4,
+    "note": ""
+   },
+   {
+    "name": "Hankook Winter i cept evo3",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "dry": 43.4,
+     "wet": 32.2,
+     "snow": 26.4
+    },
+    "aqua_kmh": 91.3,
+    "note": ""
+   },
+   {
+    "name": "Continental WinterContact 8 S",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "dry": 42.8,
+     "wet": 32.9,
+     "snow": 26.5
+    },
+    "aqua_kmh": 86.8,
+    "note": ""
+   },
+   {
+    "name": "Vredestein Wintrac Pro plus",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "dry": 43.6,
+     "wet": 33.6,
+     "snow": 26.6
+    },
+    "aqua_kmh": 93.9,
+    "note": ""
+   }
+  ]
+ },
+ {
+  "test_id": "AUTOBILD-2025-A-225-45R18",
+  "publication": "AUTO BILD sportscars",
+  "year": 2025,
+  "season": "allseason",
+  "size": "225/45 R18",
+  "car": null,
+  "tester": "AUTO BILD sportscars, December 2025 issue (per Tyre Reviews); thetirelab lists BMW 3 Series / M240i",
+  "url": "https://www.tyrereviews.com/Article/2025-Auto-Bild-Sports-Car-All-Season-Tyre-Test.htm",
+  "url_original": "https://www.thetirelab.com/autobild/allseason/2025/225-45-r18/",
+  "disciplines": [
+   {
+    "id": "dry",
+    "surface": "asphalt",
+    "wet": false,
+    "v_from": 100,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "Dry Braking (100-0 km/h) per Tyre Reviews; NOTE thetirelab.com text says weakest all-season dry was Delmax 43.3 m (summer ref 34.7 m) - conflicts with Tyre Reviews table"
+   },
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": 100,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "Wet Braking (100-0 km/h) per Tyre Reviews"
+   },
+   {
+    "id": "snow",
+    "surface": "snow",
+    "wet": false,
+    "v_from": 50,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "Snow Braking (50-0 km/h) per Tyre Reviews"
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Pirelli Cinturato All Season SF3",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 38.4,
+     "wet": 42.9,
+     "snow": 25.2
+    },
+    "aqua_kmh": 80.3,
+    "note": ""
+   },
+   {
+    "name": "Bridgestone Turanza All Season 6",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 39.5,
+     "wet": 44.4,
+     "snow": 24.7
+    },
+    "aqua_kmh": 79.2,
+    "note": ""
+   },
+   {
+    "name": "Hankook Kinergy 4S2",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 41.9,
+     "wet": 44.6,
+     "snow": 23.9
+    },
+    "aqua_kmh": 75.9,
+    "note": ""
+   },
+   {
+    "name": "Michelin CrossClimate 2",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 38.8,
+     "wet": 45.9,
+     "snow": 23.5
+    },
+    "aqua_kmh": 77.5,
+    "note": ""
+   },
+   {
+    "name": "Goodyear Vector 4Seasons Gen 3",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 44.5,
+     "wet": 47.9,
+     "snow": 23.7
+    },
+    "aqua_kmh": 79.7,
+    "note": ""
+   },
+   {
+    "name": "Kleber Quadraxer 3",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 39.6,
+     "wet": 47.8,
+     "snow": 23.8
+    },
+    "aqua_kmh": 78.0,
+    "note": ""
+   },
+   {
+    "name": "Vredestein Quatrac Pro Plus",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 43.7,
+     "wet": 44.5,
+     "snow": 25.7
+    },
+    "aqua_kmh": 72.1,
+    "note": ""
+   },
+   {
+    "name": "Linglong Sport Master 4S",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 39.8,
+     "wet": 44.5,
+     "snow": 27.2
+    },
+    "aqua_kmh": 71.2,
+    "note": ""
+   },
+   {
+    "name": "Viking Fourtech Plus",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 46.1,
+     "wet": 49.4,
+     "snow": 24.3
+    },
+    "aqua_kmh": 77.5,
+    "note": ""
+   },
+   {
+    "name": "Delmax X Weather 4S",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 45.0,
+     "wet": 56.3,
+     "snow": 24.8
+    },
+    "aqua_kmh": 66.3,
+    "note": ""
+   }
+  ]
+ },
+ {
+  "test_id": "AUTOBILD-2025-A-245-45R18",
+  "publication": "AUTO BILD",
+  "year": 2025,
+  "season": "allseason",
+  "size": "245/45 R18",
+  "car": "Cupra Formentor",
+  "tester": "AUTO BILD (Tyre Reviews titles it 'Camper Van'; car per thetirelab.com)",
+  "url": "https://www.tire-reviews.com/Article/2025-Auto-Bild-All-Season-Camper-Van-Tire-Test.htm",
+  "url_original": "https://www.thetirelab.com/autobild/allseason/2025/245-45-r18/",
+  "disciplines": [
+   {
+    "id": "dry",
+    "surface": "asphalt",
+    "wet": false,
+    "v_from": 100,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "source chart: Dry braking in meters (100 - 0 km/h)"
+   },
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": 100,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "source chart: Wet braking in meters (100 - 0 km/h)"
+   },
+   {
+    "id": "snow",
+    "surface": "snow",
+    "wet": false,
+    "v_from": 50,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "source chart: Snow braking in meters (50 - 0 km/h)"
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Pirelli Cinturato All Season SF3",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 39.2,
+     "wet": 48.1,
+     "snow": 30.1
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Michelin CrossClimate 2",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 39.6,
+     "wet": 49.3,
+     "snow": 29.8
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Bridgestone Turanza All Season 6",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 40.0,
+     "wet": 47.6,
+     "snow": 30.3
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Continental AllSeasonContact 2",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 41.6,
+     "wet": 48.1,
+     "snow": 30.2
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Goodyear Vector 4Seasons Gen 3",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 43.6,
+     "wet": 51.6,
+     "snow": 30.0
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Hankook Kinergy 4S2",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 42.2,
+     "wet": 50.0,
+     "snow": 30.1
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Vredestein Quatrac Pro Plus",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 42.2,
+     "wet": 50.1,
+     "snow": 31.9
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Triangle SeasonX TA01",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 41.8,
+     "wet": 54.5,
+     "snow": 31.0
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Rotalla Setula 4 Season RA03",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 45.3,
+     "wet": 55.0,
+     "snow": 31.3
+    },
+    "aqua_kmh": null,
+    "note": ""
+   }
+  ]
+ },
+ {
+  "test_id": "AUTOBILD-2025-A-215-55R17",
+  "publication": "AUTO BILD allrad",
+  "year": 2025,
+  "season": "allseason",
+  "size": "215/55 R17",
+  "car": "VW T-Roc",
+  "tester": "AUTO BILD allrad (per Tyre Reviews)",
+  "url": "https://www.tyrereviews.com/Article/2025-Autobild-SUV-All-Season-Tyre-Test.htm",
+  "url_original": "https://www.thetirelab.com/autobild/allseason/2025/215-55-r17/",
+  "disciplines": [
+   {
+    "id": "dry",
+    "surface": "asphalt",
+    "wet": false,
+    "v_from": 100,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "source heading: Dry braking in meters (100 - 0 km/h); summer ref 34.9 m, winter ref 43.3 m per article text"
+   },
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": 100,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "source heading: Wet braking in meters (100 - 0 km/h); summer ref 55.0 m, winter ref 78.0 m per article text"
+   },
+   {
+    "id": "snow",
+    "surface": "snow",
+    "wet": false,
+    "v_from": 50,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "source heading: Snow braking in meters (50 - 0 km/h)"
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Vredestein Quatrac",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 40.6,
+     "wet": 58.0,
+     "snow": 22.4
+    },
+    "aqua_kmh": 77.5,
+    "note": ""
+   },
+   {
+    "name": "Bridgestone Turanza All Season 6",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 37.6,
+     "wet": 61.3,
+     "snow": 23.2
+    },
+    "aqua_kmh": 76.3,
+    "note": ""
+   },
+   {
+    "name": "Hankook Kinergy 4S2",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 39.3,
+     "wet": 62.4,
+     "snow": 23.0
+    },
+    "aqua_kmh": 73.5,
+    "note": ""
+   },
+   {
+    "name": "Ceat 4 SeasonDrive X5",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 38.2,
+     "wet": 60.4,
+     "snow": 25.0
+    },
+    "aqua_kmh": 74.3,
+    "note": ""
+   },
+   {
+    "name": "Goodyear Vector 4Seasons Gen 3",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 41.2,
+     "wet": 61.3,
+     "snow": 22.8
+    },
+    "aqua_kmh": 73.0,
+    "note": ""
+   },
+   {
+    "name": "GT Radial ClimateActive",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 40.1,
+     "wet": 62.2,
+     "snow": 23.6
+    },
+    "aqua_kmh": 74.6,
+    "note": ""
+   },
+   {
+    "name": "Nexen N Blue 4Season 2",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 38.5,
+     "wet": 62.5,
+     "snow": 23.8
+    },
+    "aqua_kmh": 71.9,
+    "note": ""
+   },
+   {
+    "name": "Kleber Quadraxer 3",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 38.4,
+     "wet": 65.1,
+     "snow": 22.4
+    },
+    "aqua_kmh": 76.4,
+    "note": ""
+   },
+   {
+    "name": "Viking Fourtech Plus",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 41.6,
+     "wet": 61.0,
+     "snow": 23.0
+    },
+    "aqua_kmh": 77.1,
+    "note": ""
+   },
+   {
+    "name": "Linglong Sport Master 4S",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 37.0,
+     "wet": 62.8,
+     "snow": 26.0
+    },
+    "aqua_kmh": 71.2,
+    "note": "source text also calls it 'Grip Master 4S'"
+   },
+   {
+    "name": "Arivo Carlorful AS",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 41.5,
+     "wet": 78.0,
+     "snow": 24.1
+    },
+    "aqua_kmh": 70.4,
+    "note": ""
+   }
+  ]
+ }
+]

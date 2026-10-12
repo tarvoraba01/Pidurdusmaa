@@ -48,7 +48,57 @@ def model_index():
     return idx
 
 
+# Käsitsi üle vaadatud nimevasted (testi nimi → mudeli slug), kus automaatne
+# sobitus ei leia: EPREL-i lühendid (HKPL), Nordman ilma Nokian'ita,
+# vanad „Conti“-eesliitega nimed, kirjavead allikas. Ainult kindlad.
+NIMI_ALIAS = {
+    "nokian hakkapeliitta r2": "nokian-hkpl-r2",
+    "nokian hakkapeliitta r3": "nokian-hkpl-r3",
+    "nokian hakkapeliitta r3 suv": "nokian-hkpl-r3-suv",
+    "kumho ecsta hs52": "kumho-hs52",
+    "kumho wintercraft wp52": "kumho-wp52-wp52",
+    "kumho wintercraft wp52+": "kumho-wp52",
+    "kumho wintercraft wp52 plus": "kumho-wp52",
+    "nordman rs2": "nokian-nordman-rs2",
+    "nordman rs 2": "nokian-nordman-rs2",
+    "nordman rs2 suv": "nokian-nordman-rs2-suv",
+    "nordman 7": "nokian-nordman-7",
+    "nordman 7 suv": "nokian-nordman-7-suv",
+    "nordman 8": "nokian-nordman-8",
+    "nordman 8 suv": "nokian-nordman-8-suv",
+    "nordman north 9": "nokian-nordman-north-9",
+    "nordman north 9 suv": "nokian-nordman-north-9-suv",
+    "continental conticecontact 2": "continental-icecontact-2",
+    "continental contiicecontact 2": "continental-icecontact-2",
+    "continental contiicecontact 2 suv": "continental-icecontact-2-suv",
+    "continental contiwintercontact ts 850 p": "continental-wintercontact-ts-850-p",
+    "hankook winter i*cept evo3 x w330a": "hankook-winter-i-cept-evo3-x",
+    "goodyear ug performance 3": "goodyear-ultragrip-performance-3",
+    "firestone multiseason gen 02": "firestone-multiseason2",
+    "kumho solus 4s ha32": "kumho-ha32",
+    "dunlop sp sport maxx rt2": "dunlop-sport-maxx-rt2",
+    "momo w-20 north pole": "momo-w-2-north-pole",
+    "tomket sport": "tomket-tomket-sport",
+    "tomket sport 3": "tomket-tomket-sport-3",
+    "giti allseason as1": "giti-gitiallseason-as1",
+    "giti allseason as2": "giti-gitiallseason-as2",
+    "giti synergy h2": "giti-gitisynergy-h2",
+    "nexen winguard sport 2 wu7": "nexen-winguard-sport-2",
+    "triangle icelynk ti501": "triangle-icelynx-ti501",
+    "bridgestone blizzak 6 enliten": "bridgestone-blizzak-6",
+    "rotalla setula s-pace ru01": "rotalla-setula-s-race-ru01",
+    "tracmax s210": "tracmax-ice-plus-s210",
+    "wanli sa302 sport macro": "wanli-sa302",
+}
+_LI_SI = re.compile(r"\s+\d{2,3}[a-z]{1,2}(\s+xl)?$")
+
+
 def match(idx, name):
+    key = " ".join(str(name).lower().split())
+    key = _LI_SI.sub("", key)   # „… 94V XL“ → „…“ (koormus-/kiirusindeks ei ole mudel)
+    if key in NIMI_ALIAS:
+        return NIMI_ALIAS[key]
+    name = key
     t = B._tok(name)
     if not t:
         return None

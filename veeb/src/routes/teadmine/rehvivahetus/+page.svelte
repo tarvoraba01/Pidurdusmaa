@@ -33,10 +33,10 @@
 	const h0 = tana(ehitus).h;
 	const TITLE = ru
 		? `С какого числа зимняя резина в Эстонии ${AASTA}: все сроки`
-		: `Rehvivahetus ${AASTA}: millal talverehvid ja suverehvid alla`;
+		: `Rehvivahetus ${AASTA}: millal naastrehvid ja talverehvid alla`;
 	const DESC = ru
 		? `Шипы — с 15 октября по 31 марта, зимняя резина обязательна с 1 декабря по 1 марта. Что разрешено сегодня, сроки ${h0.S}/${h0.S + 1} и правило 3 мм.`
-		: `Naastrehvid on lubatud 15. oktoobrist 31. märtsini, talverehvid kohustuslikud 1. detsembrist 1. märtsini. Rehvivahetuse kuupäevad ${h0.S}/${h0.S + 1} ja nõuded ühes kohas.`;
+		: `Naastrehvid on lubatud 15. oktoobrist 31. märtsini, talverehvid kohustuslikud 1. detsembrist 1. märtsini. Mis on täna lubatud, kuupäevad ${h0.S}/${h0.S + 1} ja 3 mm reegel.`;
 
 	/* Korduma kippuvad küsimused (nähtav + FAQPage) */
 	const kkk = (hh) =>

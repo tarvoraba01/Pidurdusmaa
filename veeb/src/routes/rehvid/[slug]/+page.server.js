@@ -165,9 +165,42 @@ function vahemik(arr, jarj) {
 	u.sort(jarj);
 	return u.length === 1 ? String(u[0]) : u[0] + '–' + u[u.length - 1];
 }
-function kirjeldus(t, sizes, tests) {
+/* välistesti pind (eesti sõna testid_ext.json-is) → mootori pind */
+const EXT_PIND = { 'jää': ['ICE', false], lumi: ['SNOW_PACKED', false], 'märg asfalt': ['ASPHALT', true], 'kuiv asfalt': ['ASPHALT', false], 'märg betoon': ['CONCRETE', true] };
+const PIND_SONA = { ICE: ['jääl', 'jääl'], SNOW_PACKED: ['lumel', 'lumel'], ASPHALT: ['kuival asfaldil', 'märjal asfaldil'], CONCRETE: ['märjal betoonil', 'märjal betoonil'] };
+/* Kõik mõõdetud tulemused ühtsel kujul: oma ankrutestid (core) + ajakirjatestid (ext). */
+function koikTulemused(tests, ext) {
+	const out = [];
+	for (const x of tests) {
+		const src = source(x.src) || {};
+		/* „ADAC talverehvitest 2025“ → „ADAC 2025“ (ajakirja nimi on pärisnimi, ei vaja tõlget) */
+		const w = String(x.src_nimi || x.src).split(' '), i = w.findIndex((z) => /rehv|test|naast|suve|talve/i.test(z));
+		const lyhi = i > 0 ? w.slice(0, i).join(' ') + (src.aasta ? ' ' + src.aasta : '') : String(x.src_nimi || x.src);
+		out.push({ src: lyhi, srcPikk: x.src_nimi, aasta: src.aasta || 0, surf: x.surf, wet: !!x.wet, v0: x.v0, v1: x.v1, m: x.m, pos: x.pos, n: x.n });
+	}
+	for (const x of ext) {
+		const p = EXT_PIND[x.d];
+		if (!p || !x.src || !x.src.pub) continue;
+		/* „Vi Bilägare / Motor (NAF Norway)“ → „Vi Bilägare“ */
+		out.push({ src: String(x.src.pub).split(/ \/ | \(/)[0].trim() + ' ' + x.src.year, aasta: x.src.year || 0, surf: p[0], wet: p[1], v0: x.v0, v1: x.v1, m: x.m, pos: x.pos, n: x.n });
+	}
+	return out;
+}
+/* Otsingutulemuse fakt: UUSIM test; talverehvil eelistatult jää, siis lumi, siis märg;
+   suve-/aastaringsel märg, siis kuiv. Kiiruseta tulemus ei sobi (lause vajab kiirust). */
+function uusimFakt(t, koik) {
+	/* Põhjamaade talve- ja naastrehvil loeb jää; Kesk-Euroopa talverehvil lumi ja märg; muul märg */
+	const pohja = t.cat === 'WINTER_NORDIC' || t.cat === 'WINTER_STUDDED', kesk = t.cat === 'WINTER_CENTRAL' || t.cat === 'ALL_SEASON';
+	const jrk = (r) => (pohja ? { ICE: 0, SNOW_PACKED: 1, ASPHALT: r.wet ? 2 : 3, CONCRETE: 4 } : kesk ? { SNOW_PACKED: 0, ASPHALT: r.wet ? 1 : 3, CONCRETE: 2, ICE: 4 } : { ASPHALT: r.wet ? 0 : 2, CONCRETE: 1, SNOW_PACKED: 3, ICE: 4 })[r.surf] ?? 9;
+	const r = koik.filter((x) => x.v0 && x.m && x.pos && x.n > 1).sort((a, b) => b.aasta - a.aasta || jrk(a) - jrk(b))[0];
+	if (!r) return null;
+	return { src: r.src, pind: PIND_SONA[r.surf][r.wet ? 1 : 0], v: Math.round(r.v0) + '→' + Math.round(r.v1 || 0), m: r.m, pos: r.pos, n: r.n };
+}
+const num1 = (x) => String(Math.round(x * 10) / 10).replace('.', ',');
+function kirjeldus(t, sizes, tests, fakt) {
 	const osad = [];
-	if (tests.length) osad.push('sõltumatu testi pidurdusmaad');
+	if (fakt) osad.push(fakt.src + ' testis ' + fakt.pind + ' ' + fakt.v + ' km/h: ' + num1(fakt.m) + ' m (' + fakt.pos + './' + fakt.n + ')');
+	else if (tests.length) osad.push('sõltumatu testi pidurdusmaad');
 	const g = vahemik(sizes.map((z) => z.g), (a, b) => String(a).localeCompare(String(b)));
 	if (g) osad.push('märjal haardumise klass ' + g);
 	const db = vahemik(sizes.map((z) => z.db), (a, b) => a - b);
@@ -194,6 +227,8 @@ function rehvLeht(t) {
 		: [];
 
 	const ext = extTests(t.slug);
+	const koik = koikTulemused(tests, ext);
+	const fakt = uusimFakt(t, koik);
 
 	const aqua = t.tested && t.tested.aqua
 		? { ...t.tested.aqua, nimi: (source(t.tested.aqua.src) || {}).nimi || '' }
@@ -243,11 +278,14 @@ function rehvLeht(t) {
 		/* Indekseerimise reegel on andmed.js-is (rehviIndeks) */
 		noindex: !(tests.length || ext.length || sizes.length) || !ix.index,
 		canonical: ix.canonical ? 'rehvid/' + ix.canonical + '/' : null,
-		desc: kirjeldus(t, sizes, tests),
+		desc: kirjeldus(t, sizes, tests, fakt),
+		/* pealkirjas „test“, kui rehvil on päris mõõtmisi (otsingud „<rehv> test“) */
+		testitud: koik.length > 0,
 		/* sama kirjeldus tükkidena — vene lehel pannakse see kokku tõlgitult */
 		descOsad: {
 			fraas: KAT_FRAAS[t.cat] || '',
 			testid: !!tests.length,
+			fakt,
 			g: vahemik(sizes.map((z) => z.g), (a, b) => String(a).localeCompare(String(b))),
 			db: vahemik(sizes.map((z) => z.db), (a, b) => a - b),
 			n: new Set(sizes.map((z) => z.m)).size
@@ -256,7 +294,7 @@ function rehvLeht(t) {
 		vastus,
 		vastusTalv,
 		/* KKK: testide kokkuvõte (parim koht) ainult lehe andmetest */
-		parimTest: parimTestKoht(tests)
+		parimTest: parimTestKoht(koik)
 	};
 }
 
@@ -274,9 +312,9 @@ function vastusTalvLause(t, sizes, v) {
 }
 
 /* Parim koht sõltumatutes testides: { src, pos, n, pind } (1 = lühim pidurdusmaa) */
-function parimTestKoht(tests) {
-	const k = tests.filter((x) => x.pos && x.n > 1).sort((a, b) => a.pos / a.n - b.pos / b.n || a.pos - b.pos)[0];
-	return k ? { src: k.src_nimi, pos: k.pos, n: k.n, surf: k.surf, wet: k.wet, v0: k.v0, m: k.m } : null;
+function parimTestKoht(koik) {
+	const k = koik.filter((x) => x.pos && x.n > 1 && x.v0).sort((a, b) => a.pos / a.n - b.pos / b.n || a.pos - b.pos || b.aasta - a.aasta)[0];
+	return k ? { src: k.srcPikk || k.src, pos: k.pos, n: k.n, surf: k.surf, wet: k.wet, v0: k.v0, m: k.m } : null;
 }
 
 /* GEO: üks tsiteeritav fakt rehvilehe päisesse.
