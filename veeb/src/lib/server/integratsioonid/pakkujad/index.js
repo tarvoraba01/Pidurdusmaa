@@ -4,5 +4,6 @@
 import naidis from './naidis.js';
 import rehvivahetus from './rehvivahetus.js';
 import tirespot from './tirespot.js';
+import intercars from './intercars.js';
 
-export const PAKKUJAD = [rehvivahetus, tirespot, naidis];
+export const PAKKUJAD = [rehvivahetus, tirespot, intercars, naidis];
