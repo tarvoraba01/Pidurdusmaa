@@ -8,7 +8,7 @@
 		? '<div class="partn">' +
 			PARTNERID.map(
 				(p) =>
-					`<a class="partn-k" href="${esc(p.link)}" rel="sponsored noopener" target="_blank" data-partner="${esc(p.nimi)}" aria-label="${esc(p.nimi)}">` +
+					`<a class="partn-k" href="${esc(p.link)}" rel="${p.tasuta ? 'noopener' : 'sponsored noopener'}" target="_blank" data-partner="${esc(p.nimi)}" aria-label="${esc(p.nimi)}">` +
 					(p.logo ? `<img src="/img/partnerid/${esc(p.logo)}" alt="${esc(p.nimi)}" loading="lazy">` : `<b>${esc(p.nimi)}</b>`) +
 					`</a>`
 			).join('') +
