@@ -3,7 +3,8 @@
 	   absoluutsed pidurdusmaad (meie testide andmebaas):
 	     Vi Bilägare 2025 lamell ja naast 235/60 R18 (Volvo XC60), 2026 naast 215/65 R17
 	     (mudel/testid_ext/vi_bilagare_2025_2026.json, allikas motor.no / tyrereviews.com);
-	     Tekniikan Maailma 2025 205/55 R16 ja ADAC 2025 (core.json TM25 / ADAC25).
+	     Tekniikan Maailma 2025 205/55 R16 ja ADAC 2025 (core.json TM25 / ADAC25);
+	     ADAC 2026 185/65 R15 ja 225/50 R17, Auto Bild 2026 225/55 R18 (testid_ext, adac.de / autobild.de).
 	   Uusi teste lisame, kui nende mõõdetud meetrid on avalikud.
 	   Vene tekst: SISU_RU (/ru/teadmine/artiklid/talverehvide-testid-2026/). */
 	import Leht from '$lib/Leht.svelte';
@@ -37,9 +38,12 @@
 </ul>
 <p>Iga testitud rehvi mõõdetud tulemused on rehvi lehel, näiteks ${R('continental-vikingcontact-8', 'Continental VikingContact 8')} või ${R('pirelli-ice-zero-2', 'Pirelli Ice Zero 2')}. Oma auto ja rehviga saad pidurdusmaa arvutada <a href="/">kalkulaatoris</a>.</p>
 
-<h2>Mis on veel tulemas</h2>
-<p>2026. aasta sügisel on ilmunud ka <strong>ADAC</strong> (185/65 R15 ja 225/50 R17) ja <strong>Tekniikan Maailma</strong> (205/55 R16) talvetestid. <strong>ADAC 2026, 225/50 R17</strong> (16 rehvi): märjal asfaldil 80 km/h pealt peatusid parimad, Continental WinterContact TS 870 ja Pirelli Cinturato Winter 3, umbes 35 meetriga; nõrgim, Sunwide Snowide, vajas ligi 12 meetrit rohkem. Rehvide kaupa mõõdetud meetreid ADAC avalikult ei näita (ainult hinded) ja Tekniikan Maailma test on tasuline — seepärast neid andmebaasis veel ei ole. Lisame need, kui mõõtmised avalikuks tulevad.</p>
-<p class="note">Allikad: Vi Bilägare / Motor (NAF), Tekniikan Maailma, ADAC. Numbrid nii, nagu need on avaldatud; testid on tehtud eri autode, mõõtude ja tingimustega, nii et eri testide meetreid omavahel otse võrrelda ei saa.</p>`;
+<h2>2026. aasta sügise testid: ADAC ja Auto Bild</h2>
+<p><strong>ADAC 2026, 185/65 R15</strong> (Škoda Fabia, 16 rehvi): märjal asfaldil 80 km/h pealt peatus parim ${R('bridgestone-blizzak-lm005', 'Bridgestone Blizzak LM005')} <strong>33,5 meetriga</strong>, halvim Rockblade Rock 868S <strong>51,4 meetriga</strong> — ligi 18 meetrit vahet. Sama Rockblade oli aga jääl (20 km/h pealt) parim, 19,4 m. Lumel 30 km/h pealt olid kõik 10,0 ja 11,0 meetri vahel.</p>
+<p><strong>ADAC 2026, 225/50 R17</strong> (Audi A4 Avant, 16 rehvi): märjal parim ${R('continental-wintercontact-ts-870', 'Continental WinterContact TS 870')} <strong>34,7 m</strong>, halvim Sunwide Snowide <strong>46,3 m</strong>. Sunwide oli samas testis lumel ja jääl parim — jälle sama muster: lumel ja jääl hea odav rehv võib märjal asfaldil olla ohtlik.</p>
+<p><strong>Auto Bild 2026, 225/55 R18</strong> (BMW X1, 10 rehvi): märjal 100 km/h pealt parim ${R('pirelli-cinturato-winter-3', 'Pirelli Cinturato Winter 3')} <strong>44,4 m</strong>, halvim ${R('zeetex-wh1000-suv', 'Zeetex WH1000 SUV')} <strong>57,5 m</strong>. Lumel 50 km/h pealt parim ${R('michelin-pilot-alpin-5', 'Michelin Pilot Alpin 5')} 27,7 m, halvim taas Zeetex 31,8 m.</p>
+<p>Need on Kesk-Euroopa talverehvid (jääle mõeldud Põhjamaade rehve ADAC ja Auto Bild ei testi). <strong>Tekniikan Maailma 2026</strong> (205/55 R16) test on tasuline — lisame selle, kui mõõdetud meetrid on avalikud.</p>
+<p class="note">Allikad: Vi Bilägare / Motor (NAF), Tekniikan Maailma, ADAC, Auto Bild. Numbrid nii, nagu need on avaldatud; testid on tehtud eri autode, mõõtude ja tingimustega, nii et eri testide meetreid omavahel otse võrrelda ei saa.</p>`;
 
 	const SISU_RU = `<p><strong>Тесты зимних шин каждую осень показывают одну и ту же картину:</strong> на снегу хорошие и средние шины почти равны, но на льду и мокром асфальте разница может составлять несколько длин автомобиля. Мы собрали <em>измеренный</em> тормозной путь из последних тестов — только метры, без баллов и оценок.</p>
 
@@ -63,9 +67,12 @@
 </ul>
 <p>Измеренные результаты каждой протестированной шины есть на странице шины, например ${R('continental-vikingcontact-8', 'Continental VikingContact 8')} или ${R('pirelli-ice-zero-2', 'Pirelli Ice Zero 2')}. Рассчитать тормозной путь для своего автомобиля и шин можно в <a href="/">калькуляторе</a>.</p>
 
-<h2>Что ещё впереди</h2>
-<p>Осенью 2026 года вышли также зимние тесты <strong>ADAC</strong> (185/65 R15 и 225/50 R17) и <strong>Tekniikan Maailma</strong> (205/55 R16). <strong>ADAC 2026, 225/50 R17</strong> (16 шин): на мокром асфальте с 80 км/ч лучшие, Continental WinterContact TS 870 и Pirelli Cinturato Winter 3, остановились примерно за 35 метров; худшей, Sunwide Snowide, понадобилось почти на 12 метров больше. Измеренные метры по отдельным шинам ADAC публично не показывает (только оценки), а тест Tekniikan Maailma платный — поэтому в нашей базе данных их пока нет. Мы добавим их, когда измерения станут публичными.</p>
-<p class="note">Источники: Vi Bilägare / Motor (NAF), Tekniikan Maailma, ADAC. Цифры приведены так, как они опубликованы; тесты проводились на разных автомобилях, в разных размерах и условиях, поэтому метры из разных тестов напрямую сравнивать нельзя.</p>`;
+<h2>Тесты осени 2026 года: ADAC и Auto Bild</h2>
+<p><strong>ADAC 2026, 185/65 R15</strong> (Škoda Fabia, 16 шин): на мокром асфальте с 80 км/ч лучшая ${R('bridgestone-blizzak-lm005', 'Bridgestone Blizzak LM005')} остановилась за <strong>33,5 метра</strong>, худшая Rockblade Rock 868S — за <strong>51,4 метра</strong>, разница почти 18 метров. При этом та же Rockblade оказалась лучшей на льду (с 20 км/ч) — 19,4 м. На снегу с 30 км/ч все шины уложились в 10,0–11,0 метра.</p>
+<p><strong>ADAC 2026, 225/50 R17</strong> (Audi A4 Avant, 16 шин): на мокром лучшая ${R('continental-wintercontact-ts-870', 'Continental WinterContact TS 870')} — <strong>34,7 м</strong>, худшая Sunwide Snowide — <strong>46,3 м</strong>. В том же тесте Sunwide была лучшей на снегу и льду — снова та же картина: дешёвая шина, хорошая на снегу и льду, может быть опасной на мокром асфальте.</p>
+<p><strong>Auto Bild 2026, 225/55 R18</strong> (BMW X1, 10 шин): на мокром с 100 км/ч лучшая ${R('pirelli-cinturato-winter-3', 'Pirelli Cinturato Winter 3')} — <strong>44,4 м</strong>, худшая ${R('zeetex-wh1000-suv', 'Zeetex WH1000 SUV')} — <strong>57,5 м</strong>. На снегу с 50 км/ч лучшая ${R('michelin-pilot-alpin-5', 'Michelin Pilot Alpin 5')} — 27,7 м, худшая снова Zeetex — 31,8 м.</p>
+<p>Это европейские зимние шины (северные шины для льда ADAC и Auto Bild не тестируют). Тест <strong>Tekniikan Maailma 2026</strong> (205/55 R16) платный — добавим его, когда измеренные метры станут публичными.</p>
+<p class="note">Источники: Vi Bilägare / Motor (NAF), Tekniikan Maailma, ADAC, Auto Bild. Цифры приведены так, как они опубликованы; тесты проводились на разных автомобилях, в разных размерах и условиях, поэтому метры из разных тестов напрямую сравнивать нельзя.</p>`;
 
 	const T = ru ? { ...A, ...A.ru } : A;
 </script>
@@ -75,7 +82,7 @@
 	desc={T.desc}
 	path="teadmine/artiklid/talverehvide-testid-2026/"
 	crumbs={[[t('Teadmine'), '/teadmine/'], [t('Artiklid'), '/teadmine/artiklid/'], [T.title, '/teadmine/artiklid/talverehvide-testid-2026/']]}
-	uuendatud={A.kuupaev}
+	uuendatud={A.uuendatud || A.kuupaev}
 	avaldatud={A.kuupaev}
 	image="/og/sait/talverehvide-testid-2026.png"
 	sisu={ru ? SISU_RU : SISU}

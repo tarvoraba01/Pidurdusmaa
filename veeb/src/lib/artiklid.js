@@ -138,12 +138,13 @@ export const ARTIKLID = [
 	{
 		slug: 'talverehvide-testid-2026',
 		title: 'Talverehvide testid 2025–2026: mida mõõtmised näitavad',
-		desc: 'Jääl üle kahe korra pikem pidurdusmaa, märjal 15 meetrit vahet, lumel alla meetri. Viimaste talverehvitestide mõõdetud pidurdusmaad ühest kohast.',
+		desc: 'Jääl üle kahe korra pikem pidurdusmaa, märjal kuni 18 meetrit vahet, lumel alla meetri. ADAC, Auto Bild, Tekniikan Maailma ja Vi Bilägare talvetestide mõõdetud pidurdusmaad ühest kohast.',
 		kuupaev: '2026-09-30',
+		uuendatud: '2026-10-12',
 		silt: 'Testid',
 		ru: {
 			title: 'Тесты зимних шин 2025–2026: что показывают измерения',
-			desc: 'На льду тормозной путь более чем вдвое длиннее, на мокром — 15 метров разницы, на снегу меньше метра. Измеренный тормозной путь из последних тестов зимних шин.',
+			desc: 'На льду тормозной путь более чем вдвое длиннее, на мокром — до 18 метров разницы, на снегу меньше метра. Измеренный тормозной путь из зимних тестов ADAC, Auto Bild, Tekniikan Maailma и Vi Bilägare.',
 			silt: 'Тесты'
 		}
 	},

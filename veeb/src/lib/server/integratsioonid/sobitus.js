@@ -50,7 +50,7 @@ const SONA_ALIAS = { ug: 'ultragrip', hkpl: 'hakkapeliitta', iceiynx: 'icelynx' 
 /* mudelinimest ära: mõõt, indeksid ja lisamärgid, mis ei muuda mudelit */
 /* NB: „winter“, „summer“, „all season“ EI ole müra — „Scorpion“ ja „Scorpion Winter“, „Scorpion Zero“ ja „Scorpion Zero All Season“ on eri rehvid */
 const MYRA = new Set(
-	'xl rf rft runflat ssr zp extra load reinf reinforced fr mfs tl tubeless 3pmsf pmsf fsl bsw studded naast naastrehv suverehv talverehv lamellrehv aastaringne'.split(
+	'xl rf rft runflat ssr zp extra load reinf reinforced fr mfs tl tubeless 3pmsf pmsf fsl bsw studded naast naastrehv suverehv talverehv lamellrehv aastaringne sealtech contisilent contiseal'.split(
 		' '
 	)
 );
@@ -69,11 +69,16 @@ export function mudeliSonad(mudel, mark) {
 		.split(' ')
 		.map((x) => SONA_ALIAS[x] || x)
 		.filter((x) => x && !MYRA.has(x) && !markW.has(x) && !OE.test(x));
+	/* Yokohama „iceGUARD Stud iG65“ = meie „iceGUARD iG65“ (naastrehvi nimes „Stud“ ei erista) */
+	if (normMark(mark) === 'yokohama' && w.includes('guard')) w = w.filter((x) => x !== 'stud');
 	/* Hankooki tehasekood (W429, K135, H750) — üks pood kirjutab, teine mitte */
 	/* „Winter i*cept X RW10“ = „i-Cept X“: Hankooki talvesarjal (i*cept, i*pike) ei erista
 	   sõna „winter“ midagi ja RW/RA-kood (RW10, RW15) on tehasekood nagu W429 */
 	if (normMark(mark) === 'hankook') {
-		const ilma = w.filter((x) => !/^([khwrz]\d{3}[a-z]?|r[wa]\d{2})$/.test(x));
+		/* RW/RA-kood on tehasekood (RA33 = Dynapro HP2, RW10 = i*cept X), AGA i*Pike'il on kood
+		   mudeli nimi (RW11 ≠ RS2) — seal jääb alles */
+		const pike = w.includes('pike');
+		const ilma = w.filter((x) => !(/^[khwrz]\d{3}[a-z]?$/.test(x) || (!pike && /^r[wa]\d{2}$/.test(x))));
 		if (ilma.length) w = ilma;
 		if (w.some((x) => /^i?(cept|pike)$/.test(x))) w = w.filter((x) => x !== 'winter');
 	}
@@ -95,6 +100,17 @@ function sarnasus(a, b) {
  * @returns {string|null} slug
  */
 export function leiaRehv(toode, read) {
+	const v = leiaRehv0(toode, read);
+	if (v) return v;
+	/* „CINTURATO P7 (P7C2)“ meil vs „CINTURATO P7 P7C2“ poes: sulgude sisu loeb siis kaasa */
+	if (read.some((r) => /\(/.test(r[2]) && normMark(r[1]) === normMark(toode.mark))) {
+		const sulgudega = read.filter((r) => /\(/.test(r[2])).map((r) => [r[0], r[1], String(r[2]).replace(/[()]/g, ' ')].concat(r.slice(3)));
+		const w = leiaRehv0(toode, sulgudega);
+		if (w) return w;
+	}
+	return null;
+}
+function leiaRehv0(toode, read) {
 	const mk = normMark(toode.mark);
 	const sonad = mudeliSonad(toode.mudel, toode.mark);
 	const tapne = sonad.join(' ');
@@ -167,7 +183,8 @@ export function leiaRehv(toode, read) {
 		for (const r of read) {
 			if (normMark(r[1]) !== mk) continue;
 			const meie = mudeliSonad(r[2], r[1]);
-			if (meie.includes('winter') !== sonad.includes('winter') && ilmaW(meie) === ilmaW(sonad)) vasted.add(r[0]);
+			/* „SOTTO ZERO 3“ = „WINTER SOTTOZERO 3“: ka kokkukirjutatult */
+			if (meie.includes('winter') !== sonad.includes('winter') && (ilmaW(meie) === ilmaW(sonad) || ilmaW(meie).replace(/ /g, '') === ilmaW(sonad).replace(/ /g, ''))) vasted.add(r[0]);
 		}
 		if (vasted.size === 1) return [...vasted][0];
 	}
