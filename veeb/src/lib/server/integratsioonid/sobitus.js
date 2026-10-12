@@ -16,7 +16,8 @@ const MARK_ALIAS = {
 	vredestein: 'vredestein',
 	'goodyear dunlop': 'goodyear',
 	'nokian tyres': 'nokian',
-	'nokian renkaat': 'nokian'
+	'nokian renkaat': 'nokian',
+	general: 'generaltire' /* „General GRABBER A/T3“ = General Tire */
 };
 
 export function norm(s) {
@@ -50,11 +51,11 @@ const SONA_ALIAS = { ug: 'ultragrip', hkpl: 'hakkapeliitta', iceiynx: 'icelynx' 
 /* mudelinimest ära: mõõt, indeksid ja lisamärgid, mis ei muuda mudelit */
 /* NB: „winter“, „summer“, „all season“ EI ole müra — „Scorpion“ ja „Scorpion Winter“, „Scorpion Zero“ ja „Scorpion Zero All Season“ on eri rehvid */
 const MYRA = new Set(
-	'xl rf rft runflat ssr zp extra load reinf reinforced fr mfs tl tubeless 3pmsf pmsf fsl bsw studded naast naastrehv suverehv talverehv lamellrehv aastaringne sealtech contisilent contiseal'.split(
+	'xl rf rft runflat ssr zp extra load reinf reinforced fr mfs tl tubeless 3pmsf pmsf fsl bsw studded naast naastrehv suverehv talverehv lamellrehv aastaringne sealtech contisilent contiseal acoustic ext'.split(
 		' '
 	)
 );
-export function mudeliSonad(mudel, mark) {
+export function mudeliSonad(mudel, mark, poe = false) {
 	let s = String(mudel || '').replace(/\([^)]*\)/g, ' '); // „Polaris North 6 (ContiVikingContact 6)“
 	s = s.replace(/\d{3}\s*[/ ]?\s*\d{2}\s*Z?R\s*F?\s*\d{2}\s*C?/gi, ' '); // mõõt
 	/* 92Y, 104/102T — aga ainult päris koormusindeksi vahemikus (60–130):
@@ -69,6 +70,21 @@ export function mudeliSonad(mudel, mark) {
 		.split(' ')
 		.map((x) => SONA_ALIAS[x] || x)
 		.filter((x) => x && !MYRA.has(x) && !markW.has(x) && !OE.test(x));
+	/* sarjanimi, mida pood vahel kirjutab, vahel mitte: Kumho „WINTERCRAFT WP52+“ = „WP52+“,
+	   „SOLUS 4S HA32“ = „HA32“; Dunlop „SP SPORT MAXX RT 2“ = „SPORT MAXX RT2“ */
+	/* „Ecsta“ ei ole siin: „Ecsta PS71“ (test) ja „PS71“ (EPREL) jääks muidu kaheks võrdseks kandidaadiks */
+	const SARI = { kumho: ['wintercraft', 'solus', '4s'], dunlop: ['sp'] }[normMark(mark)];
+	if (SARI && w.some((x) => /\d/.test(x))) {
+		const ilma = w.filter((x) => !SARI.includes(x));
+		if (ilma.length) w = [...new Set(ilma)];
+	}
+	/* Pirelli „WINTER ICE ZERO ASIMMETRICO“ = „ICE ZERO ASIMMETRICO“ */
+	if (normMark(mark) === 'pirelli' && w[0] === 'winter' && w[1] === 'ice' && w[2] === 'zero' && w[3] === 'asimmetrico') w = w.slice(1);
+	/* Pirelli „P ZERO SPORT“, „P-ZERO S.C“, „P ZERO LUXURY“, „P-ZERO L.S.“, „P-ZERO PZ4/PZ5“: EPREL-is kõik
+	   üks „PZERO“ (PZ4/PZ5 Sports Car / Luxury Saloon). Corsa, E, Winter, All Season jäävad eraldi. */
+	if (normMark(mark) === 'pirelli' && w[0] === 'p' && w[1] === 'zero' && w.slice(2).every((x) => /^(sport|luxury|s|c|l|pz4|pz5)$/.test(x)))
+		w = ['pzero'];
+	if (normMark(mark) === 'pirelli' && w.length === 1 && w[0] === 'pzero') w = ['pzero'];
 	/* Yokohama „iceGUARD Stud iG65“ = meie „iceGUARD iG65“ (naastrehvi nimes „Stud“ ei erista) */
 	if (normMark(mark) === 'yokohama' && w.includes('guard')) w = w.filter((x) => x !== 'stud');
 	/* Hankooki tehasekood (W429, K135, H750) — üks pood kirjutab, teine mitte */
@@ -112,7 +128,7 @@ export function leiaRehv(toode, read) {
 }
 function leiaRehv0(toode, read) {
 	const mk = normMark(toode.mark);
-	const sonad = mudeliSonad(toode.mudel, toode.mark);
+	const sonad = mudeliSonad(toode.mudel, toode.mark, true);
 	const tapne = sonad.join(' ');
 	/* kokkukirjutatult: „IceBlazer Arctic 2“ = „ICE BLAZER ARCTIC2“, „TS860 S“ = „TS 860 S“;
 	   Continentali „Conti…“ eesliide („ContiWinterContact“ = „WinterContact“) */
@@ -157,6 +173,8 @@ function leiaRehv0(toode, read) {
 		const vasted = new Set();
 		for (const r of read) {
 			if (normMark(r[1]) !== mk) continue;
+			/* „WP52“ ≠ „WP52+“: pluss on eri mudel ka ainult-koodi puhul */
+			if (/\+|\bplus\b/i.test(r[2]) !== /\+|\bplus\b/i.test(toode.mudel)) continue;
 			const w = norm(r[2]).split(' '), j = w.join('');
 			if (aK.every((k) => w.includes(k) || j.endsWith(k))) vasted.add(r[0]);
 		}
@@ -164,16 +182,19 @@ function leiaRehv0(toode, read) {
 	}
 	/* kood + sõnad ühel pool, ainult kood teisel („WinterCraft WS71“ ↔ „WS71“): koodid samad */
 	if (aK.length) {
-		const vasted = new Set();
+		const vasted = new Set(), nimed = new Set();
 		for (const r of read) {
 			if (normMark(r[1]) !== mk) continue;
 			const meie = mudeliSonad(r[2], r[1]);
 			const bK = meie.filter(kood), bS = meie.filter((x) => !kood(x));
 			/* „HA32+“ ≠ „HA32“: pluss on eri mudel */
 			if (aS.includes('plus') !== bS.includes('plus')) continue;
-			if (bK.length && bK.join(' ') === aK.join(' ') && (!bS.length || !aS.length)) vasted.add(r[0]);
+			if (bK.length && bK.join(' ') === aK.join(' ') && (!bS.length || !aS.length)) { vasted.add(r[0]); nimed.add(meie.join(' ')); }
 		}
 		if (vasted.size === 1) return [...vasted][0];
+		/* sama rehv kahe slugiga (EPREL „WS51“ ja test „WinterCraft WS51“ pärast sarjanime eemaldust):
+		   nimed on identsed -> esimene (EPREL-i rida on read-is ees) */
+		if (vasted.size > 1 && nimed.size === 1) return [...vasted][0];
 	}
 	/* „SOTTOZERO 3“ = „WINTER SOTTOZERO 3“: ainus vahe on sõna „winter“ ja nimes on number
 	   (ilma numbrita mitte: „Scorpion“ ≠ „Scorpion Winter“) */
