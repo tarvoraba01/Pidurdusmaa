@@ -4,6 +4,54 @@
  * leht ja Teadmine leht loevad nimekirja siit. */
 export const ARTIKLID = [
 	{
+		slug: 'pohjamaade-voi-kesk-euroopa-talverehv',
+		title: 'Põhjamaade või Kesk-Euroopa talverehv: jääl üle 25 meetri vahet',
+		desc: 'Jääl peatub Põhjamaade talverehv 50 km/h pealt 39,6 m, Kesk-Euroopa oma 65,3 m pealt. Lumel on nad võrdsed, märjal asfaldil on Kesk-Euroopa rehv 3 m parem. Kuidas poes vahet teha.',
+		kuupaev: '2026-10-12',
+		silt: 'Talverehvid',
+		ru: {
+			title: 'Северная или европейская зимняя шина: на льду больше 25 метров разницы',
+			desc: 'На льду северная зимняя шина останавливается с 50 км/ч за 39,6 м, европейская — за 65,3 м. На снегу они равны, на мокром асфальте европейская на 3 м лучше. Как отличить в магазине.',
+			silt: 'Зимние шины'
+		}
+	},
+	{
+		slug: 'reaktsiooniaeg',
+		title: 'Reaktsiooniaeg: üks sekund on 90 km/h juures 25 meetrit',
+		desc: '90 km/h pealt sõidab auto enne pidurdamist 25 m. Märjal teel tuleb pidurdusmaa 44,4 m, kokku 69,4 m. Kaks sekundit telefonis lisab 50 m. Peatumisteekond eri kiirustel.',
+		kuupaev: '2026-10-12',
+		silt: 'Liiklusohutus',
+		ru: {
+			title: 'Время реакции: на 90 км/ч одна секунда — это 25 метров',
+			desc: 'С 90 км/ч машина до начала торможения проезжает 25 м. На мокрой дороге тормозной путь 44,4 м, всего 69,4 м. Две секунды в телефоне добавляют 50 м. Остановочный путь на разных скоростях.',
+			silt: 'Безопасность'
+		}
+	},
+	{
+		slug: 'vesiliug',
+		title: 'Vesiliug: millal auto lombis ujuma hakkab ja mida siis teha',
+		desc: 'Sügavas lombis hakkab uus suverehv vee peal libisema umbes 104 km/h, 3 mm mustriga 78 km/h ja 1,6 mm mustriga 70 km/h juures. Miks see juhtub ja mida vesiliu ajal teha.',
+		kuupaev: '2026-10-12',
+		silt: 'Liiklusohutus',
+		ru: {
+			title: 'Аквапланирование: когда машина всплывает в луже и что делать',
+			desc: 'В глубокой луже новая летняя шина начинает скользить по воде примерно с 104 км/ч, с протектором 3 мм — с 78 км/ч, с 1,6 мм — с 70 км/ч. Почему так происходит и что делать.',
+			silt: 'Безопасность'
+		}
+	},
+	{
+		slug: 'abs-pidurdus',
+		title: 'ABS: mida see tegelikult teeb ja kuidas hädaolukorras pidurdada',
+		desc: 'ABS hoiab rattad veeremas, et saaksid pidurdades pöörata. Märjal 80 km/h pealt peatub auto ABS-iga 34,7 m, keskmise juhiga ilma ABS-ita 46,2 m. Kruusal võib ABS pidurdust pikendada.',
+		kuupaev: '2026-10-12',
+		silt: 'Liiklusohutus',
+		ru: {
+			title: 'ABS: что он делает на самом деле и как тормозить в опасной ситуации',
+			desc: 'ABS не даёт колёсам заблокироваться, чтобы при торможении можно было поворачивать. На мокрой дороге с 80 км/ч машина с ABS останавливается за 34,7 м, без ABS — за 46,2 м.',
+			silt: 'Безопасность'
+		}
+	},
+	{
 		slug: 'pimedas-helkur',
 		title: 'Pidurdusmaa pimedas: miks helkur päästab elu',
 		desc: 'Tumedas riietuses jalakäijat näeb lähitulede valgel 30 m, helkuriga 130–150 m kauguselt. Märjal teel jõuab 30 m peale peatuda vaid kuni 53 km/h pealt.',
