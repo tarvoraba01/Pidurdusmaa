@@ -280,7 +280,8 @@
 			speedKmh: +s.kiirus, surface: s.pind, texture: asf ? s.tekst : 'NORMAL',
 			waterMm: asf ? +s.vesi : 0, tempC: +s.temp, payloadKg: +s.laad,
 			gradientPct: +s.kalle, reactionTimeS: +s.reakt, brakeCondition: +s.pidur,
-			iceRoad: s.jaa !== 'sile',
+			iceRoad: true,
+			iceSmooth: s.jaa === 'sile',
 			trailerKg: s.haagis === 'ei' ? 0 : Math.min(+s.haagisKg || 0, haagisMax(s)),
 			trailerBrakes: s.haagis === 'piduriga'
 		};
@@ -906,7 +907,7 @@
 				{#if S.pind === 'ICE'}
 					<label class="lo-row" for="lo-jaa"><span>{t("Jää")}</span></label>
 					<select id="lo-jaa" class="lo-sel" bind:value={S.jaa}>
-						<option value="tee">{t("Tavaline teejää (rööpad, liiv, karedus)")}</option>
+						<option value="tee">{t("Tavaline jää")}</option>
 						<option value="sile">{t("Sile jää (kiilasjää, must jää)")}</option>
 					</select>
 				{/if}

@@ -88,6 +88,17 @@ TALV = re.compile(
     r"NORTH|POLAR|GLACIER|EVEREST|WINTERHAWK|IZ\d|SPIKE", re.I)
 
 
+# Põhjamaade lamellrehvi sarjad, mis on registreeritud enne EL-i jäämärki (2021) või mille
+# jäämärk on vaid osal mõõtudest. Nimi on siin kindel tunnus (tootja enda liin), mitte oletus.
+# „ICE-PLUS S2xx“ (Tracmax/Rotalla S210/S220) on Kesk-Euroopa rehv -> välja.
+POHJA = re.compile(
+    r"VIKING.?CONTACT|\bX-?ICE\b(?!.*NORTH)|HAKKAPELIITTA R|HKPL R|\bICE.?GUARD|\bIG5\d|\bIG6\d|"
+    r"WIN.?GUARD ICE|OBSERVE GSI ?5|G3-ICE|OBSERVE ICE|BLIZZAK (REVO|WS|VRX|DM|ICE)|NORD.?TRAC|"
+    r"ESKIMO ICE|ICE ZERO (FR|ASIMMETRICO)|ICE FRICTION|ULTRA ?GRIP ICE|ICE BLAZER (ARCTIC|WSL)|"
+    r"NORDMAN RS|I.?CEPT (IZ|ICE)|\bIZ\d|WINTERCRAFT ICE|\bWI[56]1\b|SOFT.?FROST|SNOWLINK PL0|"
+    r"POLARIS NORTH|LATITUDE X-ICE|ICE.?FREEZER|ICE.?PLUS (S1|SR)", re.I)
+
+
 def mark_norm(m):
     s = re.sub(r"\s+", " ", str(m or "").strip()).upper()
     for k, v in KAKSSONA.items():
@@ -109,6 +120,8 @@ def kategooria(nimi, lumi, jaa):
     """-> (kategooria, millele see tugineb)"""
     if jaa:
         return "WINTER_NORDIC", "margis (jaamargis)"
+    if lumi and POHJA.search(str(nimi or "")):
+        return "WINTER_NORDIC", "nimi (Pohjamaade lamelli sari)"
     if not lumi:
         return "SUMMER_TOURING", "margis (3PMSF puudub)"
     n = str(nimi or "")

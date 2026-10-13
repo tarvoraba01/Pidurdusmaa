@@ -1,4 +1,5 @@
 <script>
+	import { lumi, jaa } from '$lib/margid.js';
 	import { useT, useLang, autoNimi } from '$lib/i18n.js';
 	/* Tekstid: eesti keel on lähtetekst, vene tõlge $lib/i18n/ru.js (/ru/rehvid/…) */
 	const t = useT();
@@ -488,10 +489,8 @@
 											</td>
 											<td><Grade g={z.f} /></td>
 											<td class="n">{z.db ? z.db + ' dB' + (z.nk ? ' (' + z.nk + ')' : '') : '–'}</td>
-											<td
-												>{[z.snow ? t('lumemärk') : '', z.ice ? t('jäämärk') : '']
-													.filter(Boolean)
-													.join(' + ') || '–'}</td
+											<td class="mrk-td"
+												>{#if z.snow}{@html lumi(t('Kolme mäetipu ja lumehelbe märk (3PMSF)'))} {t('lumemärk')}{/if}{#if z.snow && z.ice}<br />{/if}{#if z.ice}{@html jaa(t('Jäämärk (EL-i rehvimärgise jäähaarde sümbol)'))} {t('jäämärk')}{/if}{#if !z.snow && !z.ice}–{/if}</td
 											>
 											<td>{z.li.join('/') + ' ' + z.si.join('/')}</td>
 										</tr>

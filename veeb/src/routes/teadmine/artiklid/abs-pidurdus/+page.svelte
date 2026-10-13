@@ -4,7 +4,9 @@
 	   talverehv klass D (lumi, jää). „Ilma ABS-ita“ = mudeli absClass NONE:
 	   keskmine juht hädapidurdusel ilma ABS-ita (CAL.absEff NONE 0,74;
 	   kruusal absEffGravel — seal on ABS-i mõju vastupidine). Ilma
-	   reaktsiooniajata. Numbrid 2026-10-12 (tookoda/artikli-numbrid.mjs).
+	   reaktsiooniajata. Lumi ja jää −5 °C (jää = tüüpiline jää: 45 ajakirja
+	   jäätesti mediaan, model.py ice_road_factor). Talverehvil
+	   treadDepthNewMm 9 (muster 8 mm), suverehvil 8/8. Numbrid 13.10.2026.
 	   Sama teema TikToki videos „ABS“. */
 	import Leht from '$lib/Leht.svelte';
 	import { ARTIKLID } from '$lib/artiklid.js';
@@ -42,7 +44,7 @@ ${tabel(
 			['Kuiv asfalt, 80 km/h', '23,7 m', '32,4 m'],
 			['Märg asfalt, 80 km/h', '34,7 m', '46,2 m'],
 			['Tallatud lumi, 50 km/h', '27,1 m', '36,0 m'],
-			['Jää, 50 km/h', '39,6 m', '52,0 m'],
+			['Jää, 50 km/h', '59,9 m', '77,4 m'],
 			['Kruus, 50 km/h', '20,4 m', '16,0 m']
 		]
 	)}
@@ -82,7 +84,7 @@ ${tabel(
 			['Сухой асфальт, 80 км/ч', '23,7 м', '32,4 м'],
 			['Мокрый асфальт, 80 км/ч', '34,7 м', '46,2 м'],
 			['Укатанный снег, 50 км/ч', '27,1 м', '36,0 м'],
-			['Лёд, 50 км/ч', '39,6 м', '52,0 м'],
+			['Лёд, 50 км/ч', '59,9 м', '77,4 м'],
 			['Гравий, 50 км/ч', '20,4 м', '16,0 м']
 		]
 	)}

@@ -1,12 +1,13 @@
 <script>
+	import { lumi, jaa } from '$lib/margid.js';
 	/* Talverehvi valimine — kõik numbrid on arvutatud sama mudeliga, mis
 	   kalkulaator (engine.js), v.a. „Mudelite vahe“ lõik, mis on otse
 	   Tekniikan Maailma 2025 mõõtmistest (core.json → tyres[].tests, TM25).
 	   Arvutuse eeldused: VW Golf 8 1.5 TSI, 205/55 R16, uus rehv 8 mm,
 	   tüüpiline märgise klass (suvi B, talv/aastaringne B, põhjamaade D),
 	   lumi ja jää −5 °C, märg asfalt +10 °C, kuiv +15 °C.
-	   Jää = tüüpiline SÕIDUTEE jää (model.py ice_road_add), mitte testiväljak.
-	   Numbrid uuendatud 2026-09-29 (ScratchPad artikkel.py).
+	   Jää = tüüpiline jää: 45 ajakirja jäätesti mediaan (model.py ice_road_factor).
+	   Naastrehv märgise klass D (märg 52,0 m). Numbrid uuendatud 13.10.2026.
 	   Vene tekst: SISU_RU (/ru/teadmine/artiklid/talverehvi-valimine/). */
 	import Leht from '$lib/Leht.svelte';
 	import { ARTIKLID } from '$lib/artiklid.js';
@@ -28,8 +29,8 @@
 <div class="note-box"><strong>Lühidalt.</strong> Suverehviga pidurdab auto lumel üle kahe korra pikemalt. Jääl on suurim vahe talverehvide endi vahel: Kesk-Euroopa talverehv pidurdab jääl üle poole pikemalt kui Põhjamaade oma. Naastrehv on parim jääl, eriti nulli lähedal. Kulunud muster võtab lumel ära veerandi haardest.</div>
 
 <h2>Suverehv talvel</h2>
-<p>50 km/h pealt tallatud lumel (−5 °C) peatub auto suverehvidega <strong>60,9 meetriga</strong>, talverehvidega umbes <strong>26 meetriga</strong>. Jääl on vahe veel suurem: suverehviga 82,5 m, Põhjamaade talverehviga 38,9 m.</p>
-<p class="note">Jää tähendab siin tavalist sõidutee jääd: rööbastatud, kare või liivatatud jääd ja kohati siledat kiilasjääd. Rehvitestide siledal jääväljakul on pidurdusmaad pikemad (suverehviga u 137 m).</p>
+<p>50 km/h pealt tallatud lumel (−5 °C) peatub auto suverehvidega <strong>60,9 meetriga</strong>, talverehvidega umbes <strong>26 meetriga</strong>. Jääl on vahe veel suurem: suverehviga 165,0 m, Põhjamaade talverehviga 58,9 m.</p>
+<p class="note">Jää tähendab siin tüüpilist jääd: 45 sõltumatu ajakirja jäätesti (2015–2026) mediaani. Päris jääl kõigub pidurdusmaa umbes ±25%: sulav jää nulli lähedal ja kiilasjää (must jää) on libedamad.</p>
 <p>Suverehvi kumm muutub külmaga kõvaks ja muster ei ole lume jaoks tehtud. Seda ei korva ettevaatlik sõit ega ABS.</p>
 
 <h2>Millal vahetada</h2>
@@ -51,24 +52,24 @@ ${tabel(
 ${tabel(
 		['Rehv', 'Lumi', 'Jää', 'Märg asfalt'],
 		[
-			['Suverehv', '60,9 m', '82,5 m', '44,4 m'],
-			['Aastaringne', '25,2 m', '60,1 m', '40,4 m'],
-			['Kesk-Euroopa talverehv', '26,3 m', '64,2 m', '44,7 m'],
-			['Põhjamaade talverehv (lamell)', '26,2 m', '38,9 m', '47,5 m'],
-			['Naastrehv', '25,4 m', '31,4 m', '47,5 m']
+			['Suverehv', '60,9 m', '165,0 m', '44,4 m'],
+			['Aastaringne', '25,2 m', '103,3 m', '40,4 m'],
+			['Kesk-Euroopa talverehv', '26,3 m', '113,1 m', '44,7 m'],
+			['Põhjamaade talverehv (lamell)', '26,2 m', '58,9 m', '47,5 m'],
+			['Naastrehv', '25,4 m', '45,4 m', '52,0 m']
 		]
 	)}
 <p>Lumel on kõik talverehvid peaaegu võrdsed. <strong>Jääl</strong> pidurdab Kesk-Euroopa talverehv üle poole pikemalt kui Põhjamaade oma. Märjal asfaldil on Kesk-Euroopa rehv umbes 3 m parem. Eesti talvel, kus jää ja jäide on tavalised, on Põhjamaade rehv kindlam valik.</p>
-<p><strong>Kuidas ära tunda:</strong> mõlemal on EL-i rehvimärgisel kolme mäetipu ja lumehelbe märk. Põhjamaade rehvil on lisaks <strong>jäämärk</strong> — see tähendab, et rehv läbis jääkatse. Transpordiamet soovitab valida jäämärgiga rehvi. Loe lähemalt: <a href="/teadmine/rehvimargis/">EL-i rehvimärgis</a>.</p>
+<p><strong>Kuidas ära tunda:</strong> mõlemal on EL-i rehvimärgisel kolme mäetipu ja lumehelbe märk ${lumi()}. Põhjamaade rehvil on lisaks <strong>jäämärk</strong> ${jaa()} — see tähendab, et rehv läbis jääkatse. Transpordiamet soovitab valida jäämärgiga rehvi. Loe lähemalt: <a href="/teadmine/rehvimargis/">EL-i rehvimärgis</a>.</p>
 
 <h2>Naastrehv või lamell</h2>
 <p>Jää pidamine sõltub temperatuurist. Kõige libedam on sulav jää nulli lähedal. Pidurdusmaa jääl 50 km/h pealt:</p>
 ${tabel(
 		['Jää temperatuur', 'Naastrehv', 'Põhjamaade lamell', 'Parem'],
 		[
-			['−15 °C', '36,5 m', '27,4 m', 'lamell, 9 m'],
-			['−5 °C', '31,4 m', '38,9 m', 'naast, 7,5 m'],
-			['0 °C', '40,1 m', '58,6 m', 'naast, 18,5 m']
+			['−15 °C', '54,3 m', '38,8 m', 'lamell, 15,5 m'],
+			['−5 °C', '45,4 m', '58,9 m', 'naast, 13,5 m'],
+			['0 °C', '61,1 m', '99,6 m', 'naast, 38,5 m']
 		]
 	)}
 <p>Naast lõikab jäässe ja sulav jää ei mõjuta teda nii palju kui kummi. Seepärast on naastrehvi eelis suurim just nulli ümber, mis on Eesti talvel sage. Väga külmal kõval jääl naast enam hästi sisse ei lähe ja lamell pidurdab lühemalt — seda mõõtis Za Rulem samade rehvidega neljal temperatuuril.</p>
@@ -76,17 +77,17 @@ ${tabel(
 <p>Testides mõõdetud pidurdusmaad jääl, märjal ja kuival: <a href="/teadmine/artiklid/naastrehv-voi-lamell/">Naastrehv või lamell?</a></p>
 
 <h2>Aastaringne rehv</h2>
-<p>Lumel on aastaringne rehv hea (25,2 m), aga jääl pidurdab ta 60,1 meetriga — umbes sama halvasti kui Kesk-Euroopa talverehv ja üle poole pikemalt kui Põhjamaade oma. Eesti talveks, kus on jääd, see hea valik ei ole.</p>
+<p>Lumel on aastaringne rehv hea (25,2 m), aga jääl pidurdab ta 103,3 meetriga — umbes sama halvasti kui Kesk-Euroopa talverehv ja üle poole pikemalt kui Põhjamaade oma. Eesti talveks, kus on jääd, see hea valik ei ole.</p>
 
 <h2>Mustri sügavus</h2>
 <p>Seadus lubab talverehvi, mille muster on sügavam kui 3 mm. Aga haare kaob varem. Põhjamaade talverehv, pidurdusmaa lumel ja jääl 50 km/h ning märjal 90 km/h pealt:</p>
 ${tabel(
 		['Muster', 'Lumi', 'Jää', 'Märg asfalt'],
 		[
-			['8 mm (uus)', '26,2 m', '38,9 m', '47,5 m'],
-			['6 mm', '28,4 m', '40,5 m', '49,5 m'],
-			['4 mm', '31,1 m', '42,3 m', '52,2 m'],
-			['3 mm', '32,7 m', '43,2 m', '54,0 m']
+			['8 mm (uus)', '26,2 m', '58,9 m', '47,5 m'],
+			['6 mm', '28,4 m', '61,2 m', '49,5 m'],
+			['4 mm', '31,1 m', '63,8 m', '52,2 m'],
+			['3 mm', '32,7 m', '65,2 m', '54,0 m']
 		]
 	)}
 <p>3 mm mustriga on pidurdusmaa lumel veerandi võrra pikem kui uuel rehvil. Mõõda mustrit enne hooaega mustrisügavuse mõõdikuga.</p>
@@ -109,8 +110,8 @@ ${tabel(
 <div class="note-box"><strong>Коротко.</strong> На летних шинах тормозной путь на снегу более чем вдвое длиннее. На льду самая большая разница — между самими зимними шинами: европейская зимняя шина тормозит на льду более чем в полтора раза длиннее, чем нешипованная северного типа. Шипованная шина лучше всех на льду, особенно около нуля. Изношенный протектор отнимает на снегу четверть сцепления.</div>
 
 <h2>Летняя шина зимой</h2>
-<p>С 50 км/ч на укатанном снегу (−5 °C) автомобиль на летних шинах останавливается за <strong>60,9 метра</strong>, на зимних — примерно за <strong>26 метров</strong>. На льду разница ещё больше: на летней шине 82,5 м, на нешипованной зимней шине северного типа 38,9 м.</p>
-<p class="note">Лёд здесь — это обычный лёд на дороге: колейный, шероховатый или посыпанный песком, местами гладкий гололёд. На гладком ледовом полигоне шинных тестов тормозной путь длиннее (на летней шине около 137 м).</p>
+<p>С 50 км/ч на укатанном снегу (−5 °C) автомобиль на летних шинах останавливается за <strong>60,9 метра</strong>, на зимних — примерно за <strong>26 метров</strong>. На льду разница ещё больше: на летней шине 165,0 м, на нешипованной зимней шине северного типа 58,9 м.</p>
+<p class="note">Лёд здесь — это типичный лёд: медиана 45 независимых журнальных тестов на льду (2015–2026). На реальном льду тормозной путь колеблется примерно на ±25%: тающий лёд около нуля и гололёд («чёрный лёд») более скользкие.</p>
 <p>Резина летней шины на холоде твердеет, а рисунок протектора не рассчитан на снег. Этого не компенсируют ни осторожная езда, ни ABS.</p>
 
 <h2>Когда менять</h2>
@@ -132,24 +133,24 @@ ${tabel(
 ${tabel(
 		['Шина', 'Снег', 'Лёд', 'Мокрый асфальт'],
 		[
-			['Летняя шина', '60,9 м', '82,5 м', '44,4 м'],
-			['Всесезонная', '25,2 м', '60,1 м', '40,4 м'],
-			['Европейская зимняя шина', '26,3 м', '64,2 м', '44,7 м'],
-			['Нешипованная северного типа («липучка»)', '26,2 м', '38,9 м', '47,5 м'],
-			['Шипованная шина', '25,4 м', '31,4 м', '47,5 м']
+			['Летняя шина', '60,9 м', '165,0 м', '44,4 м'],
+			['Всесезонная', '25,2 м', '103,3 м', '40,4 м'],
+			['Европейская зимняя шина', '26,3 м', '113,1 м', '44,7 м'],
+			['Нешипованная северного типа («липучка»)', '26,2 м', '58,9 м', '47,5 м'],
+			['Шипованная шина', '25,4 м', '45,4 м', '52,0 м']
 		]
 	)}
 <p>На снегу все зимние шины почти равны. <strong>На льду</strong> европейская зимняя шина тормозит более чем в полтора раза длиннее, чем северная. На мокром асфальте европейская шина примерно на 3 м лучше. Для эстонской зимы, где лёд и гололедица — обычное дело, северная шина — более надёжный выбор.</p>
-<p><strong>Как отличить:</strong> у обеих на маркировке шин ЕС есть знак «три горные вершины и снежинка». У северной шины есть ещё и <strong>знак льда</strong> — он означает, что шина прошла испытание на льду. Transpordiamet советует выбирать шину со знаком льда. Подробнее: <a href="/teadmine/rehvimargis/">Маркировка шин ЕС</a> (на эстонском).</p>
+<p><strong>Как отличить:</strong> у обеих на маркировке шин ЕС есть знак «три горные вершины и снежинка» ${lumi('Знак «три горные вершины и снежинка» (3PMSF)')}. У северной шины есть ещё и <strong>знак льда</strong> ${jaa('Знак льда (символ сцепления со льдом на этикетке ЕС)')} — он означает, что шина прошла испытание на льду. Transpordiamet советует выбирать шину со знаком льда. Подробнее: <a href="/teadmine/rehvimargis/">Маркировка шин ЕС</a> (на эстонском).</p>
 
 <h2>Шипы или «липучка»</h2>
 <p>Сцепление на льду зависит от температуры. Самый скользкий — тающий лёд около нуля. Тормозной путь на льду с 50 км/ч:</p>
 ${tabel(
 		['Температура льда', 'Шипованная шина', 'Северная «липучка»', 'Лучше'],
 		[
-			['−15 °C', '36,5 м', '27,4 м', '«липучка», 9 м'],
-			['−5 °C', '31,4 м', '38,9 м', 'шипы, 7,5 м'],
-			['0 °C', '40,1 м', '58,6 м', 'шипы, 18,5 м']
+			['−15 °C', '54,3 м', '38,8 м', '«липучка», 15,5 м'],
+			['−5 °C', '45,4 м', '58,9 м', 'шипы, 13,5 м'],
+			['0 °C', '61,1 м', '99,6 м', 'шипы, 38,5 м']
 		]
 	)}
 <p>Шип врезается в лёд, и тающий лёд влияет на него не так сильно, как на резину. Поэтому преимущество шипованной шины больше всего именно около нуля, а это в эстонскую зиму частое явление. На очень холодном твёрдом льду шип уже плохо входит в лёд, и «липучка» тормозит короче — это измерил Za Rulem на одних и тех же шинах при четырёх температурах.</p>
@@ -157,17 +158,17 @@ ${tabel(
 <p>Измеренный в тестах тормозной путь на льду, мокром и сухом асфальте: <a href="/ru/teadmine/artiklid/naastrehv-voi-lamell/">Шипы или «липучка»?</a></p>
 
 <h2>Всесезонная шина</h2>
-<p>На снегу всесезонная шина хороша (25,2 м), но на льду тормозит за 60,1 метра — примерно так же плохо, как европейская зимняя шина, и более чем в полтора раза длиннее, чем северная. Для эстонской зимы со льдом это не лучший выбор.</p>
+<p>На снегу всесезонная шина хороша (25,2 м), но на льду тормозит за 103,3 метра — примерно так же плохо, как европейская зимняя шина, и более чем в полтора раза длиннее, чем северная. Для эстонской зимы со льдом это не лучший выбор.</p>
 
 <h2>Глубина протектора</h2>
 <p>Закон разрешает зимнюю шину с глубиной протектора больше 3 мм. Но сцепление теряется раньше. Нешипованная зимняя шина северного типа, тормозной путь на снегу и льду с 50 км/ч и на мокром асфальте с 90 км/ч:</p>
 ${tabel(
 		['Протектор', 'Снег', 'Лёд', 'Мокрый асфальт'],
 		[
-			['8 мм (новая)', '26,2 м', '38,9 м', '47,5 м'],
-			['6 мм', '28,4 м', '40,5 м', '49,5 м'],
-			['4 мм', '31,1 м', '42,3 м', '52,2 м'],
-			['3 мм', '32,7 м', '43,2 м', '54,0 м']
+			['8 мм (новая)', '26,2 м', '58,9 м', '47,5 м'],
+			['6 мм', '28,4 м', '61,2 м', '49,5 м'],
+			['4 мм', '31,1 м', '63,8 м', '52,2 м'],
+			['3 мм', '32,7 м', '65,2 м', '54,0 м']
 		]
 	)}
 <p>С протектором 3 мм тормозной путь на снегу на четверть длиннее, чем у новой шины. Измерьте глубину протектора до начала сезона глубиномером.</p>

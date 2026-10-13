@@ -5,13 +5,13 @@
 export const ARTIKLID = [
 	{
 		slug: 'pohjamaade-voi-kesk-euroopa-talverehv',
-		title: 'Põhjamaade või Kesk-Euroopa talverehv: jääl üle 25 meetri vahet',
-		desc: 'Jääl peatub Põhjamaade talverehv 50 km/h pealt 39,6 m, Kesk-Euroopa oma 65,3 m pealt. Lumel on nad võrdsed, märjal asfaldil on Kesk-Euroopa rehv 3 m parem. Kuidas poes vahet teha.',
+		title: 'Põhjamaade või Kesk-Euroopa talverehv: jääl üle 50 meetri vahet',
+		desc: 'Jääl peatub Põhjamaade talverehv 50 km/h pealt 59,9 m, Kesk-Euroopa oma 114,9 m pealt. Lumel on nad võrdsed, märjal asfaldil on Kesk-Euroopa rehv 3 m parem. Kuidas poes vahet teha.',
 		kuupaev: '2026-10-12',
 		silt: 'Talverehvid',
 		ru: {
-			title: 'Северная или европейская зимняя шина: на льду больше 25 метров разницы',
-			desc: 'На льду северная зимняя шина останавливается с 50 км/ч за 39,6 м, европейская — за 65,3 м. На снегу они равны, на мокром асфальте европейская на 3 м лучше. Как отличить в магазине.',
+			title: 'Северная или европейская зимняя шина: на льду больше 50 метров разницы',
+			desc: 'На льду северная зимняя шина останавливается с 50 км/ч за 59,9 м, европейская — за 114,9 м. На снегу они равны, на мокром асфальте европейская на 3 м лучше. Как отличить в магазине.',
 			silt: 'Зимние шины'
 		}
 	},

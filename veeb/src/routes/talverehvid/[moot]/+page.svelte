@@ -1,4 +1,5 @@
 <script>
+	import { jaa } from '$lib/margid.js';
 	/* „Parimad talverehvid <mõõt>“ — andmed $lib/server/talv.js. Tekstid eesti keeles,
 	   vene tõlge $lib/i18n/ru.js (/ru/talverehvid/<mõõt>/). */
 	import Meta from '$lib/Meta.svelte';
@@ -152,7 +153,7 @@
 						{#each data.pohja as r (r.slug)}
 							<tr>
 								<td><a href={L('/rehvid/' + r.slug + '/')}>{r.nimi}</a>{#if r.testitud} <span class="pill test" style="margin-left:var(--sp-2)">{t('testitud')}</span>{/if}</td>
-								<td>{r.jaa ? '✓' : '–'}</td>
+								<td>{#if r.jaa}{@html jaa(t('Jäämärk (EL-i rehvimärgise jäähaarde sümbol)'))}{:else}–{/if}</td>
 								<td>{r.g || '–'}</td>
 								<td class="n">{r.db ? r.db + ' dB' : '–'}</td>
 							</tr>

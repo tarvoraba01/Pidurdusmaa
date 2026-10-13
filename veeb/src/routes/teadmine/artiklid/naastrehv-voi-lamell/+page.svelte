@@ -4,8 +4,9 @@
 	   lamelli; kuiv 80→0, märg 80→0, jää 50→0) ja Vi Bilägare 2010
 	   (sources.VIB10D: jää 30→5 −2,5 °C ja +0,75 °C, lumi 45→5; lamell =
 	   Continental VikingContact 5). Temperatuuri tabel ja lumi: mudel
-	   (engine.js), VW Golf 8, kategooria keskmine (klass C), sõidutee jää.
-	   Numbrid 2026-10-07. */
+	   (engine.js), VW Golf 8, kategooria keskmine (klass C), jää = tüüpiline
+	   jää (45 ajakirja jäätesti mediaan, model.py ice_road_factor).
+	   Mudeli numbrid 13.10.2026 (lumi 2026-10-07). */
 	import Leht from '$lib/Leht.svelte';
 	import { ARTIKLID } from '$lib/artiklid.js';
 	import { useLang, useT } from '$lib/i18n.js';
@@ -48,13 +49,13 @@ ${tabel(
 			['+0,75 °C (sulav)', '26,3–35,5 m', '47,4 m']
 		]
 	)}
-<p>Sulaval jääl pikenes lamelli pidurdusmaa üle poole, naastrehvidel vähem. Sama näitab mudel, mida kasutab ka <a href="/">kalkulaator</a> (VW Golf 8, keskmine rehv, sõidutee jää, 50→0 km/h):</p>
+<p>Sulaval jääl pikenes lamelli pidurdusmaa üle poole, naastrehvidel vähem. Sama näitab mudel, mida kasutab ka <a href="/">kalkulaator</a> (VW Golf 8, keskmine rehv, tüüpiline jää, 50→0 km/h):</p>
 ${tabel(
 		['Temperatuur', 'Naastrehv', 'Lamell'],
 		[
-			['0 °C', '40,1 m', '58,6 m'],
-			['−2 °C', '36,0 m', '49,2 m'],
-			['−5 °C', '31,4 m', '38,9 m']
+			['0 °C', '61,1 m', '99,6 m'],
+			['−2 °C', '53,5 m', '78,9 m'],
+			['−5 °C', '45,4 m', '58,9 m']
 		]
 	)}
 <p>Väga külmal kõval jääl (−10 °C ja külmem) pidurdab mudeli järgi lamell isegi lühemalt, sest naast ei lähe kõvasse jäässe hästi sisse. See põhineb ühel testil (Za Rulem 2008, samad rehvid neljal temperatuuril), nii et see osa on ebakindlam. Eesti talvel on jää aga sageli just nulli lähedal: hommikune kiilasjää, sulailm ja öökülm.</p>
@@ -96,13 +97,13 @@ ${tabel(
 			['+0,75 °C (тающий)', '26,3–35,5 м', '47,4 м']
 		]
 	)}
-<p>На тающем льду тормозной путь «липучки» вырос больше чем в полтора раза, у шипованных шин — меньше. То же показывает модель, которую использует и <a href="/ru/">калькулятор</a> (VW Golf 8, средняя шина, лёд на дороге, 50→0 км/ч):</p>
+<p>На тающем льду тормозной путь «липучки» вырос больше чем в полтора раза, у шипованных шин — меньше. То же показывает модель, которую использует и <a href="/ru/">калькулятор</a> (VW Golf 8, средняя шина, типичный лёд, 50→0 км/ч):</p>
 ${tabel(
 		['Температура', 'Шипованная', '«Липучка»'],
 		[
-			['0 °C', '40,1 м', '58,6 м'],
-			['−2 °C', '36,0 м', '49,2 м'],
-			['−5 °C', '31,4 м', '38,9 м']
+			['0 °C', '61,1 м', '99,6 м'],
+			['−2 °C', '53,5 м', '78,9 м'],
+			['−5 °C', '45,4 м', '58,9 м']
 		]
 	)}
 <p>На очень холодном твёрдом льду (−10 °C и холоднее) «липучка» по модели тормозит даже короче, потому что шип плохо входит в твёрдый лёд. Это основано на одном тесте (Za Rulem 2008, одни и те же шины при четырёх температурах), поэтому эта часть менее надёжна. Но эстонской зимой лёд часто именно около нуля: утренний гололёд, оттепель и ночные заморозки.</p>

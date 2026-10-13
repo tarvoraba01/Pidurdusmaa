@@ -1,4 +1,5 @@
 <script>
+	import { lumi, jaa } from '$lib/margid.js';
 	/* Rehvivahetus: millal talverehvid ja suverehvid alla (seaduse kuupäevad + lihtne soovitus).
 	   Otsingusõnad Google Trendsi järgi (Eesti, 2021–2026): „rehvivahetus“ on kõige otsitum,
 	   siis „talverehvid“, „suverehvid“, „naastrehvid“; pikad päringud „talverehvid lubatud 2025“,
@@ -241,7 +242,7 @@
 
 				<h2>Требования к шинам</h2>
 				<ul>
-					<li><strong>Зимняя шина:</strong> протектор глубже 3 мм. У нешипованной зимней шины зимой должен быть знак «три горные вершины и снежинка» (3PMSF). Транспортный департамент советует выбирать шину и со знаком льда.</li>
+					<li><strong>Зимняя шина:</strong> протектор глубже 3 мм. У нешипованной зимней шины зимой должен быть знак «три горные вершины и снежинка» {@html lumi('Знак «три горные вершины и снежинка» (3PMSF)')} (3PMSF). Транспортный департамент советует выбирать шину и со знаком льда {@html jaa('Знак льда (символ сцепления со льдом на этикетке ЕС)')}.</li>
 					<li><strong>Летняя шина:</strong> протектор не меньше 1,6 мм; менять стоит уже при 2 мм.</li>
 					<li><strong>Совет:</strong> шины одного типа на всех колёсах — не смешивайте шипованные и нешипованные.</li>
 				</ul>
@@ -286,7 +287,7 @@
 
 				<h2>Nõuded rehvidele</h2>
 				<ul>
-					<li><strong>Talverehv:</strong> muster sügavam kui 3 mm. Lamellrehvil peab talvel olema kolme mäetipu ja lumehelbe märk (3PMSF). Transpordiamet soovitab valida ka jäämärgiga rehvi.</li>
+					<li><strong>Talverehv:</strong> muster sügavam kui 3 mm. Lamellrehvil peab talvel olema kolme mäetipu ja lumehelbe märk {@html lumi()} (3PMSF). Transpordiamet soovitab valida ka jäämärgiga {@html jaa()} rehvi.</li>
 					<li><strong>Suverehv:</strong> muster vähemalt 1,6 mm; vahetada tasub juba 2 mm juures.</li>
 					<li><strong>Soovitus:</strong> sama tüüpi rehvid kõigil ratastel — ära pane naast- ja lamellrehve segamini.</li>
 				</ul>

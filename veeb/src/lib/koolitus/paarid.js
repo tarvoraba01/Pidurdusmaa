@@ -1,7 +1,8 @@
 /* Iga küsimuse „kaksik“: kontrollib SAMA teadmist teise olukorra või sõnastusega.
  * Eeltestis tuleb üks, järeltestis teine (juhuslikult kumb), nii et enne/pärast võrdlus
  * näitab, kas just see asi sai selgemaks. Arvud samast mudelist (Golf 8, C-klassi rehv,
- * kuiv +15 °C, märg 1 mm +10 °C, lumi/jää −5 °C, reaktsioon 1 s).
+ * kuiv +15 °C, märg 1 mm +10 °C, lumi/jää −5 °C, reaktsioon 1 s; jää = tüüpiline jää:
+ * 45 ajakirja jäätesti mediaan, model.py ice_road_factor — jää numbrid 13.10.2026).
  * Kuju: id: [küsimus, [4 vastust], õige, selgitus, sim?]  (sim puudub → sama mis põhiküsimusel) */
 export const PAARID = {
 	/* ---------- kiirus ---------- */
@@ -70,11 +71,11 @@ export const PAARID = {
 		['Sama', 'Umbes 1,2 korda', 'Umbes 2,5 korda', 'Umbes 10 korda'], 2,
 		'Kuival 3,7 m, lumel 9,6 m. Ka aeglaselt sõites on vahe suur.'],
 	'teeolud-2': ['30 km/h, jää, Põhjamaade lamellrehv. Kui pikk on pidurdusteekond?',
-		['Umbes 4 m', 'Umbes 14 m', 'Umbes 30 m', 'Umbes 50 m'], 1,
-		'Mudelis 14,3 m. Kuival asfaldil oleks 3,7 m.'],
+		['Umbes 4 m', 'Umbes 22 m', 'Umbes 45 m', 'Umbes 90 m'], 1,
+		'Mudelis 21,6 m. Kuival asfaldil oleks 3,7 m.'],
 	'teeolud-3': ['Öösel oli −3 °C, päeval tõuseb nulli. Tee on jäine. Millal on see kõige libedam?',
 		['Öösel kõige külmemal ajal', 'Nulli lähedal, kui jää pind hakkab sulama', 'Alati ühtemoodi', 'Kui päike paistab'], 1,
-		'Jää pinnal olev õhuke vesi teeb sellest kõige libedama. Mudelis 0 °C juures 58,6 m, −15 °C juures 27,4 m (50 km/h).'],
+		'Jää pinnal olev õhuke vesi teeb sellest kõige libedama. Mudelis 0 °C juures 99,6 m, −15 °C juures 38,8 m (50 km/h).'],
 	'teeolud-4': ['Auto termomeeter näitab +3 °C. Kus on kõige tõenäolisemalt jää?',
 		['Mitte kuskil', 'Sillal ja metsavarjus olevatel lõikudel', 'Ainult ristmikel', 'Ainult kruusateel'], 1,
 		'Sild jahtub ka altpoolt ja varjus ei sula jää. Termomeeter mõõdab õhku, mitte teed.'],
@@ -99,7 +100,7 @@ export const PAARID = {
 
 	/* ---------- rehvid ---------- */
 	'rehvid-1': ['Jää, 50 km/h. Kui palju pikem on pidurdusteekond suverehviga kui Põhjamaade talverehviga?',
-		['Sama', 'Umbes 10%', 'Üle kahe korra: 39 m → 83 m', 'Suverehv peatub lühemalt'], 2,
+		['Sama', 'Umbes 10%', 'Üle kahe korra: 59 m → 165 m', 'Suverehv peatub lühemalt'], 2,
 		'Suverehvi kumm kõvastub külmaga ega haara jääd.'],
 	'rehvid-2': ['Suvi, kuiv asfalt, 90 km/h. Kui palju pikem on pidurdusteekond, kui all on talverehvid?',
 		['Lühem', 'Sama', 'Umbes 10 m pikem: 29,8 m → 39,7 m', 'Kaks korda pikem'], 2,
@@ -129,7 +130,7 @@ export const PAARID = {
 		['Naastrehv tunduvalt lühemalt', 'Lamell tunduvalt lühemalt', 'Vahe on väike: 12,9 m vs 12,7 m', 'Naastrehviga ei tohi asfaldil sõita'], 2,
 		'Naastude eelis on jääl. Asfaldil on vahe väike.'],
 	'rehvid-11': ['Kesk-Euroopa talverehv (pehmete talvede jaoks) jääl 50 km/h pealt. Mis on õige?',
-		['Sama hea kui Põhjamaade rehv', 'Palju halvem: 64 m vs 39 m', 'Parem kui naastrehv', 'Sama halb kui suverehv'], 1,
+		['Sama hea kui Põhjamaade rehv', 'Palju halvem: 113 m vs 59 m', 'Parem kui naastrehv', 'Sama halb kui suverehv'], 1,
 		'Selline rehv on tehtud lörtsi ja märja jaoks, mitte jää jaoks. Eesti talves on Põhjamaade rehv jääl tunduvalt parem.'],
 	'rehvid-12': ['Ostad esiveolisele autole ainult kaks uut rehvi. Kuhu need panna?',
 		['Ette, sest ees on vedavad rattad', 'Taha, et auto tagaosa ei libiseks kurvis välja', 'Üks ette, üks taha', 'Vahet pole'], 1,

@@ -176,6 +176,7 @@ class Conditions:
     # False = testiväljaku sile jää (ajakirjade testid, kalibreerimine).
     # Vt Calibration.ice_road_add.
     ice_road: bool = True
+    ice_smooth: bool = False             # sile kiilasjää / must jää (vt Calibration.ice_smooth_factor)
     # HAAGIS (6.10.2026). trailer_kg = haagise kogumass koos koormaga.
     # trailer_brakes: False = pidurita haagis (EL-is lubatud kuni 750 kg):
     # auto rehvid peavad peatama ka haagise -> aeglustus jagatakse kogumassiga.
@@ -262,7 +263,18 @@ class Calibration:
     # rehvidele umbes sama palju juurde, seetõttu väheneb teel rehvide
     # SUHTELINE vahe (naast vs naelutu), nagu Väylävirasto 10/2023 ja VTI
     # 543 kirjeldavad (naastu eelis sõltub jää struktuurist, 10-40 %).
-    ice_road_add: float = 0.05
+    ice_road_add: float = 0.0
+    # 13.10.2026: liidetav sõidutee lisa (0,05, minu eeldus) on eemaldatud. Selle asemel
+    # TÜÜPILINE JÄÄ = ajakirjatestide jää keskmine tase: 45 jäätesti (2015-2026, TM, Vi Bilägare,
+    # Za Rulem, ADAC, Testirenkaat, Tyre Reviews) näitasid, et testijää on tüüpiliselt libedam kui
+    # meie kalibreerimisjää (TM25). Tegur on sobitatud nii, et 45 testi mediaanviga on 0
+    # (mudel/jaa_tase.py). Kategooriate suhe (naast/lamell/Kesk-Euroopa) jääb kalibreeritud
+    # kujule: sama päeva testid (TM 2015, 2016, 2025) kinnitavad seda. Ainult ice_road=True
+    # (lehe arvutus); testide taastamine (ice_road=False) seda ei kasuta.
+    ice_road_factor: float = 0.792
+    # „Sile jää“ (kiilasjää, must jää): 45 testi libedam kümnendik (p90 pidurdusmaa 1,23x
+    # tüüpilisest) -> haare 0,81x. Ainult siis, kui Conditions.ice_smooth = True.
+    ice_smooth_factor: float = 0.81
 
     # KRUUS. Lukustatud ratas kaevub kruusa sisse ja lükkab enda ette valli
     # -- see on omaette pidurdusjõud, mida asfaldil ei ole. Seetõttu on
@@ -941,7 +953,9 @@ class BrakingModel:
                 f_ice = f_ice ** e_cold
             mu *= _clamp(f_ice, cal.ice_temp_min, cal.ice_temp_max)
             if cond.ice_road:
-                mu += cal.ice_road_add
+                mu = mu * cal.ice_road_factor + cal.ice_road_add
+                if cond.ice_smooth:
+                    mu *= cal.ice_smooth_factor
         else:  # kruus
             mu = cal.mu_gravel_base
 

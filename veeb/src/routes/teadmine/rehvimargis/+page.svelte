@@ -1,4 +1,5 @@
 <script>
+	import { lumi, jaa } from '$lib/margid.js';
 	import Leht from '$lib/Leht.svelte';
 	const SISU = `<p>Igal Euroopas müüdaval sõiduauto rehvil on EL-i rehvimärgis (määrus 2020/740). Andmed tulevad EL-i tooteregistrist EPREL.</p>
 <h2>Märghaardumine (A–E)</h2>
@@ -8,7 +9,7 @@
 <h2>Müra (dB ja A–C)</h2>
 <p>Rehvi veeremismüra ametliku katse järgi. Väiksem number = vaiksem rehv. Iga 3 dB on ligikaudu kahekordne heliväljund.</p>
 <h2>Lume- ja jäämärk</h2>
-<p>Kolme mäetipu ja lumehelbe märk (3PMSF) tähendab, et rehv läbis lumehaarde katse. Jäämärk tähendab Põhjamaade jääkatse läbimist (ainult sõiduauto rehvid).</p>`;
+<p>Kolme mäetipu ja lumehelbe märk ${lumi()} (3PMSF) tähendab, et rehv läbis lumehaarde katse. Jäämärk ${jaa()} tähendab Põhjamaade jääkatse läbimist (ainult sõiduauto rehvid).</p>`;
 </script>
 
 <Leht

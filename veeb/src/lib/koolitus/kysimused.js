@@ -1,6 +1,7 @@
 /* Koolituse küsimuste pank (dokument „Pidurdusmaa koolitus — küsimustik“, 2026-10-07).
  * Arvud: sama mudel mis kalkulaator — VW Golf 8, keskmine C-klassi rehv, reaktsioon 1 s,
  * kuiv +15 °C, märg 1 mm vett +10 °C, lumi ja jää −5 °C (vt dokumenti).
+ * Jää = tüüpiline jää: 45 ajakirja jäätesti mediaan (model.py ice_road_factor); jää numbrid 13.10.2026.
  *
  * Üks küsimus: { id, teema, m, k, v, o, s, sim? }
  *   m = märgid: 'e' sobib eeltesti, 'j' järeltesti, 't' trikk (täpne lugemine)
@@ -105,11 +106,11 @@ const K = [
 		['Sama', 'Umbes 1,5 korda', 'Umbes 3 korda', 'Umbes 10 korda'], 2,
 		'Kuival 9,6 m, lumel talverehviga 26,2 m.', SIM.peatumine(KUIV + '&kiirus=50', LUMI + '&kiirus=50')],
 	['teeolud', 'e', '50 km/h, jää, Põhjamaade lamellrehv. Kui pikk on pidurdusteekond?',
-		['Umbes 10 m', 'Umbes 20 m', 'Umbes 40 m', 'Umbes 100 m'], 2,
-		'Mudelis 38,9 m, ehk umbes neli korda kuiva asfaldi (suverehv, 9,6 m) pikkus.', SIM.peatumine(JAA + '&kiirus=50')],
+		['Umbes 10 m', 'Umbes 20 m', 'Umbes 60 m', 'Umbes 100 m'], 2,
+		'Mudelis 58,9 m, ehk umbes kuus korda kuiva asfaldi (suverehv, 9,6 m) pikkus.', SIM.peatumine(JAA + '&kiirus=50')],
 	['teeolud', 'et', 'Millal on jää kõige libedam?',
 		['Kõvas külmas, −15 °C', 'Nulli lähedal, kui jää pinnal on õhuke veekiht', 'Temperatuur ei mõjuta', 'Ainult öösel'], 1,
-		'Mudelis lamellrehvi pidurdusteekond 50 km/h pealt: −15 °C 27,4 m, −5 °C 38,9 m, 0 °C 58,6 m.', SIM.peatumine('pind=ICE&vesi=0&temp=-15&kat=WINTER_NORDIC&kiirus=50', 'pind=ICE&vesi=0&temp=0&kat=WINTER_NORDIC&kiirus=50')],
+		'Mudelis lamellrehvi pidurdusteekond 50 km/h pealt: −15 °C 38,8 m, −5 °C 58,9 m, 0 °C 99,6 m.', SIM.peatumine('pind=ICE&vesi=0&temp=-15&kat=WINTER_NORDIC&kiirus=50', 'pind=ICE&vesi=0&temp=0&kat=WINTER_NORDIC&kiirus=50')],
 	['teeolud', 'jt', 'Termomeeter näitab +2 °C. Kas tee võib olla jäine?',
 		['Ei, jää tekib alles alla 0 °C', 'Jah: sillad, varjus lõigud ja teepind võivad olla õhust külmemad', 'Ainult siis, kui sajab lund', 'Ainult kruusateel'], 1,
 		'Auto termomeeter mõõdab õhku. Sild jahtub ka alt ning varjus olev lõik ei saa päikest.'],
@@ -135,7 +136,7 @@ const K = [
 	/* ---------- 4. rehvid ---------- */
 	['rehvid', 'e', '50 km/h tallatud lumel. Suverehviga on pidurdusteekond…',
 		['Sama kui talverehviga', 'Umbes 10% pikem', 'Umbes poolteist korda pikem', 'Üle kahe korra: 26 m → 61 m'], 3,
-		'Suverehvi kumm kõvastub külmaga ja muster ei haara lund. Jääl on vahe veel suurem: 39 m → 83 m.', SIM.peatumine(LUMI + '&kiirus=50', 'pind=SNOW_PACKED&vesi=0&temp=-5&kat=SUMMER_TOURING&kiirus=50')],
+		'Suverehvi kumm kõvastub külmaga ja muster ei haara lund. Jääl on vahe veel suurem: 59 m → 165 m.', SIM.peatumine(LUMI + '&kiirus=50', 'pind=SNOW_PACKED&vesi=0&temp=-5&kat=SUMMER_TOURING&kiirus=50')],
 	['rehvid', 'et', 'Kas talverehv pidurdab suvel kuival asfaldil sama hästi kui suverehv?',
 		['Jah, talverehv haarab alati paremini', 'Ei, pidurdusteekond on pikem: 50 km/h pealt 9,6 m → 12,7 m', 'Vahet pole', 'Talverehv on suvel isegi parem'], 1,
 		'Pehme kumm ja lamellid painduvad soojas asfaldil.', SIM.peatumine(KUIV + '&kiirus=50', KUIV + '&kiirus=50&kat=WINTER_NORDIC')],
@@ -161,10 +162,10 @@ const K = [
 		['Ei muutu', 'Langeb umbes 0,2 bar', 'Tõuseb', 'Langeb poole võrra'], 1,
 		'Külm õhk võtab vähem ruumi, umbes 0,1 bar iga 10 kraadi kohta. Kontrolli rõhku rehvivahetuse järel ja külmaga uuesti.'],
 	['rehvid', 'e', 'Jää, −5 °C, 50 km/h. Naastrehv või Põhjamaade lamellrehv?',
-		['Sama', 'Naastrehv peatub lühemalt: 31,4 m vs 38,9 m', 'Lamell peatub lühemalt', 'Jääl ei aita kumbki'], 1,
+		['Sama', 'Naastrehv peatub lühemalt: 45,4 m vs 58,9 m', 'Lamell peatub lühemalt', 'Jääl ei aita kumbki'], 1,
 		'Naastude eelis on suurim nulli lähedal. Kuival ja märjal asfaldil on vahe väike.', SIM.peatumine(JAA + '&kiirus=50', 'pind=ICE&vesi=0&temp=-5&kat=WINTER_STUDDED&kiirus=50')],
 	['rehvid', 'jt', 'Ilmastikurehv (all season) lumel ja jääl, 50 km/h. Mis on õige?',
-		['Mõlemal sama hea kui Põhjamaade talverehv', 'Lumel peaaegu sama hea (25 m), jääl palju halvem (60 m vs 39 m)', 'Mõlemal sama halb kui suverehv', 'Jääl parem kui naastrehv'], 1,
+		['Mõlemal sama hea kui Põhjamaade talverehv', 'Lumel peaaegu sama hea (25 m), jääl palju halvem (103 m vs 59 m)', 'Mõlemal sama halb kui suverehv', 'Jääl parem kui naastrehv'], 1,
 		'Lumele sobiv muster ei tee kummist jäärehvi. Eesti talves loeb just jää.', SIM.peatumine(JAA + '&kiirus=50', 'pind=ICE&vesi=0&temp=-5&kat=ALL_SEASON&kiirus=50')],
 	['rehvid', 'jt', 'Ees on uued rehvid, taga vanad. Kuhu panna paremad rehvid, kui ostad ainult kaks?',
 		['Ette, sest esirattad pidurdavad rohkem', 'Taha, sest libeda tagaosaga auto läheb kurvis külg ees ümber ja seda on raske püüda', 'Vahet pole', 'Üks ette, üks taha'], 1,
@@ -230,8 +231,8 @@ const K = [
 		['Kaks korda suuremaks', 'Neli korda suuremaks', 'Ei muutu', 'Pool väiksemaks'], 1,
 		'Külgjõud kasvab kiiruse ruuduga, nagu pidurdusteekondki.', SIM.kurv()],
 	['kurvid', 'e', '100 m raadiusega kurv. Kuival asfaldil on piirkiirus umbes 120 km/h. Mis on see jääl (Põhjamaade lamellrehviga)?',
-		['Umbes 110 km/h', 'Umbes 90 km/h', 'Umbes 55 km/h', 'Umbes 20 km/h'], 2,
-		'Haare on jääl umbes viiendik kuivast. Piirkiirus kasvab haarde ruutjuurega, seega jääb alles umbes pool.', SIM.kurv('kr=50~jaa~WINTER_NORDIC~8~8~vw_passat_b8')],
+		['Umbes 110 km/h', 'Umbes 90 km/h', 'Umbes 45 km/h', 'Umbes 20 km/h'], 2,
+		'Haare on jääl umbes seitsmendik kuivast. Piirkiirus kasvab haarde ruutjuurega, seega jääb alles vähem kui pool.', SIM.kurv('kr=50~jaa~WINTER_NORDIC~8~8~vw_passat_b8')],
 	['kurvid', 'jt', 'Kas kurvis on ohutu äkitselt pidurdada, kui kiirus on piirkiirusest veidi madalam?',
 		['Jah, pidurdus alati aitab', 'Ei pruugi: pidurdus kulutab sama haaret, mida pööramine vajab, ja auto võib kurvist välja kanduda', 'Jah, kui autol on ABS', 'Ainult jääl on probleem'], 1,
 		'Haaret on üks „kott“. Kurvi äärel pööramiseks kulub juba peaaegu kõik.', SIM.kurv()],

@@ -1,9 +1,12 @@
 <script>
+	import { lumi, jaa, ms } from '$lib/margid.js';
 	/* Millal talverehvid alla — seaduse kuupäevad hooajal 2026/27 ja mida
 	   pidurdusmaa ütleb vahetamise aja kohta.
 	   Kuupäevad: Transpordiamet (14.10.2024), ERR (29.03.2024, 26.11.2019).
 	   Pidurdusmaad: sama mudel mis kalkulaator, samad numbrid mis artiklis
 	   „Talverehvi valimine“ (VW Golf 8, 205/55 R16, uued rehvid, ilma reaktsiooniajata).
+	   Jää = tüüpiline jää (45 ajakirja jäätesti mediaan, model.py ice_road_factor),
+	   −5 °C. Jää numbrid 13.10.2026.
 	   Vene tekst: SISU_RU (/ru/teadmine/artiklid/millal-talverehvid-alla/). */
 	import Leht from '$lib/Leht.svelte';
 	import { ARTIKLID } from '$lib/artiklid.js';
@@ -39,7 +42,7 @@ ${tabel(
 <h2>Milline talverehv sobib</h2>
 <ul>
 <li><strong>Muster üle 3 mm.</strong> See on seaduse miinimum talverehvile. Mõõda mustrisügavust enne hooaega.</li>
-<li><strong>Kolme mäetipu ja lumehelbe märk.</strong> Naastudeta talverehvil peab see märk olema. Transpordiamet soovitab valida ka <strong>jäämärgiga</strong> rehvi — see on Põhjamaade rehv, mis on läbinud jääkatse. Lõuna- ja Kesk-Euroopa talverehvid (ainult M+S märgiga) Eestis ei sobi.</li>
+<li><strong>Kolme mäetipu ja lumehelbe märk.</strong> ${lumi()} Naastudeta talverehvil peab see märk olema. Transpordiamet soovitab valida ka <strong>jäämärgiga</strong> ${jaa()} rehvi — see on Põhjamaade rehv, mis on läbinud jääkatse. Lõuna- ja Kesk-Euroopa talverehvid (ainult M+S märgiga ${ms()}) Eestis ei sobi.</li>
 <li><strong>Kõikidel ratastel sama tüüpi rehvid.</strong> Naast- ja lamellrehve ei tasu segamini panna: auto käitub pidurdades ja kurvis ettearvamatult.</li>
 </ul>
 
@@ -57,17 +60,17 @@ ${tabel(
 <p>Umbes <strong>+5 °C</strong> juures pidurdab talverehv märjal teel juba lühemalt, sest suverehvi kumm muutub külmaga kõvaks. Esimene lumi ja öökülm tulevad Eestis sageli ootamatult — vaheta, kui päevad jäävad alla +7 °C.</p>
 
 <h2>Suverehv esimesel lumel</h2>
-<p>Tallatud lumel 50 km/h pealt peatub auto suverehvidega <strong>60,9 meetriga</strong>, talverehvidega umbes <strong>26 meetriga</strong>. Jääl on vahe veel suurem: 82,5 m ja 38,9 m. Esimese lumega ootamine võib maksta üle 30 meetri pidurdusmaad.</p>
+<p>Tallatud lumel 50 km/h pealt peatub auto suverehvidega <strong>60,9 meetriga</strong>, talverehvidega umbes <strong>26 meetriga</strong>. Jääl on vahe veel suurem: 165,0 m ja 58,9 m. Esimese lumega ootamine võib maksta üle 30 meetri pidurdusmaad.</p>
 
 <h2>Vana talverehv: kas tuleb veel üks talv?</h2>
 <p>Seadus lubab kuni 3 mm, aga haare kaob varem. Põhjamaade talverehv, pidurdusmaa 50 km/h pealt:</p>
 ${tabel(
 		['Muster', 'Lumi', 'Jää'],
 		[
-			['8 mm (uus)', '26,2 m', '38,9 m'],
-			['6 mm', '28,4 m', '40,5 m'],
-			['4 mm', '31,1 m', '42,3 m'],
-			['3 mm', '32,7 m', '43,2 m']
+			['8 mm (uus)', '26,2 m', '58,9 m'],
+			['6 mm', '28,4 m', '61,2 m'],
+			['4 mm', '31,1 m', '63,8 m'],
+			['3 mm', '32,7 m', '65,2 m']
 		]
 	)}
 <p>3 mm mustriga on pidurdusmaa lumel veerandi võrra pikem kui uuel rehvil. Kui muster on 4 mm või vähem, tasub uued rehvid osta enne hooaega, mitte keset talve.</p>
@@ -100,7 +103,7 @@ ${tabel(
 <h2>Какая зимняя шина подходит</h2>
 <ul>
 <li><strong>Протектор глубже 3 мм.</strong> Это законный минимум для зимней шины. Измерьте глубину протектора до начала сезона.</li>
-<li><strong>Знак «три горные вершины и снежинка».</strong> У нешипованной зимней шины этот знак обязателен. Транспортный департамент советует выбирать шину и со <strong>знаком льда</strong> — это шина северного типа, прошедшая испытание на льду. Южно- и центральноевропейские зимние шины (только с маркировкой M+S) в Эстонии не подходят.</li>
+<li><strong>Знак «три горные вершины и снежинка» ${lumi('Знак «три горные вершины и снежинка» (3PMSF)')}.</strong> У нешипованной зимней шины этот знак обязателен. Транспортный департамент советует выбирать шину и со <strong>знаком льда</strong> — это шина северного типа, прошедшая испытание на льду. Южно- и центральноевропейские зимние шины (только с маркировкой M+S ${ms('Маркировка M+S')}) в Эстонии не подходят.</li>
 <li><strong>Шины одного типа на всех колёсах.</strong> Не стоит смешивать шипованные и нешипованные шины: при торможении и в повороте автомобиль ведёт себя непредсказуемо.</li>
 </ul>
 
@@ -118,17 +121,17 @@ ${tabel(
 <p>Примерно при <strong>+5 °C</strong> зимняя шина уже тормозит на мокрой дороге короче: резина летней шины на холоде твердеет. Первый снег и ночные заморозки в Эстонии часто приходят неожиданно — меняйте шины, когда днём держится ниже +7 °C.</p>
 
 <h2>Летняя шина на первом снегу</h2>
-<p>На укатанном снегу с 50 км/ч автомобиль на летних шинах останавливается примерно за <strong>60,9 метра</strong>, на зимних — примерно за <strong>26 метров</strong>. На льду разница ещё больше: 82,5 м и 38,9 м. Ожидание первого снега может стоить более 30 метров тормозного пути.</p>
+<p>На укатанном снегу с 50 км/ч автомобиль на летних шинах останавливается примерно за <strong>60,9 метра</strong>, на зимних — примерно за <strong>26 метров</strong>. На льду разница ещё больше: 165,0 м и 58,9 м. Ожидание первого снега может стоить более 30 метров тормозного пути.</p>
 
 <h2>Старая зимняя шина: переживёт ещё одну зиму?</h2>
 <p>Закон допускает протектор до 3 мм, но сцепление теряется раньше. Нешипованная зимняя шина северного типа, тормозной путь с 50 км/ч:</p>
 ${tabel(
 		['Протектор', 'Снег', 'Лёд'],
 		[
-			['8 мм (новая)', '26,2 м', '38,9 м'],
-			['6 мм', '28,4 м', '40,5 м'],
-			['4 мм', '31,1 м', '42,3 м'],
-			['3 мм', '32,7 м', '43,2 м']
+			['8 мм (новая)', '26,2 м', '58,9 м'],
+			['6 мм', '28,4 м', '61,2 м'],
+			['4 мм', '31,1 м', '63,8 м'],
+			['3 мм', '32,7 м', '65,2 м']
 		]
 	)}
 <p>С протектором 3 мм тормозной путь на снегу на четверть длиннее, чем у новой шины. Если протектор 4 мм или меньше, новые шины лучше купить до сезона, а не посреди зимы.</p>

@@ -346,7 +346,8 @@ import UNIVERSAALID from './universaalid.json';
     if (window.PM_LINK) p = window.PM_LINK(p);
     return esc(p.slice(0, -1));
   }
-  function hjT(x) { return I18N && x ? String(x).replace(/ hj \(/, ' ' + _t('hj') + ' (') : x; }
+  /* „1.0 TSI · 110 hj (81 kW)“ -> „1.0 TSI · 81 kW“ (hobujõud ära, ainult kW) */
+  function hjT(x) { return x ? String(x).replace(/\s*\d+\s*hj\s*\((\d+\s*kW)\)/, ' $1') : x; }
   function laeMootorid() {
     if (mootoridP) return mootoridP;
     mootoridP = fetch(CFG.data + 'mootorid.json?v=' + encodeURIComponent(CFG.ver || ''), { credentials: 'same-origin' })
@@ -2294,14 +2295,16 @@ import UNIVERSAALID from './universaalid.json';
     if (!rows || !rows.length) return '<span class="none">' + _t('Hinda poodidest pole') + '</span>';
     /* iga pood oma real (odavaim ees) — kõik müüjad on kaardil võrdselt nähtavad */
     var list = rows.slice().sort(function (a, b) { return a.hind - b.hind; });
-    var MAX = 3;
-    var h = list.slice(0, MAX).map(function (r) {
+    /* kaks poodi on näha, ülejäänud keritavad samas kastis — kaart ei kasva poodide lisandudes */
+    var NAHA = 2;
+    var h = list.map(function (r) {
       var sisu = '<span class="rk-p">' + esc(r.myyja) + '</span><b>' + hindTekst(r) + '</b>';
       return r.url
         ? '<a class="rk-osta" href="' + esc(poeLink(r.url, 'autoleht', nimi)) + '" target="_blank" rel="nofollow sponsored noopener" data-pood="' + esc(r.myyja) + '" data-rehv="' + esc(nimi) + '">' + sisu + '<span class="rk-o">' + _t('Osta') + ' →</span></a>'
         : '<div class="rk-osta">' + sisu + '</div>';
     }).join('');
-    return '<div class="rk-poed">' + h + (list.length > MAX ? '<small class="rk-veel">+' + (list.length - MAX) + ' ' + _t('poodi') + '</small>' : '') + '</div>';
+    return '<div class="rk-poed' + (list.length > NAHA ? ' rk-keri' : '') + '">' + h + '</div>' +
+      (list.length > NAHA ? '<small class="rk-veel">↕ ' + list.length + ' ' + _t('poodi') + ' · ' + _t('keri') + '</small>' : '');
   }
   function fillPrices(box) {
     var els = $$('[data-price]', box);

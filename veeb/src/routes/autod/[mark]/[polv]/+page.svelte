@@ -28,7 +28,8 @@
 	const PEALKIRI = { suvi: 'Suverehvid mõõdus {moot}', talv: 'Talverehvid (Põhjamaade, naastudeta) mõõdus {moot}', aastaring: 'Aastaringsed rehvid mõõdus {moot}' };
 	const autoQ = $derived('?auto=' + encodeURIComponent(a.key));
 	/* mootori silt „1.6 TDI · 105 hj (77 kW)“ */
-	const hj = (s) => (s ? String(s).replace(/ hj \(/, ' ' + t('hj') + ' (') : s);
+	/* hobujõud ära, ainult kW: „1.6 TDI · 77 kW“ */
+	const hj = (s) => (s ? String(s).replace(/\s*\d+\s*hj\s*\((\d+\s*kW)\)/, ' $1') : s);
 	const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;');
 	const pealkiri = $derived(t('{nimi} rehvimõõt ja pidurdusmaa', { nimi: a.nimi }));
 

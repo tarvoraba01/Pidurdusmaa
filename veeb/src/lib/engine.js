@@ -45,8 +45,13 @@
                  WINTER_CENTRAL: 1.0, WINTER_NORDIC: 1.0,
                  WINTER_STUDDED: 0.545},
     iceTempExpCold: { WINTER_STUDDED: -0.43 },
-    /* sõidutee jää = testiväljaku jää + kareduse/liivatamise lisa (vt model.py ice_road_add) */
-    iceRoadAdd: 0.05,
+    /* lehe jää = TÜÜPILINE jää: 45 ajakirja jäätesti mediaantase (model.py ice_road_factor,
+       mudel/jaa_tase.py). Varasem liidetav lisa 0,05 oli eeldus, mõõtmised ei toetanud. */
+    iceRoadAdd: 0.0,
+    iceRoadFactor: 0.792,
+    /* „sile jää“ (kiilasjää, must jää) liiklusohutuse simulaatoris: 45 testi libedam kümnendik
+       (p90: pidurdusmaa 1,23x tüüpilisest) -> haare 0,81x tüüpilisest */
+    iceSmoothFactor: 0.81,
     snowLooseFactor: 0.85,
     snowTempCurve: [[-30.0, 1.0], [-3.0, 1.0], [0.0, 0.9], [2.0, 0.84]],
     snowTempMin: 0.60, snowTempMax: 1.05,
@@ -185,7 +190,7 @@
       var eCold = CAL.iceTempExpCold[tyre.category];
       if (eCold != null && eCold !== 1.0 && fIce > 1.0) fIce = Math.pow(fIce, eCold);
       mu *= clamp(fIce, CAL.iceTempMin, CAL.iceTempMax);
-      if (cond.iceRoad !== false) mu += CAL.iceRoadAdd;
+      if (cond.iceRoad !== false) { mu = mu * CAL.iceRoadFactor + CAL.iceRoadAdd; if (cond.iceSmooth) mu *= CAL.iceSmoothFactor; }
     } else {
       mu = CAL.muGravel;
     }
@@ -301,7 +306,7 @@
       var eCold = CAL.iceTempExpCold[tyre.category];
       if (eCold != null && eCold !== 1.0 && fIce > 1.0) fIce = Math.pow(fIce, eCold);
       mu *= clamp(fIce, CAL.iceTempMin, CAL.iceTempMax);
-      if (cond.iceRoad !== false) mu += CAL.iceRoadAdd;
+      if (cond.iceRoad !== false) { mu = mu * CAL.iceRoadFactor + CAL.iceRoadAdd; if (cond.iceSmooth) mu *= CAL.iceSmoothFactor; }
     } else {
       mu = CAL.muGravel;
     }

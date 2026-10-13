@@ -52,7 +52,7 @@
 				{t("Pidurdus arvutatakse väikeste ajasammudega: rehvi ja tee haare antud kiirusel ja temperatuuril, ABS, pidurite võimekus, koormus, õhutakistus ja tee kalle. Mudel on kalibreeritud 369 mõõdetud pidurdusmaa järgi sõltumatutest rehvitestidest ja kontrollitud veel umbes 1300 ajakirjade testitulemusega.")}
 			</p>
 			<p>
-				{@html t("<b>Tulemus on hinnang, mitte mõõtmine.</b> Iga tulemuse juures on tõenäoline vahemik. Päris pidurdusmaa sõltub ka konkreetsest rehvist, teekattest ja juhist. Jää tähendab tavalist sõidutee jääd; siledal kiilasjääl on pidurdusmaa pikem (vali „Sile jää“).")}
+				{@html t("<b>Tulemus on hinnang, mitte mõõtmine.</b> Iga tulemuse juures on tõenäoline vahemik. Päris pidurdusmaa sõltub ka konkreetsest rehvist, teekattest ja juhist. Jää tähendab tüüpilist jääd (45 ajakirja jäätesti keskmine); siledal kiilasjääl ja sulaval jääl on pidurdusmaa pikem (vali „Sile jää“).")}
 			</p>
 		</div>
 		<div>

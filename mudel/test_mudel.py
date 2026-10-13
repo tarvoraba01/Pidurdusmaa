@@ -244,9 +244,10 @@ class Regressioon(unittest.TestCase):
         ("vw_golf_8", "dry", 100): 36.644,
         ("vw_golf_8", "wet", 80): 32.785,
         ("vw_golf_8", "snow", 50): 26.176,
-        # 2026-09-29: jää on nüüd SÕIDUTEE jää (ice_road_add 0,05), mitte
-        # testiväljak. Testiväljaku väärtus (ice_road=False) on endiselt 47,6.
-        ("vw_golf_8", "ice", 50): 38.947,
+        # 2026-10-13: jää = TÜÜPILINE jää (ice_road_factor 0,792, 45 ajakirja jäätesti
+        # mediaan; mudel/jaa_tase.py). Varem 38,9 (liidetav lisa 0,05, eeldus).
+        # Testiväljaku väärtus (ice_road=False, TM25 tase) on endiselt 47,6.
+        ("vw_golf_8", "ice", 50): 58.868,
     }
 
     def test_numbrid(self):
