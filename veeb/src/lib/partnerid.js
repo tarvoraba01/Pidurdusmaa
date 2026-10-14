@@ -1,4 +1,5 @@
-/* Partnerid (/teadmine/partnerid/) — ruudukesed logoga, klikk viib poodi
+/* Partnerid (/teadmine/partnerid/) — logoseinal, klikk viib poodi.
+ * ryhm: 'pood' = hinnad rehvikaartidel (ülemine rida), 'muu' = teised partnerid.
  * sinu partnerlingiga. Uue partneri lisamiseks lisa siia üks rida ja pane
  * logo kausta static/img/partnerid/ (logo annab partner ise).
  *
@@ -34,15 +35,15 @@ export function awin(mid, url) {
 
 export const PARTNERID = [
 	{ nimi: 'Rehvivahetus.ee', link: utm('https://www.rehvivahetus.ee/'), logo: 'rehvivahetus.svg',
-		kirjeldus: 'Rehvid, veljed ja rehvivahetus — üle 30 aasta.', roll: 'Hinnad ja laoseis rehvikaartidel' },
+		kirjeldus: 'Rehvid, veljed ja rehvivahetus üle 30 aasta.', ryhm: 'pood' },
 	{ nimi: 'Tirespot.ee', link: utm('https://www.tirespot.ee/'), logo: 'tirespot.svg',
-		kirjeldus: 'Rehvipood, rehvivahetus ja autoremont Pärnus.', roll: 'Hinnad ja laoseis rehvikaartidel' },
+		kirjeldus: 'Rehvipood, rehvivahetus ja autoremont Pärnus.', ryhm: 'pood' },
 	/* logo puudub veel (intercars24.ee on Cloudflare'i taga) — ruudus on nimi; lisa logo: static/img/partnerid/intercars.svg ja logo: 'intercars.svg' */
-	{ nimi: 'Inter Cars', link: utm('https://www.intercars24.ee/'), logo: 'intercars.png',
-		kirjeldus: 'Autovaruosad ja rehvid, e-pood intercars24.ee.', roll: 'Hinnad ja laoseis rehvikaartidel' },
+	{ nimi: 'Inter Cars', link: utm('https://www.intercars24.ee/'), logo: 'intercars.png', logoMaxH: 50, /* PNG on 142×50 — suurem oleks udune; SVG puudub */
+		kirjeldus: 'Autovaruosad ja rehvid üle Eesti.', ryhm: 'pood' },
 	{ nimi: 'Dignicy', link: utm('https://dignicy.ee/'), logo: 'dignicy.svg',
-		kirjeldus: 'Veebilehed, e-poed ja tehisaru lahendused Eesti ettevõtetele.', roll: 'Arenduspartner' },
+		kirjeldus: 'Veebilehed, e-poed ja tehisaru lahendused. Meie arenduspartner.', ryhm: 'muu' },
 	/* videote eestikeelne hääl; tasuta, mitte partnerlink (TartuNLP luba 12.10.2026) */
 	{ nimi: 'Neurokõne (TartuNLP)', link: 'https://neurokone.ee/', logo: 'neurokone.svg', tasuta: true,
-		kirjeldus: 'Tartu Ülikooli eestikeelne kõnesüntees.', roll: 'Meie videote hääl' }
+		kirjeldus: 'Tartu Ülikooli eestikeelne kõnesüntees. Meie videote hääl.', ryhm: 'muu' }
 ];

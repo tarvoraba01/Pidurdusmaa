@@ -18,7 +18,7 @@
 	];
 	const MEETOD = [
 		['/teadmine/kuidas-pidurdusmaa-arvutatakse/', 'gauge', 'Kuidas pidurdusmaa arvutatakse', 'Mudel, eeldused, täpsus ja piirangud.'],
-		['/teadmine/partnerid/', 'shield', 'Partnerid ja poelingid', 'Kuidas leht tasuta püsib ja miks see järjestust ei mõjuta.']
+		['/teadmine/partnerid/', 'shield', 'Partnerid', 'Kuidas leht tasuta püsib ja miks see järjestust ei mõjuta.']
 	];
 </script>
 

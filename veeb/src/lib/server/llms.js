@@ -96,7 +96,7 @@ ${artiklid}
 
 ## Muu
 - [Meist](${BASE}/meist/): kes teeb, andmeallikad, sõltumatus
-- [Partnerid ja poelingid](${BASE}/teadmine/partnerid/): hinnad ja poelingid tulevad partnerpoodidest, järjestust need ei mõjuta
+- [Partnerid](${BASE}/teadmine/partnerid/): hinnad ja poelingid tulevad partnerpoodidest, järjestust need ei mõjuta
 - Autokoolidele: koolitus (${BASE}/liiklusohutus/koolitus/) on tasuta; õpetaja loob grupile testi, õpilased teevad eel- ja järeltesti, tulemused näeb õpetaja
 - Kõik lehed on eesti keeles, enamik ka vene keeles (/ru/), tööriistad inglise keeles (/en/)
 - [In English](${BASE}/en/) ([llms.txt](${BASE}/en/llms.txt)) · [На русском](${BASE}/ru/) ([llms.txt](${BASE}/ru/llms.txt))
