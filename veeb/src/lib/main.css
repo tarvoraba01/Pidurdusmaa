@@ -1257,6 +1257,7 @@ html.upotus .rk-ala{position:relative}html.upotus .rk-pallid{position:absolute;l
 .rk-top{display:flex;align-items:center;gap:var(--sp-2);flex-wrap:wrap;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.04em}
 .rk-top .rank{margin:0}
 .rk-test{color:var(--tested)}
+.rk-test.rk-hin{color:var(--muted)}
 .rk-pilt{display:flex;justify-content:center;align-items:center;height:104px}
 .rk-pilt img{max-height:100px;width:auto;object-fit:contain}
 .rk-pilt .pk-ring{width:70px;height:70px}

@@ -9,6 +9,7 @@ export function load() {
 		.sort((a, b) => a.label.localeCompare(b.label, 'et', { numeric: true }));
 
 	const tested = c.tyres
+		.filter((t) => t.gSource !== 'hinnang') /* testimata naastrehvid (hinnang) ei ole „testitud“ */
 		.map((t) => ({
 			slug: t.slug,
 			name: t.name,

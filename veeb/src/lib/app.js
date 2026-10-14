@@ -917,7 +917,7 @@ import UNIVERSAALID from './universaalid.json';
         /* testitud rehvid, mida sinu mõõdus EPREL-is ei ole (nt naastrehvid) */
         core.tyres.forEach(function (t) {
           if (tested[t.key] || !sobib(t.name)) return;
-          out.push({ t: t.key, n: t.name, s: tyypSilt(t.category) + _t(' · test mõõdus ') + t.size });
+          out.push({ t: t.key, n: t.name, s: tyypSilt(t.category) + (t.gSource === 'hinnang' ? _t(' · testimata, hinnang') : _t(' · test mõõdus ') + t.size) });
         });
         return out.slice(0, 8);
       }
@@ -1286,6 +1286,7 @@ import UNIVERSAALID from './universaalid.json';
         /* ajakirjatestidest tuletatud vanad mudelid (viimane test enne 2020)
            ei ole enam müügil — võrdlusesse ainult siis, kui see on sinu rehv */
         if (t.gSource === 'tuletatud' && ((t.tuletus || {}).viimane || 0) < 2020) return;
+        if (t.gSource === 'hinnang') return; /* testimata naastrehv: ainult siis, kui see on sinu rehv */
         /* Testitud rehv on SINU autole asjakohane ainult siis, kui seda mudelit
            müüakse sinu mõõdus (EPREL-is on rida) või test oligi selles mõõdus.
            18-tolline sportrehv 15-tollise auto tulemuste seas oleks eksitav. */
@@ -1504,7 +1505,7 @@ import UNIVERSAALID from './universaalid.json';
               else if (t) { if (sea.tested.indexOf(t.category) < 0) return; nimi = t.name; kat = /^SUMMER/.test(t.category) ? 0 : t.category === 'ALL_SEASON' ? 1 : t.category === 'WINTER_CENTRAL' ? 2 : t.category === 'WINTER_STUDDED' ? 4 : 3; }
               else return;
               var r = rr.slice().sort(function (a, b) { return a.hind - b.hind; })[0];
-              list.push({ m: k.m, slug: slug, nimi: nimi, g: g, kat: kat, testitud: !!(t || (e && e.tested)), r: r });
+              list.push({ m: k.m, slug: slug, nimi: nimi, g: g, kat: kat, testitud: !!((t && t.gSource !== 'hinnang') || (e && e.tested)), r: r });
             });
           });
           /* sinu mõõt ees (soodsaim ees), teised tehasemõõdud järel */
@@ -2576,7 +2577,7 @@ import UNIVERSAALID from './universaalid.json';
         var nm = String(t.name), mk = nm.split(' ')[0];
         MARK2.forEach(function (m) { if (nm.indexOf(m + ' ') === 0) mk = m; });
         return { slug: t.slug, mark: mk, name: nm.slice(mk.length + 1), m: S.size, cat: 'WINTER_STUDDED', catNr: 4,
-                 g: null, f: null, db: null, nk: null, flags: FLAG.SNOW | FLAG.ICE, tested: t.key, tul: t.gSource === 'tuletatud' };
+                 g: null, f: null, db: null, nk: null, flags: FLAG.SNOW | FLAG.ICE, tested: t.key, tul: t.gSource === 'tuletatud', hin: t.gSource === 'hinnang' };
       });
     }
     function naastTeade() {
@@ -2609,7 +2610,8 @@ import UNIVERSAALID from './universaalid.json';
         if (k === 'aqua' && P.aqua) out.push(_t('Pidurdusmaa sügavas vees <b>') + P.aqua.show + '</b>');
         if (k === 'price' && P.price) out.push(_t('Hind alates <b>') + P.price.show + '</b>' + (P.price.v <= stats.minHind + 0.005 ? _t(' — soodsaim selles nimekirjas') : ' (+' + eur(P.price.v - stats.minHind) + _t(' soodsaimast)')));
       });
-      if (r.tested) out.push(_t('Sõltumatult testitud'));
+      if (r.hin) out.push(_t('Testimata — pidurdusmaa on hinnang'));
+      else if (r.tested) out.push(_t('Sõltumatult testitud'));
       return out.slice(0, 4);
     }
 
@@ -2797,11 +2799,11 @@ import UNIVERSAALID from './universaalid.json';
             });
             x.fit = wsum ? Math.round(100 * s / wsum) : null; x.miss = miss;
           });
-          list.sort(function (a, b) { return (b.fit == null ? -1 : b.fit) - (a.fit == null ? -1 : a.fit) || ((FG[b.r.g] || 0) - (FG[a.r.g] || 0)) || (!!b.r.tested - !!a.r.tested); }); /* viik: testitud ette (audit 6.10) */
+          list.sort(function (a, b) { return (b.fit == null ? -1 : b.fit) - (a.fit == null ? -1 : a.fit) || ((FG[b.r.g] || 0) - (FG[a.r.g] || 0)) || (!!(b.r.tested && !b.r.hin) - !!(a.r.tested && !a.r.hin)); }); /* viik: testitud ette (audit 6.10) */
           /* „Sobivus %“ ainult siis, kui kasutaja ise midagi valis */
           if (!valis) list.forEach(function (x) { x.fit = null; x.miss = null; });
         } else {
-          list.sort(function (a, b) { return (FG[b.r.g] || 0) - (FG[a.r.g] || 0) || (!!b.r.tested - !!a.r.tested) || ((a.r.db || 99) - (b.r.db || 99)); });
+          list.sort(function (a, b) { return (FG[b.r.g] || 0) - (FG[a.r.g] || 0) || (!!(b.r.tested && !b.r.hin) - !!(a.r.tested && !a.r.hin)) || ((a.r.db || 99) - (b.r.db || 99)); });
         }
         /* hinna järgi: soodsaim enne, hinnata rehvid lõppu (nende omavaheline järjekord jääb) */
         if (sortBar) {
@@ -2924,7 +2926,7 @@ import UNIVERSAALID from './universaalid.json';
       var n2 = talv && P.ice && P.ice.v ? nr(_t('Jääl'), fmt(P.ice.v) + ' ' + _t('m'), '50→0') : (P.dryb ? nr(_t('Kuival'), P.dryb.show.replace(/<[^>]+>/g, ''), '90→0') : '');
       return '<article class="rcard rk' + (on ? ' on' : '') + '">' +
         '<div class="rk-top"><span class="rank">' + (i + 1) + '</span>' + (KAT_KAART[r.catNr] ? '<span class="kat-b kat-' + r.catNr + '">' + KAT_KAART[r.catNr] + '</span>' : '') +
-          (r.tested || r.tul ? '<span class="rk-test">' + _t('Testitud') + '</span>' : '') + '</div>' +
+          (r.hin ? '<span class="rk-test rk-hin">' + _t('Testimata') + '</span>' : r.tested || r.tul ? '<span class="rk-test">' + _t('Testitud') + '</span>' : '') + '</div>' +
         '<a class="rk-pilt" href="' + rTee(r.slug) + '/" tabindex="-1" aria-hidden="true"><img class="rpilt" alt="" width="84" height="100" decoding="async" hidden data-pilt="' + esc(id) + '"><span class="pk-ring"></span></a>' +
         '<h3><a href="' + rTee(r.slug) + '/"><span class="mk">' + esc(r.mark) + '</span> ' + esc(r.name) + '</a></h3>' +
         tahed(x) +
@@ -2937,7 +2939,7 @@ import UNIVERSAALID from './universaalid.json';
       if (autoLeht) return kaartVaike(x, i);
       var r = x.r, id = r.slug + '@' + r.m, on = cmp.has(id);
       return _t('<article class="rcard') + (on ? ' on' : '') + '"><div class="rc-info">' +
-        '<div class="b">' + (why ? '<span class="rank">' + (i + 1) + '</span>' : '') + (KAT_KAART[r.catNr] ? '<span class="kat-b kat-' + r.catNr + '">' + KAT_KAART[r.catNr] + '</span>' : '') + (r.tul ? '<span style="color:var(--tested)">' + _t('Ajakirjatestid') + '</span>' : r.tested ? _t('<span style="color:var(--tested)">Sõltumatult testitud</span>') : _t('<span style="color:var(--muted)">EL-i märgis</span>')) +
+        '<div class="b">' + (why ? '<span class="rank">' + (i + 1) + '</span>' : '') + (KAT_KAART[r.catNr] ? '<span class="kat-b kat-' + r.catNr + '">' + KAT_KAART[r.catNr] + '</span>' : '') + (r.hin ? '<span style="color:var(--muted)">' + _t('Testimata · hinnang') + '</span>' : r.tul ? '<span style="color:var(--tested)">' + _t('Ajakirjatestid') + '</span>' : r.tested ? _t('<span style="color:var(--tested)">Sõltumatult testitud</span>') : _t('<span style="color:var(--muted)">EL-i märgis</span>')) +
           (onRft(r) ? '<span class="rft-b">Run-flat ' + tip(RFT_T) + '</span>' : '') +
           (eriLiik(r) ? '<span class="rft-b eri-b">' + esc(eriLiik(r)) + ' ' + tip(ERI_T) + '</span>' : '') + '</div>' +
         _t('<h3><a href="') + rTee(r.slug) + '/"><span class="mk">' + esc(r.mark) + '</span> ' + esc(r.name) + '</a></h3>' +
@@ -3108,7 +3110,7 @@ import UNIVERSAALID from './universaalid.json';
     var veh = core.vehByKey[myVeh] || core.vehByKey[DEFAULT_VEH];
     $('[data-tw-veh]', root).textContent = veh.name + (core.vehByKey[myVeh] ? '' : _t(' (vali oma auto avalehel)'));
     if (sizes.length) {
-      sSel.innerHTML = sizes.map(function (z) { return _t('<option value="') + esc(z.m) + '">' + esc(pretty(z.m)) + _t(' · klass ') + esc(z.g) + '</option>'; }).join('');
+      sSel.innerHTML = sizes.map(function (z) { return _t('<option value="') + esc(z.m) + '">' + esc(pretty(z.m)) + (z.g ? _t(' · klass ') + esc(z.g) : '') + '</option>'; }).join('');
       var oem = norm(veh.oemSize); if ($('option[value="' + oem + '"]', sSel)) sSel.value = oem;
     } else sSel.closest('.fld').hidden = true;
     $$('[data-tw-cond]', root).forEach(function (b) {
@@ -3170,7 +3172,7 @@ import UNIVERSAALID from './universaalid.json';
         (ck === 'wet' ? _t('<p class="note">Võrdluseks samas mõõdus: A-klassi märgisega rehv ') + fmt(a) + _t(' m, E-klassi ') + fmt(e) + _t(' m.') +
           (t ? _t(' Selle rehvi haare tuleb testi mõõtmisest (') + esc(t.size) + _t('), mitte klassist — seepärast võib ta klassi tüüpilisest erineda.') : '') + '</p>' : '') +
         (knows ? '' : _t('<div class="note-box"><span class="est">≈</span>Tuletatud meie mudelist (') + COND[ck].label + _t('): kasutame rehvitüübi keskmist haaret, sest selle rehvi kohta sõltumatut mõõtmist ei ole.</div>')) +
-        _t('<div class="res-meta"><span class="pill calc">Arvutatud hinnang</span>') + (t ? _t('<span class="pill test">Haare testist</span>') : _t('<span class="pill off">Märgise klass</span>')) + '</div>';
+        _t('<div class="res-meta"><span class="pill calc">Arvutatud hinnang</span>') + (t && t.gSource === 'hinnang' ? '<span class="pill off">' + _t('Haare hinnanguline') + '</span>' : t ? _t('<span class="pill test">Haare testist</span>') : _t('<span class="pill off">Märgise klass</span>')) + '</div>';
     }
     go();
     var addB = $('[data-tw-add]');

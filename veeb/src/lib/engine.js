@@ -70,6 +70,8 @@
     speedRange: { ASPHALT: [40.0, 130.0], CONCRETE: [40.0, 120.0], SNOW_PACKED: [15.0, 80.0], SNOW_LOOSE: [15.0, 60.0], ICE: [15.0, 80.0], GRAVEL: [40.0, 80.0] },
     sigmaSpeedExtrap: 0.25, sigmaSpeedExtrapMax: 0.4,
     sigmaWetExtra: 0.02, sigmaLabelOnly: 0.045,
+    /* testimata naastrehv (gSource 'hinnang'): testitud naastrehvide hajuvus pinna kaupa, vt model.py sigma_hinnang */
+    sigmaHinnang: { ASPHALT: 0.05, CONCRETE: 0.05, GRAVEL: 0.05, SNOW_PACKED: 0.04, SNOW_LOOSE: 0.04, ICE: 0.15 },
     sigmaSizeRimInch: 0.015, sigmaSizeMax: 0.08, sizeWarnInch: 2.0,
     sigmaExtrapolation: 0.06, sigmaSnowSingleSource: 0.06, sigmaTexture: 0.07
   };
@@ -506,6 +508,7 @@
     // Märgise ebamäärasus ainult siis, kui G tuleb klassi keskpunktist,
     // mitte päris testist. Vt model.py Tyre.g_source.
     if (tyre.gSource !== 'test') sigma = Math.hypot(sigma, CAL.sigmaLabelOnly);
+    if (tyre.gSource === 'hinnang') sigma = Math.hypot(sigma, CAL.sigmaHinnang[cond.surface]);
 
     // Lumi, mille kategooria taga on ainult üks test: Põhjamaade naelutu
     // (UTAC 2025, 5 rehvi) ja naast (Za Rulem 2024, 4 rehvi). Vt

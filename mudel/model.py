@@ -710,6 +710,15 @@ class Calibration:
     sigma_speed_extrap_max: float = 0.40
     sigma_wet_extra: float = 0.020
     sigma_label_only: float = 0.045      # kui G tuleb ainult märgise klassist
+    # TESTIMATA NAASTREHV (g_source "hinnang", naastud_hinnang.py): haare on
+    # tootja/hinnaklassi naastrehvide keskmine, mitte selle rehvi oma. Lisaveapiir
+    # = testitud naastrehvide hajuvus pinna kaupa (2016+, 70 rehvi):
+    # jää 18,6 %, märg 5,4 %, lumi 3,4 %, kuiv 3,0 %. Jää 0,15: tootja keskmine
+    # võtab osa hajuvusest ära.
+    sigma_hinnang: dict = field(default_factory=lambda: {
+        Surface.ASPHALT: 0.05, Surface.CONCRETE: 0.05, Surface.GRAVEL: 0.05,
+        Surface.SNOW_PACKED: 0.04, Surface.SNOW_LOOSE: 0.04, Surface.ICE: 0.15,
+    })
     # MÕÕDU MITTEVASTAVUS. Märghaardumise indeks G on MÕÕDUPÕHINE: sama
     # rehvimudel võib olla ühes mõõdus A ja teises B. Kui kasutame 225/40 R18
     # peal mõõdetud G-d autol, mille tehasemõõt on 175/70 R13, siis on see
@@ -1225,6 +1234,8 @@ class BrakingModel:
         # testitud rehvide veapiiri asjatult laiaks.
         if tyre.g_source != "test":
             sigma = math.hypot(sigma, cal.sigma_label_only)
+        if tyre.g_source == "hinnang":
+            sigma = math.hypot(sigma, cal.sigma_hinnang[cond.surface])
 
         # Lumi, mille kategooria taga on ainult üks test. Vt
         # sigma_snow_single_source ja anchors_snow_nordic.py.

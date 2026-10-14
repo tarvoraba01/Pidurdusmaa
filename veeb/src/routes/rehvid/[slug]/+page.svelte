@@ -29,6 +29,7 @@
 		if (keel.lang === 'et' || !data.descOsad || !data.tyre) return data.desc;
 		const o = data.descOsad;
 		const osad = [];
+		if (o.hinnang) osad.push(t('testimata, pidurdusmaa on hinnang'));
 		if (o.fakt) osad.push(t('{test} testis {pind} {v} km/h: {m} m ({pos}./{n})', { test: o.fakt.src, pind: t(o.fakt.pind), v: o.fakt.v, m: num(o.fakt.m), pos: o.fakt.pos, n: o.fakt.n }));
 		else if (o.testid) osad.push(t('sõltumatu testi pidurdusmaad'));
 		if (o.g) osad.push(t('märjal haardumise klass {g}', { g: o.g }));
@@ -126,6 +127,11 @@
 				t('Jah. Testis {test} sai {rehv} {pind} {v} km/h pealt pidurdusmaaks {m} m, mis andis {pos}. koha {n} rehvi seas.', { test: t(k.src), rehv: ty.name, pind: t(pind), v: Math.round(k.v0), m: num(k.m), pos: k.pos, n: k.n }) +
 					(data.tests.length > 1 ? ' ' + t('Kõik mõõdetud tulemused on tabelis ülal.') : '')
 			]);
+		} else if (data.hinnang) {
+			out.push([
+				t('Kas {rehv} on sõltumatult testitud?', { rehv: ty.name }),
+				t('Ei. Seda naastrehvi ei ole veel ükski sõltumatu test mõõtnud. Pidurdusmaa on hinnang testitud naastrehvide põhjal ja jääl on vahemik laiem.')
+			]);
 		} else if (!data.tests.length && !data.ext.length && data.sizes.length) {
 			out.push([
 				t('Kas {rehv} on sõltumatult testitud?', { rehv: ty.name }),
@@ -136,7 +142,9 @@
 			const n = data.mootudeArv, list = data.mootudUnik.slice(0, 6).map((z) => z.label);
 			out.push([
 				t('Mis mõõtudes {rehv} on olemas?', { rehv: ty.name }),
-				t(n === 1 ? 'EL-i rehviregistris on {rehv} andmebaasis {n} mõõdus: {list}.' : 'EL-i rehviregistris on {rehv} andmebaasis {n} mõõdus, näiteks {list}.', { rehv: ty.name, n, list: ja(list) }) +
+				(data.poeMoodud
+					? t(n === 1 ? 'Eesti poodides on {rehv} müügil {n} mõõdus: {list}.' : 'Eesti poodides on {rehv} müügil {n} mõõdus, näiteks {list}.', { rehv: ty.name, n, list: ja(list) })
+					: t(n === 1 ? 'EL-i rehviregistris on {rehv} andmebaasis {n} mõõdus: {list}.' : 'EL-i rehviregistris on {rehv} andmebaasis {n} mõõdus, näiteks {list}.', { rehv: ty.name, n, list: ja(list) })) +
 					(data.sobib.n ? ' ' + t('Tehase põhimõõduna sobib see näiteks autodele {autod}.', { autod: ja(data.sobib.list.slice(0, 3).map((c) => an(c.nimi))) }) : '')
 			]);
 		}
@@ -149,7 +157,7 @@
 						/* NB: mitte 'Product' — Google nõuab Productil hinda (offers), arvustust
 						   või hinnangut, meil neid lehel pole (Search Console'i kriitiline viga). */
 						'@type': 'WebPage',
-						name: data.tyre.name + (data.testitud ? t(' test — pidurdusmaa ja märgis') : t(' — pidurdusmaa, märgis ja testid')),
+						name: data.tyre.name + (data.hinnang ? t(' naastrehv — pidurdusmaa hinnang ja hinnad') : data.testitud ? t(' test — pidurdusmaa ja märgis') : t(' — pidurdusmaa, märgis ja testid')),
 						description: kirjeldus,
 						url: 'https://pidurdusmaa.ee' + L('/rehvid/' + data.tyre.slug + '/'),
 						inLanguage: keel.lang,
@@ -289,7 +297,7 @@
 {:else if data.liik === 'rehv'}
 	{@const ty = data.tyre}
 	<Meta
-		title={ty.name + (data.testitud ? t(' test — pidurdusmaa ja märgis') : t(' — pidurdusmaa, märgis ja testid'))}
+		title={ty.name + (data.hinnang ? t(' naastrehv — pidurdusmaa hinnang ja hinnad') : data.testitud ? t(' test — pidurdusmaa ja märgis') : t(' — pidurdusmaa, märgis ja testid'))}
 		desc={kirjeldus}
 		path="rehvid/{ty.slug}/"
 		canonical={data.canonical}
@@ -343,9 +351,25 @@
 				{/if}
 			{/if}
 			<div class="pills">
-				{#if data.sizes.length}<span class="pill off">{t("EL-i märgis ·")} {data.mootudeArv} {data.mootudeArv === 1 ? t('mõõt') : t('mõõtu')}</span>{/if}
+				{#if data.poeMoodud}<span class="pill off">{data.mootudeArv} {data.mootudeArv === 1 ? t('mõõt poodides') : t('mõõtu poodides')}</span>
+				{:else if data.sizes.length}<span class="pill off">{t("EL-i märgis ·")} {data.mootudeArv} {data.mootudeArv === 1 ? t('mõõt') : t('mõõtu')}</span>{/if}
+				{#if data.hinnang}<span class="pill off">{t('Testimata · hinnang')}</span>{/if}
 				{#if data.tests.length || data.ext.length}<span class="pill test">{t("Sõltumatult testitud")}</span>{/if}
 			</div>
+			{#if data.hinnang}
+				<p class="hinnang-note">
+					<b>{t('Seda naastrehvi ei ole veel ükski sõltumatu test mõõtnud.')}</b>
+					{#if data.hinnang.viis === 'kaksik'}
+						{t('Pidurdusmaa on hinnang: aluseks on sama tehase sama mustriga rehv {k}, mille haare on testidest teada.', { k: data.hinnang.kaksik })}
+						{#if data.hinnang.kaksikSlug}<a href={L('/rehvid/' + data.hinnang.kaksikSlug + '/')}>{data.hinnang.kaksik} →</a>{/if}
+					{:else if data.hinnang.viis === 'tootja'}
+						{t('Pidurdusmaa on hinnang: tootja {mark} testitud naastrehvide keskmine haare.', { mark: data.hinnang.mark })}
+					{:else}
+						{t('Pidurdusmaa on hinnang: sama hinnaklassi testitud naastrehvide keskmine haare.')}
+					{/if}
+					{t('Päris rehv võib olla parem või halvem — jääl on vahemik seetõttu laiem.')}
+				</p>
+			{/if}
 		</div>
 	</section>
 
@@ -453,7 +477,7 @@
 					</div>
 				{/if}
 
-				{#if data.sizes.length}
+				{#if data.sizes.length && !data.poeMoodud}
 					<div class="box">
 						<h2>{t("EL-i rehvimärgis")}</h2>
 						<p class="sub">
@@ -682,6 +706,8 @@
 	.vs-o-r { font-size: 14px; }
 	@media (max-width: 640px) { .vs-osta-grid { grid-template-columns: 1fr; } }
 	.vastus { font-size: 17px; font-weight: 600; max-width: 62ch; margin: 6px 0 10px; }
+	.hinnang-note { margin: var(--sp-3) 0 0; max-width: 760px; font-size: 15px; line-height: 1.5; color: var(--muted-d, inherit); }
+	.hinnang-note a { color: inherit; text-decoration: underline; }
 	.vastus-alus { font-weight: 400; color: var(--muted-d, inherit); font-size: 14px; }
 	.rp-poed { margin-top: var(--sp-5); }
 	/* rehvi vidina nupud: ost ja kalkulaator kohe tulemuse all (telefonis ei pea „Kus osta“ kastini kerima) */

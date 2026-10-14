@@ -38,7 +38,7 @@ export function llmsTekst(lang = 'et') {
 		.map((s) => (s.aasta && !String(s.nimi).includes(String(s.aasta)) ? `${s.nimi} ${s.aasta}` : s.nimi))
 		.sort()
 		.join(', ');
-	const nMud = n(Object.keys(models()).length), nMoot = n(c.eprelSizes.filter((m) => /^\d{5}R\d{2}C?$/.test(m)).length) /* ainult päris mõõdud (audit: ~690 võtit on nimest valesti loetud) */, nTest = n(c.tyres.length), nAuto = n(autod().polved.size);
+	const nMud = n(Object.keys(models()).length), nMoot = n(c.eprelSizes.filter((m) => /^\d{5}R\d{2}C?$/.test(m)).length) /* ainult päris mõõdud (audit: ~690 võtit on nimest valesti loetud) */, nTest = n(c.tyres.filter((t) => t.gSource !== 'hinnang').length), nAuto = n(autod().polved.size);
 	const ext = extKokkuvote(); /* ajakirjatestid (testid_ext.json) */
 	const md = lang === 'et' ? m : (x) => (Math.round(x * 10) / 10).toString().replace('.', lang === 'en' ? '.' : ',');
 	if (lang === 'en' || lang === 'ru') return valisKeel(lang, { kuiv, marg, lumi, reakts, allikad, nMud, nMoot, nTest, nAuto, md, jaa, ext });

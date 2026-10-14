@@ -387,6 +387,11 @@ ORIGINS: dict[str, Origin] = {
         "KONSERVATIIVNE, mis on ohutusnumbri juures oige suund. Ja "
         "mootmine ULEhindab hajuvust, sest EPREL-i klass tuli TEISTEST "
         "mootudest kui ADAC-i test -- vt kytus_katse.py piirang 1."),
+    "sigma_hinnang": Origin(
+        R, "testitud naastrehvide hajuvus (2016+, 70 rehvi)",
+        "Testimata naastrehv saab tootja voi hinnaklassi keskmise haarde. "
+        "Lisaveapiir = moodetud naastrehvide hajuvus pinna kaupa: jaa "
+        "18,6 %, marg 5,4 %, lumi 3,4 %, kuiv 3,0 %. Jaal 0,15."),
     "sigma_size_rim_inch": Origin(
         L, "EL 2020/740 klassid on MODUPOHISED",
         "Sama rehvimudel voib olla uhes modus A ja teises B. "

@@ -11,7 +11,7 @@ export function load() {
 		allikad,
 		mudeleid: Object.keys(models()).length,
 		mootusid: c.eprelSizes.filter((m) => /^\d{5}R\d{2}C?$/.test(m)).length,
-		testitud: c.tyres.length,
+		testitud: c.tyres.filter((t) => t.gSource !== 'hinnang').length,
 		/* sama arv ja mõiste mis /autod/ lehel (üks leht põlvkonna kohta) */
 		autosid: autod().polved.size
 	};

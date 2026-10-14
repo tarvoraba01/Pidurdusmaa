@@ -46,12 +46,12 @@ export function normMoot(s) {
 const OE = /^(mo|mo1|moe|ao|ao1|ro1|ro2|r01|n[0-5]|n[a-f][0-9]|j|lr|frv|vol|volfr|goe|tpc|ar)$/;
 
 /* lühendid mudelinimes */
-const SONA_ALIAS = { ug: 'ultragrip', hkpl: 'hakkapeliitta', iceiynx: 'icelynx' }; /* EPREL: „HKPL R3“ = Hakkapeliitta R3 */
+const SONA_ALIAS = { ug: 'ultragrip', hkpl: 'hakkapeliitta', iceiynx: 'icelynx', nor1: 'noranza001' }; /* Bridgestone „NOR1“ = Noranza 001 */ /* EPREL: „HKPL R3“ = Hakkapeliitta R3 */
 
 /* mudelinimest ära: mõõt, indeksid ja lisamärgid, mis ei muuda mudelit */
 /* NB: „winter“, „summer“, „all season“ EI ole müra — „Scorpion“ ja „Scorpion Winter“, „Scorpion Zero“ ja „Scorpion Zero All Season“ on eri rehvid */
 const MYRA = new Set(
-	'xl rf rft runflat ssr zp extra load reinf reinforced fr mfs tl tubeless 3pmsf pmsf fsl bsw studded naast naastrehv suverehv talverehv lamellrehv aastaringne sealtech contisilent contiseal acoustic ext'.split(
+	'xl rf rft runflat ssr zp extra load reinf reinforced fr mfs tl tubeless 3pmsf pmsf fsl bsw studded naast naastrehv suverehv talverehv lamellrehv aastaringne sealtech contisilent contiseal acoustic ext demo 4x4'.split(
 		' '
 	)
 );
@@ -87,6 +87,11 @@ export function mudeliSonad(mudel, mark, poe = false) {
 	if (normMark(mark) === 'pirelli' && w.length === 1 && w[0] === 'pzero') w = ['pzero'];
 	/* Yokohama „iceGUARD Stud iG65“ = meie „iceGUARD iG65“ (naastrehvi nimes „Stud“ ei erista) */
 	if (normMark(mark) === 'yokohama' && w.includes('guard')) w = w.filter((x) => x !== 'stud');
+	/* Maxxis naastrehv: pood „NS5 PREMITRA ICE“ = „Premitra Ice Nord 5 SUV“, „NP5 PREMITRA ICE“ = „Premitra Ice Nord NP5“ */
+	if (normMark(mark) === 'maxxis' && w.includes('premitra')) {
+		if (w.includes('ns5')) w = ['premitra', 'ice', 'nord', '5', 'suv'];
+		else if (w.includes('np5')) w = ['premitra', 'ice', 'nord', 'np5'];
+	}
 	/* Hankooki tehasekood (W429, K135, H750) — üks pood kirjutab, teine mitte */
 	/* „Winter i*cept X RW10“ = „i-Cept X“: Hankooki talvesarjal (i*cept, i*pike) ei erista
 	   sõna „winter“ midagi ja RW/RA-kood (RW10, RW15) on tehasekood nagu W429 */
@@ -189,7 +194,9 @@ function leiaRehv0(toode, read) {
 			const bK = meie.filter(kood), bS = meie.filter((x) => !kood(x));
 			/* „HA32+“ ≠ „HA32“: pluss on eri mudel */
 			if (aS.includes('plus') !== bS.includes('plus')) continue;
-			if (bK.length && bK.join(' ') === aK.join(' ') && (!bS.length || !aS.length)) { vasted.add(r[0]); nimed.add(meie.join(' ')); }
+			/* „WI31+“ ↔ „WinterCraft Ice WI31+“: pluss on osa koodist, mitte nimesõna */
+			const aS2 = aS.filter((x) => x !== 'plus'), bS2 = bS.filter((x) => x !== 'plus');
+			if (bK.length && bK.join(' ') === aK.join(' ') && (!bS2.length || !aS2.length)) { vasted.add(r[0]); nimed.add(meie.join(' ')); }
 		}
 		if (vasted.size === 1) return [...vasted][0];
 		/* sama rehv kahe slugiga (EPREL „WS51“ ja test „WinterCraft WS51“ pärast sarjanime eemaldust):

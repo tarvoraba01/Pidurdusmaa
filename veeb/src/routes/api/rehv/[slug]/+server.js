@@ -3,7 +3,7 @@
  * { available, hinnad: [...], pilt: '/api/pilt/<slug>' | null } */
 import { piirang, vastus, liigaPalju, vigane, MOOT_RE, SLUG_RE } from '$lib/server/integratsioonid/kaitse.js';
 import { hinnadMoodus, aktiivsed, pilt } from '$lib/server/integratsioonid/koond.js';
-import { model, sizeModelCount } from '$lib/server/andmed.js';
+import { model, sizeModelCount, testedBySlug } from '$lib/server/andmed.js';
 import { poeLinkMoodule } from '$lib/server/integratsioonid/pakkujad/rehvivahetus.js';
 
 export const prerender = false;
@@ -14,7 +14,9 @@ export async function GET(event) {
 	if (!piirang('rehv', event, 60, 60)) return liigaPalju();
 	const slug = event.params.slug;
 	if (!SLUG_RE.test(slug)) return vigane('Vigane rehv');
-	const m = model(slug);
+	/* naastrehvil EPREL-i rida pole: mõõdud poodide kataloogist (core.json `moodud`) */
+	const nt = model(slug) ? null : testedBySlug(slug);
+	const m = model(slug) || (nt && nt.moodud && nt.moodud.length ? { sizes: nt.moodud.map((x) => ({ m: x })) } : null);
 	if (!m) return vastus({ ok: false, viga: 'Rehvi ei ole' }, { status: 404 });
 	if (!aktiivsed().length) return vastus({ available: false, hinnad: [], pilt: null }, { vahemalu: 300 });
 

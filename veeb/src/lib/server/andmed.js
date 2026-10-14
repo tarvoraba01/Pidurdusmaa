@@ -145,7 +145,8 @@ export function tyrePage(slug) {
 	if (!tested) tested = testedBySlug(slug);
 	if (!m && !tested) return null;
 	const name = m ? (m.mark + ' ' + m.nimi).trim() : tested.name;
-	const brand = m ? m.mark : String(tested.name).split(' ')[0];
+	const m2 = /^(GT Radial|Nokian Tyres|General Tire|BF Goodrich|Double Coin)\s/i.exec(String(tested ? tested.name : ''));
+	const brand = m ? m.mark : m2 ? m2[1] : String(tested.name).split(' ')[0];
 	return {
 		slug,
 		name: titleCase(name),
@@ -273,6 +274,7 @@ export function margid() {
 	}
 	/* testitud rehvid: EPREL-i mudeli kaudu või nime esimese sõna järgi */
 	for (const t of core().tyres) {
+		if (t.gSource === 'hinnang') continue; /* testimata naastrehv ei ole margi „testitud“ rehv */
 		const m = t.slug ? model(t.slug) : null;
 		const ms = markSlug(m ? titleCase(String(m.mark).trim()) : String(t.name).split(' ')[0]);
 		if (_margid.has(ms)) _margid.get(ms).testitud.push(t);

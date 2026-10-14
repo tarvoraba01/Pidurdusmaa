@@ -22,8 +22,12 @@ import { pusivusOlek } from './pusivus.js';
 let _testRead = null, _naastRead = null;
 function testRead() {
 	if (!_testRead) {
+		/* kahesõnalised margid („GT Radial IcePro3“ — mark ei ole „GT“) */
+		const MARK2 = /^(GT Radial|Nokian Tyres|General Tire|BF Goodrich|Double Coin|Tri Ace|Star Performer)\s/i;
 		const rida = (t) => {
-			const [mark, ...m] = String(t.name).split(' ');
+			const nimi = String(t.name), m2 = MARK2.exec(nimi);
+			if (m2) return [t.slug, m2[1], nimi.slice(m2[0].length)];
+			const [mark, ...m] = nimi.split(' ');
 			return [t.slug, mark, m.join(' ')];
 		};
 		const koik = (core().tyres || []).filter((t) => t.slug && t.name);

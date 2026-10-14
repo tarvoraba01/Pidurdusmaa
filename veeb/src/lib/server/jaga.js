@@ -133,7 +133,7 @@ export function arvuta(val, mootorid) {
 		if (!t || !moodetud(t, ck)) return null;
 		tyre = onCar(t, m);
 		nimi = t.name;
-		alla = tJ(l, 'Sõltumatu test');
+		alla = t.gSource === 'hinnang' ? tJ(l, 'Hinnang (testimata)') : tJ(l, 'Sõltumatu test');
 	} else if (liik === 'c' || liik === 'g') {
 		const g = id.slice(-1), cat = id.slice(0, -1); /* sama kuju mis kalkulaatori rea id: c:<KAT><G> */
 		if (!GNOM[g] || !EKAT.includes(cat)) return null;

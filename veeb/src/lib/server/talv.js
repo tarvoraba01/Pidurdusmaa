@@ -106,6 +106,7 @@ export function talveLeht(slug) {
 		if (!naast && !lamell) continue;
 		/* ajakirjatestidest tuletatud vanad mudelid (viimane test enne 2020) ei ole enam müügil */
 		if (t.gSource === 'tuletatud' && ((t.tuletus || {}).viimane || 0) < 2020) continue;
+		if (t.gSource === 'hinnang') continue; /* „testitud“ nimekiri: testimata naastrehvid siia ei käi */
 		const onCar = { ...t, size: label, gSize: t.gSize || t.size };
 		testitud.push({
 			slug: t.slug || null,

@@ -445,6 +445,28 @@ def main():
             d["slug"] = slugify(t.name)
         tested.append(d)
 
+    # --- testimata naastrehvid, mida poed müüvad (naastud_hinnang.py):
+    # haare on HINNANG (kaksik / tootja / hinnaklassi keskmine), gSource
+    # "hinnang" -> mootor lisab sigma_hinnang. Oma slug: EPREL-i mudelit
+    # (sama rehv naastudeta, päris märgisega) see EI asenda.
+    try:
+        from .presets_hinnang import TYRES_HINNANG, HINNANG
+    except ImportError:
+        TYRES_HINNANG, HINNANG = {}, {}
+    olemas = {_voti(t["name"]) for t in tested}
+    slugid = {t["slug"] for t in tested} | {m["slug"] for m in mud.values()}
+    for key, t in TYRES_HINNANG.items():
+        if _voti(t.name) in olemas:
+            continue
+        d = _tyre(key, t)
+        d["gSource"] = "hinnang"
+        d["tests"] = []
+        d["hinnang"] = HINNANG.get(key, {})
+        sl = slugify(t.name.replace("+", " plus"))
+        d["slug"] = sl if sl not in slugid else sl + "-naastrehv"
+        slugid.add(d["slug"])
+        tested.append(d)
+
     # --- variandid ja mõõt-nimega "mudelid" emamudelisse (SEO samm 5)
     from pidurdus.koondamine import koonda
     suunamised = koonda(mud, slugify)

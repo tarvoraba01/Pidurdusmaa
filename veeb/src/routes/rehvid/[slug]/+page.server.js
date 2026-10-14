@@ -197,8 +197,9 @@ function uusimFakt(t, koik) {
 	return { src: r.src, pind: PIND_SONA[r.surf][r.wet ? 1 : 0], v: Math.round(r.v0) + '→' + Math.round(r.v1 || 0), m: r.m, pos: r.pos, n: r.n };
 }
 const num1 = (x) => String(Math.round(x * 10) / 10).replace('.', ',');
-function kirjeldus(t, sizes, tests, fakt) {
+function kirjeldus(t, sizes, tests, fakt, hinnang) {
 	const osad = [];
+	if (hinnang) osad.push('testimata, pidurdusmaa on hinnang');
 	if (fakt) osad.push(fakt.src + ' testis ' + fakt.pind + ' ' + fakt.v + ' km/h: ' + num1(fakt.m) + ' m (' + fakt.pos + './' + fakt.n + ')');
 	else if (tests.length) osad.push('sõltumatu testi pidurdusmaad');
 	const g = vahemik(sizes.map((z) => z.g), (a, b) => String(a).localeCompare(String(b)));
@@ -214,7 +215,9 @@ function kirjeldus(t, sizes, tests, fakt) {
 /* ------------------------------------------------------------- rehvileht */
 function rehvLeht(t) {
 	const ix = rehviIndeks(t.slug);
-	const sizes = (t.model ? t.model.sizes : [])
+	/* naastrehvil märgist pole: mõõdud poodide kataloogist (core.json `moodud`, hinnang_rakenda.py) */
+	const poeMoodud = !t.model && !!(t.tested && t.tested.moodud && t.tested.moodud.length);
+	const sizes = (t.model ? t.model.sizes : poeMoodud ? t.tested.moodud.map((m) => ({ m, g: null, f: null, db: null, li: [], si: [], snow: false, ice: false })) : [])
 		.slice()
 		.sort((a, b) => String(a.m).localeCompare(String(b.m), 'et', { numeric: true }))
 		.map((z) => ({ ...z, slug: sizeSlug(z.m), label: pretty(z.m) }));
@@ -227,6 +230,14 @@ function rehvLeht(t) {
 		: [];
 
 	const ext = extTests(t.slug);
+	/* testimata naastrehv (naastud_hinnang.py): haare on hinnang — millest see tuleb */
+	const hinnang = t.tested && t.tested.gSource === 'hinnang'
+		? { viis: (t.tested.hinnang || {}).viis || 'klass', kaksik: (t.tested.hinnang || {}).kaksik || null, kaksikSlug: null, mark: t.brand }
+		: null;
+	if (hinnang && hinnang.kaksik) {
+		const k = core().tyres.find((x) => x.name === hinnang.kaksik);
+		if (k && k.slug) hinnang.kaksikSlug = k.slug;
+	}
 	const koik = koikTulemused(tests, ext);
 	const fakt = uusimFakt(t, koik);
 
@@ -278,7 +289,9 @@ function rehvLeht(t) {
 		/* Indekseerimise reegel on andmed.js-is (rehviIndeks) */
 		noindex: !(tests.length || ext.length || sizes.length) || !ix.index,
 		canonical: ix.canonical ? 'rehvid/' + ix.canonical + '/' : null,
-		desc: kirjeldus(t, sizes, tests, fakt),
+		desc: kirjeldus(t, sizes, tests, fakt, hinnang),
+		poeMoodud,
+		hinnang,
 		/* pealkirjas „test“, kui rehvil on päris mõõtmisi (otsingud „<rehv> test“) */
 		testitud: koik.length > 0,
 		/* sama kirjeldus tükkidena — vene lehel pannakse see kokku tõlgitult */
@@ -288,7 +301,8 @@ function rehvLeht(t) {
 			fakt,
 			g: vahemik(sizes.map((z) => z.g), (a, b) => String(a).localeCompare(String(b))),
 			db: vahemik(sizes.map((z) => z.db), (a, b) => a - b),
-			n: new Set(sizes.map((z) => z.m)).size
+			n: new Set(sizes.map((z) => z.m)).size,
+			hinnang: !!hinnang
 		},
 		ogPilt: ix.sitemap,
 		vastus,
