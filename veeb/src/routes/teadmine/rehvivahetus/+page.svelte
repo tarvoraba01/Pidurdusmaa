@@ -18,7 +18,7 @@
 	const keel = useLang();
 	const ru = keel.lang === 'ru';
 	const L = keel.L;
-	const UUENDATUD = '2026-10-08';
+	const UUENDATUD = '2026-10-15';
 	const PATH = '/teadmine/rehvivahetus/';
 
 	const ehitus = new Date();
@@ -233,6 +233,21 @@
 					<li><strong>Разумно:</strong> когда днём держится ниже +7 °C и ночью подмораживает — до первого снега. На мокрой дороге зимняя шина тормозит короче летней уже примерно при +5 °C.</li>
 				</ul>
 
+				<h2>Ставить ли шипы сразу?</h2>
+				<p>Преимущество шипов больше всего на первом льду около нуля — как раз в октябре и ноябре, когда гололёд появляется ночью неожиданно. VW Golf 8, торможение с 50 км/ч (расчёт той же моделью, что и в калькуляторе, новый протектор):</p>
+				<div class="tbl-wrap">
+					<table class="t" style="min-width:0">
+						<thead><tr><th>Условия</th><th class="n">Шипованная</th><th class="n">Нешипованная (северная)</th><th class="n">Европейская зимняя</th></tr></thead>
+						<tbody>
+							<tr><td>Лёд 0 °C (тающий, самый скользкий)</td><td class="n"><b>61,1 м</b></td><td class="n">99,6 м</td><td class="n">181,7 м</td></tr>
+							<tr><td>Лёд −5 °C</td><td class="n"><b>45,4 м</b></td><td class="n">58,9 м</td><td class="n">113,1 м</td></tr>
+							<tr><td>Укатанный снег</td><td class="n">25,4 м</td><td class="n">26,2 м</td><td class="n">26,3 м</td></tr>
+							<tr><td>Сухой асфальт, 80 км/ч, +5 °C</td><td class="n">31,7 м</td><td class="n">31,0 м</td><td class="n"><b>28,3 м</b></td></tr>
+						</tbody>
+					</table>
+				</div>
+				<p>Если ездите за городом, рано утром или по мостам, где гололёд появляется первым, ставьте шипы сразу. Если ездите в основном по убранным городским улицам, хватит северной нешипованной шины: на снегу и асфальте разница меньше метра, и она тише. Европейская зимняя шина на льду тормозит вдвое дольше. См. также <a href="/ru/teadmine/artiklid/naastrehv-voi-lamell/">шипы или «липучка»</a> и посчитайте <a href="/ru/">на своём автомобиле</a>.</p>
+
 				<h2>Когда ставить летнюю резину</h2>
 				<ul>
 					<li><strong>Можно:</strong> после {K(h.kohustusLopp)}, когда заканчивается обязательный период зимней резины.</li>
@@ -277,6 +292,21 @@
 					<li><strong>Võib:</strong> naastrehvid alates {K(h.naast, 'st')}, talviste teeolude korral juba {Kk(h.naastTalv, 'st')}. Lamellrehvid igal ajal.</li>
 					<li><strong>Mõistlik:</strong> kui päeval püsib alla +7 °C ja öösiti tuleb külma — enne esimest lund. Märjal teel pidurdab talverehv suverehvist lühemalt juba umbes +5 °C juures.</li>
 				</ul>
+
+				<h2>Kas naastrehvid kohe alla panna?</h2>
+				<p>Naastu eelis on suurim esimesel jääl nulli lähedal — just oktoobris ja novembris, kui jäide tekib öösel ootamatult. VW Golf 8, 50 km/h pealt (arvutus sama mudeliga mis kalkulaator, uus muster):</p>
+				<div class="tbl-wrap">
+					<table class="t" style="min-width:0">
+						<thead><tr><th>Teeolu</th><th class="n">Naastrehv</th><th class="n">Põhjamaade lamell</th><th class="n">Kesk-Euroopa talverehv</th></tr></thead>
+						<tbody>
+							<tr><td>Jää 0 °C (sulav, libedaim)</td><td class="n"><b>61,1 m</b></td><td class="n">99,6 m</td><td class="n">181,7 m</td></tr>
+							<tr><td>Jää −5 °C</td><td class="n"><b>45,4 m</b></td><td class="n">58,9 m</td><td class="n">113,1 m</td></tr>
+							<tr><td>Tallatud lumi</td><td class="n">25,4 m</td><td class="n">26,2 m</td><td class="n">26,3 m</td></tr>
+							<tr><td>Kuiv asfalt, 80 km/h, +5 °C</td><td class="n">31,7 m</td><td class="n">31,0 m</td><td class="n"><b>28,3 m</b></td></tr>
+						</tbody>
+					</table>
+				</div>
+				<p>Kui sõidad maal, varahommikul või üle sildade, kus jäide tekib esimesena, pane naastud alla kohe. Kui sõidad peamiselt linnas puhastatud tänavatel, piisab Põhjamaade lamellrehvist: lumel ja asfaldil on vahe alla meetri ja lamell on vaiksem. Kesk-Euroopa talverehv jääb jääl kaks korda pikemaks. Vaata ka <a href="/teadmine/artiklid/naastrehv-voi-lamell/">naastrehv või lamell</a> ja arvuta <a href="/">oma autoga</a>.</p>
 
 				<h2>Millal suverehvid alla</h2>
 				<ul>
