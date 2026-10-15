@@ -345,7 +345,7 @@
 					<li><a href="/teadmine/">{t("Teadmine")}</a></li>
 					<li><a href={L('/teadmine/artiklid/')}>{t("Artiklid")}</a></li>
 					<li><a href="/meist/">{t("Meist")}</a></li>
-					<li><a href="/teadmine/partnerid/">{t("Partnerid")}</a></li>
+					<li><a href={L("/teadmine/partnerid/")}>{t("Partnerid")}</a></li>
 					<li><a href={L('/kontakt/')}>{t("Kontakt")}</a></li>
 				</ul>
 			</div>

@@ -20,6 +20,7 @@ import {
 	tyrePage,
 	rehviIndeks,
 	vsPairs,
+	extShared,
 	sharedSources,
 	source,
 	num,
@@ -148,8 +149,9 @@ function andmed(liik, slug) {
 		const a = tyrePage(m[1]);
 		const b = tyrePage(m[2]);
 		const shared = a && b ? sharedSources(a, b) : [];
-		if (!shared.length) return null;
-		const src = source(shared[0]) || {};
+		const ext = !shared.length && a && b ? extShared(a.slug, b.slug) : [];
+		if (!shared.length && !ext.length) return null;
+		const src = shared.length ? source(shared[0]) || {} : ext[0].src;
 		return {
 			kicker: 'Mõõdetud samas testis',
 			pealkiri: a.name + ' vs ' + b.name,

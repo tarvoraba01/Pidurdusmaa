@@ -636,6 +636,7 @@ export default {
 "Autovaruosad ja rehvid üle Eesti.": "Car parts and tyres across Estonia.",
 "Veebilehed, e-poed ja tehisaru lahendused. Meie arenduspartner.": "Websites, online shops and AI solutions. Our development partner.",
 "Tartu Ülikooli eestikeelne kõnesüntees. Meie videote hääl.": "University of Tartu Estonian speech synthesis. The voice of our videos.",
+"Mõlemad rehvid olid {n} samas sõltumatus testis — igas testis sama auto, sama rada, sama päev. Siin on ainult mõõdetud tulemused.": "Both tyres were in {n} of the same independent tests — in each test the same car, the same track, the same day. Only measured results here.",
 "keri": "scroll",
 "Osta": "Buy",
 "Arvuta oma autoga": "Calculate for your car",

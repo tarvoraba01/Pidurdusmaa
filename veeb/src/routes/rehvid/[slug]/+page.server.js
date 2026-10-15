@@ -19,7 +19,8 @@ import {
 	rehviIndeks,
 	mark,
 	markSlug,
-	extTests
+	extTests,
+	extShared
 } from '$lib/server/andmed.js';
 import { autodMoodus } from '$lib/server/autod.js';
 import { talveMoot } from '$lib/server/talv.js';
@@ -58,9 +59,10 @@ export function load({ params }) {
 		const a = tyrePage(m[1]);
 		const b = tyrePage(m[2]);
 		const shared = a && b ? sharedSources(a, b) : [];
+		const ext = a && b ? extShared(a.slug, b.slug) : [];
 		/* Ainult sama testi rehvid saavad oma „vs" lehe — muidu oleks see
 		   kahe märgise kõrvutus, mida võrdlustööriist teeb paremini. */
-		if (shared.length) return vsLeht(a, b, shared);
+		if (shared.length || ext.length) return vsLeht(a, b, shared, ext);
 	}
 	error(404, 'Lehte ei leitud');
 }
@@ -363,8 +365,8 @@ function vastusLause(t, sizes) {
 }
 
 /* ------------------------------------------------------------- vs-leht */
-function vsLeht(a, b, shared) {
-	const plokid = shared.map((code) => {
+function vsLeht(a, b, shared, ext = []) {
+	const meie = shared.map((code) => {
 		const src = source(code) || {};
 		const read = a.tested.tests
 			.filter((x) => x.src === code)
@@ -377,6 +379,10 @@ function vsLeht(a, b, shared) {
 			.filter(Boolean);
 		return { src, read };
 	});
+	/* meie ankrutestid ees, siis ajakirjatestid (uuemad ees); sama test (aasta + mõõt) ainult üks kord */
+	const norm = (m) => String(m || '').replace(/\s+/g, '').toUpperCase();
+	const olemas = new Set(meie.map((p) => p.src.aasta + '|' + norm(p.src.moot)));
+	const plokid = [...meie, ...ext.filter((p) => !olemas.has(p.src.aasta + '|' + norm(p.src.moot)))];
 	/* kokkuvõte (vastus + KKK): mitmel pinnal kumb oli lühem; pealkirjaks märg asfalt, muidu esimene rida */
 	const read = plokid.flatMap((p) => p.read.map((r) => ({ ...r, src: p.src })));
 	const pea = read.find((r) => r.x.surf === 'ASPHALT' && r.x.wet) || read.find((r) => r.x.surf === 'ASPHALT') || read[0] || null;

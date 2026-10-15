@@ -216,17 +216,67 @@ export function vsPairs() {
 			if (x.surf === 'ASPHALT' && x.wet) (by[x.src] = by[x.src] || []).push([t.slug, x.m]);
 		}
 	}
+	/* ajakirjatestid (testid_ext.json, 2022+): samuti märja pidurduse naabrid samas testis.
+	   Otsingud „<rehv> vs <rehv>“ toovad kõige parema CTR-i (Search Console 10/2026). */
+	const ext = json('testid_ext.json');
+	if (ext && ext.rehvid) {
+		for (const [slug, rows] of Object.entries(ext.rehvid)) {
+			if (!tyrePage(slug)) continue;
+			for (const x of rows) {
+				const al = ext.allikad[x.t] || {};
+				if (x.d !== 'märg asfalt' || !(al.year >= VS_EXT_MIN_AASTA)) continue;
+				const k = 'x:' + x.t + '@' + x.v0;
+				(by[k] = by[k] || []).push([slug, x.m]);
+			}
+		}
+	}
 	const seen = new Map();
 	for (const list of Object.values(by)) {
 		list.sort((a, b) => a[1] - b[1]);
 		for (let i = 0; i + 1 < list.length; i++) {
 			const a = list[i][0], b = list[i + 1][0];
+			if (a === b) continue;
 			const k = a < b ? [a, b] : [b, a];
 			seen.set(k[0] + '|' + k[1], k);
 		}
 	}
 	_pairs = [...seen.values()];
 	return _pairs;
+}
+export const VS_EXT_MIN_AASTA = 2022;
+
+/* ajakirjatesti pind → sama kuju mis core testis (testLabel, vs-tabel) */
+const EXT_PIND = {
+	'märg asfalt': { surf: 'ASPHALT', wet: true },
+	'kuiv asfalt': { surf: 'ASPHALT', wet: false },
+	'märg betoon': { surf: 'CONCRETE', wet: true },
+	'jää': { surf: 'ICE', wet: false },
+	'lumi': { surf: 'SNOW_PACKED', wet: false }
+};
+/** Kahe rehvi ühised ajakirjatestid: [{ src, read: [{x, y, d}] }] (vs-leht). */
+export function extShared(aSlug, bSlug) {
+	if (!aSlug || !bSlug || aSlug === bSlug) return [];
+	const ext = json('testid_ext.json');
+	if (!ext || !ext.rehvid) return [];
+	const A = ext.rehvid[aSlug] || [], B = ext.rehvid[bSlug] || [];
+	const testid = [...new Set(A.map((x) => x.t))].filter((t) => B.some((y) => y.t === t));
+	return testid
+		.map((t) => {
+			const al = ext.allikad[t] || {};
+			const auto = String(al.car || '').split(/\s*[(;]/)[0].trim();
+			const src = { nimi: [al.pub, al.year].filter(Boolean).join(' '), aasta: al.year, moot: al.size || '', auto, tegija: al.pub || '', kajastus: al.url || '' };
+			const read = A.filter((x) => x.t === t && EXT_PIND[x.d])
+				.map((x) => {
+					const y = B.find((z) => z.t === t && z.d === x.d && z.v0 === x.v0);
+					if (!y) return null;
+					const p = EXT_PIND[x.d];
+					return { x: { ...p, v0: x.v0, v1: x.v1 || 0, m: x.m }, y: { ...p, v0: y.v0, v1: y.v1 || 0, m: y.m }, d: Math.round((y.m - x.m) * 100) / 100 };
+				})
+				.filter(Boolean);
+			return { src, read };
+		})
+		.filter((p) => p.read.length)
+		.sort((p, q) => (q.src.aasta || 0) - (p.src.aasta || 0));
 }
 export function vsLinksFor(slug) {
 	return vsPairs().filter((p) => p[0] === slug || p[1] === slug);

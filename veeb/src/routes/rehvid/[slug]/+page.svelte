@@ -620,7 +620,9 @@
 			<h1>{data.a.name} <span style="color:var(--yellow)">vs</span> {data.b.name}</h1>
 			{#if vsVastus}<p class="vastus">{vsVastus}</p>{/if}
 			<p>
-				{t("Mõlemad rehvid olid samas sõltumatus testis — sama auto, sama rada, sama päev. Siin on ainult mõõdetud tulemused.")}
+				{data.plokid.length > 1
+					? t("Mõlemad rehvid olid {n} samas sõltumatus testis — igas testis sama auto, sama rada, sama päev. Siin on ainult mõõdetud tulemused.", { n: data.plokid.length })
+					: t("Mõlemad rehvid olid samas sõltumatus testis — sama auto, sama rada, sama päev. Siin on ainult mõõdetud tulemused.")}
 			</p>
 		</div>
 	</section>
