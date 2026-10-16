@@ -20,7 +20,8 @@ import {
 	mark,
 	markSlug,
 	extTests,
-	extShared
+	extShared,
+	samasTestisMyygil
 } from '$lib/server/andmed.js';
 import { autodMoodus } from '$lib/server/autod.js';
 import { talveMoot } from '$lib/server/talv.js';
@@ -252,6 +253,9 @@ function rehvLeht(t) {
 	   AINULT siis, kui rehv on sellel pinnal päriselt testitud (märgis jää kohta ei ütle midagi) */
 	const vastusTalv = vastus && /^(WINTER_|ALL_SEASON)/.test(t.cat) ? vastusTalvLause(t, sizes, vastus) : null;
 
+	/* poodides seda rehvi pole (mõõte pole): samas testis olnud rehvid, mida saab osta */
+	const asendus = sizes.length ? [] : samasTestisMyygil(t.slug);
+
 	const vs = vsLinksFor(t.slug)
 		.map((p) => {
 			const other = tyrePage(p[0] === t.slug ? p[1] : p[0]);
@@ -294,6 +298,7 @@ function rehvLeht(t) {
 		desc: kirjeldus(t, sizes, tests, fakt, hinnang),
 		poeMoodud,
 		hinnang,
+		asendus,
 		/* pealkirjas „test“, kui rehvil on päris mõõtmisi (otsingud „<rehv> test“) */
 		testitud: koik.length > 0,
 		/* sama kirjeldus tükkidena — vene lehel pannakse see kokku tõlgitult */

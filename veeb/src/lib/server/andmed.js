@@ -333,3 +333,68 @@ export function margid() {
 }
 
 export const mark = (slug) => margid().get(slug) || null;
+
+/* ------------------------------------------------------------ müügil samas testis
+ * Testitud rehv, mida partnerpoed praegu ei müü (pole mõõte = pole „Kus osta“):
+ * näita samas testis olnud rehve, mida saab osta, nende mõõdetud tulemusega.
+ * Nii on inimesel lehelt kuhugi minna, ja võrdlus on aus (sama test, sama päev). */
+export function myygil(slug) {
+	if (!slug) return false;
+	const m = model(slug);
+	if (m && m.sizes && m.sizes.length) return true;
+	const t = testedBySlug(slug);
+	return !!(t && t.moodud && t.moodud.length);
+}
+let _extIdx = null;
+function extIndeks() {
+	if (_extIdx) return _extIdx;
+	_extIdx = new Map();
+	const d = json('testid_ext.json');
+	for (const [slug, rows] of Object.entries((d && d.rehvid) || {})) {
+		for (const x of rows) {
+			const k = x.t + '|' + x.d + '|' + x.v0;
+			if (!_extIdx.has(k)) _extIdx.set(k, []);
+			_extIdx.get(k).push({ slug, m: x.m });
+		}
+	}
+	return _extIdx;
+}
+/** [{ slug, name, m, oma, pind, v0, test, aasta }] — kuni `n` rehvi, lühim pidurdusmaa ees. */
+export function samasTestisMyygil(slug, n = 6) {
+	const t = testedBySlug(slug) || (model(slug) && model(slug).tested ? testedByKey(model(slug).tested) : null);
+	const kat = (t && t.category) || (model(slug) && model(slug).kat) || '';
+	const jaaEes = /WINTER_(NORDIC|STUDDED)/.test(kat); /* Põhjamaade ja naastrehvil loeb jää */
+	const eelista = (x, uus) => (jaaEes ? (uus.surf === 'ICE' || uus.d === 'jää') : (uus.surf === 'ASPHALT' && uus.wet) || uus.d === 'märg asfalt');
+	const out = new Map();
+	const lisa = (o) => {
+		if (o.slug === slug || !myygil(o.slug)) return;
+		const p = tyrePage(o.slug);
+		if (!p) return;
+		const vana = out.get(o.slug);
+		if (!vana || o.aasta > vana.aasta) out.set(o.slug, { ...o, name: p.name });
+	};
+	/* meie ankrutestid: märg asfalt, muidu esimene mõõtmine */
+	if (t) {
+		const by = new Map();
+		for (const x of t.tests || []) if (!by.has(x.src) || eelista(by.get(x.src), x)) by.set(x.src, x);
+		for (const [src, x] of by) {
+			const s = source(src) || {};
+			for (const o of core().tyres) {
+				const y = (o.tests || []).find((z) => z.src === src && z.surf === x.surf && z.wet === x.wet && z.v0 === x.v0);
+				if (y && o.slug) lisa({ slug: o.slug, m: y.m, oma: x.m, pind: x.surf === 'ASPHALT' ? (x.wet ? 'märg asfalt' : 'kuiv asfalt') : x.surf === 'ICE' ? 'jää' : x.surf === 'SNOW_PACKED' ? 'lumi' : 'märg betoon', v0: x.v0, test: s.nimi || src, aasta: s.aasta || 0 });
+			}
+		}
+	}
+	/* ajakirjatestid */
+	const d = json('testid_ext.json');
+	const oma = ((d && d.rehvid) || {})[slug] || [];
+	const by = new Map();
+	for (const x of oma) if (!by.has(x.t) || eelista(by.get(x.t), x)) by.set(x.t, x);
+	for (const [tid, x] of by) {
+		const al = (d.allikad || {})[tid] || {};
+		for (const o of extIndeks().get(tid + '|' + x.d + '|' + x.v0) || [])
+			lisa({ slug: o.slug, m: o.m, oma: x.m, pind: x.d, v0: x.v0, test: [al.pub, al.year].filter(Boolean).join(' '), aasta: al.year || 0 });
+	}
+	return [...out.values()].sort((a, b) => b.aasta - a.aasta || a.m - b.m).slice(0, n);
+}
+

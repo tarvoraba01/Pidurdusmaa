@@ -525,6 +525,30 @@
 					</div>
 				{/if}
 
+				{#if data.asendus && data.asendus.length}
+					<div class="box">
+						<h2>{t('Kus osta')}</h2>
+						<p class="sub">{t('Seda rehvi meie partnerpoodides praegu ei müüda. Samas testis olnud rehvid, mida saab osta:')}</p>
+						<div class="tbl-wrap">
+							<table class="t">
+								<thead><tr><th>{t('Rehv')}</th><th>{t('Test')}</th><th class="n">{t('Pidurdusmaa')}</th><th class="n">{ty.name}</th><th></th></tr></thead>
+								<tbody>
+									{#each data.asendus as r (r.slug)}
+										<tr>
+											<td><a href={L('/rehvid/' + r.slug + '/')}><b>{r.name}</b></a></td>
+											<td>{t(r.test)} · {t(r.pind)}{r.v0 ? ` ${Math.round(r.v0)} ${t('km/h')}` : ''}</td>
+											<td class="n" style={r.m < r.oma ? 'font-weight:700' : ''}>{num(r.m)} {t('m')}</td>
+											<td class="n">{num(r.oma)} {t('m')}</td>
+											<td class="n"><a href={L('/rehvid/' + r.slug + '/#kus-osta')}>{t('Vaata hindu')}</a></td>
+										</tr>
+									{/each}
+								</tbody>
+							</table>
+						</div>
+						<p class="srcline">{t('Sama test, sama auto, sama päev. Lühem pidurdusmaa on parem.')}</p>
+					</div>
+				{/if}
+
 				{#if rehvKkk.length}
 					<div class="box">
 						<h2>{t('Korduma kippuvad küsimused')}</h2>

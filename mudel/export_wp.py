@@ -389,6 +389,7 @@ def main():
         m["slug"] = s
 
     # --- moodetud rehvid -> EPREL-i mudel (RANGE vordus, vt kytus_katse.py)
+    from .test_eprel_alias import ALIAS as TEST_EPREL_ALIAS
     tested = []
     by_norm = {}
     for k, m in mud.items():
@@ -409,6 +410,8 @@ def main():
             if norm(mud[kk]["mark"]).startswith(norm(brand)[:5]):
                 hit = kk
                 break
+        if not hit and key in TEST_EPREL_ALIAS:  # nimi EPREL-is teine (test_eprel_alias.py)
+            hit = next((kk for kk, mm in mud.items() if mm["slug"] == TEST_EPREL_ALIAS[key]), None)
         if hit:
             d["slug"] = mud[hit]["slug"]
             mud[hit]["tested"] = key
@@ -438,6 +441,8 @@ def main():
         d["tuletus"] = {"testid": meta.get("testid", []), "viimane": meta.get("viimane"),
                         "n": {p: v["n"] for p, v in meta.get("pinnad", {}).items()}}
         hits = by_voti.get(_voti(t.name), [])
+        if key in TEST_EPREL_ALIAS:
+            hits = [kk for kk, mm in mud.items() if mm["slug"] == TEST_EPREL_ALIAS[key]] or hits
         if len(hits) == 1 and not mud[hits[0]].get("tested"):
             d["slug"] = mud[hits[0]]["slug"]
             mud[hits[0]]["tested"] = key

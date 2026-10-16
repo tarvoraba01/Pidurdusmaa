@@ -9,7 +9,7 @@ puutumata). Slug, mis on juba models.json-is (EPREL või poe mudel = sama rehv
 NAASTUDETA, päris märgisega), saab lõpu „-naastrehv“, et märgisega leht jääks
 alles. Idempotentne.
 
-Lisaks: naastrehvile, millel models.json-is rida pole (märgist pole), pannakse
+Lisaks: igale rehvile (naast, lamell, ...), millel models.json-is rida pole (märgist pole), pannakse
 `moodud` = mõõdud, mida poed müüvad (mudel/naastud_moodud.json). Rehvileht
 näitab siis mõõte ja „Kus osta“ kasti, /api/rehv/<slug>/ leiab hinnad.
 """
@@ -35,10 +35,10 @@ def main(src, data):
     n_m = 0
     for t in core["tyres"]:
         t.pop("moodud", None)
-        if t.get("category") == "WINTER_STUDDED" and t.get("slug") not in models and moodud.get(t.get("slug")):
+        if t.get("slug") not in models and moodud.get(t.get("slug")):
             t["moodud"] = moodud[t["slug"]]
             n_m += 1
-    print(f"mõõdud poodidest: {n_m} naastrehvil")
+    print(f"mõõdud poodidest: {n_m} rehvil")
     with open(p, "w", encoding="utf-8") as f:
         json.dump(core, f, ensure_ascii=False, separators=(",", ":"))
     print(f"{p}: {len(uus)} testimata naastrehvi (hinnang), kokku {len(core['tyres'])} rehvi")
