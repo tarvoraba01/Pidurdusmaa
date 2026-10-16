@@ -84,27 +84,7 @@ function esc(s) {
 		.replace(/"/g, '&quot;');
 }
 
-/* Barlow Condensed 700 suurtähtedega: keskmine tähelaius ~0,42 em (mõõdetud);
-   vene tekstil Roboto Condensed (Barlow'l kirillitsat pole), laiem ~0,55 em */
 const KYR = /[\u0400-\u04FF]/;
-function murra(tekst, px, laius, maxRidu) {
-	const perRida = Math.max(8, Math.floor(laius / (px * (KYR.test(tekst) ? 0.55 : 0.42))));
-	const sonad = String(tekst).toUpperCase().split(/\s+/);
-	const read = [];
-	let rida = '';
-	for (const s of sonad) {
-		if (!rida) rida = s;
-		else if ((rida + ' ' + s).length <= perRida) rida += ' ' + s;
-		else {
-			read.push(rida);
-			rida = s;
-		}
-	}
-	if (rida) read.push(rida);
-	/* üksik lühike sõna viimasel real („5“) näeb kehv välja — proovi väiksemat fonti */
-	if (read.length > 1 && read[read.length - 1].length <= 3) return null;
-	return read.length <= maxRidu ? read : null;
-}
 
 /**
  * @param {{ kicker?: string, pealkiri: string, alapealkiri?: string, sildid?: string[] }} o
@@ -194,46 +174,123 @@ const PILDID = {
 </g>`
 };
 
+/* Paigutus: kogu tekst keskel 560 px veerus. Facebook näitab kommentaaris ja
+   väikeses postituses pildist ainult keskmist ruutu (≈ x 285–915) — vasakule
+   joondatud pealkiri lõigati seal pooleks. Teemajoonis on paremas servas,
+   vasakus servas rehvi kaar; suures (1,91:1) vaates täidavad need külgi. */
+const VEERG = 560;
+const KX = W / 2;
+const RUUT = H - 14; /* kollase riba kohal */
+function murraLaius(tekst, pere, paksus, px, laius, maxRidu, suur) {
+	const sonad = String(suur ? String(tekst).toUpperCase() : tekst).split(/\s+/).filter(Boolean);
+	const read = [];
+	let rida = '';
+	for (const w of sonad) {
+		const proov = rida ? rida + ' ' + w : w;
+		if (!rida || mootLaius(proov, pere, paksus, px) <= laius) rida = proov;
+		else {
+			read.push(rida);
+			rida = w;
+		}
+	}
+	if (rida) read.push(rida);
+	if (read.length > maxRidu) return null;
+	if (read.some((r) => mootLaius(r, pere, paksus, px) > laius)) return null;
+	return read;
+}
+function lyhendaRead(tekst, pere, paksus, px, laius, maxRidu) {
+	let t = String(tekst);
+	let read = murraLaius(t, pere, paksus, px, laius, maxRidu, false);
+	while (!read && t.length > 8) {
+		t = t.slice(0, -2).trimEnd();
+		read = murraLaius(t + '…', pere, paksus, px, laius, maxRidu, false);
+	}
+	return read || [];
+}
+
 export function ogPilt({ kicker = '', pealkiri, alapealkiri = '', sildid = [], pilt = '' }) {
-	const lai = PILDID[pilt] ? 680 : 1020;
-	/* pealkiri: suurim font, mis mahub kahele reale */
+	const pere = KYR.test(pealkiri) ? 'Roboto Condensed' : 'Barlow Condensed';
+	/* kicker ühte ritta (24 px, tähevahe 3) — pikk lüheneb */
+	let kick = String(kicker || '').toUpperCase();
+	const kLai = (k) => mootLaius(k, 'Inter', 500, 24) + 3 * k.length;
+	if (kLai(kick) > VEERG) {
+		let alus = kick;
+		while (alus.length > 6 && kLai(alus + '…') > VEERG) alus = alus.slice(0, -1);
+		kick = alus.replace(/[\s·(]+$/, '') + '…';
+	}
+	/* alapealkiri: eelistatult ühel real (30 → 26 px), muidu kahel */
+	let alaPx = 30;
+	let alaRead = [];
+	if (alapealkiri) {
+		if (mootLaius(alapealkiri, 'Inter', 500, 30) <= VEERG) alaRead = [String(alapealkiri)];
+		else if (mootLaius(alapealkiri, 'Inter', 500, 26) <= VEERG) (alaPx = 26), (alaRead = [String(alapealkiri)]);
+		else alaRead = lyhendaRead(alapealkiri, 'Inter', 500, 30, VEERG, 2);
+	}
+	/* sildid: nii palju, kui ühte ritta keskveergu mahub */
+	const sl = [];
+	let siltLai = 0;
+	for (const s of sildid.filter(Boolean).slice(0, 3)) {
+		const w = Math.round((tekstiLaius(s) * 24) / 26 + 32);
+		const uus = siltLai + (sl.length ? 14 : 0) + w;
+		if (uus > 610) break; /* ruudu (630) sisse */
+		sl.push([s, w]);
+		siltLai = uus;
+	}
+	/* pealkiri: suurim font, mille puhul kõik mahub (≤ 3 rida) */
+	const ylemine = 150; /* logo ja kicker */
 	let px = 104;
 	let read = null;
-	while (px >= 56 && !(read = murra(pealkiri, px, lai, 2))) px -= 8;
-	if (!read) read = murra(pealkiri, 56, lai, 3) || [String(pealkiri).toUpperCase().slice(0, 60)];
-
-	const yPeal = 262;
+	let korgus = 0;
+	for (; px >= 48; px -= 8) {
+		read = murraLaius(pealkiri, pere, 700, px, VEERG, px >= 80 ? 2 : 3, true);
+		if (!read) continue;
+		korgus = ylemine + 28 + read.length * Math.round(px * 0.98) + (alaRead.length ? 18 + alaRead.length * 42 : 0) + (sl.length ? 30 + 56 : 0);
+		if (korgus <= RUUT - 60) break;
+		read = null;
+	}
+	if (!read) {
+		px = 48;
+		read = [String(pealkiri).toUpperCase().slice(0, 40)];
+		korgus = ylemine + 28 + 47 + (alaRead.length ? 18 + alaRead.length * 42 : 0) + (sl.length ? 86 : 0);
+	}
 	const reaKorgus = Math.round(px * 0.98);
+	const y0 = Math.max(24, Math.round((RUUT - korgus) / 2)); /* plokk püstsuunas keskele */
+	const yLogo = y0 + 40;
+	const yKick = y0 + 98;
+	let y = y0 + ylemine + 28 + Math.round(px * 0.78);
 	const pealSvg = read
-		.map((r, i) => `<text x="80" y="${yPeal + i * reaKorgus}" font-family="${KYR.test(pealkiri) ? 'Roboto Condensed' : 'Barlow Condensed'}" font-weight="700" font-size="${px}" fill="#ffffff">${esc(r)}</text>`)
+		.map((r, i) => `<text x="${KX}" y="${y + i * reaKorgus}" text-anchor="middle" font-family="${pere}" font-weight="700" font-size="${px}" fill="#ffffff">${esc(r)}</text>`)
 		.join('');
-	const yAla = yPeal + (read.length - 1) * reaKorgus + 64;
-
-	let x = 80;
-	const siltSvg = sildid
-		.filter(Boolean)
-		.slice(0, 3)
-		.map((s) => {
-			const w = Math.round(tekstiLaius(s) + 40);
-			const g = `<rect x="${x}" y="470" width="${w}" height="56" rx="12" fill="#1a1d24" stroke="#2b3039"/>` +
-				`<text x="${x + 20}" y="507" font-family="Inter" font-weight="500" font-size="26" fill="#f3f4f6">${esc(s)}</text>`;
+	y += (read.length - 1) * reaKorgus;
+	const alaSvg = alaRead
+		.map((r, i) => `<text x="${KX}" y="${y + 52 + i * 42}" text-anchor="middle" font-family="Inter" font-weight="500" font-size="${alaPx}" fill="#c9ced6">${esc(r)}</text>`)
+		.join('');
+	if (alaRead.length) y += 52 + (alaRead.length - 1) * 42;
+	const ySilt = y + 30;
+	let x = Math.round(KX - siltLai / 2);
+	const siltSvg = sl
+		.map(([s, w]) => {
+			const g = `<rect x="${x}" y="${ySilt}" width="${w}" height="52" rx="12" fill="#1a1d24" stroke="#2b3039"/>` +
+				`<text x="${x + w / 2}" y="${ySilt + 34}" text-anchor="middle" font-family="Inter" font-weight="500" font-size="24" fill="#f3f4f6">${esc(s)}</text>`;
 			x += w + 14;
 			return g;
 		})
 		.join('');
 
+	/* teemajoonis paremasse serva (väiksemalt), muidu rehvi kaar mõlemas servas */
+	const joonis = PILDID[pilt]
+		? `<g transform="translate(1075 330) scale(0.62) translate(-970 -360)">${PILDID[pilt]}</g>`
+		: `<g opacity="0.10" fill="none" stroke="#ffffff"><circle cx="1150" cy="120" r="200" stroke-width="44"/><circle cx="1150" cy="120" r="78" stroke-width="30"/></g>`;
+	const vasak = `<g opacity="0.10" fill="none" stroke="#ffffff"><circle cx="40" cy="560" r="200" stroke-width="44"/><circle cx="40" cy="560" r="78" stroke-width="30"/></g>`;
+
 	const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">
 <rect width="${W}" height="${H}" fill="${INK}"/>
-${PILDID[pilt] || `<g opacity="0.10" fill="none" stroke="#ffffff">
-  <circle cx="1080" cy="150" r="200" stroke-width="44"/>
-  <circle cx="1080" cy="150" r="78" stroke-width="30"/>
-</g>`}
-<g transform="translate(80 104) skewX(-10)">
-  <text x="0" y="0" font-family="Inter" font-weight="800" font-size="40" fill="#ffffff">Pidurdusmaa<tspan fill="${KOLLANE}">.ee</tspan></text>
-</g>
-${kicker ? `<text x="80" y="164" font-family="Inter" font-weight="500" font-size="26" letter-spacing="3" fill="${KOLLANE}">${esc(String(kicker).toUpperCase())}</text>` : ''}
+${vasak}
+${joonis}
+<text x="${KX}" y="${yLogo}" text-anchor="middle" transform="skewX(-10) translate(${Math.round(yLogo * Math.tan(Math.PI / 18))} 0)" font-family="Inter" font-weight="800" font-size="40" fill="#ffffff">Pidurdusmaa<tspan fill="${KOLLANE}">.ee</tspan></text>
+${kick ? `<text x="${KX}" y="${yKick}" text-anchor="middle" font-family="Inter" font-weight="500" font-size="24" letter-spacing="3" fill="${KOLLANE}">${esc(kick)}</text>` : ''}
 ${pealSvg}
-${alapealkiri ? `<text x="80" y="${yAla}" font-family="Inter" font-weight="500" font-size="34" fill="#c9ced6">${esc(alapealkiri)}</text>` : ''}
+${alaSvg}
 ${siltSvg}
 <rect x="0" y="${H - 14}" width="${W}" height="14" fill="${KOLLANE}"/>
 </svg>`;
