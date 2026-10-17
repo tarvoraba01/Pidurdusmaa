@@ -11,6 +11,7 @@
 	import { onMount } from 'svelte';
 	import Meta from '$lib/Meta.svelte';
 	import Autor from '$lib/Autor.svelte';
+	import AutoTee from '$lib/AutoTee.svelte';
 	import { BASE, ORG_ID, AUTOR, autorRef, graph } from '$lib/skeem.js';
 	import { useLang } from '$lib/i18n.js';
 	import { tana, kp, kpl, ALLIKAD } from '$lib/rehvivahetus.js';
@@ -339,6 +340,7 @@
 		</article>
 	</div>
 </div>
+<AutoTee koht="teadmine/rehvivahetus/" />
 
 <style>
 	.rv-tana {

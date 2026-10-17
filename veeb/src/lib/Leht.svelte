@@ -4,6 +4,7 @@
 	   ja Article-struktuurandmetes. */
 	import Meta from '$lib/Meta.svelte';
 	import Autor from '$lib/Autor.svelte';
+	import AutoTee from '$lib/AutoTee.svelte';
 	import { artikkel, graph } from '$lib/skeem.js';
 	import { useT, useLang, lingid } from '$lib/i18n.js';
 	const t = useT();
@@ -48,3 +49,4 @@
 		{/if}
 	</div>
 </div>
+{#if String(path).startsWith('teadmine/')}<AutoTee koht={path} />{/if}

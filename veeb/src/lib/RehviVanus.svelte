@@ -111,7 +111,7 @@
 			let jaak = 0;
 			for (let i = 1; i < tr.length; i++) if (tr[i][0] >= uus.distanceM) { const a = tr[i - 1], b = tr[i], k = (uus.distanceM - a[0]) / Math.max(1e-9, b[0] - a[0]); jaak = a[1] + k * (b[1] - a[1]); break; }
 			const ainultVanus = P.stoppingDistance(tyre(UUS[liik], vanus), veh, cond).distanceM - uus.distanceM;
-			return { uus: uus.distanceM, sinu: sinu.distanceM, lisa: sinu.distanceM - uus.distanceM, jaak, ainultVanus };
+			return { uus: uus.distanceM, sinu: sinu.distanceM, lo: sinu.lowM, hi: sinu.highM, lisa: sinu.distanceM - uus.distanceM, jaak, ainultVanus, vanus };
 		} catch {
 			return null;
 		}
@@ -217,6 +217,11 @@
 						<p class="rv-suur ok">{t('Peaaegu sama nagu uuel rehvil')}</p>
 					{/if}
 					<p class="rv-sel">{veh?.name} · {t('keskmine rehv (märghaardeklass C)')} · {t('ainult pidurdus, reaktsiooniaeg on lisaks.')}</p>
+					<p class="rv-sel rv-allikas">
+						{t('Sinu rehvi vahemik')} {f1(tulemus.lo)}–{f1(tulemus.hi)} {t('m')}. {t('Kulunud mustri mõju tuleb DEKRA mõõtmistest (märjal 7–8 mm → 2–3 mm: pidurdusmaa +16–18%).')}
+						{#if tulemus.vanus > 5}{t('Vanuse mõju on hinnang ADAC-i ja Continentali vananemisuuringute põhjal, mitte mõõtmine.')}{/if}
+						<a href={keel.L('/teadmine/kuidas-pidurdusmaa-arvutatakse/')}>{t('Kuidas arvutame')}</a>
+					</p>
 					<div class="rv-nupud">
 						{#if halb}<a class="btn yel" href={valikuLink} onclick={() => track('cta', 'valimine')}>{t('Vali uued rehvid')} →</a>{/if}
 						<a class="btn" href={keel.L('/')} onclick={() => track('cta', 'kalkulaator')}>{t('Arvuta oma auto ja rehviga')}</a>
@@ -276,6 +281,7 @@
 	.rv-jaak { margin: var(--sp-2) 0 0; color: #e5e7eb; }
 	.rv-jaak b { color: #ff7a7a; }
 	.rv-sel { margin: var(--sp-2) 0 0; color: #8b93a0; font-size: 13px; line-height: 1.45; }
+	.rv-allikas a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
 	.rv-nupud { display: flex; flex-wrap: wrap; gap: var(--sp-2); margin-top: var(--sp-4); }
 	.rv-tul .btn:not(.yel) { background: #23262d; color: #fff; border-color: #343944; }
 	@media (max-width: 640px) { .rv-dot { width: 120px; font-size: 36px; } .rv-rida { align-items: flex-start; } .rv-nupud .btn { flex: 1 1 100%; text-align: center; justify-content: center; } }

@@ -5,6 +5,7 @@
 	import RehviVanus from '$lib/RehviVanus.svelte';
 	import RehviMoot from '$lib/RehviMoot.svelte';
 	import Koolitus from '$lib/Koolitus.svelte';
+	import AutoTee from '$lib/AutoTee.svelte';
 	let { kick, h1, lead, vaade = 'peatumine', andmed = null, children } = $props();
 </script>
 
@@ -21,6 +22,8 @@
 		{#if vaade === 'reaktsioon'}<Reaktsioon />{:else if vaade === 'koolitus'}<Koolitus />{:else if vaade === 'vanus'}<RehviVanus />{:else if vaade === 'moot'}<RehviMoot moodud={andmed || []} />{:else}<Liiklus {vaade} />{/if}
 	</div>
 </section>
+
+{#if vaade !== 'koolitus'}<AutoTee koht={vaade} />{/if}
 
 {#if children}
 	<section class="lo-info">
