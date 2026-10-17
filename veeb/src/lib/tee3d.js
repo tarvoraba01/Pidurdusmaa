@@ -276,7 +276,8 @@ function kojamehed(k, W) {
 		const L = Math.min(0.98 * W, (k.yd - k.katus) * 0.7);
 		return [[W * 0.66, k.yd + 0.012 * k.u, L], [W * 1.06, k.yd + 0.012 * k.u, L * 0.9]];
 	}
-	const L = Math.min(0.62 * W, k.yd * 1.05);
+	/* arvutis: päris autos ulatub harja ots ülemises asendis peaaegu klaasi ülaservani (lühem nägi välja nagu mudelautol) */
+	const L = Math.min(0.8 * W, k.yd * 1.32);
 	return [[W * 0.76, k.yd + 0.012 * k.u, L], [W * 1.2, k.yd + 0.012 * k.u, L * 0.92]];
 }
 function koja(t) {
