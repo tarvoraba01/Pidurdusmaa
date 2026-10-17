@@ -1,12 +1,9 @@
 <script>
 	/* Liiklusohutuse tööriistade ühine leht: hero, kalkulaator (vaade) ja infoplokk. */
-	import Liiklus from '$lib/Liiklus.svelte';
-	import Reaktsioon from '$lib/Reaktsioon.svelte';
-	import RehviVanus from '$lib/RehviVanus.svelte';
-	import RehviMoot from '$lib/RehviMoot.svelte';
-	import Koolitus from '$lib/Koolitus.svelte';
+	/* Tööriista komponendi (Tool) annab iga leht ise — nii laeb /rehvi-vanus/ ainult oma
+	   tööriista koodi, mitte kõiki simulaatoreid (audit 17.10: 263 KB, telefonis TTI 6–8 s). */
 	import AutoTee from '$lib/AutoTee.svelte';
-	let { kick, h1, lead, vaade = 'peatumine', andmed = null, children } = $props();
+	let { kick, h1, lead, vaade = 'peatumine', andmed = null, Tool, children } = $props();
 </script>
 
 <section class="lo-hero">
@@ -19,7 +16,7 @@
 
 <section class="lo-bg">
 	<div class="wrap">
-		{#if vaade === 'reaktsioon'}<Reaktsioon />{:else if vaade === 'koolitus'}<Koolitus />{:else if vaade === 'vanus'}<RehviVanus />{:else if vaade === 'moot'}<RehviMoot moodud={andmed || []} />{:else}<Liiklus {vaade} />{/if}
+		{#if vaade === 'moot'}<Tool moodud={andmed || []} />{:else if vaade === 'reaktsioon' || vaade === 'koolitus' || vaade === 'vanus'}<Tool />{:else}<Tool {vaade} />{/if}
 	</div>
 </section>
 

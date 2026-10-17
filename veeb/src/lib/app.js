@@ -327,8 +327,8 @@ import UNIVERSAALID from './universaalid.json';
         };
         document.addEventListener('focusin', mootLae, true);
         document.addEventListener('pointerdown', mootLae, true);
-        if ('requestIdleCallback' in window) requestIdleCallback(mootLae, { timeout: 10000 });
-        else setTimeout(mootLae, 6000);
+        /* (audit 17.10) mitte enam requestIdleCallback'iga kohe pärast laadimist: see tegi
+           telefonis pikki ülesandeid. Laeme alles siis, kui kasutaja lehte puudutab või välja fokuseerib. */
         return core;
       });
   }

@@ -77,6 +77,7 @@ export function load({ params }) {
 		topMoodud,
 		mark: { slug: m.slug, nimi: m.nimi },
 		kategooriad,
+		hinnang: m.hinnang.filter((t) => rehviIndeks(t.slug).index).map((t) => ({ slug: t.slug, name: t.name, n: (t.moodud || []).length })).sort((a, b) => a.name.localeCompare(b.name, 'et')),
 		testitud,
 		mudeleid: m.mudelid.length,
 		mootudKokku,

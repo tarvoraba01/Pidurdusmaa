@@ -50,7 +50,7 @@
 	}
 </script>
 
-<section class="at" aria-labelledby="at-h">
+<section class="at" aria-labelledby="at-h" data-lm="0">
 	<div class="wrap at-sisu">
 		<div class="at-tekst">
 			<p class="at-kick">{t('Rehvid sinu autole')}</p>

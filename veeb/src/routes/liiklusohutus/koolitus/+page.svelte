@@ -6,6 +6,7 @@
 	import Meta from '$lib/Meta.svelte';
 	import { ORG, graph, tooriist } from '$lib/skeem.js';
 	import LiiklusLeht from '$lib/LiiklusLeht.svelte';
+	import Koolitus from '$lib/Koolitus.svelte';
 
 	const KIRJ = t('Tasuta liiklusohutuse test: pidurdusteekond, rehvid, libe tee ja pimedas sõitmine. Eeltest, selgitused simulaatoriga ja järeltest. Autokoolid saavad luua oma grupi testi.');
 	const jsonld = graph(tooriist(t('Liiklusohutuse koolitus: kui hästi sa tunned pidurdamist?'), '/liiklusohutus/koolitus/', KIRJ, keel.lang), ORG);
@@ -13,7 +14,7 @@
 
 <Meta title={t("Koolitus: kui hästi sa tunned pidurdamist?")} desc={KIRJ} path="liiklusohutus/koolitus/" {jsonld} />
 
-<LiiklusLeht kick={t('Liiklusohutus · koolitus')} h1={t('Kui hästi sa tunned pidurdamist?')} lead={t('Vasta, nagu arvad. Siis näed, kuidas päriselt on.')} vaade="koolitus">
+<LiiklusLeht Tool={Koolitus} kick={t('Liiklusohutus · koolitus')} h1={t('Kui hästi sa tunned pidurdamist?')} lead={t('Vasta, nagu arvad. Siis näed, kuidas päriselt on.')} vaade="koolitus">
 	<div>
 		<h2>{t('Kuidas see töötab')}</h2>
 		<p>{t('Eeltestis vastad ilma vihjeteta. Siis näed iga küsimuse juures õiget vastust, selgitust ja linki simulaatorisse, kus saad sama olukorda ise proovida. Järeltest küsib samu teadmisi teises olukorras, nii et näed, kas asi sai selgeks.')}</p>

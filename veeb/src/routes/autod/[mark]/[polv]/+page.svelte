@@ -110,8 +110,8 @@
 				{a.yearLabel}
 			</div>
 			<a class="ad-tagasi" href={L('/autod/' + a.mk + '/')}>← {t('Kõik {mark} mudelid', { mark: a.make })}</a>
-			<p class="ad-mark">{a.make}</p>
-			<h1>{a.model} <span class="ad-aastad">{a.yearLabel}</span></h1>
+			<!-- mark on H1 sees (otsingud „toyota corolla rehvimõõt“), näeb välja sama mis enne: kollane rida pealkirja kohal -->
+			<h1><span class="ad-mark">{a.make}</span> {a.model} <span class="ad-aastad">{a.yearLabel}</span></h1>
 			<p class="ad-lyhi" data-ad-mootor>{t('Rehvid ja pidurdusmaa')}</p>
 			<!-- numbrid uuenevad mootori valikuga (app.js initTyres, autoleht) -->
 			<ul class="ad-faktid">
@@ -233,7 +233,7 @@
 	.ad-hero-in { display: grid; grid-template-columns: 1.05fr 1fr; gap: var(--sp-8); align-items: center; }
 	.ad-tagasi { display: inline-block; margin-top: var(--sp-4); padding: 6px 14px; border-radius: 999px; background: var(--ink-3); border: 1px solid var(--line-d, #2a2f39); color: #dfe3e8; font-size: 14px; font-weight: 600; text-decoration: none; }
 	.ad-tagasi:hover { border-color: var(--yellow); color: #fff; }
-	.ad-mark { color: var(--yellow) !important; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; font-size: 14px !important; margin: var(--sp-4) 0 var(--sp-1) !important; }
+	.ad-mark { display: block; font-family: var(--body); line-height: 1.55; color: var(--yellow) !important; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; font-size: 14px !important; margin: var(--sp-4) 0 var(--sp-1) !important; }
 	.ad-aastad { color: #9aa2ae; font-size: 0.5em; letter-spacing: 0.02em; white-space: nowrap; }
 	.ad-lyhi { font-size: 18px; margin: 0 0 var(--sp-5) !important; }
 	.ad-faktid { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: var(--sp-3); }

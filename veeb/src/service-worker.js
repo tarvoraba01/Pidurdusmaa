@@ -23,9 +23,9 @@ const PILDID = 'pildid';
 const STAATILINE = 'staatiline';
 const KOIK = [APP, LEHED, ANDMED, PILDID, STAATILINE];
 
-/* ette: rakenduse failid, fondid, ikoonid + avaleht ja simulaatorid */
+/* ette: rakenduse failid, ladina fondid (kirillitsa ja latin-ext tulevad kasutamisel), ikoonid + avaleht ja simulaatorid */
 const ETTE = build
-	.concat(files.filter((f) => /^\/(fonts\/.*\.woff2|favicon\.(svg|ico)|icon-[\w-]+\.png|apple-touch-icon\.png|manifest\.webmanifest)$/.test(f)));
+	.concat(files.filter((f) => /^\/(fonts\/[a-z-]*-latin-(?!ext)[\w-]*\.woff2|favicon\.(svg|ico)|icon-[\w-]+\.png|apple-touch-icon\.png|manifest\.webmanifest)$/.test(f)));
 const ETTE_LEHED = ['/', '/liiklusohutus/', '/liiklusohutus/pimedas/', '/liiklusohutus/pikivahe/', '/liiklusohutus/kurv/'];
 
 self.addEventListener('install', (e) => {

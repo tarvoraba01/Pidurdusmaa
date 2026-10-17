@@ -18,7 +18,7 @@ export const TOLGITUD = ['/', '/rehvi-valimine/', '/vordle-rehve/', '/liiklusohu
    - autolehed (terve haru /autod/),
    - rehvilehed, mis on saidikaardis (nimekiri: scripts/ru-rehvid.mjs),
    - artiklid, millel on artiklid.js-is `ru` väli, ja artiklite nimekiri. */
-const HARUD = { ru: ['/autod/', '/talverehvid/'], en: [] };
+const HARUD = { ru: ['/autod/', '/talverehvid/', '/margid/'], en: [] };
 const RU_REHV = new Set(RU_REHVID);
 const TAPSED = {
 	ru: new Set([
@@ -26,6 +26,7 @@ const TAPSED = {
 		'/teadmine/artiklid/',
 		'/teadmine/pidurdusteekond-ja-peatumisteekond/',
 		'/teadmine/rehvivahetus/',
+		'/teadmine/rehvimargis/',
 		...ARTIKLID.filter((a) => a.ru).map((a) => a.ruTee || artikliTee(a)),
 		'/liiklusohutus/koolitus/',
 		'/liiklusohutus/koolitus/tulemused/',

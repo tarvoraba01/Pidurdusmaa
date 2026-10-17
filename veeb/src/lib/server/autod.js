@@ -7,7 +7,7 @@
  * Pidurdusmaa arvutatakse ehituse ajal sama mootoriga (engine.js).
  */
 import '$lib/engine.js';
-import { core, mootoridJson, eprelSize, sizeModelCount, SIZE_MIN_MODELS, markSlug, titleCase, pretty, sizeSlug } from './andmed.js';
+import { core, mootoridJson, eprelSize, sizeModelCount, SIZE_MIN_MODELS, markSlug, titleCase, pretty, sizeSlug, rehviIndeks } from './andmed.js';
 import { EPREL_KAT, KAT_NIMI } from '../util.js';
 
 export const slugify = (s) => markSlug(s);
@@ -58,6 +58,8 @@ function parimad(mootN, kat, n = 6) {
 		.sort((a, b) => (b[9] ? 1 : 0) - (a[9] ? 1 : 0) || String(a[4]).localeCompare(String(b[4])) || (a[6] ?? 99) - (b[6] ?? 99))
 		/* sama mudel mitme koormus-/kiirusindeksiga -> üks rida */
 		.filter((r, i, arr) => arr.findIndex((x) => x[0] === r[0]) === i)
+		/* ainult indekseeritavad rehvilehed (noindex-lehele lingid raiskavad roomamist) */
+		.filter((r) => rehviIndeks(r[0]).index)
 		.slice(0, n)
 		.map((r) => ({ slug: r[0], nimi: titleCase(r[1] + ' ' + r[2]), g: r[4], db: r[6], testitud: !!r[9] }));
 }

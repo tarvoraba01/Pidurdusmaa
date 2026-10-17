@@ -32,7 +32,10 @@
 		} catch {}
 		await import('$lib/engine.js');
 		P = globalThis.Pidurdus;
-		core = await (await fetch('/data/core.json?v=' + encodeURIComponent(version))).json();
+		/* oma auto valimata → ainult vaikeauto (väike fail), muidu kogu core.json */
+		let oma = null;
+		try { oma = sessionStorage.getItem('pm_veh'); } catch {}
+		core = await (await fetch((oma && oma !== 'null' ? '/data/core.json' : '/data/vaikeauto.json') + '?v=' + encodeURIComponent(version))).json();
 		let key = null;
 		try { key = JSON.parse(sessionStorage.getItem('pm_veh') || 'null'); } catch {}
 		const byKey = (k) => core.vehicles.find((v) => v.key === k);

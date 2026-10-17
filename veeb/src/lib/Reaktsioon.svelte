@@ -73,10 +73,20 @@
 		suurus();
 		window.addEventListener('resize', suurus);
 		document.addEventListener('fullscreenchange', fsMuutus); document.addEventListener('webkitfullscreenchange', fsMuutus);
-		raf = requestAnimationFrame(kaader);
+		/* joonistame ainult siis, kui ekraan on nähtav (audit 17.10: kaader jooksis lõputult ka
+		   kerimisel ja taustakaardil — aku ja telefoni sujuvus) */
+		if ('IntersectionObserver' in window) {
+			vaatleja = new IntersectionObserver((e) => { nahtav = e[0].isIntersecting; kaivita(); });
+			vaatleja.observe(cv);
+		}
+		document.addEventListener('visibilitychange', kaivita);
+		kaivita();
 		await import('$lib/engine.js');
 		P = globalThis.Pidurdus;
-		core = await (await fetch('/data/core.json?v=' + encodeURIComponent(version))).json();
+		/* oma auto valimata → ainult vaikeauto (väike fail), muidu kogu core.json */
+		let oma = null;
+		try { oma = sessionStorage.getItem('pm_veh'); } catch {}
+		core = await (await fetch((oma && oma !== 'null' ? '/data/core.json' : '/data/vaikeauto.json') + '?v=' + encodeURIComponent(version))).json();
 		let key = null;
 		try { key = JSON.parse(sessionStorage.getItem('pm_veh') || 'null'); } catch {}
 		const byKey = (k) => core.vehicles.find((v) => v.key === k);
@@ -86,6 +96,7 @@
 	onDestroy(() => {
 		if (typeof window === 'undefined') return;
 		clearTimeout(taimer); cancelAnimationFrame(raf); window.removeEventListener('resize', suurus);
+		document.removeEventListener('visibilitychange', kaivita); if (vaatleja) vaatleja.disconnect();
 		document.removeEventListener('fullscreenchange', fsMuutus); document.removeEventListener('webkitfullscreenchange', fsMuutus);
 		try { document.documentElement.style.overflow = ''; } catch {}
 	});
@@ -151,7 +162,13 @@
 		z = 0; kmhNaha = kiirus; crash = false; jk = null; zOht = 0;
 		ees = reziim === 'tuled' ? { gap: (kiirus / 3.6) * vahe, pidur: false } : null;
 	}
+	let nahtav = true, vaatleja = null;
+	function kaivita() {
+		if (!raf && !document.hidden && nahtav) raf = requestAnimationFrame(kaader);
+	}
 	function kaader(now) {
+		/* kui ekraan pole nähtav, jääb tsükkel seisma; kaivita() alustab uuesti */
+		if (document.hidden || !nahtav) { raf = 0; return; }
 		raf = requestAnimationFrame(kaader);
 		if (!ctx) return;
 		const v0 = kiirus / 3.6;

@@ -4,6 +4,7 @@
 	const keel = useLang();
 	import Meta from '$lib/Meta.svelte';
 	import LiiklusLeht from '$lib/LiiklusLeht.svelte';
+	import Liiklus from '$lib/Liiklus.svelte';
 	import { ORG, graph, tooriist } from '$lib/skeem.js';
 
 	const KIRJ = t('Mis juhtub, kui pidurdad kurvis ja kulunud rehvid on ees või taga? Kurvi piirkiirus, peatumisteekond ja kas auto pöörab ringi või sõidab kurvist otse välja.');
@@ -12,7 +13,7 @@
 
 <Meta title={t('Pidurdamine kurvis: paremad rehvid ees või taga?')} desc={KIRJ} path="liiklusohutus/kurv/" {jsonld} image="/og/sait/liiklus-kurv.png" />
 
-<LiiklusLeht kick={t('Liiklusohutus · kurv ja rehvid')} h1={t('Pidurdamine kurvis')} lead={t('Vali kurv, kiirus, teeolud ja rehvid ning vaata animatsioonist, mis juhtub äkkpidurdusel: kas auto peatub oma rajal, kandub vastassuunavööndisse, pöörab ringi või sõidab teelt välja.')} vaade="kurv">
+<LiiklusLeht Tool={Liiklus} kick={t('Liiklusohutus · kurv ja rehvid')} h1={t('Pidurdamine kurvis')} lead={t('Vali kurv, kiirus, teeolud ja rehvid ning vaata animatsioonist, mis juhtub äkkpidurdusel: kas auto peatub oma rajal, kandub vastassuunavööndisse, pöörab ringi või sõidab teelt välja.')} vaade="kurv">
 	<div>
 		<h2>{t('Kuidas see töötab')}</h2>
 		<p>{t('Kurvis kulub osa rehvi haardest auto pööramisele. Pidurdades kandub koormus esisillale ja tagarattad jäävad kergemaks — kui taga on kulunud rehvid, kaotab tagaosa haarde esimesena ja auto pöörab ringi. Kui kulunud on esirehvid, auto ei pööra ja sõidab kurvist otse välja.')}</p>

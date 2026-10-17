@@ -18,7 +18,10 @@
 	import { GA4_ID } from '$lib/seaded.js';
 
 	const VOTI = 'pm_nousolek';
-	let naita = $state(false);
+	/* riba on eelrenderdatud HTML-is kohe olemas (audit 17.10: muidu oli ta telefonis LCP-element
+	   ja ilmus alles pärast JS-i käivitumist). Kui otsus on tehtud, peidab app.html-i rida
+	   (html.kps-otsus) selle enne joonistamist ja onMount eemaldab. */
+	let naita = $state(!!GA4_ID);
 
 	function loe() {
 		try {
@@ -105,11 +108,14 @@
 	onMount(() => {
 		if (!GA4_ID) return;
 		/* jaluse "Küpsiste seaded" avab riba uuesti */
-		window.PM_KUPSISED = () => (naita = true);
+		window.PM_KUPSISED = () => {
+			document.documentElement.classList.remove('kps-otsus');
+			naita = true;
+		};
 		window.PM_LEHEVAADE = lehevaade;
 		const v = loe();
 		if (v === 'jah') kaivitaGA();
-		else if (v !== 'ei') naita = true;
+		if (v === 'jah' || v === 'ei') naita = false;
 	});
 </script>
 
@@ -128,6 +134,9 @@
 {/if}
 
 <style>
+	:global(html.kps-otsus) .kps {
+		display: none;
+	}
 	.kps {
 		position: fixed;
 		left: 0;

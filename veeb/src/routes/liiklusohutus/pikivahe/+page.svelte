@@ -4,6 +4,7 @@
 	const keel = useLang();
 	import Meta from '$lib/Meta.svelte';
 	import LiiklusLeht from '$lib/LiiklusLeht.svelte';
+	import Liiklus from '$lib/Liiklus.svelte';
 	import { ORG, graph, tooriist } from '$lib/skeem.js';
 
 	const KIRJ = t('Kui eesolev auto pidurdab järsult, kas jõuad peatuda? Vaata 1, 2, 3 ja 4 sekundi pikivahet oma kiiruse, reageerimisaja ja teeoludega — ja kokkupõrke kiirust, kui ei jõua.');
@@ -12,7 +13,7 @@
 
 <Meta title={t('Pikivahe kalkulaator: kas 2 sekundit on piisav?')} desc={KIRJ} path="liiklusohutus/pikivahe/" {jsonld} image="/og/sait/liiklus-pikivahe.png" />
 
-<LiiklusLeht kick={t('Liiklusohutus · pikivahe')} h1={t('Kas pikivahe on piisav?')} lead={t('Eesolev auto pidurdab järsult või peatub hetkega. Vaata, kas jõuad peatuda, ja kui ei, siis millise kiirusega sõidad talle sisse.')} vaade="pikivahe">
+<LiiklusLeht Tool={Liiklus} kick={t('Liiklusohutus · pikivahe')} h1={t('Kas pikivahe on piisav?')} lead={t('Eesolev auto pidurdab järsult või peatub hetkega. Vaata, kas jõuad peatuda, ja kui ei, siis millise kiirusega sõidad talle sisse.')} vaade="pikivahe">
 	<div>
 		<h2>{t('Kuidas see töötab')}</h2>
 		<p>{t('Mõlemad autod pidurdavad sama arvutusega: sama auto, rehvid ja tee. Sina hakkad pidurdama alles pärast reageerimisaega, seega tuleb kokkupõrge siis, kui reageerimisaeg on pikivahest pikem. Kui eesolev auto peatub hetkega (sõidab millelegi otsa), on vaja palju suuremat vahet.')}</p>

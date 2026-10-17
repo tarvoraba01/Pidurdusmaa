@@ -66,6 +66,8 @@ export function testLabel(t) {
 			ICE: 'jää',
 			SNOW_PACKED: 'lumi'
 		}[t.surf] || String(t.surf).toLowerCase();
+	/* mõnel ajakirjatestil algkiirus puudub (v0 = 0) — siis ainult pind, mitte „0→0 km/h“ */
+	if (!(t.v0 > 0)) return s;
 	return s + ', ' + Math.round(t.v0) + '→' + Math.round(t.v1) + ' km/h';
 }
 

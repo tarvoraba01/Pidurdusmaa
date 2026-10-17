@@ -12,6 +12,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Pidurdusmaa">
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
+<!-- küpsiste riba on HTML-is kohe olemas (LCP); kui otsus on juba tehtud, peidab selle see rida enne joonistamist -->
+<script>try{if(localStorage.getItem('pm_nousolek'))document.documentElement.classList.add('kps-otsus')}catch(e){}</script>
 <script>window.addEventListener('beforeinstallprompt',function(e){window.PM_BIP=e;window.dispatchEvent(new Event('pm:bip'))})</script>
 <!-- Plausible: küpsisteta statistika, meie oma serveris (track.pidurdusmaa.ee). Nõusolekut ei vaja. -->
 <script async src="https://track.pidurdusmaa.ee/js/pa-H2Tw5Gcvmd3b8-yEEnQN5.js"></script>

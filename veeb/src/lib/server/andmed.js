@@ -124,11 +124,21 @@ export function emamudel(slug) {
 }
 
 /** { index, sitemap, canonical } rehvilehe jaoks. */
+const _ixMemo = new Map();
 export function rehviIndeks(slug) {
+	if (!_ixMemo.has(slug)) _ixMemo.set(slug, rehviIndeks0(slug));
+	return _ixMemo.get(slug);
+}
+function rehviIndeks0(slug) {
 	const t = tyrePage(slug);
 	if (!t) return { index: false, sitemap: false, canonical: null };
-	if (t.tested) return { index: true, sitemap: true, canonical: null };
 	const n = t.model ? t.model.sizes.length : 0;
+	if (t.tested) {
+		/* sama reegel mis lehel (+page.server.js noindex): testimata hinnangurehv, millel pole
+		   teste, ajakirjateste ega ühtki mõõtu (ka poodidest), on õhuke leht → noindex, mitte saidikaardis */
+		const sisu = (t.tested.tests || []).length || n || (t.tested.moodud || []).length || extTests(slug).length;
+		return sisu ? { index: true, sitemap: true, canonical: null } : { index: false, sitemap: false, canonical: null };
+	}
 	if (SKU_RE.test(slug)) return { index: false, sitemap: false, canonical: null };
 	const ema = emamudel(slug);
 	if (ema) return { index: true, sitemap: false, canonical: ema };
@@ -312,7 +322,7 @@ export function margid() {
 		const ms = markSlug(nimi);
 		if (!ms || !/[a-z]/.test(ms)) continue;
 		if (!_margid.has(ms)) {
-			_margid.set(ms, { slug: ms, nimi, mudelid: [], testitud: [] });
+			_margid.set(ms, { slug: ms, nimi, mudelid: [], testitud: [], hinnang: [] });
 			kirjad.set(ms, new Map());
 		}
 		_margid.get(ms).mudelid.push(slug);
@@ -324,10 +334,16 @@ export function margid() {
 	}
 	/* testitud rehvid: EPREL-i mudeli kaudu või nime esimese sõna järgi */
 	for (const t of core().tyres) {
-		if (t.gSource === 'hinnang') continue; /* testimata naastrehv ei ole margi „testitud“ rehv */
 		const m = t.slug ? model(t.slug) : null;
 		const ms = markSlug(m ? titleCase(String(m.mark).trim()) : String(t.name).split(' ')[0]);
-		if (_margid.has(ms)) _margid.get(ms).testitud.push(t);
+		if (!_margid.has(ms)) continue;
+		/* testimata naastrehv ei ole margi „testitud“ rehv, aga margilehelt peab ta leitav olema
+		   (muidu on leht orb: saidikaardis, aga ükski leht ei lingi) */
+		if (t.gSource === 'hinnang') {
+			if (t.slug) _margid.get(ms).hinnang.push(t);
+			continue;
+		}
+		_margid.get(ms).testitud.push(t);
 	}
 	return _margid;
 }

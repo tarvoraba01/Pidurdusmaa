@@ -104,21 +104,32 @@ export async function hinnadMoodus(moot) {
 	/* lamell/suverehv: märgise read + testitud mitte-naastrehvid; naastrehv (pakkuja paneb
 	   t.naast = true): AINULT naastrehvide seast — muidu saaks naastrehv sama nimega
 	   lamellrehvi märgise andmed (nt „Vanpro Winter“ naastuga vs ilma) */
-	const read = eprelSize(moot).concat(testRead());
-	const readNaast = naastRead();
-	const hinnad = {};
-	await Promise.all(
+	/* 1) pakkujate tootenimekirjad (vahemälus) */
+	const listid = await Promise.all(
 		pakkujad.map(async (p) => {
 			const o = olek(p);
-			let list = [];
 			try {
-				list = await tooted(p, moot);
+				const list = await tooted(p, moot);
 				o.edu = new Date().toISOString();
+				return list;
 			} catch (e) {
 				o.viga = String(e.message || e).slice(0, 200);
 				o.vigaAeg = new Date().toISOString();
-				return;
+				return null;
 			}
+		})
+	);
+	/* 2) sobitamine (leiaRehv) on CPU-raske: 30–110 ms mõõdu ja pakkuja kohta (audit 17.10).
+	   Kui ühegi pakkuja nimekiri pole muutunud (sama vahemälu objekt), anname eelmise tulemuse. */
+	const eel = _sobitatud.get(moot);
+	if (eel && eel.listid.length === listid.length && eel.listid.every((l, i) => l === listid[i])) return eel.tulemus;
+	const read = eprelSize(moot).concat(testRead());
+	const readNaast = naastRead();
+	const hinnad = {};
+	pakkujad.forEach((p, pi) => {
+			const o = olek(p);
+			const list = listid[pi];
+			if (!list) return;
 			o.tooteid = list.length;
 			let sob = 0;
 			for (const t of list) {
@@ -147,16 +158,19 @@ export async function hinnadMoodus(moot) {
 				}
 			}
 			o.sobitatud = sob;
-		})
-	);
+	});
 	/* odavaim ees; üks rida müüja kohta */
 	for (const id of Object.keys(hinnad)) {
 		const parim = new Map();
 		for (const r of hinnad[id]) if (!parim.has(r.myyja) || r.hind < parim.get(r.myyja).hind) parim.set(r.myyja, r);
 		hinnad[id] = [...parim.values()].sort((a, b) => a.hind - b.hind);
 	}
-	return { available: true, hinnad };
+	const tulemus = { available: true, hinnad };
+	_sobitatud.set(moot, { listid, tulemus });
+	while (_sobitatud.size > 600) _sobitatud.delete(_sobitatud.keys().next().value);
+	return tulemus;
 }
+const _sobitatud = new Map(); // moot -> { listid, tulemus }
 
 /** ids = ['slug@20555R16', …] */
 export async function hinnadIdd(ids) {

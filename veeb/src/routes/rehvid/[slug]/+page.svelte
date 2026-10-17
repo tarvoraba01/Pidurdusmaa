@@ -174,7 +174,13 @@
 		const k = data.kokku, p = k.pea, A = data.a.name, B = data.b.name;
 		const pind = t((PIND[p.surf] || [String(p.surf).toLowerCase()])[p.wet ? 1 : 0]);
 		const voit = p.am < p.bm ? A : B, kaot = p.am < p.bm ? B : A;
-		const pea = p.am === p.bm
+		/* mõnel ajakirjatestil algkiirus puudub (v0 = 0) — siis lause ilma kiiruseta, mitte „0 km/h pealt“ */
+		const P0 = pind.charAt(0).toUpperCase() + pind.slice(1);
+		const pea = !(p.v0 > 0)
+			? (p.am === p.bm
+				? t('{pind}: {a} ja {b} peatusid ühepikkuselt: {m} m ({test}).', { pind: P0, a: A, b: B, m: num(p.am), test: t(p.src) })
+				: t('{pind}: {voit} peatus {d} m lühemalt kui {kaot}: {am} m vs {bm} m ({test}).', { pind: P0, voit, kaot, d: num(p.d), am: num(Math.min(p.am, p.bm)), bm: num(Math.max(p.am, p.bm)), test: t(p.src) }))
+			: p.am === p.bm
 			? t('{pind} {v} km/h pealt peatusid {a} ja {b} ühepikkuselt: {m} m ({test}).', { pind: pind.charAt(0).toUpperCase() + pind.slice(1), v: Math.round(p.v0), a: A, b: B, m: num(p.am), test: t(p.src) })
 			: t('{pind} {v} km/h pealt peatus {voit} {d} m lühemalt kui {kaot}: {am} m vs {bm} m ({test}).', { pind: pind.charAt(0).toUpperCase() + pind.slice(1), v: Math.round(p.v0), voit, kaot, d: num(p.d), am: num(Math.min(p.am, p.bm)), bm: num(Math.max(p.am, p.bm)), test: t(p.src) });
 		const koond = k.n > 1 ? ' ' + (k.a === k.b ? t('Kokku {n} mõõtmist: kumbki oli lühem {a} korral.', { n: k.n, a: k.a }) : t('Kokku {n} mõõtmist: {voit} oli lühem {x} korral, {kaot} {y} korral.', { n: k.n, voit: k.a > k.b ? A : B, kaot: k.a > k.b ? B : A, x: Math.max(k.a, k.b), y: Math.min(k.a, k.b) })) : '';
@@ -238,7 +244,7 @@
 								<tbody>
 									{#each gr.list as r, ri (r.slug + '#' + ri)}
 										<tr data-pid={r.slug} data-n={r.nimi}>
-											<td><a href={L("/rehvid/" + r.slug + "/")}>{r.nimi}</a></td>
+											<td>{#if r.ix}<a href={L("/rehvid/" + r.slug + "/")}>{r.nimi}</a>{:else}{r.nimi}{/if}</td>
 											<td><Grade g={r.g} /></td>
 											<td><Grade g={r.f} /></td>
 											<td class="n">{r.db ? r.db + ' dB' : '–'}</td>
@@ -526,7 +532,7 @@
 				{/if}
 
 				{#if data.asendus && data.asendus.length}
-					<div class="box">
+					<div class="box" data-lm="0">
 						<h2>{t('Kus osta')}</h2>
 						<p class="sub">{t('Seda rehvi meie partnerpoodides praegu ei müüda. Samas testis olnud rehvid, mida saab osta:')}</p>
 						<div class="tbl-wrap">
@@ -562,7 +568,7 @@
 						<p class="sub">{t("Rehvid, mis olid samas testis naabrid — sama auto, sama päev.")}</p>
 						<div class="grid-cards">
 							{#each data.vs as v (v.url)}
-								<a class="tcard" href={v.url}
+								<a class="tcard" href={L(v.url)}
 									><span class="b">vs</span><h3>{v.name}</h3><span class="meta"
 										>{t("Mõõdetud pidurdusmaad kõrvuti →")}</span
 									></a
@@ -584,7 +590,7 @@
 							>{t("Võrdle seda rehvi →")}</button
 						>
 						<!-- poed: täidab app.js (rehviPilt → /api/rehv/<slug>/), peidus kui hindu pole -->
-						<div class="rp-poed" id="kus-osta" data-rehv-poed data-nimi={ty.name} hidden>
+						<div class="rp-poed" id="kus-osta" data-lm="0" data-rehv-poed data-nimi={ty.name} hidden>
 							<h3>{t('Kus osta')}</h3>
 							<div class="rp-list" data-rehv-poed-list></div>
 							<p class="srcline">{t('Hinnad poodidest, uuenevad mitu korda päevas. Järjestus pidurdusmaa järgi ei sõltu poest.')}</p>
@@ -624,7 +630,7 @@
 	<How />
 {:else}
 	<Meta
-		title={data.a.name + ' vs ' + data.b.name + t(' — mõõdetud pidurdusmaad')}
+		title={data.a.name + ' vs ' + data.b.name + ((data.a.name + data.b.name).length <= 30 ? t(' — mõõdetud pidurdusmaad') : '')}
 		desc={(vsVastus ? vsVastus + ' ' : '') + t('Kaks rehvi samas sõltumatus testis, sama auto ja sama päev: {a} ja {b}. Pidurdusmaad märjal, kuival ja muudel pindadel.', { a: data.a.name, b: data.b.name })}
 		path="rehvid/{data.a.slug}-vs-{data.b.slug}/"
 		jsonld={vsLd}
@@ -690,7 +696,7 @@
 				</div>
 			{/each}
 			<!-- ost testide all: kummagi rehvi kõik pakkumised (testi mõõt ees), täidab app.js vsOsta -->
-			<div class="box vs-osta">
+			<div class="box vs-osta" data-lm="0">
 				<h2>{t('Kus osta')}</h2>
 				<div class="vs-osta-grid">
 					{#each [data.a, data.b] as r (r.slug)}
@@ -723,6 +729,10 @@
 {/if}
 
 <style>
+	/* tulemuse koht hoitakse enne arvutust kinni (audit 17.10: CLS) */
+	[data-tw-out] { min-height: 230px; }
+	/* mõõdulehe pikad tabelid: brauser joonistab ainult nähtavad (DOM ~4600 sõlme) */
+	.box:has(> .tbl-wrap > table[data-hinnad]) { content-visibility: auto; contain-intrinsic-size: auto 900px; }
 	.vs-osta-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-4); }
 	.vs-o { display: grid; gap: var(--sp-2); align-content: start; }
 	.vs-o-n { font-size: 18px; margin: 0; }

@@ -84,7 +84,9 @@ function mootLeht(size) {
 					g: r[4],
 					f: r[5],
 					db: r[6],
-					tested: !!r[9]
+					tested: !!r[9],
+					/* noindex-lehele (≤2 mõõtu, SKU) ei lingi — Google'i roomamine läheb päris lehtedele */
+					ix: rehviIndeks(r[0]).index
 				}))
 				.sort((a, b) => (a.g < b.g ? -1 : a.g > b.g ? 1 : (a.db ?? 99) - (b.db ?? 99)))
 		}));
@@ -107,7 +109,7 @@ function mootLeht(size) {
 		: [];
 	const parimad = parimRead.slice(0, 3).map((r) => titleCase(r[1] + ' ' + r[2]));
 	/* ItemList (AI-otsing): parima märghaardeklassi rehvid, testitud ees */
-	const parimadLd = parimRead.slice(0, 10).map((r) => ({ slug: r[0], nimi: titleCase(r[1] + ' ' + r[2]) }));
+	const parimadLd = parimRead.filter((r) => rehviIndeks(r[0]).index).slice(0, 10).map((r) => ({ slug: r[0], nimi: titleCase(r[1] + ' ' + r[2]) }));
 	/* klassivahe arvutatakse auto peal, millel see mõõt päriselt on; kui ühtki pole, jääb see küsimus ära */
 	const pohiAuto = koikAutod.find((c) => c.pohi) || koikAutod[0];
 	return {
@@ -197,7 +199,7 @@ function uusimFakt(t, koik) {
 	const jrk = (r) => (pohja ? { ICE: 0, SNOW_PACKED: 1, ASPHALT: r.wet ? 2 : 3, CONCRETE: 4 } : kesk ? { SNOW_PACKED: 0, ASPHALT: r.wet ? 1 : 3, CONCRETE: 2, ICE: 4 } : { ASPHALT: r.wet ? 0 : 2, CONCRETE: 1, SNOW_PACKED: 3, ICE: 4 })[r.surf] ?? 9;
 	const r = koik.filter((x) => x.v0 && x.m && x.pos && x.n > 1).sort((a, b) => b.aasta - a.aasta || jrk(a) - jrk(b))[0];
 	if (!r) return null;
-	return { src: r.src, pind: PIND_SONA[r.surf][r.wet ? 1 : 0], v: Math.round(r.v0) + '→' + Math.round(r.v1 || 0), m: r.m, pos: r.pos, n: r.n };
+	return { src: r.src, pind: PIND_SONA[r.surf][r.wet ? 1 : 0], v: r.v0 > 0 ? Math.round(r.v0) + '→' + Math.round(r.v1 || 0) : '', m: r.m, pos: r.pos, n: r.n };
 }
 const num1 = (x) => String(Math.round(x * 10) / 10).replace('.', ',');
 function kirjeldus(t, sizes, tests, fakt, hinnang) {

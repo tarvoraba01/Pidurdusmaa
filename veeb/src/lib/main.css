@@ -24,6 +24,14 @@
   src:url(/fonts/barlow-condensed-latin-ext-700-normal.woff2) format("woff2");
   unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
 
+/* Varufondid mõõtudega (audit 17.10: fondi vahetus nihutas lehte, CLS kuni 0,13).
+   Kuni päris font laeb, on Arial venitatud/kokku surutud Inter'i ja Barlow Condensedi mõõtu,
+   nii et tekst ei hüppa, kui päris font kohale jõuab. */
+@font-face{font-family:"Inter Fallback";src:local("Arial"),local("Helvetica"),local("Liberation Sans");
+  size-adjust:107.1%;ascent-override:90.4%;descent-override:22.5%;line-gap-override:0%}
+@font-face{font-family:"Barlow Condensed Fallback";src:local("Arial"),local("Helvetica"),local("Liberation Sans");
+  size-adjust:77%;ascent-override:130%;descent-override:26%;line-gap-override:0%}
+
 /* vene tähed (/ru/): Inter cyrillic; pealkirjade kitsas kiri — Barlow Condensedil kirillitsat pole,
    selle asemel Roboto Condensed (sama perenime all, ainult kirillitsa vahemikus) */
 @font-face{font-family:"Inter";font-style:normal;font-display:swap;font-weight:100 900;
@@ -47,8 +55,8 @@
   --r-lg:18px; --r:12px; --r-sm:8px;
   --shadow:0 1px 2px rgba(10,11,13,.06),0 8px 24px rgba(10,11,13,.08);
   --shadow-d:0 30px 80px rgba(0,0,0,.55);
-  --display:"Barlow Condensed","Arial Narrow",system-ui,sans-serif;
-  --body:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --display:"Barlow Condensed","Barlow Condensed Fallback","Arial Narrow",system-ui,sans-serif;
+  --body:"Inter","Inter Fallback",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
   --wrap:1240px; --gut:24px;
   /* Vahede skaala: 4px samm (8pt süsteem). Iga margin/padding/gap tuleb
      siit — nii on vahed kõikjal ühtlased. 1–2px on ainult joonte ja

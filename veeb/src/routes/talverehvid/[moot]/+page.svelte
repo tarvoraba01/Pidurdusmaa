@@ -16,7 +16,9 @@
 	const path = $derived('/talverehvid/' + m.slug + '/');
 	const mm = (x) => (x == null ? '–' : num(x) + ' ' + t('m'));
 	const q = $derived('?moot=' + m.m + '&hooaeg=winter');
-	const pealkiri = $derived(t('Parimad talverehvid {m} — testid ja pidurdusmaa', { m: m.label }));
+	/* hooaeg pealkirjas (otsingud „talverehvid 2026“): mai–dets → see/järgmine aasta, jaan–apr → eelmine/see */
+	const HOOAEG = (() => { const d = new Date(), y = d.getFullYear(); return d.getMonth() >= 4 ? y + '/' + String(y + 1).slice(2) : y - 1 + '/' + String(y).slice(2); })();
+	const pealkiri = $derived(t('Talverehvid {m} {h} — parimad testides', { m: m.label, h: HOOAEG }));
 	const desc = $derived(
 		t('Talverehvid {m}: testitud naast- ja lamellrehvide pidurdusmaa lumel ja jääl ning {n} Põhjamaade talverehvi EL-i märgise järgi.', { m: m.label, n: data.pohjaKokku }) +
 			(data.auto ? ' ' + t('Sobib nt autole {auto}.', { auto: an(data.auto.nimi) }) : '')

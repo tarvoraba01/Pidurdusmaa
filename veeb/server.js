@@ -16,7 +16,7 @@
  * (Varem: www → 302 → pidurdusmaa.ee/rehvid → 308 → /rehvid/ = kaks sammu.)
  */
 import http from 'node:http';
-import { readFileSync } from 'node:fs';
+import { readFileSync, existsSync } from 'node:fs';
 import compression from 'compression';
 import { handler } from './handler.js';
 
@@ -34,6 +34,16 @@ try {
 	REHVID = JSON.parse(readFileSync(new URL('./client/data/suunamised.json', import.meta.url), 'utf-8'));
 } catch {
 	/* faili pole (nt arenduses) — suunamisi pole */
+}
+
+/* eelrenderdatud lehe olemasolu (vahemälu: leheloend ei muutu serveri eluajal) */
+const _olemas = new Map();
+function olemas(tee) {
+	if (!_olemas.has(tee)) {
+		if (_olemas.size > 20000) _olemas.clear();
+		_olemas.set(tee, existsSync(new URL('./prerendered' + tee + 'index.html', import.meta.url)));
+	}
+	return _olemas.get(tee);
 }
 
 const HOST = process.env.KANOONILINE_HOST || 'pidurdusmaa.ee';
@@ -119,9 +129,9 @@ function suunamine(req) {
 		tee = tee.replace(/\/\/+/g, '/');
 		muutus = true;
 	}
-	const r = /^\/rehvid\/([a-z0-9-]+)\/?$/.exec(tee);
-	if (r && Object.hasOwn(REHVID, r[1])) {
-		tee = '/rehvid/' + REHVID[r[1]] + '/';
+	const r = /^(\/(?:ru|en))?\/rehvid\/([a-z0-9-]+)\/?$/.exec(tee);
+	if (r && Object.hasOwn(REHVID, r[2])) {
+		tee = (r[1] || '') + '/rehvid/' + REHVID[r[2]] + '/';
 		muutus = true;
 	}
 	if (vajabKaldkriipsu(tee)) {
@@ -153,6 +163,16 @@ const server = http.createServer((req, res) => {
 		if (tee0.startsWith('/data/')) res.setHeader('Cache-Control', /[?&]v=/.test(req.url || '') ? 'public, max-age=31536000, immutable' : 'public, max-age=300');
 		else if (tee0.startsWith('/fonts/')) res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
 		else if (tee0.endsWith('/') || tee0.endsWith('.html')) res.setHeader('Cache-Control', 'no-cache');
+	}
+	/* kadunud võrdlusleht (paar langes testiandmete uuendusel välja) → esimese rehvi leht, 301
+	   (failide olemasolu meeles — sünkroonne kettapäring iga päringuga oleks raiskamine) */
+	const vs = /^(\/(?:ru|en))?\/rehvid\/([a-z0-9-]+?)-vs-[a-z0-9-]+\/?$/.exec(tee0);
+	if (vs && (req.method === 'GET' || req.method === 'HEAD') && !olemas(tee0.replace(/\/?$/, '/'))) {
+		const siht = (vs[1] || '') + '/rehvid/' + (REHVID[vs[2]] || vs[2]) + '/';
+		if (olemas(siht)) {
+			res.writeHead(301, { Location: siht, 'Cache-Control': 'public, max-age=86400' });
+			return res.end();
+		}
 	}
 	tihenda(req, res, () => {
 		handler(req, res, () => {

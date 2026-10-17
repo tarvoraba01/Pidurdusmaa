@@ -4,15 +4,16 @@
 	const keel = useLang();
 	import Meta from '$lib/Meta.svelte';
 	import LiiklusLeht from '$lib/LiiklusLeht.svelte';
+	import RehviVanus from '$lib/RehviVanus.svelte';
 	import { ORG, graph, tooriist } from '$lib/skeem.js';
 
 	const KIRJ = t('Sisesta rehvi küljelt DOT-koodi 4 numbrit ja näed rehvi vanust. Vali mustri sügavus ja vaata, kui palju pikem on pidurdusmaa kui uue rehviga.');
 	const jsonld = graph(tooriist(t('Kui vanad on su rehvid? DOT-koodi kontroll'), '/rehvi-vanus/', KIRJ, keel.lang), ORG);
 </script>
 
-<Meta title={t('Kui vanad on su rehvid? DOT-koodi kontroll ja pidurdusmaa')} desc={KIRJ} path="rehvi-vanus/" crumbs={[[t('Avaleht'), '/'], [t('Rehvi vanus'), '/rehvi-vanus/']]} {jsonld} image="/og/sait/rehvi-vanus.png" />
+<Meta title={t('Rehvi vanus: DOT-koodi kontroll — kui vanad on su rehvid?')} desc={KIRJ} path="rehvi-vanus/" crumbs={[[t('Avaleht'), '/'], [t('Rehvi vanus'), '/rehvi-vanus/']]} {jsonld} image="/og/sait/rehvi-vanus.png" />
 
-<LiiklusLeht kick={t('Rehvid · DOT-kood')} h1={t('Kui vanad on su rehvid?')} lead={t('Rehvi küljel on DOT-kood. Selle 4 viimast numbrit ütlevad, millal rehv tehti. Näitame vanust ja seda, kui palju vanus ja kulunud muster pidurdusmaad pikendavad.')} vaade="vanus">
+<LiiklusLeht Tool={RehviVanus} kick={t('Rehvid · DOT-kood')} h1={t('Kui vanad on su rehvid?')} lead={t('Rehvi küljel on DOT-kood. Selle 4 viimast numbrit ütlevad, millal rehv tehti. Näitame vanust ja seda, kui palju vanus ja kulunud muster pidurdusmaad pikendavad.')} vaade="vanus">
 	<div>
 		<h2>{t('Kuidas DOT-koodi lugeda')}</h2>
 		<p>{t('DOT-kood on rehvi küljel. Lõpus on ovaalses raamis 4 numbrit: kaks esimest on tootmisnädal, kaks viimast aasta. 0821 tähendab 2021. aasta 8. nädalat ehk veebruari 2021. Kui numbreid on ainult 3, on rehv tehtud enne 2000. aastat. Kood on tavaliselt ainult ühel küljel, nii et vaata vajadusel ka rehvi sisekülge.')}</p>

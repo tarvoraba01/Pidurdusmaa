@@ -11,8 +11,8 @@ export default {
        eelrenderdatud lehele <meta http-equiv="content-security-policy"> koos
        lehe käivitusskripti räsiga. server.js päis jääb alles (seal on muud
        direktiivid); brauser rakendab mõlemat, nii et inline-skript peab
-       läbima ka selle räsikontrolli. Kaks räsi = app.html-i kaks skripti
-       (PWA paigaldus, Plausible). Kui muudad neid, arvuta räsi uuesti:
+       läbima ka selle räsikontrolli. Kolm räsi = app.html-i kolm skripti
+       (PWA paigaldus, Plausible, küpsiste riba peitmine). Kui muudad neid, arvuta räsi uuesti:
        printf '%s' '<skripti sisu>' | openssl dgst -sha256 -binary | base64 */
     csp: {
       mode: 'hash',
@@ -21,6 +21,7 @@ export default {
           'self',
           'sha256-FkjI0LQ6vqJoH55Y9VqBo+5PndeVrCv3kBPEKdLQaik=',
           'sha256-S46PoNSIlqlHWn5jWqs3zz9yXx6Zq5efyOQb01rgaLs=',
+          'sha256-c8O0NphymHrEA5kyUpuPzhHXR3aOf66ewcVVIVZkTB4=',
           'https://www.googletagmanager.com',
           'https://challenges.cloudflare.com',
           'https://track.pidurdusmaa.ee'
@@ -35,7 +36,7 @@ export default {
         if (/^\/(ru\/|en\/)?liiklusohutus/.test(path) && id.includes('=')) return;
         throw new Error(message);
       },
-      entries: ['*', '/ru/', '/en/', '/ru/rehvi-valimine/', '/en/rehvi-valimine/', '/ru/vordle-rehve/', '/en/vordle-rehve/', '/ru/liiklusohutus/', '/en/liiklusohutus/', '/ru/liiklusohutus/pimedas/', '/en/liiklusohutus/pimedas/', '/ru/liiklusohutus/pikivahe/', '/en/liiklusohutus/pikivahe/', '/ru/liiklusohutus/kurv/', '/en/liiklusohutus/kurv/', '/ru/autod/', '/ru/liiklusohutus/koolitus/', '/ru/liiklusohutus/koolitus/tulemused/', '/ru/teadmine/rehvivahetus/', '/ru/kontakt/', '/en/kontakt/', '/ru/kasutustingimused/', '/en/kasutustingimused/', '/ru/privaatsus/', '/en/privaatsus/', '/ru/teadmine/partnerid/', '/en/teadmine/partnerid/']
+      entries: ['*', '/ru/', '/en/', '/ru/rehvi-valimine/', '/en/rehvi-valimine/', '/ru/vordle-rehve/', '/en/vordle-rehve/', '/ru/liiklusohutus/', '/en/liiklusohutus/', '/ru/liiklusohutus/pimedas/', '/en/liiklusohutus/pimedas/', '/ru/liiklusohutus/pikivahe/', '/en/liiklusohutus/pikivahe/', '/ru/liiklusohutus/kurv/', '/en/liiklusohutus/kurv/', '/ru/autod/', '/ru/margid/', '/ru/liiklusohutus/koolitus/', '/ru/liiklusohutus/koolitus/tulemused/', '/ru/teadmine/rehvivahetus/', '/ru/teadmine/rehvimargis/', '/ru/kontakt/', '/en/kontakt/', '/ru/kasutustingimused/', '/en/kasutustingimused/', '/ru/privaatsus/', '/en/privaatsus/', '/ru/teadmine/partnerid/', '/en/teadmine/partnerid/']
     }
   }
 };

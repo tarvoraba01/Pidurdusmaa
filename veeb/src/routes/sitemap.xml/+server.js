@@ -66,7 +66,7 @@ export function GET() {
 		if (rehviIndeks(slug).sitemap) urls.push(['/rehvid/' + slug + '/', '0.6']);
 	}
 	for (const m of margid().values()) {
-		if (m.mudelid.length >= MARK_MIN_SAIDIKAART) urls.push(['/margid/' + m.slug + '/', '0.6']);
+		if (m.mudelid.length >= MARK_MIN_SAIDIKAART) urls.push(['/margid/' + m.slug + '/', '0.6'], ['/ru/margid/' + m.slug + '/', '0.5']);
 	}
 	for (const [a, b] of vsPairs()) urls.push(['/rehvid/' + a + '-vs-' + b + '/', '0.5']);
 	for (const code of Object.keys(core().sources)) urls.push(['/testid/' + code.toLowerCase() + '/', '0.5']);
@@ -80,11 +80,11 @@ export function GET() {
 		for (const x of talveMoodud()) urls.push([k + '/talverehvid/' + x.slug + '/', '0.8']);
 	}
 	/* vene keeles: artiklid, rehvilehed (nimekiri: scripts/ru-rehvid.mjs) */
-	urls.push(['/ru/teadmine/artiklid/', '0.5'], ['/ru/teadmine/pidurdusteekond-ja-peatumisteekond/', '0.6'], ['/ru/teadmine/rehvivahetus/', '0.7'], ['/ru/rehvid/', '0.6']);
+	urls.push(['/ru/teadmine/artiklid/', '0.5'], ['/ru/teadmine/pidurdusteekond-ja-peatumisteekond/', '0.6'], ['/ru/teadmine/rehvivahetus/', '0.7'], ['/ru/teadmine/rehvimargis/', '0.6'], ['/ru/rehvid/', '0.6']);
 	for (const a of ARTIKLID) if (a.ru) urls.push(['/ru' + artikliTee(a), '0.6']);
 	for (const slug of RU_REHVID) urls.push(['/ru/rehvid/' + slug + '/', '0.5']);
 	/* autolehed vene keeles (/ru/autod/…) */
-	urls.push(['/ru/autod/', '0.5']);
+	urls.push(['/ru/autod/', '0.5'], ['/ru/margid/', '0.5']);
 	for (const m of autod().margid.values()) urls.push(['/ru/autod/' + m.slug + '/', '0.5']);
 	for (const p of autod().polved.values()) urls.push(['/ru/autod/' + p.mk + '/' + p.slug + '/', '0.5']);
 
