@@ -149,7 +149,9 @@ def lahenda(rows, viited):
     out, info = {}, {}
     for kaik in range(4):
         uued = {}
-        for k in {r[2] for r in rows if r[2] not in teada}:
+        # sorteeritud: järgmine täpsustus uuendab väärtusi järjest, nii et järjekord peab olema
+        # iga käivituse korral sama (hulga järjekord sõltub PYTHONHASHSEED-ist)
+        for k in sorted({r[2] for r in rows if r[2] not in teada}):
             hinnangud, testid = [], set()
             for test, read in by_test.items():
                 oma = [r for r in read if r[1] == k]

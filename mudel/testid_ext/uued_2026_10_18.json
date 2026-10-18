@@ -1,0 +1,1234 @@
+[
+ {
+  "test_id": "AUTOBILD-2026-W-225-45R18",
+  "publication": "AUTO BILD sportscars",
+  "year": 2026,
+  "season": "winter",
+  "size": "225/45 R18",
+  "car": "BMW M235i xDrive Gran Coupé / BMW M240i",
+  "tester": "AUTO BILD sportscars 11/2026, pp. 52-57 (per reifenlab.de / thetirelab.com, article dated 13.10.2026); 12 tyres; thetirelab test page lists locations Vidsel and Aprilia",
+  "url": "https://www.reifenlab.de/mag/auto-bild-sportscars-reifentest-2026-225-45-r18-winterreifen-michelin-pilot-alpin-5-de",
+  "url_original": null,
+  "disciplines": [
+   {
+    "id": "snow",
+    "surface": "snow",
+    "wet": false,
+    "v_from": 50,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "snow braking 50->0 km/h as listed by reifenlab.de/thetirelab.com; same values on https://www.thetirelab.com/mag/auto-bild-sportscars-tyre-test-2026-225-45-r18-winter-tyres-michelin-pilot-alpin-5-en"
+   },
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": 100,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "wet braking 100->0 km/h as listed by reifenlab.de/thetirelab.com"
+   },
+   {
+    "id": "dry",
+    "surface": "asphalt",
+    "wet": false,
+    "v_from": 100,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "dry braking 100->0 km/h as listed by reifenlab.de/thetirelab.com"
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Michelin Pilot Alpin 5",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "snow": 25.1,
+     "wet": 52.8,
+     "dry": 40.8
+    },
+    "aqua_kmh": 77.4,
+    "note": "aqua_kmh = longitudinal aquaplaning km/h as listed"
+   },
+   {
+    "name": "Bridgestone Blizzak 6",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "snow": 25.3,
+     "wet": 52.0,
+     "dry": 42.5
+    },
+    "aqua_kmh": 76.0,
+    "note": "aqua_kmh = longitudinal aquaplaning km/h as listed"
+   },
+   {
+    "name": "Goodyear UltraGrip Performance 3",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "snow": 25.7,
+     "wet": 52.1,
+     "dry": 42.5
+    },
+    "aqua_kmh": 77.3,
+    "note": "aqua_kmh = longitudinal aquaplaning km/h as listed"
+   },
+   {
+    "name": "Continental WinterContact TS 870 P",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "snow": 25.8,
+     "wet": 52.0,
+     "dry": 41.7
+    },
+    "aqua_kmh": 72.9,
+    "note": "aqua_kmh = longitudinal aquaplaning km/h as listed"
+   },
+   {
+    "name": "Pirelli Cinturato Winter 3",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "snow": 25.7,
+     "wet": 49.3,
+     "dry": 42.0
+    },
+    "aqua_kmh": 75.1,
+    "note": "aqua_kmh = longitudinal aquaplaning km/h as listed"
+   },
+   {
+    "name": "Dunlop Winter",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "snow": 26.3,
+     "wet": 56.6,
+     "dry": 42.1
+    },
+    "aqua_kmh": 75.3,
+    "note": "aqua_kmh = longitudinal aquaplaning km/h as listed"
+   },
+   {
+    "name": "Nokian Snowproof 3P",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "snow": 25.8,
+     "wet": 52.2,
+     "dry": 42.5
+    },
+    "aqua_kmh": 74.9,
+    "note": "aqua_kmh = longitudinal aquaplaning km/h as listed"
+   },
+   {
+    "name": "Hankook Winter i*cept evo3 W330",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "snow": 25.7,
+     "wet": 60.7,
+     "dry": 43.4
+    },
+    "aqua_kmh": 79.3,
+    "note": "aqua_kmh = longitudinal aquaplaning km/h as listed"
+   },
+   {
+    "name": "Nexen Winguard Sport 3",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "snow": 26.2,
+     "wet": 50.7,
+     "dry": 44.5
+    },
+    "aqua_kmh": 67.4,
+    "note": "aqua_kmh = longitudinal aquaplaning km/h as listed"
+   },
+   {
+    "name": "Maxxis Premitra Snow WP6",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "snow": 27.2,
+     "wet": 56.1,
+     "dry": 43.5
+    },
+    "aqua_kmh": 78.2,
+    "note": "aqua_kmh = longitudinal aquaplaning km/h as listed"
+   },
+   {
+    "name": "Falken EuroWinter HS02 Pro",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "snow": 26.7,
+     "wet": 65.2,
+     "dry": 43.3
+    },
+    "aqua_kmh": 66.9,
+    "note": "aqua_kmh = longitudinal aquaplaning km/h as listed"
+   },
+   {
+    "name": "Leao Winter Defender UHP",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "snow": 26.7,
+     "wet": 67.7,
+     "dry": 42.8
+    },
+    "aqua_kmh": 67.9,
+    "note": "aqua_kmh = longitudinal aquaplaning km/h as listed"
+   }
+  ]
+ },
+ {
+  "test_id": "AUTOBILD-2026-A-225-45R17-FINAL",
+  "publication": "AUTO BILD",
+  "year": 2026,
+  "season": "allseason",
+  "size": "225/45 R17",
+  "car": "VW Golf / VW Golf GTI",
+  "tester": "AUTO BILD all-season main test, 15 finalists of the 30-tyre braking qualifying AUTOBILD-2026-A-225-45R17; snow at SHPG, Wanaka (New Zealand); wet/dry at ÖAMTC Wachauring, Melk; qualifying at ATP Papenburg; article dated 15.10.2026",
+  "url": "https://www.autobild.de/produkttests/ganzjahresreifen-test-225-45-r-17-15674163.html",
+  "url_original": null,
+  "disciplines": [
+   {
+    "id": "snow",
+    "surface": "snow",
+    "wet": false,
+    "v_from": 50,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "row 'Bremsen - Schnee (Bremsweg aus Tempo 50 in Metern)'; end speed not stated, recorded as 0. The detailed table also prints wet and dry braking (Tempo 100) for these 15 tyres, but every value is identical to the qualifying data already stored as AUTOBILD-2026-A-225-45R17, so they are not repeated here"
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Goodyear Vector All Season 4",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "snow": 26.9
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Vredestein Quatrac Pro 2",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "snow": 25.0
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Pirelli Cinturato All Season SF 3",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "snow": 27.3
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Michelin CrossClimate 3",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "snow": 25.8
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Continental AllSeasonContact 2",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "snow": 27.5
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Bridgestone Turanza All Season 6",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "snow": 29.3
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Falken EuroAllSeason AS 220",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "snow": 28.2
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Kleber Quadraxer 3",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "snow": 26.8
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Nokian Seasonproof 2",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "snow": 28.0
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Ceat 4 SeasonDrive X5",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "snow": 29.0
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Dunlop All Season 2",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "snow": 25.2
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Toyo Celsius AS2",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "snow": 30.3
+    },
+    "aqua_kmh": null,
+    "note": "qualifying entry names it 'Toyo Celsius 2'"
+   },
+   {
+    "name": "Uniroyal AllSeasonExpert 3",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "snow": 27.5
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Firestone Multiseason 2",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "snow": 26.5
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Nexen N Blue 4Season 2",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "snow": 30.2
+    },
+    "aqua_kmh": null,
+    "note": ""
+   }
+  ]
+ },
+ {
+  "test_id": "AUTOBILD-2026-A-215-55R18",
+  "publication": "AUTO BILD",
+  "year": 2026,
+  "season": "allseason",
+  "size": "215/55 R18",
+  "car": "Kia EV3 (dry/wet); Cupra Born (snow)",
+  "tester": "AUTO BILD EV all-season test, 8 tyres; dry/wet at Hankook Technoring, Taean (South Korea); snow at Technotrac, Ivalo (Finland); article dated 21.05.2026; snow braking left out: the printed values (16.9 to 18.1 m \"from 50 km/h\") are too short for 50 km/h on snow, the speed is probably misprinted",
+  "url": "https://www.autobild.de/produkttests/ganzjahresreifen-test-215-55-r-18-28654639.html",
+  "url_original": null,
+  "disciplines": [
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": 100,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "row 'Bremsen - Nässe (Bremsweg aus Tempo 100 in Meter)'; end speed not stated, recorded as 0"
+   },
+   {
+    "id": "dry",
+    "surface": "asphalt",
+    "wet": false,
+    "v_from": 100,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "row 'Bremsen - Trocken (Bremsweg aus Tempo 100 in Metern)'; end speed not stated, recorded as 0"
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Hankook ION FlexClimate IL01 UHP",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "wet": 40.7,
+     "dry": 39.8
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Continental AllSeasonContact 2",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "wet": 42.2,
+     "dry": 42.0
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Pirelli Cinturato All Season SF 3",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "wet": 41.7,
+     "dry": 39.5
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Goodyear Vector 4Seasons Gen-3",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "wet": 44.1,
+     "dry": 43.8
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Kleber Quadraxer SUV",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "wet": 42.0,
+     "dry": 41.1
+    },
+    "aqua_kmh": null,
+    "note": "heading printed as 'Kleber Quadraxer 215/55 R18 99V SUV XL FP'"
+   },
+   {
+    "name": "Bridgestone Turanza All Season 6",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "wet": 43.6,
+     "dry": 40.7
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Maxxis AP3 Premitra All Season",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "wet": 45.9,
+     "dry": 41.5
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Goodtrip BlueGuard AS",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "wet": 45.7,
+     "dry": 44.2
+    },
+    "aqua_kmh": null,
+    "note": ""
+   }
+  ]
+ },
+ {
+  "test_id": "AUTOBILD-2025-W-225-40R18-FINAL",
+  "publication": "AUTO BILD",
+  "year": 2025,
+  "season": "winter",
+  "size": "225/40 R18",
+  "car": "BMW M135i (300 PS, AWD)",
+  "tester": "AUTO BILD winter main test, 20 finalists of the 51-tyre braking qualifying AUTOBILD-2025-W-225-40R18; wet/dry at Contidrom Wietze, snow at Arvidsjaur (per thetirelab.com); autobild.de page now dated 05.10.2026, test from the 2025 season",
+  "url": "https://www.autobild.de/produkttests/winterreifen-test-225-40-r-18-18424775.html",
+  "url_original": null,
+  "disciplines": [
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": 100,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "row 'Bremsen-Nässe (Bremsweg aus Tempo 100 in Meter)'; end speed not stated, recorded as 0"
+   },
+   {
+    "id": "dry",
+    "surface": "asphalt",
+    "wet": false,
+    "v_from": 100,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "row 'Bremsen-Trocken (Bremsweg aus Tempo 100 in Meter)'; end speed not stated, recorded as 0. The table also prints snow braking (Tempo 50) for the 20 finalists, but every value equals the qualifying snow value already stored as AUTOBILD-2025-W-225-40R18, so it is not repeated here"
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Michelin Pilot Alpin 5",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 51.9,
+     "dry": 42.6
+    },
+    "aqua_kmh": 75.2,
+    "note": "aqua_kmh = row 'Aquaplaning-Nässe (Aufschwimmgeschwindigkeit in km/h)'"
+   },
+   {
+    "name": "Dunlop Winter",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 52.0,
+     "dry": 45.5
+    },
+    "aqua_kmh": 74.1,
+    "note": "aqua_kmh = row 'Aquaplaning-Nässe (Aufschwimmgeschwindigkeit in km/h)'"
+   },
+   {
+    "name": "Kumho WinterCraft WP52+",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 52.3,
+     "dry": 44.5
+    },
+    "aqua_kmh": 76.0,
+    "note": "aqua_kmh = row 'Aquaplaning-Nässe (Aufschwimmgeschwindigkeit in km/h)'"
+   },
+   {
+    "name": "Bridgestone Blizzak 6",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 54.7,
+     "dry": 44.9
+    },
+    "aqua_kmh": 76.4,
+    "note": "aqua_kmh = row 'Aquaplaning-Nässe (Aufschwimmgeschwindigkeit in km/h)'"
+   },
+   {
+    "name": "Goodyear UltraGrip Performance 3",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 50.9,
+     "dry": 45.7
+    },
+    "aqua_kmh": 76.4,
+    "note": "aqua_kmh = row 'Aquaplaning-Nässe (Aufschwimmgeschwindigkeit in km/h)'; product list prints 'Goodyear UG Performance 3'"
+   },
+   {
+    "name": "Hankook Winter i*cept evo 3 W330",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 55.6,
+     "dry": 44.3
+    },
+    "aqua_kmh": 76.4,
+    "note": "aqua_kmh = row 'Aquaplaning-Nässe (Aufschwimmgeschwindigkeit in km/h)'"
+   },
+   {
+    "name": "Continental WinterContact TS 870 P",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 55.6,
+     "dry": 43.7
+    },
+    "aqua_kmh": 76.3,
+    "note": "aqua_kmh = row 'Aquaplaning-Nässe (Aufschwimmgeschwindigkeit in km/h)'"
+   },
+   {
+    "name": "Barum Polaris 6",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 54.8,
+     "dry": 46.0
+    },
+    "aqua_kmh": 71.4,
+    "note": "aqua_kmh = row 'Aquaplaning-Nässe (Aufschwimmgeschwindigkeit in km/h)'"
+   },
+   {
+    "name": "Uniroyal WinterExpert",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 53.3,
+     "dry": 45.8
+    },
+    "aqua_kmh": 75.0,
+    "note": "aqua_kmh = row 'Aquaplaning-Nässe (Aufschwimmgeschwindigkeit in km/h)'"
+   },
+   {
+    "name": "Pirelli Cinturato Winter 2",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 53.9,
+     "dry": 44.1
+    },
+    "aqua_kmh": 75.0,
+    "note": "aqua_kmh = row 'Aquaplaning-Nässe (Aufschwimmgeschwindigkeit in km/h)'; name as printed in the final; the qualifying list (AUTOBILD-2025-W-225-40R18) names it Cinturato Winter 3"
+   },
+   {
+    "name": "Semperit Speed-Grip 5",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 54.5,
+     "dry": 45.9
+    },
+    "aqua_kmh": 76.3,
+    "note": "aqua_kmh = row 'Aquaplaning-Nässe (Aufschwimmgeschwindigkeit in km/h)'"
+   },
+   {
+    "name": "BFGoodrich G-Force Winter 2",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 56.3,
+     "dry": 45.6
+    },
+    "aqua_kmh": 77.3,
+    "note": "aqua_kmh = row 'Aquaplaning-Nässe (Aufschwimmgeschwindigkeit in km/h)'"
+   },
+   {
+    "name": "Vredestein Wintrac Pro+",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 56.3,
+     "dry": 46.9
+    },
+    "aqua_kmh": 71.7,
+    "note": "aqua_kmh = row 'Aquaplaning-Nässe (Aufschwimmgeschwindigkeit in km/h)'"
+   },
+   {
+    "name": "Kleber Krisalp HP3",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 56.6,
+     "dry": 47.3
+    },
+    "aqua_kmh": 76.9,
+    "note": "aqua_kmh = row 'Aquaplaning-Nässe (Aufschwimmgeschwindigkeit in km/h)'"
+   },
+   {
+    "name": "Ceat WinterDrive",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 57.7,
+     "dry": 43.5
+    },
+    "aqua_kmh": 71.9,
+    "note": "aqua_kmh = row 'Aquaplaning-Nässe (Aufschwimmgeschwindigkeit in km/h)'"
+   },
+   {
+    "name": "Toyo Observe Winter Sport 1",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 52.0,
+     "dry": 42.9
+    },
+    "aqua_kmh": 76.0,
+    "note": "aqua_kmh = row 'Aquaplaning-Nässe (Aufschwimmgeschwindigkeit in km/h)'"
+   },
+   {
+    "name": "Firestone Winterhawk 4",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 54.4,
+     "dry": 47.2
+    },
+    "aqua_kmh": 75.9,
+    "note": "aqua_kmh = row 'Aquaplaning-Nässe (Aufschwimmgeschwindigkeit in km/h)'"
+   },
+   {
+    "name": "Fulda Kristall Control HP2",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 57.7,
+     "dry": 46.9
+    },
+    "aqua_kmh": 75.4,
+    "note": "aqua_kmh = row 'Aquaplaning-Nässe (Aufschwimmgeschwindigkeit in km/h)'"
+   },
+   {
+    "name": "Linglong Sport Master Winter",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 55.8,
+     "dry": 44.2
+    },
+    "aqua_kmh": 71.6,
+    "note": "aqua_kmh = row 'Aquaplaning-Nässe (Aufschwimmgeschwindigkeit in km/h)'"
+   },
+   {
+    "name": "Falken Eurowinter HS02 Pro",
+    "category": "winter_central",
+    "label_wet": null,
+    "results": {
+     "wet": 55.9,
+     "dry": 44.7
+    },
+    "aqua_kmh": 71.1,
+    "note": "aqua_kmh = row 'Aquaplaning-Nässe (Aufschwimmgeschwindigkeit in km/h)'"
+   }
+  ]
+ },
+ {
+  "test_id": "AUTOBILD-2025-A-215-50R18",
+  "publication": "AUTO BILD",
+  "year": 2025,
+  "season": "allseason",
+  "size": "215/50 R18",
+  "car": "VW T-Roc R (AWD)",
+  "tester": "AUTO BILD SUV all-season test, 10 tyres; article dated 23.10.2025",
+  "url": "https://www.autobild.de/produkttests/ganzjahresreifen-test-215-50-r-18-28377427.html",
+  "url_original": null,
+  "disciplines": [
+   {
+    "id": "snow",
+    "surface": "snow",
+    "wet": false,
+    "v_from": 50,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "row 'Bremsen - Schnee (Bremsweg aus Tempo 50 in Metern)'; end speed not stated, recorded as 0"
+   },
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": 100,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "row 'Bremsen - Nässe (Bremsweg aus Tempo 100 in Meter)'; end speed not stated, recorded as 0"
+   },
+   {
+    "id": "dry",
+    "surface": "asphalt",
+    "wet": false,
+    "v_from": 100,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "row 'Bremsen - Trocken (Bremsweg aus Tempo 100 in Metern)'; end speed not stated, recorded as 0"
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Continental AllSeasonContact 2",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "snow": 25.3,
+     "wet": 44.65,
+     "dry": 38.6
+    },
+    "aqua_kmh": 80.05,
+    "note": "aqua_kmh = row 'Aquaplaning - Nässe (Auschwimmgeschwindigkeit in km/h)'"
+   },
+   {
+    "name": "Bridgestone Turanza All Season 6",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "snow": 24.6,
+     "wet": 45.2,
+     "dry": 36.9
+    },
+    "aqua_kmh": 78.18,
+    "note": "aqua_kmh = row 'Aquaplaning - Nässe (Auschwimmgeschwindigkeit in km/h)'"
+   },
+   {
+    "name": "Pirelli Cinturato All Season SF 3",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "snow": 25.2,
+     "wet": 43.94,
+     "dry": 35.6
+    },
+    "aqua_kmh": 81.15,
+    "note": "aqua_kmh = row 'Aquaplaning - Nässe (Auschwimmgeschwindigkeit in km/h)'"
+   },
+   {
+    "name": "Goodyear Vector 4Seasons Gen-3",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "snow": 24.3,
+     "wet": 48.98,
+     "dry": 39.0
+    },
+    "aqua_kmh": 79.32,
+    "note": "aqua_kmh = row 'Aquaplaning - Nässe (Auschwimmgeschwindigkeit in km/h)'"
+   },
+   {
+    "name": "Hankook Kinergy 4S 2 X H750A",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "snow": 24.4,
+     "wet": 46.99,
+     "dry": 39.2
+    },
+    "aqua_kmh": 79.54,
+    "note": "aqua_kmh = row 'Aquaplaning - Nässe (Auschwimmgeschwindigkeit in km/h)'"
+   },
+   {
+    "name": "Giti GitiAllSeason AS2",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "snow": 23.8,
+     "wet": 48.87,
+     "dry": 39.1
+    },
+    "aqua_kmh": 79.36,
+    "note": "aqua_kmh = row 'Aquaplaning - Nässe (Auschwimmgeschwindigkeit in km/h)'"
+   },
+   {
+    "name": "Kleber Quadraxer 3 SUV",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "snow": 23.4,
+     "wet": 48.76,
+     "dry": 37.3
+    },
+    "aqua_kmh": 77.39,
+    "note": "aqua_kmh = row 'Aquaplaning - Nässe (Auschwimmgeschwindigkeit in km/h)'"
+   },
+   {
+    "name": "Maxxis Premitra All Season AP3 SUV",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "snow": 27.0,
+     "wet": 45.77,
+     "dry": 37.8
+    },
+    "aqua_kmh": 79.9,
+    "note": "aqua_kmh = row 'Aquaplaning - Nässe (Auschwimmgeschwindigkeit in km/h)'"
+   },
+   {
+    "name": "Linglong Sport Master 4S",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "snow": 28.0,
+     "wet": 43.67,
+     "dry": 36.8
+    },
+    "aqua_kmh": 75.26,
+    "note": "aqua_kmh = row 'Aquaplaning - Nässe (Auschwimmgeschwindigkeit in km/h)'"
+   },
+   {
+    "name": "Fortuna EcoPlus 2 4S",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "snow": 24.2,
+     "wet": 54.99,
+     "dry": 40.4
+    },
+    "aqua_kmh": 72.39,
+    "note": "aqua_kmh = row 'Aquaplaning - Nässe (Auschwimmgeschwindigkeit in km/h)'"
+   }
+  ]
+ },
+ {
+  "test_id": "AUTOBILD-2025-A-225-40R18-FINAL",
+  "publication": "AUTO BILD",
+  "year": 2025,
+  "season": "allseason",
+  "size": "225/40 R18",
+  "car": null,
+  "tester": "AUTO BILD all-season main test 2025, 15 finalists of the 30-tyre braking qualifying AUTOBILD-2025-A-225-40R18; snow at Wanaka (New Zealand) in July 2025, wet at Wachauring (Lower Austria); car not named on autobild.de (thetirelab.com lists VW Golf GTI); autobild.de page now dated 22.05.2026, first publication date not shown",
+  "url": "https://www.autobild.de/produkttests/ganzjahresreifen-test-2025-225-40-r-18-25697127.html",
+  "url_original": null,
+  "disciplines": [
+   {
+    "id": "snow",
+    "surface": "snow",
+    "wet": false,
+    "v_from": 50,
+    "v_to": 0,
+    "temp_c": null,
+    "note": "row 'Bremsen - Schnee (Bremsweg aus Tempo 50 in Metern)'; end speed not stated, recorded as 0. The table also prints wet and dry braking (Tempo 100), but these equal the qualifying values already stored as AUTOBILD-2025-A-225-40R18 (except Pirelli dry 38.1 vs 38.0 and Dunlop wet 49.3 vs 49.2), so they are not repeated here"
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Pirelli Cinturato All Season SF3",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "snow": 26.3
+    },
+    "aqua_kmh": 77.0,
+    "note": "aqua_kmh = row 'Aquaplaning - Nässe (Auschwimmgeschwindigkeit in km/h)'"
+   },
+   {
+    "name": "Continental AllSeasonContact 2",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "snow": 23.9
+    },
+    "aqua_kmh": 72.5,
+    "note": "aqua_kmh = row 'Aquaplaning - Nässe (Auschwimmgeschwindigkeit in km/h)'"
+   },
+   {
+    "name": "Michelin CrossClimate 3 Sport",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "snow": 24.4
+    },
+    "aqua_kmh": 73.0,
+    "note": "aqua_kmh = row 'Aquaplaning - Nässe (Auschwimmgeschwindigkeit in km/h)'"
+   },
+   {
+    "name": "Vredestein Quatrac",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "snow": 25.3
+    },
+    "aqua_kmh": 76.8,
+    "note": "aqua_kmh = row 'Aquaplaning - Nässe (Auschwimmgeschwindigkeit in km/h)'"
+   },
+   {
+    "name": "Hankook Kinergy 4S 2 (H750)",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "snow": 24.1
+    },
+    "aqua_kmh": 70.1,
+    "note": "aqua_kmh = row 'Aquaplaning - Nässe (Auschwimmgeschwindigkeit in km/h)'"
+   },
+   {
+    "name": "Bridgestone Turanza All Season 6",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "snow": 25.8
+    },
+    "aqua_kmh": 76.1,
+    "note": "aqua_kmh = row 'Aquaplaning - Nässe (Auschwimmgeschwindigkeit in km/h)'"
+   },
+   {
+    "name": "Michelin CrossClimate 3",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "snow": 22.6
+    },
+    "aqua_kmh": 71.5,
+    "note": "aqua_kmh = row 'Aquaplaning - Nässe (Auschwimmgeschwindigkeit in km/h)'"
+   },
+   {
+    "name": "Kleber Quadraxer 3",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "snow": 25.3
+    },
+    "aqua_kmh": 76.3,
+    "note": "aqua_kmh = row 'Aquaplaning - Nässe (Auschwimmgeschwindigkeit in km/h)'"
+   },
+   {
+    "name": "Ceat 4 SeasonDrive X5",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "snow": 24.8
+    },
+    "aqua_kmh": 68.8,
+    "note": "aqua_kmh = row 'Aquaplaning - Nässe (Auschwimmgeschwindigkeit in km/h)'"
+   },
+   {
+    "name": "Laufenn G Fit 4S LH71",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "snow": 24.2
+    },
+    "aqua_kmh": 72.0,
+    "note": "aqua_kmh = row 'Aquaplaning - Nässe (Auschwimmgeschwindigkeit in km/h)'"
+   },
+   {
+    "name": "Sailun Atrezzo 4Seasons Ultra",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "snow": 24.9
+    },
+    "aqua_kmh": 71.7,
+    "note": "aqua_kmh = row 'Aquaplaning - Nässe (Auschwimmgeschwindigkeit in km/h)'"
+   },
+   {
+    "name": "Dunlop All Season 2",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "snow": 23.7
+    },
+    "aqua_kmh": 69.4,
+    "note": "aqua_kmh = row 'Aquaplaning - Nässe (Auschwimmgeschwindigkeit in km/h)'"
+   },
+   {
+    "name": "Toyo Celsius AS2",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "snow": 25.1
+    },
+    "aqua_kmh": 74.5,
+    "note": "aqua_kmh = row 'Aquaplaning - Nässe (Auschwimmgeschwindigkeit in km/h)'"
+   },
+   {
+    "name": "Linglong Sport Master 4S",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "snow": 29.9
+    },
+    "aqua_kmh": 70.9,
+    "note": "aqua_kmh = row 'Aquaplaning - Nässe (Auschwimmgeschwindigkeit in km/h)'; qualifying table names it 'Gripmaster 4S'"
+   },
+   {
+    "name": "Roadhog RGAS02",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "snow": 26.7
+    },
+    "aqua_kmh": 65.5,
+    "note": "aqua_kmh = row 'Aquaplaning - Nässe (Auschwimmgeschwindigkeit in km/h)'"
+   }
+  ]
+ },
+ {
+  "test_id": "TYREREVIEWS-2026-A-225-40R18",
+  "publication": "Tyre Reviews",
+  "year": 2026,
+  "season": "allseason",
+  "size": "225/40 R18",
+  "car": "VW Golf GTI Clubsport",
+  "tester": "Tyre Reviews own test (published 14.09.2026 per thetirelab.com); snow at Ivalo (Finland), dry/wet at Mireval (France); 10 tyres; values as republished by thetirelab.com and reifenlab.de (tyrereviews.com page could not be fetched)",
+  "url": "https://www.thetirelab.com/tyrereviews/allseason/2026/225-40-r18/",
+  "url_original": null,
+  "disciplines": [
+   {
+    "id": "dry",
+    "surface": "asphalt",
+    "wet": false,
+    "v_from": null,
+    "v_to": null,
+    "temp_c": null,
+    "note": "'Stopping distance on dry'; start/end speed not printed on thetirelab.com or reifenlab.de"
+   },
+   {
+    "id": "wet",
+    "surface": "asphalt",
+    "wet": true,
+    "v_from": null,
+    "v_to": null,
+    "temp_c": null,
+    "note": "'Stopping distance on wet'; start/end speed not printed"
+   },
+   {
+    "id": "snow",
+    "surface": "snow",
+    "wet": false,
+    "v_from": null,
+    "v_to": null,
+    "temp_c": null,
+    "note": "'Stopping distance on snow'; start/end speed not printed"
+   }
+  ],
+  "tyres": [
+   {
+    "name": "Goodyear Vector All Season 4",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 36.9,
+     "wet": 31.94,
+     "snow": 27.16
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Michelin CrossClimate 3 Sport",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 36.4,
+     "wet": 31.82,
+     "snow": 26.99
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Pirelli Cinturato All Season SF3",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 35.5,
+     "wet": 33.74,
+     "snow": 28.22
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Vredestein Quatrac",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 38.6,
+     "wet": 32.36,
+     "snow": 26.67
+    },
+    "aqua_kmh": 90.77,
+    "note": "aqua_kmh = 'best straight aquaplaning' value; other tyres' aquaplaning only as percentages"
+   },
+   {
+    "name": "Bridgestone Turanza All Season 6",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 36.1,
+     "wet": 32.92,
+     "snow": 27.8
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Continental AllSeasonContact 2",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 37.4,
+     "wet": 33,
+     "snow": 27.52
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Hankook Kinergy 4S2",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 37.8,
+     "wet": 32.84,
+     "snow": 27.32
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Michelin CrossClimate 3",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 37.4,
+     "wet": 34.31,
+     "snow": 26.49
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Nokian Seasonproof 2",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 37.9,
+     "wet": 32.36,
+     "snow": 27.83
+    },
+    "aqua_kmh": null,
+    "note": ""
+   },
+   {
+    "name": "Royal Black Royal AS II",
+    "category": "allseason",
+    "label_wet": null,
+    "results": {
+     "dry": 39.3,
+     "wet": 43.79,
+     "snow": 27.26
+    },
+    "aqua_kmh": null,
+    "note": ""
+   }
+  ]
+ }
+]

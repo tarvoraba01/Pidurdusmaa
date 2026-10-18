@@ -399,6 +399,27 @@ python3 -m pidurdus.audit        # päritolu- ja tundlikkusaudit (~10 min)
 node web/check-numbers.js        # lehe numbrite kooskõla, 108 olukorda
 ```
 
+Uued ajakirjatestid veebi (2026-10-18). Veebi `veeb/static/data` ei ehitata nullist
+uuesti (seal on ekspordijärgsed sammud), vaid uuendatakse samm-sammult:
+
+```bash
+# 1. uus fail testid_ext/<nimi>.json (vt testid_ext/SCHEMA.md)
+# 2. ainult kui lisandus naast- või Põhjamaade lamellrehve:
+python3 -m mudel.naastud_tuleta            # -> presets_tuletatud.py (järjekord nüüd fikseeritud)
+python3 -m pidurdus.naastud_hinnang        # -> presets_hinnang.py
+# 3. eksport ajutisse kausta ja sealt veebi andmetesse
+(cd /tmp/eks && python3 -m pidurdus.export_wp)      # -> /tmp/eks/theme/pidurdusmaa/data
+python3 mudel/tuletatud_rakenda.py /tmp/eks/theme/pidurdusmaa/data/core.json veeb/static/data
+python3 mudel/hinnang_rakenda.py   /tmp/eks/theme/pidurdusmaa/data/core.json veeb/static/data
+python3 mudel/test_eprel_alias.py veeb/static/data
+python3 -m mudel.export_testid             # -> veeb/static/data/testid_ext.json
+python3 mudel/test_eprel_alias.py veeb/static/data
+```
+
+Kontroll: uus testid_ext.json peab sisaldama KÕIKI vana ridu (sama slug või suunamise
+siht); `export_testid` nimevasted (NIMI_ALIAS, NIMI_EI) on käsitsi üle vaadatud.
+Autode muudatus (vehicles_ee.py) läheb veebi core.json-i ekspordi `vehicles` kaudu.
+
 Kasutus koodist:
 
 ```python

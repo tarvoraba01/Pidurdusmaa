@@ -36,11 +36,14 @@ def model_index():
         bt = B._tok(m["mark"])
         if bt:
             idx[bt[0]].append((slug, bt, "".join(B._tok(m["nimi"]))))
-    # testitud rehvid (core.json), millel EPREL-i mudelit ei ole — nt naastrehvid
+    # testitud rehvid (core.json), millel EPREL-i mudelit ei ole — nt naastrehvid.
+    # Ka siis, kui testitud rehv on seotud EPREL-i mudeliga, mille nimi on teine
+    # (test_eprel_alias.py: „Maxxis Premitra Snow WP6“ = EPREL „WP6“): testi nimi
+    # peab ikka sama slugi leidma, muidu kaovad selle rehvi testid uuel ekspordil.
     core = json.load(open(os.path.join(B.CORE, "core.json"), encoding="utf-8"))
     for t in core.get("tyres", []):
         slug = t.get("slug")
-        if not slug or slug in models:
+        if not slug:
             continue
         tk = B._tok(t["name"])
         if len(tk) > 1:
@@ -89,11 +92,79 @@ NIMI_ALIAS = {
     "rotalla setula s-pace ru01": "rotalla-setula-s-race-ru01",
     "tracmax s210": "tracmax-ice-plus-s210",
     "wanli sa302 sport macro": "wanli-sa302",
+    # 2026-10-18: EPREL-i nimi on ainult mustrikood (sama rehv, kontrollitud käsitsi)
+    "maxxis premitra snow wp6": "maxxis-wp6",
+    "maxxis premitra hp5": "maxxis-hp5",
+    "maxxis premitra hp6": "maxxis-hp6",
+    "maxxis victra sport 5 vs5": "maxxis-vs5",
+    "maxxis wp-05 arctictrekker": "maxxis-wp-05",
+    "goodride all season elite z-401": "goodride-z-401",
+    "goodride zupersnow z-507": "goodride-z-507",
+    "goodride zupereco z-107": "goodride-z-107",
+    "nankang winter activa sv-3": "nankang-sv-3",
+    "nankang cross seasons aw-6": "nankang-aw-6",
+    "nankang green sport eco-2 plus": "nankang-eco-2",
+    "nankang green sport eco-2+": "nankang-eco-2",
+    "nankang sportnex as-2+": "nankang-as-2",
+    "nankang ice activa ice-1": "nankang-ice-1",
+    "triangletire ta-01 season x": "triangle-seasonx",
+    "wanli winter-max a1 sw211": "wanli-sw211",
+    "wanli s 1083 snow grip": "wanli-snowgrip",
+    "cst adreno ad-r9": "cst-ad-r9",
+    "cst medallion winter wcp1": "cst-wcp1",
+    "cst medallion all season acp1": "cst-acp1",
+    "marshal izen kw31": "marshal-kw31",
+    "marshal i'zen kw31": "marshal-kw31",
+    "kumho ecsta ps71": "kumho-ps71",
+    "kumho ecsta hs51": "kumho-hs51",
+    "kumho wintercraft ws51": "kumho-ws51",
+    "kumho wintercraft ice wi51": "kumho-wi51",
+    "kumho wintercraft wp51": "kumho-wp51",
+    "kumho wintercraft wp71": "kumho-wp71",
+    "nokian hakka black 3 silentdrive": "nokian-hakka-black-3",
+    "pirelli cinturato p7 c2": "pirelli-cinturato-p7-p7c2",
+    "gt radial champiro fe2": "gt-radial-fe2",
+    "gt radial champiro winterpro 2": "gt-radial-winterpro2",
+    "firestone roadhawk 2 enliten": "firestone-roadhawk-2",
+    "hankook ventus s1 evo z k129": "hankook-ventus-s1-evo-z",
+    "matador hectorra 3": "matador-mp47-hectorra-3",
+    "maxxis ap3 premitra all season": "maxxis-ap3",
+    "maxxis premitra all season ap3": "maxxis-ap3",
+    "maxxis premitra all season ap3 suv": "maxxis-ap3-suv",
+    "hankook kinergy 4s 2 x h750a": "hankook-kinergy-4s-2-x",
 }
+# Kahesõnaline bränd testinimes (EPREL kirjutab kokku)
+_BRAND2 = {("bf", "goodrich"): "bfgoodrich", ("west", "lake"): "westlake"}
 _LI_SI = re.compile(r"\s+\d{2,3}[a-z]{1,2}(\s+xl)?$")
 
 
+# Nimed, mida EI tohi siduda, kuigi reeglid leiaks paari (teine põlvkond, mitte sama rehv)
+NIMI_EI = {
+    "hankook winter i*pike rs w419",   # i*Pike RS (2012) ≠ RS+ (W419D, 2016)
+}
+
+
 def match(idx, name):
+    return match_info(idx, name)[0]
+
+
+def match_info(idx, name):
+    """-> (slug või None, kas leiti ühtlustatud nime kaudu)"""
+    if _LI_SI.sub("", " ".join(str(name).lower().split())) in NIMI_EI:
+        return None, False
+    slug = _match(idx, name)
+    if slug is None:
+        # tuletatud rehvide ühtlustatud nimi (naastud_tuleta.ilus): Westlake = Goodride,
+        # Roadstone = Nexen, „Hakkapeliitta 10p“ = „10P“, „Ice Guard“ = „iceGUARD“ …
+        from .naastud_tuleta import ilus
+        ilusam = ilus(" ".join(str(name).split()))
+        if ilusam != " ".join(str(name).split()):
+            slug = _match(idx, ilusam)
+            return slug, slug is not None
+    return slug, False
+
+
+def _match(idx, name):
     key = " ".join(str(name).lower().split())
     key = _LI_SI.sub("", key)   # „… 94V XL“ → „…“ (koormus-/kiirusindeks ei ole mudel)
     if key in NIMI_ALIAS:
@@ -105,6 +176,9 @@ def match(idx, name):
     # „Nokian Tyres Snowproof 2“ → nokian snowproof 2
     if len(t) > 2 and t[1] in ("tyres", "tires"):
         t = t[:1] + t[2:]
+    # „BF Goodrich g-Force …“ → bfgoodrich g force …
+    if len(t) > 2 and (t[0], t[1]) in _BRAND2:
+        t = [_BRAND2[(t[0], t[1])]] + t[2:]
     cands = []
     for slug, bt, rn in idx.get(B.BRAND_ALIAS.get(t[0], t[0]), []):
         model = t[len(bt):] if t[:len(bt)] == bt else t[1:]
@@ -168,12 +242,19 @@ def main():
             for t in json.load(open(os.path.join(B.DATA, f), encoding="utf-8")):
                 raw[t["test_id"]] = t
     unmatched = 0
-    for o in obs:
+    sobitus = [match_info(idx, o["tyre"]) for o in obs]
+    # Sama testi sees on mõnikord mõlemad nimed (Auto Bild: Westlake ja Goodride kõrvuti):
+    # ühtlustatud nime kaudu leitud rida jääb ära, kui sellel lehel on sama testi, ala ja
+    # kiiruse otsene tulemus olemas — muidu oleks lehel üks test kahe eri numbriga.
+    otse = {(sl, o["test"], o["disc"], o["v0"]) for o, (sl, fb) in zip(obs, sobitus) if sl and not fb}
+    for o, (slug, fb) in zip(obs, sobitus):
         t = raw[o["test"]]
         tests[o["test"]] = {"pub": t["publication"], "year": t["year"], "season": t["season"],
                             "size": o["size"] or t["size"], "car": t.get("car"), "url": t.get("url")}
-        slug = match(idx, o["tyre"])
         if not slug:
+            unmatched += 1
+            continue
+        if fb and (slug, o["test"], o["disc"], o["v0"]) in otse:
             unmatched += 1
             continue
         allv = sorted(grp[(o["test"], o["disc"])])

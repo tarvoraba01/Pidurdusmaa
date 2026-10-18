@@ -198,13 +198,26 @@ export function extTests(slug) {
  * rehve, nii et lühim pidurdusmaa on võitja. */
 const TALV_ALAD = ['jää', 'lumi', 'märg asfalt'];
 const coreAla = (x) => (x.surf === 'ICE' ? 'jää' : x.surf === 'SNOW_PACKED' ? 'lumi' : x.surf === 'ASPHALT' && x.wet ? 'märg asfalt' : null);
+/* Auto Bildi kaheosaline test: eelvoor (pidurdus, kõik rehvid) + „-FINAL“ (finalistid, ülejäänud alad).
+ * Lehel on see üks test: finaali rida loeb ainult alal, mida eelvoorus ei olnud (nt lumi, akvaplaneerimine). */
+const finaaliAlus = (allikad, id) => {
+	const b = /-FINAL$/.test(id) ? id.slice(0, -6) : null;
+	return b && allikad && allikad[b] ? b : null;
+};
+const eelvooruAlad = (d, ids) => {
+	const m = new Map();
+	for (const rows of Object.values(d.rehvid || {}))
+		for (const x of rows) if (ids.has(x.t)) (m.get(x.t) || m.set(x.t, new Set()).get(x.t)).add(x.d);
+	return m;
+};
+
 export function talveTestideParimad(minAasta = 2025) {
 	const d = json('testid_ext.json') || {};
 	const testid = new Map();
 	const pubNimi = (p) => String(p || '').replace(/^AUTO BILD\b/, 'Auto Bild').trim();
 	const autoNimi = (a) => String(a || '').split(/ \(|;| \/ /)[0].trim();
 	for (const [id, a] of Object.entries(d.allikad || {})) {
-		if (a.season !== 'winter' || !(a.year >= minAasta) || /PARTIAL/i.test(id)) continue;
+		if (a.season !== 'winter' || !(a.year >= minAasta) || /PARTIAL/i.test(id) || finaaliAlus(d.allikad, id)) continue;
 		testid.set(id, { id, pub: pubNimi(a.pub), aasta: a.year, moot: a.size || '', auto: autoNimi(a.car), n: 0, alad: {} });
 	}
 	/* võrdne tulemus → mõlemad võitjad */
@@ -220,10 +233,12 @@ export function talveTestideParimad(minAasta = 2025) {
 		t.kat.add(/STUDDED/.test(kat) ? 'naast' : /NORDIC/.test(kat) ? 'lamell' : /CENTRAL|WINTER/.test(kat) ? 'kesk' : '');
 	};
 	for (const t of testid.values()) t.kat = new Set();
+	const eel = eelvooruAlad(d, new Set(testid.keys()));
 	for (const [slug, rows] of Object.entries(d.rehvid || {})) {
 		for (const x of rows) {
-			const t = testid.get(x.t);
-			if (!t) continue;
+			const b = finaaliAlus(d.allikad, x.t);
+			const t = testid.get(b || x.t);
+			if (!t || (b && eel.get(b)?.has(x.d))) continue;
 			t.n = Math.max(t.n, x.n || 0);
 			tyyp(t, slug);
 			if (x.pos === 1 && TALV_ALAD.includes(x.d) && x.m > 0) pane(t, x.d, { slug, nimi: x.nimi, m: x.m, v0: x.v0, v1: x.v1 || 0 });
@@ -268,15 +283,17 @@ export function testidMoodus(label, minAasta = 2020) {
 	const d = json('testid_ext.json') || {};
 	const testid = [];
 	for (const [id, a] of Object.entries(d.allikad || {})) {
-		if (a.size !== label || !(a.year >= minAasta) || /PARTIAL/i.test(id)) continue;
+		if (a.size !== label || !(a.year >= minAasta) || /PARTIAL/i.test(id) || finaaliAlus(d.allikad, id)) continue;
 		const hooaeg = a.season === 'summer' ? 'suvi' : a.season === 'winter' ? 'talv' : a.season === 'allseason' ? 'aastaring' : null;
 		if (hooaeg) testid.push({ id, pub: String(a.pub || '').split(/ \/ | \(/)[0].trim(), aasta: a.year, hooaeg, n: 0, alad: {} });
 	}
 	const byId = new Map(testid.map((x) => [x.id, x]));
+	const eel = eelvooruAlad(d, new Set(byId.keys()));
 	for (const [slug, rows] of Object.entries(d.rehvid || {})) {
 		for (const x of rows) {
-			const t = byId.get(x.t);
-			if (!t) continue;
+			const b = finaaliAlus(d.allikad, x.t);
+			const t = byId.get(b || x.t);
+			if (!t || (b && eel.get(b)?.has(x.d))) continue;
 			t.n = Math.max(t.n, x.n || 0);
 			if (x.pos !== 1 || !(x.m > 0)) continue;
 			const vana = t.alad[x.d];
@@ -398,6 +415,17 @@ export function vsPairs() {
 			const k = a < b ? [a, b] : [b, a];
 			seen.set(k[0] + '|' + k[1], k);
 		}
+	}
+	/* Kord avaldatud võrdlusleht jääb alles (vs_paarid.json, scripts/ru-rehvid.mjs täiendab),
+	   ka siis, kui uus rehv testi järjestuses kahe vahele tuleb ja paar pole enam naabrid.
+	   Tingimus: mõlemal rehvil on leht ja neil on endiselt ühine test. */
+	const testidest = new Map();
+	for (const [k, list] of Object.entries(by)) for (const [slug] of list) (testidest.get(slug) || testidest.set(slug, new Set()).get(slug)).add(k);
+	for (const [a, b] of json('vs_paarid.json') || []) {
+		const key = a + '|' + b;
+		if (seen.has(key) || !tyrePage(a) || !tyrePage(b)) continue;
+		const ta = testidest.get(a), tb = testidest.get(b);
+		if (ta && tb && [...ta].some((t) => tb.has(t))) seen.set(key, [a, b]);
 	}
 	_pairs = [...seen.values()];
 	return _pairs;
