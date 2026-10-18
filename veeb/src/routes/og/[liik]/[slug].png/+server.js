@@ -40,6 +40,9 @@ export function entries() {
 	for (const x of ['liiklus-kurv', 'liiklus-pimedas', 'liiklus-pikivahe', 'liiklus-reaktsioon', 'rehvi-vanus', 'rehvi-kalkulaator', 'rehvivahetus']) out.push({ liik: 'sait', slug: x });
 	for (const k of ['ru', 'en']) for (const x of ['avaleht', 'liiklusohutus', 'liiklus-kurv', 'liiklus-pimedas', 'liiklus-pikivahe', 'liiklus-reaktsioon', 'rehvi-vanus', 'rehvi-kalkulaator']) out.push({ liik: 'sait', slug: x + '.' + k });
 	out.push({ liik: 'sait', slug: 'rehvivahetus.ru' });
+	/* artiklite partii 18.10.2026: eesti ja vene pilt */
+	for (const x of ['talverehvide-nouded', 'talverehvid-valismaal', 'naastrehvid-liiga-vara-voi-hilja', 'talverehvi-margistus-3pmsf', 'nelja-aastaaja-rehvid', 'kasutatud-talverehvid', 'rehvi-kulje-margistus', 'odav-voi-kallis-talverehv'])
+		out.push({ liik: 'sait', slug: x }, { liik: 'sait', slug: x + '.ru' });
 	out.push({ liik: 'sait', slug: 'millal-talverehvid-alla.ru' });
 	for (const p of autod().polved.values()) out.push({ liik: 'auto', slug: p.mk + '--' + p.slug + '.ru' });
 	return out;
@@ -194,6 +197,39 @@ const TEEMA = {
 		et: { pilt: 'dot', kicker: 'Rehvid · mõõt', pealkiri: 'Rehvimõõdu kalkulaator', alapealkiri: 'Läbimõõt, külje kõrgus, spidomeeter', sildid: ['Kaks mõõtu kõrvuti', 'Tasuta'] },
 		ru: { pilt: 'dot', kicker: 'Шины · размер', pealkiri: 'Калькулятор размера шин', alapealkiri: 'Диаметр, профиль, спидометр', sildid: ['Два размера рядом', 'Бесплатно'] },
 		en: { pilt: 'dot', kicker: 'Tyres · size', pealkiri: 'Tyre size calculator', alapealkiri: 'Diameter, sidewall, speedometer', sildid: ['Two sizes side by side', 'Free'] }
+	},
+	/* artiklite partii 18.10.2026 */
+	'talverehvide-nouded': {
+		et: { pilt: 'kalender', kicker: 'Talverehvide nõuded', pealkiri: 'Mis on talvel kohustuslik?', alapealkiri: 'Muster, 3PMSF märk, naastud ja trahv', sildid: ['Alates 1. detsembrist', 'Vähemalt 3 mm'] },
+		ru: { pilt: 'kalender', kicker: 'Требования к зимней резине', pealkiri: 'Что обязательно зимой?', alapealkiri: 'Протектор, знак 3PMSF, шипы и штраф', sildid: ['С 1 декабря', 'Не менее 3 мм'] }
+	},
+	'talverehvid-valismaal': {
+		et: { pilt: 'kalender', kicker: 'Talverehvid välismaal', pealkiri: 'Soome, Läti ja Leedu reeglid', alapealkiri: 'Kuupäevad ja mustri sügavus naaberriikides', sildid: ['Läti 4 mm', 'Leedu alates 10.11'] },
+		ru: { pilt: 'kalender', kicker: 'Зимняя резина за границей', pealkiri: 'Правила Финляндии, Латвии и Литвы', alapealkiri: 'Сроки и глубина протектора у соседей', sildid: ['Латвия 4 мм', 'Литва с 10.11'] }
+	},
+	'naastrehvid-liiga-vara-voi-hilja': {
+		et: { pilt: 'kalender', kicker: 'Naastrehvid', pealkiri: 'Liiga vara või liiga hilja?', alapealkiri: 'Soe asfalt, aprill ja reeglid', sildid: ['Alates 15.10', 'Talveoludes kuni 30.04'] },
+		ru: { pilt: 'kalender', kicker: 'Шипованные шины', pealkiri: 'Слишком рано или поздно?', alapealkiri: 'Тёплый асфальт, апрель и правила', sildid: ['С 15.10', 'При зимних условиях до 30.04'] }
+	},
+	'talverehvi-margistus-3pmsf': {
+		et: { pilt: 'dot', kicker: 'Talverehvi märgid', pealkiri: '3PMSF, M+S või jäämärk?', alapealkiri: 'Kuidas ära tunda õige talverehv', sildid: ['3PMSF kohustuslik', 'M+S ei piisa'] },
+		ru: { pilt: 'dot', kicker: 'Маркировка зимних шин', pealkiri: '3PMSF, M+S или знак льда?', alapealkiri: 'Как узнать настоящую зимнюю шину', sildid: ['3PMSF обязателен', 'M+S недостаточно'] }
+	},
+	'nelja-aastaaja-rehvid': {
+		et: { pilt: 'peatumine', kicker: 'Nelja aastaaja rehvid', pealkiri: 'Kas tohib ja kas tasub?', alapealkiri: 'Lumel hea, jääl selgelt nõrgem', sildid: ['3PMSF märk', 'Pidurdusmaad'] },
+		ru: { pilt: 'peatumine', kicker: 'Всесезонная резина', pealkiri: 'Можно ли и стоит ли?', alapealkiri: 'На снегу хорошо, на льду заметно хуже', sildid: ['Знак 3PMSF', 'Тормозной путь'] }
+	},
+	'kasutatud-talverehvid': {
+		et: { pilt: 'dot', kicker: 'Kasutatud talverehvid', pealkiri: 'Mida enne ostu kontrollida?', alapealkiri: 'Muster, vanus, märgid ja kahjustused', sildid: ['DOT-kood', 'Vähemalt 3 mm'] },
+		ru: { pilt: 'dot', kicker: 'Б/у зимняя резина', pealkiri: 'Что проверить перед покупкой?', alapealkiri: 'Протектор, возраст, маркировка, повреждения', sildid: ['Код DOT', 'Не менее 3 мм'] }
+	},
+	'rehvi-kulje-margistus': {
+		et: { pilt: 'dot', kicker: 'Rehvi märgistus', pealkiri: 'Mida numbrid tähendavad?', alapealkiri: 'Mõõt, indeksid, DOT ja talvemärgid', sildid: ['205/55 R16 91T', 'Lumehelves'] },
+		ru: { pilt: 'dot', kicker: 'Маркировка шин', pealkiri: 'Что значат цифры на шине?', alapealkiri: 'Размер, индексы, DOT и зимние значки', sildid: ['205/55 R16 91T', 'Снежинка'] }
+	},
+	'odav-voi-kallis-talverehv': {
+		et: { pilt: 'peatumine', kicker: 'Talverehvide testid', pealkiri: 'Odav või kallis talverehv?', alapealkiri: 'Mida testid tegelikult näitavad', sildid: ['Mõõdetud meetrid', 'Märg, lumi, jää'] },
+		ru: { pilt: 'peatumine', kicker: 'Тесты зимних шин', pealkiri: 'Дешёвая или дорогая?', alapealkiri: 'Что на самом деле показывают тесты', sildid: ['Измеренные метры', 'Мокро, снег, лёд'] }
 	},
 	rehvivahetus: {
 		et: { pilt: 'kalender', kicker: 'Rehvivahetus ' + AASTA, pealkiri: 'Millal talverehvid alla?', alapealkiri: 'Talverehvid kohustuslikud 1.12–1.03', sildid: ['Naast 15.10–31.03', 'Seadus'] },

@@ -52,7 +52,7 @@ ${tabel(
 			['3 mm (seaduslik piir)', '33,1 m', '+6,9 m (+26%)']
 		]
 	)}
-<p>Seadus lubab talverehvi, mille muster on sügavam kui 3 mm. Aga 4 mm juures on pidurdusmaa lumel juba viiendiku võrra pikem kui uuel rehvil. Kui muster on hooaja alguses 4–5 mm, tasub uued rehvid osta enne lund.</p>
+<p>Seadus lubab talverehvi, mille muster on vähemalt 3 mm. Aga 4 mm juures on pidurdusmaa lumel juba viiendiku võrra pikem kui uuel rehvil. Kui muster on hooaja alguses 4–5 mm, tasub uued rehvid osta enne lund.</p>
 
 <h2>Vanus</h2>
 <p>Kumm kõveneb ka siis, kui rehviga ei sõideta, näiteks garaažis või poe laos. Kõvem kumm haakub halvemini, eriti märjal ja külmal teel. Mudelis hakkab vanus haaret vähendama pärast 5. aastat. Täie mustriga suverehvi pidurdusmaa märjal asfaldil 90 km/h pealt:</p>
@@ -111,7 +111,7 @@ ${tabel(
 			['3 мм (допустимый минимум)', '33,1 м', '+6,9 м (+26%)']
 		]
 	)}
-<p>Закон Эстонии разрешает зимнюю шину с протектором глубже 3 мм. Но уже при 4 мм тормозной путь на снегу на пятую часть длиннее, чем у новой шины. Если в начале сезона протектор 4–5 мм, новые шины лучше купить до снега.</p>
+<p>Закон Эстонии разрешает зимнюю шину с протектором не меньше 3 мм. Но уже при 4 мм тормозной путь на снегу на пятую часть длиннее, чем у новой шины. Если в начале сезона протектор 4–5 мм, новые шины лучше купить до снега.</p>
 
 <h2>Возраст</h2>
 <p>Резина твердеет, даже если на шине не ездят, например в гараже или на складе магазина. Более твёрдая резина хуже держит дорогу, особенно мокрую и холодную. В модели возраст начинает снижать сцепление после 5 лет. Тормозной путь летней шины с полным протектором на мокром асфальте с 90 км/ч:</p>
@@ -142,13 +142,13 @@ ${tabel(
 		['Kui palju pikeneb pidurdusmaa kulunud rehviga?', 'VW Golf 8 pidurdusmaa märjal teel 90 km/h pealt on uue suverehviga 43,9 m. 3 mm mustriga on see 48,0 m ehk 4,1 m pikem, seadusliku piiri 1,6 mm juures 49,9 m. Talverehvi pidurdusmaa lumel on 3 mm mustriga veerandi võrra pikem kui uuel.'],
 		['Kui vana rehviga võib sõita?', 'Seadus rehvi vanust ei piira. Rehvitootjad soovitavad üle 5 aasta vanuseid rehve igal aastal kontrollida ja vahetada hiljemalt 10 aasta vanuselt, sest kumm kõveneb ja haare väheneb ka täie mustriga.'],
 		['Kuidas teada saada rehvi vanust?', 'Rehvi küljel on DOT-kood, mille lõpus on ovaalses raamis 4 numbrit: kaks esimest on tootmisnädal ja kaks viimast aasta. Näiteks 2319 tähendab 23. nädalat 2019.'],
-		['Kui sügav peab olema rehvi muster Eestis?', 'Suverehvil vähemalt 1,6 mm, talverehvil sügavam kui 3 mm. Pidurdusmaa hakkab pikenema palju varem: lumel on talverehvi pidurdusmaa 4 mm mustriga juba viiendiku võrra pikem kui uuel rehvil.']
+		['Kui sügav peab olema rehvi muster Eestis?', 'Suverehvil vähemalt 1,6 mm, talverehvil vähemalt 3 mm. Pidurdusmaa hakkab pikenema palju varem: lumel on talverehvi pidurdusmaa 4 mm mustriga juba viiendiku võrra pikem kui uuel rehvil.']
 	];
 	const KKK_RU = [
 		['Насколько удлиняется тормозной путь на изношенной шине?', 'VW Golf 8 на мокрой дороге с 90 км/ч останавливается на новой летней шине за 43,9 м. С протектором 3 мм тормозной путь 48,0 м, то есть на 4,1 м длиннее, при допустимом минимуме 1,6 мм — 49,9 м. Зимняя шина с протектором 3 мм на снегу тормозит на четверть дольше новой.'],
 		['Сколько лет можно ездить на шинах?', 'Закон возраст шины не ограничивает. Производители рекомендуют ежегодно проверять шины старше 5 лет и менять их не позднее чем в 10 лет, потому что резина твердеет и сцепление снижается даже при полном протекторе.'],
 		['Как узнать возраст шины?', 'На боковине шины есть код DOT, в конце которого в овальной рамке 4 цифры: первые две — неделя производства, последние две — год. Например, 2319 означает 23-ю неделю 2019 года.'],
-		['Какой должна быть глубина протектора в Эстонии?', 'У летней шины не меньше 1,6 мм, у зимней — больше 3 мм. Тормозной путь начинает расти намного раньше: на снегу при протекторе 4 мм он уже на пятую часть длиннее, чем у новой шины.']
+		['Какой должна быть глубина протектора в Эстонии?', 'У летней шины не меньше 1,6 мм, у зимней не меньше 3 мм. Тормозной путь начинает расти намного раньше: на снегу при протекторе 4 мм он уже на пятую часть длиннее, чем у новой шины.']
 	];
 
 	const T = ru ? { ...A, ...A.ru } : A;

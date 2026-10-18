@@ -56,11 +56,11 @@
 					],
 					[
 						`Обязательна ли зимняя резина в Эстонии в ${hh.S} году и с какого числа?`,
-						`Да. Зимняя резина обязательна с ${kp(hh.kohustus, 'ru')} по ${kp(hh.kohustusLopp, 'ru')}. Нешипованная зимняя резина в это время должна иметь знак «три горные вершины и снежинка» (3PMSF), а глубина протектора зимней шины должна быть больше 3 мм.`
+						`Да. Зимняя резина обязательна с ${kp(hh.kohustus, 'ru')} по ${kp(hh.kohustusLopp, 'ru')}. Нешипованная зимняя резина в это время должна иметь знак «три горные вершины и снежинка» (3PMSF), а глубина протектора зимней шины должна быть не меньше 3 мм.`
 					],
 					[
 						'На какой резине можно ездить зимой в Эстонии?',
-						`С ${kp(hh.kohustus, 'ru', true)} по ${kp(hh.kohustusLopp, 'ru', true)} только на зимней: шипованной или нешипованной. У нешипованной должен быть знак «три горные вершины и снежинка» (3PMSF), протектор зимней шины должен быть глубже 3 мм. Летняя резина в это время не разрешена.`
+						`С ${kp(hh.kohustus, 'ru', true)} по ${kp(hh.kohustusLopp, 'ru', true)} только на зимней: шипованной или нешипованной. У нешипованной должен быть знак «три горные вершины и снежинка» (3PMSF), протектор зимней шины должен быть не меньше 3 мм. Летняя резина в это время не разрешена.`
 					],
 					[
 						`Когда можно ставить летнюю резину в ${hh.S + 1} году?`,
@@ -76,7 +76,7 @@
 					],
 					[
 						'Какой должна быть глубина протектора?',
-						'У зимней шины — больше 3 мм, у летней — не меньше 1,6 мм. Сцепление ухудшается раньше: зимнюю шину с протектором 4 мм и меньше лучше заменить до начала сезона.'
+						'У зимней шины не меньше 3 мм, у летней не меньше 1,6 мм. Сцепление ухудшается раньше: зимнюю шину с протектором 4 мм и меньше лучше заменить до начала сезона.'
 					]
 				]
 			: [
@@ -94,7 +94,7 @@
 					],
 					[
 						`Kas talverehvid on ${hh.S} kohustuslikud ja millal?`,
-						`Jah. Talverehvid on kohustuslikud ${kp(hh.kohustus, 'et', false, 'st')} kuni ${kp(hh.kohustusLopp, 'et', false, 'ni')}. Lamellrehvil peab sel ajal olema kolme mäetipu ja lumehelbe märk (3PMSF) ja talverehvi muster peab olema sügavam kui 3 mm.`
+						`Jah. Talverehvid on kohustuslikud ${kp(hh.kohustus, 'et', false, 'st')} kuni ${kp(hh.kohustusLopp, 'et', false, 'ni')}. Lamellrehvil peab sel ajal olema kolme mäetipu ja lumehelbe märk (3PMSF) ja talverehvi muster peab olema vähemalt 3 mm.`
 					],
 					[
 						`Millal võib suverehvid alla panna ${hh.S + 1}?`,
@@ -110,7 +110,7 @@
 					],
 					[
 						'Kui sügav peab olema rehvi muster?',
-						'Talverehvil sügavam kui 3 mm, suverehvil vähemalt 1,6 mm. Haare kaob varem: kui talverehvi muster on 4 mm või vähem, tasub uued osta enne hooaega.'
+						'Talverehvil vähemalt 3 mm, suverehvil vähemalt 1,6 mm. Haare kaob varem: kui talverehvi muster on 4 mm või vähem, tasub uued osta enne hooaega.'
 					]
 				];
 	const KKK = kkk(h0);
@@ -284,9 +284,9 @@
 
 				<h2>Требования к шинам</h2>
 				<ul>
-					<li><strong>Зимняя шина:</strong> протектор глубже 3 мм. У нешипованной зимней шины зимой должен быть знак «три горные вершины и снежинка» {@html lumi('Знак «три горные вершины и снежинка» (3PMSF)')} (3PMSF). Транспортный департамент советует выбирать шину и со знаком льда {@html jaa('Знак льда (символ сцепления со льдом на этикетке ЕС)')}.</li>
+					<li><strong>Зимняя шина:</strong> протектор не меньше 3 мм. У нешипованной зимней шины зимой должен быть знак «три горные вершины и снежинка» {@html lumi('Знак «три горные вершины и снежинка» (3PMSF)')} (3PMSF). Транспортный департамент советует выбирать шину и со знаком льда {@html jaa('Знак льда (символ сцепления со льдом на этикетке ЕС)')}.</li>
 					<li><strong>Летняя шина:</strong> протектор не меньше 1,6 мм; менять стоит уже при 2 мм.</li>
-					<li><strong>Совет:</strong> шины одного типа на всех колёсах — не смешивайте шипованные и нешипованные.</li>
+					<li><strong>Шипы:</strong> если ездите на шипованной резине, она должна стоять на всех колёсах. Не смешивайте шипованные и нешипованные шины.</li>
 				</ul>
 				<p class="note">Источник: <a href={TA} rel="noopener">Transpordiamet</a> (Транспортный департамент Эстонии). Цифры тормозного пути — расчёт Pidurdusmaa (VW Golf, новые шины).</p>
 
@@ -294,6 +294,9 @@
 				<ul>
 					<li><a href={L('/talverehvid/')}>Лучшие зимние шины в вашем размере</a> — тесты, шипы и «липучки»</li>
 					<li><a href={L('/teadmine/artiklid/millal-talverehvid-alla/')}>Правило +7 °C: при какой температуре ставить зимнюю резину</a></li>
+					<li><a href={L('/teadmine/artiklid/talverehvide-nouded/')}>Требования к зимней резине: протектор, 3PMSF, шипы и штраф</a></li>
+					<li><a href={L('/teadmine/artiklid/naastrehvid-liiga-vara-voi-hilja/')}>Шипы слишком рано или слишком поздно: тёплый асфальт и апрель</a></li>
+					<li><a href={L('/teadmine/artiklid/talverehvid-valismaal/')}>Зимняя резина в Финляндии, Латвии и Литве</a></li>
 					<li><a href={L('/') + '?olud=snow&kiirus=50#kalkulaator'}>Тормозной путь на снегу для вашего автомобиля</a></li>
 				</ul>
 
@@ -344,9 +347,9 @@
 
 				<h2>Nõuded rehvidele</h2>
 				<ul>
-					<li><strong>Talverehv:</strong> muster sügavam kui 3 mm. Lamellrehvil peab talvel olema kolme mäetipu ja lumehelbe märk {@html lumi()} (3PMSF). Transpordiamet soovitab valida ka jäämärgiga {@html jaa()} rehvi.</li>
+					<li><strong>Talverehv:</strong> muster vähemalt 3 mm. Lamellrehvil peab talvel olema kolme mäetipu ja lumehelbe märk {@html lumi()} (3PMSF). Transpordiamet soovitab valida ka jäämärgiga {@html jaa()} rehvi.</li>
 					<li><strong>Suverehv:</strong> muster vähemalt 1,6 mm; vahetada tasub juba 2 mm juures.</li>
-					<li><strong>Soovitus:</strong> sama tüüpi rehvid kõigil ratastel — ära pane naast- ja lamellrehve segamini.</li>
+					<li><strong>Naastrehvid:</strong> kui kasutad naastrehve, peavad need olema kõigil ratastel. Ära pane naast- ja lamellrehve segamini.</li>
 				</ul>
 				<p class="note">Allikas: <a href={TA} rel="noopener">Transpordiamet</a>. Pidurdusmaad on Pidurdusmaa arvutus (VW Golf, uued rehvid).</p>
 
@@ -354,6 +357,9 @@
 				<ul>
 					<li><a href="/talverehvid/">Parimad talverehvid sinu auto mõõdus</a> — testid, naast ja lamell</li>
 					<li><a href="/teadmine/artiklid/millal-talverehvid-alla/">+7 °C reegel: mis temperatuuril talverehvid alla panna</a></li>
+					<li><a href="/teadmine/artiklid/talverehvide-nouded/">Talverehvide nõuded: muster, 3PMSF märk, naastud ja trahv</a></li>
+					<li><a href="/teadmine/artiklid/naastrehvid-liiga-vara-voi-hilja/">Naastrehvid liiga vara või liiga hilja: soe asfalt ja aprill</a></li>
+					<li><a href="/teadmine/artiklid/talverehvid-valismaal/">Talverehvid Soomes, Lätis ja Leedus</a></li>
 					<li><a href="/?olud=snow&kiirus=50#kalkulaator">Pidurdusmaa lumel sinu autoga</a></li>
 				</ul>
 

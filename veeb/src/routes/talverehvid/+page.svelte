@@ -35,7 +35,7 @@
 		[t('Millal tuleb talverehvid alla panna?'), t('Talverehvid on Eestis kohustuslikud 1. detsembrist 1. märtsini. Naastrehvid on lubatud 15. oktoobrist 31. märtsini, talviste olude korral 1. oktoobrist 30. aprillini. Vaheta varem, kui ööd on alla +7 °C või tuleb esimene lumi: suverehv kõvastub külmaga.')],
 		[t('Kumb on parem, naastrehv või lamellrehv?'), n ? t('Jääl peatub naastrehv lühemalt: 50 km/h pealt umbes {naast} vs {lamell} lamellrehviga. Lumel ja kuival asfaldil on vahe väike. Kui sõidad palju maanteel või jäistel teedel, vali naast; linnas ja vaiksemaks sõiduks lamell.', { naast: jaa('WINTER_STUDDED'), lamell: jaa('WINTER_NORDIC') }) : ''],
 		[t('Kas aastaringne või Kesk-Euroopa talverehv sobib Eesti talveks?'), n ? t('Jääl mitte hästi: Kesk-Euroopa talverehv peatub 50 km/h pealt umbes {kesk}, Põhjamaade lamellrehv {lamell}. Need rehvid on tehtud lörtsi ja märja tee jaoks. Eestis peab talverehvil olema kolme mäetipu ja lumehelbe märk.', { kesk: jaa('WINTER_CENTRAL'), lamell: jaa('WINTER_NORDIC') }) : ''],
-		[t('Kui sügav peab olema talverehvi muster?'), t('Seaduse järgi üle 3 mm. Lumel on pidurdusteekond 4 mm mustriga umbes viiendiku ja 3 mm mustriga veerandi võrra pikem kui uuel rehvil, nii et 4 mm juures tasub vahetamisele mõelda.')]
+		[t('Kui sügav peab olema talverehvi muster?'), t('Seaduse järgi vähemalt 3 mm. Lumel on pidurdusteekond 4 mm mustriga umbes viiendiku ja 3 mm mustriga veerandi võrra pikem kui uuel rehvil, nii et 4 mm juures tasub vahetamisele mõelda.')]
 	].filter((x) => x[1]);
 
 	const top = n ? [...n.naastud, ...n.lamellid] : [];
@@ -128,7 +128,10 @@
 		<p class="note">
 			{t('Mõõt on rehvi küljel (nt 205/55 R16) ja juhiukse piirdel.')}
 			<a href={L('/teadmine/rehvivahetus/')}>{t('Rehvivahetus: kõik kuupäevad')}</a> ·
-			<a href={L('/teadmine/artiklid/millal-talverehvid-alla/')}>{t('+7 °C reegel: millal talverehvid alla panna')}</a>
+			<a href={L('/teadmine/artiklid/millal-talverehvid-alla/')}>{t('+7 °C reegel: millal talverehvid alla panna')}</a> ·
+			<a href={L('/teadmine/artiklid/odav-voi-kallis-talverehv/')}>{t('Odav või kallis talverehv: mida testid näitavad')}</a> ·
+			<a href={L('/teadmine/artiklid/nelja-aastaaja-rehvid/')}>{t('Nelja aastaaja rehvid talvel')}</a> ·
+			<a href={L('/teadmine/artiklid/kasutatud-talverehvid/')}>{t('Kasutatud talverehvid: mida kontrollida')}</a>
 		</p>
 	</div>
 </div>

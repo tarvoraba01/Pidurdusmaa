@@ -4,6 +4,118 @@
  * leht ja Teadmine leht loevad nimekirja siit. */
 export const ARTIKLID = [
 	{
+		slug: 'talverehvide-nouded',
+		title: 'Talverehvide nõuded 2026: muster, märk, naastud ja trahv',
+		h1: 'Talverehvide nõuded 2026: mis on kohustuslik ja mis ähvardab',
+		desc: '1. detsembrist peab autol olema talverehv, muster vähemalt 3 mm ja lamellil 3PMSF märk. Vaata kõiki nõudeid ja seda, mis juhtub, kui politsei sind peatab.',
+		kuupaev: '2026-10-18',
+		silt: 'Talverehvid',
+		ru: {
+			title: 'Зимняя резина в Эстонии 2026: протектор, 3PMSF и штраф',
+			h1: 'Требования к зимней резине в Эстонии 2026: что обязательно и чем грозит нарушение',
+			desc: 'С 1 декабря зимняя резина обязательна: протектор от 3 мм, на липучке знак 3PMSF, шипы на все колёса. Все требования и что будет при проверке.',
+			silt: 'Зимние шины'
+		}
+	},
+	{
+		slug: 'naastrehvid-liiga-vara-voi-hilja',
+		title: 'Naastrehvid liiga vara või hilja? Soe asfalt ja aprill',
+		h1: 'Naastrehvid liiga vara või liiga hilja: soe asfalt, aprill ja reeglid',
+		desc: 'Naastrehvid on lubatud 15. oktoobrist, varem ainult talvistes oludes. Vaata, mida soe asfalt pidurdusele teeb ja millal on õige aeg naastud alla panna.',
+		kuupaev: '2026-10-18',
+		silt: 'Talverehvid',
+		ru: {
+			title: 'Шипы слишком рано или поздно? Тёплый асфальт и апрель',
+			h1: 'Шипы слишком рано или слишком поздно: тёплый асфальт, апрель и правила',
+			desc: 'Шипы разрешены с 15 октября, раньше только при зимних условиях. Что тёплый асфальт делает с торможением и когда лучше ставить шипованную резину.',
+			silt: 'Зимние шины'
+		}
+	},
+	{
+		slug: 'nelja-aastaaja-rehvid',
+		title: 'Nelja aastaaja rehvid Eestis: kas tohib ja kas tasub?',
+		h1: 'Nelja aastaaja rehvid Eestis: kas tohib ja kas tasub',
+		desc: 'Universaalrehv on Eestis talvel lubatud, kui sel on lumehelbe märk. Jääl on pidurdusmaa aga märgatavalt pikem. Vaata numbreid ja kellele see sobib.',
+		kuupaev: '2026-10-18',
+		silt: 'Talverehvid',
+		ru: {
+			title: 'Всесезонная резина в Эстонии: можно ли зимой?',
+			h1: 'Всесезонная резина в Эстонии: можно ли ездить зимой и стоит ли',
+			desc: 'Всесезонка в Эстонии разрешена зимой, если на ней есть знак снежинки. Но на льду тормозной путь заметно длиннее. Цифры тестов и кому она подходит.',
+			silt: 'Зимние шины'
+		}
+	},
+	{
+		slug: 'kasutatud-talverehvid',
+		title: 'Kasutatud talverehvid: 7 asja, mida enne ostu kontrollida',
+		h1: 'Kasutatud talverehvid: mida enne ostu kontrollida',
+		desc: 'Kasutatud talverehvil peab olema vähemalt 3 mm mustrit, lamellil ka lumehelbe märk. Vaata ka vanust, naaste ja kahjustusi. Lihtne nimekiri enne ostu.',
+		kuupaev: '2026-10-18',
+		silt: 'Talverehvid',
+		ru: {
+			title: 'Б/у зимняя резина: 7 вещей, которые нужно проверить',
+			h1: 'Б/у зимняя резина: что проверить перед покупкой',
+			desc: 'У б/у зимней резины протектор должен быть не менее 3 мм, у липучки нужен знак снежинки. Проверьте возраст по DOT, шипы и повреждения. Чек-лист покупателя.',
+			silt: 'Зимние шины'
+		}
+	},
+	{
+		slug: 'talverehvid-valismaal',
+		title: 'Talverehvid Soomes, Lätis ja Leedus 2026: tähtajad ja muster',
+		h1: 'Talverehvid Soomes, Lätis ja Leedus: mis reeglid kehtivad 2026. aastal',
+		desc: 'Talverehv on nõutud Leedus 10. novembrist ja Lätis 1. detsembrist, Soomes vajadusel 1. novembrist. Lätis on mustri miinimum 4 mm. Kas su rehvid sobivad?',
+		kuupaev: '2026-10-18',
+		silt: 'Talverehvid',
+		ru: {
+			title: 'Зимняя резина в Финляндии, Латвии и Литве 2026: сроки',
+			h1: 'Зимняя резина в Финляндии, Латвии и Литве: правила 2026 года',
+			desc: 'Зимняя резина обязательна в Литве с 10 ноября и в Латвии с 1 декабря, в Финляндии по погоде с 1 ноября. В Латвии протектор от 4 мм. Подходят ли ваши шины?',
+			silt: 'Зимние шины'
+		}
+	},
+	{
+		slug: 'talverehvi-margistus-3pmsf',
+		title: '3PMSF, M+S ja jäämärk: kuidas tunda ära õige talverehv',
+		h1: '3PMSF, M+S ja jäämärk: kuidas ära tunda õiget talverehvi',
+		desc: 'M+S märki paneb tootja ise, 3PMSF tähendab läbitud lumetesti ja jäämärk jäätesti. Vaata, mis peab Eestis talverehvil olema ja mida poes jälgida.',
+		kuupaev: '2026-10-18',
+		silt: 'Talverehvid',
+		ru: {
+			title: '3PMSF, M+S и знак льда: как отличить настоящую зимнюю шину',
+			h1: '3PMSF, M+S и знак льда: как отличить настоящую зимнюю шину',
+			desc: 'M+S ставит сам производитель, 3PMSF значит пройденный тест на снегу, а знак льда тест на льду. Что обязательно в Эстонии и на что смотреть при покупке.',
+			silt: 'Зимние шины'
+		}
+	},
+	{
+		slug: 'rehvi-kulje-margistus',
+		title: 'Rehvi märgistus: mida tähendavad numbrid ja talvemärgid',
+		h1: 'Rehvi märgistus küljel: kuidas talverehvi lugeda',
+		desc: '205/55 R16 91T, M+S, lumehelves, jäämärk, DOT. Mida rehvi küljel olevad tähised tähendavad ja millised neist on Eestis talvel kohustuslikud.',
+		kuupaev: '2026-10-18',
+		silt: 'Talverehvid',
+		ru: {
+			title: 'Маркировка шин: расшифровка цифр и зимних значков',
+			h1: 'Маркировка на боковине шины: как её расшифровать',
+			desc: '205/55 R16 91T, M+S, снежинка, значок льда, DOT. Что означает маркировка на боковине и какие знаки обязательны зимой в Эстонии.',
+			silt: 'Зимние шины'
+		}
+	},
+	{
+		slug: 'odav-voi-kallis-talverehv',
+		title: 'Odav või kallis talverehv? Mida testid tegelikult näitavad',
+		h1: 'Odav või kallis talverehv: mida testid tegelikult näitavad',
+		desc: 'Odavaim naastrehv vajas jääl üle kahe korra pikemat maad kui parim, aga märjal asfaldil oli parim. Kuidas teste lugeda ja oma teedele rehv valida.',
+		kuupaev: '2026-10-18',
+		silt: 'Talverehvid',
+		ru: {
+			title: 'Дешёвая или дорогая зимняя резина: что говорят тесты',
+			h1: 'Дешёвая или дорогая зимняя резина: что на самом деле показывают тесты',
+			desc: 'У самой дешёвой шипованной шины тормозной путь на льду был вдвое с лишним длиннее, чем у лучшей, зато на мокром асфальте она была первой. Как читать тесты.',
+			silt: 'Зимние шины'
+		}
+	},
+	{
 		slug: 'pohjamaade-voi-kesk-euroopa-talverehv',
 		title: 'Põhjamaade või Kesk-Euroopa talverehv: jääl üle 50 meetri vahet',
 		desc: 'Jääl peatub Põhjamaade talverehv 50 km/h pealt 59,9 m, Kesk-Euroopa oma 114,9 m pealt. Lumel on nad võrdsed, märjal asfaldil on Kesk-Euroopa rehv 3 m parem. Kuidas poes vahet teha.',

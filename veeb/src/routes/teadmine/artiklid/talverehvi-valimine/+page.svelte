@@ -80,7 +80,7 @@ ${tabel(
 <p>Lumel on aastaringne rehv hea (25,2 m), aga jääl pidurdab ta 103,3 meetriga — umbes sama halvasti kui Kesk-Euroopa talverehv ja üle poole pikemalt kui Põhjamaade oma. Eesti talveks, kus on jääd, see hea valik ei ole.</p>
 
 <h2>Mustri sügavus</h2>
-<p>Seadus lubab talverehvi, mille muster on sügavam kui 3 mm. Aga haare kaob varem. Põhjamaade talverehv, pidurdusmaa lumel ja jääl 50 km/h ning märjal 90 km/h pealt:</p>
+<p>Seadus lubab talverehvi, mille muster on vähemalt 3 mm. Aga haare kaob varem. Põhjamaade talverehv, pidurdusmaa lumel ja jääl 50 km/h ning märjal 90 km/h pealt:</p>
 ${tabel(
 		['Muster', 'Lumi', 'Jää', 'Märg asfalt'],
 		[
@@ -161,7 +161,7 @@ ${tabel(
 <p>На снегу всесезонная шина хороша (25,2 м), но на льду тормозит за 103,3 метра — примерно так же плохо, как европейская зимняя шина, и более чем в полтора раза длиннее, чем северная. Для эстонской зимы со льдом это не лучший выбор.</p>
 
 <h2>Глубина протектора</h2>
-<p>Закон разрешает зимнюю шину с глубиной протектора больше 3 мм. Но сцепление теряется раньше. Нешипованная зимняя шина северного типа, тормозной путь на снегу и льду с 50 км/ч и на мокром асфальте с 90 км/ч:</p>
+<p>Закон разрешает зимнюю шину с глубиной протектора не меньше 3 мм. Но сцепление теряется раньше. Нешипованная зимняя шина северного типа, тормозной путь на снегу и льду с 50 км/ч и на мокром асфальте с 90 км/ч:</p>
 ${tabel(
 		['Протектор', 'Снег', 'Лёд', 'Мокрый асфальт'],
 		[

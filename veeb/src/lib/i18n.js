@@ -141,7 +141,15 @@ const OG_KEELED = {
 	'rehvi-vanus': ['ru', 'en'],
 	'rehvi-kalkulaator': ['ru', 'en'],
 	'millal-talverehvid-alla': ['ru'],
-	rehvivahetus: ['ru']
+	rehvivahetus: ['ru'],
+	'talverehvide-nouded': ['ru'],
+	'talverehvid-valismaal': ['ru'],
+	'naastrehvid-liiga-vara-voi-hilja': ['ru'],
+	'talverehvi-margistus-3pmsf': ['ru'],
+	'nelja-aastaaja-rehvid': ['ru'],
+	'kasutatud-talverehvid': ['ru'],
+	'rehvi-kulje-margistus': ['ru'],
+	'odav-voi-kallis-talverehv': ['ru']
 };
 
 /** Automudeli nimi vene keeles: E-klass → E-Класс, 3-seeria → 3 серии, kaubik → фургон.

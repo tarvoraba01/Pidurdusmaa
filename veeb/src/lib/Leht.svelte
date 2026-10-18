@@ -10,7 +10,8 @@
 	const t = useT();
 	const keel = useLang();
 	const L = keel.L;
-	let { title, desc, path, crumbs = [], sisu, lapsed = [], uuendatud = '', avaldatud = '', image = undefined, kkk = [] } = $props();
+	let { title, h1 = '', desc, path, crumbs = [], sisu, lapsed = [], uuendatud = '', avaldatud = '', image = undefined, kkk = [] } = $props();
+	/* h1: pikem pealkiri lehel; title on otsingutulemuse pealkiri (≤ 60 märki) */
 	/* kkk: [[küsimus, vastus], …] — nähtav plokk lehe lõpus + FAQPage (GEO) */
 	const faq = $derived(kkk.length ? { '@type': 'FAQPage', mainEntity: kkk.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) } : null);
 	const jsonld = $derived(
@@ -27,7 +28,7 @@
 			{#each crumbs.slice(0, -1) as c}<span>/</span><a href={L(c[1])}>{c[0]}</a>{/each}
 			<span>/</span>{title}
 		</div>
-		<h1>{title}</h1>
+		<h1>{h1 || title}</h1>
 	</div>
 </section>
 <div class="body-sec">

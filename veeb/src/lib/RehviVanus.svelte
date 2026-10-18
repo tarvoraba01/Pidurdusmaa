@@ -194,7 +194,7 @@
 				</label>
 				<input id="rv-muster" type="range" min="1" max={UUS[liik]} step="0.5" bind:value={muster} onchange={() => track('muster', liik + ' ' + muster)} />
 				<div class="rv-sk"><span>1 {t('mm')}</span><span>{t('uus')} {UUS[liik]} {t('mm')}</span></div>
-				<p class="rv-hinne {musterHinne[0]} rv-v"><b>{musterHinne[1]}.</b> {t('Mõõda kõige kulunuma koha pealt: mündi või mustrisügavuse mõõtjaga. Seadus: suverehv vähemalt 1,6 mm, talverehv üle 3 mm.')}</p>
+				<p class="rv-hinne {musterHinne[0]} rv-v"><b>{musterHinne[1]}.</b> {t('Mõõda kõige kulunuma koha pealt: mündi või mustrisügavuse mõõtjaga. Seadus: suverehv vähemalt 1,6 mm, talverehv vähemalt 3 mm.')}</p>
 				<p class="rv-lab rv-lab2">{t('Tee ja kiirus')}</p>
 				<div class="rv-seg" role="group" aria-label={t('Tee')}>
 					<button type="button" aria-pressed={tee === 'marg'} onclick={() => { tee = 'marg'; kiirus = 90; }}>{t('Märg asfalt')}</button>

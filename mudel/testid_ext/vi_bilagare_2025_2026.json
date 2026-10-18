@@ -50,7 +50,7 @@
       {"name": "Pirelli Scorpion IceZero 2", "category": "winter_studded", "label_wet": null, "results": {"ice": 17.76, "snow": 11.19, "wet": 46.97, "dry": 45.75}, "aqua_kmh": 71.5, "note": ""},
       {"name": "Nexen WinGuard WinSpike 3", "category": "winter_studded", "label_wet": null, "results": {"ice": 16.75, "snow": 11.82, "wet": 46.54, "dry": 45.26}, "aqua_kmh": 70.5, "note": ""},
       {"name": "Goodride IceMaster Spike Z-506", "category": "winter_studded", "label_wet": null, "results": {"ice": 17.8, "snow": 11.38, "wet": 48.5, "dry": 45.89}, "aqua_kmh": 67.8, "note": ""},
-      {"name": "Triangle IceLynk TI501", "category": "winter_studded", "label_wet": null, "results": {"ice": 25.48, "snow": 11.36, "wet": 43.25, "dry": 44.3}, "aqua_kmh": 68.8, "note": "Ice traction described as almost non-existent"}
+      {"name": "Triangle IceLynx TI501", "category": "winter_studded", "label_wet": null, "results": {"ice": 25.48, "snow": 11.36, "wet": 43.25, "dry": 44.3}, "aqua_kmh": 68.8, "note": "Ice traction described as almost non-existent"}
     ]
   },
   {

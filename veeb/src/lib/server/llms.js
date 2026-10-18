@@ -73,7 +73,7 @@ Tsiteerimisel palun viita lehele ${BASE}/ või vastavale alamlehele.
 - [Rehvi vanus](${BASE}/rehvi-vanus/): DOT-kood → rehvi vanus, mustri sügavus → pidurdusmaa
 
 ## Levinud küsimused (lühivastused, samast mudelist)
-- Millal on talverehvid Eestis kohustuslikud? 1. detsembrist 1. märtsini. Naastrehvid on lubatud 15. oktoobrist 31. märtsini, talviste olude korral 1. oktoobrist 30. aprillini. Talverehvil peab olema kolme mäetipu ja lumehelbe märk (3PMSF); mustri sügavus üle 3 mm, suverehvil vähemalt 1,6 mm.
+- Millal on talverehvid Eestis kohustuslikud? 1. detsembrist 1. märtsini. Naastrehvid on lubatud 15. oktoobrist 31. märtsini, talviste olude korral 1. oktoobrist 30. aprillini. Talverehvil peab olema kolme mäetipu ja lumehelbe märk (3PMSF); mustri sügavus vähemalt 3 mm, suverehvil vähemalt 1,6 mm.
 - Millal talverehvid alla panna? Kui ööd on alla +7 °C või tuleb esimene lumi, mitte alles 1. detsembril: esimesel lumel 50 km/h pealt peatub suverehv umbes ${m(lumiSuvi)} m, Põhjamaade talverehv ${m(lumiTalv)} m (pidurdusmaa ilma reaktsiooniajata).
 - Naast või lamell? Jääl 50 km/h pealt peatub tüüpiline naastrehv umbes ${m(jaaNaast)} m, Põhjamaade lamellrehv ${m(jaaLamell)} m, Kesk-Euroopa talverehv ${m(jaaKesk)} m ja suverehv ${m(jaaSuvi)} m. Lumel ja kuival asfaldil on naastu ja lamelli vahe väike.
 - Kui palju loeb EL-i märgise märghaardumise klass? A- ja E-klassi suverehvi vahe on märjal asfaldil 90 km/h pealt umbes 18 m pidurdusmaad. Klass on mõõdupõhine: sama mudel võib teises mõõdus olla teise klassiga.
@@ -168,7 +168,7 @@ When citing, please link to ${BASE}/en/ or the relevant page.
 - [Возраст шины](${L('/rehvi-vanus/')}): код DOT → возраст шины, глубина протектора → тормозной путь
 
 ## Частые вопросы (короткие ответы, та же модель)
-- Когда в Эстонии обязательны зимние шины? С 1 декабря по 1 марта. Шипованные разрешены с 15 октября по 31 марта, при зимних условиях — с 1 октября по 30 апреля. На зимней шине должен быть знак «три горные вершины со снежинкой» (3PMSF); протектор глубже 3 мм, у летней — не менее 1,6 мм.
+- Когда в Эстонии обязательны зимние шины? С 1 декабря по 1 марта. Шипованные разрешены с 15 октября по 31 марта, при зимних условиях — с 1 октября по 30 апреля. На зимней шине должен быть знак «три горные вершины со снежинкой» (3PMSF); протектор не менее 3 мм, у летней не менее 1,6 мм.
 - Когда ставить зимние шины? Когда ночью ниже +7 °C или выпал первый снег, а не 1 декабря: на первом снегу со скорости 50 км/ч летняя шина останавливается примерно за ${x.md(x.jaa.lumiSuvi)} м, нордическая зимняя — за ${x.md(x.jaa.lumiTalv)} м (тормозной путь без времени реакции).
 - Шипы или фрикционная? На льду со скорости 50 км/ч типичная шипованная шина останавливается примерно за ${x.md(x.jaa.naast)} м, нордическая фрикционная — за ${x.md(x.jaa.lamell)} м, центральноевропейская зимняя — за ${x.md(x.jaa.kesk)} м, летняя — за ${x.md(x.jaa.suvi)} м. На снегу и сухом асфальте разница между шипами и фрикционной небольшая.
 - Насколько важен класс сцепления на мокрой дороге? Разница между летними шинами класса A и E на мокром асфальте со скорости 90 км/ч — около 18 м тормозного пути. Класс привязан к размеру.

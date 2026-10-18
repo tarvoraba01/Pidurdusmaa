@@ -5,7 +5,7 @@
 	const keel = useLang();
 	const t = useT();
 	const ru = keel.lang === 'ru';
-	const SISU = `<p>Igal Euroopas müüdaval sõiduauto rehvil on EL-i rehvimärgis (määrus 2020/740). Andmed tulevad EL-i tooteregistrist EPREL.</p>
+	const SISU = `<p>Igal Euroopas müüdaval sõiduauto rehvil, välja arvatud naastrehvidel, on EL-i rehvimärgis (määrus 2020/740). Andmed tulevad EL-i tooteregistrist EPREL.</p>
 <h2>Märghaardumine (A–E)</h2>
 <p>Mõõdetakse märjal asfaldil 80 → 20 km/h, võrdluses standardse võrdlusrehviga. Klassi A ja E vahe on tavalisel sõiduautol 90 km/h juures umbes 18 meetrit (klasside keskpunktide järgi arvutatud). Klass on <strong>mõõdupõhine</strong>: sama rehvimudel võib olla ühes mõõdus A ja teises B.</p>
 <h2>Veeretakistus (A–E)</h2>
@@ -13,8 +13,9 @@
 <h2>Müra (dB ja A–C)</h2>
 <p>Rehvi veeremismüra ametliku katse järgi. Väiksem number = vaiksem rehv. Iga 3 dB on ligikaudu kahekordne heliväljund.</p>
 <h2>Lume- ja jäämärk</h2>
-<p>Kolme mäetipu ja lumehelbe märk ${lumi()} (3PMSF) tähendab, et rehv läbis lumehaarde katse. Jäämärk ${jaa()} tähendab Põhjamaade jääkatse läbimist (ainult sõiduauto rehvid).</p>`;
-	const SISU_RU = `<p>У каждой продаваемой в Европе шины для легкового автомобиля есть маркировка шин ЕС (регламент 2020/740). Данные берутся из реестра продукции ЕС EPREL.</p>
+<p>Kolme mäetipu ja lumehelbe märk ${lumi()} (3PMSF) tähendab, et rehv läbis lumehaarde katse. Jäämärk ${jaa()} tähendab Põhjamaade jääkatse läbimist (ainult sõiduauto rehvid).</p>
+<p>Kuidas märke rehvilt leida ja mis vahe on M+S tähisel: <a href="/teadmine/artiklid/talverehvi-margistus-3pmsf/">3PMSF, M+S ja jäämärk</a>. Kõik numbrid rehvi küljel lahti seletatud: <a href="/teadmine/artiklid/rehvi-kulje-margistus/">rehvi märgistus</a>.</p>`;
+	const SISU_RU = `<p>У каждой продаваемой в Европе шины для легкового автомобиля, кроме шипованных, есть маркировка шин ЕС (регламент 2020/740). Данные берутся из реестра продукции ЕС EPREL.</p>
 <h2>Сцепление на мокрой дороге (A–E)</h2>
 <p>Измеряется на мокром асфальте при торможении с 80 до 20 км/ч в сравнении со стандартной эталонной шиной. Разница между классами A и E у обычного легкового автомобиля при 90 км/ч — около 18 метров (рассчитано по середине классов). Класс <strong>зависит от размера</strong>: одна и та же модель в одном размере может быть A, а в другом — B.</p>
 <h2>Сопротивление качению (A–E)</h2>
@@ -22,7 +23,8 @@
 <h2>Шум (дБ и A–C)</h2>
 <p>Шум качения шины по официальному испытанию. Меньше число — тише шина. Каждые 3 дБ — это примерно вдвое больше звуковой энергии.</p>
 <h2>Знак снега и льда</h2>
-<p>Знак трёх горных вершин и снежинки ${lumi('Знак «три горные вершины и снежинка» (3PMSF)')} (3PMSF) означает, что шина прошла испытание на сцепление на снегу. Знак льда ${jaa('Знак льда (символ сцепления со льдом на этикетке ЕС)')} означает, что шина прошла северное испытание на льду (только шины для легковых автомобилей).</p>`;
+<p>Знак трёх горных вершин и снежинки ${lumi('Знак «три горные вершины и снежинка» (3PMSF)')} (3PMSF) означает, что шина прошла испытание на сцепление на снегу. Знак льда ${jaa('Знак льда (символ сцепления со льдом на этикетке ЕС)')} означает, что шина прошла северное испытание на льду (только шины для легковых автомобилей).</p>
+<p>Как найти эти знаки на шине и чем от них отличается M+S: <a href="/ru/teadmine/artiklid/talverehvi-margistus-3pmsf/">3PMSF, M+S и знак льда</a>. Все цифры на боковине по порядку: <a href="/ru/teadmine/artiklid/rehvi-kulje-margistus/">маркировка шин</a>.</p>`;
 	const KKK = [
 		['Mida tähendab märghaardumise klass A–E?', 'Klass näitab, kui hästi rehv pidurdab märjal asfaldil, võrreldes standardse võrdlusrehviga (katse 80 → 20 km/h). A on parim. Tavalisel sõiduautol on klasside A ja E vahe 90 km/h juures umbes 18 meetrit.'],
 		['Kas veeretakistuse klass mõjutab pidurdust?', 'Otseselt mitte. Kontrollisime 41 testitud rehvi peal ja veeretakistuse klass ei seletanud märja pidurduse erinevusi. See klass mõjutab kütuse- või energiakulu.'],

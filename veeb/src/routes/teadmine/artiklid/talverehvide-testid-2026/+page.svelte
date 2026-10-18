@@ -68,7 +68,7 @@
 
 <h2>Jää: kõige suurem vahe</h2>
 <p><strong>Vi Bilägare 2026, naastrehvid 215/65 R17</strong> (VW Tiguan): 25 km/h pealt 5 km/h-ni pidurdas parim ${R('bridgestone-blizzak-spike-3', 'Bridgestone Blizzak Spike 3')} <strong>8,3 meetriga</strong>, halvim ${R('kumho-wintercraft-ice-wi32', 'Kumho WinterCraft Ice Wi32')} <strong>17,6 meetriga</strong> — rohkem kui kaks korda pikemalt. Blizzak Spike 3 kõrvaldati küll pingereast, sest naelad ulatusid lubatust kaugemale.</p>
-<p><strong>Vi Bilägare 2025, naastrehvid 235/60 R18</strong> (Volvo XC60): parim ${R('nokian-hakkapeliitta-10', 'Nokian Hakkapeliitta 10 SUV')} 11,5 m, odavaim Triangle IceLynk TI501 aga <strong>25,5 m</strong>. Sama Triangle oli märjal asfaldil hoopis parim — üks rehv võib ühes olus hiilata ja teises olla ohtlik.</p>
+<p><strong>Vi Bilägare 2025, naastrehvid 235/60 R18</strong> (Volvo XC60): parim ${R('nokian-hakkapeliitta-10', 'Nokian Hakkapeliitta 10 SUV')} 11,5 m, odavaim Triangle IceLynx TI501 aga <strong>25,5 m</strong>. Sama Triangle oli märjal asfaldil hoopis parim — üks rehv võib ühes olus hiilata ja teises olla ohtlik.</p>
 <p><strong>Tekniikan Maailma 2025</strong> (205/55 R16, VW Golf): 50 km/h pealt jääl peatus parim naastrehv 32,3 meetriga, halvim lamellrehv 53,5 meetriga. Vahe on <strong>21 meetrit</strong>.</p>
 
 <h2>Lumi: vahed on väikesed</h2>
@@ -97,7 +97,7 @@
 
 <h2>Лёд: самая большая разница</h2>
 <p><strong>Vi Bilägare 2026, шипованные шины 215/65 R17</strong> (VW Tiguan): при торможении с 25 до 5 км/ч лучшая ${R('bridgestone-blizzak-spike-3', 'Bridgestone Blizzak Spike 3')} остановилась за <strong>8,3 метра</strong>, худшая ${R('kumho-wintercraft-ice-wi32', 'Kumho WinterCraft Ice Wi32')} — за <strong>17,6 метра</strong>, более чем вдвое длиннее. Правда, Blizzak Spike 3 исключили из рейтинга, потому что шипы выступали больше допустимого.</p>
-<p><strong>Vi Bilägare 2025, шипованные шины 235/60 R18</strong> (Volvo XC60): лучшая ${R('nokian-hakkapeliitta-10', 'Nokian Hakkapeliitta 10 SUV')} — 11,5 м, а самая дешёвая Triangle IceLynk TI501 — <strong>25,5 м</strong>. При этом та же Triangle на мокром асфальте оказалась лучшей — одна шина может блистать в одних условиях и быть опасной в других.</p>
+<p><strong>Vi Bilägare 2025, шипованные шины 235/60 R18</strong> (Volvo XC60): лучшая ${R('nokian-hakkapeliitta-10', 'Nokian Hakkapeliitta 10 SUV')} — 11,5 м, а самая дешёвая Triangle IceLynx TI501 — <strong>25,5 м</strong>. При этом та же Triangle на мокром асфальте оказалась лучшей — одна шина может блистать в одних условиях и быть опасной в других.</p>
 <p><strong>Tekniikan Maailma 2025</strong> (205/55 R16, VW Golf): с 50 км/ч на льду лучшая шипованная шина остановилась за 32,3 метра, худшая нешипованная — за 53,5 метра. Разница — <strong>21 метр</strong>.</p>
 
 <h2>Снег: разница небольшая</h2>
