@@ -29,6 +29,10 @@ const val = (s, re) => (s.match(re) || [])[1];
 
 const vead = [];
 let n = 0;
+/* vene lehelt eestikeelsele lehele, millel on vene versioon olemas (audit 18.10: 16 953 sellist linki).
+   Ainult hoiatus (ei katkesta ehitust): loend + näited, et uus kõvakodeeritud link silma jääks. */
+const ruOlemas = (p) => existsSync(join(ROOT, 'ru' + p.replace(/\/$/, '') + '.html')) || existsSync(join(ROOT, 'ru' + p, 'index.html'));
+const ruLekked = new Map();
 for (const f of html(ROOT)) {
 	n++;
 	const h = readFileSync(f, 'utf-8');
@@ -71,10 +75,23 @@ for (const f of html(ROOT)) {
 		}
 	}
 	if (/<meta (property|name)="(og:|twitter:|description)/.test(body)) v('meta-silt on <body> sees');
+	if (f.startsWith(join(ROOT, 'ru') + '/') || f === join(ROOT, 'ru.html')) {
+		/* ainult nähtav osa: SvelteKit'i andmeskriptides olevad aadressid ei ole lingid */
+		/* keelevahetuse lingid (hreflang="et") peavadki eestikeelsele lehele viima */
+		const nahtav = body.replace(/<script[\s\S]*?<\/script>/g, '').replace(/<a\b[^>]*\bhreflang="[^"]*"[^>]*>/g, '');
+		for (const m of nahtav.matchAll(/href="(\/(?!ru\/|en\/|_app\/|data\/|api\/|og\/|fonts\/)[^"?#]*)/g)) {
+			if (ruOlemas(m[1])) ruLekked.set(m[1], (ruLekked.get(m[1]) || 0) + 1);
+		}
+	}
 	const h1 = count(body, /<h1[\s>]/g);
 	if (h1 !== 1) v(`<h1>: ${h1} tk (peab olema 1)`);
 }
 
+if (ruLekked.size) {
+	const kokku = [...ruLekked.values()].reduce((a, b) => a + b, 0);
+	console.warn(`SEO hoiatus: vene lehtedel ${kokku} linki eestikeelsele lehele, millel on vene versioon (sagedasemad: ` +
+		[...ruLekked.entries()].sort((a, b) => b[1] - a[1]).slice(0, 8).map(([p, c]) => p + ' ×' + c).join(', ') + ')');
+}
 if (vead.length) {
 	console.error(`\nSEO kontroll: ${vead.length} viga ${n} lehel\n` + vead.slice(0, 30).join('\n'));
 	process.exit(1);

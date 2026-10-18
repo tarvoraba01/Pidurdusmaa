@@ -28,6 +28,13 @@
 								? t('Sõltumatutes testides on olnud 1 mudel: {x}.', { x: data.testitud[0].name })
 								: t('Sõltumatutes testides on olnud {k} mudelit, näiteks {x}.', { k: data.testitud.length, x: ja(data.testitud.slice(0, 3).map((x) => x.name)) })) + ' '
 						: t('Ükski {n} mudel ei ole meie andmetes olnud sõltumatus pidurdustestis, seega põhineb hinnang ainult märgisel.', { n }) + ' ') +
+					(data.kohad.length
+						? t('Uusimad kohad testides: {list}.', {
+								list: data.kohad
+									.map((k) => k.name + ' (' + k.test + '): ' + t('{ala} {pos}./{n}', { ala: t(k.parim.ala), pos: k.parim.pos, n: k.parim.n }) + (k.kehvim ? ', ' + t('{ala} {pos}./{n}', { ala: t(k.kehvim.ala), pos: k.kehvim.pos, n: k.kehvim.n }) : ''))
+									.join('; ')
+							}) + ' '
+						: '') +
 					t('Sama mudel võib eri mõõdus olla eri klassiga, nii et vaata oma mõõdu andmeid mudeli lehelt.')
 			]);
 		}
@@ -105,14 +112,14 @@
 	<div class="wrap">
 		{#if data.testitud.length}
 			<div class="box">
-				<h2>{t('Sõltumatult testitud')}</h2>
+				<h2>{t('Sõltumatult testitud rehvid')}</h2>
 				<p class="sub">{t('Nende rehvide pidurdusmaa on päriselt mõõdetud — täpsem kui märgise klass.')}</p>
 				<div class="grid-cards">
 					{#each data.testitud as tt, ti (tt.slug + '#' + ti)}
 						<a class="tcard" href={L('/rehvid/' + tt.slug + '/')}>
 							<span class="b">{t(KAT_NIMI[tt.category] ?? '')}</span>
 							<h3>{tt.name}</h3>
-							<span class="meta">{tt.srcs}</span>
+							<span class="meta">{tt.srcs.map((x) => t(x)).join(', ')}</span>
 						</a>
 					{/each}
 				</div>

@@ -38,8 +38,14 @@ function ilmaLm0(html) {
 	}
 	return out;
 }
-function sisu(html, vana = false) {
-	if (!vana) html = ilmaLm0(html);
+/* viis: 'uus' = ilma data-lm="0" plokkide ja HTML-kommentaarideta (praegune);
+   'eelmine' = ilma data-lm="0" plokkideta, kommentaarid sees (v86–v87 räsid lastmod.json-is);
+   'vana' = data-lm plokid sees (enne v86). Üleminekul klapib vana kuupäev ükskõik millise viisiga. */
+function sisu(html, viis = 'uus') {
+	if (viis !== 'vana') html = ilmaLm0(html);
+	/* Svelte'i hüdratsioonimärgid (<!--[-->, <!---->) ei ole sisu: nende arv muutub ka siis,
+	   kui lehe tekst jääb samaks (nt tabel {@html}-iga), audit 18.10 */
+	if (viis === 'uus') html = html.replace(/<!--[\s\S]*?-->/g, '');
 	const m = /<main\b[\s\S]*<\/main>/i.exec(html);
 	const pea = (/<title>[\s\S]*?<\/title>/i.exec(html) || [''])[0] + ((/<meta name="description"[^>]*>/i.exec(html) || [''])[0]);
 	return (pea + (m ? m[0] : html))
@@ -58,19 +64,21 @@ let muutus = 0, uusi = 0, puudu = 0;
 
 const valja = xml.replace(/<url><loc>https:\/\/[^/<]+(\/[^<]*)<\/loc><lastmod>[^<]*<\/lastmod>/g, (koik, tee) => {
 	const fail = 'build/prerendered' + tee + (tee.endsWith('/') ? 'index.html' : '');
-	let rasi = null, rasiVana = null;
+	let rasi = null, rasiEelm = null, rasiVana = null;
+	const r = (x) => createHash('sha1').update(x).digest('hex').slice(0, 16);
 	try {
 		const html = readFileSync(fail, 'utf-8');
-		rasi = createHash('sha1').update(sisu(html)).digest('hex').slice(0, 16);
-		/* üleminek: vana räsiviis (koos data-lm="0" plokkidega) — kui see klapib, leht ei muutunud */
-		rasiVana = createHash('sha1').update(sisu(html.replace(/ data-lm="0"/g, ''), true)).digest('hex').slice(0, 16);
+		rasi = r(sisu(html));
+		/* üleminek: varasemad räsiviisid — kui mõni klapib, leht ei muutunud */
+		rasiEelm = r(sisu(html, 'eelmine'));
+		rasiVana = r(sisu(html.replace(/ data-lm="0"/g, ''), 'vana'));
 	} catch {
 		puudu++;
 	}
 	const v = vana[tee];
 	let kp;
 	/* LASTMOD_RASI_UUESTI=1: räsimise viis muutus, kuupäevad jäävad */
-	if (v && rasi && (v[0] === rasi || v[0] === rasiVana || process.env.LASTMOD_RASI_UUESTI)) kp = v[1];
+	if (v && rasi && (v[0] === rasi || v[0] === rasiEelm || v[0] === rasiVana || process.env.LASTMOD_RASI_UUESTI)) kp = v[1];
 	else if (v && !rasi) kp = v[1];
 	else {
 		kp = TANA;

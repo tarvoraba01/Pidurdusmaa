@@ -25,19 +25,7 @@
 
 	const TA = 'https://www.transpordiamet.ee/uudised/homsest-lubatud-kasutada-naastrehve';
 
-	const SISU = `<div class="note-box"><strong>Lühidalt, hooaeg 2026/2027.</strong> Naastrehvid on lubatud <strong>15. oktoobrist 2026 kuni 31. märtsini 2027</strong>. Talverehvid on kohustuslikud <strong>1. detsembrist 2026 kuni 1. märtsini 2027</strong>. Talverehvi muster peab olema sügavam kui <strong>3 mm</strong>. Lühike kokkuvõte: <a href="/teadmine/rehvivahetus/">Rehvivahetus — kõik kuupäevad</a>.</div>
-
-<h2>Kuupäevad</h2>
-${tabel(
-		['Mis', 'Millal'],
-		[
-			['Naastrehvid lubatud', '15.10.2026 – 31.03.2027'],
-			['Naastrehvid talveoludes', 'juba 1.10.2026, kuni 30.04.2027'],
-			['Talverehvid kohustuslikud', '1.12.2026 – 1.03.2027'],
-			['Lamell-talverehvid (naastudeta)', 'lubatud aastaringselt']
-		]
-	)}
-<p>Kui ilm on talvine juba septembri lõpus või veel aprillis, tohib naastrehve kasutada 1. oktoobrist 30. aprillini. Allikas: <a href="${TA}" rel="noopener">Transpordiamet</a>.</p>
+	const SISU = `<div class="note-box"><strong>Lühidalt, hooaeg 2026/2027.</strong> Naastrehvid on lubatud <strong>15. oktoobrist 2026 kuni 31. märtsini 2027</strong>. Talverehvid on kohustuslikud <strong>1. detsembrist 2026 kuni 1. märtsini 2027</strong>. Talverehvi muster peab olema sügavam kui <strong>3 mm</strong>. Talviste olude korral tohib naastrehve kasutada 1. oktoobrist 30. aprillini (<a href="${TA}" rel="noopener">Transpordiamet</a>). Kõik tähtajad ja tänane seis: <a href="/teadmine/rehvivahetus/">Rehvivahetus 2026</a>.</div>
 
 <h2>Milline talverehv sobib</h2>
 <ul>
@@ -86,19 +74,7 @@ ${tabel(
 </ul>
 <p class="note">Kuupäevad: Transpordiamet. Pidurdusmaad on arvutatud hinnangud (VW Golf 8, 205/55 R16, uued rehvid, ilma reaktsiooniajata), mitte mõõtmised. <a href="/teadmine/kuidas-pidurdusmaa-arvutatakse/">Kuidas pidurdusmaa arvutatakse</a>.</p>`;
 
-	const SISU_RU = `<div class="note-box"><strong>Коротко, сезон 2026/2027.</strong> Шипованные шины разрешены <strong>с 15 октября 2026 по 31 марта 2027</strong>. Зимние шины обязательны <strong>с 1 декабря 2026 по 1 марта 2027</strong>. Глубина протектора зимней шины должна быть больше <strong>3 мм</strong>. Кратко: <a href="/teadmine/rehvivahetus/">Смена резины — все сроки</a>.</div>
-
-<h2>Сроки</h2>
-${tabel(
-		['Что', 'Когда'],
-		[
-			['Шипованные шины разрешены', '15.10.2026 – 31.03.2027'],
-			['Шипованные шины при зимних условиях', 'уже с 1.10.2026, до 30.04.2027'],
-			['Зимние шины обязательны', '1.12.2026 – 1.03.2027'],
-			['Нешипованные зимние шины («липучки»)', 'разрешены круглый год']
-		]
-	)}
-<p>Если зимняя погода наступила уже в конце сентября или держится в апреле, шипованные шины можно использовать с 1 октября по 30 апреля. Источник: <a href="${TA}" rel="noopener">Transpordiamet</a> (Транспортный департамент Эстонии).</p>
+	const SISU_RU = `<div class="note-box"><strong>Коротко, сезон 2026/2027.</strong> Шипованные шины разрешены <strong>с 15 октября 2026 по 31 марта 2027</strong>. Зимние шины обязательны <strong>с 1 декабря 2026 по 1 марта 2027</strong>. Глубина протектора зимней шины должна быть больше <strong>3 мм</strong>. При зимних условиях шипы можно использовать с 1 октября по 30 апреля (<a href="${TA}" rel="noopener">Транспортный департамент Эстонии</a>). Все сроки и что разрешено сегодня: <a href="/teadmine/rehvivahetus/">Смена резины в Эстонии 2026</a>.</div>
 
 <h2>Какая зимняя шина подходит</h2>
 <ul>
@@ -145,8 +121,19 @@ ${tabel(
 <li><a href="/rehvi-valimine/?hooaeg=winter">Зимние шины в размере вашего автомобиля</a> — по торможению на снегу и льду</li>
 <li><a href="/teadmine/artiklid/talverehvi-valimine/">Как выбрать зимнюю шину: шипы или «липучка», северная или европейская</a></li>
 </ul>
-<p class="note">Сроки: Transpordiamet. Тормозной путь — расчётная оценка (VW Golf 8, 205/55 R16, новые шины, без времени реакции), а не измерение. <a href="/teadmine/kuidas-pidurdusmaa-arvutatakse/">Как рассчитывается тормозной путь</a> (на эстонском).</p>`;
+<p class="note">Сроки: Транспортный департамент Эстонии (Transpordiamet). Тормозной путь — расчётная оценка (VW Golf 8, 205/55 R16, новые шины, без времени реакции), а не измерение. <a href="/ru/teadmine/kuidas-pidurdusmaa-arvutatakse/">Как рассчитывается тормозной путь</a>.</p>`;
 
+	const KKK = ru
+		? [
+				['При какой температуре менять резину на зимнюю?', 'Когда днём держится ниже +7 °C и ночью подмораживает. На мокром асфальте зимняя шина тормозит короче летней уже примерно при +5 °C (с 90 км/ч 47,1 м против 47,8 м), а при 0 °C разница больше 7 метров.'],
+				['Можно ли ждать на летней резине до первого снега?', 'Летняя резина разрешена до 30 ноября, но на укатанном снегу с 50 км/ч автомобиль на летних шинах останавливается примерно за 61 метр, на зимних примерно за 26 метров.'],
+				['Выдержит ли зимняя шина с протектором 4 мм ещё одну зиму?', 'Закон допускает до 3 мм, но с протектором 4 мм тормозной путь на снегу примерно на 5 метров длиннее, чем у новой шины (31,1 м против 26,2 м с 50 км/ч). Новые шины лучше купить до сезона.']
+			]
+		: [
+				['Mis temperatuuril talverehvid alla panna?', 'Kui päeval püsib alla +7 °C ja öösiti tuleb külma. Märjal asfaldil pidurdab talverehv suverehvist lühemalt juba umbes +5 °C juures (90 km/h pealt 47,1 m vs 47,8 m), 0 °C juures on vahe üle 7 meetri.'],
+				['Kas suverehvidega võib esimese lumeni oodata?', 'Suverehvid on lubatud 30. novembrini, aga tallatud lumel 50 km/h pealt peatub auto suverehvidega umbes 61 meetriga, talverehvidega umbes 26 meetriga.'],
+				['Kas 4 mm mustriga talverehv peab veel talve vastu?', 'Seadus lubab kuni 3 mm, aga 4 mm mustriga on pidurdusmaa lumel umbes 5 meetrit pikem kui uuel rehvil (31,1 m vs 26,2 m 50 km/h pealt). Uued rehvid tasub osta enne hooaega.']
+			];
 	const T = ru ? { ...A, ...A.ru } : A;
 </script>
 
@@ -156,7 +143,8 @@ ${tabel(
 	path="teadmine/artiklid/millal-talverehvid-alla/"
 	crumbs={[[t('Teadmine'), '/teadmine/'], [t('Artiklid'), '/teadmine/artiklid/'], [T.title, '/teadmine/artiklid/millal-talverehvid-alla/']]}
 	lapsed={[]}
-	uuendatud={A.kuupaev}
+	uuendatud={A.uuendatud || A.kuupaev}
+	kkk={KKK}
 	avaldatud={A.kuupaev}
 	sisu={ru ? SISU_RU : SISU}
 	image="/og/sait/millal-talverehvid-alla.png"

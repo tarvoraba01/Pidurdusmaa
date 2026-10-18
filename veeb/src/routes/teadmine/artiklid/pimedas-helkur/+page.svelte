@@ -112,7 +112,7 @@ ${tabel(
 
 <h2>Проверьте сами</h2>
 <ul><li><a href="/ru/liiklusohutus/pimedas/">Видимость в темноте</a>: выберите одежду, свет фар и скорость и посмотрите, успеет ли машина остановиться</li><li><a href="/ru/liiklusohutus/reaktsioon/">Игра на реакцию</a>: пешеход на тёмной дороге — успеете затормозить?</li><li><a href="/ru/teadmine/artiklid/linnas-50-kmh/">50 км/ч в городе: какая разница между 40 и 60 км/ч?</a></li></ul>
-<p class="note">Расстояния видимости: Департамент транспорта Эстонии (2025), «Что нужно знать о световозвращателе». Торможение рассчитано моделью и является оценкой, а не измерением: <a href="/teadmine/kuidas-pidurdusmaa-arvutatakse/">Как рассчитывается тормозной путь</a> (на эстонском).</p>`;
+<p class="note">Расстояния видимости: Департамент транспорта Эстонии (2025), «Что нужно знать о световозвращателе». Торможение рассчитано моделью и является оценкой, а не измерением: <a href="/ru/teadmine/kuidas-pidurdusmaa-arvutatakse/">Как рассчитывается тормозной путь</a>.</p>`;
 
 	const KKK = [
 		['Kui kaugelt näeb juht pimedas jalakäijat?', 'Transpordiameti andmetel lähitulede valgel tumedas riietuses helkurita jalakäijat kuni 30 m, heledas riietuses 40–50 m ja helkuriga 130–150 m kauguselt. Kaugtulede valgel helkuriga 300–350 m kauguselt.'],

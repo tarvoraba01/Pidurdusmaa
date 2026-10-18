@@ -10,11 +10,59 @@
 	import Leht from '$lib/Leht.svelte';
 	import { ARTIKLID } from '$lib/artiklid.js';
 	import { useLang, useT } from '$lib/i18n.js';
+	let { data } = $props();
 	const keel = useLang();
 	const t = useT();
 	const A = ARTIKLID.find((a) => a.slug === 'talverehvide-testid-2026');
 	const ru = keel.lang === 'ru';
 	const R = (s, n) => `<a href="/rehvid/${s}/">${n}</a>`;
+
+	/* Testide parimad alade kaupa (+page.server.js → talveTestideParimad): iga testi enda
+	   1. koht jääl, lumel ja märjal asfaldil. Uus avalik test tuleb tabelisse ise. */
+	const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+	const nr = (m) => (Math.round(m * 10) / 10).toFixed(1).replace('.', ',');
+	const ALAD = ['jää', 'lumi', 'märg asfalt'];
+	const PIND = ru ? { jää: 'Лёд', lumi: 'Снег', 'märg asfalt': 'Мокрый асфальт' } : { jää: 'Jää', lumi: 'Lumi', 'märg asfalt': 'Märg asfalt' };
+	const KAT = ru
+		? { naast: 'шипованные', lamell: 'северные нешипованные', kesk: 'европейские зимние', 'naast+lamell': 'шипованные и нешипованные', segu: 'разные зимние' }
+		: { naast: 'naastrehvid', lamell: 'Põhjamaade lamellrehvid', kesk: 'Kesk-Euroopa talverehvid', 'naast+lamell': 'naast- ja lamellrehvid', segu: 'eri tüüpi talverehvid' };
+	const lahter = (o) =>
+		!o
+			? '—'
+			: o.rehvid.map((r) => (r.ix ? `<a href="/rehvid/${r.slug}/">${esc(r.nimi)}</a>` : esc(r.nimi))).join(' / ') +
+				`<br><b>${nr(o.m)} m</b> <small style="white-space:nowrap">${o.v0}→${o.v1} km/h</small>`;
+	const tabel = (rows) =>
+		`<div class="tbl-wrap"><table class="t"><thead><tr><th>${ru ? 'Тест' : 'Test'}</th>${ALAD.map((a) => `<th>${PIND[a]}</th>`).join('')}</tr></thead><tbody>` +
+		rows
+			.map(
+				(x) =>
+					`<tr><td><strong>${esc(x.pub)} ${x.aasta}</strong><br><small>${[KAT[x.kat], x.moot, x.auto, x.n ? x.n + (ru ? ' шин' : ' rehvi') : ''].filter(Boolean).map(esc).join(' · ')}</small></td>` +
+					ALAD.map((a) => `<td>${lahter(x.alad[a])}</td>`).join('') +
+					'</tr>'
+			)
+			.join('') +
+		'</tbody></table></div>';
+	const testid = data.testid || [];
+	const aastad = [...new Set(testid.map((x) => x.aasta))];
+	const TABELID = aastad
+		.map((y, i) => {
+			const rows = testid.filter((x) => x.aasta === y);
+			const h = ru
+				? i === 0
+					? `Лучшие в зимних тестах ${y} года`
+					: `Тесты ${y} года (зима ${y}/${String(y + 1).slice(2)})`
+				: i === 0
+					? `${y}. aasta talvetestide parimad`
+					: `${y}. aasta testid (talv ${y}/${String(y + 1).slice(2)})`;
+			const selg =
+				i > 0
+					? ''
+					: ru
+						? '<p>Лучшая шина каждого теста на льду, снегу и мокром асфальте: тормозной путь, измеренный самим тестом. Прочерк: такой дисциплины в тесте не было или победителя нет в нашей базе. Метры из разных тестов напрямую сравнивать нельзя: разные автомобили и скорости.</p>'
+						: '<p>Iga testi parim rehv jääl, lumel ja märjal asfaldil: testi enda mõõdetud pidurdusmaa. Kriips: seda ala testis polnud või võitjat pole meie andmebaasis. Eri testide meetreid otse võrrelda ei saa: autod ja kiirused on erinevad.</p>';
+			return `<h2>${h}</h2>${selg}${tabel(rows)}`;
+		})
+		.join('');
 
 	const SISU = `<p><strong>Talverehvide testid näitavad igal sügisel sama pilti:</strong> lumel on head ja keskmised rehvid peaaegu võrdsed, aga jääl ja märjal asfaldil võib vahe olla mitu autopikkust. Kogusime kokku viimaste testide <em>mõõdetud</em> pidurdusmaad — ainult meetrid, mitte punktid ega hinded.</p>
 
@@ -85,5 +133,5 @@
 	uuendatud={A.uuendatud || A.kuupaev}
 	avaldatud={A.kuupaev}
 	image="/og/sait/talverehvide-testid-2026.png"
-	sisu={ru ? SISU_RU : SISU}
+	sisu={(ru ? SISU_RU : SISU).replace('</p>', '</p>' + TABELID)}
 />

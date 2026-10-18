@@ -125,26 +125,27 @@ export const ARTIKLID = [
 	},
 	{
 		slug: 'millal-talverehvid-alla',
-		title: 'Millal talverehvid alla panna: +7 °C reegel ja esimene lumi numbrites',
-		desc: 'Ära oota 1. detsembrit: esimesel lumel peatub suverehv 50 km/h pealt 61 m, talverehv 26 m. Millal vahetada, milline talverehv valida ja kas vana rehv peab veel talve vastu.',
+		title: 'Mis temperatuuril talverehvid alla panna? +7 °C reegel numbrites',
+		desc: 'Ära oota 1. detsembrit: esimesel lumel peatub suverehv 50 km/h pealt 61 m, talverehv 26 m. Mis temperatuuril vahetada, milline talverehv valida ja kas vana rehv peab veel talve vastu.',
 		kuupaev: '2026-09-30',
+		uuendatud: '2026-10-18',
 		silt: 'Talverehvid',
 		ru: {
-			title: 'Когда ставить зимние шины: правило +7 °C и первый снег в цифрах',
-			desc: 'Не ждите 1 декабря: на первом снегу с 50 км/ч летняя шина останавливается за 61 м, зимняя — за 26 м. Когда менять, какую зимнюю шину выбрать и выдержит ли старая ещё зиму.',
+			title: 'При какой температуре менять резину на зимнюю: правило +7 °C',
+			desc: 'Не ждите 1 декабря: на первом снегу с 50 км/ч летняя шина останавливается за 61 м, зимняя — за 26 м. При какой температуре менять, какую зимнюю шину выбрать и выдержит ли старая ещё зиму.',
 			silt: 'Зимние шины'
 		}
 	},
 	{
 		slug: 'talverehvide-testid-2026',
-		title: 'Talverehvide testid 2025–2026: mida mõõtmised näitavad',
-		desc: 'Jääl üle kahe korra pikem pidurdusmaa, märjal kuni 18 meetrit vahet, lumel alla meetri. ADAC, Auto Bild, Tekniikan Maailma ja Vi Bilägare talvetestide mõõdetud pidurdusmaad ühest kohast.',
+		title: 'Talverehvide test 2026: parimad naast- ja lamellrehvid',
+		desc: 'Kes pidurdas 2025. ja 2026. aasta talvetestides jääl, lumel ja märjal kõige lühemalt: Vi Bilägare, ADAC, Auto Bild, Tekniikan Maailma. Mõõdetud meetrid ühes tabelis, mitte punktid.',
 		kuupaev: '2026-09-30',
-		uuendatud: '2026-10-12',
+		uuendatud: '2026-10-18',
 		silt: 'Testid',
 		ru: {
-			title: 'Тесты зимних шин 2025–2026: что показывают измерения',
-			desc: 'На льду тормозной путь более чем вдвое длиннее, на мокром — до 18 метров разницы, на снегу меньше метра. Измеренный тормозной путь из зимних тестов ADAC, Auto Bild, Tekniikan Maailma и Vi Bilägare.',
+			title: 'Тест зимних шин 2026: лучшие шипованные и нешипованные',
+			desc: 'Кто тормозил короче всех на льду, снегу и мокром в зимних тестах 2025 и 2026 годов: Vi Bilägare, ADAC, Auto Bild, Tekniikan Maailma. Измеренные метры в одной таблице, а не баллы.',
 			silt: 'Тесты'
 		}
 	},

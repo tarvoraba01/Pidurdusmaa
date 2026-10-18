@@ -162,6 +162,8 @@ const server = http.createServer((req, res) => {
 	if (!tee0.startsWith('/_app/')) {
 		if (tee0.startsWith('/data/')) res.setHeader('Cache-Control', /[?&]v=/.test(req.url || '') ? 'public, max-age=31536000, immutable' : 'public, max-age=300');
 		else if (tee0.startsWith('/fonts/')) res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+		/* ikoonid ja favicon (audit 18.10: icon-192.png laeti iga lehega ilma vahemäluta) */
+		else if (/^\/(icon-\d+\.png|apple-touch-icon\.png|favicon\.(svg|ico))$/.test(tee0)) res.setHeader('Cache-Control', 'public, max-age=604800');
 		else if (tee0.endsWith('/') || tee0.endsWith('.html')) res.setHeader('Cache-Control', 'no-cache');
 	}
 	/* kadunud võrdlusleht (paar langes testiandmete uuendusel välja) → esimese rehvi leht, 301

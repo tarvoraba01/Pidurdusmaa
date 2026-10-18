@@ -702,17 +702,23 @@
 		kaartVoti = voti;
 		/* arvutame väikeste tükkidena (≤ ~12 ms korraga), et telefonis leht ei hanguks */
 		const read = Object.fromEntries(KR_PIND.map(([p]) => [p, Array(KR_KIIRUSED.length).fill(null)]));
-		let k = 0, katkes = false, id = 0;
+		let k = 0, katkes = false, id = 0, naidatud = 0;
 		const N = KR_PIND.length * KR_KIIRUSED.length;
+		/* tükk ≤ 6 ms ja tabel uueneb kuni ~4 korda sekundis, mitte iga tüki järel
+		   (audit 18.10: iga tüki järel kogu tabeli uus olek = aeglasel telefonil 70–170 ms ülesanne) */
 		const tee = () => {
 			if (katkes || voti !== kaartVoti) return;
 			const t0 = performance.now();
-			while (k < N && performance.now() - t0 < 12) {
+			while (k < N && performance.now() - t0 < 6) {
 				const p = KR_PIND[Math.floor(k / KR_KIIRUSED.length)][0], j = k % KR_KIIRUSED.length;
 				try { read[p][j] = krSoit(p, KR_KIIRUSED[j], KR.esi, KR.taga).tulemus; } catch { read[p][j] = null; }
 				k++;
 			}
-			kaart = { voti, valmis: k >= N, read: Object.fromEntries(Object.entries(read).map(([p, r]) => [p, r.slice()])) };
+			const nyyd = performance.now();
+			if (k >= N || nyyd - naidatud > 250) {
+				naidatud = nyyd;
+				kaart = { voti, valmis: k >= N, read: Object.fromEntries(Object.entries(read).map(([p, r]) => [p, r.slice()])) };
+			}
 			if (k < N) id = setTimeout(tee, 0);
 		};
 		id = setTimeout(tee, 250);
@@ -1314,7 +1320,7 @@
 
 	{#if core && !esitlus && teeVaade}
 		<div class="lo-mini" class:peidus={tulemusNahtav}>
-			<button type="button" class="lo-mini-res" onclick={naitaTulemust} aria-label={t("Näita tulemust")}>
+			<button type="button" class="lo-mini-res" onclick={naitaTulemust}>
 				<span class="lo-tag sm">A</span><b>{RA?.r ? (RA.r.stopped ? m(RA.r.totalDistanceM) + ' m' : t('ei peatu')) : '—'}</b>
 				{#if B}<span class="lo-tag sm lo-tag-b">B</span><b>{RB?.r ? (RB.r.stopped ? m(RB.r.totalDistanceM) + ' m' : t('ei peatu')) : '—'}</b>{/if}
 				<span class="lo-mini-up">{t("Tulemus ↑")}</span>

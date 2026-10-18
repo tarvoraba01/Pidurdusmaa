@@ -1,5 +1,8 @@
 <script>
 	import Leht from '$lib/Leht.svelte';
+	import { useLang } from '$lib/i18n.js';
+	/* vene versioon (audit 18.10: vene lehtedelt 13 121 linki eestikeelsele metoodikale) */
+	const ru = useLang().lang === 'ru';
 	const SISU = `<p>Kalkulaator <strong>arvutab</strong> pidurdusmaa. See ei ole laborimõõtmine ega lubadus, et sinu auto peatub täpselt selle meetri pealt. Tulemus on hinnang, millel on alati veapiir, ja leht näitab seda veapiiri iga tulemuse juures.</p>
 <h2>Mida mudel teeb</h2>
 <p>Pidurdus simuleeritakse väikeste ajasammudega: iga hetk arvutatakse rehvi ja tee vaheline haare antud kiirusel, ABS-i tõhusus, õhutakistus, veeretakistus, kalle ja pidurite võimekus. Haare sõltub kiirusest (märjal kukub ta kiiruse kasvades rohkem kui kuival), temperatuurist ja rehvi kategooriast.</p>
@@ -16,17 +19,40 @@
 <ul><li>Kummisegu. Parimate rehvide vahe märjal on umbes 17%, ja see tuleb peamiselt segust, mida tootjad ei avalda.</li><li>Lörtsi, märga või külmunud kruusa ja kurvis pidurdamist.</li><li>Rehvide järjestust lumel ja jääl, kui rehv ei ole testitud.</li></ul>
 <h2>Andmete liigid</h2>
 <ul><li><strong>Ametlik</strong> — EL-i tooteregister EPREL (rehvimärgis).</li><li><strong>Sõltumatu test</strong> — ajakirja või autoklubi mõõdetud tulemus, allika ja aastaga.</li><li><strong>Arvutatud hinnang</strong> — selle lehe mudel.</li><li><strong>Sinu sisend</strong> — auto, kiirus, teeolud.</li></ul>`;
+	const SISU_RU = `<p>Калькулятор <strong>рассчитывает</strong> тормозной путь. Это не лабораторное измерение и не обещание, что ваш автомобиль остановится ровно на этом метре. Результат является оценкой, у которой всегда есть погрешность, и сайт показывает эту погрешность у каждого результата.</p>
+<h2>Что делает модель</h2>
+<p>Торможение моделируется маленькими шагами по времени: в каждый момент рассчитываются сцепление шины с дорогой на данной скорости, эффективность ABS, сопротивление воздуха, сопротивление качению, уклон и возможности тормозов. Сцепление зависит от скорости (на мокрой дороге с ростом скорости оно падает сильнее, чем на сухой), от температуры и от категории шины.</p>
+<h2>Откуда берётся сцепление шины</h2>
+<ul><li><strong>На мокрой дороге</strong> сцепление берётся из индекса сцепления на мокрой дороге по маркировке шин ЕС. Индекс является результатом официального испытания UNECE R117 (мокрый асфальт, с 80 до 20 км/ч, относительно эталонной шины). Модель переводит его в сцепление одним коэффициентом, подобранным по 85 измеренным тормозным путям на мокрой дороге.</li><li><strong>У шин, прошедших независимые тесты,</strong> индекс выводится из измеренного в тесте тормозного пути на мокрой дороге: это точнее, чем класс маркировки.</li><li><strong>У шин только с маркировкой</strong> известен лишь класс (от A до E), а не точное число. Модель берёт середину класса и добавляет к погрешности ±4,5%. Мы проверили: разброс измеренных шин внутри одного класса составил от 2,4 до 3,9%.</li><li><strong>На сухой дороге, снегу и льду</strong> маркировка ничего не говорит. Для протестированных шин используется результат теста, для остальных среднее по категории шины. Поэтому сайт не ранжирует шины только с маркировкой на сухом асфальте, снегу и льду: они все были бы равны, и это выглядело бы как знание, которого у нас нет.</li></ul>
+<h2>Дорожные условия в калькуляторе</h2>
+<p>В калькуляторе вы выбираете одно из четырёх дорожных условий. За каждым стоит определённое покрытие и температура:</p>
+<div class="tbl-wrap"><table class="t" style="min-width:0"><thead><tr><th>Условия</th><th>Покрытие</th><th class="n">Температура</th></tr></thead><tbody><tr><td><strong>Мокро</strong></td><td>Асфальт, слой воды 1 мм</td><td class="n">+10 °C</td></tr><tr><td><strong>Сухо</strong></td><td>Асфальт</td><td class="n">+15 °C</td></tr><tr><td><strong>Снег</strong></td><td>Укатанный снег</td><td class="n">−5 °C</td></tr><tr><td><strong>Лёд</strong></td><td>Типичный лёд (медиана 45 журнальных тестов)</td><td class="n">−5 °C</td></tr></tbody></table></div>
+<p><strong>Лёд означает типичный лёд, а не лучший день.</strong> Журнальные тесты на льду (ADAC, Tekniikan Maailma, Auto Bild, Vi Bilägare и другие) проводят торможение на ледовой площадке, но лёд в каждый тестовый день разный. Мы взяли 45 независимых тестов на льду с 2015 по 2026 год и настроили модель так, чтобы в половине тестов измеренный тормозной путь был короче, а в половине длиннее, чем по модели. Соотношения между шинами (шипованная, фрикционная северного типа, зимняя европейского типа, летняя) берутся из тестов, где все шины ехали в один день по одному льду. Зимняя шина северного типа при −5 °C получает коэффициент сцепления около 0,16. Тающий лёд около нуля и чёрный лёд более скользкие (выберите «Гладкий лёд»), шероховатый и посыпанный песком лёд держит лучше. Диапазон для льда (±25%) покрывает эти колебания.</p>
+<p>Шина новая (глубина протектора 8 мм), давление по рекомендации завода, в машине водитель (75 кг). Тормозной путь начинается с момента, когда педаль тормоза нажата до упора: время реакции не учитывается, потому что оно зависит от человека, а не от шины.</p>
+<h2>Насколько это точно</h2>
+<ul><li>По 369 измеренным тормозным путям (ADAC, Tekniikan Maailma, UTAC) остаточная ошибка модели на асфальте (мокром и сухом) составляет 4,4%, на бетоне 6,6%, на снегу 5,5%, на льду 6,9% (на испытательной площадке, потому что тесты проводят там).</li><li>Проверка тестами, которые модель никогда не видела (Vi Bilägare 2010, другой размер и другие скорости): на сухом от 3,2 до 5,7%.</li><li>У каждого результата есть диапазон. По умолчанию показывается средняя оценка.</li></ul>
+<h2>Ограничения</h2>
+<ul><li>Резиновая смесь. Разница между лучшими шинами на мокрой дороге около 17%, и она в основном идёт от смеси, которую производители не раскрывают.</li><li>Слякоть, мокрый или замёрзший гравий и торможение в повороте модель не учитывает.</li><li>Порядок шин на снегу и льду, если шина не тестировалась, модель не определяет.</li></ul>
+<h2>Типы данных</h2>
+<ul><li><strong>Официальные</strong>: реестр продукции ЕС EPREL (маркировка шин).</li><li><strong>Независимый тест</strong>: результат, измеренный журналом или автоклубом, с источником и годом.</li><li><strong>Расчётная оценка</strong>: модель этого сайта.</li><li><strong>Ваши данные</strong>: автомобиль, скорость, дорожные условия.</li></ul>`;
+	const KKK_RU = [
+		['Насколько точен калькулятор тормозного пути?', 'По 369 измеренным тормозным путям (ADAC, Tekniikan Maailma, UTAC) средняя ошибка модели на мокром и сухом асфальте 4,4%, на снегу 5,5% и на льду 6,9%. У каждого результата показывается диапазон. Для шин только с маркировкой ЕС диапазон шире, потому что известен класс, а не точное число.'],
+		['Откуда берутся данные о шинах?', 'Сцепление на мокрой дороге даёт маркировка шин ЕС (реестр EPREL). Для протестированных шин используется измеренный в тесте тормозной путь: это точнее, чем класс маркировки. На сухом асфальте, снегу и льду используется результат теста или среднее по категории шины.'],
+		['Входит ли время реакции в тормозной путь?', 'Нет. Тормозной путь начинается с момента, когда тормоз нажат до упора, потому что реакция зависит от водителя, а не от шины. Остановочный путь с временем реакции считает калькулятор безопасности дорожного движения.'],
+		['Почему шины только с маркировкой не ранжируются на снегу и льду?', 'Маркировка ЕС ничего не говорит о торможении на снегу и льду. Если шина не тестировалась, у всех шин одной категории был бы одинаковый результат, и порядок выглядел бы как знание, которого у нас нет.'],
+		['С какими допущениями рассчитывается результат?', 'Шина новая (протектор 8 мм), давление по рекомендации завода, в машине водитель (75 кг). Мокрая дорога означает асфальт со слоем воды 1 мм при +10 °C, сухой асфальт при +15 °C, укатанный снег и типичный лёд при −5 °C.']
+	];
 </script>
 
 <Leht
-	title="Kuidas pidurdusmaa arvutatakse"
-	desc="Mudel, eeldused, täpsus ja piirangud: kuidas Pidurdusmaa.ee pidurdusmaa arvutab ja kui täpne see on."
+	title={ru ? 'Как рассчитывается тормозной путь' : 'Kuidas pidurdusmaa arvutatakse'}
+	desc={ru ? 'Модель, допущения, точность и ограничения: как Pidurdusmaa.ee рассчитывает тормозной путь и насколько это точно.' : 'Mudel, eeldused, täpsus ja piirangud: kuidas Pidurdusmaa.ee pidurdusmaa arvutab ja kui täpne see on.'}
 	path="teadmine/kuidas-pidurdusmaa-arvutatakse/"
-	crumbs={[["Teadmine", "/teadmine/"], ["Kuidas pidurdusmaa arvutatakse", "/teadmine/kuidas-pidurdusmaa-arvutatakse/"]]}
+	crumbs={ru ? [['Знания', '/teadmine/'], ['Как рассчитывается тормозной путь', '/teadmine/kuidas-pidurdusmaa-arvutatakse/']] : [['Teadmine', '/teadmine/'], ['Kuidas pidurdusmaa arvutatakse', '/teadmine/kuidas-pidurdusmaa-arvutatakse/']]}
 	lapsed={[]}
 	uuendatud="2026-09-25"
-	sisu={SISU}
-	kkk={[
+	sisu={ru ? SISU_RU : SISU}
+	kkk={ru ? KKK_RU : [
 		['Kui täpne on pidurdusmaa kalkulaator?', '369 mõõdetud pidurdusmaa vastu (ADAC, Tekniikan Maailma, UTAC) on mudeli keskmine viga märjal ja kuival asfaldil 4,4%, lumel 5,5% ja jääl 6,9%. Iga tulemuse juures näidatakse vahemikku. Rehvidel, millel on ainult EL-i märgis, on vahemik laiem, sest teada on klass, mitte täpne number.'],
 		['Kust tulevad rehvide andmed?', 'Märja haarde annab EL-i rehvimärgis (tooteregister EPREL). Sõltumatult testitud rehvidel kasutatakse testi enda mõõdetud pidurdusmaad, mis on täpsem kui märgise klass. Kuival, lumel ja jääl kasutatakse testi tulemust või rehvi kategooria keskmist.'],
 		['Kas pidurdusmaa sisaldab reaktsiooniaega?', 'Ei. Pidurdusmaa algab hetkest, kui pidur on põhjas, sest reaktsioon tuleb juhist, mitte rehvist. Peatumisteekonna, kus reaktsiooniaeg on juures, arvutab liiklusohutuse kalkulaator.'],

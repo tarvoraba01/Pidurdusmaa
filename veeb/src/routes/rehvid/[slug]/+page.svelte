@@ -43,6 +43,8 @@
 	const mootKkk = $derived.by(() => {
 		if (data.liik !== 'moot') return [];
 		const m = data.size.label, out = [];
+		const tl = testiLaused(false);
+		if (tl) out.push([t('Milline rehv oli mõõdus {m} testides parim?', { m }), tl]);
 		if (data.parimG && data.parimad.length) {
 			out.push([
 				t('Milline {m} rehv on märjal kõige parem?', { m }),
@@ -75,6 +77,32 @@
 		}
 		return out;
 	});
+	const SUGULASED = {
+		pohja: 'Sõltumatut testi sellele mudelile veel ei ole. Sama tootja testitud talverehvid:',
+		kesk: 'Sõltumatut testi sellele mudelile veel ei ole. Sama tootja testitud talverehvid:',
+		suvi: 'Sõltumatut testi sellele mudelile veel ei ole. Sama tootja testitud suverehvid:',
+		aastaring: 'Sõltumatut testi sellele mudelile veel ei ole. Sama tootja testitud aastaringsed rehvid:'
+	};
+	/* testides parimad selles mõõdus (päring „205/55 R16“): esimene lause lehel ja KKK vastus.
+	   html = nimed lingitud (ainult indekseeritavad lehed), txt = sama ilma linkideta (JSON-LD) */
+	const escH = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+	const testiLaused = (html) => {
+		const x = data.liik === 'moot' ? data.testid : null;
+		if (!x) return '';
+		const m = data.size.label, osad = [];
+		const nimed = (o) => o.rehvid.slice(0, 3).map((r) => (html && r.ix ? `<a href="${L('/rehvid/' + r.slug + '/')}">${escH(r.nimi)}</a>` : html ? escH(r.nimi) : r.nimi)).join(' / ');
+		const test = (o) => (html ? escH(o.pub) : o.pub) + ' ' + o.aasta + (o.v0 > 0 ? ', ' + Math.round(o.v0) + '→' + Math.round(o.v1 || 0) + ' ' + t('km/h') : '');
+		const v = (o) => ({ moot: m, r: nimed(o), test: test(o), m: num(o.m) });
+		if (x.suvi) osad.push(t('Mõõdus {moot} pidurdas suverehvidest märjal kõige lühemalt {r} ({test}: {m} m).', v(x.suvi)));
+		else if (x.aastaring) osad.push(t('Mõõdus {moot} pidurdas aastaringsetest rehvidest märjal kõige lühemalt {r} ({test}: {m} m).', v(x.aastaring)));
+		if (x.talv) {
+			const pind = x.talv.ala === 'jää' ? t('jääl') : t('märjal asfaldil');
+			osad.push(osad.length ? t('Talverehvidest oli {pind} parim {r} ({test}: {m} m).', { ...v(x.talv), pind }) : t('Mõõdus {moot} oli talverehvidest {pind} parim {r} ({test}: {m} m).', { ...v(x.talv), pind }));
+		}
+		return osad.join(' ');
+	};
+	const testiHtml = $derived(testiLaused(true));
+	const testiTxt = $derived(testiLaused(false));
 	/* otsingutulemuse kirjeldus: mitu suve-, talve- ja aastaringset rehvi selles mõõdus */
 	const mootDesc = $derived.by(() => {
 		if (data.liik !== 'moot') return '';
@@ -157,7 +185,7 @@
 						/* NB: mitte 'Product' — Google nõuab Productil hinda (offers), arvustust
 						   või hinnangut, meil neid lehel pole (Search Console'i kriitiline viga). */
 						'@type': 'WebPage',
-						name: data.tyre.name + (data.hinnang ? t(' naastrehv — pidurdusmaa hinnang ja hinnad') : data.testitud ? t(' test — pidurdusmaa ja märgis') : t(' — pidurdusmaa, märgis ja testid')),
+						name: data.hinnang ? data.tyre.name + t(' naastrehv — pidurdusmaa hinnang ja hinnad') : data.testitud ? t('{rehv} test — pidurdusmaa ja märgis', { rehv: data.tyre.name }) : data.tyre.name + t(' — pidurdusmaa, märgis ja testid'),
 						description: kirjeldus,
 						url: 'https://pidurdusmaa.ee' + L('/rehvid/' + data.tyre.slug + '/'),
 						inLanguage: keel.lang,
@@ -184,13 +212,36 @@
 			? t('{pind} {v} km/h pealt peatusid {a} ja {b} ühepikkuselt: {m} m ({test}).', { pind: pind.charAt(0).toUpperCase() + pind.slice(1), v: Math.round(p.v0), a: A, b: B, m: num(p.am), test: t(p.src) })
 			: t('{pind} {v} km/h pealt peatus {voit} {d} m lühemalt kui {kaot}: {am} m vs {bm} m ({test}).', { pind: pind.charAt(0).toUpperCase() + pind.slice(1), v: Math.round(p.v0), voit, kaot, d: num(p.d), am: num(Math.min(p.am, p.bm)), bm: num(Math.max(p.am, p.bm)), test: t(p.src) });
 		const koond = k.n > 1 ? ' ' + (k.a === k.b ? t('Kokku {n} mõõtmist: kumbki oli lühem {a} korral.', { n: k.n, a: k.a }) : t('Kokku {n} mõõtmist: {voit} oli lühem {x} korral, {kaot} {y} korral.', { n: k.n, voit: k.a > k.b ? A : B, kaot: k.a > k.b ? B : A, x: Math.max(k.a, k.b), y: Math.min(k.a, k.b) })) : '';
-		return pea + koond;
+		/* alla 1 m vahe (467 lehel 857-st) ei ole „võitja“: ütleme ausalt, et see on mõõtmise täpsuse piires */
+		const vordne = p.am !== p.bm && Math.abs(p.am - p.bm) < 1 ? ' ' + t('Alla 1 meetri vahe on mõõtmise täpsuse piires, nii et selles mõõtmises olid rehvid praktiliselt võrdsed.') : '';
+		return pea + vordne + koond;
 	});
 	const vsLd = $derived(
 		data.liik === 'vs' && vsVastus
 			? graph({ '@type': 'FAQPage', mainEntity: [{ '@type': 'Question', name: t('Kumb on parem: {a} või {b}?', { a: data.a.name, b: data.b.name }), acceptedAnswer: { '@type': 'Answer', text: vsVastus + ' ' + t('Lühem pidurdusmaa on parem; vahe sõltub pinnast, nii et vaata tabelist seda pinda, millel sa päriselt sõidad.') } }] })
 			: undefined
 	);
+
+	/* Mõõdulehe tabeli read (kuni ~400) ühe HTML-stringina: brauser võtab {@html} sisu hüdratsioonil
+	   üle nagu on, ilma rea- ja Grade-komponentideta (telefonis ~200 ms vähem tööd, audit 18.10).
+	   Märgistus on sama mis Grade.svelte'il ja endisel {#each}-il; app.js hinnaTabelid() vajab
+	   ainult tr[data-pid] ja data-n. Rida serverist: [slug, nimi, märghaare, veeretakistus, dB, lipud] */
+	const ea = (s) => String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
+	const et = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;');
+	const gradeHtml = (g) => (typeof g === 'string' && /^[A-E]$/.test(g) ? `<span class="gr ${g}" aria-label="${ea(t('klass {g}', { g }))}">${g}</span>` : '<span class="gr x">–</span>');
+	function readHtml(list) {
+		const testitud = '<span class="pill test">' + et(t('Testitud')) + '</span>';
+		const dB = ' ' + t('dB');
+		let h = '';
+		for (const [slug, nimi, g, f, db, lipud] of list)
+			h +=
+				`<tr data-pid="${ea(slug)}" data-n="${ea(nimi)}"><td>` +
+				(lipud & 2 ? `<a href="${ea(L('/rehvid/' + slug + '/'))}">${et(nimi)}</a>` : et(nimi)) +
+				`</td><td>${gradeHtml(g)}</td><td>${gradeHtml(f)}</td><td class="n">${db ? et(db + dB) : '–'}</td><td>` +
+				(lipud & 1 ? testitud : '<span class="note">–</span>') +
+				'</td></tr>';
+		return h;
+	}
 
 	function pctVahe(d, x, y) {
 		const p = (100 * d) / Math.min(x, y);
@@ -200,7 +251,7 @@
 
 {#if data.liik === 'moot'}
 	<Meta
-		title={t('{m} rehvid — {n} mudelit, märgised ja testid', { m: data.size.label, n: data.n })}
+		title={data.testid ? t('{m} rehvid: parimad testides, {n} mudelit ja märgised', { m: data.size.label, n: data.n }) : t('{m} rehvid — {n} mudelit, märgised ja testid', { m: data.size.label, n: data.n })}
 		desc={mootDesc}
 		path="rehvid/{data.size.slug}/"
 		image={data.noindex ? undefined : `/og/m/${data.size.slug}.png`}
@@ -217,7 +268,7 @@
 			</div>
 			<h1>{t("Rehvid")} {data.size.label}</h1>
 			<p>
-				{data.n} {t("rehvimudelit EL-i rehvimärgise andmetega. Märghaardumise klass ütleb, kui lühikeseks jääb pidurdusmaa märjal teel — ja klass on selle mõõdu oma, mitte mudeli üldine.")}
+				{#if testiHtml}{@html testiHtml}{' '}{/if}{data.n} {t("rehvimudelit EL-i rehvimärgise andmetega. Märghaardumise klass ütleb, kui lühikeseks jääb pidurdusmaa märjal teel — ja klass on selle mõõdu oma, mitte mudeli üldine.")}
 				{#if data.parimG === 'A'}{t('Klass A on {n} mudelil.', { n: data.parimN })}{/if}
 				{#if data.nTest}{data.nTest === 1 ? t('1 mudel on olnud sõltumatus pidurdustestis.') : t('{n} mudelit on olnud sõltumatus pidurdustestis.', { n: data.nTest })}{/if}
 			</p>
@@ -235,25 +286,13 @@
 				{#each data.grupid as gr (gr.ci)}
 					<div class="box">
 						<h2>{KAT[gr.ci] ?? ''}</h2>
-						<p class="sub">{gr.list.length} {t("mudelit · järjestatud märghaardumise klassi, siis müra järgi")}</p>
+						<p class="sub">{t('{n} mudelit · järjestatud märghaardumise klassi, siis müra järgi', { n: gr.list.length })}</p>
 						<div class="tbl-wrap">
 							<table class="t" data-hinnad={data.size.m} data-hinnad-koht="mooduleht">
 								<thead>
 									<tr><th>{t("Rehv")}</th><th>{t("Märghaare")}</th><th>{t("Veeretakistus")}</th><th class="n">{t("Müra")}</th><th>{t("Test")}</th></tr>
 								</thead>
-								<tbody>
-									{#each gr.list as r, ri (r.slug + '#' + ri)}
-										<tr data-pid={r.slug} data-n={r.nimi}>
-											<td>{#if r.ix}<a href={L("/rehvid/" + r.slug + "/")}>{r.nimi}</a>{:else}{r.nimi}{/if}</td>
-											<td><Grade g={r.g} /></td>
-											<td><Grade g={r.f} /></td>
-											<td class="n">{r.db ? r.db + ' dB' : '–'}</td>
-											<td
-												>{#if r.tested}<span class="pill test">{t("Testitud")}</span>{:else}<span class="note">–</span>{/if}</td
-											>
-										</tr>
-									{/each}
-								</tbody>
+								<tbody>{@html readHtml(gr.list)}</tbody>
 							</table>
 						</div>
 					</div>
@@ -303,7 +342,7 @@
 {:else if data.liik === 'rehv'}
 	{@const ty = data.tyre}
 	<Meta
-		title={ty.name + (data.hinnang ? t(' naastrehv — pidurdusmaa hinnang ja hinnad') : data.testitud ? t(' test — pidurdusmaa ja märgis') : t(' — pidurdusmaa, märgis ja testid'))}
+		title={data.hinnang ? ty.name + t(' naastrehv — pidurdusmaa hinnang ja hinnad') : data.testitud ? t('{rehv} test — pidurdusmaa ja märgis', { rehv: ty.name }) : ty.name + t(' — pidurdusmaa, märgis ja testid')}
 		desc={kirjeldus}
 		path="rehvid/{ty.slug}/"
 		canonical={data.canonical}
@@ -323,11 +362,11 @@
 		<div class="wrap">
 			<div class="crumbs">
 				<a href={L("/")}>{t("Avaleht")}</a><span>/</span><a href={L("/rehvid/")}>{t("Rehvid")}</a><span>/</span>{#if ty.brandSlug}<a
-						href="/margid/{ty.brandSlug}/">{ty.brand}</a
+						href={L('/margid/' + ty.brandSlug + '/')}>{ty.brand}</a
 					><span>/</span>{/if}{ty.name}
 			</div>
 			<p class="eyebrow" style="color:var(--muted-d)">
-				{#if ty.brandSlug}<a href="/margid/{ty.brandSlug}/" style="color:inherit">{ty.brand}</a>{:else}{ty.brand}{/if}
+				{#if ty.brandSlug}<a href={L('/margid/' + ty.brandSlug + '/')} style="color:inherit">{ty.brand}</a>{:else}{ty.brand}{/if}
 			</p>
 			<h1>{ty.name}</h1>
 			<p>
@@ -357,11 +396,17 @@
 				{/if}
 			{/if}
 			<div class="pills">
-				{#if data.poeMoodud}<span class="pill off">{data.mootudeArv} {data.mootudeArv === 1 ? t('mõõt poodides') : t('mõõtu poodides')}</span>
+				{#if data.poeMoodud}<span class="pill off">{data.mootudeArv === 1 ? t('{k} mõõt poodides', { k: 1 }) : t('{k} mõõtu poodides', { k: data.mootudeArv })}</span>
 				{:else if data.sizes.length}<span class="pill off">{t("EL-i märgis ·")} {data.mootudeArv} {data.mootudeArv === 1 ? t('mõõt') : t('mõõtu')}</span>{/if}
 				{#if data.hinnang}<span class="pill off">{t('Testimata · hinnang')}</span>{/if}
 				{#if data.tests.length || data.ext.length}<span class="pill test">{t("Sõltumatult testitud")}</span>{/if}
 			</div>
+			{#if data.sugulased?.length}
+				<p class="hinnang-note">
+					{t(SUGULASED[data.sugulasedRuhm] || SUGULASED.suvi)}
+					{#each data.sugulased as s, i (s.slug)}{i ? ', ' : ''}<a href={L('/rehvid/' + s.slug + '/')}>{s.nimi}</a>{/each}.
+				</p>
+			{/if}
 			{#if data.hinnang}
 				<p class="hinnang-note">
 					<b>{t('Seda naastrehvi ei ole veel ükski sõltumatu test mõõtnud.')}</b>
@@ -427,7 +472,7 @@
 								<tbody>
 									{#each data.tests as x, xi (xi)}
 										<tr class={x.pos === 1 ? 'best' : ''}>
-											<td><a href="/testid/{x.src_slug}/">{t(x.src_nimi)}</a></td>
+											<td><a href={L('/testid/' + x.src_slug + '/')}>{t(x.src_nimi)}</a></td>
 											<td>{tl(x)}</td>
 											<td class="n"><b>{num(x.m)} {t('m')}</b></td>
 											<td class="n">{x.pos ? x.pos + ' / ' + x.n : '–'}</td>
@@ -518,11 +563,11 @@
 												{/if}
 											</td>
 											<td><Grade g={z.f} /></td>
-											<td class="n">{z.db ? z.db + ' dB' + (z.nk ? ' (' + z.nk + ')' : '') : '–'}</td>
+											<td class="n">{z.db ? z.db + ' ' + t('dB') + (z.nk ? ' (' + z.nk + ')' : '') : '–'}</td>
 											<td class="mrk-td"
 												>{#if z.snow}{@html lumi(t('Kolme mäetipu ja lumehelbe märk (3PMSF)'))} {t('lumemärk')}{/if}{#if z.snow && z.ice}<br />{/if}{#if z.ice}{@html jaa(t('Jäämärk (EL-i rehvimärgise jäähaarde sümbol)'))} {t('jäämärk')}{/if}{#if !z.snow && !z.ice}–{/if}</td
 											>
-											<td>{z.li.join('/') + ' ' + z.si.join('/')}</td>
+											<td>{z.li.join('/') + ' ' + z.si.map((x) => String(x).replace(/^PAR_([A-Z])_PAR$/, '($1)')).join('/')}</td>
 										</tr>
 									{/each}
 								</tbody>
@@ -627,7 +672,7 @@
 			</aside>
 		</div>
 	</div>
-	<How />
+	<How lazy />
 {:else}
 	<Meta
 		title={data.a.name + ' vs ' + data.b.name + ((data.a.name + data.b.name).length <= 30 ? t(' — mõõdetud pidurdusmaad') : '')}
@@ -704,7 +749,7 @@
 							<h3 class="vs-o-n">{r.name}{#if vsTestMoot}<span>&nbsp;· {vsTestMoot}</span>{/if}</h3>
 							<p class="vs-o-h" data-vs-hind>{t('Laen hindu…')}</p>
 							<div class="vs-o-list" data-vs-list></div>
-							<a class="vs-o-r" href={L('/rehvid/' + r.slug + '/')}>{t('Kõik mõõdud ja pidurdusmaa →')}</a>
+							<a class="vs-o-r" href={L('/rehvid/' + r.slug + '/')}>{t('Kõik mõõdud ja pidurdusmaa →')}<span class="sr-only"> {r.name}</span></a>
 						</div>
 					{/each}
 				</div>

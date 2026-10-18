@@ -104,7 +104,7 @@ ${tabel(
 
 <h2>Проверьте на своём автомобиле</h2>
 <ul><li><a href="/ru/">Калькулятор тормозного пути</a>: ваша машина, шины и дорожные условия</li><li><a href="/ru/teadmine/artiklid/vanad-ja-kulunud-rehvid/">Старые и изношенные шины: насколько удлиняется тормозной путь?</a></li><li><a href="/ru/rehvi-vanus/">Проверка возраста шины</a>: код DOT и протектор</li></ul>
-<p class="note">Расчётные результаты — это оценки, а не измерения. Точность модели и допущения: <a href="/teadmine/kuidas-pidurdusmaa-arvutatakse/">Как рассчитывается тормозной путь</a> (на эстонском).</p>`;
+<p class="note">Расчётные результаты — это оценки, а не измерения. Точность модели и допущения: <a href="/ru/teadmine/kuidas-pidurdusmaa-arvutatakse/">Как рассчитывается тормозной путь</a>.</p>`;
 
 	const KKK = [
 		['Kui palju mõjutab madal rehvirõhk pidurdusmaad?', 'Märjal teel 90 km/h pealt on VW Golf 8 pidurdusmaa õige rõhuga (2,3 bar) 43,9 m ja 1,4 bar rõhuga 46,7 m, ehk 2,8 m pikem. Sügavas vees (3 mm) on vahe 10 m: 52,8 m ja 63,0 m.'],

@@ -107,7 +107,7 @@ ${tabel(
 
 <h2>Посмотрите сами</h2>
 <ul><li><a href="/ru/talverehvid/">Зимние шины</a>: сравните зимние шины для своего автомобиля</li><li><a href="/ru/teadmine/artiklid/naastrehv-voi-lamell/">Шипы или «липучка»: тормозной путь на льду, снегу и асфальте</a></li><li><a href="/ru/teadmine/artiklid/talverehvi-valimine/">Как выбрать зимнюю шину: что говорят цифры</a></li></ul>
-<p class="note">Расчётные результаты — это оценки, а не измерения. Реальный тормозной путь зависит от модели шины: в тестах разница между лучшей и худшей шиной бывает такой же большой, как между типами шин. Точность модели и допущения: <a href="/teadmine/kuidas-pidurdusmaa-arvutatakse/">Как рассчитывается тормозной путь</a> (на эстонском).</p>`;
+<p class="note">Расчётные результаты — это оценки, а не измерения. Реальный тормозной путь зависит от модели шины: в тестах разница между лучшей и худшей шиной бывает такой же большой, как между типами шин. Точность модели и допущения: <a href="/ru/teadmine/kuidas-pidurdusmaa-arvutatakse/">Как рассчитывается тормозной путь</a>.</p>`;
 
 	const KKK = [
 		['Mis vahe on Põhjamaade ja Kesk-Euroopa talverehvil?', 'Põhjamaade talverehv on pehmem ja täis peeneid lõikeid, mis haaravad jääst. Kesk-Euroopa oma on kõvem ja tehtud märjale ja lörtsisele asfaldile. Jääl peatub Põhjamaade rehv 50 km/h pealt 59,9 m, Kesk-Euroopa oma 114,9 m pealt.'],

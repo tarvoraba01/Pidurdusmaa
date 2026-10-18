@@ -35,7 +35,7 @@
 			</div>
 		</div>
 		<div class="box">
-			<h2>{t("Sõltumatult testitud")}</h2>
+			<h2>{t('Sõltumatult testitud rehvid')}</h2>
 			<p class="sub">{t("Neil rehvidel on mõõdetud pidurdusmaad — täpsemad kui märgise klass.")}</p>
 			<div class="grid-cards">
 				{#each data.tested as ty, ti (ty.slug + '#' + ti)}
@@ -52,7 +52,7 @@
 			<p class="sub">{@html t("Iga margi lehel on kõik selle mudelid kategooria kaupa. <a href=\"/margid/\">Kõik margid →</a>")}</p>
 			<div class="sizes-list">
 				{#each data.margid as m (m.slug)}
-					<a href="/margid/{m.slug}/">{m.nimi} <span class="note">· {m.n}</span></a>
+					<a href={L('/margid/' + m.slug + '/')}>{m.nimi} <span class="note">· {m.n}</span></a>
 				{/each}
 			</div>
 		</div>

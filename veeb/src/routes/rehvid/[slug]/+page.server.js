@@ -21,10 +21,12 @@ import {
 	markSlug,
 	extTests,
 	extShared,
-	samasTestisMyygil
-} from '$lib/server/andmed.js';
+	samasTestisMyygil, testidMoodus, model } from '$lib/server/andmed.js';
 import { autodMoodus } from '$lib/server/autod.js';
 import { talveMoot } from '$lib/server/talv.js';
+/* kas lehel on vene versioon (/ru/rehvid/…): brauser seda nimekirja ei lae, vt +page.js */
+import RU_REHVID from '$lib/i18n/ru_rehvid.js';
+const RU = new Set(RU_REHVID);
 
 /* Kolm lehte ühe aadressimustri all — täpselt nagu PHP-s pm_ctx():
    /rehvid/205-55-r16/          → mõõdu leht
@@ -45,14 +47,15 @@ export function entries() {
 
 export function load({ params }) {
 	const slug = params.slug;
+	const ru = RU.has(slug);
 
 	/* 1) mõõt */
 	const size = sizeBySlug(slug);
-	if (size) return mootLeht(size);
+	if (size) return { ...mootLeht(size), ru };
 
 	/* 2) rehv (ka siis, kui nimes on „vs") */
 	const t = tyrePage(slug);
-	if (t) return rehvLeht(t);
+	if (t) return { ...rehvLeht(t), ru };
 
 	/* 3) võrdlus */
 	const m = /^(.+)-vs-(.+)$/.exec(slug);
@@ -63,7 +66,7 @@ export function load({ params }) {
 		const ext = a && b ? extShared(a.slug, b.slug) : [];
 		/* Ainult sama testi rehvid saavad oma „vs" lehe — muidu oleks see
 		   kahe märgise kõrvutus, mida võrdlustööriist teeb paremini. */
-		if (shared.length || ext.length) return vsLeht(a, b, shared, ext);
+		if (shared.length || ext.length) return { ...vsLeht(a, b, shared, ext), ru };
 	}
 	error(404, 'Lehte ei leitud');
 }
@@ -89,6 +92,9 @@ function mootLeht(size) {
 					ix: rehviIndeks(r[0]).index
 				}))
 				.sort((a, b) => (a.g < b.g ? -1 : a.g > b.g ? 1 : (a.db ?? 99) - (b.db ?? 99)))
+				/* lühike kuju (lehe sisse kirjutatud andmed on ~400 rea juures pool väiksemad):
+				   [slug, nimi, märghaare, veeretakistus, dB, lipud (1 = testitud, 2 = indekseeritud leht)], vt +page.svelte readHtml */
+				.map((r) => [r.slug, r.nimi, r.g, r.f, r.db, (r.tested ? 1 : 0) | (r.ix ? 2 : 0)])
 		}));
 
 	const klassid = {};
@@ -128,7 +134,9 @@ function mootLeht(size) {
 		autosid: koikAutod.length,
 		n: rows.length,
 		noindex: rows.length < SIZE_MIN_MODELS,
-		talv: talveMoot(size.slug) ? size.slug : null
+		talv: talveMoot(size.slug) ? size.slug : null,
+		/* selles mõõdus tehtud uusimad testid ja nende võitjad (esimene lause, „parimad testides“) */
+		testid: testidMoodus(size.label)
 	};
 }
 
@@ -179,7 +187,7 @@ function koikTulemused(tests, ext) {
 	for (const x of tests) {
 		const src = source(x.src) || {};
 		/* „ADAC talverehvitest 2025“ → „ADAC 2025“ (ajakirja nimi on pärisnimi, ei vaja tõlget) */
-		const w = String(x.src_nimi || x.src).split(' '), i = w.findIndex((z) => /rehv|test|naast|suve|talve/i.test(z));
+		const w = String(x.src_nimi || x.src).split(' '), i = w.findIndex((z) => /rehv|test|naast|suve|talve|aastaring/i.test(z));
 		const lyhi = i > 0 ? w.slice(0, i).join(' ') + (src.aasta ? ' ' + src.aasta : '') : String(x.src_nimi || x.src);
 		out.push({ src: lyhi, srcPikk: x.src_nimi, aasta: src.aasta || 0, surf: x.surf, wet: !!x.wet, v0: x.v0, v1: x.v1, m: x.m, pos: x.pos, n: x.n });
 	}
@@ -218,6 +226,26 @@ function kirjeldus(t, sizes, tests, fakt, hinnang) {
 }
 
 /* ------------------------------------------------------------- rehvileht */
+/* Testimata mudeli lehel: sama tootja testitud rehvid samast rühmast (päring „<mudel> test“ jõuab
+   lehele, kus testi pole — ütleme seda ausalt ja näitame sama margi testitud mudeleid) */
+const RUHM = (k) => (/^WINTER_(NORDIC|STUDDED)/.test(k || '') ? 'pohja' : k === 'WINTER_CENTRAL' ? 'kesk' : /^SUMMER/.test(k || '') ? 'suvi' : k === 'ALL_SEASON' ? 'aastaring' : '');
+function sugulased(t) {
+	const br = mark(markSlug(t.brand));
+	const ruhm = RUHM(t.cat);
+	if (!br || !ruhm) return [];
+	const out = new Map();
+	for (const x of br.testitud)
+		if (x.slug && x.slug !== t.slug && RUHM(x.category) === ruhm && (x.tests || []).length && rehviIndeks(x.slug).index) out.set(x.slug, { slug: x.slug, nimi: titleCase(x.name) });
+	for (const slug of br.mudelid) {
+		if (out.size >= 6) break;
+		if (slug === t.slug || out.has(slug)) continue;
+		const mm = model(slug);
+		if (!mm || RUHM(mm.kat) !== ruhm || !extTests(slug).length || !rehviIndeks(slug).index) continue;
+		out.set(slug, { slug, nimi: titleCase(String(mm.mark || '').trim() + ' ' + mm.nimi) });
+	}
+	return [...out.values()].slice(0, 3);
+}
+
 function rehvLeht(t) {
 	const ix = rehviIndeks(t.slug);
 	/* naastrehvil märgist pole: mõõdud poodide kataloogist (core.json `moodud`, hinnang_rakenda.py) */
@@ -317,7 +345,9 @@ function rehvLeht(t) {
 		vastus,
 		vastusTalv,
 		/* KKK: testide kokkuvõte (parim koht) ainult lehe andmetest */
-		parimTest: parimTestKoht(koik)
+		parimTest: parimTestKoht(koik),
+		sugulased: koik.length || hinnang ? [] : sugulased(t),
+		sugulasedRuhm: RUHM(t.cat)
 	};
 }
 

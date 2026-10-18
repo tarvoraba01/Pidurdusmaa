@@ -14,6 +14,7 @@
 		[t('Kuidas rehvi läbimõõtu arvutada?'), t('Külje kõrgus on laius korda profiil: 205/55 rehvil 205 × 0,55 = 112,75 mm. Läbimõõt on velje läbimõõt millimeetrites pluss kaks külge: 16 × 25,4 + 2 × 112,75 = 632 mm.')],
 		[t('Kas suurem rehv muudab spidomeetri näitu?'), t('Jah. Kui uus rehv on 2% suurema läbimõõduga, sõidad spidomeetri 90 km/h juures tegelikult umbes 91,8 km/h. Väiksema rehviga sõidad aeglasemalt, kui spidomeeter näitab.')]
 	];
+	const protsent = (p) => (p > 0 ? '+' : p < 0 ? '−' : '') + String(Math.abs(p).toFixed(1)).replace('.', keel.lang === 'en' ? '.' : ',') + ' %';
 	const faq = { '@type': 'FAQPage', mainEntity: KKK.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) };
 	const jsonld = graph(tooriist(t('Rehvimõõdu kalkulaator'), '/rehvi-kalkulaator/', KIRJ, keel.lang), ORG, faq);
 </script>
@@ -27,4 +28,26 @@
 			<p>{a}</p>
 		</div>
 	{/each}
+	{#if data.kaas?.length}
+		<!-- päris asendusmõõdud: samade automudelite tehasemõõdud (staatiline, näha ka ilma JavaScriptita) -->
+		<div style="grid-column:1/-1">
+			<h2>{t('Levinumad tehasemõõdud ja asendusmõõdud')}</h2>
+			<p>{t('Mõõdud, mis on samadel automudelitel ka tehasemõõt. Sulgudes on läbimõõdu vahe; kõige sagedasem ees.')}</p>
+			<div class="tbl-wrap">
+				<table class="t" style="min-width:0">
+					<thead><tr><th>{t('Mõõt')}</th><th class="n">{t('Läbimõõt')}</th><th class="n">{t('Põhimõõt autodel')}</th><th>{t('Samadel autodel ka')}</th></tr></thead>
+					<tbody>
+						{#each data.kaas as r (r.m)}
+							<tr>
+								<td>{#if r.slug}<a href={keel.L('/rehvid/' + r.slug + '/')}>{r.label}</a>{:else}{r.label}{/if}</td>
+								<td class="n">{r.d} mm</td>
+								<td class="n">{r.n}</td>
+								<td>{#each r.alt as z, i (z.m)}{#if i}, {/if}{#if z.slug}<a href={keel.L('/rehvid/' + z.slug + '/')}>{z.label}</a>{:else}{z.label}{/if} ({protsent(z.pct)}){/each}</td>
+							</tr>
+						{/each}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	{/if}
 </LiiklusLeht>

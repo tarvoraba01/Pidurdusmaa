@@ -111,7 +111,7 @@ ${tabel(
 
 <h2>Проверьте на своём автомобиле</h2>
 <ul><li><a href="/ru/">Калькулятор тормозного пути</a>: ваша машина, шины и дорожные условия</li><li><a href="/ru/rehvi-vanus/">Проверка возраста шины</a>: код DOT и протектор</li><li><a href="/ru/teadmine/artiklid/vanad-ja-kulunud-rehvid/">Старые и изношенные шины: насколько удлиняется тормозной путь?</a></li></ul>
-<p class="note">Расчётные результаты — это оценки, а не измерения. Реальная скорость аквапланирования зависит также от модели шины, её ширины и покрытия дороги. Точность модели и допущения: <a href="/teadmine/kuidas-pidurdusmaa-arvutatakse/">Как рассчитывается тормозной путь</a> (на эстонском).</p>`;
+<p class="note">Расчётные результаты — это оценки, а не измерения. Реальная скорость аквапланирования зависит также от модели шины, её ширины и покрытия дороги. Точность модели и допущения: <a href="/ru/teadmine/kuidas-pidurdusmaa-arvutatakse/">Как рассчитывается тормозной путь</a>.</p>`;
 
 	const KKK = [
 		['Mis kiirusel tekib vesiliug?', 'Sügavas lombis (5 mm vett) uue suverehviga umbes 104 km/h, 3 mm mustriga umbes 78 km/h ja 1,6 mm mustriga umbes 70 km/h juures. 3 mm veekihis on need piirid umbes 129, 96 ja 87 km/h (VW Golf 8, 205/55 R16, õige rõhk).'],

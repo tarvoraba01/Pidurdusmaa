@@ -21,9 +21,16 @@ export const KAT_LYHI = {
 export const EPREL_KAT = ['SUMMER_TOURING', 'ALL_SEASON', 'WINTER_CENTRAL', 'WINTER_NORDIC'];
 
 
+/* Hankooki nimed on EPREL-is logo kirjapildis („WiNter i*cept“, „veNtus“, „KInERGy“, osal ka
+   „KlnERGy“ väikese L-iga). Lehel ja otsingutulemuses paistis see trükiveana: tavakirja. */
+const LOGOKIRI = [
+	[/\bWiNter\b/g, 'Winter'], [/\bveNtus\b/g, 'Ventus'], [/\bK[Il]nERGy\b/g, 'Kinergy'],
+	[/\bVanTRa\b/g, 'Vantra'], [/\bSMaRT\b/g, 'Smart'], [/\bFLeX\b/g, 'Flex'], [/\bPRime(?![a-z])/g, 'Prime']
+];
 /** EPREL-i nimed on sageli SUURTÄHTEDES. Ilusamaks, aga mudelikoodid jäävad. */
 export function titleCase(s) {
 	s = String(s || '');
+	for (const [re, v] of LOGOKIRI) s = s.replace(re, v);
 	const min = /\p{Ll}/u.test(s) ? 4 : 3;
 	const re = new RegExp(
 		'(?<![\\p{L}\\d])(\\p{Lu})(\\p{Lu}{' + (min - 1) + ',})(?![\\p{L}\\d])',

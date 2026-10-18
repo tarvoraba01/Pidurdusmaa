@@ -62,7 +62,7 @@
 				<div class="r-pood" data-r-pood hidden></div>
 				<p class="rs-legal">
 					{t("Järjestus ei sõltu poest. Andmed: EL-i rehvimärgis ja sõltumatud testid.")}
-					<a href="/kontakt/?teema=viga" data-r-viga>{t("Leidsid vea? Anna teada")}</a>
+					<a href={keel.L('/kontakt/?teema=viga')} data-r-viga>{t("Leidsid vea? Anna teada")}</a>
 				</p>
 				<p class="rs-legal">
 					{@html t("Hinnang, mitte garantii. Ära kasuta seda liikluses otsustamiseks. <a href=\"/kasutustingimused/\">Tingimused</a>")}

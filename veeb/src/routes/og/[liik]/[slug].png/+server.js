@@ -95,16 +95,16 @@ function andmed(liik, slug) {
 	if (liik === 'sait' && slug === 'millal-talverehvid-alla') {
 		return {
 			kicker: 'Talverehvid 2026/2027',
-			pealkiri: 'Millal talverehvid alla?',
-			alapealkiri: 'Naastrehvid 15.10, talverehvid kohustuslikud 1.12',
-			sildid: ['Kuupäevad', '3 mm reegel', 'Pidurdusmaad']
+			pealkiri: 'Mis temperatuuril talverehvid alla?',
+			alapealkiri: '+7 °C reegel ja esimene lumi numbrites',
+			sildid: ['+7 °C', '3 mm reegel', 'Pidurdusmaad']
 		};
 	}
 	if (liik === 'sait' && slug === 'talverehvide-testid-2026') {
 		return {
 			kicker: 'Testid',
-			pealkiri: 'Talverehvide testid 2025–2026',
-			alapealkiri: 'Jääl üle kahe korra pikem pidurdusmaa',
+			pealkiri: 'Talverehvide test 2026',
+			alapealkiri: 'Parimad jääl, lumel ja märjal',
 			sildid: ['Mõõdetud meetrid', 'Jää, lumi, märg']
 		};
 	}
@@ -226,8 +226,8 @@ function andmedKeel(liik, slug, lang) {
 				alapealkiri: 'Real tyre data: EU label and independent tests', sildid: [nR.replace(/\s/g, ',') + ' tyre models', nA.replace(/\s/g, ',') + ' cars', 'Free'] };
 	}
 	if (liik === 'sait' && slug === 'millal-talverehvid-alla' && ru) {
-		return { kicker: 'Зимние шины 2026/2027', pealkiri: 'Когда менять шины на зимние?',
-			alapealkiri: 'Шипы с 15.10, зимние шины обязательны с 1.12', sildid: ['Сроки', 'Правило 3 мм', 'Тормозной путь'] };
+		return { kicker: 'Зимние шины 2026/2027', pealkiri: 'При какой температуре менять резину?',
+			alapealkiri: 'Правило +7 °C и первый снег в цифрах', sildid: ['+7 °C', 'Правило 3 мм', 'Тормозной путь'] };
 	}
 	if (liik === 'sait' && slug === 'liiklusohutus') {
 		return ru

@@ -188,7 +188,7 @@
 			<a href={lang === 'ru' ? '/ru/teadmine/artiklid/' : '/teadmine/'} aria-current={cur === 'teadmine' ? 'page' : undefined}>{t("Teadmine")}</a>
 		</nav>
 		<div class="hdr-right">
-			<button type="button" class="hdr-app" data-pwa-lisa hidden aria-label={t("Lisa Pidurdusmaa äpina avaekraanile")}
+			<button type="button" class="hdr-app" data-pwa-lisa hidden aria-label={t("Lisa Pidurdusmaa äpp avaekraanile")}
 				><Icon name="download" /><span>{t("Äpp")}</span></button
 			>
 			<nav class="keeled" aria-label={t("Keel")}>{#each KEELED as k (k)}<a href={keeleLink(k)} onclick={(e) => onTolgitud(k, base) && (e.currentTarget.href = linkLang(k, base) + location.search)} hreflang={k} lang={k} title={KEEL_NIMI[k]} aria-current={k === lang ? 'true' : undefined} data-sveltekit-reload>{k.toUpperCase()}</a>{/each}</nav>
@@ -246,14 +246,14 @@
 					<a class="pm-row" href={lang === 'ru' ? '/ru/teadmine/artiklid/' : L('/teadmine/artiklid/')}><Icon name="book" />{t("Artiklid")}</a>
 					{#if lang !== 'ru'}<a class="pm-row" href={L('/teadmine/')}><Icon name="info" />{t("Kõik teemad")}</a>{/if}
 					<a class="pm-row" href={L('/teadmine/pidurdusteekond-ja-peatumisteekond/')}><Icon name="info" />{t("Pidurdus- ja peatumisteekond")}</a>
-					<a class="pm-row" href="/teadmine/rehvimargis/"><Icon name="info" />{t("EL-i rehvimärgis")}</a>
-					<a class="pm-row" href="/teadmine/kuidas-pidurdusmaa-arvutatakse/"><Icon name="info" />{t("Kuidas arvutatakse")}</a>
+					<a class="pm-row" href={L('/teadmine/rehvimargis/')}><Icon name="info" />{t("EL-i rehvimärgis")}</a>
+					<a class="pm-row" href={L('/teadmine/kuidas-pidurdusmaa-arvutatakse/')}><Icon name="info" />{t("Kuidas arvutatakse")}</a>
 				</section>
 				<section class="pm-sek">
 					<h4>{t("Otsi")}</h4>
 					<a class="pm-row" href={L('/autod/')}><Icon name="car" />{t("Autod ja rehvimõõdud")}</a>
 					<a class="pm-row" href={L('/rehvid/')}><Icon name="tyre" />{t("Kõik rehvid")}</a>
-					<a class="pm-row" href="/testid/"><Icon name="test" />{t("Rehvitestid")}</a>
+					<a class="pm-row" href={L('/testid/')}><Icon name="test" />{t("Rehvitestid")}</a>
 				</section>
 			</div>
 
@@ -295,7 +295,7 @@
 	<div class="ps-in" role="dialog" aria-modal="true" aria-labelledby="ps-h">
 		<button type="button" class="ps-x" data-pwa-sulge aria-label={t("Sulge")}><Icon name="close" /></button>
 		<div class="ps-top">
-			<img src="/icon-192.png" alt="" width="56" height="56" />
+			<img src="/icon-192.png" alt="" width="56" height="56" loading="lazy" />
 			<div><p class="ps-h" id="ps-h">{t("Pidurdusmaa äpina")}</p><p class="ps-s">{t("Avaneb avaekraanilt täisekraanil, töötab ka ilma võrguta.")}</p></div>
 		</div>
 		<!-- sammud sõltuvad brauserist (iPhone Safari, Chrome, rakendusesisene brauser) — täidab app.js -->
@@ -322,7 +322,7 @@
 				</p>
 			</div>
 			<div>
-				<h4>{t("Tööriistad")}</h4>
+				<h2>{t("Tööriistad")}</h2>
 				<ul>
 					<li><a href={L('/')}>{t("Pidurdusmaa kalkulaator")}</a></li>
 					<li><a href={L('/rehvi-valimine/')}>{t("Rehvi valimine")}</a></li>
@@ -334,23 +334,23 @@
 				</ul>
 			</div>
 			<div>
-				<h4>{t("Andmed")}</h4>
+				<h2>{t("Andmed")}</h2>
 				<ul>
 					<li><a href={L('/autod/')}>{t("Autod")}</a></li>
 					<li><a href={L('/rehvid/')}>{t("Rehvid")}</a></li>
 					<li><a href={L('/talverehvid/')}>{t("Talverehvid mõõdu järgi")}</a></li>
-					<li><a href="/testid/">{t("Rehvitestid")}</a></li>
-					<li><a href="/teadmine/kuidas-pidurdusmaa-arvutatakse/">{t("Kuidas arvutatakse")}</a></li>
-					<li><a href="/margid/">{t("Rehvimargid")}</a></li>
-					<li><a href="/teadmine/">{t("Teadmine")}</a></li>
+					<li><a href={L('/testid/')}>{t("Rehvitestid")}</a></li>
+					<li><a href={L('/teadmine/kuidas-pidurdusmaa-arvutatakse/')}>{t("Kuidas arvutatakse")}</a></li>
+					<li><a href={L('/margid/')}>{t("Rehvimargid")}</a></li>
+					<li><a href={L('/teadmine/')}>{t("Teadmine")}</a></li>
 					<li><a href={L('/teadmine/artiklid/')}>{t("Artiklid")}</a></li>
-					<li><a href="/meist/">{t("Meist")}</a></li>
+					<li><a href={L('/meist/')}>{t("Meist")}</a></li>
 					<li><a href={L("/teadmine/partnerid/")}>{t("Partnerid")}</a></li>
 					<li><a href={L('/kontakt/')}>{t("Kontakt")}</a></li>
 				</ul>
 			</div>
 			<div>
-				<h4>{t("Allikad")}</h4>
+				<h2>{t("Allikad")}</h2>
 				<ul>
 					<li>{t("EL-i tooteregister EPREL")}</li>
 					<li>{t("ADAC, Tekniikan Maailma, UTAC, Vi Bilägare")}</li>

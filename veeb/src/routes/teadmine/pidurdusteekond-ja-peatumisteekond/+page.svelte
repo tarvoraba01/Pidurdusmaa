@@ -5,7 +5,7 @@
 	   ainult reageerimisteekond, mis on lihtne korrutis. */
 	import Meta from '$lib/Meta.svelte';
 	import { num } from '$lib/util.js';
-	import { BASE, ORG_ID, AUTOR, autorRef, graph } from '$lib/skeem.js';
+	import { BASE, ORG_ID, AUTOR, autorLang, autorRef, graph } from '$lib/skeem.js';
 	import Autor from '$lib/Autor.svelte';
 	import { useLang } from '$lib/i18n.js';
 
@@ -94,7 +94,7 @@
 			mainEntityOfPage: BASE + L(PATH),
 			image: BASE + '/og/sait/avaleht.png'
 		},
-		...(AUTOR ? [AUTOR] : []),
+		...(AUTOR ? [autorLang(keel.lang)] : []),
 		{
 			'@type': 'FAQPage',
 			mainEntity: KKK.map(([q, a]) => ({
@@ -194,7 +194,7 @@
 				выходят на полное усилие, от ABS, глубины протектора шины, слоя воды и температуры. Калькулятор
 				Pidurdusmaa.ee учитывает это и использует реальные данные о шинах: маркировку шин ЕС и независимые тесты.
 				Подробнее —
-				<a href="/teadmine/kuidas-pidurdusmaa-arvutatakse/">как рассчитывается тормозной путь</a> (на эстонском).
+				<a href="/ru/teadmine/kuidas-pidurdusmaa-arvutatakse/">как рассчитывается тормозной путь</a>.
 			</p>
 
 			{#if d}

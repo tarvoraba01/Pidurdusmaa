@@ -102,7 +102,7 @@ ${tabel(
 
 <h2>Проверьте на своём автомобиле</h2>
 <ul><li><a href="/ru/">Калькулятор тормозного пути</a>: ваша машина, шины и дорожные условия</li><li><a href="/ru/liiklusohutus/kurv/">Торможение в повороте</a>: почему лучшие шины должны стоять сзади</li><li><a href="/ru/teadmine/artiklid/reaktsiooniaeg/">Время реакции: на 90 км/ч одна секунда — это 25 метров</a></li></ul>
-<p class="note">Расчётные результаты — это оценки, а не измерения. Точность модели и допущения: <a href="/teadmine/kuidas-pidurdusmaa-arvutatakse/">Как рассчитывается тормозной путь</a> (на эстонском).</p>`;
+<p class="note">Расчётные результаты — это оценки, а не измерения. Точность модели и допущения: <a href="/ru/teadmine/kuidas-pidurdusmaa-arvutatakse/">Как рассчитывается тормозной путь</a>.</p>`;
 
 	const KKK = [
 		['Kas ABS lühendab pidurdusmaad?', 'Asfaldil, lumel ja jääl enamasti jah, võrreldes keskmise juhiga ilma ABS-ita: märjal asfaldil 80 km/h pealt mudeli järgi 34,7 m vs 46,2 m. Põhitöö on aga hoida rattad veeremas, et saaksid pidurdades pöörata.'],

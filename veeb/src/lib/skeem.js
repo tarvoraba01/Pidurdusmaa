@@ -68,6 +68,12 @@ export const AUTOR = AUTOR_NIMI
 		}
 	: null;
 export const autorRef = () => (AUTOR ? { '@id': AUTOR_ID } : { '@id': ORG_ID });
+/* sama autor lehe keeles (vene/inglise lehel ei tohi JSON-LD-s olla eestikeelset ametinimetust) */
+const AUTOR_KEEL = {
+	ru: { jobTitle: 'Основатель', knowsAbout: ['тормозной путь', 'шины', 'маркировка шин ЕС', 'безопасность дорожного движения'] },
+	en: { jobTitle: 'Founder', knowsAbout: ['braking distance', 'tyres', 'EU tyre label', 'road safety'] }
+};
+export const autorLang = (lang = 'et') => (AUTOR && AUTOR_KEEL[lang] ? { ...AUTOR, ...AUTOR_KEEL[lang] } : AUTOR);
 
 /** Artikli JSON-LD (Article + autor), ühine kõigile Teadmine-lehtedele. */
 export function artikkel({ path, title, desc, uuendatud, avaldatud, lang = 'et' }) {
@@ -83,9 +89,9 @@ export function artikkel({ path, title, desc, uuendatud, avaldatud, lang = 'et' 
 			author: autorRef(),
 			publisher: { '@id': ORG_ID },
 			mainEntityOfPage: BASE + path,
-			image: BASE + '/og/sait/avaleht.png'
+			image: BASE + (lang === 'ru' || lang === 'en' ? '/og/sait/avaleht.' + lang + '.png' : '/og/sait/avaleht.png')
 		},
-		...(AUTOR ? [AUTOR] : []),
+		...(AUTOR ? [autorLang(lang)] : []),
 		ORG
 	];
 }

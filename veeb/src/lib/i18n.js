@@ -4,7 +4,6 @@
    eestikeelset. Sõnastikud ($lib/i18n/ru.js, en.js) laeb +layout.js ainult
    vene/inglise lehel, nii et eesti lehe kasutaja neid alla ei laadi. */
 import { getContext } from 'svelte';
-import RU_REHVID from './i18n/ru_rehvid.js';
 import { ARTIKLID, artikliTee } from './artiklid.js';
 
 export const KEELED = ['et', 'ru', 'en'];
@@ -19,7 +18,24 @@ export const TOLGITUD = ['/', '/rehvi-valimine/', '/vordle-rehve/', '/liiklusohu
    - rehvilehed, mis on saidikaardis (nimekiri: scripts/ru-rehvid.mjs),
    - artiklid, millel on artiklid.js-is `ru` väli, ja artiklite nimekiri. */
 const HARUD = { ru: ['/autod/', '/talverehvid/', '/margid/'], en: [] };
-const RU_REHV = new Set(RU_REHVID);
+/* Vene rehvilehtede nimekiri (≈3600 slugi, ~100 KB) ei ole siin staatiliselt imporditud:
+   muidu laeks iga leht (ka eesti oma) selle alla (audit 18.10: −100 KB JS-i igal lehel).
+   Selle laeb laeRuRehvid(): +layout.js vene lehel (serveris ja brauseris) ja hooks.js reroute
+   serveris. Eesti rehvilehe keelevahetus ja hreflang vajavad ainult lehe enda vastust; selle
+   annab lehe andmeväli `ru` (rehvid/[slug]/+page.js). REEGEL: teiste rehvide vene versiooni
+   küsida (L('/rehvid/…'), onTolgitud('ru', …)) ainult vene lehel, kus nimekiri on laetud. */
+let RU_REHV = null;
+let ruLaadimine = null;
+const RU_TEADA = new Set();
+export function laeRuRehvid() {
+	return (ruLaadimine ??= import('./i18n/ru_rehvid.js').then((m) => {
+		RU_REHV = new Set(m.default);
+	}));
+}
+/** Selle rehvilehe vene versioon on olemas (lehe andmetest, vt rehvid/[slug]/+page.js). */
+export function ruRehvOlemas(slug) {
+	RU_TEADA.add(slug);
+}
 const TAPSED = {
 	ru: new Set([
 		'/rehvid/',
@@ -27,6 +43,7 @@ const TAPSED = {
 		'/teadmine/pidurdusteekond-ja-peatumisteekond/',
 		'/teadmine/rehvivahetus/',
 		'/teadmine/rehvimargis/',
+		'/teadmine/kuidas-pidurdusmaa-arvutatakse/',
 		...ARTIKLID.filter((a) => a.ru).map((a) => a.ruTee || artikliTee(a)),
 		'/liiklusohutus/koolitus/',
 		'/liiklusohutus/koolitus/tulemused/',
@@ -42,7 +59,7 @@ export function onTolgitud(lang, p) {
 	if ((HARUD[lang] || []).some((h) => p.startsWith(h))) return true;
 	if (lang === 'ru') {
 		const m = /^\/rehvid\/([^/]+)\/$/.exec(p);
-		if (m && RU_REHV.has(m[1])) return true;
+		if (m && (RU_TEADA.has(m[1]) || (RU_REHV !== null && RU_REHV.has(m[1])))) return true;
 	}
 	return false;
 }
@@ -85,9 +102,23 @@ export function lingid(lang, html) {
 	return String(html).replace(HREF, (m, p) => (onTolgitud(lang, p) ? 'href="/' + lang + p : m));
 }
 
-/** Tõlge kohatäidetega: tf(lang, dict, 'Mõõt {m}', { m: '205/55 R16' }) */
+/** Tõlge kohatäidetega: tf(lang, dict, 'Mõõt {m}', { m: '205/55 R16' })
+ *  Vene ainsus/mitmus sõnastiku väärtuses: {k|модель|модели|моделей} → „21 модель“, „32 модели“, „45 моделей“
+ *  (Intl.PluralRules: one | few | many; murdarv → few). Eesti võtmes jääb lihtsalt {k}. */
+const _pl = new Map();
+function mitmus(lang, n, vormid) {
+	if (!_pl.has(lang)) _pl.set(lang, new Intl.PluralRules(lang));
+	const r = Number.isFinite(n) ? _pl.get(lang).select(n) : 'many';
+	const [one, few, many] = vormid;
+	return (r === 'one' ? one : r === 'few' ? few : r === 'many' ? many : few) || many || one || '';
+}
 export function tf(lang, dict, s, vars) {
-	return String(tr(lang, dict, s)).replace(/\{(\w+)\}/g, (m, k) => (vars && vars[k] != null ? vars[k] : m));
+	return String(tr(lang, dict, s)).replace(/\{(\w+)(?:\|([^{}]*))?\}/g, (m, k, vormid) => {
+		if (!vars || vars[k] == null) return m;
+		if (!vormid) return vars[k];
+		const n = Number(String(vars[k]).replace(/[\s\u00a0\u202f]/g, '').replace(',', '.'));
+		return vars[k] + ' ' + mitmus(lang, n, vormid.split('|'));
+	});
 }
 
 /** Jagamispilt keeles: /og/sait/avaleht.png → /og/sait/avaleht.ru.png (kui on tehtud) */
@@ -121,7 +152,9 @@ export function autoNimi(lang, s) {
 		.replace(/\b([A-Z])-klass\b/g, '$1-Класс')
 		.replace(/\b(\d)-seeria\b/g, '$1 серии')
 		.replace(/\bkaubik\b/g, 'фургон')
-		.replace(/\buniversaal\b/g, 'универсал');
+		.replace(/\buniversaal\b/g, 'универсал')
+		.replace(/\bMoskvitš/g, 'Москвич')
+		.replace(/\bZaporožets\b/g, 'Запорожец');
 }
 
 /** Komponendis: const t = useT(); … {t('Eestikeelne tekst')} */

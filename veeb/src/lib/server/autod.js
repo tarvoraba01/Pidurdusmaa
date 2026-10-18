@@ -108,7 +108,7 @@ export function polveLeht(p) {
 			moot: v.oemSize, mass: v.kerbMassKg, key: v.key, hp: hp ? +hp[1] : null });
 		for (const e of M[v.key] || []) {
 			const o = e[5] || {};
-			mootorid.push({ silt: e[0], kytus: KYTUS[e[1]] || '', aastad: e[2] || v.years, ord: e[4], moot: o.o || v.oemSize,
+			mootorid.push({ silt: e[0], kytus: KYTUS[e[1]] || '', aastad: String(e[2] || v.years || '').replace(/\s*-\s*present\b/gi, '+'), ord: e[4], moot: o.o || v.oemSize,
 				mass: o.m || v.kerbMassKg, key: v.key + '~' + e[3], oma: !!o.o });
 		}
 	}
@@ -150,6 +150,76 @@ export function polveLeht(p) {
 		allikad,
 		katNimi: { suvi: KAT_NIMI.SUMMER_TOURING, talv: KAT_NIMI.WINTER_NORDIC, aastaring: KAT_NIMI.ALL_SEASON }
 	};
+}
+
+/** Rehvikalkulaatori tabel: levinumad põhimõõdud ja mõõdud, mis on SAMADEL autodel ka tehasemõõt
+ *  (päris asendusvõimalused, mitte ainult ±1,5 % läbimõõdu reegel, mis pakuks ka 255/30 R19 → 195/65 R15).
+ *  [{ m, label, slug, d, n, alt: [{ m, label, slug, n, pct }] }] */
+let _kaas = null;
+/** Ühe mõõdu kaasmõõdud: mõõdud, mis on SAMADEL autodel (põlvkondadel) samuti tehasemõõt, sama
+ *  läbimõõduga (±3 %), enim autosid ees. Talverehvide lehe „samadel autodel ka …“ lause ja lingid.
+ *  [{ m, n, pct }] */
+export function kaasMoot(mootN, k = 4) {
+	if (!_kaas) {
+		_kaas = new Map();
+		const M = mootoridJson();
+		for (const p of autod().polved.values()) {
+			const koik = new Set();
+			for (const v of p.rows) {
+				for (const z of v.oemSizes && v.oemSizes.length ? v.oemSizes : [v.oemSize]) koik.add(norm(z));
+				for (const e of M[v.key] || []) for (const z of (e[5] && e[5].s) || []) koik.add(norm(z));
+			}
+			koik.delete('');
+			for (const a of koik) {
+				if (!_kaas.has(a)) _kaas.set(a, new Map());
+				const c = _kaas.get(a);
+				for (const b of koik) if (b !== a) c.set(b, (c.get(b) || 0) + 1);
+			}
+		}
+	}
+	const lm = (m) => { const x = /^(\d{3})(\d{2})R(\d{2})$/.exec(m); return x ? +x[3] * 25.4 + (2 * +x[1] * +x[2]) / 100 : null; };
+	const m = norm(mootN), d = lm(m);
+	if (!d) return [];
+	return [...(_kaas.get(m) || new Map()).entries()]
+		.filter(([z]) => lm(z))
+		.map(([z, n]) => ({ m: z, n, pct: Math.round(((lm(z) - d) / d) * 1000) / 10 }))
+		.filter((x) => Math.abs(x.pct) <= 3)
+		.sort((a, b) => b.n - a.n || Math.abs(a.pct) - Math.abs(b.pct))
+		.slice(0, k);
+}
+
+export function kaasMoodud(top = 10, k = 3) {
+	const M = mootoridJson();
+	const lm = (m) => { const x = /^(\d{3})(\d{2})R(\d{2})$/.exec(m); return x ? +x[3] * 25.4 + (2 * +x[1] * +x[2]) / 100 : null; };
+	const pohiN = new Map(), koos = new Map();
+	for (const p of autod().polved.values()) {
+		const pohi = norm(p.rows[0].oemSize);
+		const koik = new Set();
+		for (const v of p.rows) {
+			for (const z of v.oemSizes && v.oemSizes.length ? v.oemSizes : [v.oemSize]) koik.add(norm(z));
+			for (const e of M[v.key] || []) for (const z of (e[5] && e[5].s) || []) koik.add(norm(z));
+		}
+		koik.delete('');
+		if (!lm(pohi)) continue;
+		pohiN.set(pohi, (pohiN.get(pohi) || 0) + 1);
+		if (!koos.has(pohi)) koos.set(pohi, new Map());
+		for (const z of koik) if (z !== pohi && lm(z)) koos.get(pohi).set(z, (koos.get(pohi).get(z) || 0) + 1);
+	}
+	/* link ainult mõõdulehele, mis on olemas */
+	const slug = (m) => (sizeModelCount(m) >= SIZE_MIN_MODELS ? sizeSlug(m) : null);
+	return [...pohiN.entries()]
+		.sort((a, b) => b[1] - a[1])
+		.slice(0, top)
+		.map(([m, n]) => {
+			const d = lm(m);
+			const alt = [...(koos.get(m) || new Map()).entries()]
+				.map(([z, c]) => ({ m: z, label: pretty(z), slug: slug(z), n: c, pct: Math.round(((lm(z) - d) / d) * 1000) / 10 }))
+				.filter((x) => Math.abs(x.pct) <= 3)
+				.sort((a, b) => b.n - a.n || Math.abs(a.pct) - Math.abs(b.pct))
+				.slice(0, k);
+			return { m, label: pretty(m), slug: slug(m), d: Math.round(d), n, alt };
+		})
+		.filter((x) => x.alt.length);
 }
 
 let _moodus = null;

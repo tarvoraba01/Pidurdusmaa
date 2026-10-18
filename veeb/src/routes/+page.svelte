@@ -173,7 +173,7 @@
 								<h3>{t("Peatumisteekond = reageerimine + pidurdus")}</h3>
 								<p>
 									{t("Enne kui pidur hakkab tööle, sõidab auto reaktsiooniaja jooksul täiskiirusel edasi: 90 km/h juures 1 sekundiga 25 m. Märjal teel on peatumisteekond seega umbes")}
-									{num(25 + d.wet[1])} {t("m.")} <a href="/teadmine/pidurdusteekond-ja-peatumisteekond/"
+									{num(25 + d.wet[1])} {t("m.")} <a href={keel.L('/teadmine/pidurdusteekond-ja-peatumisteekond/')}
 										>{t("Valem ja näited")}</a
 									>
 								</p>
@@ -184,7 +184,7 @@
 							<div>
 								<h3>{t("90 → 110 km/h")}</h3>
 								<p>
-									{t("Märjal")} {num(d.wet[1])} {t("m asemel")} {num(d.wet[2])} m — {num(d.wet[2] - d.wet[1])}
+									{t("Märjal")} {num(d.wet[1])} {t("m asemel")} {num(d.wet[2])} {t("m")} — {num(d.wet[2] - d.wet[1])}
 									{t("meetrit ehk")} {pct(d.wet[2], d.wet[1]).replace('+', '')} {t("rohkem.")}
 								</p>
 							</div>
@@ -256,7 +256,7 @@
 						<h3>{t("Rehv")}</h3>
 						<p>{t("EL-i rehvimärgisel on märjal haardumise klass A–E. Võrdle rehve oma mõõdus.")}</p>
 						<p class="fx">
-							{t("Klass A vs E, 90 km/h:")} <b>+{num(d.classE - d.classA)} m ({pct(d.classE, d.classA)})</b>
+							{t("Klass A vs E, 90 km/h:")} <b>+{num(d.classE - d.classA)} {t("m")} ({pct(d.classE, d.classA)})</b>
 						</p>
 					</div>
 					<div class="factor">
@@ -265,7 +265,7 @@
 						<p>{t("Soojal asfaldil on talverehv liiga pehme ja pidurdab halvemini kui suverehv.")}</p>
 						<p class="fx">
 							{t("Kuiv +25 °C, suvi vs talv:")}
-							<b>{num(d.summerWarm)} / {num(d.winterWarm)} m ({pct(d.winterWarm, d.summerWarm)})</b>
+							<b>{num(d.summerWarm)} / {num(d.winterWarm)} {t("m")} ({pct(d.winterWarm, d.summerWarm)})</b>
 						</p>
 					</div>
 					<div class="factor">
@@ -274,7 +274,7 @@
 						<p>{t("Mass, ABS ja pidurid. Täis autoga pidurdad vaid veidi kauem kui tühjaga.")}</p>
 						<p class="fx">
 							{t("+375 kg koormat märjal:")}
-							<b>{num(d.tread8)} → {num(d.loaded)} m ({pct(d.loaded, d.tread8)})</b>
+							<b>{num(d.tread8)} → {num(d.loaded)} {t("m")} ({pct(d.loaded, d.tread8)})</b>
 						</p>
 					</div>
 					<div class="factor">
@@ -283,7 +283,7 @@
 						<p>{t("Kulunud muster juhib vett halvemini. Mida rohkem vett teel, seda suurem vahe.")}</p>
 						<p class="fx">
 							{t("8 mm → 3 mm, märg 90 km/h:")}
-							<b>{num(d.tread8)} → {num(d.tread3)} m ({pct(d.tread3, d.tread8)})</b>
+							<b>{num(d.tread8)} → {num(d.tread3)} {t("m")} ({pct(d.tread3, d.tread8)})</b>
 						</p>
 					</div>
 				</div>

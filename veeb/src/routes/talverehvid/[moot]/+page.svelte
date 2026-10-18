@@ -54,7 +54,7 @@
 	path="talverehvid/{m.slug}/"
 	crumbs={[[t('Avaleht'), '/'], [t('Talverehvid'), '/talverehvid/'], [m.label, path]]}
 	jsonld={graph(
-		...artikkel({ path: L(path), title: pealkiri, desc, uuendatud: data.uuendatud, avaldatud: '2026-09-30', lang: keel.lang }),
+		...artikkel({ path: L(path), title: pealkiri, desc, uuendatud: data.uuendatud, avaldatud: data.lisa ? '2026-10-18' : '2026-09-30', lang: keel.lang }),
 		{ '@type': 'FAQPage', mainEntity: kkk.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) },
 		...(ldTop.length ? [{ '@type': 'ItemList', name: t('Parimad talverehvid {m}', { m: m.label }), itemListElement: ldTop.map((x, i) => ({ '@type': 'ListItem', position: i + 1, name: x.nimi, url: BASE + L('/rehvid/' + x.slug + '/') })) }] : [])
 	)}
@@ -69,7 +69,8 @@
 		<h1>{t('Parimad talverehvid {m}', { m: m.label })}</h1>
 		{#if vastus}<p>{vastus}</p>{/if}
 		<p>
-			{t('{m} on tehase põhimõõt {n} automudelil.', { m: m.label, n: data.autosid })}
+			{t(data.lisa ? '{m} on tehasemõõt {n} automudelil.' : '{m} on tehase põhimõõt {n} automudelil.', { m: m.label, n: data.autosid })}
+			{#if data.test}{t(data.test.ala === 'jää' ? 'Selles mõõdus tehtud testis {test} pidurdas jääl kõige lühemalt {r}: {mm} m.' : 'Selles mõõdus tehtud testis {test} pidurdas märjal asfaldil kõige lühemalt {r}: {mm} m.', { test: data.test.pub + ' ' + data.test.aasta + (data.test.v0 > 0 ? ' (' + Math.round(data.test.v0) + '→' + Math.round(data.test.v1 || 0) + ' ' + t('km/h') + ')' : ''), r: data.test.rehvid.map((x) => x.nimi).join(' / '), mm: num(data.test.m) })}{/if}
 			{t('Siin on selle mõõdu talverehvid päris andmete järgi: testitud rehvide pidurdusmaa lumel ja jääl ning EL-i rehvimärgis.')}
 		</p>
 		<p class="ad-cta">
@@ -113,7 +114,7 @@
 				<p class="sub">
 					{k === 'lamellid'
 						? t('Põhjamaade lamellrehvid, mis on sõltumatult testitud ja on EL-i registri järgi ka mõõdus {m} olemas. Järjestus jää pidurdusmaa järgi.', { m: m.label })
-						: t('Naastrehvidel EL-i rehvimärgist ei ole — kontrolli poest, kas mudel on mõõdus {m} saadaval. Järjestus jää pidurdusmaa järgi.', { m: m.label })}
+						: t('Naastrehvidel EL-i rehvimärgist ei ole. Ees on mudelid, mis on testitud või poodides müügil mõõdus {m}, edasi teistes mõõtudes testitud: nende saadavust kontrolli poest. Järjestus jää pidurdusmaa järgi.', { m: m.label })}
 				</p>
 				{#if list.length}
 					<div class="tbl-wrap">
@@ -157,7 +158,7 @@
 								<td><a href={L('/rehvid/' + r.slug + '/')}>{r.nimi}</a>{#if r.testitud} <span class="pill test" style="margin-left:var(--sp-2)">{t('testitud')}</span>{/if}</td>
 								<td>{#if r.jaa}{@html jaa(t('Jäämärk (EL-i rehvimärgise jäähaarde sümbol)'))}{:else}–{/if}</td>
 								<td>{r.g || '–'}</td>
-								<td class="n">{r.db ? r.db + ' dB' : '–'}</td>
+								<td class="n">{r.db ? r.db + ' ' + t('dB') : '–'}</td>
 							</tr>
 						{/each}
 					</tbody>
@@ -176,11 +177,17 @@
 
 		{#if data.autod.length}
 			<div class="box">
-				<h2>{t('Autod, mille tehase põhimõõt on {m}', { m: m.label })}</h2>
+				<h2>{t(data.lisa ? 'Autod, millel {m} on tehasemõõt' : 'Autod, mille tehase põhimõõt on {m}', { m: m.label })}</h2>
 				<ul class="ad-muud">
 					{#each data.autod as c (c.url)}<li><a href={L(c.url)}>{an(c.nimi)}</a></li>{/each}
 				</ul>
 				{#if data.autosid > data.autod.length}<p class="note">{t('…ja veel {n}.', { n: data.autosid - data.autod.length })}</p>{/if}
+				{#if data.kaas.length}
+					<p class="note">
+						{t('Samadel autodel on tehasemõõduna ka')}
+						{#each data.kaas as x, i (x.slug)}{i ? (i === data.kaas.length - 1 ? ' ' + t('ja') + ' ' : ', ') : ''}<a href={L('/talverehvid/' + x.slug + '/')}>{x.label}</a> ({x.n} {t('autot')}){/each}.
+					</p>
+				{/if}
 			</div>
 		{/if}
 
@@ -199,7 +206,7 @@
 		</div>
 		<p class="note">
 			{t('Andmed: sõltumatud rehvitestid (Tekniikan Maailma, ADAC, Vi Bilägare jt), EL-i tooteregister EPREL, tootjate andmed. Pidurdusmaad on arvutatud hinnangud, mitte mõõtmised.')}
-			<a href={L('/teadmine/artiklid/millal-talverehvid-alla/')}>{t('Millal talverehvid alla?')}</a>
+			<a href={L('/teadmine/rehvivahetus/')}>{t('Rehvivahetus {a}: millal talverehvid alla', { a: new Date().getFullYear() })}</a>
 		</p>
 	</div>
 </div>

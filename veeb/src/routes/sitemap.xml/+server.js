@@ -80,7 +80,7 @@ export function GET() {
 		for (const x of talveMoodud()) urls.push([k + '/talverehvid/' + x.slug + '/', '0.8']);
 	}
 	/* vene keeles: artiklid, rehvilehed (nimekiri: scripts/ru-rehvid.mjs) */
-	urls.push(['/ru/teadmine/artiklid/', '0.5'], ['/ru/teadmine/pidurdusteekond-ja-peatumisteekond/', '0.6'], ['/ru/teadmine/rehvivahetus/', '0.7'], ['/ru/teadmine/rehvimargis/', '0.6'], ['/ru/rehvid/', '0.6']);
+	urls.push(['/ru/teadmine/artiklid/', '0.5'], ['/ru/teadmine/pidurdusteekond-ja-peatumisteekond/', '0.6'], ['/ru/teadmine/rehvivahetus/', '0.7'], ['/ru/teadmine/rehvimargis/', '0.6'], ['/ru/teadmine/kuidas-pidurdusmaa-arvutatakse/', '0.5'], ['/ru/rehvid/', '0.6']);
 	for (const a of ARTIKLID) if (a.ru) urls.push(['/ru' + artikliTee(a), '0.6']);
 	for (const slug of RU_REHVID) urls.push(['/ru/rehvid/' + slug + '/', '0.5']);
 	/* autolehed vene keeles (/ru/autod/…) */

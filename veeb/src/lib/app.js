@@ -118,9 +118,14 @@ import UNIVERSAALID from './universaalid.json';
   /* üks võrdleja kogu lehele: localeCompare(…, 'et', {…}) loob iga võrdluse jaoks uue collatori */
   var KOLL = new Intl.Collator('et'), KOLL_N = new Intl.Collator('et', { numeric: true });
   function norm(s) { return String(s || '').toUpperCase().replace(/[^0-9A-Z]/g, ''); }
+  /* Hankooki logo kirjapilt EPREL-is („WiNter“, „veNtus“, „KInERGy“): tavakirja (sama mis util.js) */
+  var LOGOKIRI = [[/\bWiNter\b/g, 'Winter'], [/\bveNtus\b/g, 'Ventus'], [/\bK[Il]nERGy\b/g, 'Kinergy'],
+    [/\bVanTRa\b/g, 'Vantra'], [/\bSMaRT\b/g, 'Smart'], [/\bFLeX\b/g, 'Flex'], [/\bPRime(?![a-z])/g, 'Prime']];
   function titleCase(s) {
     /* sama reegel mis PHP pm_title_case: kõik suurtähtedes -> 3+ tähega sõnad,
        muidu ainult 4+ tähega suurtähesõnad; mudelikoodid jäävad */
+    s = String(s || '');
+    for (var i = 0; i < LOGOKIRI.length; i++) s = s.replace(LOGOKIRI[i][0], LOGOKIRI[i][1]);
     var min = /[a-zõäöüšž]/.test(s) ? 4 : 3;
     return s.replace(new RegExp('(^|[^A-Za-zÕÄÖÜŠŽõäöüšž0-9])([A-ZÕÄÖÜŠŽ])([A-ZÕÄÖÜŠŽ]{' + (min - 1) + ',})(?![A-Za-zÕÄÖÜŠŽõäöüšž0-9])', 'g'),
       function (_, pre, a, b) { return pre + a + b.toLowerCase(); });
@@ -2146,6 +2151,22 @@ import UNIVERSAALID from './universaalid.json';
     };
     return (simCache[key] = c);
   }
+  /* (audit 18.10) Nimekirja pidurdusmaad ette, tükkidena (≤ 8 ms korraga): sadade
+     rehvidega mõõdus oli see telefonis üks 300–500 ms ülesanne (autoleht: suurim TBT).
+     Tulemused lähevad simCache'i, tyreProps() võtab need sealt.
+     8 ms, sest Lighthouse/PageSpeed korrutab arvuti pealt mõõdetud ülesanded 4-ga. */
+  function eelarvuta(rows, veh) {
+    var i = 0;
+    return new Promise(function (valmis) {
+      (function samm() {
+        var t0 = Date.now();
+        try {
+          while (i < rows.length && Date.now() - t0 < 8) { var r = rows[i++]; simul(r.tested ? core.tyreByKey[r.tested] : null, r, veh); }
+        } catch (e) { i = rows.length; }
+        if (i < rows.length) setTimeout(samm, 0); else valmis();
+      })();
+    });
+  }
   function tyreProps(r, veh) {
     var t = r.tested ? core.tyreByKey[r.tested] : null, P = {};
     P.wet = r.g ? { v: r.g, show: grade(r.g), src: 'off', score: FG[r.g] } : null;
@@ -2379,7 +2400,9 @@ import UNIVERSAALID from './universaalid.json';
     var lykkaObs = null;
     function lykka() {
       var list = $('[data-cmp-list]', root) || root;
-      if (!('IntersectionObserver' in window) || list.getBoundingClientRect().top < innerHeight * 1.5) return false;
+      /* (audit 18.10) ka „kohe näha“ otsustab IntersectionObserver (tagasikutse tuleb pärast
+         paigutust): getBoundingClientRect() siin sundis kogu lehe paigutuse ülesande keskel */
+      if (!('IntersectionObserver' in window)) return false;
       if (lykkaObs) return true;
       lykkaObs = new IntersectionObserver(function (e) {
         if (!e.some(function (x) { return x.isIntersecting; })) return;
@@ -2419,12 +2442,20 @@ import UNIVERSAALID from './universaalid.json';
           var was = S.size;
           S.veh = veh.key;
           S.size = sizeOptions(sizeSelA, veh, norm(veh.oemSize));
+          var valitud = null;
           autoLeht.forEach(function (b) {
             var on = b.dataset.mootor === veh.key;
             b.setAttribute('aria-pressed', String(on));
-            /* telefonis on kaardid ühes keritavas reas — valitu nähtavale (ainult rida, mitte lehte) */
-            if (on && b.parentNode.scrollWidth > b.parentNode.clientWidth) b.parentNode.scrollLeft = b.offsetLeft - b.parentNode.offsetLeft - 8;
+            if (on) valitud = b;
           });
+          /* telefonis on kaardid ühes keritavas reas — valitu nähtavale (ainult rida, mitte lehte).
+             Lehe avamisel loetakse paigutust alles pärast joonistamist (muidu arvutaks brauser
+             kogu lehe paigutuse selle ülesande keskel kaks korda). */
+          var keri = function () {
+            var rida = valitud && valitud.parentNode;
+            if (rida && rida.scrollWidth > rida.clientWidth) rida.scrollLeft = valitud.offsetLeft - rida.offsetLeft - 8;
+          };
+          if (kasutaja) keri(); else requestAnimationFrame(function () { setTimeout(keri, 0); });
           dropOtherSizes(was);
           autoHero(veh);
           if (!kasutaja && lykka()) return;
@@ -2755,6 +2786,11 @@ import UNIVERSAALID from './universaalid.json';
       if (!listEl) { drawTable(); return; }
       listEl.innerHTML = _t('<p class="note">Laen…</p>');
       Promise.all([loadSize(S.size), Prices.size(S.size)]).then(function (res) {
+        if (joonis !== joonisNr || S.season === 'naast') return res;
+        var veh0 = core.vehByKey[S.veh] || core.vehByKey[DEFAULT_VEH], cats0 = SEASON[S.season].eprel;
+        return eelarvuta(res[0].filter(function (r) { return cats0.indexOf(r.catNr) >= 0; }), veh0).then(function () { return res; });
+      }).then(function (res) {
+        if (joonis !== joonisNr) return; /* vahepeal algas uus joonistus — see joonistab */
         var rows = res[0], hd = res[1] || {}, hOn = !!hd.available, h = hd.hinnad || {};
         var veh = core.vehByKey[S.veh] || core.vehByKey[DEFAULT_VEH];
         var cats = SEASON[S.season].eprel, qq = q ? norm(q.value) : '';
@@ -3278,15 +3314,25 @@ import UNIVERSAALID from './universaalid.json';
     } catch (e) { /* vigane referrer — jätame vahele */ }
   }
 
-  /* laiad tabelid: kerimisala peab olema klaviatuuriga kättesaadav */
+  /* laiad tabelid: kerimisala peab olema klaviatuuriga kättesaadav.
+     (audit 18.10) Laiust loetakse alles siis, kui tabel on ekraani lähedal: varem luges
+     see kõigi tabelite scrollWidth'i kohe ja vahepeal muudetud atribuudid sundisid iga
+     tabeli juures uue paigutuse (mõõdulehel ~150 ms telefonis); content-visibility jäi
+     seetõttu kasutuks. IntersectionObserveri tagasikutse ajal on paigutus juba arvutatud. */
+  function tblMargi(t) {
+    if (t.hasAttribute('tabindex') || t.scrollWidth <= t.clientWidth + 1) return;
+    var h = t.closest('.box, .cmp-table'); h = h && $('h2', h);
+    t.setAttribute('tabindex', '0'); t.setAttribute('role', 'region');
+    t.setAttribute('aria-label', (h ? h.textContent.trim() + ' — ' : '') + _t('tabel, keri külgsuunas'));
+  }
+  var tblObs = null;
   function tablesA11y() {
-    $$('.tbl-wrap').forEach(function (t) {
-      if (t.scrollWidth > t.clientWidth + 1 && !t.hasAttribute('tabindex')) {
-        var h = t.closest('.box, .cmp-table'); h = h && $('h2', h);
-        t.setAttribute('tabindex', '0'); t.setAttribute('role', 'region');
-        t.setAttribute('aria-label', (h ? h.textContent.trim() + ' — ' : '') + _t('tabel, keri külgsuunas'));
-      }
-    });
+    if (!('IntersectionObserver' in window)) { $$('.tbl-wrap').forEach(tblMargi); return; }
+    if (!tblObs) tblObs = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting) { tblObs.unobserve(e.target); tblMargi(e.target); } });
+    }, { rootMargin: '200px 0px' });
+    /* uuesti jälgima: sisu võis vahepeal muutuda (võrdlustabel) */
+    $$('.tbl-wrap').forEach(function (t) { if (!t.hasAttribute('tabindex')) { tblObs.unobserve(t); tblObs.observe(t); } });
   }
   document.addEventListener('pm:cmp', function () { setTimeout(tablesA11y, 50); });
 

@@ -2,6 +2,8 @@
 	/* Autolehe illustratsioon: lihtne külgvaade keretüübi järgi (oma joonis, mitte
 	   tootja foto ega logo). Rehvid on esile tõstetud — leht räägib rehvidest.
 	   keha: SOIDUAUTO | VAIKEAUTO | MAASTUR | KAUBIK (core.json vehicles[].body) */
+	import { useT } from '$lib/i18n.js';
+	const t = useT();
 	let { keha = 'SOIDUAUTO', moot = '' } = $props();
 
 	/* kere kontuur, aknad, rataste asukoht ja raadius */
@@ -31,7 +33,7 @@
 	const MAA = 146;
 </script>
 
-<svg class="ap" viewBox="0 0 400 186" role="img" aria-label={moot ? 'Rehvimõõt ' + moot : 'Auto'}>
+<svg class="ap" viewBox="0 0 400 186" role="img" aria-label={moot ? t('Rehvimõõt') + ' ' + moot : t('Auto')}>
 	<!-- vari -->
 	<ellipse cx="200" cy={MAA + 4} rx="186" ry="7" fill="#000" opacity=".35" />
 	<!-- kere: rattakoopad lõigatakse välja tausta värviga ringidega -->

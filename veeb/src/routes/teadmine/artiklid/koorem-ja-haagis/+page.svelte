@@ -118,7 +118,7 @@ ${tabel(
 
 <h2>Проверьте на своём автомобиле</h2>
 <ul><li><a href="/ru/liiklusohutus/">Калькулятор остановочного пути</a>: можно добавить груз и прицеп (с тормозами или без)</li><li><a href="/ru/">Калькулятор тормозного пути</a>: ваша машина и шины</li></ul>
-<p class="note">Расчётные результаты — это оценки, а не измерения. Торможение прицепа в модели упрощено. Точность модели и допущения: <a href="/teadmine/kuidas-pidurdusmaa-arvutatakse/">Как рассчитывается тормозной путь</a> (на эстонском).</p>`;
+<p class="note">Расчётные результаты — это оценки, а не измерения. Торможение прицепа в модели упрощено. Точность модели и допущения: <a href="/ru/teadmine/kuidas-pidurdusmaa-arvutatakse/">Как рассчитывается тормозной путь</a>.</p>`;
 
 	const KKK = [
 		['Kas täis auto pidurdab kauem?', 'Natuke. VW Golf 8 pidurdusmaa märjal 80 km/h pealt on ainult juhiga 35,0 m ja täis autoga (575 kg) 35,8 m. Raskem auto surub rehvid tugevamini vastu teed, nii et haare kasvab peaaegu sama palju kui mass.'],

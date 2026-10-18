@@ -166,11 +166,19 @@
 	function kaivita() {
 		if (!raf && !document.hidden && nahtav) raf = requestAnimationFrame(kaader);
 	}
+	let eelmKaader = 0;
 	function kaader(now) {
 		/* kui ekraan pole nähtav, jääb tsükkel seisma; kaivita() alustab uuesti */
-		if (document.hidden || !nahtav) { raf = 0; return; }
+		if (document.hidden || !nahtav) { raf = 0; eelmKaader = 0; return; }
 		raf = requestAnimationFrame(kaader);
 		if (!ctx) return;
+		/* ootel olekutes (eelvaade, tulemus) piisab 30 kaadrist sekundis: pilt sama, protsessor
+		   poole vähem koormatud (audit 18.10: eelvaade 60 fps = Lighthouse'is TBT 3 s).
+		   Ajastatud olekud (oota, nyyd, soit) joonistuvad iga kaadriga. */
+		const kiire = olek === 'oota' || olek === 'nyyd' || olek === 'soit';
+		if (!kiire && eelmKaader && now - eelmKaader < 32) return;
+		const dt = eelmKaader ? Math.min(0.1, (now - eelmKaader) / 1000) : 0.016;
+		eelmKaader = now;
 		const v0 = kiirus / 3.6;
 		if (olek === 'oota') {
 			z = zOoteAlgus + v0 * Math.max(0, (now - tOoteAlgus) / 1000); kmhNaha = kiirus;
@@ -180,7 +188,7 @@
 		} else if (olek === 'nyyd' || olek === 'soit') {
 			samm(now);
 		} else if (olek === 'algus') {
-			z += v0 * 0.016 * 0.5; kmhNaha = kiirus; /* aeglane eelvaade */
+			z += v0 * dt * 0.5; kmhNaha = kiirus; /* aeglane eelvaade (päris kaadriaja järgi) */
 		}
 		joonista(ctx, W, H, tee, { z, kmh: kmhNaha, oo, ilm, ees, jk, crash, aeg: (now - aeg0) / 1000 });
 	}

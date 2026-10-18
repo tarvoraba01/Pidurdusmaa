@@ -65,10 +65,10 @@ ${tabel(
 
 <h2>Kumb valida</h2>
 <ul><li><strong>Naastrehv</strong> on parem, kui sõidad sageli jäistel teedel, näiteks maal ja maanteel, eriti sulailmaga.</li><li><strong>Lamell</strong> sobib, kui sõidad peamiselt linnas puhastatud teedel. Kuival ja märjal asfaldil pidurdab hea lamell sama hästi kui naastrehv.</li><li><strong>Mudelite vahe on suur.</strong> Hea lamell on märjal parem kui halb naastrehv. Vaata konkreetsete rehvide tulemusi <a href="/talverehvid/">talverehvide lehelt</a>.</li></ul>
-<p>Naastrehvid on Eestis lubatud 15. oktoobrist 31. märtsini. Kõik kuupäevad: <a href="/teadmine/artiklid/millal-talverehvid-alla/">Millal talverehvid alla?</a></p>
+<p>Naastrehvid on Eestis lubatud 15. oktoobrist 31. märtsini. Kõik kuupäevad: <a href="/teadmine/rehvivahetus/">Rehvivahetus: millal talverehvid alla</a></p>
 
 <h2>Proovi oma autoga</h2>
-<ul><li><a href="/">Pidurdusmaa kalkulaator</a>: vali olud "jää" ja võrdle naastrehvi ning lamelli oma autoga</li><li><a href="/teadmine/artiklid/talverehvide-testid-2026/">Talverehvide testid 2025–2026</a>: kõik mõõdetud pidurdusmaad</li><li><a href="/teadmine/artiklid/talverehvi-valimine/">Talverehvi valimine: mida numbrid ütlevad</a></li></ul>
+<ul><li><a href="/">Pidurdusmaa kalkulaator</a>: vali olud "jää" ja võrdle naastrehvi ning lamelli oma autoga</li><li><a href="/teadmine/artiklid/talverehvide-testid-2026/">Talverehvide test 2026</a>: parimad jääl, lumel ja märjal</li><li><a href="/teadmine/artiklid/talverehvi-valimine/">Talverehvi valimine: mida numbrid ütlevad</a></li></ul>
 <p class="note">Testitulemused on mõõdetud testiväljakul. Mudeli tulemused on hinnangud. Allikad: <a href="/testid/tm25/">Tekniikan Maailma 2025</a>, <a href="/testid/vib10d/">Vi Bilägare 2010</a>.</p>`;
 
 	const SISU_RU = `<p>Каждую осень приходится выбирать: шипованные шины или нешипованные зимние шины северного типа («липучка»). Здесь ответ по измерениям: где шипы лучше, где нет и насколько велика разница.</p>
@@ -113,10 +113,10 @@ ${tabel(
 
 <h2>Что выбрать</h2>
 <ul><li><strong>Шипованная шина</strong> лучше, если вы часто ездите по обледенелым дорогам, например за городом и по трассе, особенно в оттепель.</li><li><strong>«Липучка»</strong> подходит, если вы ездите в основном по очищенным городским дорогам. На сухом и мокром асфальте хорошая «липучка» тормозит так же, как шипованная шина.</li><li><strong>Разница между моделями большая.</strong> Хорошая «липучка» на мокрой дороге лучше плохой шипованной шины. Результаты конкретных шин — на <a href="/ru/talverehvid/">странице зимних шин</a>.</li></ul>
-<p>Шипованные шины в Эстонии разрешены с 15 октября по 31 марта. Все сроки: <a href="/ru/teadmine/artiklid/millal-talverehvid-alla/">Когда менять шины на зимние?</a></p>
+<p>Шипованные шины в Эстонии разрешены с 15 октября по 31 марта. Все сроки: <a href="/ru/teadmine/rehvivahetus/">Когда менять резину в Эстонии</a></p>
 
 <h2>Проверьте на своём автомобиле</h2>
-<ul><li><a href="/ru/">Калькулятор тормозного пути</a>: выберите условия «лёд» и сравните шипованную шину и «липучку» на своей машине</li><li><a href="/ru/teadmine/artiklid/talverehvide-testid-2026/">Тесты зимних шин 2025–2026</a>: весь измеренный тормозной путь</li><li><a href="/ru/teadmine/artiklid/talverehvi-valimine/">Как выбрать зимнюю шину: что говорят цифры</a></li></ul>
+<ul><li><a href="/ru/">Калькулятор тормозного пути</a>: выберите условия «лёд» и сравните шипованную шину и «липучку» на своей машине</li><li><a href="/ru/teadmine/artiklid/talverehvide-testid-2026/">Тест зимних шин 2026</a>: лучшие на льду, снегу и мокром</li><li><a href="/ru/teadmine/artiklid/talverehvi-valimine/">Как выбрать зимнюю шину: что говорят цифры</a></li></ul>
 <p class="note">Результаты тестов измерены на испытательном полигоне. Результаты модели — оценки. Источники: <a href="/testid/tm25/">Tekniikan Maailma 2025</a>, <a href="/testid/vib10d/">Vi Bilägare 2010</a> (на эстонском).</p>`;
 
 	const KKK = [

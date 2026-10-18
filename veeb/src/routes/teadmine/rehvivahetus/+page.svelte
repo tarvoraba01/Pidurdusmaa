@@ -12,14 +12,14 @@
 	import Meta from '$lib/Meta.svelte';
 	import Autor from '$lib/Autor.svelte';
 	import AutoTee from '$lib/AutoTee.svelte';
-	import { BASE, ORG_ID, AUTOR, autorRef, graph } from '$lib/skeem.js';
+	import { BASE, ORG_ID, AUTOR, autorLang, autorRef, graph } from '$lib/skeem.js';
 	import { useLang } from '$lib/i18n.js';
 	import { tana, kp, kpl, ALLIKAD } from '$lib/rehvivahetus.js';
 
 	const keel = useLang();
 	const ru = keel.lang === 'ru';
 	const L = keel.L;
-	const UUENDATUD = '2026-10-15';
+	const UUENDATUD = '2026-10-18';
 	const PATH = '/teadmine/rehvivahetus/';
 
 	const ehitus = new Date();
@@ -35,15 +35,21 @@
 	const h0 = tana(ehitus).h;
 	const TITLE = ru
 		? `С какого числа зимняя резина в Эстонии ${AASTA}: все сроки`
-		: `Rehvivahetus ${AASTA}: millal naastrehvid ja talverehvid alla`;
+		: `Rehvivahetus ${AASTA}: naastrehvid lubatud, talverehvid kohustuslikud`;
+	/* kirjeldus ehituse päeva seisuga: naastud juba lubatud või alles tulekul (leht ehitatakse hooajal tihti uuesti) */
+	const s0 = tana(ehitus);
 	const DESC = ru
-		? `Шипы — с 15 октября по 31 марта, зимняя резина обязательна с 1 декабря по 1 марта. Что разрешено сегодня, сроки ${h0.S}/${h0.S + 1} и правило 3 мм.`
-		: `Naastrehvid on lubatud 15. oktoobrist 31. märtsini, talverehvid kohustuslikud 1. detsembrist 1. märtsini. Mis on täna lubatud, kuupäevad ${h0.S}/${h0.S + 1} ja 3 mm reegel.`;
+		? `${s0.naast === 'lubatud' ? 'Шипы уже разрешены' : 'Шипы разрешены'} с 15 октября по 31 марта, зимняя резина обязательна с 1 декабря по 1 марта. Что разрешено сегодня, сколько дней осталось, сроки ${h0.S}/${h0.S + 1} и правило 3 мм.`
+		: `${s0.naast === 'lubatud' ? 'Naastrehvid on juba lubatud' : 'Naastrehvid on lubatud'} 15. oktoobrist 31. märtsini, talverehvid kohustuslikud 1. detsembrist 1. märtsini. Mis on täna lubatud, mitu päeva on jäänud ja 3 mm reegel.`;
 
 	/* Korduma kippuvad küsimused (nähtav + FAQPage) */
 	const kkk = (hh) =>
 		ru
 			? [
+					[
+						`Когда нужно менять шины в Эстонии в ${hh.S} году?`,
+						`Зимнюю резину нужно поставить до ${kp(hh.kohustus, 'ru')}: с этого дня она обязательна. Шипованную можно ставить с ${kp(hh.naast, 'ru')}, при зимних условиях уже с ${kp(hh.naastTalv, 'ru')}. Обратно на летнюю можно после ${kp(hh.kohustusLopp, 'ru')}, а шипы нужно снять до ${kp(hh.naastLopp, 'ru')}.`
+					],
 					[
 						`С какого числа разрешена шипованная резина в ${hh.S} году?`,
 						`Шипованная резина в Эстонии разрешена с ${kp(hh.naast, 'ru')} по ${kp(hh.naastLopp, 'ru')}. Если дорожные и погодные условия зимние, её можно использовать уже с ${kp(hh.naastTalv, 'ru')} и до ${kp(hh.naastTalvLopp, 'ru')}.`
@@ -53,8 +59,16 @@
 						`Да. Зимняя резина обязательна с ${kp(hh.kohustus, 'ru')} по ${kp(hh.kohustusLopp, 'ru')}. Нешипованная зимняя резина в это время должна иметь знак «три горные вершины и снежинка» (3PMSF), а глубина протектора зимней шины должна быть больше 3 мм.`
 					],
 					[
+						'На какой резине можно ездить зимой в Эстонии?',
+						`С ${kp(hh.kohustus, 'ru', true)} по ${kp(hh.kohustusLopp, 'ru', true)} только на зимней: шипованной или нешипованной. У нешипованной должен быть знак «три горные вершины и снежинка» (3PMSF), протектор зимней шины должен быть глубже 3 мм. Летняя резина в это время не разрешена.`
+					],
+					[
 						`Когда можно ставить летнюю резину в ${hh.S + 1} году?`,
 						`Летнюю резину можно ставить после ${kp(hh.kohustusLopp, 'ru')}, когда заканчивается обязательный период зимней резины. Шипованную резину нужно снять до ${kp(hh.naastLopp, 'ru')} (при зимних условиях — до ${kp(hh.naastTalvLopp, 'ru')}). Разумно менять, когда закончились ночные заморозки.`
+					],
+					[
+						'До какого числа можно ездить на зимней резине в Эстонии?',
+						`На шипованной до ${kp(hh.naastLopp, 'ru')}, а если дорожные условия ещё зимние, до ${kp(hh.naastTalvLopp, 'ru')}. Нешипованную зимнюю резину закон по датам не ограничивает.`
 					],
 					[
 						'Можно ли ездить летом на нешипованной зимней резине?',
@@ -67,8 +81,16 @@
 				]
 			: [
 					[
+						`Millal on kohustuslik rehvivahetus ${hh.S}?`,
+						`Talverehvid peavad all olema hiljemalt ${kp(hh.kohustus, 'et', false, 'ks')}: ${kp(hh.kohustus, 'et', true, 'st')} kuni ${kp(hh.kohustusLopp, 'et', true, 'ni')} on need kohustuslikud. Naastrehvid võib alla panna ${kp(hh.naast, 'et', true, 'st')}, talviste teeolude korral juba ${kp(hh.naastTalv, 'et', true, 'st')}.`
+					],
+					[
 						`Millal on naastrehvid lubatud ${hh.S}?`,
 						`Naastrehvid on Eestis lubatud ${kp(hh.naast, 'et', false, 'st')} kuni ${kp(hh.naastLopp, 'et', false, 'ni')}. Kui tee- ja ilmastikuolud on talvised, tohib neid kasutada juba ${kp(hh.naastTalv, 'et', false, 'st')} ja kuni ${kp(hh.naastTalvLopp, 'et', false, 'ni')}.`
+					],
+					[
+						`Millal on talverehvid lubatud ${hh.S}?`,
+						`Lamellrehve võib kasutada igal ajal, kuupäevadega neid ei piirata. Naastrehvid on lubatud ${kp(hh.naast, 'et', true, 'st')} kuni ${kp(hh.naastLopp, 'et', true, 'ni')}. Talverehvid (naast või lamell) on kohustuslikud ${kp(hh.kohustus, 'et', true, 'st')} kuni ${kp(hh.kohustusLopp, 'et', true, 'ni')}.`
 					],
 					[
 						`Kas talverehvid on ${hh.S} kohustuslikud ja millal?`,
@@ -77,6 +99,10 @@
 					[
 						`Millal võib suverehvid alla panna ${hh.S + 1}?`,
 						`Suverehvid võib alla panna pärast ${kp(hh.kohustusLopp, 'et', false, 'g')}, kui talverehvide kohustus lõpeb. Naastrehvid peavad olema maha võetud ${kp(hh.naastLopp, 'et', false, 'ks')} (talviste teeolude korral ${kp(hh.naastTalvLopp, 'et', false, 'ks')}). Mõistlik on vahetada siis, kui öökülmad on läbi.`
+					],
+					[
+						'Kui kaua võib naastrehvidega sõita?',
+						`Naastrehvidega võib sõita ${kp(hh.naastLopp, 'et', false, 'ni')}. Kui tee- ja ilmastikuolud on veel talvised, ${kp(hh.naastTalvLopp, 'et', false, 'ni')}. Lamellrehvidel kuupäevapiirangut ei ole.`
 					],
 					[
 						'Kas lamellrehvidega võib suvel sõita?',
@@ -102,7 +128,7 @@
 			mainEntityOfPage: BASE + L(PATH),
 			image: BASE + (ru ? '/og/sait/rehvivahetus.ru.png' : '/og/sait/rehvivahetus.png')
 		},
-		...(AUTOR ? [AUTOR] : []),
+		...(AUTOR ? [autorLang(lang)] : []),
 		{
 			'@type': 'FAQPage',
 			mainEntity: KKK.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } }))
@@ -168,13 +194,13 @@
 			<div class="crumbs">
 				<a href={L('/')}>Главная</a><span>/</span><a href={L('/teadmine/')}>Знания</a><span>/</span>Смена резины
 			</div>
-			<h1>Смена резины в Эстонии: когда зимняя и когда летняя</h1>
+			<h1>Смена резины в Эстонии {AASTA}: когда менять на зимнюю и на летнюю</h1>
 			<p>Зимние шины в Эстонии обязательны с 1 декабря по 1 марта, шипованные разрешены с 15 октября по 31 марта (при зимних условиях с 1 октября по 30 апреля). Ниже — что разрешено сегодня и простой совет.</p>
 		{:else}
 			<div class="crumbs">
 				<a href="/">Avaleht</a><span>/</span><a href="/teadmine/">Teadmine</a><span>/</span>Rehvivahetus
 			</div>
-			<h1>Rehvivahetus: millal talverehvid ja suverehvid alla</h1>
+			<h1>Rehvivahetus {AASTA}: millal talverehvid ja suverehvid alla</h1>
 			<p>Talverehvid on Eestis kohustuslikud 1. detsembrist 1. märtsini, naastrehvid lubatud 15. oktoobrist 31. märtsini (talviste olude korral 1. oktoobrist 30. aprillini). Allpool on, mis täna lubatud on, ja lihtne soovitus.</p>
 		{/if}
 	</div>
@@ -253,7 +279,7 @@
 				<ul>
 					<li><strong>Можно:</strong> после {K(h.kohustusLopp)}, когда заканчивается обязательный период зимней резины.</li>
 					<li><strong>Нужно снять шипы:</strong> до {K(h.naastLopp)}; если условия ещё зимние — до {K(h.naastTalvLopp)}.</li>
-					<li><strong>Разумно:</strong> когда закончились ночные заморозки и ночью держится плюс. Летом зимняя шина тормозит хуже: на сухом асфальте при +25 °C с 90 км/ч примерно 42 м против 29 м у летней.</li>
+					<li><strong>Разумно:</strong> когда закончились ночные заморозки и ночью держится плюс. Летом зимняя шина тормозит хуже: на сухом асфальте при +25 °C с 90 км/ч нешипованная северного типа примерно 42 м против 29 м у летней.</li>
 				</ul>
 
 				<h2>Требования к шинам</h2>
@@ -267,7 +293,7 @@
 				<h2>Проверьте свои шины</h2>
 				<ul>
 					<li><a href={L('/talverehvid/')}>Лучшие зимние шины в вашем размере</a> — тесты, шипы и «липучки»</li>
-					<li><a href={L('/teadmine/artiklid/millal-talverehvid-alla/')}>Когда ставить зимнюю резину: что показывают цифры</a></li>
+					<li><a href={L('/teadmine/artiklid/millal-talverehvid-alla/')}>Правило +7 °C: при какой температуре ставить зимнюю резину</a></li>
 					<li><a href={L('/') + '?olud=snow&kiirus=50#kalkulaator'}>Тормозной путь на снегу для вашего автомобиля</a></li>
 				</ul>
 
@@ -313,7 +339,7 @@
 				<ul>
 					<li><strong>Võib:</strong> pärast {K(h.kohustusLopp, 'g')}, kui talverehvide kohustus lõpeb.</li>
 					<li><strong>Naastud peavad maha:</strong> {K(h.naastLopp, 'ks')}; kui teeolud on veel talvised, {K(h.naastTalvLopp, 'ks')}.</li>
-					<li><strong>Mõistlik:</strong> kui öökülmad on läbi ja ka öösel on plusskraadid. Suvel pidurdab talverehv halvemini: kuival asfaldil +25 °C juures 90 km/h pealt umbes 42 m, suverehv 29 m.</li>
+					<li><strong>Mõistlik:</strong> kui öökülmad on läbi ja ka öösel on plusskraadid. Suvel pidurdab talverehv halvemini: kuival asfaldil +25 °C juures 90 km/h pealt Põhjamaade lamellrehv umbes 42 m, suverehv 29 m.</li>
 				</ul>
 
 				<h2>Nõuded rehvidele</h2>
@@ -327,7 +353,7 @@
 				<h2>Kontrolli oma rehve</h2>
 				<ul>
 					<li><a href="/talverehvid/">Parimad talverehvid sinu auto mõõdus</a> — testid, naast ja lamell</li>
-					<li><a href="/teadmine/artiklid/millal-talverehvid-alla/">Millal talverehvid alla: mida pidurdusmaa ütleb</a></li>
+					<li><a href="/teadmine/artiklid/millal-talverehvid-alla/">+7 °C reegel: mis temperatuuril talverehvid alla panna</a></li>
 					<li><a href="/?olud=snow&kiirus=50#kalkulaator">Pidurdusmaa lumel sinu autoga</a></li>
 				</ul>
 
@@ -383,12 +409,13 @@
 		color: var(--muted);
 		font-size: 14.5px;
 	}
+	/* sama toon, veidi tumedam: kontrast hallil taustal ≥ 4.5:1 (WCAG AA) */
 	.rv-lubatud,
 	.rv-kohustuslik {
-		color: var(--good);
+		color: #168048;
 	}
 	.rv-talveoludes {
-		color: var(--warn);
+		color: #98641a;
 	}
 	.rv-keelatud {
 		color: var(--bad);

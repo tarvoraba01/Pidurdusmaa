@@ -20,6 +20,20 @@ const DATA = [join(process.cwd(), 'static/data'), join(process.cwd(), 'build/cli
 ) || join(process.cwd(), 'static/data');
 const _mem = new Map();
 
+/* Ajakirja nimes olevad märkused on eesti/inglise keeles („mõõtis Test World“, „commissioned by …“)
+   ja paistsid vene lehtedel tõlkimata (audit 18.10). Näitame ainult nimesid, mis on igas keeles samad. */
+const PUB_PUHAS = [
+	[/\s*\(Michelini pressiüritus, mõõtis Test World\)/, ' / Test World (Michelin)'],
+	[/\s*\(koostöös (NAF Motor)\)/, ' / $1'],
+	[/\s*\(mõõtis (Test World)\)/, ' / $1'],
+	[/\s*\(commissioned by ([^)]+)\)/, ' / $1']
+];
+export function pubPuhas(p) {
+	let s = String(p || '');
+	for (const [re, asend] of PUB_PUHAS) s = s.replace(re, asend);
+	return s;
+}
+
 function json(rel) {
 	if (_mem.has(rel)) return _mem.get(rel);
 	let v = null;
@@ -29,6 +43,7 @@ function json(rel) {
 		const taisfail = join(process.cwd(), 'build/andmed', rel);
 		const fail = rel === 'core.json' && DATA.endsWith(join('build', 'client', 'data')) && existsSync(taisfail) ? taisfail : join(DATA, rel);
 		v = JSON.parse(readFileSync(fail, 'utf-8'));
+		if (rel === 'testid_ext.json' && v && v.allikad) for (const a of Object.values(v.allikad)) a.pub = pubPuhas(a.pub);
 	} catch (e) {
 		if (rel === 'core.json' || rel === 'models.json') {
 			throw new Error('Andmefaili ei leitud: ' + join(DATA, rel));
@@ -172,6 +187,140 @@ export function extTests(slug) {
 	const d = json('testid_ext.json');
 	if (!d || !d.rehvid || !d.rehvid[slug]) return [];
 	return d.rehvid[slug].map((x) => ({ ...x, src: d.allikad[x.t] || {} }));
+}
+
+/* ------------------------------------------------ talvetestide parimad
+ * Artikli „Talverehvide test 2026“ tabel: iga talvetest (minAasta → uuemad) ja
+ * igal alal (jää, lumi, märg asfalt) see rehv, mis oli testis ise 1. kohal
+ * (pos === 1). Kui testi võitja pole meie andmetes (sobitamata rehv), jääb lahter
+ * tühjaks — nime ei arva. Meie ankrutestid (core.json, nt Tekniikan Maailma)
+ * tulevad kaasa, kui sama testi testid_ext-is pole; need sisaldavad kõiki testi
+ * rehve, nii et lühim pidurdusmaa on võitja. */
+const TALV_ALAD = ['jää', 'lumi', 'märg asfalt'];
+const coreAla = (x) => (x.surf === 'ICE' ? 'jää' : x.surf === 'SNOW_PACKED' ? 'lumi' : x.surf === 'ASPHALT' && x.wet ? 'märg asfalt' : null);
+export function talveTestideParimad(minAasta = 2025) {
+	const d = json('testid_ext.json') || {};
+	const testid = new Map();
+	const pubNimi = (p) => String(p || '').replace(/^AUTO BILD\b/, 'Auto Bild').trim();
+	const autoNimi = (a) => String(a || '').split(/ \(|;| \/ /)[0].trim();
+	for (const [id, a] of Object.entries(d.allikad || {})) {
+		if (a.season !== 'winter' || !(a.year >= minAasta) || /PARTIAL/i.test(id)) continue;
+		testid.set(id, { id, pub: pubNimi(a.pub), aasta: a.year, moot: a.size || '', auto: autoNimi(a.car), n: 0, alad: {} });
+	}
+	/* võrdne tulemus → mõlemad võitjad */
+	const pane = (t, ala, o) => {
+		const vana = t.alad[ala];
+		const r = { slug: o.slug, nimi: o.nimi };
+		if (!vana || o.m < vana.m) t.alad[ala] = { m: o.m, v0: o.v0, v1: o.v1, rehvid: [r] };
+		else if (o.m === vana.m && !vana.rehvid.some((x) => x.slug === o.slug)) vana.rehvid.push(r);
+	};
+	/* rehvitüübid testis (kõik testi rehvid, mitte ainult võitjad): naast / lamell / Kesk-Euroopa */
+	const tyyp = (t, slug) => {
+		const kat = (tyrePage(slug) || {}).cat || '';
+		t.kat.add(/STUDDED/.test(kat) ? 'naast' : /NORDIC/.test(kat) ? 'lamell' : /CENTRAL|WINTER/.test(kat) ? 'kesk' : '');
+	};
+	for (const t of testid.values()) t.kat = new Set();
+	for (const [slug, rows] of Object.entries(d.rehvid || {})) {
+		for (const x of rows) {
+			const t = testid.get(x.t);
+			if (!t) continue;
+			t.n = Math.max(t.n, x.n || 0);
+			tyyp(t, slug);
+			if (x.pos === 1 && TALV_ALAD.includes(x.d) && x.m > 0) pane(t, x.d, { slug, nimi: x.nimi, m: x.m, v0: x.v0, v1: x.v1 || 0 });
+		}
+	}
+	const ext = [...testid.values()];
+	for (const [src, s] of Object.entries(core().sources || {})) {
+		if (!/talverehvi|naastrehvi|naelutute/i.test(s.nimi || '') || !(s.aasta >= minAasta)) continue;
+		const pub = String(s.nimi).replace(/\s+(talverehvitest|naastrehvitest|naelutute talverehvide test).*$/i, '').trim();
+		const esim = pub.split(' ')[0].toLowerCase();
+		if (ext.some((t) => t.aasta === s.aasta && t.moot === s.moot && t.pub.toLowerCase().startsWith(esim))) continue;
+		const t = { id: src, pub, aasta: s.aasta, moot: s.moot || '', auto: autoNimi(s.auto), n: s.rehve || 0, alad: {}, kat: new Set() };
+		for (const o of core().tyres) {
+			for (const x of o.tests || []) {
+				const ala = x.src === src ? coreAla(x) : null;
+				if (!ala || !o.slug || !(x.m > 0)) continue;
+				t.kat.add(o.studded ? 'naast' : /NORDIC/.test(o.category) ? 'lamell' : 'kesk');
+				pane(t, ala, { slug: o.slug, nimi: o.name, m: x.m, v0: x.v0, v1: x.v1 || 0 });
+			}
+		}
+		testid.set(src, t);
+	}
+	return [...testid.values()]
+		.filter((t) => Object.keys(t.alad).length)
+		.map((t) => ({
+			...t,
+			/* 'naast' | 'lamell' | 'kesk' | 'naast+lamell' | 'segu' */
+			kat: ((k) => (k.length === 1 ? k[0] : k.length === 2 && !k.includes('kesk') ? 'naast+lamell' : 'segu'))([...t.kat].filter(Boolean).sort()),
+			alad: Object.fromEntries(
+				Object.entries(t.alad).map(([k, o]) => [k, { ...o, rehvid: o.rehvid.map((r) => ({ ...r, ix: rehviIndeks(r.slug).index })) }])
+			)
+		}))
+		.sort((a, b) => b.aasta - a.aasta || !!b.alad['jää'] - !!a.alad['jää'] || a.pub.localeCompare(b.pub) || a.moot.localeCompare(b.moot));
+}
+
+/* ------------------------------------------------ testid selles mõõdus
+ * Mõõdulehe esimene lause (päring „205/55 R16“): selles mõõdus tehtud uusimad testid ja nende
+ * võitjad — suverehvidest märjal, talverehvidest jääl (kui jääd polnud, siis märjal).
+ * Ainult 2020+ testid (vanemad mudelid pole enam müügil) ja ainult testi enda 1. koht. */
+const HOOAJA_KAT = { suvi: /^SUMMER/, talv: /^WINTER/, aastaring: /^ALL_SEASON/ };
+export function testidMoodus(label, minAasta = 2020) {
+	const d = json('testid_ext.json') || {};
+	const testid = [];
+	for (const [id, a] of Object.entries(d.allikad || {})) {
+		if (a.size !== label || !(a.year >= minAasta) || /PARTIAL/i.test(id)) continue;
+		const hooaeg = a.season === 'summer' ? 'suvi' : a.season === 'winter' ? 'talv' : a.season === 'allseason' ? 'aastaring' : null;
+		if (hooaeg) testid.push({ id, pub: String(a.pub || '').split(/ \/ | \(/)[0].trim(), aasta: a.year, hooaeg, n: 0, alad: {} });
+	}
+	const byId = new Map(testid.map((x) => [x.id, x]));
+	for (const [slug, rows] of Object.entries(d.rehvid || {})) {
+		for (const x of rows) {
+			const t = byId.get(x.t);
+			if (!t) continue;
+			t.n = Math.max(t.n, x.n || 0);
+			if (x.pos !== 1 || !(x.m > 0)) continue;
+			const vana = t.alad[x.d];
+			if (!vana || x.m < vana.m) t.alad[x.d] = { m: x.m, v0: x.v0, v1: x.v1 || 0, rehvid: [{ slug, nimi: x.nimi }] };
+			else if (x.m === vana.m && !vana.rehvid.some((r) => r.slug === slug)) vana.rehvid.push({ slug, nimi: x.nimi });
+		}
+	}
+	/* meie ankrutestid (core.json): kõik testi rehvid on andmetes, lühim = võitja; segatestis (suvi + aastaring) eraldi hooaja kaupa */
+	for (const [src, s] of Object.entries(core().sources || {})) {
+		if (s.moot !== label || !(s.aasta >= minAasta)) continue;
+		const nimi = String(s.nimi || '');
+		const hooajad = /talverehvi|naast|naelutute/i.test(nimi) ? ['talv'] : [/suve/i.test(nimi) ? 'suvi' : null, /aastaring/i.test(nimi) ? 'aastaring' : null].filter(Boolean);
+		const pub = nimi.replace(/\s+(talverehvitest|suverehvitest|aastaringsete rehvide test|suve- ja aastaringsete rehvide test|naastrehvitest).*$/i, '').trim();
+		if (testid.some((x) => x.aasta === s.aasta && x.pub.split(' ')[0].toLowerCase() === pub.split(' ')[0].toLowerCase())) continue;
+		for (const hooaeg of hooajad) {
+			const t = { id: src + ':' + hooaeg, pub, aasta: s.aasta, hooaeg, n: 0, alad: {} };
+			const loetud = new Set();
+			for (const o of core().tyres) {
+				if (!o.slug || !HOOAJA_KAT[hooaeg].test(o.category || '')) continue;
+				for (const x of o.tests || []) {
+					if (x.src !== src || !(x.m > 0)) continue;
+					const ala = coreAla(x);
+					if (!ala) continue;
+					loetud.add(o.slug);
+					const vana = t.alad[ala];
+					if (!vana || x.m < vana.m) t.alad[ala] = { m: x.m, v0: x.v0, v1: x.v1 || 0, rehvid: [{ slug: o.slug, nimi: o.name }] };
+				}
+			}
+			t.n = loetud.size;
+			if (Object.keys(t.alad).length) testid.push(t);
+		}
+	}
+	const uusim = (hooaeg, alad) => {
+		/* esimene ala on eelistatud (talvel jää: Eesti talvel loeb see kõige rohkem), siis uusim, siis suurim test */
+		const sobivad = testid.filter((x) => x.hooaeg === hooaeg && alad.some((a) => x.alad[a])).sort((a, b) => !!b.alad[alad[0]] - !!a.alad[alad[0]] || b.aasta - a.aasta || b.n - a.n);
+		if (!sobivad.length) return null;
+		const x = sobivad[0], ala = alad.find((a) => x.alad[a]);
+		const o = x.alad[ala];
+		return { pub: x.pub, aasta: x.aasta, n: x.n, ala, m: o.m, v0: o.v0, v1: o.v1, rehvid: o.rehvid.map((r) => ({ ...r, ix: rehviIndeks(r.slug).index })) };
+	};
+	const suvi = uusim('suvi', ['märg asfalt']);
+	const talv = uusim('talv', ['jää', 'märg asfalt']);
+	const aastaring = suvi ? null : uusim('aastaring', ['märg asfalt']);
+	return suvi || talv || aastaring ? { suvi, talv, aastaring } : null;
 }
 
 /** Ajakirjatestide kokkuvõte llms.txt jaoks: testide arv, aastad, väljaanded (sagedamad ees). */

@@ -3,6 +3,7 @@
 	   Esimene lõik vastab kohe küsimusele numbritega (AI ülevaated, ChatGPT), KKK = FAQPage. */
 	import Meta from '$lib/Meta.svelte';
 	import Autor from '$lib/Autor.svelte';
+	import AutoTee from '$lib/AutoTee.svelte';
 	import { BASE, graph, artikkel } from '$lib/skeem.js';
 	import { KAT_NIMI, num } from '$lib/util.js';
 	import { useT, useLang, autoNimi } from '$lib/i18n.js';
@@ -16,7 +17,8 @@
 	const jaa = (k) => mm(ty(k)?.jaa);
 	const auto = n ? autoNimi(keel.lang, n.auto) : '';
 
-	const pealkiri = t('Talverehvid 2026/2027 — parimad naast- ja lamellrehvid');
+	/* päring „parimad talverehvid 2026“ (pea-termin „talverehvid“ on poodide päralt) */
+	const pealkiri = t('Parimad talverehvid 2026/2027: naast- ja lamellrehvid testide järgi');
 	const desc = t('Talverehvid Eesti levinumates mõõtudes: testitud naast- ja lamellrehvid, pidurdusmaa lumel ja jääl ning Põhjamaade rehvid EL-i märgise järgi.');
 
 	const vastus = n
@@ -55,7 +57,7 @@
 <section class="page-hero">
 	<div class="wrap">
 		<div class="crumbs"><a href={L('/')}>{t('Avaleht')}</a><span>/</span>{t('Talverehvid')}</div>
-		<h1>{t('Talverehvid 2026/2027: parimad mõõdu järgi')}</h1>
+		<h1>{t('Parimad talverehvid 2026/2027 mõõdu järgi')}</h1>
 		{#if vastus}<p>{vastus}</p>{/if}
 		<p>{t('Vali oma rehvimõõt: näed testitud naast- ja lamellrehve, nende pidurdusmaad lumel ja jääl ning kõiki Põhjamaade talverehve selles mõõdus.')}</p>
 	</div>
@@ -67,10 +69,18 @@
 			<h2>{t('Eesti levinumad mõõdud')}</h2>
 			<p class="sub">{t('Järjestatud selle järgi, mitmel automudelil on see tehase põhimõõt.')}</p>
 			<div class="sizes-list">
-				{#each data.moodud as m (m.slug)}
+				{#each data.moodud.filter((x) => !x.lisa) as m (m.slug)}
 					<a href={L('/talverehvid/' + m.slug + '/')}>{m.label} <span class="note">· {m.autosid} {t('autot')}</span></a>
 				{/each}
 			</div>
+			{#if data.moodud.some((x) => x.lisa)}
+				<p class="sub" style="margin-top:var(--sp-4)">{t('Teised levinud tehasemõõdud, järjestatud selle järgi, mitmel automudelil on see üks tehasemõõtudest.')}</p>
+				<div class="sizes-list">
+					{#each data.moodud.filter((x) => x.lisa) as m (m.slug)}
+						<a href={L('/talverehvid/' + m.slug + '/')}>{m.label} <span class="note">· {m.autosid} {t('autot')}</span></a>
+					{/each}
+				</div>
+			{/if}
 		</div>
 
 		{#if n}
@@ -118,7 +128,8 @@
 		<p class="note">
 			{t('Mõõt on rehvi küljel (nt 205/55 R16) ja juhiukse piirdel.')}
 			<a href={L('/teadmine/rehvivahetus/')}>{t('Rehvivahetus: kõik kuupäevad')}</a> ·
-			<a href={L('/teadmine/artiklid/millal-talverehvid-alla/')}>{t('Millal talverehvid alla?')}</a>
+			<a href={L('/teadmine/artiklid/millal-talverehvid-alla/')}>{t('+7 °C reegel: millal talverehvid alla panna')}</a>
 		</p>
 	</div>
 </div>
+<AutoTee koht="talverehvid/" />

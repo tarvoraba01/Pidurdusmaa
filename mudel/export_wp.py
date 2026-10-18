@@ -339,9 +339,10 @@ def demo_numbers():
         "classA": d(tyre(G["A"])), "classE": d(tyre(G["E"])),
         "tread8": d(tyre()), "tread3": d(tyre(tread_depth_mm=3.0)),
         "summerWarm": d(tyre(), water_mm=0.0, temp_c=25.0),
-        "winterWarm": d(tyre(cat=TyreCategory.WINTER_CENTRAL), water_mm=0.0, temp_c=25.0),
+        # Põhjamaade lamell (Eesti tavaline talverehv), sama mis artiklites ja /teadmine/rehvivahetus/ (18.10)
+        "winterWarm": d(tyre(cat=TyreCategory.WINTER_NORDIC), water_mm=0.0, temp_c=25.0),
         "snowSummer": d(tyre(), surface=Surface.SNOW_PACKED, water_mm=0.0, temp_c=-5.0, speed_kmh=50),
-        "snowWinter": d(tyre(cat=TyreCategory.WINTER_CENTRAL), surface=Surface.SNOW_PACKED, water_mm=0.0, temp_c=-5.0, speed_kmh=50),
+        "snowWinter": d(tyre(cat=TyreCategory.WINTER_NORDIC), surface=Surface.SNOW_PACKED, water_mm=0.0, temp_c=-5.0, speed_kmh=50),
         "loaded": round(m.stopping_distance(tyre(), veh, Conditions(speed_kmh=90, surface=Surface.ASPHALT, water_mm=1.0, temp_c=10.0, payload_kg=450)).distance_m, 1),
     }
     return out

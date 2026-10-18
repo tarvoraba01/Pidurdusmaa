@@ -85,7 +85,7 @@ ${tabel(
 
 <h2>Попробуйте сами</h2>
 <ul><li><a href="/ru/liiklusohutus/reaktsioon/">Игра на реакцию</a>: насколько быстро реагируете вы?</li><li><a href="/ru/">Калькулятор тормозного пути</a>: меняйте скорость, время реакции и дорожные условия</li><li><a href="/ru/teadmine/artiklid/linnas-50-kmh/">50 км/ч в городе: какая разница между 40 и 60 км/ч?</a></li></ul>
-<p class="note">Расчётные результаты — это оценки, а не измерения. Точность модели и допущения: <a href="/teadmine/kuidas-pidurdusmaa-arvutatakse/">Как рассчитывается тормозной путь</a> (на эстонском).</p>`;
+<p class="note">Расчётные результаты — это оценки, а не измерения. Точность модели и допущения: <a href="/ru/teadmine/kuidas-pidurdusmaa-arvutatakse/">Как рассчитывается тормозной путь</a>.</p>`;
 
 	const KKK = [
 		['Kui pikk on reaktsiooniaeg?', 'Ärksal juhil, kes ohtu ootab, umbes 1 sekund. Väsinult, hajameelselt või täiesti ootamatu ohu korral sageli 1,5–2 sekundit.'],

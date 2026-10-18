@@ -22,7 +22,7 @@
 <h2>Шум (дБ и A–C)</h2>
 <p>Шум качения шины по официальному испытанию. Меньше число — тише шина. Каждые 3 дБ — это примерно вдвое больше звуковой энергии.</p>
 <h2>Знак снега и льда</h2>
-<p>Знак трёх горных вершин и снежинки ${lumi()} (3PMSF) означает, что шина прошла испытание на сцепление на снегу. Знак льда ${jaa()} означает, что шина прошла северное испытание на льду (только шины для легковых автомобилей).</p>`;
+<p>Знак трёх горных вершин и снежинки ${lumi('Знак «три горные вершины и снежинка» (3PMSF)')} (3PMSF) означает, что шина прошла испытание на сцепление на снегу. Знак льда ${jaa('Знак льда (символ сцепления со льдом на этикетке ЕС)')} означает, что шина прошла северное испытание на льду (только шины для легковых автомобилей).</p>`;
 	const KKK = [
 		['Mida tähendab märghaardumise klass A–E?', 'Klass näitab, kui hästi rehv pidurdab märjal asfaldil, võrreldes standardse võrdlusrehviga (katse 80 → 20 km/h). A on parim. Tavalisel sõiduautol on klasside A ja E vahe 90 km/h juures umbes 18 meetrit.'],
 		['Kas veeretakistuse klass mõjutab pidurdust?', 'Otseselt mitte. Kontrollisime 41 testitud rehvi peal ja veeretakistuse klass ei seletanud märja pidurduse erinevusi. See klass mõjutab kütuse- või energiakulu.'],

@@ -97,7 +97,7 @@ ${tabel(
 
 <h2>Проверьте сами</h2>
 <ul><li><a href="/ru/liiklusohutus/">Калькулятор остановочного пути</a>: ваша скорость, время реакции и дорожные условия</li><li><a href="/ru/liiklusohutus/reaktsioon/">Игра на реакцию</a>: как быстро тормозите вы?</li><li><a href="/ru/teadmine/pidurdusteekond-ja-peatumisteekond/">Тормозной и остановочный путь</a>: в чём разница</li></ul>
-<p class="note">Расчётные результаты — это оценки, а не измерения. Точность модели и допущения: <a href="/teadmine/kuidas-pidurdusmaa-arvutatakse/">Как рассчитывается тормозной путь</a> (на эстонском).</p>`;
+<p class="note">Расчётные результаты — это оценки, а не измерения. Точность модели и допущения: <a href="/ru/teadmine/kuidas-pidurdusmaa-arvutatakse/">Как рассчитывается тормозной путь</a>.</p>`;
 
 	const KKK = [
 		['Kui pikk on peatumisteekond 50 km/h pealt?', 'Reaktsiooniajaga 1 sekund peatub keskmise suverehviga VW Golf 8 kuival teel 23,5 m ja märjal 27,4 m pärast ohu märkamist. Sellest 13,9 m sõidab auto enne pidurdamist täiskiirusel.'],

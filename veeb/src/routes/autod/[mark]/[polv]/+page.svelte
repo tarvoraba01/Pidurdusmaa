@@ -3,6 +3,7 @@
 	import AutoPilt from '$lib/AutoPilt.svelte';
 	import { BASE } from '$lib/skeem.js';
 	import { useT, useLang, autoNimi } from '$lib/i18n.js';
+	import { autoRu } from '$lib/kirillitsa.js';
 	/* Tekstid: eesti keel on lähtetekst, vene tõlge $lib/i18n/ru.js (/ru/autod/…) */
 	const t = useT();
 	const keel = useLang();
@@ -21,21 +22,32 @@
 	const lumiP = $derived(data.pidurdus.find((x) => x.id === 'lumiT')?.r?.[50]?.pidurdus);
 	const nMootoreid = $derived(data.mootorid.length);
 	const desc = $derived(
-		t(nMootoreid === 1 ? '{nimi}: rehvimõõt {moot}, {n} mootor.' : '{nimi}: rehvimõõt {moot}, {n} mootorit.', { nimi: a.nimi, moot: data.pohimoot, n: nMootoreid }) +
-			(marg90 ? ' ' + t('Märjal 90 km/h pealt peatub ~{m} m.', { m: Math.round(marg90) }) : '') +
+		t(nMootoreid === 1 ? '{nimi}: rehvimõõt {moot}, {n} mootor.' : '{nimi}: rehvimõõt {moot}, {n} mootorit.', { nimi: nimiKir, moot: data.pohimoot, n: nMootoreid }) +
+			(margP ? ' ' + t('Pidurdusmaa märjal 90 km/h pealt ~{m} m.', { m: Math.round(margP) }) : '') +
 			' ' + t('Parimad rehvid selles mõõdus.')
 	);
 	const PEALKIRI = { suvi: 'Suverehvid mõõdus {moot}', talv: 'Talverehvid (Põhjamaade, naastudeta) mõõdus {moot}', aastaring: 'Aastaringsed rehvid mõõdus {moot}' };
 	const autoQ = $derived('?auto=' + encodeURIComponent(a.key));
 	/* mootori silt „1.6 TDI · 105 hj (77 kW)“ */
 	/* hobujõud ära, ainult kW: „1.6 TDI · 77 kW“ */
-	const hj = (s) => (s ? String(s).replace(/\s*\d+\s*hj\s*\((\d+\s*kW)\)/, ' $1') : s);
+	const hj = (s) => (s ? String(s).replace(/\s*\d+\s*hj\s*\((\d+\s*kW)\)/, ' $1').replace(/\bkWh\b/g, t('kWh')).replace(/\bkW\b/g, t('kW')) : s);
 	const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;');
-	const pealkiri = $derived(t('{nimi} rehvimõõt ja pidurdusmaa', { nimi: a.nimi }));
+	/* vene otsingud kirjutavad automargi ja mudeli sageli kirillitsas („сузуки лиана размер шин“) */
+	const kir = $derived(keel.lang === 'ru' ? autoRu(data.auto.make, data.auto.model) : '');
+	const nimiKir = $derived(kir ? (/\(([^()]*)\)\s*$/.test(a.nimi) ? a.nimi.replace(/\s*\(([^()]*)\)\s*$/, (m, y) => ' (' + kir + ', ' + y + ')') : a.nimi + ' (' + kir + ')') : a.nimi);
+	const pealkiri = $derived(t('{nimi} rehvimõõt ja pidurdusmaa', { nimi: nimiKir }));
+	/* vastus esimesse lõiku (päring „<auto> rehvimõõt“): põhimõõt ja teised tehasemõõdud */
+	const muudMoodud = $derived(data.moodud.filter((z) => !z.pohi).map((z) => z.label).slice(0, 4));
+	const vastus = $derived(
+		t('{nimi} tehase rehvimõõt on {moot}.', { nimi: nimiKir, moot: data.pohimoot }) +
+			(muudMoodud.length ? ' ' + t('Mootorist ja varustusest olenevalt ka {list}.', { list: ja(muudMoodud) }) : '')
+	);
 
 	/* KKK (AI-otsing / FAQPage): vastused ainult lehe andmetest */
 	const kuiv90 = $derived(data.pidurdus.find((x) => x.id === 'kuiv')?.r?.[90]?.peatumine);
 	const ja = (arr) => (arr.length < 2 ? arr.join('') : arr.slice(0, -1).join(', ') + ' ' + t('ja') + ' ' + arr[arr.length - 1]);
+	const AASTA = new Date().getFullYear();
+	const talvK = $derived(data.talv.length ? t('Millised talverehvid sobivad autole {nimi}?', { nimi: a.nimi }) : '');
 	const kkk = $derived(
 		[
 			[
@@ -56,6 +68,11 @@
 				? [
 						t('Millised talverehvid sobivad autole {nimi}?', { nimi: a.nimi }),
 						t('Põhimõõdus {moot} on EL-i rehvimärgise järgi head Põhjamaade talverehvid näiteks {list}.', { moot: data.pohimoot, list: ja(data.talv.slice(0, 3).map((r) => r.nimi)) }) +
+							(data.talvAuto
+								? ' ' + t('Testitud rehvidest pidurdas jääl kõige lühemalt naastrehv {n} ja lamellrehvidest {l}: selle autoga 50 km/h pealt umbes {nm} ja {lm} m.', {
+										n: data.talvAuto.naast.nimi, l: data.talvAuto.lamell.nimi, nm: Math.round(data.talvAuto.naast.jaa), lm: Math.round(data.talvAuto.lamell.jaa)
+									})
+								: '') +
 							' ' + t('Eesti talveks sobib naast- või Põhjamaade lamellrehv; talverehvid on kohustuslikud 1. detsembrist 1. märtsini.')
 					]
 				: null,
@@ -129,7 +146,7 @@
 	<div class="wrap">
 		<div class="box ad-samm">
 			<h2 class="ad-sh"><span>1</span>{t('Vali oma mootor')}</h2>
-			<p class="sub">{t('Mootoril võib olla oma rehvimõõt ja mass — nii on rehvid ja pidurdusmaa täpselt sinu autole.')}</p>
+			<p class="sub">{vastus} {t('Mootoril võib olla oma rehvimõõt ja mass — nii on rehvid ja pidurdusmaa täpselt sinu autole.')}</p>
 			<div class="ad-mootorid" role="group" aria-label={t('Mootor')}>
 				{#each data.mootorid as m (m.key)}
 					<button type="button" class="ad-mootor" data-mootor={m.key} aria-pressed={m.key === a.key ? 'true' : 'false'}>
@@ -186,7 +203,8 @@
 		<div class="box">
 			<h2>{t('Pidurdusmaa')}</h2>
 			<p class="sub">
-				{t('Peatumisteekond (reaktsioon 1 s + pidurdus) uute, keskmise märgiseklassiga (C) rehvidega, põhimõõdus {moot}. Muuda tingimusi', { moot: data.pohimoot })}
+				<a href={L('/teadmine/pidurdusteekond-ja-peatumisteekond/')}>{t('Peatumisteekond')}</a>
+				{t('(reaktsioon 1 s + pidurdus) uute, keskmise märgiseklassiga (C) rehvidega, põhimõõdus {moot}. Muuda tingimusi', { moot: data.pohimoot })}
 				<a href={L('/') + autoQ}>{t('kalkulaatoris')}</a>.
 			</p>
 			<div class="tbl-wrap">
@@ -208,8 +226,8 @@
 
 		<div class="box">
 			<h2>{t('Korduma kippuvad küsimused')}</h2>
-			{#each kkk as [q, v] (q)}<h3 class="ad-kkk-k">{q}</h3><p class="ad-kkk-v">{v}</p>{/each}
-			{#if data.talvSlug}<p class="note"><a href={L('/talverehvid/' + data.talvSlug + '/')}>{t('Parimad talverehvid {m} — testid, naast ja lamell →', { m: data.pohimoot })}</a></p>{/if}
+			{#each kkk as [q, v] (q)}<h3 class="ad-kkk-k">{q}</h3><p class="ad-kkk-v">{v}{#if q === talvK}{' '}<a href={L('/teadmine/rehvivahetus/')}>{t('Rehvivahetus {a}: kõik kuupäevad', { a: AASTA })}</a>{/if}</p>{/each}
+			{#if data.talvSlug}<p class="note"><a href={L('/talverehvid/' + data.talvSlug + '/')}>{t('Parimad talverehvid {m} — testid, naast ja lamell →', { m: data.pohimoot })}</a></p>{:else}<p class="note"><a href={L('/talverehvid/')}>{t('Parimad talverehvid 2026/2027 mõõdu järgi')} →</a></p>{/if}
 		</div>
 
 		{#if data.muudPolved.length}
@@ -222,7 +240,7 @@
 		{/if}
 		<p class="note">
 			{t('Andmed: tootjate andmed ja auto-data.net (mõõdud, mootorid, mass), EL-i tooteregister EPREL (rehvimärgis), sõltumatud rehvitestid.')}
-			<a href="/teadmine/kuidas-pidurdusmaa-arvutatakse/">{t('Kuidas pidurdusmaa arvutatakse')}</a>.
+			<a href={L('/teadmine/kuidas-pidurdusmaa-arvutatakse/')}>{t('Kuidas pidurdusmaa arvutatakse')}</a>.
 		</p>
 	</div>
 </div>

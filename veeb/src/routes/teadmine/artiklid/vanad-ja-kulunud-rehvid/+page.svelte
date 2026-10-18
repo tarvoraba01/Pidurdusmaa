@@ -136,7 +136,7 @@ ${tabel(
 
 <h2>Проверьте на своём автомобиле</h2>
 <ul><li><a href="/ru/rehvi-vanus/">Проверка возраста шины</a>: код DOT, протектор и тормозной путь</li><li><a href="/ru/">Калькулятор тормозного пути</a>: ваша машина, ваши шины и глубина протектора</li><li><a href="/ru/rehvi-valimine/">Выбор шин</a>: новые шины в размере вашего автомобиля</li></ul>
-<p class="note">Расчётные результаты — это оценки, а не измерения. Точность модели и допущения: <a href="/teadmine/kuidas-pidurdusmaa-arvutatakse/">Как рассчитывается тормозной путь</a> (на эстонском).</p>`;
+<p class="note">Расчётные результаты — это оценки, а не измерения. Точность модели и допущения: <a href="/ru/teadmine/kuidas-pidurdusmaa-arvutatakse/">Как рассчитывается тормозной путь</a>.</p>`;
 
 	const KKK = [
 		['Kui palju pikeneb pidurdusmaa kulunud rehviga?', 'VW Golf 8 pidurdusmaa märjal teel 90 km/h pealt on uue suverehviga 43,9 m. 3 mm mustriga on see 48,0 m ehk 4,1 m pikem, seadusliku piiri 1,6 mm juures 49,9 m. Talverehvi pidurdusmaa lumel on 3 mm mustriga veerandi võrra pikem kui uuel.'],

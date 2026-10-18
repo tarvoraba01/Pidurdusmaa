@@ -1,6 +1,6 @@
 import { error } from '@sveltejs/kit';
 import { autod, polveLeht } from '$lib/server/autod.js';
-import { talveMoot } from '$lib/server/talv.js';
+import { talveMoot, talvParimadAutole } from '$lib/server/talv.js';
 import { sizeSlug } from '$lib/server/andmed.js';
 
 export function entries() {
@@ -12,5 +12,7 @@ export function load({ params }) {
 	if (!p) error(404, 'Autot ei leitud');
 	const d = polveLeht(p);
 	const ts = sizeSlug(d.pohimoot.replace(/[/ ]/g, ''));
-	return { ...d, talvSlug: ts && talveMoot(ts) ? ts : null };
+	const talvSlug = ts && talveMoot(ts) ? ts : null;
+	/* KKK: jääl parim naast- ja lamellrehv selle auto põhimõõdus, pidurdusmaa selle auto andmetega */
+	return { ...d, talvSlug, talvAuto: talvSlug ? talvParimadAutole(talvSlug, p.rows[0]) : null };
 }

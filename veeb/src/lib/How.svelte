@@ -1,10 +1,29 @@
 <script>
-	import { useT } from '$lib/i18n.js';
+	import { onMount, flushSync } from 'svelte';
+	import { useT, useLang } from '$lib/i18n.js';
 	const t = useT();
+	const L = useLang().L;
 	/* „Kuidas pidurdusmaa arvutatakse?“ — lühike selgitus dialoogis.
 	   Pikk versioon on lehel /teadmine/kuidas-pidurdusmaa-arvutatakse/.
-	   Avamise ja sulgemise teeb app.js (data-how / data-how-close). */
+	   Avamise ja sulgemise teeb app.js (data-how / data-how-close).
+	   lazy: sisu tehakse alles esimesel avamisel. Rehvilehtedel (4 600 URL-i) oli sama
+	   313 sõna igal lehel serveri HTML-is (audit 18.10) — kasutaja näeb sama dialoogi. */
 	import { CONDS } from '$lib/util.js';
+	let { lazy = false } = $props();
+	let avatud = $state(!lazy);
+	onMount(() => {
+		if (avatud) return;
+		/* püüdmisfaasis enne app.js-i: sisu on DOM-is enne showModal()-i */
+		const ava = (e) => {
+			if (e.target && e.target.closest && e.target.closest('[data-how]')) {
+				avatud = true;
+				flushSync();
+				window.removeEventListener('click', ava, true);
+			}
+		};
+		window.addEventListener('click', ava, true);
+		return () => window.removeEventListener('click', ava, true);
+	});
 </script>
 
 <dialog class="how" id="how" aria-labelledby="how-t">
@@ -13,6 +32,7 @@
 		<button type="button" class="how-x" data-how-close aria-label={t("Sulge")}>×</button>
 	</div>
 	<div class="how-b">
+		{#if avatud}
 		<p>
 			{@html t("Tulemus on <strong>arvutatud hinnang</strong>, mitte laborimõõtmine. Mudel simuleerib pidurdust samm-sammult: rehvi haare antud kiirusel, ABS, õhutakistus, auto mass ja pidurid.")}
 		</p>
@@ -67,6 +87,7 @@
 		<p>
 			{@html t("Lehe numbrid on üldiseks teadmiseks ja rehvide võrdlemiseks. Need ei ole garantii, ekspertarvamus ega alus liikluses otsustamiseks — sõida alati vastavalt oludele. <a href=\"/kasutustingimused/\">Kasutustingimused ja vastutus</a>")}
 		</p>
-		<p><a href="/teadmine/kuidas-pidurdusmaa-arvutatakse/">{t("Loe täielikku metoodikat →")}</a></p>
+		{/if}
+		<p><a href={L('/teadmine/kuidas-pidurdusmaa-arvutatakse/')}>{t("Loe täielikku metoodikat →")}</a></p>
 	</div>
 </dialog>

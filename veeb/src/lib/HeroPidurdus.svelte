@@ -141,7 +141,7 @@
 			{#if r.seis || r.m > 1}
 				{@const lopus = !ules && r.m > M_LOPP - 22}
 				{@const [nx, ny] = ules ? P(Math.max(r.m, 4) + 4.2, i) : P(lopus ? r.m - AUTO_L - 1.5 : Math.max(r.m, 4) + 1.5, i)}
-				<text x={nx} y={ules ? ny : ny + 4.5} class="hp-m" class:hp-seis={r.seis} class:hp-tume={r.k === 'lumi'} text-anchor={ules ? 'middle' : lopus ? 'end' : 'start'}>{r.seis ? nf(r.d) + ' m' : Math.round(r.kmh) + ' km/h'}</text>
+				<text x={nx} y={ules ? ny : ny + 4.5} class="hp-m" class:hp-seis={r.seis} class:hp-tume={r.k === 'lumi'} text-anchor={ules ? 'middle' : lopus ? 'end' : 'start'}>{r.seis ? nf(r.d) + ' ' + t('m') : Math.round(r.kmh) + ' ' + t('km/h')}</text>
 			{/if}
 		{/each}
 	</svg>

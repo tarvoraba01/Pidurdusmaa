@@ -36,7 +36,7 @@ export default {
         if (/^\/(ru\/|en\/)?liiklusohutus/.test(path) && id.includes('=')) return;
         throw new Error(message);
       },
-      entries: ['*', '/ru/', '/en/', '/ru/rehvi-valimine/', '/en/rehvi-valimine/', '/ru/vordle-rehve/', '/en/vordle-rehve/', '/ru/liiklusohutus/', '/en/liiklusohutus/', '/ru/liiklusohutus/pimedas/', '/en/liiklusohutus/pimedas/', '/ru/liiklusohutus/pikivahe/', '/en/liiklusohutus/pikivahe/', '/ru/liiklusohutus/kurv/', '/en/liiklusohutus/kurv/', '/ru/autod/', '/ru/margid/', '/ru/liiklusohutus/koolitus/', '/ru/liiklusohutus/koolitus/tulemused/', '/ru/teadmine/rehvivahetus/', '/ru/teadmine/rehvimargis/', '/ru/kontakt/', '/en/kontakt/', '/ru/kasutustingimused/', '/en/kasutustingimused/', '/ru/privaatsus/', '/en/privaatsus/', '/ru/teadmine/partnerid/', '/en/teadmine/partnerid/']
+      entries: ['*', '/ru/', '/en/', '/ru/rehvi-valimine/', '/en/rehvi-valimine/', '/ru/vordle-rehve/', '/en/vordle-rehve/', '/ru/liiklusohutus/', '/en/liiklusohutus/', '/ru/liiklusohutus/pimedas/', '/en/liiklusohutus/pimedas/', '/ru/liiklusohutus/pikivahe/', '/en/liiklusohutus/pikivahe/', '/ru/liiklusohutus/kurv/', '/en/liiklusohutus/kurv/', '/ru/autod/', '/ru/margid/', '/ru/liiklusohutus/koolitus/', '/ru/liiklusohutus/koolitus/tulemused/', '/ru/teadmine/rehvivahetus/', '/ru/teadmine/rehvimargis/', '/ru/teadmine/kuidas-pidurdusmaa-arvutatakse/', '/ru/kontakt/', '/en/kontakt/', '/ru/kasutustingimused/', '/en/kasutustingimused/', '/ru/privaatsus/', '/en/privaatsus/', '/ru/teadmine/partnerid/', '/en/teadmine/partnerid/']
     }
   }
 };

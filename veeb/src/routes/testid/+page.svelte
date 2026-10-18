@@ -55,6 +55,7 @@
 			testi auto, rehvimõõt ja protokoll. Testid teevad ADAC, Tekniikan Maailma jt — meie ei korralda
 			teste ise, vaid arvutame nende järgi pidurdusmaa sinu autole.
 		</p>
+		<p>Sügise 2026 uued talvetestid (ADAC, Auto Bild, Vi Bilägare) ja iga testi parim rehv jääl, lumel ja märjal: <a href="/teadmine/artiklid/talverehvide-testid-2026/">Talverehvide test 2026</a>.</p>
 	</div>
 </section>
 <div class="body-sec">
