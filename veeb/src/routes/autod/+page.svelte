@@ -25,13 +25,14 @@
 	);
 </script>
 
-<Meta title={t('Autod — rehvimõõdud ja pidurdusmaa mudeli järgi')} {desc} path="autod/" crumbs={[[t('Avaleht'), '/'], [t('Autod'), '/autod/']]} />
+<!-- päring „rehvid autole“: pealkiri ja H1 märksõnaga; murupuru jääb „Autod“, nagu autolehtedel -->
+<Meta title={t('Rehvid autole: rehvimõõt ja sobivad rehvid auto järgi')} {desc} path="autod/" crumbs={[[t('Avaleht'), '/'], [t('Autod'), '/autod/']]} />
 
 <section class="page-hero">
 	<div class="wrap">
 		<div class="crumbs"><a href={L('/')}>{t('Avaleht')}</a><span>/</span>{t('Autod')}</div>
-		<h1>{t('Autod')}</h1>
-		<p>{t('Leia oma auto: näed tehase rehvimõõte, pidurdusmaad ja sobivaid rehve.')}</p>
+		<h1>{t('Rehvid autole')}</h1>
+		<p>{t('Leia oma auto: näed tehase rehvimõõte, sobivaid suve- ja talverehve ning pidurdusmaad.')}</p>
 		<input class="lsel au-otsi" type="search" bind:value={q} placeholder={t('Otsi autot, nt Golf 2015 või Passat B6')} aria-label={t('Otsi autot')} />
 	</div>
 </section>

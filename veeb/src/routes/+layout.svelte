@@ -40,7 +40,7 @@
 		if (p.startsWith('/rehvi-valimine') || p.startsWith('/vordle-rehve') || p.startsWith('/rehvi-vanus') || p.startsWith('/rehvi-kalkulaator')) return 'valik';
 		if (p.startsWith('/liiklusohutus')) return 'sim';
 		/* rehvid, testid ja margid on menüüs Teadmine all */
-		if (p.startsWith('/teadmine') || p.startsWith('/talverehvid') || p.startsWith('/testid') || p.startsWith('/rehvid') || p.startsWith('/margid') || p.startsWith('/autod')) return 'teadmine';
+		if (p.startsWith('/teadmine') || p.startsWith('/talverehvid') || p.startsWith('/naastrehvid') || p.startsWith('/lamellrehvid') || p.startsWith('/suverehvid') || p.startsWith('/testid') || p.startsWith('/rehvid') || p.startsWith('/margid') || p.startsWith('/autod')) return 'teadmine';
 		return '';
 	});
 
@@ -336,9 +336,12 @@
 			<div>
 				<h2>{t("Andmed")}</h2>
 				<ul>
-					<li><a href={L('/autod/')}>{t("Autod")}</a></li>
-					<li><a href={L('/rehvid/')}>{t("Rehvid")}</a></li>
-					<li><a href={L('/talverehvid/')}>{t("Talverehvid mõõdu järgi")}</a></li>
+					<li><a href={L('/autod/')}>{t("Rehvid autole")}</a></li>
+					<li><a href={L('/rehvid/')}>{t("Autorehvid")}</a></li>
+					<li><a href={L('/suverehvid/')}>{t("Suverehvid")}</a></li>
+					<li><a href={L('/talverehvid/')}>{t("Talverehvid")}</a></li>
+					<li><a href={L('/naastrehvid/')}>{t("Naastrehvid")}</a></li>
+					<li><a href={L('/lamellrehvid/')}>{t("Lamellrehvid")}</a></li>
 					<li><a href={L('/testid/')}>{t("Rehvitestid")}</a></li>
 					<li><a href={L('/teadmine/kuidas-pidurdusmaa-arvutatakse/')}>{t("Kuidas arvutatakse")}</a></li>
 					<li><a href={L('/margid/')}>{t("Rehvimargid")}</a></li>

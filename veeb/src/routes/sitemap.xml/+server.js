@@ -77,6 +77,8 @@ export function GET() {
 	/* „Parimad talverehvid <mõõt>“ (eesti ja vene keeles) */
 	for (const k of ['', '/ru']) {
 		urls.push([k + '/talverehvid/', '0.8']);
+		/* märksõnade jaoturlehed (19.10): naast-, lamell- ja suverehvid */
+		for (const j of ['/naastrehvid/', '/lamellrehvid/', '/suverehvid/']) urls.push([k + j, '0.8']);
 		for (const x of talveMoodud()) urls.push([k + '/talverehvid/' + x.slug + '/', '0.8']);
 	}
 	/* vene keeles: artiklid, rehvilehed (nimekiri: scripts/ru-rehvid.mjs) */

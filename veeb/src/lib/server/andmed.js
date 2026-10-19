@@ -274,6 +274,67 @@ export function talveTestideParimad(minAasta = 2025) {
 		.sort((a, b) => b.aasta - a.aasta || !!b.alad['jää'] - !!a.alad['jää'] || a.pub.localeCompare(b.pub) || a.moot.localeCompare(b.moot));
 }
 
+/* ------------------------------------------------ suvetestide parimad
+ * /suverehvid/ jaoturleht: iga suverehvitest (minAasta → uuemad), igal alal (märg ja kuiv
+ * asfalt) testi enda 1. koht. Sama loogika mis talveTestideParimad: võitjat ei arvata, Auto
+ * Bildi eelvoor ja finaal on üks test, meie ankrutest (core.json) tuleb kaasa, kui sama testi
+ * testid_ext-is pole. */
+const SUVE_ALAD = ['märg asfalt', 'kuiv asfalt'];
+export function suveTestideParimad(minAasta = 2024) {
+	const d = json('testid_ext.json') || {};
+	const testid = new Map();
+	const pubNimi = (p) => String(p || '').replace(/^AUTO BILD\b/, 'Auto Bild').trim();
+	const autoNimi = (a) => String(a || '').split(/ \(|;| \/ /)[0].trim();
+	for (const [id, a] of Object.entries(d.allikad || {})) {
+		if (a.season !== 'summer' || !(a.year >= minAasta) || /PARTIAL/i.test(id) || finaaliAlus(d.allikad, id)) continue;
+		testid.set(id, { id, pub: pubNimi(a.pub), aasta: a.year, moot: a.size || '', auto: autoNimi(a.car), n: 0, alad: {} });
+	}
+	const pane = (t, ala, o) => {
+		const vana = t.alad[ala];
+		const r = { slug: o.slug, nimi: o.nimi };
+		if (!vana || o.m < vana.m) t.alad[ala] = { m: o.m, v0: o.v0, v1: o.v1, rehvid: [r] };
+		else if (o.m === vana.m && !vana.rehvid.some((x) => x.slug === o.slug)) vana.rehvid.push(r);
+	};
+	const eel = eelvooruAlad(d, new Set(testid.keys()));
+	for (const [slug, rows] of Object.entries(d.rehvid || {})) {
+		for (const x of rows) {
+			const b = finaaliAlus(d.allikad, x.t);
+			const t = testid.get(b || x.t);
+			if (!t || (b && eel.get(b)?.has(x.d))) continue;
+			t.n = Math.max(t.n, x.n || 0);
+			if (x.pos === 1 && SUVE_ALAD.includes(x.d) && x.m > 0) pane(t, x.d, { slug, nimi: x.nimi, m: x.m, v0: x.v0, v1: x.v1 || 0 });
+		}
+	}
+	const ext = [...testid.values()];
+	for (const [src, s] of Object.entries(core().sources || {})) {
+		if (!/suverehvi/i.test(s.nimi || '') || !(s.aasta >= minAasta)) continue;
+		const pub = String(s.nimi).replace(/\s+(suverehvitest|suve- ja aastaringsete rehvide test).*$/i, '').trim();
+		const esim = pub.split(' ')[0].toLowerCase();
+		if (ext.some((t) => t.aasta === s.aasta && t.moot === s.moot && t.pub.toLowerCase().startsWith(esim))) continue;
+		const t = { id: src, pub, aasta: s.aasta, moot: s.moot || '', auto: autoNimi(s.auto), n: 0, alad: {} };
+		const loetud = new Set();
+		for (const o of core().tyres) {
+			if (!/^SUMMER/.test(o.category || '')) continue;
+			for (const x of o.tests || []) {
+				if (x.src !== src || !o.slug || !(x.m > 0) || x.surf !== 'ASPHALT') continue;
+				loetud.add(o.slug);
+				pane(t, x.wet ? 'märg asfalt' : 'kuiv asfalt', { slug: o.slug, nimi: o.name, m: x.m, v0: x.v0, v1: x.v1 || 0 });
+			}
+		}
+		t.n = loetud.size;
+		testid.set(src, t);
+	}
+	return [...testid.values()]
+		.filter((t) => Object.keys(t.alad).length)
+		.map((t) => ({
+			...t,
+			alad: Object.fromEntries(
+				Object.entries(t.alad).map(([k, o]) => [k, { ...o, rehvid: o.rehvid.map((r) => ({ ...r, ix: rehviIndeks(r.slug).index })) }])
+			)
+		}))
+		.sort((a, b) => b.aasta - a.aasta || a.pub.localeCompare(b.pub) || a.moot.localeCompare(b.moot));
+}
+
 /* ------------------------------------------------ testid selles mõõdus
  * Mõõdulehe esimene lause (päring „205/55 R16“): selles mõõdus tehtud uusimad testid ja nende
  * võitjad — suverehvidest märjal, talverehvidest jääl (kui jääd polnud, siis märjal).

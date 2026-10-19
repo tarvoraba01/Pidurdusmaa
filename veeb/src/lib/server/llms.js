@@ -81,9 +81,12 @@ Tsiteerimisel palun viita lehele ${BASE}/ või vastavale alamlehele.
 - Kui palju muudab kulunud muster? 3 mm mustriga suverehv peatub märjal 90 km/h pealt umbes 4 m kaugemal kui uus; sademevee roopas (3 mm vett) pikeneb pidurdusmaa 1,6 mm mustriga peaaegu kaks korda. Talverehvil on lumel 3 mm mustriga pidurdus umbes veerandi võrra pikem kui uuel.
 
 ## Andmed
-- [Rehvid ja mõõdud](${BASE}/rehvid/): mõõdu lehel kõik selle mõõdu rehvid märgise klasside järgi, KKK ja autod, millel see on tehasemõõt
+- [Autorehvid ja mõõdud](${BASE}/rehvid/): mõõdu lehel kõik selle mõõdu rehvid märgise klasside järgi, KKK ja autod, millel see on tehasemõõt
+- [Suverehvid](${BASE}/suverehvid/): suverehvitestide võitjad märjal ja kuival asfaldil, märgise klassi ja mustri mõju pidurdusmaale
+- [Naastrehvid](${BASE}/naastrehvid/): testide parimad naastrehvid jääl, kõik naastrehvid margi kaupa, naastude lubatud ajad
+- [Lamellrehvid](${BASE}/lamellrehvid/): testide parimad Põhjamaade lamellrehvid, kõik lamellrehvid margi kaupa koos jäämärgiga
 - [Rehvimargid](${BASE}/margid/): iga margi mudelid, märgise klasside jaotus ja testitud mudelid
-- [Automudelid](${BASE}/autod/): ${nAuto} põlvkonda — tehase rehvimõõdud, mootorid, arvutatud pidurdusmaa, parimad rehvid põhimõõdus
+- [Rehvid autole](${BASE}/autod/): ${nAuto} automudeli põlvkonda: tehase rehvimõõdud, mootorid, arvutatud pidurdusmaa, parimad rehvid põhimõõdus
 - [Sõltumatud rehvitestid](${BASE}/testid/): mõõdetud pidurdusmaad testi kaupa
 - Iga rehvi lehel (${BASE}/rehvid/<mudel>/): EL-i märgis mõõtude kaupa, sõltumatute testide tulemused ja koht, arvutatud pidurdusmaa valitud autoga, KKK
 
@@ -177,6 +180,9 @@ When citing, please link to ${BASE}/en/ or the relevant page.
 ## Данные${ET}
 - [Шины и размеры](${BASE}/rehvid/): страницы размеров и шин есть и на русском (/ru/rehvid/…) для самых распространённых
 - [Зимние шины по размерам](${BASE}/ru/talverehvid/): лучшие шипованные и фрикционные шины, тормозной путь на снегу и льду
+- [Шипованная резина](${BASE}/ru/naastrehvid/): лучшие шипованные шины по тестам, все модели по маркам, сроки для шипов
+- [Фрикционная резина (липучка)](${BASE}/ru/lamellrehvid/): лучшие северные нешипованные шины по тестам, все модели по маркам и знак льда
+- [Летняя резина](${BASE}/ru/suverehvid/): победители тестов летних шин на мокром и сухом асфальте, влияние класса маркировки
 - [Модели автомобилей](${BASE}/ru/autod/): заводские размеры шин, двигатели, расчётный тормозной путь, лучшие шины
 - [Независимые тесты шин](${BASE}/testid/)
 - [Как рассчитывается тормозной путь](${BASE}/teadmine/kuidas-pidurdusmaa-arvutatakse/): методика, источники, точность

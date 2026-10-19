@@ -17,8 +17,8 @@
 	const jaa = (k) => mm(ty(k)?.jaa);
 	const auto = n ? autoNimi(keel.lang, n.auto) : '';
 
-	/* päring „parimad talverehvid 2026“ (pea-termin „talverehvid“ on poodide päralt) */
-	const pealkiri = t('Parimad talverehvid 2026/2027: naast- ja lamellrehvid testide järgi');
+	/* päringud „talverehvid“ ja „parimad talverehvid 2026“: märksõna pealkirja algusesse, alla 60 märgi */
+	const pealkiri = t('Talverehvid 2026/27: parimad naast- ja lamellrehvid');
 	const desc = t('Talverehvid Eesti levinumates mõõtudes: testitud naast- ja lamellrehvid, pidurdusmaa lumel ja jääl ning Põhjamaade rehvid EL-i märgise järgi.');
 
 	const vastus = n
@@ -33,7 +33,7 @@
 
 	const kkk = [
 		[t('Millal tuleb talverehvid alla panna?'), t('Talverehvid on Eestis kohustuslikud 1. detsembrist 1. märtsini. Naastrehvid on lubatud 15. oktoobrist 31. märtsini, talviste olude korral 1. oktoobrist 30. aprillini. Vaheta varem, kui ööd on alla +7 °C või tuleb esimene lumi: suverehv kõvastub külmaga.')],
-		[t('Kumb on parem, naastrehv või lamellrehv?'), n ? t('Jääl peatub naastrehv lühemalt: 50 km/h pealt umbes {naast} vs {lamell} lamellrehviga. Lumel ja kuival asfaldil on vahe väike. Kui sõidad palju maanteel või jäistel teedel, vali naast; linnas ja vaiksemaks sõiduks lamell.', { naast: jaa('WINTER_STUDDED'), lamell: jaa('WINTER_NORDIC') }) : ''],
+		[t('Kumb on parem, naastrehv või lamellrehv?'), n ? t('Jääl peatub naastrehv lühemalt: 50 km/h pealt umbes {naast}, lamellrehviga {lamell}. Lumel ja kuival asfaldil on vahe väike. Kui sõidad palju maanteel või jäistel teedel, vali naast; linnas ja vaiksemaks sõiduks lamell.', { naast: jaa('WINTER_STUDDED'), lamell: jaa('WINTER_NORDIC') }) : ''],
 		[t('Kas aastaringne või Kesk-Euroopa talverehv sobib Eesti talveks?'), n ? t('Jääl mitte hästi: Kesk-Euroopa talverehv peatub 50 km/h pealt umbes {kesk}, Põhjamaade lamellrehv {lamell}. Need rehvid on tehtud lörtsi ja märja tee jaoks. Eestis peab talverehvil olema kolme mäetipu ja lumehelbe märk.', { kesk: jaa('WINTER_CENTRAL'), lamell: jaa('WINTER_NORDIC') }) : ''],
 		[t('Kui sügav peab olema talverehvi muster?'), t('Seaduse järgi vähemalt 3 mm. Lumel on pidurdusteekond 4 mm mustriga umbes viiendiku ja 3 mm mustriga veerandi võrra pikem kui uuel rehvil, nii et 4 mm juures tasub vahetamisele mõelda.')]
 	].filter((x) => x[1]);
@@ -60,6 +60,12 @@
 		<h1>{t('Parimad talverehvid 2026/2027 mõõdu järgi')}</h1>
 		{#if vastus}<p>{vastus}</p>{/if}
 		<p>{t('Vali oma rehvimõõt: näed testitud naast- ja lamellrehve, nende pidurdusmaad lumel ja jääl ning kõiki Põhjamaade talverehve selles mõõdus.')}</p>
+		<p class="tyybid">
+			{t('Rehvitüübi järgi:')}
+			<a href={L('/naastrehvid/')}>{t('Naastrehvid')}</a> ·
+			<a href={L('/lamellrehvid/')}>{t('Lamellrehvid')}</a> ·
+			<a href={L('/suverehvid/')}>{t('Suverehvid')}</a>
+		</p>
 	</div>
 </section>
 <div class="body-sec">

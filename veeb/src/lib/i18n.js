@@ -39,6 +39,9 @@ export function ruRehvOlemas(slug) {
 const TAPSED = {
 	ru: new Set([
 		'/rehvid/',
+		'/naastrehvid/' /* märksõnade jaoturlehed (19.10) */,
+		'/lamellrehvid/',
+		'/suverehvid/',
 		'/teadmine/artiklid/',
 		'/teadmine/pidurdusteekond-ja-peatumisteekond/',
 		'/teadmine/rehvivahetus/',

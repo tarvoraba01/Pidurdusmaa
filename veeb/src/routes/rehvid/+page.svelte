@@ -7,9 +7,10 @@
 	let { data } = $props();
 </script>
 
+<!-- päring „autorehvid“ (pea-termin on poodide päralt): pealkiri ja H1 märksõnaga, tüübilehed lingina -->
 <Meta
-	title={t("Rehvid mõõdu ja mudeli järgi")}
-	desc={t("Rehvimudelid ja -mõõdud EL-i rehvimärgise (EPREL) andmetega ning sõltumatute testide mõõdetud pidurdusmaad.")}
+	title={t("Autorehvid: kõik rehvid mõõdu, margi ja testide järgi")}
+	desc={t("Autorehvid mõõdu, margi ja tüübi järgi: {n} rehvimudelit EL-i märgisega ja testide mõõdetud pidurdusmaad. Suve-, talve-, naast- ja lamellrehvid.", { n: num(data.mudeleid, 0) })}
 	path="rehvid/"
 	crumbs={[[t('Avaleht'), '/'], [t('Rehvid'), '/rehvid/']]}
 />
@@ -17,9 +18,17 @@
 <section class="page-hero">
 	<div class="wrap">
 		<div class="crumbs"><a href={L("/")}>{t("Avaleht")}</a><span>/</span>{t("Rehvid")}</div>
-		<h1>{t("Rehvid")}</h1>
+		<h1>{t("Autorehvid")}</h1>
 		<p>
 			{num(data.mudeleid, 0)} {t("rehvimudelit EL-i rehvimärgisega ja")} {data.tested.length} {t("rehvi sõltumatutes testides. Vali mõõt, et näha kõiki selle mõõdu rehve.")}
+		</p>
+		<p class="tyybid">
+			{t("Rehvitüübi järgi:")}
+			<a href={L('/suverehvid/')}>{t("Suverehvid")}</a> ·
+			<a href={L('/talverehvid/')}>{t("Talverehvid")}</a> ·
+			<a href={L('/naastrehvid/')}>{t("Naastrehvid")}</a> ·
+			<a href={L('/lamellrehvid/')}>{t("Lamellrehvid")}</a>.
+			{t("Oma auto rehvimõõdu leiad lehelt")} <a href={L('/autod/')}>{t("Rehvid autole")}</a>.
 		</p>
 	</div>
 </section>
