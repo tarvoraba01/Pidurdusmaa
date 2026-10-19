@@ -179,6 +179,7 @@
 				<div class="dd-menu" role="menu">
 					{#if lang !== 'en'}<a role="menuitem" href={L('/liiklusohutus/koolitus/')}><b>{t('Koolitus: test + simulaatorid')}</b><span>{t('Arvamused ja tõed · õpetajale oma tunni test')}</span></a>{/if}
 					<a role="menuitem" href={L('/liiklusohutus/reaktsioon/')}><b>{t('Mäng: kui kiiresti SINA pidurdad?')}</b><span>{t('Testi oma reaktsiooni ja jaga tulemust')}</span></a>
+					{#if lang === 'et'}<a role="menuitem" href="/liiklusohutus/etapp/"><b>Päeva etapp</b><span>Sõidumäng: iga päev uus rada</span></a>{/if}
 					<a role="menuitem" href={L('/liiklusohutus/')}><b>{t('Peatumisteekond')}</b><span>{t('Kiirus, reaktsioon ja teeolud')}</span></a>
 					<a role="menuitem" href={L('/liiklusohutus/pimedas/')}><b>{t('Pimedas')}</b><span>{t('Kas jõuad jalakäija ees peatuda?')}</span></a>
 					<a role="menuitem" href={L('/liiklusohutus/pikivahe/')}><b>{t('Pikivahe')}</b><span>{t('Kui eesolev auto järsult pidurdab')}</span></a>
@@ -233,6 +234,7 @@
 				<div class="pm-chips">
 					{#if lang !== 'en'}<a href={L('/liiklusohutus/koolitus/')}><Icon name="test" />{t('Koolitus')}</a>{/if}
 					<a href={L('/liiklusohutus/reaktsioon/')}><Icon name="speed" />{t("Mäng")}</a>
+					{#if lang === 'et'}<a href="/liiklusohutus/etapp/"><Icon name="curve" />Päeva etapp</a>{/if}
 					<a href={L('/liiklusohutus/')}><Icon name="road" />{t("Peatumisteekond")}</a>
 					<a href={L('/liiklusohutus/pimedas/')}><Icon name="moon" />{t("Pimedas")}</a>
 					<a href={L('/liiklusohutus/pikivahe/')}><Icon name="gap" />{t("Pikivahe")}</a>

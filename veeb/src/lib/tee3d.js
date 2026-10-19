@@ -151,7 +151,10 @@ function joonistaStseen(ctx, W, H, tee, o) {
 		const kn = kap(base + n);
 		x += th * SEG + 0.5 * kn * SEG * SEG; th += kn * SEG; zr += SEG;
 	}
-	const proj = (wx, wy, zr) => { const sc = D / Math.max(0.3, zr); return [W / 2 + (wx - KAAM_X + JUHT_X) * sc, hor + (KAAM_H - wy) * sc, sc]; };
+	/* o.px = kaamera külgnihe teeteljest (päeva etapp: auto liigub üle tee), o.psi = auto nurk tee suhtes */
+	const px = o.px ?? KAAM_X, psi = o.psi || 0;
+	const proj = (wx, wy, zr) => { const sc = D / Math.max(0.3, zr); return [W / 2 + (wx - px - psi * zr + JUHT_X) * sc, hor + (KAAM_H - wy) * sc, sc]; };
+	const kruus = o.kate === 'kruus';
 	/* laternate valgus lõikudes (küla, öö) */
 	const lampL = (n) => {
 		if (!oo || tee.maastik !== 'kula') return 0;
@@ -171,8 +174,19 @@ function joonistaStseen(ctx, W, H, tee, o) {
 		const serv = talv ? (vood ? '#eef2f6' : '#e3e8ee') : tee.maastik === 'kula' ? (vood ? '#78985a' : '#6f8f50') : (vood ? '#55723f' : '#4c6838');
 		tri(-60, 120, -60, 120, v(serv, L, udu, uduVarv));
 		/* asfalt + õlad */
-		const asf = talv ? (vood ? '#c9cfd6' : '#c2c8cf') : vihm ? (vood ? '#3a3f46' : '#363a40') : (vood ? '#55595f' : '#50545a');
+		const asf = talv ? (vood ? '#c9cfd6' : '#c2c8cf') : kruus ? (vood ? '#8e7d62' : '#86765c') : vihm ? (vood ? '#3a3f46' : '#363a40') : (vood ? '#55595f' : '#50545a');
 		tri(-TEE_L - 0.6, 2 * TEE_L + 1.2, -TEE_L - 0.6, 2 * TEE_L + 1.2, v(asf, L, udu, uduVarv));
+		/* jäälaik / sügav lomp (päeva etapp): läikiv laik üle tee */
+		if (o.laigud) for (const lg of o.laigud) {
+			const za = a.n * SEG;
+			if (za + SEG < lg.z0 || za > lg.z1) continue;
+			ctx.globalAlpha = lg.t === 'jaa' ? 0.85 : 0.8;
+			tri(-TEE_L + 0.2, 2 * TEE_L - 0.4, -TEE_L + 0.2, 2 * TEE_L - 0.4, v(lg.t === 'jaa' ? '#6f8ea6' : '#2c3644', Math.min(1, L * 1.1), udu, uduVarv));
+			ctx.globalAlpha = 0.35;
+			tri(-1.5, 1.2, -1.5, 1.2, v('#e9f3fb', L, udu, uduVarv));
+			ctx.globalAlpha = 1;
+		}
+		if (kruus) continue;
 		/* äärejooned */
 		const joon = v(talv ? '#f4f6f8' : '#e6e6e0', Math.min(1, L * 1.15), udu, uduVarv);
 		tri(-TEE_L - 0.1, 0.15, -TEE_L - 0.1, 0.15, joon);
@@ -197,6 +211,7 @@ function joonistaStseen(ctx, W, H, tee, o) {
 		return a.x + (b.x - a.x) * k;
 	};
 	if (o.ees && o.ees.gap < 520) asjad.push({ zr: o.ees.gap + SILM, x: xAt(o.ees.gap + SILM) + KAAM_X, ob: { t: 'auto', pidur: o.ees.pidur }, n: 0 });
+	if (o.loomad) for (const l of o.loomad) { const zr = l.z - z0; if (zr > 0.2 && zr < 520) asjad.push({ zr, x: xAt(zr) + l.x, ob: { t: l.t, kond: l.kond, suund: l.suund }, n: 0 }); }
 	if (o.jk && o.jk.z - z0 > 0.2 && o.jk.z - z0 < 520) { const zr = o.jk.z - z0; asjad.push({ zr, x: xAt(zr) + o.jk.x, ob: { t: 'inim', riie: o.jk.riie, kond: o.jk.kond }, n: 0 }); }
 	asjad.sort((p, q) => q.zr - p.zr);
 	for (const a of asjad) {
@@ -539,6 +554,28 @@ function objekt(ctx, ob, sx, sy, sc, L, udu, uduVarv, e) {
 		case 'parkauto': auto(ctx, sx, sy, sc, L, V, { varv: ob.varv || '#46505e', pidur: false, oo: e.oo, kulg: true }); break;
 		case 'auto': auto(ctx, sx, sy, sc, L, V, { varv: '#9aa4b0', pidur: ob.pidur, oo: e.oo }); break;
 		case 'inim': inimene(ctx, sx, sy, sc, L, V, ob, e); break;
+		case 'poder': case 'siga': loom(ctx, sx, sy, sc, V, ob); break;
+		case 'kaar': {
+			const b = TEE_L + 0.9;
+			ctx.fillStyle = V('#2a2d33'); ctx.fillRect(sx - m(b) - m(0.12), sy - m(5), m(0.24), m(5)); ctx.fillRect(sx + m(b) - m(0.12), sy - m(5), m(0.24), m(5));
+			ctx.fillStyle = V(ob.tekst === 'START' ? '#1d4ed8' : '#b91c1c'); ctx.fillRect(sx - m(b), sy - m(5.2), m(2 * b), m(1.1));
+			if (m(1) > 4) { ctx.fillStyle = V('#ffffff'); ctx.font = `700 ${Math.round(m(0.8))}px "Barlow Condensed", "Arial Narrow", sans-serif`; ctx.textAlign = 'center'; ctx.fillText(ob.tekst, sx, sy - m(4.35)); ctx.textAlign = 'left'; }
+			break;
+		}
+		case 'kp': {
+			ctx.fillStyle = V('#e5e7eb'); ctx.fillRect(sx - m(0.05), sy - m(2.4), m(0.1), m(2.4));
+			ctx.fillStyle = V('#facc15'); ctx.fillRect(sx - m(0.05), sy - m(2.4), m(0.9), m(0.6));
+			break;
+		}
+		case 'mark': {
+			ctx.fillStyle = V('#6b7280'); ctx.fillRect(sx - m(0.04), sy - m(2.2), m(0.08), m(2.2));
+			const r0 = m(0.45), cy = sy - m(2.3);
+			ctx.fillStyle = V('#dc2626'); ctx.beginPath(); ctx.moveTo(sx, cy - r0); ctx.lineTo(sx + r0, cy + r0 * 0.75); ctx.lineTo(sx - r0, cy + r0 * 0.75); ctx.fill();
+			ctx.fillStyle = V('#ffffff'); ctx.beginPath(); ctx.moveTo(sx, cy - r0 * 0.62); ctx.lineTo(sx + r0 * 0.68, cy + r0 * 0.55); ctx.lineTo(sx - r0 * 0.68, cy + r0 * 0.55); ctx.fill();
+			ctx.strokeStyle = V('#111111'); ctx.lineWidth = Math.max(1, m(0.07));
+			ctx.beginPath(); ctx.moveTo(sx - m(0.06) * ob.suund, cy + r0 * 0.45); ctx.quadraticCurveTo(sx - m(0.06) * ob.suund, cy - r0 * 0.1, sx + m(0.16) * ob.suund, cy - r0 * 0.2); ctx.stroke();
+			break;
+		}
 	}
 }
 
@@ -597,6 +634,27 @@ function inimene(ctx, sx, sy, sc, L, V, ob, e) {
 		const gg = ctx.createRadialGradient(sx + m(0.24), sy - m(1), 0, sx + m(0.24), sy - m(1), Math.max(14, m(0.5)));
 		gg.addColorStop(0, `rgba(255,252,220,${a * 0.6})`); gg.addColorStop(1, 'rgba(255,252,220,0)');
 		ctx.fillStyle = gg; ctx.fillRect(sx + m(0.24) - Math.max(14, m(0.6)), sy - m(1) - Math.max(14, m(0.6)), 2 * Math.max(14, m(0.6)), 2 * Math.max(14, m(0.6)));
+	}
+}
+
+/* põder / metssiga küljelt (suund = liikumise suund, kond = sammu faas) */
+function loom(ctx, sx, sy, sc, V, ob) {
+	const m = (x) => x * sc, s = ob.suund || 1, poder = ob.t === 'poder';
+	const pk = poder ? 2.6 : 1.3, kh = poder ? 1.1 : 0.45, kk = poder ? 0.85 : 0.5; /* kere pikkus, jalgade kõrgus, kere kõrgus */
+	const f = Math.sin(ob.kond || 0);
+	ctx.strokeStyle = V(poder ? '#2a1d14' : '#2b2420'); ctx.lineWidth = Math.max(1, m(poder ? 0.14 : 0.1));
+	ctx.beginPath();
+	for (const [jx, ff] of [[-0.35, f], [-0.25, -f], [0.3, -f], [0.4, f]]) { ctx.moveTo(sx + m(jx * pk), sy - m(kh)); ctx.lineTo(sx + m(jx * pk + 0.12 * ff), sy); }
+	ctx.stroke();
+	ctx.fillStyle = V(poder ? '#4a3323' : '#3d332c');
+	ctx.beginPath(); ctx.ellipse(sx, sy - m(kh + kk / 2), m(pk / 2), m(kk / 2), 0, 0, 7); ctx.fill();
+	/* kael ja pea liikumise suunas */
+	const hx = sx + s * m(pk * 0.55), hy = sy - m(kh + kk * (poder ? 0.9 : 0.4));
+	ctx.beginPath(); ctx.ellipse(hx, hy, m(poder ? 0.45 : 0.3), m(poder ? 0.28 : 0.2), s * 0.4, 0, 7); ctx.fill();
+	if (poder) {
+		ctx.strokeStyle = V('#c8b28a'); ctx.lineWidth = Math.max(1, m(0.08));
+		ctx.beginPath(); ctx.moveTo(hx - s * m(0.1), hy - m(0.2)); ctx.lineTo(hx - s * m(0.45), hy - m(0.65)); ctx.lineTo(hx - s * m(0.75), hy - m(0.55));
+		ctx.moveTo(hx - s * m(0.45), hy - m(0.65)); ctx.lineTo(hx - s * m(0.35), hy - m(0.95)); ctx.stroke();
 	}
 }
 
