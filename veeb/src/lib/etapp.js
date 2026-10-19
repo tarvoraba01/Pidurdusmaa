@@ -138,32 +138,84 @@ export function ohutuKiirus(H, d) {
 	return lo;
 }
 
-/* sõidufüüsika üks samm (dt s). o: { z, v, x, w, rool }, sisend: { gaas, pidur, roolSiht }
- * aKate(v) = haare praegusel pinnal. Tagastab sündmuse: null | 'teelt' | 'libiseb' */
-export function samm(o, sis, dt, kov, aKate, maas) {
-	o.rool += Math.max(-dt * 4, Math.min(dt * 4, sis.roolSiht - o.rool));
-	const v = o.v;
-	let aMax = aKate(v);
-	if (maas) aMax *= 0.55; /* ratas teepervel / murul */
-	/* pikisuund */
-	const eng = Math.min(3.4, 78 / Math.max(1, v)); /* ~110 kW auto */
-	const drive = sis.gaas ? Math.min(eng, aMax * 0.58) : 0; /* esivedu: veoteljel ~58% massist */
-	const brake = sis.pidur ? aMax : 0;
-	const takistus = 0.00028 * v * v + 0.12 + (maas ? 1.8 : 0);
-	const ax = drive - brake - takistus;
-	/* küljesuund: haardering. Vaja kurvi läbimiseks a = v²·κ; rool annab kuni allesjäänud haarde */
-	const pikkKasutus = Math.max(drive, brake);
-	const aLat = Math.sqrt(Math.max(0, (aMax * 1.05) ** 2 - pikkKasutus * pikkKasutus));
-	const vaja = v * v * kov;
-	const kask = o.rool * aLat;
-	o.w += (kask - vaja - 1.6 * o.w) * dt;
-	const wMax = 0.45 * v + 0.3;
-	o.w = Math.max(-wMax, Math.min(wMax, o.w));
-	o.x += o.w * dt;
-	o.v = Math.max(0, v + ax * dt);
-	if (o.v === 0) o.w *= 0.5;
-	o.z += o.v * dt;
-	o.libiseb = Math.abs(vaja) > aLat * 0.98 && v > 4;
+/* ---------- sõidufüüsika: ühe roopa mudel (bicycle model) ----------
+ * Auto = kaks telge. Iga telje rehv annab külgjõu libisemisnurga järgi (Pacejka-laadne kõver,
+ * tipp ~7°) kuni haardepiirini µ·Fz; pikijõud (vedu, pidur) ja külgjõud jagavad sama haaret
+ * (haardering). Koormus kandub pidurdades ette, kiirendades taha. Mass, teljevahe ja
+ * inertsimoment on VW Golf 8 lähedased. µ tuleb mootori pidurdusjäljest (ABS-iga aeglustus / 0,94).
+ * Käsipidur lukustab tagarattad: tagatelg libiseb, haare mõjub libisemisele vastu → tagaots
+ * tuleb välja (kässariga kurvi keeramine). ABS hoiab tavapidurdusel rattad veerevana.
+ * Koordinaadid: x ette, y paremale; r > 0 = pöörab paremale; δ > 0 = rattad paremale.
+ * Tee suhtes: s (z) mööda teed, x külgnihe (+ paremale), psi = auto nurk tee puutuja suhtes. */
+const AUTO = { m: 1420, Iz: 2250, a: 1.03, b: 1.6, h: 0.55, P: 110000, Fveo: 5200, Fpidur: 16000, CdA: 0.66 };
+export function uusAuto(z, x) {
+	return { z, x, psi: 0, vx: 0, vy: 0, r: 0, delta: 0, v: 0, ax: 0, libiseb: false, kasi: false };
+}
+function pac(alfa) { /* normeeritud külgjõud 0..1 (B=11, C=1,35): tipp ~7°, edasi langeb veidi */
+	return Math.sin(1.35 * Math.atan(11 * alfa));
+}
+export function samm(o, sis, dt, kov, mu0, maas) {
+	const { m, Iz, a, b, h } = AUTO, L = a + b;
+	const v = Math.hypot(o.vx, o.vy);
+	let mu = mu0(v) / (G * 0.94); /* mootori aeglustus (m/s²) → haardetegur */
+	if (maas) mu *= 0.5;
+	/* rool: kiirusega väheneb maksimaalne rataste nurk (nagu päris roolil sõites väiksemad liigutused) */
+	const dMax = 0.03 + 0.5 * (6 / (6 + v));
+	const siht = sis.roolSiht * dMax;
+	o.delta += Math.max(-1.2 * dt, Math.min(1.2 * dt, siht - o.delta));
+	const d = o.delta;
+	/* telgede koormus (pikikiirendusega ülekanne) */
+	const Fzf = Math.max(0, (m * G * b - m * o.ax * h) / L), Fzr = Math.max(0, (m * G * a + m * o.ax * h) / L);
+	/* pikijõud */
+	const vxs = Math.max(0.5, Math.abs(o.vx));
+	let Fxf = 0, Fxr = 0;
+	if (sis.gaas && !sis.pidur) Fxf = Math.min(AUTO.Fveo, AUTO.P / vxs);
+	if (sis.pidur && o.vx > 0.3) { Fxf -= AUTO.Fpidur * 0.7; Fxr -= AUTO.Fpidur * 0.3; }
+	/* ABS: pidurijõud ei ületa haaret (ratas ei lukustu); vedu: ratas buksib, jõud piiratud */
+	const maxF = mu * Fzf, maxR = mu * Fzr;
+	/* veojõukontroll hoiab veoratta libisemise väikese (≤ 70% haardest), ABS pidurdusel kuni 95% */
+	Fxf = Math.max(-0.95 * maxF, Math.min(0.7 * maxF, Fxf));
+	Fxr = Math.max(-0.95 * maxR, Math.min(0.95 * maxR, Fxr));
+	/* libisemisnurgad */
+	const vxa = Math.max(1.5, o.vx);
+	const af = Math.atan2(o.vy + a * o.r, vxa) - d;
+	const ar = Math.atan2(o.vy - b * o.r, vxa);
+	const latF = Math.sqrt(Math.max(0, maxF * maxF - Fxf * Fxf));
+	let Fyf = -latF * pac(af);
+	let FyrX = Fxr, Fyr;
+	if (sis.kasi && o.vx > 0.5) {
+		/* lukus tagarattad: libisemiskiirusele vastu, libisemishõõre ~0,8 µ */
+		const vrx = o.vx, vry = o.vy - b * o.r, vr = Math.hypot(vrx, vry) || 1;
+		FyrX = (-0.8 * maxR * vrx) / vr;
+		Fyr = (-0.8 * maxR * vry) / vr;
+	} else {
+		const latR = Math.sqrt(Math.max(0, maxR * maxR - Fxr * Fxr));
+		Fyr = -latR * pac(ar);
+	}
+	/* aeglasel kiirusel külgjõud sujuvalt maha (seisvat autot ei keera) */
+	const madal = Math.min(1, v / 2);
+	Fyf *= madal; Fyr *= madal;
+	const takistus = 0.5 * 1.225 * AUTO.CdA * o.vx * Math.abs(o.vx) + m * G * (maas ? 0.08 : 0.012) * Math.sign(o.vx);
+	const Fx = Fxf * Math.cos(d) - Fyf * Math.sin(d) + FyrX - takistus;
+	const Fy = Fxf * Math.sin(d) + Fyf * Math.cos(d) + Fyr;
+	const ax = Fx / m + o.vy * o.r, ay = Fy / m - o.vx * o.r;
+	o.ax += (Fx / m - o.ax) * Math.min(1, dt * 8); /* koormuse ülekanne sumbub (vedrustus) */
+	o.vx += ax * dt; o.vy += ay * dt;
+	o.r += ((a * (Fxf * Math.sin(d) + Fyf * Math.cos(d)) - b * Fyr) / Iz) * dt;
+	if (o.vx < 0.05 && !sis.gaas) { o.vx = Math.max(0, o.vx); if (o.vx === 0) { o.vy *= 0.8; o.r *= 0.8; } }
+	if (v < 1.5 && !sis.kasi) { /* väga aeglaselt: kinemaatiline (rattad veerevad) */
+		const k = 1 - v / 1.5;
+		o.vy += (0 - o.vy) * k * 0.5;
+		o.r += ((o.vx * Math.tan(d)) / L - o.r) * k * 0.5;
+	}
+	/* tee teljestikku */
+	const sd = o.vx * Math.cos(o.psi) - o.vy * Math.sin(o.psi);
+	o.z += sd * dt;
+	o.x += (o.vx * Math.sin(o.psi) + o.vy * Math.cos(o.psi)) * dt;
+	o.psi += (o.r - kov * sd) * dt;
+	o.v = Math.hypot(o.vx, o.vy);
+	o.libiseb = v > 5 && (Math.abs(af) > 0.13 || Math.abs(ar) > 0.11 || (sis.kasi && Math.abs(o.vy) > 1));
 	if (Math.abs(o.x) > TEE_L + 2.4) return 'teelt';
+	if (Math.abs(o.psi) > 2.4 && v < 3) return 'teelt'; /* ringi keeranud ja seisma jäänud */
 	return o.libiseb ? 'libiseb' : null;
 }

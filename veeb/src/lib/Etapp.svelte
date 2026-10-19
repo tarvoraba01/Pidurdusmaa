@@ -6,7 +6,7 @@
 	import { onMount, onDestroy } from 'svelte';
 	import { version } from '$app/environment';
 	import { joonista, TEE } from '$lib/tee3d.js';
-	import { looEtapp, paevaNr, REHVID, rehv, haardeTabel, piirkiirus, ohutuKiirus, koverus, samm, ALGUS_Z, PIKKUS, KP_VAHE } from '$lib/etapp.js';
+	import { looEtapp, paevaNr, REHVID, rehv, haardeTabel, piirkiirus, ohutuKiirus, koverus, samm, uusAuto, ALGUS_Z, PIKKUS, KP_VAHE } from '$lib/etapp.js';
 
 	const nr = paevaNr();
 	const E = looEtapp(nr);
@@ -21,9 +21,9 @@
 
 	let P = null, veh = null, gClass = null, H = null, Hjaa = null, Hlomp = null;
 	let cv, ctx, W = 800, H2 = 500, raf = 0, eelm = 0, aeg0 = 0, ekraan;
-	const o = { z: ALGUS_Z - 14, v: 0, x: TEE.KAAM_X, w: 0, rool: 0, libiseb: false };
-	const sis = { gaas: false, pidur: false, vasak: false, parem: false };
-	let kp = 0, loomad = [], laigud = [], jargmine = 8, sohiAeg = 0, avariid = 0, opp = [], tipp = 0, ajalugu = [];
+	const o = uusAuto(ALGUS_Z - 14, TEE.KAAM_X);
+	const sis = { gaas: false, pidur: false, kasi: false, vasak: false, parem: false };
+	let risti = 0, kp = 0, loomad = [], laigud = [], jargmine = 8, sohiAeg = 0, avariid = 0, opp = [], tipp = 0, ajalugu = [];
 
 	const f1 = (x) => x.toLocaleString('et-EE', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
 	const aegTekst = (s) => Math.floor(s / 60) + ':' + (s % 60).toFixed(1).padStart(4, '0').replace('.', ',');
@@ -66,7 +66,7 @@
 	function alusta() {
 		if (!P) return;
 		arvuta();
-		Object.assign(o, { z: ALGUS_Z - 14, v: 0, x: TEE.KAAM_X, w: 0, rool: 0 });
+		Object.assign(o, uusAuto(ALGUS_Z - 14, TEE.KAAM_X));
 		kp = 0; kpNahtav = 0; kell = 0; loomad = []; laigud = []; avariid = 0; opp = []; tipp = 0; ajalugu = [];
 		jargmine = 6 + Math.random() * 8; sohiAeg = 0;
 		teade = null; tulemus = null; olek = 'soit';
@@ -104,7 +104,7 @@
 		sohiAeg = 0;
 	}
 	function taasta() {
-		Object.assign(o, { z: ALGUS_Z + kp * KP_VAHE + 2, v: 0, x: TEE.KAAM_X, w: 0, rool: 0 });
+		Object.assign(o, uusAuto(ALGUS_Z + kp * KP_VAHE + 2, TEE.KAAM_X));
 		loomad = []; laigud = []; ajalugu = [];
 		jargmine = 5 + Math.random() * 8; sohiAeg = 0;
 		teade = null; olek = 'soit';
@@ -146,21 +146,21 @@
 		eelm = now;
 		if (!aeg0) aeg0 = now;
 		if (olek === 'soit' && H) fyysika(dt);
-		else if (olek === 'avarii') { sohiAeg += dt; kell += dt; o.v = Math.max(0, o.v - 12 * dt); o.z += o.v * dt; if (sohiAeg > 3.2) taasta(); }
-		else if (olek === 'finis') { o.v = Math.max(0, o.v - 6 * dt); o.z += o.v * dt; }
-		else if (olek === 'algus') { o.w = 0; }
+		else if (olek === 'avarii') { sohiAeg += dt; kell += dt; o.vx = o.v = Math.max(0, o.v - 12 * dt); o.vy = 0; o.r = 0; o.z += o.v * dt; if (sohiAeg > 3.2) taasta(); }
+		else if (olek === 'finis') { o.vx = o.v = Math.max(0, o.v - 6 * dt); o.vy = 0; o.r = 0; o.z += o.v * Math.cos(o.psi) * dt; }
+		else if (olek === 'algus') { o.psi = 0; }
 		joonista(ctx, W, H2, E.tee, {
-			z: o.z, kmh: o.v * 3.6, oo: E.oo, ilm: E.olud.ilm, kate: E.olud.kate, px: o.x, psi: o.v > 1 ? o.w / Math.max(3, o.v) : 0,
+			z: o.z, kmh: o.v * 3.6, oo: E.oo, ilm: E.olud.ilm, kate: E.olud.kate, px: o.x, psi: o.psi,
 			loomad, laigud, crash: olek === 'avarii', aeg: (now - aeg0) / 1000
 		});
 		hud();
 	}
 	function fyysika(dt) {
-		const tSisend = { gaas: sis.gaas, pidur: sis.pidur, roolSiht: (sis.parem ? 1 : 0) - (sis.vasak ? 1 : 0) };
+		const tSisend = { gaas: sis.gaas, pidur: sis.pidur, kasi: sis.kasi, roolSiht: (sis.parem ? 1 : 0) - (sis.vasak ? 1 : 0) };
 		const laik = laigud.find((l) => o.z >= l.z0 && o.z <= l.z1);
 		const aKate = laik ? (laik.t === 'jaa' ? Hjaa.a : Hlomp.a) : H.a;
 		const maas = Math.abs(o.x) > TEE.TEE_L + 0.3;
-		const n = 4;
+		const n = 8;
 		let syndmus = null;
 		for (let i = 0; i < n && !syndmus; i++) {
 			const r = samm(o, tSisend, dt / n, koverus(E.tee, o.z), aKate, maas);
@@ -171,7 +171,9 @@
 		tipp = Math.max(tipp, o.v);
 		ajalugu.push([kell, o.v]); if (ajalugu.length > 90) ajalugu.shift();
 		while (kp < 4 && o.z >= ALGUS_Z + (kp + 1) * KP_VAHE) { kp++; kpNahtav = kp; }
-		if (syndmus) { avarii('teelt'); return; }
+		/* keeras ringi ja jäi risti seisma: tagasi kontrollpunkti */
+		risti = o.v < 1 && Math.abs(o.psi) > 0.9 ? risti + dt : 0;
+		if (syndmus || risti > 1.5) { risti = 0; avarii('teelt'); return; }
 		/* loomad liiguvad üle tee; kokkupõrge, kui auto esiots jõuab looma kohale */
 		for (const l of loomad) {
 			if (l.seisab > 0) l.seisab -= dt;
@@ -215,7 +217,7 @@
 	}
 
 	/* ---------- juhtimine ---------- */
-	const KLAHV = { ArrowUp: 'gaas', KeyW: 'gaas', ArrowDown: 'pidur', KeyS: 'pidur', Space: 'pidur', ArrowLeft: 'vasak', KeyA: 'vasak', ArrowRight: 'parem', KeyD: 'parem' };
+	const KLAHV = { ArrowUp: 'gaas', KeyW: 'gaas', ArrowDown: 'pidur', KeyS: 'pidur', Space: 'kasi', ArrowLeft: 'vasak', KeyA: 'vasak', ArrowRight: 'parem', KeyD: 'parem' };
 	function klahv(e, alla) {
 		const k = KLAHV[e.code];
 		if (!k || !ekraan?.contains(document.activeElement) && olek !== 'soit') return;
@@ -261,7 +263,7 @@
 					<b>Päeva etapp</b>
 					<span>Sõida finišisse nii kiiresti kui suudad. Teele võib igal hetkel tulla põder, jäälaik või lomp. Avarii korral alustad eelmisest kontrollpunktist ja kell käib edasi.</span>
 					<button type="button" class="btn yel" disabled={olek === 'laeb'} onclick={alusta}>{olek === 'laeb' ? 'Laen…' : 'Start'}</button>
-					<small>Arvutis nooleklahvid: ↑ gaas, ↓ pidur, ← → rool. Telefonis nupud ekraanil.</small>
+					<small>Arvutis nooleklahvid: ↑ gaas, ↓ pidur, ← → rool, tühik käsipidur. Telefonis nupud ekraanil.</small>
 				</div>
 			{/if}
 			{#if olek === 'avarii' && teade}
@@ -286,6 +288,7 @@
 					<button type="button" tabindex="-1" onpointerdown={nupp('parem', true)} onpointerup={nupp('parem', false)} onpointerleave={nupp('parem', false)} onpointercancel={nupp('parem', false)}>▶</button>
 				</div>
 				<div class="et-pool">
+					<button type="button" tabindex="-1" class="kasi" onpointerdown={nupp('kasi', true)} onpointerup={nupp('kasi', false)} onpointerleave={nupp('kasi', false)} onpointercancel={nupp('kasi', false)}>Käsi&shy;pidur</button>
 					<button type="button" tabindex="-1" class="pidur" onpointerdown={nupp('pidur', true)} onpointerup={nupp('pidur', false)} onpointerleave={nupp('pidur', false)} onpointercancel={nupp('pidur', false)}>Pidur</button>
 					<button type="button" tabindex="-1" class="gaas" onpointerdown={nupp('gaas', true)} onpointerup={nupp('gaas', false)} onpointerleave={nupp('gaas', false)} onpointercancel={nupp('gaas', false)}>Gaas</button>
 				</div>
@@ -330,6 +333,7 @@
 	.et-juht button { pointer-events: auto; width: 64px; height: 64px; border-radius: 16px; border: 1px solid rgba(255, 255, 255, 0.25); background: rgba(10, 11, 13, 0.45); color: #fff; font-size: 22px; font-weight: 800; cursor: pointer; touch-action: none; }
 	.et-juht button.gaas { background: rgba(22, 101, 52, 0.6); font-size: 15px; }
 	.et-juht button.pidur { background: rgba(153, 27, 27, 0.6); font-size: 15px; }
+	.et-juht button.kasi { background: rgba(120, 80, 10, 0.6); font-size: 12px; line-height: 1.1; }
 	@media (hover: hover) and (pointer: fine) { .et-juht { opacity: 0.55; } }
 	.et-fs { position: absolute; top: 10px; right: 10px; width: 40px; height: 40px; border-radius: 10px; border: 1px solid rgba(255, 255, 255, 0.18); background: rgba(10, 11, 13, 0.55); color: #fff; display: grid; place-items: center; cursor: pointer; padding: 0; z-index: 2; }
 	.et-fs svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
