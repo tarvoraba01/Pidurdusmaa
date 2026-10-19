@@ -14,7 +14,7 @@
 <LiiklusLeht Tool={Etapp} kick="Mäng · ralli" h1="Päeva etapp" lead="Kruusaralli aja peale. Iga päev uus rada, kõigile sama. Kui kiiresti sina selle läbi sõidad?" vaade="reaktsioon">
 	<div>
 		<h2>Kuidas sõita</h2>
-		<p>Kurvi ees pidurda ja keera sisse: tagaots tuleb välja ja auto libiseb külg ees. Gaas hoiab drifti, vasturool toob auto sirgeks. Järsus kurvis aitab käsipidur. Kaardilugeja number näitab kurvi järsust, 1 on kõige järsem ja 6 peaaegu sirge.</p>
+		<p>Auto läheb sinna, kuhu rooli keerad. Järsu kurvi ees pidurda enne kurvi, mitte kurvis. Driftimiseks tõmba kurvis käsipidurit (tühik): tagaots tuleb välja, gaas hoiab drifti ja vasturool toob auto sirgeks. Kaardilugeja number näitab kurvi järsust, 1 on kõige järsem ja 6 peaaegu sirge.</p>
 	</div>
 	<div>
 		<h2>Mis on päris</h2>

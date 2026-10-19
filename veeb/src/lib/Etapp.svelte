@@ -97,7 +97,7 @@
 		const v = Math.max(o.v, ...ajalugu) * 3.6;
 		const n = o.s / 5;
 		const kurv = rada.kurvid.find((k) => n >= k.n0 - 3 && n <= k.n1 + 6);
-		const kurvis = kurv ? ` Selle kurvi piirkiirus kruusal on umbes ${Math.round(piirkiirus(H.a, kurv.R))} km/h, sina tulid ${Math.round(v)} km/h.` : '';
+		const kurvis = kurv ? ` Sina tulid ${Math.round(v)} km/h. Tavalise autoga on selle kurvi piirkiirus kruusal umbes ${Math.round(piirkiirus(H.a, kurv.R))} km/h.` : '';
 		teade = (miks === 'puu' ? 'Puusse.' : 'Teelt välja.') + kurvis;
 		track('avarii', Math.round(v) + ' km/h');
 		olek = 'avarii';
@@ -247,7 +247,7 @@
 			{#if olek === 'algus' || olek === 'laeb'}
 				<div class="et-kiht">
 					<b>Päeva etapp</b>
-					<span>Kruusaralli aja peale. Kurvi ees pidurda, keera sisse ja anna gaasi: tagaots tuleb välja ja auto driftib. Vasturool toob sirgeks. Kaardilugeja näitab ees tulevat kurvi, 1 on kõige järsem.</span>
+					<span>Kruusaralli aja peale. Auto läheb sinna, kuhu rooli keerad. Järsu kurvi ees pidurda, driftimiseks tõmba kurvis käsipidurit. Kaardilugeja näitab ees tulevat kurvi, 1 on kõige järsem.</span>
 					{#if viga}<span class="viga">{viga}</span>{:else}<button type="button" class="btn yel" disabled={olek === 'laeb'} onclick={start}>{olek === 'laeb' ? 'Laen rada…' : 'Stardi'}</button>{/if}
 					<small>↑ gaas · ↓ pidur · ← → rool · tühik käsipidur · R tagasi kontrollpunkti · M heli</small>
 				</div>

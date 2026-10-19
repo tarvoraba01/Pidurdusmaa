@@ -135,7 +135,10 @@ export function piirkiirus(aFn, R) {
 /* ---------- auto ---------- */
 const L = 2.6;
 /* häälestus (vt testid) */
-export const K = { esi: 1.6, kickEsi: 2.2, kasiEsi: 2.2, stabGaas: 1.1, stabLahti: 0.75, stabKasi: 0.15, kickStab: 0.8, tagaGaas: 0.82, tagaKasi: 0.4, kickTaga: 0.45, suun: 0.2, kraap: 0.5, lin: 7 };
+/* Tarvo 19.10: tavasõidul peab auto minema sinna, kuhu rooli keerad (mitte libisema otse edasi).
+   Seepärast on külghaare mängus ~1,7 × pidurdushaare ja auto joondub kiiresti; drift tuleb ainult
+   käsipidurist või pidurdusest kurvi sisse (kick). */
+export const K = { kulg: 1.7, esi: 1.75, kickEsi: 1.6, kasiEsi: 2.4, stabGaas: 2.4, stabLahti: 2.0, stabKasi: 0.15, kickStab: 0.75, tagaGaas: 0.95, tagaKasi: 0.28, kickTaga: 0.55, suun: 0.3, kraap: 0.5, lin: 14 };
 export function uusAuto(rada, s) {
 	const i = Math.max(0, Math.min(rada.n - 1, Math.round(s / DS)));
 	return { x: rada.x[i], z: rada.z[i], y: rada.y[i], h: rada.h[i], vx: 0, vz: 0, w: 0, rool: 0, i, s: i * DS, d: 0,
@@ -154,7 +157,7 @@ export function samm(o, sis, dt, aFn, rada, puud) {
 	o.maas = a <= POOL + 0.4 ? 0 : a <= POOL + 1.5 ? 1 : 2;
 	/* haare: mootori pidurdus kruusal (ABS) ≈ µg; mängus veidi rohkem, et oleks lõbus */
 	const mu = aFn(Math.min(50, v)) / 0.94 / G;
-	const pind = o.maas === 0 ? 1 : o.maas === 1 ? 0.85 : 0.6;
+	const pind = o.maas === 0 ? 1 : o.maas === 1 ? 0.92 : 0.78;
 	const aMax = mu * G * pind * 1.12;
 
 	/* rool: sujuv (klahv ei ole kohe täis), suurel kiirusel väiksem rataste nurk */
@@ -171,7 +174,7 @@ export function samm(o, sis, dt, aFn, rada, puud) {
 	o.libis = libis;
 	/* pöörlemine: rataste järgi + tagaotsa stabiilsus (nina pöörab sõidusuuna poole) */
 	const wKin = (vF * Math.tan(delta)) / L; /* + = paremale */
-	const esiPiir = (aMax * (K.esi + o.kick * K.kickEsi + (sis.kasi ? K.kasiEsi : 0))) / Math.max(4, v);
+	const esiPiir = (aMax * K.kulg * (K.esi / 1.7 + o.kick * K.kickEsi / 1.7 + (sis.kasi ? K.kasiEsi / 1.7 : 0))) / Math.max(4, v);
 	let wSiht = Math.max(-esiPiir, Math.min(esiPiir, wKin));
 	let stab = sis.kasi ? K.stabKasi : sis.gaas ? K.stabGaas : K.stabLahti; /* gaas hoiab drifti, gaasi vabastus keerab sisse */
 	stab *= 1 - o.kick * K.kickStab;
@@ -180,7 +183,7 @@ export function samm(o, sis, dt, aFn, rada, puud) {
 	o.h -= o.w * dt;
 
 	/* külghaare: libisemine sumbub, kuid mitte kiiremini kui haare lubab */
-	const tagaPiir = aMax * (sis.kasi ? K.tagaKasi : sis.gaas ? K.tagaGaas : 1) * (1 - o.kick * K.kickTaga);
+	const tagaPiir = aMax * K.kulg * (sis.kasi ? K.tagaKasi : sis.gaas ? K.tagaGaas : 1) * (1 - o.kick * K.kickTaga);
 	const dvR = Math.min(Math.abs(vR) * K.lin, tagaPiir) * dt;
 	const vR2 = Math.abs(vR) <= dvR ? 0 : vR - Math.sign(vR) * dvR;
 	/* osa külgkiirusest pöördub driftis edasiliikumiseks (arkaadlik, hoiab hoogu) */
@@ -191,7 +194,7 @@ export function samm(o, sis, dt, aFn, rada, puud) {
 	const vfa = Math.abs(vF);
 	let ax = 0;
 	/* haardering: kurvis kulub haare küljele, kiirenduseks jääb vähem */
-	const kulu = Math.min(1, Math.abs(vF * o.w) / aMax);
+	const kulu = Math.min(1, Math.abs(vF * o.w) / (aMax * K.kulg));
 	if (sis.gaas && vF > -0.5) ax += Math.min(mu * G * 0.95 * pind, 150 / Math.max(4, vfa)) * (o.maas === 2 ? 0.7 : 1) * (0.25 + 0.75 * Math.sqrt(1 - kulu * kulu));
 	if (sis.pidur) {
 		if (vF > 0.5) ax -= Math.min(aFn(Math.min(50, vF)) * pind, mu * G * pind);
