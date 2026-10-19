@@ -16,7 +16,8 @@ export function looHeli() {
 	const buf = ac.createBuffer(1, ac.sampleRate * 2, ac.sampleRate), d = buf.getChannelData(0);
 	for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
 	const myra = ac.createBufferSource(); myra.buffer = buf; myra.loop = true;
-	const bp = ac.createBiquadFilter(); bp.type = 'bandpass'; bp.frequency.value = 1300; bp.Q.value = 0.7;
+	/* Tarvo 19.10: krõbin oli liiga vali ja terav: nüüd madal ja vaikne mürin, valjem ainult driftis */
+	const bp = ac.createBiquadFilter(); bp.type = 'lowpass'; bp.frequency.value = 420; bp.Q.value = 0.5;
 	const kg = ac.createGain(); kg.gain.value = 0;
 	myra.connect(bp); bp.connect(kg); kg.connect(pea); myra.start();
 	let vaigista = false;
@@ -27,7 +28,7 @@ export function looHeli() {
 			o1.frequency.setTargetAtTime(f, t, 0.03);
 			o2.frequency.setTargetAtTime(f / 2, t, 0.03);
 			filt.frequency.setTargetAtTime(500 + o.prr * 0.35, t, 0.05);
-			kg.gain.setTargetAtTime(Math.min(0.5, o.v / 60 + Math.abs(Math.sin(o.libis)) * 0.7) * (o.maas ? 1.4 : 1), t, 0.06);
+			kg.gain.setTargetAtTime(Math.min(0.14, o.v / 400 + Math.max(0, Math.abs(Math.sin(o.libis)) - 0.08) * 0.35) * (o.maas ? 1.3 : 1), t, 0.08);
 			pea.gain.setTargetAtTime(kaib && !vaigista ? 0.32 : 0, t, 0.1);
 		},
 		jatka() { if (ac.state !== 'running') ac.resume().catch(() => {}); },
