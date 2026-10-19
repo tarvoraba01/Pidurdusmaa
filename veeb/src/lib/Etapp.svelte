@@ -5,7 +5,7 @@
 	   tagasi eelmisesse kontrollpunkti, kell käib edasi. Õpetlik osa on kõrval (avarii teade, finiši „kas teadsid“). */
 	import { onMount, onDestroy } from 'svelte';
 	import { version } from '$app/environment';
-	import { looRada, paevaNr, uusAuto, samm, noot, piirkiirus, rehv, haardeTabel, ALGUS, PIKKUS, KP_VAHE, POOL, DS } from '$lib/ralli.js';
+	import { looRada, paevaNr, uusAuto, samm, noot, piirkiirus, peatumine, rehv, haardeTabel, ALGUS, PIKKUS, KP_VAHE, POOL, DS } from '$lib/ralli.js';
 
 	const nr = paevaNr();
 	const rada = looRada(nr);
@@ -23,6 +23,39 @@
 	let o = uusAuto(rada, ALGUS - 8);
 	const sis = { gaas: false, pidur: false, kasi: false, vasak: false, parem: false };
 	let kell = 0, kp = 0, sohiAeg = 0, avariid = 0, tipp = 0, loendus = 0, seisab = 0, vaheajad = [], ajalugu = [];
+	/* põdrad: märgiga kohtades (rada.podrad); igal sõidul juhuslikult 1 kuni 2 kohta, põder seisab metsaservas
+	   ja hakkab üle tee kõndima, kui auto läheneb (Tarvo 19.10: ei tohi tulla tühjast õhust) */
+	let podrad = [];
+	function seaPodrad(alates = -1) {
+		const vanad = podrad;
+		podrad = rada.podrad.map((p, j) => {
+			if (p.s < alates && vanad[j]) return vanad[j];
+			const aktiivne = Math.random() < 0.55;
+			const pool = Math.random() < 0.5 ? -1 : 1;
+			return { s: p.s + (Math.random() - 0.5) * 30, d: pool * (POOL + 12), suund: -pool, olek: aktiivne ? 'oota' : 'ei', faas: 0, paus: 0, kaib: false };
+		});
+		if (alates < 0 && !podrad.some((p) => p.olek === 'oota') && podrad.length) podrad[Math.floor(Math.random() * podrad.length)].olek = 'oota';
+	}
+	function podradSamm(dt) {
+		let k = 0, tabas = false;
+		for (const p of podrad) {
+			if (p.olek === 'ei' || p.olek === 'lainud') continue;
+			const kaugus = p.s - o.s;
+			if (p.olek === 'oota' && kaugus < Math.max(85, o.v * 4.3) && kaugus > 10) p.olek = 'kaib';
+			if (p.olek === 'kaib') {
+				p.kaib = true; p.faas += dt;
+				if (Math.abs(p.d) < 1 && p.paus < 1.1) { p.paus += dt; p.kaib = false; } /* jääb hetkeks tee keskele seisma */
+				else p.d += p.suund * 3.0 * dt;
+				if (p.d * p.suund > POOL + 12) p.olek = 'lainud';
+			}
+			if (k < 3 && kaugus > -30 && kaugus < 260) {
+				const w = maailm.poder(k++, p);
+				if (w && Math.hypot(w.x - o.x, w.z - o.z) < 2.1) tabas = true;
+			}
+		}
+		for (; k < 3; k++) maailm.poder(k, null);
+		return tabas;
+	}
 
 	const aegTekst = (s) => Math.floor(s / 60) + ':' + (s % 60).toFixed(1).padStart(4, '0').replace('.', ',');
 
@@ -58,7 +91,7 @@
 			olek = 'algus';
 			raf = requestAnimationFrame(kaader);
 			/* arenduses: kaader-kaadrilt juhtimine testide ja video jaoks */
-			if (import.meta.env.DEV) window.__etapp = { peata: () => { peatus = true; cancelAnimationFrame(raf); }, tikk: (dt, s, pilt = true) => { Object.assign(sis, s || {}); tikk(dt, pilt); }, start: () => alusta(), auto: () => o, maailm: () => maailm, rada, olek: () => olek };
+			if (import.meta.env.DEV) window.__etapp = { peata: () => { peatus = true; cancelAnimationFrame(raf); }, tikk: (dt, s, pilt = true) => { Object.assign(sis, s || {}); tikk(dt, pilt); }, start: () => alusta(), podrad: () => podrad, auto: () => o, maailm: () => maailm, rada, olek: () => olek };
 		} catch (e) {
 			viga = 'Mängu ei õnnestunud käivitada. Proovi teise brauseriga (vaja on WebGL-i).';
 			olek = 'algus';
@@ -80,6 +113,7 @@
 	function alusta() {
 		if (!H || !maailm) return;
 		o = uusAuto(rada, ALGUS - 8);
+		seaPodrad();
 		kp = 0; kell = 0; avariid = 0; tipp = 0; vaheajad = []; ajalugu = []; seisab = 0;
 		teade = null; tulemus = null; olek = 'soit'; loendus = 3;
 		maailm.kaamUus();
@@ -98,13 +132,16 @@
 		const n = o.s / 5;
 		const kurv = rada.kurvid.find((k) => n >= k.n0 - 3 && n <= k.n1 + 6);
 		const kurvis = kurv ? ` Sina tulid ${Math.round(v)} km/h. Tavalise autoga on selle kurvi piirkiirus kruusal umbes ${Math.round(piirkiirus(H.a, kurv.R))} km/h.` : '';
-		teade = (miks === 'puu' ? 'Puusse.' : 'Teelt välja.') + kurvis;
+		teade = miks === 'poder'
+			? `Põder! Sina tulid ${Math.round(v)} km/h. Sellelt kiiruselt peatub auto kruusal umbes ${Math.round(peatumine(H.a, v / 3.6))} meetriga (1 s reaktsioon + pidurdus). Põdramärgi juures võta hoog maha.`
+			: (miks === 'puu' ? 'Puusse.' : 'Teelt välja.') + kurvis;
 		track('avarii', Math.round(v) + ' km/h');
 		olek = 'avarii';
 		sohiAeg = 0;
 	}
 	function taasta() {
 		o = uusAuto(rada, kp ? ALGUS + kp * KP_VAHE + 4 : ALGUS - 8);
+		seaPodrad(o.s);
 		maailm.kaamUus();
 		ajalugu = []; seisab = 0;
 		teade = null; olek = 'soit';
@@ -160,6 +197,7 @@
 		ajalugu.push(o.v); if (ajalugu.length > 90) ajalugu.shift();
 		while (kp < 4 && o.s >= ALGUS + (kp + 1) * KP_VAHE) { kp++; vaheajad = [...vaheajad, kell]; }
 		seisab = o.v < 1.5 && Math.abs(o.d) > POOL + 1.5 ? seisab + dt : 0;
+		if (podradSamm(dt)) syndmus = 'poder';
 		if (syndmus || seisab > 3) { avarii(syndmus || 'teelt'); return; }
 		if (o.s >= ALGUS + PIKKUS) finis();
 	}

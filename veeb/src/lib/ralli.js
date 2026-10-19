@@ -93,7 +93,14 @@ export function looRada(nr) {
 		const { k, kurvid } = looKurvid(r);
 		const c = keskjoon(k, r);
 		if (katse < 59 && ristub(c)) continue;
-		return { nr, k, kurvid, ...c, pikkus: (c.n - 1) * DS, seeme: nr * 31 + katse };
+		/* põdraohu kohad: sirgemad lõigud (kurvis põder oleks ebaaus); märk on 110 m enne */
+		const podrad = [];
+		for (let s0 = ALGUS + 220; s0 < ALGUS + PIKKUS - 120 && podrad.length < 4; s0 += 30) {
+			let max = 0;
+			for (let s1 = s0 - 140; s1 <= s0 + 30; s1 += SEG) max = Math.max(max, Math.abs(k[Math.floor(s1 / SEG)] || 0));
+			if (max < 1 / 80 && (!podrad.length || s0 - podrad[podrad.length - 1].s > 300)) podrad.push({ s: s0, pool: r() < 0.5 ? -1 : 1 });
+		}
+		return { nr, k, kurvid, podrad, ...c, pikkus: (c.n - 1) * DS, seeme: nr * 31 + katse };
 	}
 }
 
@@ -138,7 +145,7 @@ const L = 2.6;
 /* Tarvo 19.10: tavasõidul peab auto minema sinna, kuhu rooli keerad (mitte libisema otse edasi).
    Seepärast on külghaare mängus ~1,7 × pidurdushaare ja auto joondub kiiresti; drift tuleb ainult
    käsipidurist või pidurdusest kurvi sisse (kick). */
-export const K = { kulg: 1.7, esi: 1.75, kickEsi: 1.6, kasiEsi: 2.4, stabGaas: 2.4, stabLahti: 2.0, stabKasi: 0.15, kickStab: 0.75, tagaGaas: 0.95, tagaKasi: 0.28, kickTaga: 0.55, suun: 0.3, kraap: 0.5, lin: 14 };
+export const K = { kulg: 1.8, tagaGaas: 0.97, tagaKasi: 0.5, kickTaga: 0.45, suun: 0.3, kraap: 0.35, lin: 18, voim: 230, veoHaare: 1.25 };
 export function uusAuto(rada, s) {
 	const i = Math.max(0, Math.min(rada.n - 1, Math.round(s / DS)));
 	return { x: rada.x[i], z: rada.z[i], y: rada.y[i], h: rada.h[i], vx: 0, vz: 0, w: 0, rool: 0, i, s: i * DS, d: 0,
@@ -170,32 +177,38 @@ export function samm(o, sis, dt, aFn, rada, puud) {
 	if (sis.pidur && vF > 6 && Math.abs(o.rool) > 0.3) o.kick = Math.min(0.6, o.kick + dt * 3);
 	else o.kick = Math.max(0, o.kick - dt * 1.5);
 
-	const libis = v > 2 ? Math.atan2(vR, Math.abs(vF)) : 0; /* + = libiseb paremale */
-	o.libis = libis;
-	/* pöörlemine: rataste järgi + tagaotsa stabiilsus (nina pöörab sõidusuuna poole) */
-	const wKin = (vF * Math.tan(delta)) / L; /* + = paremale */
-	const esiPiir = (aMax * K.kulg * (K.esi / 1.7 + o.kick * K.kickEsi / 1.7 + (sis.kasi ? K.kasiEsi / 1.7 : 0))) / Math.max(4, v);
-	let wSiht = Math.max(-esiPiir, Math.min(esiPiir, wKin));
-	let stab = sis.kasi ? K.stabKasi : sis.gaas ? K.stabGaas : K.stabLahti; /* gaas hoiab drifti, gaasi vabastus keerab sisse */
-	stab *= 1 - o.kick * K.kickStab;
-	if (v > 2) wSiht += stab * Math.sin(libis) * Math.min(1, v / 8) * (vF < 0 ? -1 : 1);
-	o.w += (wSiht - o.w) * Math.min(1, dt * 6);
+	/* KAKS TELGE (Tarvo 19.10: auto ujus nagu siledate rehvidega jääl).
+	   Esitelg: rattad viivad esiotsa rooli suunas (külgkiirus → vF·tan δ). Tagatelg: hoiab tagaotsa
+	   kinni (külgkiirus → 0). Kumbki parandus on piiratud oma telje haardega. Tavasõidul on mõlemal
+	   palju haaret, auto läheb täpselt rooli järgi. Käsipidur võtab tagateljelt haarde ära: tagaots
+	   tuleb välja, esiots hoiab joont (nagu päris kässariga). Kiirus jääb maailma teljestikku, nii et
+	   kere pööre tekitab järgmisel sammul libisemise. */
+	const A_ = 1.2, B_ = L - 1.2, K2 = A_ * B_; /* inertsimoment / mass ≈ a·b */
+	const vRf = vR + A_ * o.w, vRr = vR - B_ * o.w;
+	const haare = aMax * K.kulg;
+	const esiSiht = vF * Math.tan(delta);
+	/* telje külgjõud (kiirendusena, m/s²): võrdeline libisemisega, piiratud telje haardega (telje koormus) */
+	const capF = haare * 0.5 * (1 + o.kick * 0.3);
+	const capR = haare * 0.52 * (sis.kasi ? K.tagaKasi : sis.gaas ? K.tagaGaas : 1) * (1 - o.kick * K.kickTaga);
+	const Ff = Math.max(-capF, Math.min(capF, (esiSiht - vRf) * K.lin));
+	const Fr = Math.max(-capR, Math.min(capR, -vRr * K.lin));
+	/* tagatelje libisemisest osa hoost edasi (arkaadlik, drift ei tapa kiirust) */
+	const libisR = Math.abs(vRr) > 1 ? Math.min(1, (Math.abs(vRr) - 1) / 4) : 0;
+	vF += Math.sign(vF || 1) * Math.abs(Fr) * libisR * K.suun * dt;
+	vR += (Ff + Fr) * dt;
+	o.w += ((A_ * Ff - B_ * Fr) / K2) * dt;
+	o.w *= 1 - dt * (sis.kasi ? 0.3 : 1.4); /* veermiku ja rehvide summutus: libisemine rahuneb, kui käsipidur lahti */
+	if (v < 1.5) { const k = 1 - v / 1.5; o.w += ((vF * Math.tan(delta)) / L - o.w) * k; vR *= 1 - k; } /* seistes: puhas veeremine */
 	o.h -= o.w * dt;
-
-	/* külghaare: libisemine sumbub, kuid mitte kiiremini kui haare lubab */
-	const tagaPiir = aMax * K.kulg * (sis.kasi ? K.tagaKasi : sis.gaas ? K.tagaGaas : 1) * (1 - o.kick * K.kickTaga);
-	const dvR = Math.min(Math.abs(vR) * K.lin, tagaPiir) * dt;
-	const vR2 = Math.abs(vR) <= dvR ? 0 : vR - Math.sign(vR) * dvR;
-	/* osa külgkiirusest pöördub driftis edasiliikumiseks (arkaadlik, hoiab hoogu) */
-	vF += Math.sign(vF || 1) * Math.abs(vR - vR2) * K.suun;
-	vR = vR2;
+	const libis = v > 2 ? Math.atan2(vR - B_ * o.w, Math.max(2, Math.abs(vF))) : 0; /* tagatelje libisemine, + = paremale */
+	o.libis = libis;
 
 	/* pikisuund: mootor, pidur, takistus */
 	const vfa = Math.abs(vF);
 	let ax = 0;
 	/* haardering: kurvis kulub haare küljele, kiirenduseks jääb vähem */
 	const kulu = Math.min(1, Math.abs(vF * o.w) / (aMax * K.kulg));
-	if (sis.gaas && vF > -0.5) ax += Math.min(mu * G * 0.95 * pind, 150 / Math.max(4, vfa)) * (o.maas === 2 ? 0.7 : 1) * (0.25 + 0.75 * Math.sqrt(1 - kulu * kulu));
+	if (sis.gaas && vF > -0.5) ax += Math.min(mu * G * K.veoHaare * pind, K.voim / Math.max(4, vfa)) * (o.maas === 2 ? 0.7 : 1) * (0.25 + 0.75 * Math.sqrt(1 - kulu * kulu));
 	if (sis.pidur) {
 		if (vF > 0.5) ax -= Math.min(aFn(Math.min(50, vF)) * pind, mu * G * pind);
 		else if (!sis.gaas) ax -= 3.2; /* tagurpidi */
@@ -271,4 +284,11 @@ export function haardeTabel(P, tyre, veh, cond) {
 	for (let b = 50; b >= 0; b--) { if (lugeja[b]) viim = tabel[b]; else tabel[b] = viim; }
 	for (let b = 0; b <= 50; b++) if (!tabel[b]) tabel[b] = viim || 1;
 	return { a: (v) => { const x = Math.max(0, Math.min(50, v)), i = Math.floor(x), f = x - i; return tabel[i] * (1 - f) + tabel[Math.min(50, i + 1)] * f; } };
+}
+
+/* peatumisteekond (m): 1 s reaktsioon + pidurdusmaa a(v) järgi kiiruselt v (m/s) */
+export function peatumine(aFn, v) {
+	let s = v, x = v;
+	while (x > 0.2) { const a = aFn(x), d = 0.1; s += (x * d) / a; x -= d; }
+	return s;
 }

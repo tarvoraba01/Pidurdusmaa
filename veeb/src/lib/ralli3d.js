@@ -405,6 +405,69 @@ export function looMaailm(canvas, rada, { madal = false } = {}) {
 	for (let k = 1; k * KP_VAHE < PIKKUS; k++) varav(ALGUS + k * KP_VAHE, 'KONTROLLPUNKT ' + k, '#ffffff');
 	varav(ALGUS + PIKKUS, 'FINIŠ', '#ffc20e');
 
+	/* ---------- põdraohu märgid ---------- */
+	const margiTex = (() => {
+		const c = document.createElement('canvas'); c.width = c.height = 256;
+		const g = c.getContext('2d');
+		g.beginPath(); g.moveTo(128, 14); g.lineTo(246, 230); g.lineTo(10, 230); g.closePath();
+		g.fillStyle = '#d61f1f'; g.fill();
+		g.beginPath(); g.moveTo(128, 50); g.lineTo(214, 210); g.lineTo(42, 210); g.closePath();
+		g.fillStyle = '#ffffff'; g.fill();
+		/* põdra siluett */
+		g.fillStyle = '#111';
+		g.fillRect(88, 140, 64, 26); g.fillRect(92, 166, 7, 30); g.fillRect(104, 166, 7, 30); g.fillRect(132, 166, 7, 30); g.fillRect(143, 166, 7, 30);
+		g.fillRect(146, 118, 12, 30); g.fillRect(150, 112, 26, 14); g.fillRect(140, 100, 6, 16); g.fillRect(132, 98, 16, 5); g.fillRect(156, 100, 6, 14); g.fillRect(156, 98, 16, 5);
+		const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; return t;
+	})();
+	for (const p of rada.podrad || []) {
+		const i = Math.max(0, Math.round((p.s - 110) / DS)), h = rada.h[i], d = POOL + 1.7;
+		const g = new THREE.Group();
+		const post = new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.05, 2.2, 6), new THREE.MeshLambertMaterial({ color: 0x9aa0a6 }));
+		post.position.y = 1.1; post.castShadow = true; g.add(post);
+		const silt = new THREE.Mesh(new THREE.PlaneGeometry(1.0, 1.0), new THREE.MeshBasicMaterial({ map: margiTex, transparent: true, side: THREE.DoubleSide }));
+		silt.position.set(0, 2.2, 0.06); g.add(silt);
+		g.position.set(rada.x[i] - Math.cos(h) * d, rada.y[i] + profiil(d), rada.z[i] + Math.sin(h) * d);
+		g.rotation.y = h + Math.PI; /* näoga sõitja poole */
+		scene.add(g);
+	}
+
+	/* ---------- põdrad (kuni 3 korraga) ---------- */
+	function looPoder() {
+		const g = new THREE.Group();
+		const pr = new THREE.MeshLambertMaterial({ color: 0x3b2a1e }), hele = new THREE.MeshLambertMaterial({ color: 0xcbb68f }), jalaM = new THREE.MeshLambertMaterial({ color: 0x6b5a48 });
+		const b = (w, h, l, m, x, y, z) => { const o = new THREE.Mesh(new THREE.BoxGeometry(w, h, l), m); o.position.set(x, y, z); o.castShadow = true; g.add(o); return o; };
+		b(0.9, 1.0, 2.3, pr, 0, 1.75, 0); /* keha */
+		b(0.95, 0.5, 0.9, pr, 0, 2.15, 0.7); /* turi */
+		const kael = b(0.4, 0.9, 0.45, pr, 0, 2.2, 1.25); kael.rotation.x = -0.6;
+		b(0.38, 0.42, 0.95, pr, 0, 2.45, 1.75); /* pea */
+		b(0.2, 0.3, 0.12, pr, 0, 2.1, 1.8); /* habe */
+		b(1.25, 0.08, 0.5, hele, 0, 2.78, 1.5); /* sarved */
+		b(0.08, 0.3, 0.08, hele, -0.45, 2.92, 1.5); b(0.08, 0.3, 0.08, hele, 0.45, 2.92, 1.5);
+		const jalad = [];
+		for (const [x, z] of [[-0.3, 0.85], [0.3, 0.85], [-0.3, -0.85], [0.3, -0.85]]) {
+			const piv = new THREE.Group(); piv.position.set(x, 1.3, z);
+			const j = new THREE.Mesh(new THREE.BoxGeometry(0.16, 1.3, 0.16), jalaM); j.position.y = -0.65; j.castShadow = true;
+			piv.add(j); g.add(piv); jalad.push(piv);
+		}
+		g.visible = false;
+		scene.add(g);
+		return { g, jalad };
+	}
+	const podrad = [looPoder(), looPoder(), looPoder()];
+	/* asend tee suhtes: s, d → maailm */
+	function poder(k, p) {
+		const P = podrad[k];
+		if (!p) { P.g.visible = false; return; }
+		const i = Math.max(0, Math.min(rada.n - 1, Math.round(p.s / DS))), h = rada.h[i];
+		const x = rada.x[i] - Math.cos(h) * p.d, z = rada.z[i] + Math.sin(h) * p.d;
+		P.g.visible = true;
+		P.g.position.set(x, maapind(x, z).y + (Math.abs(p.d) < POOL + 0.5 ? rada.y[i] + profiil(p.d) - maapind(x, z).y : 0), z);
+		/* kõnnib üle tee: nina risti teega */
+		P.g.rotation.y = h + (p.suund > 0 ? -Math.PI / 2 : Math.PI / 2);
+		P.jalad.forEach((j, n) => { j.rotation.x = p.kaib ? Math.sin(p.faas * 6 + (n % 2 ? Math.PI : 0) + (n > 1 ? Math.PI / 2 : 0)) * 0.45 : 0; });
+		return { x, z };
+	}
+
 	/* ---------- auto, tolm ---------- */
 	const A = looAuto();
 	scene.add(A.auto);
@@ -488,5 +551,5 @@ export function looMaailm(canvas, rada, { madal = false } = {}) {
 		scene.traverse((x) => { x.geometry?.dispose?.(); const m = x.material; (Array.isArray(m) ? m : m ? [m] : []).forEach((mm) => { mm.map?.dispose?.(); mm.dispose?.(); }); });
 		renderer.dispose();
 	}
-	return { uuenda, joonista, suurus, havita, takistus, kaamUus, _dbg: { scene, tolm, renderer, camera } };
+	return { uuenda, joonista, suurus, havita, takistus, kaamUus, poder, _dbg: { scene, tolm, renderer, camera } };
 }
