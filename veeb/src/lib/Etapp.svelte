@@ -1,85 +1,112 @@
 <script>
-	/* PÄEVA ETAPP: kruusaralli aja peale. Üks mäng: kuiv kruus, päevavalgus, kaamera auto taga.
-	   Rada on päeva järgi kõigile sama ($lib/etapp.js), füüsika ühe roopa mudel (rehvi libisemine,
-	   koormuse ülekanne, käsipidur), haare samast mootorist mis kalkulaatoris.
-	   Teelt välja: tagasi eelmisesse kontrollpunkti, kell käib edasi. Õpetlik osa on kõrval:
-	   avarii korral üks lause kurvi piirkiirusega, finišis üks „kas teadsid“. */
+	/* PÄEVA ETAPP: kruusaralli 3D-s, aja peale. Iga päev uus rada, kõigile sama.
+	   Rada ja sõidumudel: $lib/ralli.js (arkaadlik drift), pilt: $lib/ralli3d.js (three.js), heli: $lib/ralliHeli.js.
+	   Pidurdus tuleb samast mootorist mis kalkulaatoris (kruus, ABS). Teelt välja või puusse:
+	   tagasi eelmisesse kontrollpunkti, kell käib edasi. Õpetlik osa on kõrval (avarii teade, finiši „kas teadsid“). */
 	import { onMount, onDestroy } from 'svelte';
 	import { version } from '$app/environment';
-	import { joonista, TEE } from '$lib/tee3d.js';
-	import { looEtapp, paevaNr, rehv, haardeTabel, piirkiirus, koverus, samm, uusAuto, ALGUS_Z, PIKKUS, KP_VAHE } from '$lib/etapp.js';
+	import { looRada, paevaNr, uusAuto, samm, noot, piirkiirus, rehv, haardeTabel, ALGUS, PIKKUS, KP_VAHE, POOL, DS } from '$lib/ralli.js';
 
 	const nr = paevaNr();
-	const E = looEtapp(nr);
+	const rada = looRada(nr);
 	const KAT = 'SUMMER_TOURING';
 	let olek = $state('laeb'); /* laeb | algus | soit | avarii | finis */
+	let viga = $state('');
 	let teade = $state(null);
 	let tulemus = $state(null);
 	let taisekraan = $state(false);
 	let mang = $state({});
+	let vaikne = $state(false);
+	let h = $state({ kell: 0, kmh: 0, kaik: 1, noot: null, kp: 0, vahe: '', loendus: 0, vale: false, abi: false, mx: 0, my: 0 });
 
-	let P = null, veh = null, gClass = null, H = null, Hasf = null;
-	let cv, ctx, W = 800, H2 = 500, raf = 0, eelm = 0, aeg0 = 0, ekraan;
-	const o = uusAuto(ALGUS_Z - 14, TEE.KAAM_X);
+	let cv, ala, ekraan, maailm = null, heli = null, H = null, Hasf = null, raf = 0, eelm = 0;
+	let o = uusAuto(rada, ALGUS - 8);
 	const sis = { gaas: false, pidur: false, kasi: false, vasak: false, parem: false };
-	let kell = 0, kp = 0, sohiAeg = 0, avariid = 0, tipp = 0, ajalugu = [], risti = 0, vaheajad = [];
-	let camX = TEE.KAAM_X, camPsi = 0, loendus = 0;
+	let kell = 0, kp = 0, sohiAeg = 0, avariid = 0, tipp = 0, loendus = 0, seisab = 0, vaheajad = [], ajalugu = [];
 
 	const aegTekst = (s) => Math.floor(s / 60) + ':' + (s % 60).toFixed(1).padStart(4, '0').replace('.', ',');
 
+	/* minikaart */
+	const kaart = (() => {
+		let a = Infinity, b = -Infinity, c = Infinity, d = -Infinity;
+		for (let i = 0; i < rada.n; i++) { a = Math.min(a, rada.x[i]); b = Math.max(b, rada.x[i]); c = Math.min(c, rada.z[i]); d = Math.max(d, rada.z[i]); }
+		const k = 100 / Math.max(b - a, d - c), ox = (110 - (b - a) * k) / 2, oz = (110 - (d - c) * k) / 2;
+		const P = (x, z) => [ox + (b - x) * k, oz + (d - z) * k];
+		const lopp = Math.round((ALGUS + PIKKUS) / DS);
+		let tee = '';
+		for (let i = Math.round(ALGUS / DS); i <= lopp; i += 4) { const [x, y] = P(rada.x[i], rada.z[i]); tee += (tee ? 'L' : 'M') + x.toFixed(1) + ' ' + y.toFixed(1); }
+		const kpd = [];
+		for (let j = 1; j * KP_VAHE < PIKKUS; j++) { const i = Math.round((ALGUS + j * KP_VAHE) / DS); kpd.push(P(rada.x[i], rada.z[i])); }
+		const fin = P(rada.x[lopp], rada.z[lopp]);
+		return { tee, P, kpd, fin };
+	})();
+
 	onMount(async () => {
 		try { mang = JSON.parse(localStorage.getItem('pm_etapp') || '{}') || {}; } catch {}
-		ctx = cv.getContext('2d');
-		suurus();
-		window.addEventListener('resize', suurus);
-		await import('$lib/engine.js');
-		P = globalThis.Pidurdus;
-		const d = await (await fetch('/data/vaikeauto.json?v=' + encodeURIComponent(version))).json();
-		veh = d.vehicles[0]; gClass = d.gClass;
-		H = haardeTabel(P, rehv(KAT, veh, gClass), veh, E.olud.cond);
-		Hasf = haardeTabel(P, rehv(KAT, veh, gClass), veh, { surface: 'ASPHALT', waterMm: 0, tempC: 14 });
-		olek = 'algus';
-		raf = requestAnimationFrame(kaader);
+		try { vaikne = localStorage.getItem('pm_etapp_vaikne') === '1'; } catch {}
+		try {
+			const madal = matchMedia('(pointer: coarse)').matches || window.innerWidth < 700;
+			const [{ looMaailm }] = await Promise.all([import('$lib/ralli3d.js'), import('$lib/engine.js')]);
+			const P = globalThis.Pidurdus;
+			const d = await (await fetch('/data/vaikeauto.json?v=' + encodeURIComponent(version))).json();
+			const veh = d.vehicles[0];
+			H = haardeTabel(P, rehv(KAT, veh, d.gClass), veh, { surface: 'GRAVEL', waterMm: 0, tempC: 10 });
+			Hasf = haardeTabel(P, rehv(KAT, veh, d.gClass), veh, { surface: 'ASPHALT', waterMm: 0, tempC: 14 });
+			maailm = looMaailm(cv, rada, { madal });
+			suurus();
+			window.addEventListener('resize', suurus);
+			olek = 'algus';
+			raf = requestAnimationFrame(kaader);
+			/* arenduses: kaader-kaadrilt juhtimine testide ja video jaoks */
+			if (import.meta.env.DEV) window.__etapp = { peata: () => { peatus = true; cancelAnimationFrame(raf); }, tikk: (dt, s, pilt = true) => { Object.assign(sis, s || {}); tikk(dt, pilt); }, start: () => alusta(), auto: () => o, maailm: () => maailm, rada, olek: () => olek };
+		} catch (e) {
+			viga = 'Mängu ei õnnestunud käivitada. Proovi teise brauseriga (vaja on WebGL-i).';
+			olek = 'algus';
+		}
 	});
 	onDestroy(() => {
 		if (typeof window === 'undefined') return;
 		cancelAnimationFrame(raf); window.removeEventListener('resize', suurus);
 		try { document.documentElement.style.overflow = ''; } catch {}
+		maailm?.havita(); heli?.sulge();
 	});
 	function suurus() {
-		if (!cv) return;
-		const dpr = Math.min(2, window.devicePixelRatio || 1), w = cv.clientWidth || 800;
-		const h = taisekraan ? cv.clientHeight || w * 0.6 : w * 0.6;
-		W = Math.round(w * dpr); H2 = Math.round(h * dpr);
-		cv.width = W; cv.height = H2;
+		if (!cv || !maailm) return;
+		const w = cv.clientWidth || 800, hh = cv.clientHeight || w * 0.5625;
+		maailm.suurus(w, hh);
 	}
 
 	/* ---------- mänguvoog ---------- */
 	function alusta() {
-		if (!H) return;
-		Object.assign(o, uusAuto(ALGUS_Z - 6, TEE.KAAM_X));
-		kp = 0; kell = 0; avariid = 0; tipp = 0; ajalugu = []; vaheajad = []; risti = 0;
-		camX = o.x; camPsi = 0;
+		if (!H || !maailm) return;
+		o = uusAuto(rada, ALGUS - 8);
+		kp = 0; kell = 0; avariid = 0; tipp = 0; vaheajad = []; ajalugu = []; seisab = 0;
 		teade = null; tulemus = null; olek = 'soit'; loendus = 3;
+		maailm.kaamUus();
+		heli?.jatka(); heli?.vaikne(vaikne);
 		try { if (!taisekraan && matchMedia('(pointer: coarse)').matches) taisEkraan(); } catch {}
 		track('algus');
-		setTimeout(() => ekraan?.querySelector('.et-ala')?.focus(), 30);
+		setTimeout(() => ala?.focus(), 30);
 	}
-	function avarii() {
+	async function laeHeli() {
+		if (heli) return;
+		try { const { looHeli } = await import('$lib/ralliHeli.js'); heli = looHeli(); heli?.jatka(); heli?.vaikne(vaikne); } catch {}
+	}
+	function avarii(miks) {
 		avariid++;
-		const v = Math.max(o.v, ...ajalugu.map((x) => x[1])) * 3.6;
-		const n = Math.floor(o.z / TEE.SEG);
-		const kurv = E.kurvid.find((k) => n >= k.n0 - 2 && n <= k.n1 + 8);
-		teade = kurv
-			? `Liiga kiire. Selle kurvi piirkiirus kruusal on umbes ${Math.round(piirkiirus(H, kurv.R))} km/h, sina tulid ${Math.round(v)} km/h.`
-			: `Teelt välja ${Math.round(v)} km/h pealt.`;
+		const v = Math.max(o.v, ...ajalugu) * 3.6;
+		const n = o.s / 5;
+		const kurv = rada.kurvid.find((k) => n >= k.n0 - 3 && n <= k.n1 + 6);
+		const kurvis = kurv ? ` Selle kurvi piirkiirus kruusal on umbes ${Math.round(piirkiirus(H.a, kurv.R))} km/h, sina tulid ${Math.round(v)} km/h.` : '';
+		teade = (miks === 'puu' ? 'Puusse.' : 'Teelt välja.') + kurvis;
 		track('avarii', Math.round(v) + ' km/h');
 		olek = 'avarii';
 		sohiAeg = 0;
 	}
 	function taasta() {
-		Object.assign(o, uusAuto(ALGUS_Z + kp * KP_VAHE + 2, TEE.KAAM_X));
-		camX = o.x; camPsi = 0; ajalugu = []; risti = 0;
+		o = uusAuto(rada, kp ? ALGUS + kp * KP_VAHE + 4 : ALGUS - 8);
+		maailm.kaamUus();
+		ajalugu = []; seisab = 0;
 		teade = null; olek = 'soit';
 	}
 	function finis() {
@@ -90,107 +117,83 @@
 		if (uus) p.parim = Math.round(kell * 10) / 10;
 		mang = { ...mang, [nr]: p };
 		try { localStorage.setItem('pm_etapp', JSON.stringify(mang)); } catch {}
-		const k = E.kurvid.reduce((a, b) => (b.R < a.R ? b : a));
-		tulemus = { aeg: kell, uus, parim: p.parim, avariid, tipp: Math.round(tipp * 3.6), R: k.R, kruus: Math.round(piirkiirus(H, k.R)), asfalt: Math.round(piirkiirus(Hasf, k.R)) };
+		const k = rada.kurvid.reduce((a, b) => (b.R < a.R ? b : a));
+		tulemus = { aeg: kell, uus, parim: p.parim, avariid, tipp: Math.round(tipp * 3.6), R: k.R, kruus: Math.round(piirkiirus(H.a, k.R)), asfalt: Math.round(piirkiirus(Hasf.a, k.R)) };
 		track('finis', aegTekst(kell) + ' · avariid ' + avariid);
 	}
 
 	/* ---------- kaader ---------- */
+	let peatus = false, mangAeg = 0;
 	function kaader(now) {
+		if (peatus) return;
 		raf = requestAnimationFrame(kaader);
-		if (!ctx) return;
 		const dt = eelm ? Math.min(0.05, (now - eelm) / 1000) : 0.016;
 		eelm = now;
-		if (!aeg0) aeg0 = now;
-		if (olek === 'soit' && H) {
-			if (loendus > 0) loendus = Math.max(0, loendus - dt); else fyysika(dt);
-		} else if (olek === 'avarii') { sohiAeg += dt; kell += dt; o.vx = o.v = Math.max(0, o.v - 14 * dt); o.vy = 0; o.r = 0; o.z += o.v * dt; if (sohiAeg > 2.4) taasta(); }
-		else if (olek === 'finis') { o.vx = o.v = Math.max(0, o.v - 7 * dt); o.vy = 0; o.r = 0; o.z += o.v * Math.cos(o.psi) * dt; }
-		/* kaamera järgib autot pehmelt: libisedes paistab auto nurga all */
-		/* kaamera vaatab sõidusuunas (mitte auto nina suunas): libisedes paistab auto külgsi;
-		   kaamera on auto taga sama joone peal, nii et auto jääb pildi keskele */
-		const suund = o.psi + (o.v > 2 ? Math.atan2(o.vy, Math.max(1, o.vx)) : 0);
-		camPsi += (suund - camPsi) * Math.min(1, dt * 4);
-		camX = o.x - camPsi * 9.4;
-		joonista(ctx, W, H2, E.tee, {
-			taga: true, z: o.z, kmh: o.v * 3.6, oo: false, ilm: 'kuiv', kate: 'kruus', px: camX, psi: camPsi, cx: o.x, cpsi: o.psi,
-			pidur: sis.pidur && olek === 'soit', libisemine: o.libiseb ? 1 : Math.min(1, Math.abs(o.vy) / 3), crash: false, aeg: (now - aeg0) / 1000
-		});
+		tikk(dt);
+	}
+	function tikk(dt, pilt = true) {
+		mangAeg += dt;
+		const tyhi = { gaas: false, pidur: false, kasi: false, rool: 0 };
+		if (olek === 'soit') {
+			if (loendus > 0) { loendus = Math.max(0, loendus - dt); fyysika(dt, tyhi, true); }
+			else fyysika(dt, { gaas: sis.gaas, pidur: sis.pidur, kasi: sis.kasi, rool: (sis.parem ? 1 : 0) - (sis.vasak ? 1 : 0) });
+		} else if (olek === 'avarii') {
+			sohiAeg += dt; kell += dt;
+			fyysika(dt, { ...tyhi, pidur: true, kasi: true }, true);
+			if (sohiAeg > 2.2) taasta();
+		} else if (olek === 'finis' || olek === 'algus') {
+			fyysika(dt, olek === 'finis' ? { ...tyhi, pidur: o.v > 1 } : tyhi, true);
+		}
+		maailm.uuenda(o, dt, { aeg: mangAeg });
+		if (pilt) maailm.joonista();
+		heli?.uuenda(o, olek === 'soit' || olek === 'finis' || olek === 'avarii');
 		hud();
 	}
-	function fyysika(dt) {
-		const tSisend = { gaas: sis.gaas, pidur: sis.pidur, kasi: sis.kasi, roolSiht: (sis.parem ? 1 : 0) - (sis.vasak ? 1 : 0) };
-		const maas = Math.abs(o.x) > TEE.TEE_L + 0.3;
+	function fyysika(dt, s, vaba = false) {
+		const N = Math.max(1, Math.ceil(dt / (1 / 120))), sd = dt / N;
 		let syndmus = null;
-		for (let i = 0; i < 8 && !syndmus; i++) if (samm(o, tSisend, dt / 8, koverus(E.tee, o.z), H.a, maas) === 'teelt') syndmus = 'teelt';
-		if (o.z >= ALGUS_Z) kell += dt;
+		for (let i = 0; i < N && (!syndmus || syndmus === 'pall'); i++) syndmus = samm(o, s, sd, H.a, rada, maailm.takistus) || syndmus;
+		if (syndmus === 'pall') syndmus = null; /* heinapall pehmendab, ralli.js lükkab auto välja */
+		if (vaba) return;
+		if (o.s >= ALGUS) kell += dt;
 		tipp = Math.max(tipp, o.v);
-		ajalugu.push([kell, o.v]); if (ajalugu.length > 90) ajalugu.shift();
-		while (kp < 4 && o.z >= ALGUS_Z + (kp + 1) * KP_VAHE) { kp++; vaheajad = [...vaheajad, kell]; }
-		risti = o.v < 1 && Math.abs(o.psi) > 0.9 ? risti + dt : 0;
-		if (syndmus || risti > 1.5) { risti = 0; avarii(); return; }
-		if (o.z >= ALGUS_Z + PIKKUS) finis();
-	}
-	/* kaardilugeja: järgmine kurv ees */
-	function noot() {
-		const n = Math.floor(o.z / TEE.SEG);
-		const k = E.kurvid.find((x) => x.n1 > n + 1);
-		if (!k) return null;
-		const d = k.n0 * TEE.SEG - o.z;
-		if (d > 160) return null;
-		return { suund: k.suund, aste: k.aste, d: Math.max(0, Math.round(d / 10) * 10) };
+		ajalugu.push(o.v); if (ajalugu.length > 90) ajalugu.shift();
+		while (kp < 4 && o.s >= ALGUS + (kp + 1) * KP_VAHE) { kp++; vaheajad = [...vaheajad, kell]; }
+		seisab = o.v < 1.5 && Math.abs(o.d) > POOL + 1.5 ? seisab + dt : 0;
+		if (syndmus || seisab > 3) { avarii(syndmus || 'teelt'); return; }
+		if (o.s >= ALGUS + PIKKUS) finis();
 	}
 	function hud() {
-		const s = Math.max(W / 900, Math.min(2, window.devicePixelRatio || 1) * 0.8);
-		ctx.save();
-		const DF = '"Barlow Condensed", "Arial Narrow", sans-serif';
-		/* aeg */
-		ctx.fillStyle = 'rgba(10,11,13,0.6)'; ctx.fillRect(12 * s, 12 * s, 150 * s, 50 * s);
-		ctx.fillStyle = '#ffc20e'; ctx.font = `700 ${34 * s}px ${DF}`; ctx.fillText(aegTekst(kell), 22 * s, 48 * s);
-		/* kiirus */
-		ctx.textAlign = 'right';
-		ctx.fillStyle = 'rgba(10,11,13,0.6)'; ctx.fillRect(W - 122 * s, H2 - 70 * s, 110 * s, 58 * s);
-		ctx.fillStyle = '#fff'; ctx.font = `700 ${40 * s}px ${DF}`; ctx.fillText(String(Math.round(o.v * 3.6)), W - 40 * s, H2 - 26 * s);
-		ctx.fillStyle = '#aab1bc'; ctx.font = `600 ${13 * s}px Inter, system-ui, sans-serif`; ctx.fillText('km/h', W - 18 * s, H2 - 26 * s);
-		ctx.textAlign = 'left';
-		/* edenemine ja kontrollpunktid */
-		const x0 = 180 * s, w = W - 300 * s, p = Math.max(0, Math.min(1, (o.z - ALGUS_Z) / PIKKUS));
-		ctx.fillStyle = 'rgba(255,255,255,0.22)'; ctx.fillRect(x0, 20 * s, w, 6 * s);
-		ctx.fillStyle = '#ffc20e'; ctx.fillRect(x0, 20 * s, w * p, 6 * s);
-		for (let k = 1; k <= 4; k++) { ctx.fillStyle = k <= kp ? '#ffc20e' : 'rgba(255,255,255,0.5)'; ctx.fillRect(x0 + (w * k * KP_VAHE) / PIKKUS - 1, 15 * s, 3 * s, 16 * s); }
-		if (vaheajad.length) { ctx.fillStyle = '#fff'; ctx.font = `600 ${14 * s}px Inter, system-ui, sans-serif`; ctx.fillText(`KP${vaheajad.length} ${aegTekst(vaheajad[vaheajad.length - 1])}`, x0, 48 * s); }
-		/* kaardilugeja märge */
-		const nt = olek === 'soit' ? noot() : null;
-		if (nt) {
-			const cx = W / 2, cy = 92 * s;
-			ctx.fillStyle = nt.aste <= 2 ? 'rgba(200,30,30,0.85)' : 'rgba(10,11,13,0.7)';
-			ctx.beginPath(); ctx.roundRect(cx - 95 * s, cy - 36 * s, 190 * s, 62 * s, 12 * s); ctx.fill();
-			ctx.strokeStyle = '#fff'; ctx.lineWidth = 6 * s; ctx.lineCap = 'round';
-			const ax = cx - 60 * s, dir = nt.suund;
-			ctx.beginPath(); ctx.moveTo(ax - dir * 12 * s, cy + 16 * s); ctx.lineTo(ax - dir * 12 * s, cy - 6 * s); ctx.quadraticCurveTo(ax - dir * 12 * s, cy - 18 * s, ax + dir * 10 * s, cy - 18 * s); ctx.stroke();
-			ctx.beginPath(); ctx.moveTo(ax + dir * 4 * s, cy - 27 * s); ctx.lineTo(ax + dir * 14 * s, cy - 18 * s); ctx.lineTo(ax + dir * 4 * s, cy - 9 * s); ctx.stroke();
-			ctx.fillStyle = '#fff'; ctx.font = `700 ${40 * s}px ${DF}`; ctx.fillText(String(nt.aste), cx - 22 * s, cy + 12 * s);
-			ctx.font = `700 ${22 * s}px ${DF}`; ctx.fillText((dir > 0 ? 'PAREM' : 'VASAK'), cx + 6 * s, cy - 6 * s);
-			ctx.fillStyle = '#ffc20e'; ctx.fillText(nt.d + ' m', cx + 6 * s, cy + 18 * s);
-		}
-		/* stardi loendus */
-		if (olek === 'soit' && loendus > 0) {
-			ctx.textAlign = 'center'; ctx.fillStyle = '#fff'; ctx.font = `700 ${120 * s}px ${DF}`;
-			ctx.fillText(loendus > 0.5 ? String(Math.ceil(loendus - 0.5)) : 'START', W / 2, H2 * 0.48); ctx.textAlign = 'left';
-		}
-		ctx.restore();
+		const nt = olek === 'soit' ? noot(rada, o.s) : null;
+		let vale = false;
+		if (olek === 'soit' && o.v > 3) { const dh = Math.cos(o.h - rada.h[o.i]); vale = dh < -0.2; }
+		const [mx, my] = kaart.P(o.x, o.z);
+		h = {
+			kell, kmh: Math.round(o.v * 3.6), kaik: o.kaik, noot: nt && nt.d < 190 ? { suund: nt.suund, aste: nt.aste, d: Math.round(nt.d / 10) * 10, sees: nt.sees } : null,
+			kp, vahe: vaheajad.length ? `KP${vaheajad.length}  ${aegTekst(vaheajad[vaheajad.length - 1])}` : '',
+			loendus, vale, abi: olek === 'soit' && seisab > 1.2, mx, my, prog: Math.max(0, Math.min(1, (o.s - ALGUS) / PIKKUS))
+		};
 	}
 
 	/* ---------- juhtimine ---------- */
 	const KLAHV = { ArrowUp: 'gaas', KeyW: 'gaas', ArrowDown: 'pidur', KeyS: 'pidur', Space: 'kasi', ArrowLeft: 'vasak', KeyA: 'vasak', ArrowRight: 'parem', KeyD: 'parem' };
 	function klahv(e, alla) {
+		const sees = ekraan?.contains(document.activeElement) || olek === 'soit';
+		if (alla && e.code === 'KeyR' && olek === 'soit' && sees) { e.preventDefault(); taasta(); return; }
+		if (alla && e.code === 'KeyM' && sees) { muudaHeli(); return; }
 		const k = KLAHV[e.code];
-		if (!k || (!ekraan?.contains(document.activeElement) && olek !== 'soit')) return;
+		if (!k || !sees) return;
 		e.preventDefault();
 		sis[k] = alla;
-		if (alla && k === 'gaas' && (olek === 'algus' || olek === 'finis')) alusta();
+		if (alla && k === 'gaas' && (olek === 'algus' || olek === 'finis')) start();
 	}
-	function nupp(k, alla) { return (e) => { e.preventDefault(); sis[k] = alla; if (alla && k === 'gaas' && olek === 'algus') alusta(); }; }
+	function nupp(k, alla) { return (e) => { e.preventDefault(); sis[k] = alla; if (alla && k === 'gaas' && olek === 'algus') start(); }; }
+	function start() { laeHeli(); alusta(); }
+	function muudaHeli() {
+		vaikne = !vaikne;
+		heli?.vaikne(vaikne);
+		try { localStorage.setItem('pm_etapp_vaikne', vaikne ? '1' : '0'); } catch {}
+	}
 	function taisEkraan() {
 		taisekraan = !taisekraan;
 		try { document.documentElement.style.overflow = taisekraan ? 'hidden' : ''; } catch {}
@@ -207,7 +210,7 @@
 	<div class="et-info">
 		<div>
 			<p class="et-nr">Etapp nr {nr} · {new Date().toLocaleDateString('et-EE', { day: 'numeric', month: 'long' })}</p>
-			<p class="et-olud">Kuiv kruus · 1,85 km · {E.kurvid.length} kurvi · uus rada iga päev</p>
+			<p class="et-olud">Kruusatee metsas · 1,85 km · {rada.kurvid.length} kurvi · uus rada iga päev</p>
 		</div>
 		<div class="et-paremal">
 			{#if parim}<p class="et-parim">Sinu tänane parim <b>{aegTekst(parim)}</b></p>{/if}
@@ -216,31 +219,53 @@
 	</div>
 
 	<div class="et-ekraan" class:tais={taisekraan} bind:this={ekraan}>
-		<div class="et-ala" tabindex="0" role="application" aria-label="Päeva etapp: nooleklahvid juhivad">
+		<div class="et-ala" tabindex="0" role="application" aria-label="Päeva etapp: nooleklahvid juhivad" bind:this={ala}>
 			<canvas bind:this={cv} class="et-cv" aria-hidden="true"></canvas>
+
+			{#if olek === 'soit' || olek === 'avarii'}
+				<div class="hud-aeg"><b>{aegTekst(h.kell)}</b>{#if h.vahe}<span>{h.vahe}</span>{/if}</div>
+				<div class="hud-prog"><i style="width:{h.prog * 100}%"></i>{#each [1, 2, 3, 4] as k (k)}<em class:ok={k <= h.kp} style="left:{(k * KP_VAHE * 100) / PIKKUS}%"></em>{/each}</div>
+				<div class="hud-kiirus"><b>{h.kmh}</b><span>km/h</span><small>{h.kaik < 0 ? 'R' : h.kaik}</small></div>
+				<svg class="hud-kaart" viewBox="0 0 110 110" aria-hidden="true">
+					<path d={kaart.tee} />
+					{#each kaart.kpd as [x, y], j (j)}<circle cx={x} cy={y} r="2.6" class:ok={j < h.kp} />{/each}
+					<rect x={kaart.fin[0] - 3} y={kaart.fin[1] - 3} width="6" height="6" />
+					<circle class="auto" cx={h.mx} cy={h.my} r="4" />
+				</svg>
+				{#if h.noot}
+					<div class="hud-noot" class:ohtlik={h.noot.aste <= 2}>
+						<svg viewBox="0 0 40 40" aria-hidden="true" style="transform:scaleX({h.noot.suund})"><path d="M12 34V20a8 8 0 0 1 8-8h10" /><path d="m25 6 6 6-6 6" /></svg>
+						<b>{h.noot.aste}</b>
+						<span>{h.noot.suund > 0 ? 'PAREM' : 'VASAK'}{#if !h.noot.sees}<em>{h.noot.d} m</em>{/if}</span>
+					</div>
+				{/if}
+				{#if h.loendus > 0}<div class="hud-loendus">{h.loendus > 0.5 ? Math.ceil(h.loendus - 0.5) : 'MINE!'}</div>{/if}
+				{#if h.vale}<div class="hud-vale">Vale suund</div>{/if}
+				{#if h.abi}<div class="hud-vale abi">Kinni? Vajuta R</div>{/if}
+			{/if}
+
 			{#if olek === 'algus' || olek === 'laeb'}
 				<div class="et-kiht">
 					<b>Päeva etapp</b>
-					<span>Kruusaralli aja peale. Kaardilugeja näitab ees tulevat kurvi: 1 on kõige järsem, 6 peaaegu sirge. Teelt välja minnes alustad eelmisest kontrollpunktist.</span>
-					<button type="button" class="btn yel" disabled={olek === 'laeb'} onclick={alusta}>{olek === 'laeb' ? 'Laen…' : 'Stardi'}</button>
-					<small>Nooleklahvid: ↑ gaas, ↓ pidur, ← → rool, tühik käsipidur. Telefonis nupud ekraanil.</small>
+					<span>Kruusaralli aja peale. Kurvi ees pidurda, keera sisse ja anna gaasi: tagaots tuleb välja ja auto driftib. Vasturool toob sirgeks. Kaardilugeja näitab ees tulevat kurvi, 1 on kõige järsem.</span>
+					{#if viga}<span class="viga">{viga}</span>{:else}<button type="button" class="btn yel" disabled={olek === 'laeb'} onclick={start}>{olek === 'laeb' ? 'Laen rada…' : 'Stardi'}</button>{/if}
+					<small>↑ gaas · ↓ pidur · ← → rool · tühik käsipidur · R tagasi kontrollpunkti · M heli</small>
 				</div>
 			{/if}
 			{#if olek === 'avarii' && teade}
-				<div class="et-teade" role="status"><b>Teelt välja</b><span>{teade}</span></div>
+				<div class="et-teade" role="status"><b>Avarii</b><span>{teade} Alustad eelmisest kontrollpunktist.</span></div>
 			{/if}
 			{#if olek === 'finis' && tulemus}
 				<div class="et-kiht et-tul" role="dialog" aria-label="Tulemus">
 					<p class="et-k-pea">Finiš · etapp nr {nr}</p>
 					<p class="et-k-aeg">{aegTekst(tulemus.aeg)}</p>
-					<p class="et-k-s">{tulemus.uus ? 'Sinu tänane parim!' : 'Tänane parim ' + aegTekst(tulemus.parim)} · tipp {tulemus.tipp} km/h · teelt välja {tulemus.avariid} korda</p>
-					<p class="et-k-tead"><b>Kas teadsid?</b> Etapi järseima kurvi (raadius {tulemus.R} m) saab kruusal läbida umbes {tulemus.kruus} km/h, kuival asfaldil {tulemus.asfalt} km/h. Kruusal on haaret ligi kolmandiku võrra vähem.</p>
-					<div class="et-nupud">
-						<button type="button" class="btn yel" onclick={alusta}>Sõida uuesti</button>
-					</div>
+					<p class="et-k-s">{tulemus.uus ? 'Sinu tänane parim!' : 'Tänane parim ' + aegTekst(tulemus.parim)} · tipp {tulemus.tipp} km/h · avariisid {tulemus.avariid}</p>
+					<p class="et-k-tead"><b>Kas teadsid?</b> Etapi järseima kurvi (raadius {tulemus.R} m) saab kruusal läbida umbes {tulemus.kruus} km/h, kuival asfaldil {tulemus.asfalt} km/h. Kruusal on haaret ligi kolmandiku võrra vähem, seega ka pidurdusmaa on pikem.</p>
+					<div class="et-nupud"><button type="button" class="btn yel" onclick={start}>Sõida uuesti</button></div>
 					<small>Homme on uus rada.</small>
 				</div>
 			{/if}
+
 			<div class="et-juht" aria-hidden="true">
 				<div class="et-pool">
 					<button type="button" tabindex="-1" onpointerdown={nupp('vasak', true)} onpointerup={nupp('vasak', false)} onpointerleave={nupp('vasak', false)} onpointercancel={nupp('vasak', false)}>◀</button>
@@ -253,14 +278,19 @@
 				</div>
 			</div>
 		</div>
-		<button type="button" class="et-fs" onclick={taisEkraan} aria-label={taisekraan ? 'Välju täisekraanist' : 'Täisekraan'}>
-			<svg viewBox="0 0 24 24" aria-hidden="true">{#if taisekraan}<path d="M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5" />{:else}<path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" />{/if}</svg>
-		</button>
+		<div class="et-nupurida">
+			<button type="button" class="et-fs" onclick={muudaHeli} aria-label={vaikne ? 'Heli sisse' : 'Heli välja'}>
+				<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z" />{#if vaikne}<path d="m17 9 5 6M22 9l-5 6" />{:else}<path d="M17 8a5 5 0 0 1 0 8M19.5 5a9 9 0 0 1 0 14" />{/if}</svg>
+			</button>
+			<button type="button" class="et-fs" onclick={taisEkraan} aria-label={taisekraan ? 'Välju täisekraanist' : 'Täisekraan'}>
+				<svg viewBox="0 0 24 24" aria-hidden="true">{#if taisekraan}<path d="M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5" />{:else}<path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" />{/if}</svg>
+			</button>
+		</div>
 	</div>
 </div>
 
 <style>
-	.et { max-width: 960px; margin: 0 auto; padding: var(--sp-6) 0 var(--sp-10); }
+	.et { max-width: 1080px; margin: 0 auto; padding: var(--sp-6) 0 var(--sp-10); }
 	.et-info { display: flex; justify-content: space-between; align-items: flex-end; gap: var(--sp-3); flex-wrap: wrap; margin-bottom: var(--sp-3); }
 	.et-nr { margin: 0; font-family: var(--display); font-size: 26px; font-weight: 700; text-transform: uppercase; }
 	.et-olud { margin: 2px 0 0; color: var(--muted); font-size: 15px; }
@@ -268,30 +298,60 @@
 	.et-parim, .et-seeria { margin: 0; font-size: 14.5px; }
 	.et-parim b { font-family: var(--display); font-size: 20px; }
 	.et-ekraan { position: relative; }
-	.et-ala { position: relative; border-radius: var(--r-lg, 16px); overflow: hidden; background: #0a0b0d; outline: none; user-select: none; -webkit-user-select: none; touch-action: none; }
+	.et-ala { position: relative; border-radius: var(--r-lg, 16px); overflow: hidden; background: #c9d6de; outline: none; user-select: none; -webkit-user-select: none; touch-action: none; }
 	.et-ala:focus-visible { box-shadow: 0 0 0 3px var(--yellow); }
-	.et-cv { width: 100%; aspect-ratio: 1 / 0.6; display: block; }
-	.et-kiht { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--sp-3); padding: var(--sp-5); text-align: center; color: #fff; background: linear-gradient(rgba(5, 6, 8, 0.35), rgba(5, 6, 8, 0.75)); }
+	.et-cv { width: 100%; aspect-ratio: 16 / 9; display: block; }
+	.et-ala > div:not(.et-kiht):not(.et-juht):not(.et-teade), .et-ala > svg { pointer-events: none; }
+	.hud-aeg { position: absolute; left: 14px; top: 12px; display: grid; color: #fff; text-shadow: 0 1px 3px rgba(0, 0, 0, 0.55); }
+	.hud-aeg b { font-family: var(--display); font-size: clamp(28px, 4.4vw, 44px); line-height: 1; letter-spacing: 0.01em; }
+	.hud-aeg span { font-size: 13px; font-weight: 700; color: #ffe08a; }
+	.hud-prog { position: absolute; left: 50%; transform: translateX(-50%); top: 16px; width: min(46%, 420px); height: 6px; border-radius: 3px; background: rgba(0, 0, 0, 0.3); }
+	.hud-prog i { position: absolute; inset: 0 auto 0 0; border-radius: 3px; background: #ffc20e; }
+	.hud-prog em { position: absolute; top: -4px; width: 3px; height: 14px; margin-left: -1px; background: rgba(255, 255, 255, 0.75); border-radius: 1px; }
+	.hud-prog em.ok { background: #ffc20e; }
+	.hud-kiirus { position: absolute; right: 16px; bottom: 14px; display: grid; grid-template-columns: auto auto; align-items: end; column-gap: 6px; color: #fff; text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6); }
+	.hud-kiirus b { font-family: var(--display); font-size: clamp(40px, 6vw, 64px); line-height: 0.9; grid-row: span 2; }
+	.hud-kiirus span { font-size: 12px; font-weight: 700; opacity: 0.85; }
+	.hud-kiirus small { font-family: var(--display); font-size: 22px; font-weight: 700; color: #ffc20e; line-height: 1; }
+	.hud-kaart { position: absolute; left: 12px; bottom: 12px; width: clamp(84px, 13vw, 130px); height: auto; background: rgba(10, 12, 16, 0.38); border-radius: 12px; }
+	.hud-kaart path { fill: none; stroke: rgba(255, 255, 255, 0.85); stroke-width: 2.4; stroke-linejoin: round; stroke-linecap: round; }
+	.hud-kaart circle { fill: rgba(255, 255, 255, 0.7); }
+	.hud-kaart circle.ok { fill: #ffc20e; }
+	.hud-kaart rect { fill: #ffc20e; }
+	.hud-kaart circle.auto { fill: #ff3b30; stroke: #fff; stroke-width: 1.5; }
+	.hud-noot { position: absolute; left: 50%; top: 38px; transform: translateX(-50%); display: flex; align-items: center; gap: 10px; padding: 8px 16px 8px 12px; border-radius: 14px; background: rgba(12, 14, 18, 0.72); color: #fff; }
+	.hud-noot.ohtlik { background: rgba(196, 28, 28, 0.88); }
+	.hud-noot svg { width: 34px; height: 34px; fill: none; stroke: #fff; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
+	.hud-noot b { font-family: var(--display); font-size: 44px; line-height: 1; }
+	.hud-noot span { display: grid; font-family: var(--display); font-size: 20px; font-weight: 700; line-height: 1.05; }
+	.hud-noot em { font-style: normal; color: #ffc20e; }
+	.hud-loendus { position: absolute; inset: 0; display: grid; place-items: center; font-family: var(--display); font-size: clamp(80px, 16vw, 160px); font-weight: 700; color: #fff; text-shadow: 0 4px 18px rgba(0, 0, 0, 0.45); }
+	.hud-vale { position: absolute; left: 50%; top: 44%; transform: translateX(-50%); padding: 8px 16px; border-radius: 10px; background: rgba(196, 28, 28, 0.88); color: #fff; font-family: var(--display); font-size: 26px; font-weight: 700; text-transform: uppercase; }
+	.hud-vale.abi { top: 56%; background: rgba(12, 14, 18, 0.75); }
+	.et-kiht { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--sp-3); padding: var(--sp-5); text-align: center; color: #fff; background: linear-gradient(rgba(5, 6, 8, 0.25), rgba(5, 6, 8, 0.72)); }
 	.et-kiht b { font-family: var(--display); font-size: 56px; text-transform: uppercase; line-height: 0.95; letter-spacing: 0.01em; }
-	.et-kiht span { max-width: 30em; color: #e3e6ea; font-size: 15.5px; line-height: 1.45; }
-	.et-kiht small { color: #aab1bc; font-size: 13px; }
+	.et-kiht span { max-width: 32em; color: #e9ecef; font-size: 15.5px; line-height: 1.45; }
+	.et-kiht span.viga { color: #ffd2d2; }
+	.et-kiht small { color: #c3c9d1; font-size: 13px; }
 	.et-teade { position: absolute; left: 50%; top: 30%; transform: translateX(-50%); width: min(92%, 520px); background: rgba(16, 18, 22, 0.9); border-left: 4px solid #ff5a5a; color: #fff; border-radius: 12px; padding: 12px 16px; display: grid; gap: 4px; font-size: 15px; line-height: 1.45; }
 	.et-teade b { color: #ff5a5a; font-family: var(--display); font-size: 24px; text-transform: uppercase; }
 	.et-tul { overflow: auto; }
 	.et-k-pea { margin: 0; color: #ffc20e; font-weight: 700; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; }
 	.et-k-aeg { margin: 0; font-family: var(--display); font-size: 80px; font-weight: 700; color: #ffc20e; line-height: 1; }
 	.et-k-s { margin: 0; color: #e3e6ea; font-size: 15px; }
-	.et-k-tead { margin: 0; max-width: 32em; color: #cfd4db; font-size: 14px; line-height: 1.45; background: rgba(255, 255, 255, 0.06); border-radius: 10px; padding: 10px 14px; }
-	.et-k-tead b { color: #fff; }
+	.et-k-tead { margin: 0; max-width: 32em; color: #d5dae0; font-size: 14px; line-height: 1.45; background: rgba(255, 255, 255, 0.08); border-radius: 10px; padding: 10px 14px; }
+	.et-k-tead b { color: #fff; font-family: inherit; font-size: inherit; text-transform: none; }
 	.et-nupud { display: flex; gap: var(--sp-2); }
 	.et-juht { position: absolute; left: 0; right: 0; bottom: 0; display: flex; justify-content: space-between; padding: 10px; pointer-events: none; }
 	.et-pool { display: flex; gap: 10px; }
-	.et-juht button { pointer-events: auto; width: 64px; height: 64px; border-radius: 16px; border: 1px solid rgba(255, 255, 255, 0.25); background: rgba(10, 11, 13, 0.45); color: #fff; font-size: 22px; font-weight: 800; cursor: pointer; touch-action: none; }
-	.et-juht button.gaas { background: rgba(22, 101, 52, 0.6); font-size: 15px; }
-	.et-juht button.pidur { background: rgba(153, 27, 27, 0.6); font-size: 15px; }
-	.et-juht button.kasi { background: rgba(120, 80, 10, 0.6); font-size: 12px; line-height: 1.1; }
+	.et-juht button { pointer-events: auto; width: 68px; height: 68px; border-radius: 18px; border: 1px solid rgba(255, 255, 255, 0.3); background: rgba(10, 11, 13, 0.4); color: #fff; font-size: 24px; font-weight: 800; cursor: pointer; touch-action: none; }
+	.et-juht button.gaas { background: rgba(22, 101, 52, 0.62); font-size: 15px; }
+	.et-juht button.pidur { background: rgba(153, 27, 27, 0.62); font-size: 15px; }
+	.et-juht button.kasi { background: rgba(120, 80, 10, 0.62); font-size: 12px; line-height: 1.1; }
 	@media (hover: hover) and (pointer: fine) { .et-juht { display: none; } }
-	.et-fs { position: absolute; top: 10px; right: 10px; width: 40px; height: 40px; border-radius: 10px; border: 1px solid rgba(255, 255, 255, 0.18); background: rgba(10, 11, 13, 0.55); color: #fff; display: grid; place-items: center; cursor: pointer; padding: 0; z-index: 2; }
+	@media (pointer: coarse) { .hud-kaart { display: none; } .hud-kiirus { bottom: auto; top: 10px; right: 112px; } }
+	.et-nupurida { position: absolute; top: 10px; right: 10px; display: flex; gap: 8px; z-index: 2; }
+	.et-fs { width: 40px; height: 40px; border-radius: 10px; border: 1px solid rgba(255, 255, 255, 0.25); background: rgba(10, 11, 13, 0.45); color: #fff; display: grid; place-items: center; cursor: pointer; padding: 0; }
 	.et-fs svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
 	.et-ekraan.tais { position: fixed; inset: 0; z-index: 1000; background: #0a0b0d; display: flex; }
 	.et-ekraan.tais .et-ala { flex: 1; border-radius: 0; display: flex; }

@@ -5,7 +5,7 @@
 	import Etapp from '$lib/Etapp.svelte';
 	import { ORG, graph, tooriist } from '$lib/skeem.js';
 
-	const KIRJ = 'Tasuta kruusaralli brauseris: iga päev uus etapp, sõida aja peale, kaardilugeja näitab kurve. Füüsika ja haare on samast mudelist mis pidurdusmaa kalkulaatoris.';
+	const KIRJ = 'Tasuta 3D kruusaralli brauseris: iga päev uus etapp metsateel, sõida aja peale ja drifti kurvides. Kaardilugeja näitab kurve, pidurdus tuleb pidurdusmaa kalkulaatori mudelist.';
 	const jsonld = graph(tooriist('Päeva etapp: kruusaralli', '/liiklusohutus/etapp/', KIRJ, 'et'), ORG);
 </script>
 
@@ -14,11 +14,11 @@
 <LiiklusLeht Tool={Etapp} kick="Mäng · ralli" h1="Päeva etapp" lead="Kruusaralli aja peale. Iga päev uus rada, kõigile sama. Kui kiiresti sina selle läbi sõidad?" vaade="reaktsioon">
 	<div>
 		<h2>Kuidas sõita</h2>
-		<p>Pidurda enne kurvi, mitte kurvis: pidur ja pööramine jagavad sama haaret. Kaardilugeja number näitab kurvi järsust, 1 on juuksenõel ja 6 peaaegu sirge. Järsus kurvis aitab käsipidur: lühike tõmme toob tagaotsa ringi.</p>
+		<p>Kurvi ees pidurda ja keera sisse: tagaots tuleb välja ja auto libiseb külg ees. Gaas hoiab drifti, vasturool toob auto sirgeks. Järsus kurvis aitab käsipidur. Kaardilugeja number näitab kurvi järsust, 1 on kõige järsem ja 6 peaaegu sirge.</p>
 	</div>
 	<div>
-		<h2>Füüsika</h2>
-		<p>Auto käitub nagu päris: rehvid libisevad nurga all, koormus kandub pidurdades ette, ABS hoiab rattad veerevana. Kruusa haare tuleb samast mudelist mis pidurdusmaa kalkulaatoris, nii et kurvide piirkiirused on päris omad.</p>
+		<h2>Mis on päris</h2>
+		<p>Pidurdusjõud ja haare kruusal tulevad samast mudelist mis pidurdusmaa kalkulaatoris. Kui sõidad kurvi liiga kiiresti ja teelt välja lähed, näitab mäng, mis on selle kurvi piirkiirus kruusal.</p>
 	</div>
 	<div>
 		<h2>Veel mänge</h2>
