@@ -9,7 +9,7 @@
 	const jsonld = graph(tooriist('Päeva etapp: kruusaralli', '/liiklusohutus/etapp/', KIRJ, 'et'), ORG);
 </script>
 
-<Meta title="Päeva etapp: kruusaralli, iga päev uus rada" desc={KIRJ} path="liiklusohutus/etapp/" {jsonld} image="/og/sait/liiklus-reaktsioon.png" />
+<Meta title="Päeva etapp: kruusaralli, iga päev uus rada" desc={KIRJ} path="liiklusohutus/etapp/" {jsonld} noindex image="/og/sait/liiklus-reaktsioon.png" />
 
 <LiiklusLeht Tool={Etapp} kick="Mäng · ralli" h1="Päeva etapp" lead="Kruusaralli aja peale. Iga päev uus rada, kõigile sama. Kui kiiresti sina selle läbi sõidad?" vaade="reaktsioon">
 	<div>
