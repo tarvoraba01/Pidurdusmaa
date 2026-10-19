@@ -43,9 +43,11 @@ export const REHVID = [
 /* päeva rada: kurvid (raadius meetrites), sirged; algus ja lõpp sirged */
 export function looEtapp(nr) {
 	const r = rng(nr * 7919 + 13);
-	const olud = OLUD[Math.floor(r() * OLUD.length)];
-	const oo = r() < 0.3;
-	const maastik = r() < 0.75 ? 'mets' : 'kula';
+	/* üks mäng: kuiv kruusaralli päevavalges (Tarvo 19.10: ralli on põhiasi, mitte ilmarežiimid) */
+	r(); r();
+	const olud = OLUD.find((x) => x.id === 'kruus');
+	const oo = false;
+	const maastik = 'mets';
 	const seg = [];
 	const kurvid = [];
 	const RAADIUS = [28, 40, 55, 70, 90, 120, 170, 250];
@@ -74,15 +76,24 @@ export function looEtapp(nr) {
 		if (n % 8 === 0) { s.obj.push({ t: 'post', x: -TEE_L - 1.2 }); s.obj.push({ t: 'post', x: TEE_L + 1.2 }); }
 		for (const pool of [-1, 1]) {
 			if (maastik === 'mets') {
-				if (r() < 0.7) s.obj.push({ t: r() < 0.8 ? 'kuusk' : 'kask', x: pool * (TEE_L + 4 + r() * 14), h: 9 + r() * 9, v: r() });
-				if (r() < 0.3) s.obj.push({ t: 'kuusk', x: pool * (TEE_L + 3.2 + r() * 3), h: 7 + r() * 6, v: r() });
+				if (r() < 0.6) s.obj.push({ t: r() < 0.8 ? 'kuusk' : 'kask', x: pool * (TEE_L + 7 + r() * 16), h: 9 + r() * 9, v: r() });
+				if (r() < 0.22) s.obj.push({ t: 'kuusk', x: pool * (TEE_L + 5 + r() * 3), h: 7 + r() * 6, v: r() });
 			} else {
 				if (n % 9 === 0 && r() < 0.7) s.obj.push({ t: 'maja', x: pool * (TEE_L + 10 + r() * 6), w: 8 + r() * 4, h: 5 + r() * 3, v: r(), aken: r() });
 				if (n % 5 === 2 && r() < 0.6) s.obj.push({ t: r() < 0.5 ? 'kask' : 'poos', x: pool * (TEE_L + 4.5 + r() * 3), h: 4 + r() * 6, v: r() });
 			}
 		}
 	}
-	for (const k of kurvid) if (k.R <= 90 && k.n0 > 14) seg[k.n0 - 12].obj.push({ t: 'mark', x: TEE_L + 1.8, suund: k.suund });
+	for (const k of kurvid) {
+		k.aste = k.R < 32 ? 1 : k.R < 48 ? 2 : k.R < 65 ? 3 : k.R < 95 ? 4 : k.R < 140 ? 5 : 6; /* kaardilugeja aste: 1 = kõige järsem */
+		if (k.R > 120) continue;
+		/* kurvi välisküljel heinapallid ja pealtvaatajad */
+		const valis = -k.suund;
+		for (let n = k.n0 + 2; n < k.n1; n += 3) seg[n].obj.push({ t: 'pall', x: valis * (TEE_L + 1.4) });
+		const kesk = Math.floor((k.n0 + k.n1) / 2);
+		seg[kesk].obj.push({ t: 'publik', x: valis * (TEE_L + 6), n: 4 + Math.floor(r() * 5), v: Math.floor(r() * 6) });
+		if (k.R < 60) seg[Math.min(N - 1, kesk + 2)].obj.push({ t: 'publik', x: valis * (TEE_L + 7.5), n: 3 + Math.floor(r() * 4), v: Math.floor(r() * 6) });
+	}
 	const nStart = Math.round(ALGUS_Z / SEG), nFin = Math.round((ALGUS_Z + PIKKUS) / SEG);
 	seg[nStart].obj.push({ t: 'kaar', x: 0, tekst: 'START' });
 	seg[nFin].obj.push({ t: 'kaar', x: 0, tekst: 'FINIŠ' });
@@ -147,7 +158,8 @@ export function ohutuKiirus(H, d) {
  * tuleb välja (kässariga kurvi keeramine). ABS hoiab tavapidurdusel rattad veerevana.
  * Koordinaadid: x ette, y paremale; r > 0 = pöörab paremale; δ > 0 = rattad paremale.
  * Tee suhtes: s (z) mööda teed, x külgnihe (+ paremale), psi = auto nurk tee puutuja suhtes. */
-const AUTO = { m: 1420, Iz: 2250, a: 1.03, b: 1.6, h: 0.55, P: 110000, Fveo: 5200, Fpidur: 16000, CdA: 0.66 };
+/* ralliauto (Rally2 laadne): nelikvedu, ~210 kW, 1350 kg */
+const AUTO = { m: 1350, Iz: 2000, a: 1.15, b: 1.45, h: 0.5, P: 210000, Fveo: 9000, Fpidur: 17000, CdA: 0.75 };
 export function uusAuto(z, x) {
 	return { z, x, psi: 0, vx: 0, vy: 0, r: 0, delta: 0, v: 0, ax: 0, libiseb: false, kasi: false };
 }
@@ -158,24 +170,26 @@ export function samm(o, sis, dt, kov, mu0, maas) {
 	const { m, Iz, a, b, h } = AUTO, L = a + b;
 	const v = Math.hypot(o.vx, o.vy);
 	let mu = mu0(v) / (G * 0.94); /* mootori aeglustus (m/s²) → haardetegur */
-	if (maas) mu *= 0.5;
+	if (maas) mu *= 0.6;
 	/* rool: kiirusega väheneb maksimaalne rataste nurk (nagu päris roolil sõites väiksemad liigutused) */
-	const dMax = 0.03 + 0.5 * (6 / (6 + v));
+	/* täisrool (klahv) annab ~85% haardest: rattanurk, millega auto selle kiirusega veel ei libise.
+	   Nii ei viska klahvivajutus autot külili; libisema läheb alles liiga suure kiirusega kurvis. */
+	const dMax = Math.min(0.45, (L * 0.85 * mu * G) / Math.max(1, v * v) + 0.035);
 	const siht = sis.roolSiht * dMax;
-	o.delta += Math.max(-1.2 * dt, Math.min(1.2 * dt, siht - o.delta));
+	o.delta += Math.max(-0.8 * dt, Math.min(0.8 * dt, siht - o.delta));
 	const d = o.delta;
 	/* telgede koormus (pikikiirendusega ülekanne) */
 	const Fzf = Math.max(0, (m * G * b - m * o.ax * h) / L), Fzr = Math.max(0, (m * G * a + m * o.ax * h) / L);
 	/* pikijõud */
 	const vxs = Math.max(0.5, Math.abs(o.vx));
 	let Fxf = 0, Fxr = 0;
-	if (sis.gaas && !sis.pidur) Fxf = Math.min(AUTO.Fveo, AUTO.P / vxs);
+	if (sis.gaas && !sis.pidur) { const F = Math.min(AUTO.Fveo, AUTO.P / vxs); Fxf = F * 0.45; Fxr = F * 0.55; } /* nelikvedu */
 	if (sis.pidur && o.vx > 0.3) { Fxf -= AUTO.Fpidur * 0.7; Fxr -= AUTO.Fpidur * 0.3; }
 	/* ABS: pidurijõud ei ületa haaret (ratas ei lukustu); vedu: ratas buksib, jõud piiratud */
 	const maxF = mu * Fzf, maxR = mu * Fzr;
 	/* veojõukontroll hoiab veoratta libisemise väikese (≤ 70% haardest), ABS pidurdusel kuni 95% */
 	Fxf = Math.max(-0.95 * maxF, Math.min(0.7 * maxF, Fxf));
-	Fxr = Math.max(-0.95 * maxR, Math.min(0.95 * maxR, Fxr));
+	Fxr = Math.max(-0.95 * maxR, Math.min(0.75 * maxR, Fxr));
 	/* libisemisnurgad */
 	const vxa = Math.max(1.5, o.vx);
 	const af = Math.atan2(o.vy + a * o.r, vxa) - d;
@@ -195,7 +209,7 @@ export function samm(o, sis, dt, kov, mu0, maas) {
 	/* aeglasel kiirusel külgjõud sujuvalt maha (seisvat autot ei keera) */
 	const madal = Math.min(1, v / 2);
 	Fyf *= madal; Fyr *= madal;
-	const takistus = 0.5 * 1.225 * AUTO.CdA * o.vx * Math.abs(o.vx) + m * G * (maas ? 0.08 : 0.012) * Math.sign(o.vx);
+	const takistus = 0.5 * 1.225 * AUTO.CdA * o.vx * Math.abs(o.vx) + m * G * (maas ? 0.05 : 0.012) * Math.sign(o.vx);
 	const Fx = Fxf * Math.cos(d) - Fyf * Math.sin(d) + FyrX - takistus;
 	const Fy = Fxf * Math.sin(d) + Fyf * Math.cos(d) + Fyr;
 	const ax = Fx / m + o.vy * o.r, ay = Fy / m - o.vx * o.r;
@@ -214,8 +228,8 @@ export function samm(o, sis, dt, kov, mu0, maas) {
 	o.x += (o.vx * Math.sin(o.psi) + o.vy * Math.cos(o.psi)) * dt;
 	o.psi += (o.r - kov * sd) * dt;
 	o.v = Math.hypot(o.vx, o.vy);
-	o.libiseb = v > 5 && (Math.abs(af) > 0.13 || Math.abs(ar) > 0.11 || (sis.kasi && Math.abs(o.vy) > 1));
-	if (Math.abs(o.x) > TEE_L + 2.4) return 'teelt';
+	o.libiseb = v > 5 && (Math.abs(af) > 0.17 || Math.abs(ar) > 0.13 || (sis.kasi && Math.abs(o.vy) > 1));
+	if (Math.abs(o.x) > TEE_L + 5.5) return 'teelt'; /* alles puude / kraavi juures */
 	if (Math.abs(o.psi) > 2.4 && v < 3) return 'teelt'; /* ringi keeranud ja seisma jäänud */
 	return o.libiseb ? 'libiseb' : null;
 }
