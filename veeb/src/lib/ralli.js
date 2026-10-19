@@ -93,14 +93,27 @@ export function looRada(nr) {
 		const { k, kurvid } = looKurvid(r);
 		const c = keskjoon(k, r);
 		if (katse < 59 && ristub(c)) continue;
+		/* hüppekohad: sirgetel järsk hari (koos eelneva tõusuga). Auto tõuseb õhku, kui kiirus on suur:
+		   koosinuskühm kõrgusega A ja poollaiusega w, harja kõverus A·(π/w)²/2 */
+		const hupped = [];
+		for (let n0 = Math.round((ALGUS + 120) / SEG), sirge = 0; n0 < Math.round((ALGUS + PIKKUS - 60) / SEG); n0++) {
+			sirge = Math.abs(k[n0] || 0) < 1e-6 ? sirge + 1 : 0;
+			if (sirge >= 14 && hupped.length < 4 && (!hupped.length || n0 * SEG - hupped[hupped.length - 1].s > 220)) {
+				/* ebasümmeetriline hari: pikk tõus (w1), lühem langus (w2), nagu päris rallihüpe */
+				const sh = (n0 - 4) * SEG, A = 1.4 + r() * 0.6, w1 = 16 + r() * 4, w2 = 9 + r() * 2;
+				hupped.push({ s: sh, A, w: w2 });
+				for (let i = 0; i < c.n; i++) { const dS = i * DS - sh, e = dS / (dS < 0 ? w1 : w2); if (Math.abs(e) < 1) c.y[i] += A * 0.5 * (1 + Math.cos(Math.PI * e)); }
+				sirge = 0;
+			}
+		}
 		/* põdraohu kohad: sirgemad lõigud (kurvis põder oleks ebaaus); märk on 110 m enne */
 		const podrad = [];
 		for (let s0 = ALGUS + 220; s0 < ALGUS + PIKKUS - 120 && podrad.length < 4; s0 += 30) {
 			let max = 0;
 			for (let s1 = s0 - 140; s1 <= s0 + 30; s1 += SEG) max = Math.max(max, Math.abs(k[Math.floor(s1 / SEG)] || 0));
-			if (max < 1 / 80 && (!podrad.length || s0 - podrad[podrad.length - 1].s > 300)) podrad.push({ s: s0, pool: r() < 0.5 ? -1 : 1 });
+			if (max < 1 / 80 && !hupped.some((h) => Math.abs(h.s - s0) < 90) && (!podrad.length || s0 - podrad[podrad.length - 1].s > 300)) podrad.push({ s: s0, pool: r() < 0.5 ? -1 : 1 });
 		}
-		return { nr, k, kurvid, podrad, ...c, pikkus: (c.n - 1) * DS, seeme: nr * 31 + katse };
+		return { nr, k, kurvid, podrad, hupped, ...c, pikkus: (c.n - 1) * DS, seeme: nr * 31 + katse };
 	}
 }
 
@@ -126,10 +139,22 @@ export function profiil(d) {
 	if (a <= POOL + 3.2) return -0.15 - Math.sin(((a - POOL - 1.4) / 1.8) * Math.PI) * 0.55;
 	return -0.15 + Math.min(4, (a - POOL - 3.2) * 0.14);
 }
-export function korgus(rada, i, d, s) {
+/* tee kõrgus kohal s: sujuv (Hermite), et kalle muutuks pidevalt ja auto saaks harjalt õhku tõusta
+   ainult siis, kui hari on päriselt järsk (mitte iga 2,5 m punkti peal) */
+function tous(rada, j) { const a = Math.max(0, j - 1), b = Math.min(rada.n - 1, j + 1); return (rada.y[b] - rada.y[a]) / ((b - a) * DS); }
+export function teeY(rada, s) {
+	const j = Math.max(0, Math.min(rada.n - 2, Math.floor(s / DS)));
+	const f = Math.max(0, Math.min(1, s / DS - j)), f2 = f * f, f3 = f2 * f;
+	const m0 = tous(rada, j) * DS, m1 = tous(rada, j + 1) * DS;
+	return (2 * f3 - 3 * f2 + 1) * rada.y[j] + (f3 - 2 * f2 + f) * m0 + (-2 * f3 + 3 * f2) * rada.y[j + 1] + (f3 - f2) * m1;
+}
+export function teeKalle(rada, s) {
 	const j = Math.max(0, Math.min(rada.n - 2, Math.floor(s / DS)));
 	const f = Math.max(0, Math.min(1, s / DS - j));
-	return rada.y[j] * (1 - f) + rada.y[j + 1] * f + profiil(d);
+	return tous(rada, j) * (1 - f) + tous(rada, j + 1) * f;
+}
+export function korgus(rada, i, d, s) {
+	return teeY(rada, s) + profiil(d);
 }
 
 /* kurvi piirkiirus (km/h) kruusal: v²/R = a(v) */
@@ -149,7 +174,7 @@ export const K = { kulg: 1.8, tagaGaas: 0.97, tagaKasi: 0.5, kickTaga: 0.45, suu
 export function uusAuto(rada, s) {
 	const i = Math.max(0, Math.min(rada.n - 1, Math.round(s / DS)));
 	return { x: rada.x[i], z: rada.z[i], y: rada.y[i], h: rada.h[i], vx: 0, vz: 0, w: 0, rool: 0, i, s: i * DS, d: 0,
-		v: 0, vF: 0, libis: 0, kaik: 1, prr: 900, kick: 0, maas: 0, along: 0, alat: 0, ratas: 0, pidur: false };
+		v: 0, vF: 0, libis: 0, kaik: 1, prr: 900, kick: 0, maas: 0, along: 0, alat: 0, ratas: 0, pidur: false, vy: 0, ohus: false, ohusAeg: 0, loog: 0 };
 }
 
 /* üks samm. sis: { gaas, pidur, kasi, rool (-1..1) }, aFn(v): mootori aeglustus kruusal (m/s²).
@@ -190,15 +215,16 @@ export function samm(o, sis, dt, aFn, rada, puud) {
 	/* telje külgjõud (kiirendusena, m/s²): võrdeline libisemisega, piiratud telje haardega (telje koormus) */
 	const capF = haare * 0.5 * (1 + o.kick * 0.3);
 	const capR = haare * 0.52 * (sis.kasi ? K.tagaKasi : sis.gaas ? K.tagaGaas : 1) * (1 - o.kick * K.kickTaga);
-	const Ff = Math.max(-capF, Math.min(capF, (esiSiht - vRf) * K.lin));
-	const Fr = Math.max(-capR, Math.min(capR, -vRr * K.lin));
+	const maas0 = o.ohus ? 0 : 1; /* õhus rehvid ei haara */
+	const Ff = maas0 * Math.max(-capF, Math.min(capF, (esiSiht - vRf) * K.lin));
+	const Fr = maas0 * Math.max(-capR, Math.min(capR, -vRr * K.lin));
 	/* tagatelje libisemisest osa hoost edasi (arkaadlik, drift ei tapa kiirust) */
 	const libisR = Math.abs(vRr) > 1 ? Math.min(1, (Math.abs(vRr) - 1) / 4) : 0;
 	vF += Math.sign(vF || 1) * Math.abs(Fr) * libisR * K.suun * dt;
 	vR += (Ff + Fr) * dt;
 	o.w += ((A_ * Ff - B_ * Fr) / K2) * dt;
-	o.w *= 1 - dt * (sis.kasi ? 0.3 : 1.4); /* veermiku ja rehvide summutus: libisemine rahuneb, kui käsipidur lahti */
-	if (v < 1.5) { const k = 1 - v / 1.5; o.w += ((vF * Math.tan(delta)) / L - o.w) * k; vR *= 1 - k; } /* seistes: puhas veeremine */
+	o.w *= 1 - dt * (o.ohus ? 0.15 : sis.kasi ? 0.3 : 1.4); /* veermiku ja rehvide summutus: libisemine rahuneb, kui käsipidur lahti */
+	if (v < 1.5 && !o.ohus) { const k = 1 - v / 1.5; o.w += ((vF * Math.tan(delta)) / L - o.w) * k; vR *= 1 - k; } /* seistes: puhas veeremine */
 	o.h -= o.w * dt;
 	const libis = v > 2 ? Math.atan2(vR - B_ * o.w, Math.max(2, Math.abs(vF))) : 0; /* tagatelje libisemine, + = paremale */
 	o.libis = libis;
@@ -208,13 +234,16 @@ export function samm(o, sis, dt, aFn, rada, puud) {
 	let ax = 0;
 	/* haardering: kurvis kulub haare küljele, kiirenduseks jääb vähem */
 	const kulu = Math.min(1, Math.abs(vF * o.w) / (aMax * K.kulg));
-	if (sis.gaas && vF > -0.5) ax += Math.min(mu * G * K.veoHaare * pind, K.voim / Math.max(4, vfa)) * (o.maas === 2 ? 0.7 : 1) * (0.25 + 0.75 * Math.sqrt(1 - kulu * kulu));
-	if (sis.pidur) {
+	if (sis.gaas && vF > -0.5 && !o.ohus) ax += Math.min(mu * G * K.veoHaare * pind, K.voim / Math.max(4, vfa)) * (o.maas === 2 ? 0.7 : 1) * (0.25 + 0.75 * Math.sqrt(1 - kulu * kulu));
+	if (sis.pidur && !o.ohus) {
 		if (vF > 0.5) ax -= Math.min(aFn(Math.min(50, vF)) * pind, mu * G * pind);
 		else if (!sis.gaas) ax -= 3.2; /* tagurpidi */
 	}
-	if (sis.kasi && vF > 0.5) ax -= mu * G * 0.35;
-	const takistus = 0.0016 * vF * vfa + Math.sign(vF) * (0.25 + (o.maas === 1 ? 1 : o.maas === 2 ? 2.4 : 0)) + vF * Math.abs(Math.sin(libis)) * K.kraap;
+	if (sis.kasi && vF > 0.5 && !o.ohus) ax -= mu * G * 0.35;
+	/* tee kalle: ülesmäge aeglustab, allamäge kiirendab */
+	const tousN = o.ohus ? 0 : teeKalle(rada, o.s) * Math.cos(o.h - rada.h[o.i]);
+	ax -= G * tousN / Math.sqrt(1 + tousN * tousN);
+	const takistus = 0.0016 * vF * vfa + (o.ohus ? 0 : Math.sign(vF) * (0.25 + (o.maas === 1 ? 1 : o.maas === 2 ? 2.4 : 0)) + vF * Math.abs(Math.sin(libis)) * K.kraap);
 	if (vfa < 0.3 && !sis.gaas && !(sis.pidur && vF <= 0.5)) vF = 0;
 	else vF += (ax - takistus) * dt;
 	if (vF < -5) vF = -5;
@@ -223,7 +252,20 @@ export function samm(o, sis, dt, aFn, rada, puud) {
 	/* kiirus jääb maailma teljestikku (vana suuna järgi): kere pööre tekitab järgmisel sammul libisemise */
 	o.vx = fx * vF + rx * vR; o.vz = fz * vF + rz * vR;
 	o.x += o.vx * dt; o.z += o.vz * dt;
-	o.y = korgus(rada, o.i, o.d, o.s);
+	/* vertikaalne liikumine: maas järgib auto teed; kui hari kukub ära kiiremini kui raskus suudab
+	   autot alla tõmmata, on auto õhus (hüpe). Maandumisel jääb löögi kiirus o.loog vedrustusele. */
+	const pos2 = asukoht(rada, o.x, o.z, o.i);
+	const maaY = korgus(rada, pos2.i, pos2.d, pos2.s);
+	const rh = rada.h[pos2.i];
+	const piki = o.vx * Math.sin(rh) + o.vz * Math.cos(rh);
+	const maaVy = teeKalle(rada, pos2.s) * piki;
+	if (o.ohus) {
+		o.vy -= G * dt; o.y += o.vy * dt; o.ohusAeg += dt;
+		if (o.y <= maaY) { const l = Math.max(0, maaVy - o.vy); o.loog = Math.max(o.loog, l); o.y = maaY; o.vy = maaVy; o.ohus = false;
+			if (l > 4) { o.vx *= 0.97; o.vz *= 0.97; } }
+	} else if ((maaVy - (o.vy ?? maaVy)) / dt < -G && o.v > 12) {
+		o.ohus = true; o.ohusAeg = 0; o.vy -= G * dt; o.y += o.vy * dt;
+	} else { o.y = maaY; o.vy = maaVy; }
 	o.along += ((ax - takistus) - o.along) * Math.min(1, dt * 5);
 	o.alat += (vF * o.w - o.alat) * Math.min(1, dt * 5);
 	o.v = Math.hypot(vF, vR); o.vF = vF; o.pidur = !!sis.pidur;

@@ -2,7 +2,7 @@
  * Laaditakse ainult mängulehel (dünaamiline import), teisi lehti ei koorma. */
 import * as THREE from 'three';
 import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
-import { POOL, DS, ALGUS, PIKKUS, KP_VAHE, profiil, rng } from './ralli.js';
+import { POOL, DS, ALGUS, PIKKUS, KP_VAHE, profiil, rng, asukoht, korgus } from './ralli.js';
 
 const V = (x, y, z) => new THREE.Vector3(x, y, z);
 
@@ -63,6 +63,25 @@ function kruusTekstuur() {
 	const t = new THREE.CanvasTexture(c);
 	t.wrapS = THREE.ClampToEdgeWrapping; t.wrapT = THREE.RepeatWrapping;
 	t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 8;
+	return t;
+}
+
+/* muru tekstuur: heledal põhjal tumedad ja kollakad kõrred. Korrutub tipuvärviga; liikudes vilksub mööda
+   ja annab kiiruse tunde (Tarvo 19.10: kiiruse tunnetus kadunud) */
+function muruTekstuur() {
+	const W = 256, c = document.createElement('canvas');
+	c.width = c.height = W;
+	const g = c.getContext('2d'), r = rng(91);
+	g.fillStyle = 'rgb(222,228,210)'; g.fillRect(0, 0, W, W);
+	for (let k = 0; k < 2600; k++) {
+		const x = r() * W, y = r() * W, l = 2 + r() * 5, a = (r() - 0.5) * 0.9;
+		g.strokeStyle = r() < 0.7 ? `rgba(${40 + r() * 40},${70 + r() * 50},${25 + r() * 20},${0.25 + r() * 0.35})` : `rgba(255,${235 + r() * 20},${170 + r() * 40},${0.2 + r() * 0.3})`;
+		g.lineWidth = 1 + r() * 1.2;
+		g.beginPath(); g.moveTo(x, y); g.lineTo(x + Math.sin(a) * l, y - Math.cos(a) * l); g.stroke();
+	}
+	for (let k = 0; k < 60; k++) { g.fillStyle = `rgba(110,90,60,${0.12 + r() * 0.15})`; g.beginPath(); g.arc(r() * W, r() * W, 2 + r() * 6, 0, 6.283); g.fill(); }
+	const t = new THREE.CanvasTexture(c);
+	t.wrapS = t.wrapT = THREE.RepeatWrapping; t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 8;
 	return t;
 }
 
@@ -202,6 +221,7 @@ export function looMaailm(canvas, rada, { madal = false } = {}) {
 	const lahim = looRuudustik(rada, 14);
 	const lahimKaugel = looRuudustik(rada, 40);
 
+	const muru = muruTekstuur();
 	/* ---------- maastik: laia ruudustikuga kõrgusväli ---------- */
 	let minX = Infinity, maxX = -Infinity, minZ = Infinity, maxZ = -Infinity, keskY = 0;
 	for (let i = 0; i < rada.n; i++) { minX = Math.min(minX, rada.x[i]); maxX = Math.max(maxX, rada.x[i]); minZ = Math.min(minZ, rada.z[i]); maxZ = Math.max(maxZ, rada.z[i]); keskY += rada.y[i]; }
@@ -236,8 +256,11 @@ export function looMaailm(canvas, rada, { madal = false } = {}) {
 		const g = new THREE.BufferGeometry();
 		g.setAttribute('position', new THREE.BufferAttribute(pos, 3));
 		g.setAttribute('color', new THREE.BufferAttribute(col, 3));
+		const uv = new Float32Array((nx + 1) * (nz + 1) * 2);
+		for (let k = 0; k < uv.length / 2; k++) { uv[k * 2] = pos[k * 3] / 5; uv[k * 2 + 1] = pos[k * 3 + 2] / 5; }
+		g.setAttribute('uv', new THREE.BufferAttribute(uv, 2));
 		g.setIndex(idx); g.computeVertexNormals();
-		const m = new THREE.Mesh(g, new THREE.MeshLambertMaterial({ vertexColors: true }));
+		const m = new THREE.Mesh(g, new THREE.MeshLambertMaterial({ vertexColors: true, map: muru }));
 		m.receiveShadow = true;
 		scene.add(m);
 	}
@@ -253,7 +276,7 @@ export function looMaailm(canvas, rada, { madal = false } = {}) {
 				const d = nihked[j], k = (i * w + j) * 3;
 				pos[k] = rada.x[i] + rx * d; pos[k + 1] = rada.y[i] + profiil(d) + lisaY; pos[k + 2] = rada.z[i] + rz * d;
 				if (col) { const c = varvid(d); col[k] = c[0] * tumm; col[k + 1] = c[1] * tumm; col[k + 2] = c[2] * tumm; }
-				if (uvs) { uvs[(i * w + j) * 2] = (d - nihked[0]) / (nihked[w - 1] - nihked[0]); uvs[(i * w + j) * 2 + 1] = (i * DS) / 9; }
+				if (uvs) { uvs[(i * w + j) * 2] = (d - nihked[0]) / (nihked[w - 1] - nihked[0]); uvs[(i * w + j) * 2 + 1] = (i * DS) / 6; }
 			}
 		}
 		const idx = [];
@@ -274,7 +297,7 @@ export function looMaailm(canvas, rada, { madal = false } = {}) {
 		if (a < 5.6) return [0.36, 0.36, 0.22]; /* peenar */
 		if (a < 7.6) return [0.17, 0.25, 0.11]; /* kraav, tumedam */
 		return [0.24, 0.34, 0.15];
-	}, false, new THREE.MeshLambertMaterial({ vertexColors: true }), 0);
+	}, true, new THREE.MeshLambertMaterial({ vertexColors: true, map: (() => { const t = muru.clone(); t.needsUpdate = true; t.repeat.set(7, 1.5); return t; })() }), 0);
 	const teeNihked = [-POOL - 0.6, -POOL, -3, -1.6, -0.6, 0, 0.6, 1.6, 3, POOL, POOL + 0.6];
 	riba(teeNihked, null, true, new THREE.MeshStandardMaterial({ map: kruusTekstuur(), roughness: 0.96, metalness: 0, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2 }), 0.03);
 
@@ -339,6 +362,34 @@ export function looMaailm(canvas, rada, { madal = false } = {}) {
 		});
 		im.castShadow = vari; im.receiveShadow = false;
 		scene.add(im);
+	}
+
+	/* ---------- teeäärsed põõsad ja kivid: lähedal, vilksuvad mööda ---------- */
+	{
+		const poosad = [], kivid = [];
+		for (let i = 0; i < rada.n; i += 1) {
+			const h = rada.h[i], rx = -Math.cos(h), rz = Math.sin(h);
+			for (const pool of [-1, 1]) {
+				if (r() > 0.42) continue;
+				const d = pool * (POOL + 2.3 + Math.pow(r(), 1.4) * 6.5);
+				const x = rada.x[i] + rx * d + (r() - 0.5) * 2, z = rada.z[i] + rz * d + (r() - 0.5) * 2;
+				if (!vaba(x, z, POOL + 2)) continue;
+				(r() < 0.75 ? poosad : kivid).push([x, z, 0.35 + r() * 0.7, r() * 6.28]);
+			}
+		}
+		const pG = new THREE.IcosahedronGeometry(1, 0); pG.scale(1.2, 0.75, 1.2); pG.translate(0, 0.45, 0);
+		const kG = new THREE.DodecahedronGeometry(0.55, 0); kG.scale(1, 0.6, 1.2); kG.translate(0, 0.12, 0);
+		for (const [g, list, varv] of [[pG, poosad, 0x3d5a2a], [kG, kivid, 0x8a8a84]]) {
+			if (!list.length) continue;
+			const im = new THREE.InstancedMesh(g, new THREE.MeshLambertMaterial({ color: varv, flatShading: true }), list.length);
+			const c = new THREE.Color();
+			list.forEach(([x, z, sk, rot], j) => {
+				q4.setFromAxisAngle(yl, rot); p4.set(x, maapind(x, z).y - 0.05, z);
+				im.setMatrixAt(j, m4.compose(p4, q4, s4.set(sk, sk, sk)));
+				const t = 0.75 + ((j * 7919) % 100) / 220; im.setColorAt(j, c.setRGB(t, t * (varv === 0x3d5a2a ? 1.05 : 1), t));
+			});
+			scene.add(im);
+		}
 	}
 
 	/* ---------- teeäärsed: postid, heinapallid, pealtvaatajad, väravad ---------- */
@@ -488,23 +539,50 @@ export function looMaailm(canvas, rada, { madal = false } = {}) {
 
 	/* ---------- kaamera ---------- */
 	const kaam = { yaw: rada.h[0], pos: V(0, 3, -8), init: false };
+	const poos = { p: 0, r: 0, h: 0, vh: 0, kp: 0, vp: 0, kr: 0, vr: 0 };
 	const ajut = V(0, 0, 0), siht = V(0, 0, 0);
 	function lerpNurk(a, b, t) { let d = b - a; while (d > Math.PI) d -= 2 * Math.PI; while (d < -Math.PI) d += 2 * Math.PI; return a + d * t; }
 
 	function uuenda(o, dt, { aeg = 0 } = {}) {
 		/* auto asend */
-		A.auto.position.set(o.x, o.y, o.z);
-		A.auto.rotation.y = o.h;
-		/* kalle mööda teed (eest-taha) */
-		const i = Math.max(0, Math.min(rada.n - 2, o.i));
-		const kalle = Math.atan2(rada.y[i + 1] - rada.y[i], DS);
-		A.kere.rotation.x = -kalle - Math.max(-0.05, Math.min(0.05, o.along * 0.006));
-		A.kere.rotation.z = Math.max(-0.07, Math.min(0.07, -o.alat * 0.0075));
-		A.kere.position.y = Math.sin(aeg * 23) * 0.006 * Math.min(1, o.v / 15);
-		for (const w of A.rattad) { w.ratas.rotation.x = o.ratas; if (w.esi) w.pivot.rotation.y = -o.rool * 0.42; }
+		/* AUTO JA MAAILM ERALDI (Tarvo 19.10): iga ratas loeb maapinda oma kohas, auto kallutatakse
+		   rataste järgi (ei vaju maa sisse), kere istub vedrudel (pidurdus, kurv, maandumine), õhus
+		   rattad ripuvad. */
+		const sh = Math.sin(o.h), ch = Math.cos(o.h);
+		const maaKoht = (lx, lz) => { const x = o.x + sh * lz + ch * lx, z = o.z + ch * lz - sh * lx; const q = asukoht(rada, x, z, o.i); return korgus(rada, q.i, q.d, q.s); };
+		const gFL = maaKoht(0.8, 1.32), gFR = maaKoht(-0.8, 1.32), gRL = maaKoht(0.8, -1.38), gRR = maaKoht(-0.8, -1.38);
+		const ees = (gFL + gFR) / 2, taga_ = (gRL + gRR) / 2, vas = (gFL + gRL) / 2, par = (gFR + gRR) / 2;
+		let pSiht = -Math.atan2(ees - taga_, 2.7), rSiht = Math.atan2(vas - par, 1.6);
+		const keskMaa = (ees + taga_) / 2;
+		const ohus = o.ohus && o.y > keskMaa + 0.02;
+		if (ohus) { pSiht = Math.max(-0.35, Math.min(0.35, -Math.atan2(o.vy, Math.max(5, o.v)) * 0.55)); rSiht = 0; }
+		const kk = 1 - Math.exp(-dt * (ohus ? 3 : 14));
+		poos.p += (pSiht - poos.p) * kk; poos.r += (rSiht - poos.r) * kk;
+		A.auto.position.set(o.x, ohus ? o.y : Math.max(o.y, keskMaa), o.z);
+		A.auto.rotation.set(poos.p, o.h, poos.r, 'YXZ');
+		/* vedrud: kere vajub pidurdades ette, kurvis välja, maandudes alla */
+		if (o.loog > 0.5) poos.vh -= Math.min(6, o.loog) * 0.32;
+		o.loog = 0; /* löök on vedrudele üle antud */
+		const hSiht = ohus ? 0.05 : 0, kpSiht = ohus ? 0 : Math.max(-0.06, Math.min(0.06, -o.along * 0.008)), krSiht = ohus ? 0 : Math.max(-0.08, Math.min(0.08, -o.alat * 0.0085));
+		for (let n = 0, sd = dt / 2; n < 2; n++) {
+			poos.vh += ((hSiht - poos.h) * 140 - poos.vh * 13) * sd; poos.h += poos.vh * sd;
+			poos.vp += ((kpSiht - poos.kp) * 110 - poos.vp * 12) * sd; poos.kp += poos.vp * sd;
+			poos.vr += ((krSiht - poos.kr) * 110 - poos.vr * 12) * sd; poos.kr += poos.vr * sd;
+		}
+		poos.h = Math.max(-0.16, Math.min(0.12, poos.h));
+		const kruus = ohus ? 0 : Math.sin(aeg * 31) * Math.sin(aeg * 17.3) * 0.008 * Math.min(1, o.v / 20);
+		A.kere.position.y = poos.h + kruus;
+		A.kere.rotation.x = poos.kp; A.kere.rotation.z = poos.kr;
+		/* rattad: maas kontaktis (väike jääk tasapinnast), õhus ripuvad */
+		const tasand = [gFL, gFR, gRL, gRR].map((g, n) => g - (keskMaa + (n < 2 ? 1 : -1) * (ees - taga_) / 2 + (n % 2 === 0 ? 1 : -1) * (vas - par) / 2));
+		for (const [n, w] of A.rattad.entries()) {
+			w.ratas.rotation.x = o.ratas; if (w.esi) w.pivot.rotation.y = -o.rool * 0.42;
+			const sihtY = ohus ? 0.34 - 0.13 : 0.34 + Math.max(-0.1, Math.min(0.1, tasand[[1, 0, 3, 2][n]] || 0));
+			w.pivot.position.y += (sihtY - w.pivot.position.y) * (1 - Math.exp(-dt * 18));
+		}
 		A.tagatuli.emissiveIntensity = o.pidur ? 3.2 : 0.25;
 		/* tolm tagaratastest */
-		if (o.v > 3) {
+		if (o.v > 3 && !o.ohus) {
 			const mitu = (o.v * 1.6 + Math.abs(Math.sin(o.libis)) * 70) * dt * (madal ? 0.6 : 1) * (o.maas ? 0.5 : 1);
 			tolmJaak += mitu;
 			const fx = Math.sin(o.h), fz = Math.cos(o.h), rx = -fz, rz = fx;
@@ -524,8 +602,8 @@ export function looMaailm(canvas, rada, { madal = false } = {}) {
 		const sihtYaw = lerpNurk(o.h, sSuund, 0.55);
 		if (!kaam.init) { kaam.yaw = sihtYaw; }
 		kaam.yaw = lerpNurk(kaam.yaw, sihtYaw, 1 - Math.exp(-dt * 4.5));
-		const taga = 7.4 + Math.min(1.6, o.v * 0.035), korge = 2.7 + Math.min(0.5, o.v * 0.01);
-		siht.set(o.x - Math.sin(kaam.yaw) * taga, o.y + korge, o.z - Math.cos(kaam.yaw) * taga);
+		const taga = 5.7 + Math.min(1.3, o.v * 0.025), korge = 1.95 + Math.min(0.35, o.v * 0.007);
+		siht.set(o.x - Math.sin(kaam.yaw) * taga, A.auto.position.y + korge, o.z - Math.cos(kaam.yaw) * taga);
 		const maa = maapind(siht.x, siht.z).y + 1.2;
 		if (siht.y < maa) siht.y = maa;
 		/* asend jäik (auto ei jookse kaamerast eest ära), ainult kõrgus sujuv */
@@ -535,9 +613,9 @@ export function looMaailm(canvas, rada, { madal = false } = {}) {
 		camera.position.copy(kaam.pos);
 		const raputus = o.maas || o.v > 20 ? Math.min(0.035, o.v * 0.0007) * (o.maas ? 2 : 1) : 0;
 		camera.position.x += (Math.random() - 0.5) * raputus; camera.position.y += (Math.random() - 0.5) * raputus;
-		ajut.set(o.x + Math.sin(kaam.yaw) * 7, o.y + 1.1, o.z + Math.cos(kaam.yaw) * 7);
+		ajut.set(o.x + Math.sin(kaam.yaw) * 6, A.auto.position.y + 0.95, o.z + Math.cos(kaam.yaw) * 6);
 		camera.lookAt(ajut);
-		const fov = 62 + Math.min(12, o.v * 0.22);
+		const fov = 63 + Math.min(19, o.v * 0.36); /* kiirusega laiem vaade: kiiruse tunne */
 		if (Math.abs(camera.fov - fov) > 0.05) { camera.fov += (fov - camera.fov) * Math.min(1, dt * 3); camera.updateProjectionMatrix(); }
 		/* päike järgib autot (vari ainult auto ümber) */
 		paike.position.set(o.x + PAIKE.x, o.y + PAIKE.y, o.z + PAIKE.z);
