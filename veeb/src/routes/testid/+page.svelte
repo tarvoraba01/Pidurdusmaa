@@ -29,6 +29,9 @@
 		description: 'Rehvitestide (ADAC, Tekniikan Maailma, UTAC, Vi Bilägare) mõõdetud pidurdusmaad märjal ja kuival asfaldil, lumel ja jääl, allika, aasta, auto, rehvimõõdu ja protokolliga. Pidurdusmaa.ee kalibreerib nende järgi oma pidurdusmudelit.',
 		url: BASE + '/testid/',
 		inLanguage: 'et',
+		/* Google: Dataset nõuab välja license. Andmed on kolmandate osapoolte testidest, seega uut kasutusõigust
+		   ei anna: viide kasutustingimustele (p 4 „Andmed ja allikad“) */
+		license: BASE + '/kasutustingimused/',
 		creator: { '@id': ORG_ID },
 		publisher: { '@id': ORG_ID },
 		keywords: ['rehvitest', 'rehvitestid', 'talverehvide test', 'suverehvide test', 'ADAC rehvitest', 'pidurdusmaa'],
