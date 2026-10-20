@@ -170,7 +170,7 @@ const L = 2.6;
 /* Tarvo 19.10: tavasõidul peab auto minema sinna, kuhu rooli keerad (mitte libisema otse edasi).
    Seepärast on külghaare mängus ~1,7 × pidurdushaare ja auto joondub kiiresti; drift tuleb ainult
    käsipidurist või pidurdusest kurvi sisse (kick). */
-export const K = { kulg: 1.8, tagaGaas: 0.97, tagaKasi: 0.5, kickTaga: 0.45, suun: 0.3, kraap: 0.35, lin: 18, voim: 230, veoHaare: 1.25 };
+export const K = { kulg: 2.4, tagaGaas: 0.97, tagaKasi: 0.5, kickTaga: 0.45, suun: 0.3, kraap: 0.35, lin: 18, voim: 230, veoHaare: 1.25 };
 export function uusAuto(rada, s) {
 	const i = Math.max(0, Math.min(rada.n - 1, Math.round(s / DS)));
 	return { x: rada.x[i], z: rada.z[i], y: rada.y[i], h: rada.h[i], vx: 0, vz: 0, w: 0, rool: 0, i, s: i * DS, d: 0,
@@ -194,9 +194,9 @@ export function samm(o, sis, dt, aFn, rada, puud) {
 
 	/* rool: sujuv (klahv ei ole kohe täis), suurel kiirusel väiksem rataste nurk */
 	const roolSiht = Math.max(-1, Math.min(1, sis.rool));
-	const kiirus = roolSiht === 0 || Math.sign(roolSiht) !== Math.sign(o.rool) ? 7 : 3.2;
+	const kiirus = roolSiht === 0 || Math.sign(roolSiht) !== Math.sign(o.rool) ? 8 : 5; /* Tarvo 20.10: keeras kehvasti → kiirem rool */
 	o.rool += Math.max(-kiirus * dt, Math.min(kiirus * dt, roolSiht - o.rool));
-	const delta = o.rool * (0.6 / (1 + Math.max(0, v - 3) / 11));
+	const delta = o.rool * (0.65 / (1 + Math.max(0, v - 3) / 22));
 
 	/* pidur kurvis: koormus ette, tagaots kergeks (lühike „kick“) */
 	if (sis.pidur && vF > 6 && Math.abs(o.rool) > 0.3) o.kick = Math.min(0.6, o.kick + dt * 3);
