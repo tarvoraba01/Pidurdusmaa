@@ -51,3 +51,16 @@ Edaspidi käib ise E ja N 06:17 UTC.
 ## Kui Supabase on maas
 Kõik töötab edasi: logiread lähevad faili (`LOG_DIR`), hinnad tulevad RAM-ist.
 Hiljem saab failid `supabase-import.mjs`-iga üle tõsta.
+
+## Uus tabel alates 30.10.2026: lisa grant
+
+Supabase ei anna alates 30.10.2026 uutele `public` tabelitele enam automaatselt Data API ligipääsu
+(vanad tabelid jäävad nagu on). Server kasutab REST-i salajase võtmega (service_role), seega iga
+uue tabeli loomise juurde samasse migratsiooni:
+
+```sql
+grant select, insert, update, delete on public.UUS_TABEL to service_role;
+```
+
+`anon` ja `authenticated` rollidele grant'i ei anna: leht ei loe Supabase'i brauserist, ainult serverist.
+Ilma grant'ita annab REST vea `permission denied`.
