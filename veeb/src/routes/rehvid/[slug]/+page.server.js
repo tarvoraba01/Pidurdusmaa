@@ -120,6 +120,8 @@ function mootLeht(size) {
 	const pohiAuto = koikAutod.find((c) => c.pohi) || koikAutod[0];
 	return {
 		liik: 'moot',
+		/* kataloogi mõõduvalik (Kataloog.svelte lehe tipus) */
+		moodud: (core().eprelSizes || []).filter((x) => /^\d{5}R\d{2}$/.test(x)),
 		size,
 		parimG,
 		parimN: parimG ? klassid[parimG] : 0,

@@ -62,7 +62,7 @@ export function talveMoot(slug) {
 
 /* Tüüpiline auto selle mõõduga: põhimõõduga põlvkondadest keskmise massiga
    (mediaan) — mitte kõige kergem ega raskem */
-function tyypAuto(m, lisa = false) {
+export function tyypAuto(m, lisa = false) {
 	const massiga = (list) => list
 		.map((c) => ({ c, p: autodIdx().polved.get(c.url.replace(/^\/autod\//, '').replace(/\/$/, '')) }))
 		.filter((x) => x.p && x.p.rows[0].kerbMassKg)

@@ -4,6 +4,7 @@
 	   vene tõlge $lib/i18n/ru.js (/ru/talverehvid/<mõõt>/). */
 	import Meta from '$lib/Meta.svelte';
 	import Autor from '$lib/Autor.svelte';
+	import Kataloog from '$lib/Kataloog.svelte';
 	import { BASE, graph, artikkel } from '$lib/skeem.js';
 	import { KAT_NIMI, num } from '$lib/util.js';
 	import { useT, useLang, autoNimi } from '$lib/i18n.js';
@@ -68,11 +69,6 @@
 		<p class="eyebrow" style="color:var(--muted-d)">{t('Talverehvid 2026/2027')}</p>
 		<h1>{t('Parimad talverehvid {m}', { m: m.label })}</h1>
 		{#if vastus}<p>{vastus}</p>{/if}
-		<p>
-			{t(data.lisa ? '{m} on tehasemõõt {n} automudelil.' : '{m} on tehase põhimõõt {n} automudelil.', { m: m.label, n: data.autosid })}
-			{#if data.test}{t(data.test.ala === 'jää' ? 'Selles mõõdus tehtud testis {test} pidurdas jääl kõige lühemalt {r}: {mm} m.' : 'Selles mõõdus tehtud testis {test} pidurdas märjal asfaldil kõige lühemalt {r}: {mm} m.', { test: data.test.pub + ' ' + data.test.aasta + (data.test.v0 > 0 ? ' (' + Math.round(data.test.v0) + '→' + Math.round(data.test.v1 || 0) + ' ' + t('km/h') + ')' : ''), r: data.test.rehvid.map((x) => x.nimi).join(' / '), mm: num(data.test.m) })}{/if}
-			{t('Siin on selle mõõdu talverehvid päris andmete järgi: testitud rehvide pidurdusmaa lumel ja jääl ning EL-i rehvimärgis.')}
-		</p>
 		<p class="ad-cta">
 			<a class="btn yel" href={L('/rehvi-valimine/') + q}>{t('Vali talverehv oma autole')}</a>
 			<a class="btn" href={L('/') + '?moot=' + m.m}>{t('Arvuta pidurdusmaa')}</a>
@@ -82,6 +78,15 @@
 
 <div class="body-sec">
 	<div class="wrap">
+		<!-- kataloog lehe tipus (Tarvo 21.10): selle mõõdu rehvid kohe kaartidena, hind ja ostunupp -->
+		<Kataloog moodud={data.moodud} moot={m.m} tyyp="naast" kinni />
+		<div class="box" style="margin-top:var(--sp-10)">
+			<p style="margin:0">
+			{t(data.lisa ? '{m} on tehasemõõt {n} automudelil.' : '{m} on tehase põhimõõt {n} automudelil.', { m: m.label, n: data.autosid })}
+			{#if data.test}{t(data.test.ala === 'jää' ? 'Selles mõõdus tehtud testis {test} pidurdas jääl kõige lühemalt {r}: {mm} m.' : 'Selles mõõdus tehtud testis {test} pidurdas märjal asfaldil kõige lühemalt {r}: {mm} m.', { test: data.test.pub + ' ' + data.test.aasta + (data.test.v0 > 0 ? ' (' + Math.round(data.test.v0) + '→' + Math.round(data.test.v1 || 0) + ' ' + t('km/h') + ')' : ''), r: data.test.rehvid.map((x) => x.nimi).join(' / '), mm: num(data.test.m) })}{/if}
+			{t('Siin on selle mõõdu talverehvid päris andmete järgi: testitud rehvide pidurdusmaa lumel ja jääl ning EL-i rehvimärgis.')}
+			</p>
+		</div>
 		<Autor uuendatud={data.uuendatud} />
 		{#if data.tyybid.length}
 			<div class="box">

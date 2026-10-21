@@ -10,6 +10,7 @@
 	import Grade from '$lib/Grade.svelte';
 	import How from '$lib/How.svelte';
 	import TyreArt from '$lib/TyreArt.svelte';
+	import Kataloog from '$lib/Kataloog.svelte';
 	import { KAT_NIMI, CONDS, num, pretty, testLabel } from '$lib/util.js';
 	import { graph } from '$lib/skeem.js';
 
@@ -281,6 +282,10 @@
 	</section>
 
 	<div class="body-sec">
+		<!-- kataloog lehe tipus (Tarvo 21.10): selle mõõdu rehvid kaartidena, hind ja ostunupp; tabelid jäävad alla -->
+		{#if /^\d{5}R\d{2}$/.test(data.size.m) && data.moodud}
+			<div class="wrap" style="margin-bottom:var(--sp-10)"><Kataloog moodud={data.moodud} moot={data.size.m} kinni /></div>
+		{/if}
 		<div class="wrap cols">
 			<div>
 				{#each data.grupid as gr (gr.ci)}

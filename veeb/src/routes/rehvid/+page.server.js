@@ -23,5 +23,7 @@ export function load() {
 		.map((m) => ({ slug: m.slug, nimi: m.nimi, n: m.mudelid.length }))
 		.sort((a, b) => a.nimi.localeCompare(b.nimi, 'et'));
 
-	return { sizes, tested, margid: list, mudeleid: Object.keys(models()).length };
+	/* kataloogi mõõduvalik: kõik EL-i märgise mõõdud (sõiduauto, ilma C-ta) */
+	const moodud = (c.eprelSizes || []).filter((m) => /^\d{5}R\d{2}$/.test(m));
+	return { sizes, tested, margid: list, mudeleid: Object.keys(models()).length, moodud };
 }

@@ -3,6 +3,7 @@
 	const t = useT();
 	const L = useLang().L;
 	import Meta from '$lib/Meta.svelte';
+	import Kataloog from '$lib/Kataloog.svelte';
 	import { KAT_NIMI, num } from '$lib/util.js';
 	let { data } = $props();
 </script>
@@ -20,7 +21,7 @@
 		<div class="crumbs"><a href={L("/")}>{t("Avaleht")}</a><span>/</span>{t("Rehvid")}</div>
 		<h1>{t("Autorehvid")}</h1>
 		<p>
-			{num(data.mudeleid, 0)} {t("rehvimudelit EL-i rehvimärgisega ja")} {data.tested.length} {t("rehvi sõltumatutes testides. Vali mõõt, et näha kõiki selle mõõdu rehve.")}
+			{t("Vali mõõt ja rehvi liik: näed kohe kõiki selle mõõdu rehve, testide pidurdusmaad ja poodide hindu.")} {num(data.mudeleid, 0)} {t("rehvimudelit EL-i rehvimärgisega ja")} {data.tested.length} {t("rehvi sõltumatutes testides.")}
 		</p>
 		<p class="tyybid">
 			{t("Rehvitüübi järgi:")}
@@ -34,7 +35,8 @@
 </section>
 <div class="body-sec">
 	<div class="wrap">
-		<div class="box">
+		<Kataloog moodud={data.moodud} />
+		<div class="box" style="margin-top:var(--sp-10)">
 			<h2>{t("Mõõdu järgi")}</h2>
 			<p class="sub">{t("Andmebaasis olevad mõõdud. Korje laieneb — kui sinu mõõtu pole, on andmed alles tulemas.")}</p>
 			<div class="sizes-list">
