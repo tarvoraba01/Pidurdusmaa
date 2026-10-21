@@ -20,10 +20,12 @@
 	<div class="wrap">
 		<div class="crumbs"><a href={L("/")}>{t("Avaleht")}</a><span>/</span>{t("Rehvid")}</div>
 		<h1>{t("Autorehvid")}</h1>
-		<p>
-			{t("Vali mõõt ja rehvi liik: näed kohe kõiki selle mõõdu rehve, testide pidurdusmaad ja poodide hindu.")} {num(data.mudeleid, 0)} {t("rehvimudelit EL-i rehvimärgisega ja")} {data.tested.length} {t("rehvi sõltumatutes testides.")}
-		</p>
-		<p class="tyybid">
+	</div>
+</section>
+<div class="body-sec">
+	<div class="wrap">
+		<Kataloog moodud={data.moodud} />
+		<p class="tyybid note" style="margin-top:var(--sp-6)">
 			{t("Rehvitüübi järgi:")}
 			<a href={L('/suverehvid/')}>{t("Suverehvid")}</a> ·
 			<a href={L('/talverehvid/')}>{t("Talverehvid")}</a> ·
@@ -31,11 +33,6 @@
 			<a href={L('/lamellrehvid/')}>{t("Lamellrehvid")}</a>.
 			{t("Oma auto rehvimõõdu leiad lehelt")} <a href={L('/autod/')}>{t("Rehvid autole")}</a>.
 		</p>
-	</div>
-</section>
-<div class="body-sec">
-	<div class="wrap">
-		<Kataloog moodud={data.moodud} />
 		<div class="box" style="margin-top:var(--sp-10)">
 			<h2>{t("Mõõdu järgi")}</h2>
 			<p class="sub">{t("Andmebaasis olevad mõõdud. Korje laieneb — kui sinu mõõtu pole, on andmed alles tulemas.")}</p>
