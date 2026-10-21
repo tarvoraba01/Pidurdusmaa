@@ -20,6 +20,7 @@
  * Kui SMTP pole seadistatud, jääb kiri ainult faili.
  */
 import nodemailer from 'nodemailer';
+import { LOGO_PNG } from './meililogo.js';
 
 let transport = null;
 function smtp() {
@@ -88,18 +89,37 @@ async function saadaTeade({ subject, text, replyTo }) {
  *  - Reply-To = meie postkast, nii et vastus jõuab Tarvoni. */
 const KINNITUS = {
 	et: {
-		subject: 'Täname teid kirja eest! — Pidurdusmaa.ee',
-		text: 'Tere!\n\nTäname teid kirja eest! Pidurdusmaa.ee vastab teile 24 tunni jooksul.\n\nSee on automaatne kinnitus. Kui soovite midagi lisada, vastake lihtsalt sellele kirjale.\n\nPidurdusmaa.ee\nhttps://pidurdusmaa.ee/\n'
+		subject: 'Täname teid kirja eest | Pidurdusmaa.ee',
+		tere: 'Tere!', p1: 'Täname teid kirja eest! Vastame teile 24 tunni jooksul.', p2: 'See on automaatne kinnitus. Kui soovite midagi lisada, vastake lihtsalt sellele kirjale.', url: 'https://pidurdusmaa.ee/'
 	},
 	en: {
-		subject: 'Thank you for your message — Pidurdusmaa.ee',
-		text: 'Hello!\n\nThank you for your message. Pidurdusmaa.ee will reply within 24 hours.\n\nThis is an automatic confirmation. If you want to add something, simply reply to this e-mail.\n\nPidurdusmaa.ee\nhttps://pidurdusmaa.ee/en/\n'
+		subject: 'Thank you for your message | Pidurdusmaa.ee',
+		tere: 'Hello!', p1: 'Thank you for your message. We will reply within 24 hours.', p2: 'This is an automatic confirmation. If you want to add something, simply reply to this e-mail.', url: 'https://pidurdusmaa.ee/en/'
 	},
 	ru: {
-		subject: 'Спасибо за письмо — Pidurdusmaa.ee',
-		text: 'Здравствуйте!\n\nСпасибо за ваше письмо. Pidurdusmaa.ee ответит вам в течение 24 часов.\n\nЭто автоматическое подтверждение. Если хотите что-то добавить, просто ответьте на это письмо.\n\nPidurdusmaa.ee\nhttps://pidurdusmaa.ee/ru/\n'
+		subject: 'Спасибо за письмо | Pidurdusmaa.ee',
+		tere: 'Здравствуйте!', p1: 'Спасибо за ваше письмо. Мы ответим вам в течение 24 часов.', p2: 'Это автоматическое подтверждение. Если хотите что-то добавить, просто ответьте на это письмо.', url: 'https://pidurdusmaa.ee/ru/'
 	}
 };
+
+/* Tekstiversioon: allkirjas ainult üks link (enne oli „Pidurdusmaa.ee“ + URL eraldi reana, mis
+   meiliprogrammis tegi kaks linki järjest. Tarvo 21.10). */
+function kinnitusTekst(k) {
+	return `${k.tere}\n\n${k.p1}\n\n${k.p2}\n\nPidurdusmaa.ee\n`;
+}
+/* HTML-versioon: logo (P + Pidurdusmaa.ee) üleval, rahulik tekst, allkirjas üks link. Tabelid ja
+   inline-stiilid, sest meiliprogrammid ei toeta muud. Värvideta taust töötab ka tumedas režiimis. */
+function kinnitusHtml(k) {
+	return `<!doctype html><html><body style="margin:0;padding:0">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding:24px 16px">
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="max-width:520px;width:100%;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;font-size:16px;line-height:1.55">
+<tr><td style="padding:0 0 24px"><a href="${k.url}" style="text-decoration:none;color:inherit"><img src="cid:logo@pidurdusmaa.ee" width="40" height="40" alt="" style="vertical-align:middle;border:0;border-radius:9px"> <span style="vertical-align:middle;font-size:20px;font-weight:800;letter-spacing:-0.01em;padding-left:8px">Pidurdusmaa<span style="font-weight:400">.ee</span></span></a></td></tr>
+<tr><td style="padding:0 0 12px">${k.tere}</td></tr>
+<tr><td style="padding:0 0 12px">${k.p1}</td></tr>
+<tr><td style="padding:0 0 24px">${k.p2}</td></tr>
+<tr><td style="padding:16px 0 0;border-top:1px solid #d9d9d9;font-size:14px;opacity:0.75"><a href="${k.url}" style="color:inherit">Pidurdusmaa.ee</a></td></tr>
+</table></td></tr></table></body></html>`;
+}
 
 /** Saada kinnitus aadressile `to`. lang = 'et' | 'en' | 'ru'. true = saadetud. */
 export async function saadaKinnitus(to, lang = 'et') {
@@ -113,7 +133,9 @@ export async function saadaKinnitus(to, lang = 'et') {
 			to,
 			replyTo: process.env.MAIL_TO || from,
 			subject: k.subject,
-			text: k.text,
+			text: kinnitusTekst(k),
+			html: kinnitusHtml(k),
+			attachments: [{ filename: 'pidurdusmaa.png', content: LOGO_PNG, cid: 'logo@pidurdusmaa.ee', contentDisposition: 'inline' }],
 			headers: { 'Auto-Submitted': 'auto-replied', 'X-Auto-Response-Suppress': 'All' }
 		});
 		return true;
