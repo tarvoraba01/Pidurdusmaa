@@ -11,7 +11,7 @@ export const KEEL_NIMI = { et: 'Eesti', ru: 'Русский', en: 'English' };
 export const OG_LOCALE = { et: 'et_EE', ru: 'ru_RU', en: 'en_GB' };
 
 /** Lehed, millel on vene ja inglise versioon (tee ilma keele eesliiteta). */
-export const TOLGITUD = ['/', '/rehvi-valimine/', '/vordle-rehve/', '/liiklusohutus/', '/liiklusohutus/pimedas/', '/liiklusohutus/pikivahe/', '/liiklusohutus/kurv/', '/liiklusohutus/reaktsioon/', '/rehvi-vanus/', '/rehvi-kalkulaator/', '/kontakt/', '/kasutustingimused/', '/privaatsus/', '/teadmine/partnerid/'];
+export const TOLGITUD = ['/', '/rehvi-valimine/', '/vordle-rehve/', '/liiklusohutus/', '/liiklusohutus/pimedas/', '/liiklusohutus/pikivahe/', '/liiklusohutus/kurv/', '/liiklusohutus/reaktsioon/', '/rehvi-vanus/', '/talv/', '/talv/mang/', '/rehvi-kalkulaator/', '/kontakt/', '/kasutustingimused/', '/privaatsus/', '/teadmine/partnerid/'];
 
 /* Lisaks ainult vene keeles:
    - autolehed (terve haru /autod/),

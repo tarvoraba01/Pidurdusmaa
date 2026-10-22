@@ -55,7 +55,7 @@ export function GET() {
 	];
 	urls.push(['/ru/liiklusohutus/koolitus/', '0.6']);
 	/* vene ja inglise versioonid (tööriistalehed, vt $lib/i18n.js) */
-	for (const k of ['ru', 'en']) for (const p of TOLGITUD) urls.push(['/' + k + p, p === '/' ? '0.8' : '0.6']);
+	for (const k of ['ru', 'en']) for (const p of TOLGITUD) if (!p.startsWith('/talv/')) urls.push(['/' + k + p, p === '/' ? '0.8' : '0.6']);
 
 	for (const s of core().sizes) {
 		if (sizeModelCount(s.m) >= SIZE_MIN_MODELS) urls.push(['/rehvid/' + s.slug + '/', '0.7']);

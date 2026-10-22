@@ -15,9 +15,10 @@
 	/* „Vali uued rehvid“: sama auto (ja tema mõõt) ning sama hooaeg */
 	const valikuLink = $derived(keel.L('/rehvi-valimine/') + '?' + (omaAuto ? 'auto=' + encodeURIComponent(omaAuto) + '&' : '') + 'hooaeg=' + (liik === 'talv' ? 'winter' : 'summer'));
 	let dot = $state('');
-	let liik = $state('suvi'); /* suvi | talv */
+	let { talv = false } = $props(); /* /talv/ kampaanialeht: algus talverehvi ja lumega */
+	let liik = $state(talv ? 'talv' : 'suvi'); /* suvi | talv */
 	let muster = $state(5);
-	let tee = $state('marg'); /* marg | lumi */
+	let tee = $state(talv ? 'lumi' : 'marg'); /* marg | lumi */
 	let kiirus = $state(90);
 	let valmis = $state(false);
 	let puudutatud = false;

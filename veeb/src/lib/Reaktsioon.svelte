@@ -16,8 +16,18 @@
 	import { looTee, lisaVarjaja, joonista, TEE } from '$lib/tee3d.js';
 	const t = useT();
 	const keel = useLang();
+	/* /talv/ kampaanialeht: algus talvel ja telefonisõnum, mis tuleb ekraanile vahetult enne pidurdust */
+	let { algIlm = null, telefon = false, katseid = 3 } = $props(); /* /talv/: üks proov */
+	const SONUMID = [
+		[t('Ema'), t('Kas jõuad õhtuks koju?')],
+		[t('Pakiautomaat'), t('Sinu pakk on kätte toimetatud')],
+		[t('Töö'), t('Kas saad korraks helistada?')],
+		[t('Sõber'), t('Kus sa oled?')]
+	];
+	let sonum = $state(null);
+	let sonumTaimer = 0;
 
-	const KATSEID = 3;
+	const KATSEID = katseid;
 	const NAHT = [
 		['tume', 30, t('Tumedad riided')],
 		['hele', 45, t('Heledad riided')],
@@ -35,7 +45,7 @@
 	let kiirus = $state(90);
 	let vahe = $state(1);
 	let riie = $state('tume');
-	let ilm = $state('vihm');
+	let ilm = $state(algIlm || 'vihm');
 	let muster = $state(8); /* sinu rehvide muster tulemuse võrdluses; eesoleval autol jäävad uued */
 	let olek = $state('algus'); /* algus | oota | nyyd | soit | vara | vahe | tulemus */
 	let ajad = $state([]);
@@ -95,7 +105,7 @@
 	});
 	onDestroy(() => {
 		if (typeof window === 'undefined') return;
-		clearTimeout(taimer); cancelAnimationFrame(raf); window.removeEventListener('resize', suurus);
+		clearTimeout(taimer); clearTimeout(sonumTaimer); cancelAnimationFrame(raf); window.removeEventListener('resize', suurus);
 		document.removeEventListener('visibilitychange', kaivita); if (vaatleja) vaatleja.disconnect();
 		document.removeEventListener('fullscreenchange', fsMuutus); document.removeEventListener('webkitfullscreenchange', fsMuutus);
 		try { document.documentElement.style.overflow = ''; } catch {}
@@ -275,6 +285,11 @@
 			lisaVarjaja(tee, nV, jkPool);
 		} else zOht = 0;
 		olek = 'oota';
+		clearTimeout(sonumTaimer); sonum = null;
+		if (telefon && reziim === 'tuled') {
+			const m = SONUMID[Math.floor(Math.random() * SONUMID.length)];
+			sonumTaimer = setTimeout(() => { if (olek === 'oota') sonum = m; }, Math.max(300, viide - 400 - Math.random() * 600));
+		}
 		taimer = setTimeout(() => {
 			t0 = performance.now(); zBase = z; tVajutus = null;
 			if (reziim === 'pime') { D = zOht - zBase; jkAlg = arvutaAlg(D); } /* täpselt seal, kus ta varjaja taga on */
@@ -283,6 +298,7 @@
 		}, viide);
 	}
 	function lopeta(r, res) {
+		clearTimeout(sonumTaimer); sonum = null;
 		const rec = { r, ...res, vajutamata: tVajutus == null };
 		tulemused = [...tulemused, rec];
 		if (!rec.vajutamata) ajad = [...ajad, Math.round(r * 1000)];
@@ -347,6 +363,13 @@
 		if (vaja <= D) return null;
 		return { d: Math.round(D), p: Math.round(vaja) };
 	});
+	/* kaardil: mitu meetrit kulus (Tarvo 22.10: „peaks ütlema ka mitu m pidurdatud sai“) */
+	const teekond = $derived.by(() => {
+		void read;
+		if (!tulemusMs || !M) return null;
+		const r = (kiirus / 3.6) * (tulemusMs / 1000), p = M.d;
+		return { r, p, k: r + p };
+	});
 	const OLUD = { kuiv: t('kuival teel'), vihm: t('märjal teel'), talv: t('lumel') };
 	const LOC = keel.lang === 'en' ? 'en-GB' : keel.lang === 'ru' ? 'ru-RU' : 'et-EE';
 	const f1 = (x) => x.toLocaleString(LOC, { minimumFractionDigits: 1, maximumFractionDigits: 1 });
@@ -372,7 +395,8 @@
 		const tx = tulemusMs ? f2(tulemusMs) : '—';
 		g.fillStyle = '#ffc20e'; g.font = '700 220px ' + DF; g.fillText(tx, 80, yy + 210); const w2 = g.measureText(tx).width; g.fillStyle = '#fff'; g.font = '700 90px ' + DF; g.fillText(' s', 80 + w2, yy + 210);
 		if (kaardiTul) { g.fillStyle = kaardiTul.crash ? '#ff5a5a' : '#4ade80'; g.font = '700 54px ' + B; g.fillText(lause(kaardiTul), 90, yy + 300); }
-		let y = yy + 400;
+		if (kaardiTul && teekond && !kaardiTul.crash) { g.fillStyle = '#c9ced6'; let fz = 34; const tk = t('Peatumisteekond {k} m: reaktsiooni ajal {r} m ja pidurdus {p} m', { k: f1(teekond.k), r: f1(teekond.r), p: f1(teekond.p) }); do { g.font = '500 ' + fz + 'px ' + B; } while (g.measureText(tk).width > 900 && --fz > 20); g.fillText(tk, 90, yy + 355); }
+		let y = yy + 430;
 		read.slice(1).forEach(([n, s, r]) => {
 			g.font = '500 34px ' + B; g.fillStyle = '#aab1bc'; g.fillText(n + ' (' + f2(s * 1000) + ' s): ', 90, y);
 			const wn = g.measureText(n + ' (' + f2(s * 1000) + ' s): ').width;
@@ -454,6 +478,7 @@
 	<div class="rk-ekraan" class:tais={taisekraan} bind:this={ekraan}>
 	<button type="button" class="rk-ala" class:crash onpointerdown={(e) => { e.preventDefault(); vajuta(); }} aria-live="polite">
 		<canvas bind:this={cv} class="rk-cv" aria-hidden="true"></canvas>
+		{#if sonum}<span class="rk-tel" aria-hidden="true"><i>{sonum[0]}</i>{sonum[1]}</span>{/if}
 		<span class="rk-tekst">
 			{#if olek === 'algus'}<b>{t('Vajuta, et alustada')}</b><small>{reziim === 'pime' ? t('Sõidad pimedas. Kui näed teel jalakäijat, vajuta kohe.') : t('Kui eesoleva auto pidurituled süttivad, vajuta kohe.')} {t('Arvutis ka tühikuklahv.')}</small>
 			{:else if olek === 'oota' || olek === 'nyyd'}<b>{t('Sõidad…')}</b><small>{reziim === 'pime' ? t('Vaata teed') : t('Jälgi eesolevat autot')}</small><!-- sama tekst ka ohuhetkel: muutuv tekst reedaks hetke -->
@@ -461,7 +486,7 @@
 			{:else if olek === 'vara'}<b>{t('Liiga vara!')}</b><small>{t('Vajuta uuesti, et seda katset korrata')}</small>
 			{:else if viimane}<b class:punane={viimane.crash} class:roheline={!viimane.crash}>{lause(viimane)}</b><small>{viimane.vajutamata ? t('Ei vajutanud') : t('Reaktsioon') + ' ' + f2(viimane.r * 1000) + ' s'}{olek === 'vahe' ? ' · ' + t('Katse nr') + ' ' + tulemused.length + ' / ' + KATSEID + ' · ' + t('vajuta, et jätkata') : ' · ' + t('Vajuta, et uuesti proovida')}</small>{/if}
 		</span>
-		{#if reziim === 'tuled'}<span class="rk-pallid" aria-hidden="true">{#each Array(KATSEID) as _, i}<i class:on={i < tulemused.length} class:cr={tulemused[i]?.crash}></i>{/each}</span>{/if}
+		{#if reziim === 'tuled' && KATSEID > 1}<span class="rk-pallid" aria-hidden="true">{#each Array(KATSEID) as _, i}<i class:on={i < tulemused.length} class:cr={tulemused[i]?.crash}></i>{/each}</span>{/if}
 	</button>
 	<button type="button" class="rk-fs" onclick={taisEkraan} aria-label={taisekraan ? t('Välju täisekraanist') : t('Täisekraan')} title={taisekraan ? t('Välju täisekraanist') : t('Täisekraan')}>
 		{#if taisekraan}<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5"/></svg>
@@ -472,8 +497,9 @@
 		<div class="rk-kaart" role="dialog" aria-modal="false" aria-label={t('Jaga tulemust')}>
 			<div class="rk-kaart-sisu">
 				<button type="button" class="rk-x" onclick={() => (kaart = false)} aria-label={t('Sulge')}>×</button>
-				{#if tulemusMs}<p class="rk-k-pea">{reziim === 'tuled' ? t('Sinu reaktsioon (3 katse mediaan)') : t('Sinu reaktsioon')}</p><p class="rk-k-aeg">{f2(tulemusMs)} <small>s</small></p>{/if}
+				{#if tulemusMs}<p class="rk-k-pea">{reziim === 'tuled' && KATSEID > 1 ? t('Sinu reaktsioon (3 katse mediaan)') : t('Sinu reaktsioon')}</p><p class="rk-k-aeg">{f2(tulemusMs)} <small>s</small></p>{/if}
 				<p class="rk-k-lause" class:punane={kaardiTul.crash}>{lause(kaardiTul)}</p>
+				{#if teekond}<p class="rk-k-maa">{kaardiTul.crash ? t('Reaktsiooni ajal sõitsid {r} m, pidurdusmaa oli {p} m', { r: f1(teekond.r), p: f1(teekond.p) }) : t('Peatumisteekond {k} m: reaktsiooni ajal {r} m ja pidurdus {p} m', { k: f1(teekond.k), r: f1(teekond.r), p: f1(teekond.p) })}</p>{/if}
 				{#if voimatu}<p class="rk-k-miks">{t('Seda poleks vältinud ka väga kiire reaktsioon: jalakäija tuli nähtavale {d} m kaugusel, aga {olud} kulub {v} km/h pealt peatumiseks ka 0,2-sekundilise reaktsiooniga {p} m.', { d: voimatu.d, olud: OLUD[ilm], v: kiirus, p: voimatu.p })} {riie === 'helkur' ? '' : t('Helkuriga oleks ta nähtav umbes 140 m pealt.')}</p>{/if}
 				{#if sobra && tulemusMs}<p class="rk-k-sober">{tulemusMs < sobra ? t('Sõbrast kiirem!') : tulemusMs > sobra ? t('Sõber oli kiirem') + ' (' + f2(sobra) + ' s)' : t('Täpselt sama kiire kui sõber!')}</p>{/if}
 				<div class="rk-jaga">
@@ -497,7 +523,7 @@
 
 	{#if olek === 'tulemus' && read.length}
 		<div class="rk-tul">
-			{#if tulemusMs}<p class="rk-suur">{reziim === 'tuled' ? t('Sinu reaktsioon (3 katse mediaan)') : t('Sinu reaktsioon')}: <b>{f2(tulemusMs)} s</b>{#if sobra}{' · ' + (tulemusMs < sobra ? t('Sõbrast kiirem!') : tulemusMs > sobra ? t('Sõber oli kiirem') + ' (' + f2(sobra) + ' s)' : t('Täpselt sama kiire kui sõber!'))}{/if}</p>{/if}
+			{#if tulemusMs}<p class="rk-suur">{reziim === 'tuled' && KATSEID > 1 ? t('Sinu reaktsioon (3 katse mediaan)') : t('Sinu reaktsioon')}: <b>{f2(tulemusMs)} s</b>{#if sobra}{' · ' + (tulemusMs < sobra ? t('Sõbrast kiirem!') : tulemusMs > sobra ? t('Sõber oli kiirem') + ' (' + f2(sobra) + ' s)' : t('Täpselt sama kiire kui sõber!'))}{/if}</p>{/if}
 			<ol class="rk-read">
 				{#each read as [nimi, s, r, me] (nimi)}
 					<li class:me><span class="n">{nimi} <small>{f2(s * 1000)} s</small></span><span class="o" class:punane={r.crash}>{lause(r)}</span></li>
@@ -586,6 +612,10 @@
 	.rk-k-aeg small { font-size: 28px; color: #fff; }
 	.rk-k-lause { margin: var(--sp-2) 0 0; font-weight: 800; font-size: 18px; color: #4ade80; }
 	.rk-k-lause.punane { color: #ff5a5a; }
+	.rk-tel { position: absolute; top: 14px; left: 0; right: 0; margin: 0 auto; width: fit-content; z-index: 3; max-width: min(300px, 64%); padding: 10px 14px; border-radius: 16px; background: rgba(245, 245, 247, 0.94); color: #111; font-size: 14px; line-height: 1.3; text-align: left; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35); animation: rk-tel 0.25s ease-out; pointer-events: none; }
+	.rk-tel i { display: block; font-style: normal; font-weight: 700; font-size: 12px; color: #555; margin-bottom: 2px; }
+	@keyframes rk-tel { from { transform: translateY(-12px); opacity: 0; } }
+	.rk-k-maa { margin: var(--sp-1) 0 0; font-size: 15px; color: #c9ced6; }
 	.rk-k-sober { margin: 4px 0 0; color: #d6dae1; font-size: 14.5px; }
 	.rk-k-s { font-size: 13px; color: #aab1bc; margin: var(--sp-2) 0 0; line-height: 1.4; }
 	.rk-jaga { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-2); margin-top: var(--sp-4); }

@@ -46,7 +46,9 @@
 
 	/* /liiklusohutus/ on neutraalne tööriist (kõigile; ka Transpordiamet, autokoolid):
 	   ei menüüd, poode ega rehvivalikut — ainult logo ja õiguslikud lingid. */
-	const neutraal = $derived(base.startsWith('/liiklusohutus'));
+	const neutraal = $derived(base.startsWith('/liiklusohutus') || base.startsWith('/talv/'));
+	/* /talv/mang/: mäng partneri lehel iframe'is, ainult mäng (ilma päise, jaluse ja alaribata) */
+	const aken = $derived(base === '/talv/mang/');
 
 	onMount(async () => {
 		/* ?upotus=1: leht on koolituse hüpikaknas (iframe) — ainult tööriist, ilma päise ja jaluseta */
@@ -143,6 +145,7 @@
 	{/if}
 </svelte:head>
 
+{#if aken}<main id="sisu">{@render children()}</main>{:else}
 <a class="skip" href="#sisu">{t("Liigu sisu juurde")}</a>
 
 {#if neutraal}
@@ -380,5 +383,6 @@
 		</p>
 	</div>
 </footer>
+{/if}
 
 <Nousolek />

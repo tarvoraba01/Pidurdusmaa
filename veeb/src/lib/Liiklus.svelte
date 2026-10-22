@@ -5,7 +5,7 @@
 	const LOC = { et: 'et-EE', ru: 'ru-RU', en: 'en-GB' }[keel.lang] || 'et-EE';
 	/* Neli eraldi tööriista, sama vasak paneel (olukord A/B). Vahekaart = eraldi leht;
 	   olukord liigub aadressi #… kaudu ühest tööriistast teise kaasa. */
-	let { vaade = 'peatumine' } = $props();
+	let { vaade = 'peatumine', talv = false } = $props(); /* talv: /talv/ kampaanialeht, algolukord lumel talverehvidega */
 	const VAATED = [
 		['peatumine', '/liiklusohutus/', t('Peatumisteekond')],
 		['pimedas', '/liiklusohutus/pimedas/', t('Pimedas')],
@@ -86,6 +86,7 @@
 		/* haagis lõpus: vanad positsioonilised lingid (#a=…*…) jäävad kehtima */
 		haagis: 'ei', haagisKg: 750
 	};
+	if (talv) Object.assign(ALGNE, { kat: 'WINTER_NORDIC', pind: 'SNOW_PACKED', vesi: 0, temp: -5, kiirus: 70 });
 
 	let A = $state({ ...ALGNE });
 	let B = $state(null);
