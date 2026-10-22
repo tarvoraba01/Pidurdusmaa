@@ -3304,14 +3304,35 @@ import UNIVERSAALID from './universaalid.json';
   }
   function trackAiAllikas() {
     try {
-      var utm = new URLSearchParams(location.search).get('utm_source') || '';
+      var q = new URLSearchParams(location.search);
+      var utm = q.get('utm_source') || '';
       var a = aiAllikas(utm.replace(/^https?:\/\//, '').split('/')[0]);
       if (!a && document.referrer) {
         var r = new URL(document.referrer);
         if (r.host !== location.host) a = aiAllikas(r.hostname);
       }
-      if (a) Track('ai_allikas', a);
+      if (a) { Track('ai_allikas', a); return; }
+      trackReklaamAllikas(q, utm);
     } catch (e) { /* vigane referrer — jätame vahele */ }
+  }
+
+  /* Reklaami / kampaania allikas (Meta reklaamitest 22.10): kui aadressis on
+     utm_source, salvestatakse "allikas" = "allikas / kampaania / reklaam",
+     nt "meta / talv_test1 / ad1". Sama tunnusega (k) read näitavad siis,
+     kas see külastaja valis auto, arvutas ja klikkis poodi. Ilma utm-ita
+     Meta link (ainult fbclid) → "meta / fbclid". Ainult lühikesed
+     sildid, mitte aadress ega fbclid ise. */
+  function utmOsa(x) {
+    return String(x || '').toLowerCase().replace(/[^a-z0-9_.-]/g, '').slice(0, 30);
+  }
+  function trackReklaamAllikas(q, utm) {
+    var src = utmOsa(utm);
+    if (!src && q.get('fbclid')) src = 'meta';
+    if (!src) return;
+    var osad = [src, utmOsa(q.get('utm_campaign')), utmOsa(q.get('utm_content'))];
+    if (!utm) osad = [src, 'fbclid'];
+    while (osad.length > 1 && !osad[osad.length - 1]) osad.pop();
+    Track('allikas', osad.join(' / '));
   }
 
   /* laiad tabelid: kerimisala peab olema klaviatuuriga kättesaadav.
