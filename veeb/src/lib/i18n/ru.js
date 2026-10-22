@@ -887,6 +887,7 @@ export default {
 "Kus sa oled?": "Ты где?",
 "Telefoni tuleb sõnum just siis, kui eesolev auto pidurdab. Vajuta kohe, kui pidurituled süttivad. Üks proov.": "Сообщение приходит как раз тогда, когда впереди идущая машина тормозит. Нажмите сразу, как загорятся стоп-сигналы. Одна попытка.",
 "teie logo": "ваш логотип",
+"Talvel peatub auto lumel ja jääl palju pikema maaga. Vaata, kui kiiresti pidurdad, kui telefon piiksub, kas su pikivahe on piisav ja kas su rehvid on talveks veel head.": "Зимой на снегу и льду машине нужно гораздо больше места, чтобы остановиться. Проверьте, как быстро вы тормозите, когда пищит телефон, хватает ли вашей дистанции и годятся ли ваши шины ещё на зиму.",
 "keri": "листайте",
 "Osta": "Купить",
 "Arvuta oma autoga": "Рассчитать для своей машины",

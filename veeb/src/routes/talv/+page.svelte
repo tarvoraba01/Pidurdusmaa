@@ -16,11 +16,11 @@
 
 	/* LKF-i juhend „Mis teha, kui juhtus“ (vene keeles LKF-il lehte pole, siis eestikeelne) */
 	const LKF = keel.lang === 'en' ? 'https://www.lkf.ee/en' : 'https://www.lkf.ee/et/mistehakuijuhtus';
-	const KIRJ = t('Talvel peatub auto lumel ja jääl palju pikema maaga. Vaata, kas su pikivahe on piisav, kui kiiresti pidurdad, kui telefon piiksub, ja kas su rehvid on talveks veel head.');
+	const KIRJ = t('Talvel peatub auto lumel ja jääl palju pikema maaga. Vaata, kui kiiresti pidurdad, kui telefon piiksub, kas su pikivahe on piisav ja kas su rehvid on talveks veel head.');
 	const jsonld = graph(tooriist(t('Talvine pidurdusmaa'), '/talv/', KIRJ, keel.lang), ORG);
 	const SAMMUD = [
-		['pikivahe', t('Pikivahe talvel')],
 		['reaktsioon', t('Reaktsioon ja telefon')],
+		['pikivahe', t('Pikivahe talvel')],
 		['rehvid', t('Rehvide vanus')]
 	];
 </script>
@@ -39,22 +39,22 @@
 	</div>
 </section>
 
-<section class="tv-osa" id="pikivahe">
+<section class="tv-osa" id="reaktsioon">
 	<div class="wrap">
 		<p class="tv-nr">1 / 3</p>
-		<h2>{t('Kas su pikivahe on talveks piisav?')}</h2>
-		<p class="tv-sel">{t('Eesolev auto pidurdab järsult. Vaata, kas lumel jõuad peatuda, ja kui ei, siis millise kiirusega sõidad talle sisse.')}</p>
-	</div>
-	<div class="wrap"><Liiklus vaade="pikivahe" talv /></div>
-</section>
-
-<section class="tv-osa tv-tume" id="reaktsioon">
-	<div class="wrap">
-		<p class="tv-nr">2 / 3</p>
 		<h2>{t('Kui kiiresti pidurdad, kui telefon piiksub?')}</h2>
 		<p class="tv-sel">{t('Telefoni tuleb sõnum just siis, kui eesolev auto pidurdab. Vajuta kohe, kui pidurituled süttivad. Üks proov.')}</p>
 	</div>
 	<div class="wrap"><Reaktsioon algIlm="talv" telefon katseid={1} /></div>
+</section>
+
+<section class="tv-osa tv-tume" id="pikivahe">
+	<div class="wrap">
+		<p class="tv-nr">2 / 3</p>
+		<h2>{t('Kas su pikivahe on talveks piisav?')}</h2>
+		<p class="tv-sel">{t('Eesolev auto pidurdab järsult. Vaata, kas lumel jõuad peatuda, ja kui ei, siis millise kiirusega sõidad talle sisse.')}</p>
+	</div>
+	<div class="wrap"><Liiklus vaade="pikivahe" talv /></div>
 </section>
 
 <section class="tv-osa" id="rehvid">

@@ -748,6 +748,7 @@ export default {
 "Kus sa oled?": "Where are you?",
 "Telefoni tuleb sõnum just siis, kui eesolev auto pidurdab. Vajuta kohe, kui pidurituled süttivad. Üks proov.": "A message arrives just as the car ahead brakes. Press as soon as the brake lights come on. One try.",
 "teie logo": "your logo",
+"Talvel peatub auto lumel ja jääl palju pikema maaga. Vaata, kui kiiresti pidurdad, kui telefon piiksub, kas su pikivahe on piisav ja kas su rehvid on talveks veel head.": "In winter a car needs a much longer distance to stop on snow and ice. Check how fast you brake when your phone pings, whether your following distance is enough, and whether your tyres are still good for winter.",
 "keri": "scroll",
 "Osta": "Buy",
 "Arvuta oma autoga": "Calculate for your car",
