@@ -502,10 +502,11 @@
 				{#if teekond}<p class="rk-k-maa">{kaardiTul.crash ? t('Reaktsiooni ajal sõitsid {r} m, pidurdusmaa oli {p} m', { r: f1(teekond.r), p: f1(teekond.p) }) : t('Peatumisteekond {k} m: reaktsiooni ajal {r} m ja pidurdus {p} m', { k: f1(teekond.k), r: f1(teekond.r), p: f1(teekond.p) })}</p>{/if}
 				{#if voimatu}<p class="rk-k-miks">{t('Seda poleks vältinud ka väga kiire reaktsioon: jalakäija tuli nähtavale {d} m kaugusel, aga {olud} kulub {v} km/h pealt peatumiseks ka 0,2-sekundilise reaktsiooniga {p} m.', { d: voimatu.d, olud: OLUD[ilm], v: kiirus, p: voimatu.p })} {riie === 'helkur' ? '' : t('Helkuriga oleks ta nähtav umbes 140 m pealt.')}</p>{/if}
 				{#if sobra && tulemusMs}<p class="rk-k-sober">{tulemusMs < sobra ? t('Sõbrast kiirem!') : tulemusMs > sobra ? t('Sõber oli kiirem') + ' (' + f2(sobra) + ' s)' : t('Täpselt sama kiire kui sõber!')}</p>{/if}
+				<button type="button" class="btn yel rk-uuesti" onclick={() => { kaart = false; vajuta(); }}>{t('Proovi uuesti')}</button>
 				<div class="rk-jaga">
-					<button type="button" class="btn yel" onclick={jaga}>{t('Jaga storysse')}</button>
-					<button type="button" class="btn" onclick={saada}>{t('Saada sõbrale')}</button>
-					<button type="button" class="btn" onclick={kopeeri}>{t('Kopeeri link')}</button>
+					<button type="button" class="rk-jb" onclick={jaga}>{t('Jaga storysse')}</button>
+					<button type="button" class="rk-jb" onclick={saada}>{t('Saada sõbrale')}</button>
+					<button type="button" class="rk-jb" onclick={kopeeri}>{t('Kopeeri link')}</button>
 				</div>
 				{#if valikud}
 					<div class="rk-valik">
@@ -515,7 +516,6 @@
 				{/if}
 				{#if jagatud}<p class="rk-k-s" role="status">{jagatud}</p>{/if}
 				<a class="rk-k-rehv" href={keel.L('/')} onclick={() => track('rehvid', 'kaart')}>{t('Kui pika maaga peatub sinu auto oma rehvidega?')} →</a>
-				<button type="button" class="rk-uuesti" onclick={() => { kaart = false; vajuta(); }}>{t('Proovi uuesti')}</button>
 			</div>
 		</div>
 	{/if}
@@ -594,7 +594,7 @@
 	.rk-ekraan.tais .rk-ala { flex: 1 1 auto; min-height: 0; border-radius: 0; padding-bottom: var(--sp-3); }
 	.rk-ekraan.tais .rk-cv { flex: 1 1 auto; min-height: 0; aspect-ratio: auto; height: 100%; }
 	.rk-ekraan.tais .rk-fs { top: calc(10px + env(safe-area-inset-top)); right: calc(10px + env(safe-area-inset-right)); }
-	.rk-k-miks { margin: calc(-1 * var(--sp-2)) 0 var(--sp-4); font-size: 14px; line-height: 1.45; color: #c9ced6; max-width: 34em; }
+	.rk-k-miks { margin: var(--sp-2) auto 0; font-size: 13.5px; line-height: 1.45; color: #c9ced6; max-width: 34em; }
 	.rk-kaart { position: absolute; inset: 0; z-index: 3; display: grid; place-items: center; padding: var(--sp-3); background: rgba(5,6,8,0.55); border-radius: var(--r-lg, 16px); animation: kaartSisse 0.25s ease-out; }
 	.rk-ekraan.tais .rk-kaart { border-radius: 0; }
 	/* täisekraanil tekst pildi peale (üles, taeva kohale), et pilt saaks kogu kõrguse */
@@ -615,20 +615,18 @@
 	.rk-tel { position: absolute; top: 14px; left: 0; right: 0; margin: 0 auto; width: fit-content; z-index: 3; max-width: min(300px, 64%); padding: 10px 14px; border-radius: 16px; background: rgba(245, 245, 247, 0.94); color: #111; font-size: 14px; line-height: 1.3; text-align: left; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35); animation: rk-tel 0.25s ease-out; pointer-events: none; }
 	.rk-tel i { display: block; font-style: normal; font-weight: 700; font-size: 12px; color: #555; margin-bottom: 2px; }
 	@keyframes rk-tel { from { transform: translateY(-12px); opacity: 0; } }
-	.rk-k-maa { margin: var(--sp-1) 0 0; font-size: 15px; color: #c9ced6; }
+	.rk-k-maa { margin: var(--sp-1) 0 0; font-size: 15px; line-height: 1.4; color: #c9ced6; }
 	.rk-k-sober { margin: 4px 0 0; color: #d6dae1; font-size: 14.5px; }
 	.rk-k-s { font-size: 13px; color: #aab1bc; margin: var(--sp-2) 0 0; line-height: 1.4; }
-	.rk-jaga { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-2); margin-top: var(--sp-4); }
-	.rk-jaga .btn { text-align: center; justify-content: center; }
-	.rk-jaga .yel { grid-column: 1 / -1; }
-	.rk-kaart .rk-jaga .btn:not(.yel) { background: #23262d; color: #fff; border-color: #343944; }
+	.rk-jaga { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; margin-top: var(--sp-3); }
+	.rk-jb { border: 1px solid #343944; background: transparent; color: #c9ced6; font: inherit; font-weight: 600; font-size: 13px; padding: 7px 12px; border-radius: 999px; cursor: pointer; }
+	.rk-jb:hover { color: #fff; border-color: #ffc20e; }
 	.rk-valik { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-2); margin-top: var(--sp-2); }
 	.rk-valik a { text-align: center; padding: 10px 6px; border-radius: 10px; background: #23262d; border: 1px solid #343944; color: #fff; text-decoration: none; font-weight: 700; font-size: 14px; }
 	.rk-valik a:hover { border-color: #ffc20e; }
-	.rk-uuesti { margin-top: var(--sp-3); border: 0; background: transparent; color: #aab1bc; font-weight: 700; font-size: 14px; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; padding: 8px; }
-	.rk-uuesti:hover { color: #fff; }
-	.rk-k-rehv { display: block; margin-top: var(--sp-4); padding: 12px 14px; border-radius: 10px; background: #23262d; border: 1px solid #343944; color: #fff; font-weight: 700; font-size: 14.5px; text-decoration: none; }
-	.rk-k-rehv:hover { border-color: var(--yellow); }
+	.rk-uuesti { display: flex; width: 100%; justify-content: center; margin-top: var(--sp-4); font-size: 16px; }
+	.rk-k-rehv { display: inline-block; margin-top: var(--sp-4); color: #aab1bc; font-weight: 600; font-size: 13.5px; text-decoration: underline; text-underline-offset: 3px; }
+	.rk-k-rehv:hover { color: #fff; }
 	.rk-nupud { display: flex; flex-wrap: wrap; gap: var(--sp-2); margin-top: var(--sp-4); }
 	@media (max-width: 640px) { .rk-tekst b { font-size: 28px; } .rk-nupud .btn { flex: 1 1 100%; text-align: center; } }
 </style>
