@@ -13,6 +13,7 @@
 <Meta title={t('Kui kiiresti pidurdad, kui telefon piiksub?')} desc={t('Reaktsioonitest talvel: telefoni tuleb sõnum just siis, kui eesolev auto pidurdab.')} path="talv/mang/" canonical="/talv/" noindex />
 
 <div class="mg">
+	<h1 class="sr-only">{t('Kui kiiresti pidurdad, kui telefon piiksub?')}</h1>
 	<Reaktsioon algIlm="talv" telefon katseid={1} />
 	<p class="mg-all"><a href={'https://pidurdusmaa.ee' + keel.L('/talv/')} target="_blank" rel="noopener">{t('Talvine pidurdusmaa')}: pidurdusmaa.ee</a></p>
 </div>
