@@ -17,7 +17,7 @@
 	const t = useT();
 	const keel = useLang();
 	/* /talv/ kampaanialeht: algus talvel ja telefonisõnum, mis tuleb ekraanile vahetult enne pidurdust */
-	let { algIlm = null, telefon = false, katseid = 3 } = $props(); /* /talv/: üks proov */
+	let { algIlm = null, telefon = false, katseid = 3, alaLink = null } = $props(); /* /talv/: üks proov; alaLink = { tekst, url } kaardi alumine link (LKF) */
 	const SONUMID = [
 		[t('Ema'), t('Kas jõuad õhtuks koju?')],
 		[t('Pakiautomaat'), t('Sinu pakk on kätte toimetatud')],
@@ -499,7 +499,7 @@
 				<button type="button" class="rk-x" onclick={() => (kaart = false)} aria-label={t('Sulge')}>×</button>
 				{#if tulemusMs}<p class="rk-k-pea">{reziim === 'tuled' && KATSEID > 1 ? t('Sinu reaktsioon (3 katse mediaan)') : t('Sinu reaktsioon')}</p><p class="rk-k-aeg">{f2(tulemusMs)} <small>s</small></p>{/if}
 				<p class="rk-k-lause" class:punane={kaardiTul.crash}>{lause(kaardiTul)}</p>
-				{#if teekond}<p class="rk-k-maa">{kaardiTul.crash ? t('Reaktsiooni ajal sõitsid {r} m, pidurdusmaa oli {p} m', { r: f1(teekond.r), p: f1(teekond.p) }) : t('Peatumisteekond {k} m: reaktsiooni ajal {r} m ja pidurdus {p} m', { k: f1(teekond.k), r: f1(teekond.r), p: f1(teekond.p) })}</p>{/if}
+				{#if teekond}<p class="rk-k-maa">{kaardiTul.crash ? t('Reaktsiooni ajal sõitsid {r} m, pidurdusmaa oli {p} m', { r: f1(teekond.r), p: f1(teekond.p) }) : ''}{#if !kaardiTul.crash}<b>{t('Peatumisteekond {k} m', { k: f1(teekond.k) })}</b><span>{t('reaktsiooni ajal {r} m + pidurdus {p} m', { r: f1(teekond.r), p: f1(teekond.p) })}</span>{/if}</p>{/if}
 				{#if voimatu}<p class="rk-k-miks">{t('Seda poleks vältinud ka väga kiire reaktsioon: jalakäija tuli nähtavale {d} m kaugusel, aga {olud} kulub {v} km/h pealt peatumiseks ka 0,2-sekundilise reaktsiooniga {p} m.', { d: voimatu.d, olud: OLUD[ilm], v: kiirus, p: voimatu.p })} {riie === 'helkur' ? '' : t('Helkuriga oleks ta nähtav umbes 140 m pealt.')}</p>{/if}
 				{#if sobra && tulemusMs}<p class="rk-k-sober">{tulemusMs < sobra ? t('Sõbrast kiirem!') : tulemusMs > sobra ? t('Sõber oli kiirem') + ' (' + f2(sobra) + ' s)' : t('Täpselt sama kiire kui sõber!')}</p>{/if}
 				<button type="button" class="btn yel rk-uuesti" onclick={() => { kaart = false; vajuta(); }}>{t('Proovi uuesti')}</button>
@@ -515,7 +515,8 @@
 					</div>
 				{/if}
 				{#if jagatud}<p class="rk-k-s" role="status">{jagatud}</p>{/if}
-				<a class="rk-k-rehv" href={keel.L('/')} onclick={() => track('rehvid', 'kaart')}>{t('Kui pika maaga peatub sinu auto oma rehvidega?')} →</a>
+				{#if alaLink}<a class="rk-k-rehv" href={alaLink.url} target="_blank" rel="noopener" onclick={() => track('ala_link', 'kaart')}>{alaLink.tekst} →</a>
+				{:else}<a class="rk-k-rehv" href={keel.L('/')} onclick={() => track('rehvid', 'kaart')}>{t('Kui pika maaga peatub sinu auto oma rehvidega?')} →</a>{/if}
 			</div>
 		</div>
 	{/if}
@@ -616,6 +617,8 @@
 	.rk-tel i { display: block; font-style: normal; font-weight: 700; font-size: 12px; color: #555; margin-bottom: 2px; }
 	@keyframes rk-tel { from { transform: translateY(-12px); opacity: 0; } }
 	.rk-k-maa { margin: var(--sp-1) 0 0; font-size: 15px; line-height: 1.4; color: #c9ced6; }
+	.rk-k-maa b, .rk-k-maa span { display: block; }
+	.rk-k-maa b { color: #fff; font-weight: 700; }
 	.rk-k-sober { margin: 4px 0 0; color: #d6dae1; font-size: 14.5px; }
 	.rk-k-s { font-size: 13px; color: #aab1bc; margin: var(--sp-2) 0 0; line-height: 1.4; }
 	.rk-jaga { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; margin-top: var(--sp-3); }

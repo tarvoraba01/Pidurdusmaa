@@ -45,7 +45,7 @@
 		<h2>{t('Kui kiiresti pidurdad, kui telefon piiksub?')}</h2>
 		<p class="tv-sel">{t('Telefoni tuleb sõnum just siis, kui eesolev auto pidurdab. Vajuta kohe, kui pidurituled süttivad. Üks proov.')}</p>
 	</div>
-	<div class="wrap"><Reaktsioon algIlm="talv" telefon katseid={1} /></div>
+	<div class="wrap"><Reaktsioon algIlm="talv" telefon katseid={1} alaLink={{ tekst: t('Mis teha, kui juhtus? LKF-i juhend'), url: LKF }} /></div>
 </section>
 
 <section class="tv-osa tv-tume" id="pikivahe">
