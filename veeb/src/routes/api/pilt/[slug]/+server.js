@@ -6,7 +6,7 @@
  * on päriselt pilt (jpeg/png/webp/avif, kuni 3 MB), hoiab mälus ja annab
  * edasi pika vahemäluga. */
 import { piirang, liigaPalju, PAISED, SLUG_RE } from '$lib/server/integratsioonid/kaitse.js';
-import { pilt, pakkujaId } from '$lib/server/integratsioonid/koond.js';
+import { pildiAllikad, pakkujaId } from '$lib/server/integratsioonid/koond.js';
 import { paring } from '$lib/server/integratsioonid/http.js';
 
 export const prerender = false;
@@ -30,21 +30,28 @@ export async function GET(event) {
 
 	let k = malu.get(slug);
 	if (!k || Date.now() - k.aeg > 7 * PAEV) {
-		const allikas = await pilt(slug).catch(() => null);
-		const p = allikas && pakkujaId(allikas.pakkuja);
-		if (!p) return puudub();
-		try {
-			const r = await paring(p, allikas.url, { maxBaite: 3_000_000, aegMs: 8000 });
-			const tyyp = r.tyyp.split(';')[0].trim().toLowerCase();
-			if (r.status >= 500 || r.status === 429) return ajutine();
-			if (r.status !== 200 || !TYYBID.includes(tyyp)) return puudub();
-			k = { tyyp, andmed: r.andmed, aeg: Date.now() };
-			malu.delete(slug);
-			malu.set(slug, k);
-			while (malu.size > MAX_MALUS) malu.delete(malu.keys().next().value);
-		} catch {
-			return ajutine();
+		/* proovi pakkujate pilte järjest: esimene, mis annab päris pildi, jääb meelde */
+		const allikad = await pildiAllikad(slug).catch(() => []);
+		let ajutiseltMaas = false;
+		k = null;
+		for (const allikas of allikad) {
+			const p = pakkujaId(allikas.pakkuja);
+			if (!p) continue;
+			try {
+				const r = await paring(p, allikas.url, { maxBaite: 3_000_000, aegMs: 8000 });
+				const tyyp = r.tyyp.split(';')[0].trim().toLowerCase();
+				if (r.status >= 500 || r.status === 429) { ajutiseltMaas = true; continue; }
+				if (r.status !== 200 || !TYYBID.includes(tyyp)) continue;
+				k = { tyyp, andmed: r.andmed, aeg: Date.now() };
+				break;
+			} catch {
+				ajutiseltMaas = true;
+			}
 		}
+		if (!k) return ajutiseltMaas ? ajutine() : puudub();
+		malu.delete(slug);
+		malu.set(slug, k);
+		while (malu.size > MAX_MALUS) malu.delete(malu.keys().next().value);
 	}
 	return new Response(k.andmed, {
 		headers: {

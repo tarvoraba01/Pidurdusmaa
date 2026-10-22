@@ -44,7 +44,7 @@ function naastRead() {
 
 const ctx = { muutuja, jsonParing, paring, voog };
 const olekud = new Map(); // id -> { viga, vigaAeg, edu, tooteid, sobitatud }
-const pildid = new Map(); // slug -> { pakkuja, url }
+const pildid = new Map(); // slug -> [{ pakkuja, url }, …] (kuni 3 pakkujat)
 const MAX_PILTE = 20000;
 
 export const aktiivsed = () => PAKKUJAD.filter((p) => koikOlemas(p.env || []));
@@ -152,8 +152,14 @@ export async function hinnadMoodus(moot) {
 					/* kaardil saab näidata pilti /api/pilt/<slug> kaudu */
 					...(t.pilt && lubatud(p, t.pilt) ? { pilt: true } : {})
 				});
-				if (t.pilt && lubatud(p, t.pilt) && !pildid.has(slug)) {
-					pildid.set(slug, { pakkuja: p.id, url: String(t.pilt) });
+				/* iga rehvi kohta kuni 3 pildiallikat eri pakkujatelt: kui esimese pilt on katki
+				   (Tarvo 22.10: Ventus Prime 4 jäi pildita), proovib /api/pilt järgmist */
+				if (t.pilt && lubatud(p, t.pilt)) {
+					const list = pildid.get(slug) || [];
+					if (list.length < 3 && !list.some((x) => x.pakkuja === p.id)) {
+						list.push({ pakkuja: p.id, url: String(t.pilt) });
+						pildid.set(slug, list);
+					}
 					while (pildid.size > MAX_PILTE) pildid.delete(pildid.keys().next().value);
 				}
 			}
@@ -185,6 +191,10 @@ export async function hinnadIdd(ids) {
 
 /** Pildi allikas rehvile — URL ei lähe kunagi brauserisse, ainult /api/pilt/<slug>. */
 export async function pilt(slug) {
+	return (await pildiAllikad(slug))[0] || null;
+}
+/** Kõik teadaolevad pildiallikad (eri pakkujatelt), parim ees. */
+export async function pildiAllikad(slug) {
 	if (pildid.has(slug)) return pildid.get(slug);
 	/* pakkuja võib pakkuda ka eraldi pildiotsingut (valikuline) */
 	for (const p of aktiivsed()) {
@@ -192,7 +202,7 @@ export async function pilt(slug) {
 		try {
 			const url = await vahemalus(`p:${p.id}:${slug}`, 7 * 86400, () => p.pilt(slug, ctx));
 			if (url && lubatud(p, url)) {
-				const v = { pakkuja: p.id, url };
+				const v = [{ pakkuja: p.id, url }];
 				pildid.set(slug, v);
 				return v;
 			}
@@ -202,7 +212,7 @@ export async function pilt(slug) {
 			o.vigaAeg = new Date().toISOString();
 		}
 	}
-	return null;
+	return [];
 }
 
 export const pakkujaId = (id) => PAKKUJAD.find((p) => p.id === id) || null;
