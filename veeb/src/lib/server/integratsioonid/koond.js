@@ -1,6 +1,6 @@
 /* Koondab kõigi sisse lülitatud pakkujate andmed meie rehvide külge.
  *
- *   hinnadMoodus('20555R16') → { available, hinnad: { 'slug@20555R16': [ {myyja, hind, url, laos} ] } }
+ *   hinnadMoodus('20555R16') → { available, hinnad: { 'slug@20555R16': [ {myyja, hind, url, laos} ] }, kasutatud: { sama kuju, kasutatud: true, muster } }
  *   pilt('michelin-pilot-sport-5') → { pakkuja, url } | null   (URL jääb serverisse)
  *   olek() → mis on sees, mis puudu, viimased vead (ilma saladusteta)
  *
@@ -126,6 +126,9 @@ export async function hinnadMoodus(moot) {
 	const read = eprelSize(moot).concat(testRead());
 	const readNaast = naastRead();
 	const hinnad = {};
+	/* kasutatud rehvid eraldi (Tarvo 24.10): vanad tarbijad (hinnad) näevad ainult uusi;
+	   lehel tulevad need nähtavale ainult linnukesega „Näita ka kasutatud rehve“ */
+	const kasutatud = {};
 	pakkujad.forEach((p, pi) => {
 			const o = olek(p);
 			const list = listid[pi];
@@ -141,7 +144,8 @@ export async function hinnadMoodus(moot) {
 				if (!slug) continue;
 				sob++;
 				const id = slug + '@' + moot;
-				(hinnad[id] = hinnad[id] || []).push({
+				const siht = t.kasutatud ? kasutatud : hinnad;
+				(siht[id] = siht[id] || []).push({
 					myyja: myyjaNimi(t.myyja) || p.nimi,
 					hind: Math.round(hind * 100) / 100,
 					url: t.url ? poeLink(p, t.url) : null,
@@ -150,8 +154,10 @@ export async function hinnadMoodus(moot) {
 					...(Number.isInteger(t.kogus) && t.kogus >= 0 ? { kogus: Math.min(t.kogus, 99) } : {}),
 					...(t.umbes ? { umbes: true } : {}),
 					/* kaardil saab näidata pilti /api/pilt/<slug> kaudu */
-					...(t.pilt && lubatud(p, t.pilt) ? { pilt: true } : {})
+					...(t.pilt && lubatud(p, t.pilt) ? { pilt: true } : {}),
+					...(t.kasutatud ? { kasutatud: true, ...(t.muster ? { muster: t.muster } : {}) } : {})
 				});
+				if (t.kasutatud) continue; /* kasutatud rehvi foto ei sobi rehvi pildiks */
 				/* iga rehvi kohta kuni 3 pildiallikat eri pakkujatelt: kui esimese pilt on katki
 				   (Tarvo 22.10: Ventus Prime 4 jäi pildita), proovib /api/pilt järgmist */
 				if (t.pilt && lubatud(p, t.pilt)) {
@@ -166,12 +172,13 @@ export async function hinnadMoodus(moot) {
 			o.sobitatud = sob;
 	});
 	/* odavaim ees; üks rida müüja kohta */
-	for (const id of Object.keys(hinnad)) {
-		const parim = new Map();
-		for (const r of hinnad[id]) if (!parim.has(r.myyja) || r.hind < parim.get(r.myyja).hind) parim.set(r.myyja, r);
-		hinnad[id] = [...parim.values()].sort((a, b) => a.hind - b.hind);
-	}
-	const tulemus = { available: true, hinnad };
+	for (const H of [hinnad, kasutatud])
+		for (const id of Object.keys(H)) {
+			const parim = new Map();
+			for (const r of H[id]) if (!parim.has(r.myyja) || r.hind < parim.get(r.myyja).hind) parim.set(r.myyja, r);
+			H[id] = [...parim.values()].sort((a, b) => a.hind - b.hind);
+		}
+	const tulemus = { available: true, hinnad, kasutatud };
 	_sobitatud.set(moot, { listid, tulemus });
 	while (_sobitatud.size > 600) _sobitatud.delete(_sobitatud.keys().next().value);
 	return tulemus;
@@ -181,10 +188,13 @@ const _sobitatud = new Map(); // moot -> { listid, tulemus }
 /** ids = ['slug@20555R16', …] */
 export async function hinnadIdd(ids) {
 	const mood = [...new Set(ids.map((i) => i.split('@')[1]))];
-	const out = { available: aktiivsed().length > 0, hinnad: {} };
+	const out = { available: aktiivsed().length > 0, hinnad: {}, kasutatud: {} };
 	for (const m of mood) {
 		const r = await hinnadMoodus(m);
-		for (const id of ids) if (id.endsWith('@' + m) && r.hinnad[id]) out.hinnad[id] = r.hinnad[id];
+		for (const id of ids) if (id.endsWith('@' + m)) {
+			if (r.hinnad[id]) out.hinnad[id] = r.hinnad[id];
+			if (r.kasutatud && r.kasutatud[id]) out.kasutatud[id] = r.kasutatud[id];
+		}
 	}
 	return out;
 }

@@ -27,22 +27,24 @@ export async function GET(event) {
 	   iga lehe avamisega). Varem jäi otsing pärast esimest mõõtu pildi tõttu
 	   pooleli ja hinnad jäid tihti tühjaks. */
 	const mood = q ? [q] : m.sizes.map((z) => z.m).sort((a, b) => sizeModelCount(b) - sizeModelCount(a)).slice(0, 10);
-	const hinnad = [];
+	const hinnad = [], kasutatud = [];
 	await Promise.all(
 		mood.map(async (moot) => {
 			try {
 				const r = await hinnadMoodus(moot);
 				for (const x of r.hinnad[slug + '@' + moot] || []) hinnad.push({ ...x, moot });
+				for (const x of (r.kasutatud && r.kasutatud[slug + '@' + moot]) || []) kasutatud.push({ ...x, moot });
 			} catch {
 				/* pakkuja maas — teised mõõdud ja pilt võivad ikka tulla */
 			}
 		})
 	);
 	hinnad.sort((a, b) => a.hind - b.hind);
+	kasutatud.sort((a, b) => a.hind - b.hind);
 	const p = await pilt(slug).catch(() => null);
 	/* täpset toodet poes pole → link partneri e-poe selle mõõdu nimekirja (levinuim mõõt) */
 	const otsi = !hinnad.length && mood[0] && aktiivsed().some((x) => x.id === 'rehvivahetus')
 		? { myyja: 'Rehvivahetus.ee', moot: mood[0], url: poeLinkMoodule({ moot: mood[0] }) }
 		: null;
-	return vastus({ available: true, hinnad, otsi, pilt: p ? '/api/pilt/' + slug : null }, { vahemalu: 300 });
+	return vastus({ available: true, hinnad, kasutatud, otsi, pilt: p ? '/api/pilt/' + slug : null }, { vahemalu: 300 });
 }

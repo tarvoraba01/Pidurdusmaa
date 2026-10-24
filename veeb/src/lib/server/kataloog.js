@@ -101,25 +101,29 @@ function alus(m, tyyp) {
 export async function kataloog(m, tyyp) {
 	if (!core().eprelSizes.includes(m)) return null;
 	const a = alus(m, tyyp);
-	let hinnad = {}, olemas = false;
+	let hinnad = {}, kasutatud = {}, olemas = false;
 	try {
 		const h = await hinnadMoodus(m);
 		olemas = !!h.available;
 		hinnad = h.hinnad || {};
+		kasutatud = h.kasutatud || {};
 	} catch { /* hinnad pole kohustuslikud */ }
 	const read = a.read
 		.map((r) => {
 			const list = (hinnad[r.slug + '@' + m] || []).filter((x) => x.hind > 0 && x.url);
 			list.sort((x, y) => x.hind - y.hind);
 			const parim = list[0];
+			const kas = (kasutatud[r.slug + '@' + m] || []).filter((x) => x.hind > 0 && x.url).sort((x, y) => x.hind - y.hind)[0];
 			return {
 				...r,
 				hind: parim ? { min: parim.hind, umbes: !!parim.umbes, poode: new Set(list.map((x) => x.myyja)).size, laos: list.some((x) => x.laos),
 					pood: parim.myyja, url: parim.url } : null,
-				pilt: list.some((x) => x.pilt)
+				pilt: list.some((x) => x.pilt),
+				/* kasutatud (Tarvo 24.10): ainult linnukesega nähtav, vaikimisi peidus */
+				kasut: kas ? { min: kas.hind, umbes: !!kas.umbes, muster: kas.muster || null, pood: kas.myyja, url: kas.url } : null
 			};
 		})
 		/* naastrehv: ainult kui selles mõõdus teada (testitud selles mõõdus või poes müügil) */
-		.filter((r) => tyyp !== 'naast' || r.selMoodus || r.hind);
+		.filter((r) => tyyp !== 'naast' || r.selMoodus || r.hind || r.kasut);
 	return { moot: m, label: a.label, tyyp, auto: a.auto, silt: a.silt, hinnadOlemas: olemas, read };
 }

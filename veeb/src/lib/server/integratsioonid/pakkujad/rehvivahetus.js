@@ -121,6 +121,16 @@ export function teisenda(x, meieMoodud) {
 	   hulgast (koond.js) — muidu jääks ta sidumata või saaks lamellrehvi märgise.
 	   Välja nimi pole API kirjelduses kindel, seega vaatame kõiki tekstivälju. */
 	if (Object.values(x).some((v) => typeof v === 'string' && /\bnaast/i.test(v))) t.naast = true;
+	/* kasutatud rehv: märkus „USED: 7mm“ (API `notes`, e-poes notes_details). Eraldi pakkumine
+	   (Tarvo 24.10: kasutatud rehvid ainult linnukesega, vaikimisi peidus) — mitte uue rehvi hinnaks.
+	   Link viib mõõdu nimekirja: e-poe tootelingi seos on ainult uutele rehvidele. */
+	const kasM = Object.values(x).map((v) => (typeof v === 'string' ? /\bUSED\s*:\s*([^;|]*)/i.exec(v) : null)).find(Boolean);
+	if (kasM) {
+		t.kasutatud = true;
+		const mm = /(\d{1,2}(?:[.,]\d)?)\s*mm/i.exec(kasM[1]);
+		if (mm) { const v = +mm[1].replace(',', '.'); if (v >= 1 && v <= 12) t.muster = v; }
+		if (!otse) t.url = poeLinkMoodule({ moot, carType: t.carType });
+	}
 	t.voti = epoeVoti(mark, nimi, moot, t.lisi);
 	delete t.carType;
 	return t;
@@ -251,7 +261,7 @@ function lisaTooteLingid(pakkuja, ctx, list) {
 	const tulem = list.map((t) => {
 		const e = epood.get(`${t.ct}:${t.moot}`);
 		if (!e || Date.now() - e.aeg > EPOOD_KEHTIB_MS) vaja.add(t.ct);
-		if (t.otse) return t;
+		if (t.otse || t.kasutatud) return t;
 		const url = e && (e.lingid.get(t.voti) || e.lingid.get(ilmaIndeksita(t.voti)));
 		if (url) return { ...t, url };
 		/* salvestatud seos (kogu e-pood läbi käidud) — töötab ka siis, kui serveri enda lugemine ei õnnestu */

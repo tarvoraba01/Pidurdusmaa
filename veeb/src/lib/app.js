@@ -1490,19 +1490,21 @@ import UNIVERSAALID from './universaalid.json';
       var sea = poodHooaeg === 'winter'
         ? { long: _t('lamell-, aastaringsed ja naastrehvid'), eprel: SEASON.winter.eprel, tested: SEASON.winter.tested.concat(['WINTER_STUDDED']) }
         : { long: _t('suverehvid, ka lamell- ja aastaringsed'), eprel: [0, 1, 2, 3], tested: SEASON.summer.tested.concat(SEASON.winter.tested) };
-      var voti = moodud.join(',') + '|' + poodHooaeg + '|' + poodLaiem;
+      var voti = moodud.join(',') + '|' + poodHooaeg + '|' + poodLaiem + '|' + Kas.sees;
       if (voti === poodVoti) return;
       poodVoti = voti;
       if (!core._tyreBySlug) { core._tyreBySlug = {}; core.tyres.forEach(function (t) { if (t.slug) core._tyreBySlug[t.slug] = t; }); }
-      Promise.all(moodud.map(function (m) { return Promise.all([Prices.size(m), loadSize(m)]).then(function (x) { return { m: m, h: (x[0] && x[0].hinnad) || {}, rows: x[1] }; }); }))
+      Promise.all(moodud.map(function (m) { return Promise.all([Prices.raw(m), loadSize(m)]).then(function (x) { return { m: m, h: (x[0] && x[0].hinnad) || {}, k: (x[0] && x[0].kasutatud) || {}, rows: x[1] }; }); }))
         .then(function (koik) {
           if (poodVoti !== voti) return;
           var list = [];
           koik.forEach(function (k) {
             var bySlug = {};
             k.rows.forEach(function (r) { bySlug[r.slug] = r; });
-            Object.keys(k.h).forEach(function (id) {
-              var slug = id.split('@')[0], rr = k.h[id];
+            /* uued ja kasutatud eraldi kaartidena: kasutatud ei varja sama rehvi uut hinda */
+            [[k.h, false], [k.k, true]].forEach(function (HK) { var H = HK[0];
+            Object.keys(H).forEach(function (id) {
+              var slug = id.split('@')[0], rr = H[id];
               if (!rr || !rr.length || id.split('@')[1] !== k.m) return;
               var e = bySlug[slug], t = core._tyreBySlug[slug], nimi, g = null;
               var kat = null;
@@ -1510,19 +1512,23 @@ import UNIVERSAALID from './universaalid.json';
               else if (t) { if (sea.tested.indexOf(t.category) < 0) return; nimi = t.name; kat = /^SUMMER/.test(t.category) ? 0 : t.category === 'ALL_SEASON' ? 1 : t.category === 'WINTER_CENTRAL' ? 2 : t.category === 'WINTER_STUDDED' ? 4 : 3; }
               else return;
               var r = rr.slice().sort(function (a, b) { return a.hind - b.hind; })[0];
-              list.push({ m: k.m, slug: slug, nimi: nimi, g: g, kat: kat, testitud: !!((t && t.gSource !== 'hinnang') || (e && e.tested)), r: r });
+              list.push({ m: k.m, slug: slug, nimi: nimi, g: g, kat: kat, testitud: !!((t && t.gSource !== 'hinnang') || (e && e.tested)), r: r, kas: HK[1] });
+            });
             });
           });
           /* sinu mõõt ees (soodsaim ees), teised tehasemõõdud järel */
           list.sort(function (a, b) { return ((a.m !== S.size) - (b.m !== S.size)) || (a.r.hind - b.r.hind); });
           var laiemN = list.filter(function (x) { return poodHooaeg === 'summer' ? x.kat : x.kat === 1; }).length;
           if (!poodLaiem) list = list.filter(function (x) { return poodHooaeg === 'summer' ? !x.kat : x.kat !== 1; });
+          var kasN = list.filter(function (x) { return x.kas; }).length;
+          if (!Kas.sees) list = list.filter(function (x) { return !x.kas; });
           /* hinna järgi segamini; tüübi märk kaardil (hooaja filter jääb) */
           var ainultOma = !list.some(function (x) { return x.m !== S.size; });
-          if (!list.length && !laiemN) { box.hidden = true; box.innerHTML = ''; return; }
+          if (!list.length && !laiemN && !kasN) { box.hidden = true; box.innerHTML = ''; return; }
           list = list.slice(0, 30);
           box.innerHTML = '<p class="rs-k">' + (ainultOma ? _t('Rehvid poodides mõõdus ') + esc(pretty(S.size)) : _t('Rehvid poodides — sinu mõõt ees')) + ' <span style="font-weight:500;color:var(--muted)">' + _t('(soodsaim ees)') + '</span></p>' +
-            (laiemN ? '<label class="eri-t pood-laiem"><input type="checkbox" data-pood-laiem' + (poodLaiem ? ' checked' : '') + '> ' + (poodHooaeg === 'summer' ? _t('Näita ka lamell- ja aastaringseid rehve') : _t('Näita ka aastaringseid rehve')) + '</label>' : '') +
+            (laiemN || kasN ? '<div class="pood-lin">' + (laiemN ? '<label class="eri-t pood-laiem"><input type="checkbox" data-pood-laiem' + (poodLaiem ? ' checked' : '') + '> ' + (poodHooaeg === 'summer' ? _t('Näita ka lamell- ja aastaringseid rehve') : _t('Näita ka aastaringseid rehve')) + '</label>' : '') +
+              (kasN ? kasLinnuke(kasN) : '') + '</div>' : '') +
             '<div class="pk-rida pk-moot">' + list.map(function (x) {
               var r = x.r;
               var ladu = r.laos === false ? _t('tellimisel') : (r.kogus > 0 ? _t('laos') + ' ' + (r.kogus >= 8 ? '8+' : r.kogus) + ' ' + _t('tk') : '');
@@ -1531,7 +1537,7 @@ import UNIVERSAALID from './universaalid.json';
                 '<span class="pk-pilt">' + pilt + '</span>' + (x.kat ? '<span class="kat-b kat-' + x.kat + '">' + KAT_KAART[x.kat] + '</span>' : '') + '<span class="pk-n">' + esc(x.nimi) + '</span>' +
                 (x.g ? '<small>' + _t('märghaare ') + esc(x.g) + (x.testitud ? _t(' · testitud') : '') + '</small>' : x.testitud ? '<small>' + _t('testitud') + '</small>' : '');
               return '<div class="pk">' + eelNupp(x.slug, x.m, x.nimi, r, ylal) +
-                '<b>' + hindTekst(r) + '</b><span class="pk-pood">' + esc(r.myyja) + '</span>' + (ladu ? '<small>' + ladu + '</small>' : '') + valiLink(r, x.nimi + ' ' + pretty(x.m)) + '</div>';
+                '<b>' + hindTekst(r) + '</b>' + kasMark(r) + '<span class="pk-pood">' + esc(r.myyja) + '</span>' + (ladu ? '<small>' + ladu + '</small>' : '') + valiLink(r, x.nimi + ' ' + pretty(x.m)) + '</div>';
             }).join('') + '</div>' +
             (!ainultOma ? '<p class="note" style="margin:0">' + _t('Mõõdud on selle auto tehase lubatud mõõdud. Teise mõõdu puhul kontrolli, et velg sobib.') + '</p>' : '');
           box.hidden = false;
@@ -1541,7 +1547,16 @@ import UNIVERSAALID from './universaalid.json';
             Track('pood_laiem', (poodLaiem ? 'jah' : 'ei') + ' · ' + poodHooaeg);
             poodiMoodud(S);
           });
+          var kb = $('[data-kas]', box);
+          if (kb) kb.addEventListener('change', kasMuutus);
         });
+    }
+    /* linnuke mõjutab kõiki selle lehe hindu: poodide rida, klassi soodsaimad, „al X €“ */
+    function kasMuutus(e) {
+      Kas.sees = !!e.target.checked;
+      Track('kasutatud', Kas.sees ? 'jah' : 'ei');
+      poodVoti = null; hinnadSize = null;
+      render();
     }
     function paintPrices(size, cur) {
       var box = $('[data-r-price]', el);
@@ -1583,7 +1598,7 @@ import UNIVERSAALID from './universaalid.json';
             var pilt = t.r.pilt ? '<img src="' + CFG.home + 'api/pilt/' + encodeURIComponent(t.m.slug) + '/" alt="" width="48" height="58" loading="lazy" decoding="async">' : '<span class="pk-ring" aria-hidden="true"></span>';
             return '<div class="pk-r">' + eelNupp(t.m.slug, size, nimi, t.r, '<span class="pk-pilt">' + pilt + '</span>') +
               '<span class="pk-nimi">' + eelNupp(t.m.slug, size, nimi, t.r, '<b>' + esc(nimi) + '</b>') + '<small>' + esc(t.r.myyja) + (ladu ? ' · ' + ladu : '') + '</small>' +
-              '<span class="pk-rv"><b class="pk-hind">' + hindTekst(t.r) + '</b>' + valiLink(t.r, nimi) + '</span></span></div>';
+              '<span class="pk-rv"><b class="pk-hind">' + hindTekst(t.r) + '</b>' + kasMark(t.r) + valiLink(t.r, nimi) + '</span></span></div>';
           }).join('') + '</div>' : _t('<span class="none">Hindu selles klassis veel pole</span>'));
         } else box.innerHTML = _t('<span class="pl">Hinnad</span> <span class="none">vali rehv, et näha müüjaid</span>');
       });
@@ -2257,9 +2272,21 @@ import UNIVERSAALID from './universaalid.json';
       if (!CFG.prices || !ids.length) return Promise.resolve({ available: false });
       var u = CFG.prices + (CFG.prices.indexOf('?') >= 0 ? '&' : '?') + 'ids=' + encodeURIComponent(ids.join(','));
       return fetch(u, { credentials: 'omit' }).then(function (r) { return r.ok ? r.json() : { available: false }; })
-        .catch(function () { return { available: false }; });
+        .catch(function () { return { available: false }; }).then(kasLiida);
     }
   };
+  /* KASUTATUD REHVID (Tarvo 24.10): server annab need eraldi (`kasutatud`). Lehel ainult siis,
+     kui inimene paneb linnukese „Näita ka kasutatud rehve“; algus alati väljas, meelde ei jää. */
+  var Kas = { sees: false };
+  function kasLiida(d) {
+    if (!d || !Kas.sees || !d.kasutatud) return d;
+    var h = {};
+    Object.keys(d.hinnad || {}).forEach(function (id) { h[id] = d.hinnad[id].slice(); });
+    Object.keys(d.kasutatud).forEach(function (id) { h[id] = (h[id] || []).concat(d.kasutatud[id]).sort(function (a, b) { return a.hind - b.hind; }); });
+    return Object.assign({}, d, { hinnad: h });
+  }
+  function kasMark(r) { return r && r.kasutatud ? '<small class="kas-b">' + _t('Kasutatud') + (r.muster ? ' · ' + fmt(r.muster, r.muster % 1 ? 1 : 0) + ' mm' : '') + '</small>' : ''; }
+  function kasLinnuke(n) { return '<label class="eri-t pood-laiem pood-kas"><input type="checkbox" data-kas' + (Kas.sees ? ' checked' : '') + '> ' + _t('Näita ka kasutatud rehve') + (n ? ' <span class="kas-n">(' + n + ')</span>' : '') + '</label>'; }
   var sizePrices = {};
   Prices.size = function (m) {
     if (!CFG.prices) return Promise.resolve({ available: false });
@@ -2268,8 +2295,10 @@ import UNIVERSAALID from './universaalid.json';
       sizePrices[m] = fetch(u, { credentials: 'omit' }).then(function (r) { return r.ok ? r.json() : { available: false }; })
         .catch(function () { return { available: false }; });
     }
-    return sizePrices[m];
+    return sizePrices[m].then(kasLiida);
   };
+  /* sama ilma kasutatud rehvide liitmiseta: { hinnad (uued), kasutatud } eraldi */
+  Prices.raw = function (m) { if (!CFG.prices) return Promise.resolve({ available: false }); Prices.size(m); return sizePrices[m]; };
   function eur(v) { return (+v).toFixed(2).replace('.', DEC) + ' €'; }
   function priceSlot(id) { return _t('<div class="pv" data-price="') + esc(id) + _t('"><span class="none">Laen hindu…</span></div>'); }
   /* „u 62 €“ — pakkuja hind on keskmine e-poe hind, mitte täpne */
@@ -2294,7 +2323,7 @@ import UNIVERSAALID from './universaalid.json';
       var ladu = r.laos === false ? _t('tellimisel') : (r.kogus > 0 ? _t('laos') + ' ' + (r.kogus >= 8 ? '8+' : r.kogus) + ' ' + _t('tk') : '');
       var pilt = r.pilt ? '<img src="' + CFG.home + 'api/pilt/' + encodeURIComponent(slug) + '/" alt="" width="48" height="58" loading="lazy" decoding="async">' : '<span class="pk-ring" aria-hidden="true"></span>';
       return '<div class="pk-r">' + eelNupp(slug, m, nimi, r, '<span class="pk-pilt">' + pilt + '</span>') +
-        '<span class="pk-nimi"><b>' + esc(r.myyja) + '</b><small>' + esc(ladu) + '</small><span class="pk-rv"><b class="pk-hind">' + hindTekst(r) + '</b>' + valiLink(r, nimi) + '</span></span></div>';
+        '<span class="pk-nimi"><b>' + esc(r.myyja) + '</b><small>' + esc(ladu) + '</small><span class="pk-rv"><b class="pk-hind">' + hindTekst(r) + '</b>' + kasMark(r) + valiLink(r, nimi) + '</span></span></div>';
     }).join('') + '</div>';
   }
   function priceHtml(rows, avail, id, nimi) {
@@ -3396,7 +3425,11 @@ import UNIVERSAALID from './universaalid.json';
     if (!box || !d) return;
     var nimi = box.getAttribute('data-nimi') || '';
     /* täpset toodet poes pole: link partneri e-poe sama mõõdu nimekirja */
-    if ((!d.hinnad || !d.hinnad.length) && d.otsi && d.otsi.url) {
+    var otsiHtml = function () { return d.otsi && d.otsi.url ?
+        '<a class="rp-pood" href="' + esc(poeLink(d.otsi.url, 'rehvileht', nimi)) + '" target="_blank" rel="nofollow sponsored noopener" data-pood="' + esc(d.otsi.myyja) + '" data-rehv="' + esc(nimi) + '">' +
+        '<b>' + esc(d.otsi.myyja) + '</b><span class="h">' + esc(pretty(d.otsi.moot)) + '</span>' +
+        '<small>' + _t('Seda mudelit praegu poes ei ole. Vaata sama mõõdu rehve.') + '</small><span class="v">' + _t('Vaata') + ' →</span></a>' : ''; };
+    if ((!d.hinnad || !d.hinnad.length) && d.otsi && d.otsi.url && !(d.kasutatud || []).length) {
       $('[data-rehv-poed-list]', box).innerHTML =
         '<a class="rp-pood" href="' + esc(poeLink(d.otsi.url, 'rehvileht', nimi)) + '" target="_blank" rel="nofollow sponsored noopener" data-pood="' + esc(d.otsi.myyja) + '" data-rehv="' + esc(nimi) + '">' +
         '<b>' + esc(d.otsi.myyja) + '</b><span class="h">' + esc(pretty(d.otsi.moot)) + '</span>' +
@@ -3405,15 +3438,24 @@ import UNIVERSAALID from './universaalid.json';
       Track('poed_rehvilehel', nimi + ' · otsi');
       return;
     }
-    if (!d.hinnad || !d.hinnad.length) return;
+    var kasL = (d.kasutatud || []).filter(function (r) { return r.url; });
+    if ((!d.hinnad || !d.hinnad.length) && !kasL.length) return;
     var parim = {};
-    d.hinnad.forEach(function (r) { if (!r.url) return; var k = r.myyja + '|' + r.moot; if (!parim[k] || r.hind < parim[k].hind) parim[k] = r; });
+    (d.hinnad || []).concat(Kas.sees ? kasL : []).forEach(function (r) { if (!r.url) return; var k = r.myyja + '|' + r.moot + (r.kasutatud ? '|k' : ''); if (!parim[k] || r.hind < parim[k].hind) parim[k] = r; });
     var list = Object.keys(parim).map(function (k) { return parim[k]; }).sort(function (a, b) { return a.hind - b.hind; }).slice(0, 8);
-    if (!list.length) return;
+    /* linnuke „Näita ka kasutatud rehve“ nimekirja kohal (ainult kui neid on) */
+    var lb = $('[data-kas-rehvileht]', box);
+    if (kasL.length && !lb) {
+      lb = document.createElement('div'); lb.setAttribute('data-kas-rehvileht', ''); lb.className = 'pood-lin';
+      var pl = $('[data-rehv-poed-list]', box); pl.parentNode.insertBefore(lb, pl);
+      lb.addEventListener('change', function (e) { Kas.sees = !!e.target.checked; Track('kasutatud', (Kas.sees ? 'jah' : 'ei') + ' · rehvileht'); poed(d, slug); });
+    }
+    if (lb) lb.innerHTML = kasLinnuke(kasL.length);
+    if (!list.length) { $('[data-rehv-poed-list]', box).innerHTML = otsiHtml(); box.hidden = false; return; }
     $('[data-rehv-poed-list]', box).innerHTML = list.map(function (r) {
       return '<a class="rp-pood" href="' + esc(poeLink(r.url, 'rehvileht', nimi)) + '" target="_blank" rel="nofollow sponsored noopener" data-pood="' + esc(r.myyja) + '" data-rehv="' + esc(nimi) + '">' +
         '<b>' + esc(r.myyja) + '</b><span class="h">' + esc(hindTekst(r)) + '</span>' +
-        '<small>' + esc(pretty(r.moot)) + (r.laos === false ? ' · ' + _t('tellimisel') : r.kogus > 0 ? ' · ' + _t('laos') + ' ' + (r.kogus >= 8 ? '8+' : r.kogus) + ' ' + _t('tk') : '') + '</small><span class="v">' + _t('Vali') + ' →</span></a>';
+        '<small>' + (r.kasutatud ? '<span class="kas-b">' + _t('Kasutatud') + (r.muster ? ' · ' + fmt(r.muster, r.muster % 1 ? 1 : 0) + ' mm' : '') + '</span> ' : '') + esc(pretty(r.moot)) + (r.laos === false ? ' · ' + _t('tellimisel') : r.kogus > 0 ? ' · ' + _t('laos') + ' ' + (r.kogus >= 8 ? '8+' : r.kogus) + ' ' + _t('tk') : '') + '</small><span class="v">' + _t('Vali') + ' →</span></a>';
     }).join('');
     box.hidden = false;
     Track('poed_rehvilehel', nimi + ' · ' + list.length);

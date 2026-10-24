@@ -22,6 +22,8 @@
 	let tyyp = $state(algTyyp || (talv() ? 'naast' : 'suvi'));
 	let sort = $state('parim');
 	let ainultPoes = $state(true);
+	/* kasutatud rehvid (Tarvo 24.10): ainult linnukesega, algus alati väljas, meelde ei jää */
+	let kasSees = $state(false);
 	let andmed = $state(null);
 	let laeb = $state(false);
 	let viga = $state(false);
@@ -87,6 +89,9 @@
 
 	const GJ = { A: 1, B: 2, C: 3, D: 4, E: 5 };
 	const hinnaga = $derived(andmed ? andmed.read.filter((r) => r.hind).length : 0);
+	const kasArv = $derived(andmed ? andmed.read.filter((r) => r.kasut).length : 0);
+	/* hind sortimiseks ja „Ainult müügil“ jaoks: kasutatud ainult siis, kui linnuke on sees */
+	const minHind = (r) => Math.min(r.hind ? r.hind.min : 1e9, kasSees && r.kasut ? r.kasut.min : 1e9);
 	const poeFilter = $derived(ainultPoes && hinnaga >= 3);
 	/* PARIM VALIK (Tarvo 21.10): hinna ja pidurdusmaa tasakaal. Ainult rehvidel, millel on mõlemad
 	   (testitud pidurdusmaa ja hind poes). Mõlemad skaleeritakse selle nimekirja piires 0..1 (parim 0)
@@ -106,9 +111,9 @@
 	const read = $derived.by(() => {
 		if (!andmed) return [];
 		let a = andmed.read.slice();
-		if (poeFilter) a = a.filter((r) => r.hind);
+		if (poeFilter) a = a.filter((r) => r.hind || (kasSees && r.kasut));
 		const pid = (r) => [r.m ?? 999, r.testitud ? 0 : 1, (andmed.tyyp !== 'naast' && andmed.tyyp !== 'suvi' && !r.jaa) ? 1 : 0, GJ[r.g] ?? 9, r.db ?? 99];
-		const hind = (r) => [r.hind ? r.hind.min : 1e9, r.m ?? 999];
+		const hind = (r) => [minHind(r), r.m ?? 999];
 		const parim = (r) => [skoor.has(r.slug) ? skoor.get(r.slug) : 9, ...pid(r)];
 		const f = sort === 'hind' ? hind : sort === 'parim' ? parim : pid;
 		a.sort((x, y) => { const p = f(x), q = f(y); for (let i = 0; i < p.length; i++) if (p[i] !== q[i]) return p[i] - q[i]; return x.nimi.localeCompare(y.nimi, 'et'); });
@@ -147,6 +152,9 @@
 				{#if hinnaga >= 3}
 					<label class="lyliti"><input type="checkbox" bind:checked={ainultPoes} /><span aria-hidden="true"></span>{t('Ainult müügil')}</label>
 				{/if}
+				{#if kasArv}
+					<label class="lyliti"><input type="checkbox" bind:checked={kasSees} onchange={() => window.PM_TRACK && window.PM_TRACK('kasutatud', (kasSees ? 'jah' : 'ei') + ' · kataloog')} /><span aria-hidden="true"></span>{t('Kasutatud ka')}</label>
+				{/if}
 				<span class="kat-arv">{#if andmed}{read.length} {t('rehvi')}{/if}</span>
 			</div>
 		</div>
@@ -184,8 +192,15 @@
 						<span class="kk-4">{t('4 tk')} {eur(r.hind.min * 4)}</span>
 						<a class="kk-osta" href={r.hind.url} target="_blank" rel="nofollow sponsored noopener" data-pood={r.hind.pood} data-rehv={r.nimi}>{t('Osta')} · {r.hind.pood}</a>
 						<span class="kk-poed">{#if r.hind.laos}<i></i>{t('laos')}{' · '}{/if}{#if r.url && r.hind.poode > 1}<a href={L(r.url) + '#kus-osta'}>{t('{n} poodi', { n: r.hind.poode })}</a>{:else}{r.hind.poode === 1 ? t('1 pood') : t('{n} poodi', { n: r.hind.poode })}{/if}</span>
+					{:else if kasSees && r.kasut}
+						<span class="kk-hind">{r.kasut.umbes ? t('u') + ' ' : ''}{eur(r.kasut.min)}</span>
+						<span class="kk-kas">{t('Kasutatud')}{r.kasut.muster ? ' · ' + num(r.kasut.muster, r.kasut.muster % 1 ? 1 : 0) + ' mm' : ''}</span>
+						<a class="kk-osta" href={r.kasut.url} target="_blank" rel="nofollow sponsored noopener" data-pood={r.kasut.pood} data-rehv={r.nimi}>{t('Osta')} · {r.kasut.pood}</a>
 					{:else if r.url}
 						<a class="kk-osta kk-vaata" href={L(r.url)}>{t('Vaata rehvi')}</a>
+					{/if}
+					{#if kasSees && r.kasut && r.hind}
+						<a class="kk-kasl" href={r.kasut.url} target="_blank" rel="nofollow sponsored noopener" data-pood={r.kasut.pood} data-rehv={r.nimi + ' (kasutatud)'}>{t('Kasutatud')}{r.kasut.muster ? ' · ' + num(r.kasut.muster, r.kasut.muster % 1 ? 1 : 0) + ' mm' : ''} · {r.kasut.umbes ? t('u') + ' ' : ''}{eur(r.kasut.min)} →</a>
 					{/if}
 				</div>
 			</article>
@@ -257,6 +272,9 @@
 	.kk-vaata { background: var(--paper-2); color: var(--text); }
 	.kk-vaata:hover { background: var(--paper-3); }
 	.kk-poed { font-size: 12.5px; color: var(--muted); }
+	.kk-kas { display: inline-block; padding: 1px 8px; border-radius: 999px; background: var(--paper-2); color: #3b4250; font-size: 11.5px; font-weight: 700; }
+	.kk-kasl { font-size: 12.5px; color: var(--muted); }
+	.kk-kasl:hover { color: var(--text); }
 	.kk-poed i { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--good); margin-right: 5px; vertical-align: 1px; }
 	.kk-poed a { color: var(--muted); }
 	.kat-veel { justify-self: center; margin-top: 10px; border: 1px solid var(--line); background: var(--paper); border-radius: 12px; padding: 12px 22px; font: 600 15px var(--body); cursor: pointer; }
@@ -270,6 +288,7 @@
 		.kk-4 { justify-self: start; }
 		.kk-osta { grid-column: 1 / -1; width: 100%; }
 		.kk-poed { grid-column: 1 / -1; }
+		.kk-kasl { grid-column: 1 / -1; }
 	}
 	@media (max-width: 640px) {
 		.kat-r1, .kat-r2 { flex-direction: column; align-items: stretch; }

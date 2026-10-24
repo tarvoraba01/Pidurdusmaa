@@ -1267,6 +1267,10 @@ html.upotus .rk-ala{position:relative}html.upotus .rk-pallid{position:absolute;l
 .pk .kat-b{margin:2px 0 0;font-size:11px;padding:1px 7px}
 .kat-b.kat-4{background:#fde8e8;color:#8a1f1f}
 .pood-laiem{display:flex;margin:0 0 var(--sp-3)}
+/* kasutatud rehvid (Tarvo 24.10): linnuke lamelli kõrval, vaikimisi väljas */
+.pood-lin{display:flex;flex-wrap:wrap;gap:0 var(--sp-5);margin:0 0 var(--sp-3)}.pood-lin .pood-laiem{margin:var(--sp-2) 0 0}
+.kas-n{color:var(--muted);font-weight:400}
+.kas-b{display:inline-block;width:fit-content;margin:2px auto 0;padding:1px 8px;border-radius:999px;background:#eef1f5;color:#3b4250;font-size:11.5px;font-weight:700;letter-spacing:.01em;font-style:normal}
 
 /* auto- ja mõõdulehe tabelite hinnaveerg (app.js hinnaTabelid) */
 .ht-rida{display:block;margin-top:4px;font-size:14px}
