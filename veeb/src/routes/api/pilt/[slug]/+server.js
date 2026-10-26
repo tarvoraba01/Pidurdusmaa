@@ -14,6 +14,16 @@ export const prerender = false;
 export const trailingSlash = 'ignore';
 
 const TYYBID = ['image/jpeg', 'image/png', 'image/webp', 'image/avif'];
+/* pildi tüüp failialguse („maagiliste baitide“) järgi; muu kui pilt → null */
+function nuusi(b) {
+	if (!b || b.length < 12) return null;
+	if (b[0] === 0xff && b[1] === 0xd8 && b[2] === 0xff) return 'image/jpeg';
+	if (b[0] === 0x89 && b[1] === 0x50 && b[2] === 0x4e && b[3] === 0x47) return 'image/png';
+	const a = String.fromCharCode(...b.subarray(0, 12));
+	if (a.startsWith('RIFF') && a.slice(8, 12) === 'WEBP') return 'image/webp';
+	if (a.slice(4, 12) === 'ftypavif') return 'image/avif';
+	return null;
+}
 const MAX_MALUS = 300;
 const malu = new Map(); // slug -> { tyyp, andmed, aeg }
 const PAEV = 86400 * 1000;
@@ -39,7 +49,11 @@ export async function GET(event) {
 			if (!p) continue;
 			try {
 				const r = await paring(p, allikas.url, { maxBaite: 3_000_000, aegMs: 8000 });
-				const tyyp = r.tyyp.split(';')[0].trim().toLowerCase();
+				/* Inter Carsi CDN annab osale piltidest tüübi application/octet-stream (Tarvo 26.10:
+				   Nexen N'Blue 4Season 2 pildita; 205/55 R16 mõõdus 19 intercars-pilti 34-st). Siis
+				   otsustame failialguse järgi — ainult päris jpeg/png/webp/avif läheb läbi. */
+				let tyyp = r.tyyp.split(';')[0].trim().toLowerCase();
+				if (r.status === 200 && !TYYBID.includes(tyyp)) tyyp = nuusi(r.andmed) || tyyp;
 				if (r.status >= 500 || r.status === 429) { ajutiseltMaas = true; continue; }
 				if (r.status !== 200 || !TYYBID.includes(tyyp)) continue;
 				k = { tyyp, andmed: r.andmed, aeg: Date.now() };
