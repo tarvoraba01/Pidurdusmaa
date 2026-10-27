@@ -1552,7 +1552,7 @@ import UNIVERSAALID from './universaalid.json';
           var kb = $('[data-kas]', box);
           if (kb) kb.addEventListener('change', kasMuutus);
           $$('[data-vaja]', box).forEach(function (b) { b.addEventListener('click', function () {
-            Vaja.tk = +b.getAttribute('data-vaja'); Track('vajan_tk', String(Vaja.tk)); poodVoti = null; poodiMoodud(S);
+            var n = +b.getAttribute('data-vaja'); Vaja.tk = Vaja.tk === n ? 0 : n; Track('vajan_tk', String(Vaja.tk)); poodVoti = null; poodiMoodud(S);
           }); });
         });
     }
@@ -2292,13 +2292,15 @@ import UNIVERSAALID from './universaalid.json';
   }
   function kasMark(r) { return r && r.kasutatud ? '<small class="kas-b">' + _t('Kasutatud') + (r.muster ? ' · ' + fmt(r.muster, r.muster % 1 ? 1 : 0) + ' mm' : '') + (dotAasta(r.dot) ? ' · DOT ' + dotAasta(r.dot) : '') + '</small>' : ''; }
   /* „Vajan 2 / 4 tk“ (Tarvo 25.10 demo): kogusumma ja kas pakkumine seda kogust üldse annab */
-  var Vaja = { tk: 4 };
+  /* vaikimisi valimata (Tarvo 27.10); uuesti vajutus võtab valiku maha */
+  var Vaja = { tk: 0 };
   function vajaValik() {
     return '<span class="pood-vaja">' + _t('Vajan') + ' <span class="seg2">' + [2, 4].map(function (n) { return '<button type="button" data-vaja="' + n + '" aria-pressed="' + (Vaja.tk === n) + '">' + n + '</button>'; }).join('') + '</span> ' + _t('tk') + '</span>';
   }
   function dotAasta(d) { var m = /^\d{2}(\d{2})$/.exec(String(d || '')); return m ? 2000 + +m[1] : null; }
   function kokku(r) {
     var need = Vaja.tk, lot = r.komplekt > 1 ? r.komplekt : 1, min = r.min > 1 ? r.min : 1;
+    if (!need) return { saab: true, tekst: lot > 1 ? _t('komplekt') + ' ' + lot + ' ' + _t('tk') + ' · ' + _t('kokku') + ' ' + eur(r.hind * lot) : '' };
     var saab = (r.kogus == null || r.laos === false || r.kogus >= need) && need >= min && need % lot === 0;
     if (!saab) return { saab: false, tekst: r.kogus != null && r.kogus < need ? _t('ainult') + ' ' + r.kogus + ' ' + _t('tk') : lot > need ? _t('ainult') + ' ' + lot + _t(' tk komplektina') : '' };
     var summa = eur(r.hind * need);
