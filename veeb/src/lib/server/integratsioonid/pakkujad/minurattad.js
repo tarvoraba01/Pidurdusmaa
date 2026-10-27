@@ -13,7 +13,8 @@
 import { normMoot } from '../sobitus.js';
 import { looVoopakkuja, silt, sildid, arv, ilusMark } from '../voopakkuja.js';
 
-const g = (s, ...n) => silt(s, ...n.flatMap((x) => ['g:' + x, x]));
+/* Kaspari lisaväljad on oma nimeruumis: xmlns:mr="https://minurattad.ee/ns/product-feed/1.0" (kontrollitud 27.10) */
+const g = (s, ...n) => silt(s, ...n.flatMap((x) => ['g:' + x, 'mr:' + x, x]));
 const MOOT_RE = /(\d{3})\s*\/\s*(\d{2})\s*Z?R\s*F?\s*(\d{2})(\s*C\b)?/i;
 
 /** product_detail plokid → { 'mustri sügavus': '5 mm', dot: '2421', … } */
@@ -93,7 +94,8 @@ export default looVoopakkuja({
 	nimi: 'minurattad.ee',
 	aadress: 'https://minurattad.ee/feeds/GoogleMerchantCenter.xml',
 	env: ['PAKKUJA_MINURATTAD_URL'],
-	hostid: ['minurattad.ee', 'www.minurattad.ee'],
+	/* voog + tootepildid (uute rehvide pildid on enamasti rehvid.com-i serveris) */
+	hostid: ['minurattad.ee', 'www.minurattad.ee', 'rehvid.com', 'www.rehvid.com'],
 	poeHostid: ['minurattad.ee', 'www.minurattad.ee'],
 	element: 'item',
 	teisenda
