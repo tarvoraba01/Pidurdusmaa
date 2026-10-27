@@ -78,17 +78,27 @@ function myyjaNimi(v) {
 /** Käivita pakkujate eellaadimine (nt suur tootefail) serveri käivitumisel.
  *  Ei oota ära ja vead ei kuku läbi — need jõuavad olekusse. */
 export function soojenda() {
+	const tood = [];
 	for (const p of aktiivsed()) {
 		if (typeof p.soojenda !== 'function') continue;
-		Promise.resolve()
-			.then(() => p.soojenda(ctx))
-			.catch((e) => {
-				const o = olek(p);
-				o.viga = String(e.message || e).slice(0, 200);
-				o.vigaAeg = new Date().toISOString();
-			});
+		tood.push(
+			Promise.resolve()
+				.then(() => p.soojenda(ctx))
+				.catch((e) => {
+					const o = olek(p);
+					o.viga = String(e.message || e).slice(0, 200);
+					o.vigaAeg = new Date().toISOString();
+				})
+		);
+	}
+	/* kui vood on laetud, ehita pildikataloog; siis iga 6 h uuesti (vood värskenevad ise) */
+	Promise.all(tood).then(() => pildiKataloog()).catch(() => {});
+	if (!_kataloogiTaimer) {
+		_kataloogiTaimer = setInterval(() => pildiKataloog().catch(() => {}), 6 * 3600 * 1000);
+		_kataloogiTaimer.unref?.();
 	}
 }
+let _kataloogiTaimer = null;
 
 /** Ühe pakkuja ühe mõõdu tooted (vahemälus). */
 async function tooted(p, moot) {
@@ -164,23 +174,10 @@ export async function hinnadMoodus(moot) {
 				if (t.kasutatud) continue; /* kasutatud rehvi foto ei sobi rehvi pildiks */
 				/* iga rehvi kohta kuni 3 pildiallikat eri pakkujatelt: kui esimese pilt on katki
 				   (Tarvo 22.10: Ventus Prime 4 jäi pildita), proovib /api/pilt järgmist */
-				if (t.pilt && lubatud(p, t.pilt)) {
-					const list = pildid.get(slug) || [];
-					if (list.length < 3 && !list.some((x) => x.pakkuja === p.id)) {
-						list.push({ pakkuja: p.id, url: String(t.pilt) });
-						pildid.set(slug, list);
-					}
-					while (pildid.size > MAX_PILTE) pildid.delete(pildid.keys().next().value);
-				}
+				if (t.pilt && lubatud(p, t.pilt)) lisaPildiAllikas(p, slug, t.pilt);
 			}
 			o.sobitatud = sob;
 	});
-	/* poe voos pilti pole (nt Extensa), aga sama rehvi pilt on teiselt poelt olemas →
-	   näita seda (/api/pilt/<slug> on rehvi, mitte poe pilt). Kasutatud rehvile mitte. */
-	for (const id of Object.keys(hinnad)) {
-		if (!pildid.has(id.split('@')[0])) continue;
-		hinnad[id] = hinnad[id].map((r) => (r.pilt ? r : { ...r, pilt: true }));
-	}
 	/* odavaim ees; üks rida müüja kohta */
 	for (const H of [hinnad, kasutatud])
 		for (const id of Object.keys(H)) {
@@ -188,18 +185,66 @@ export async function hinnadMoodus(moot) {
 			for (const r of H[id]) if (!parim.has(r.myyja) || r.hind < parim.get(r.myyja).hind) parim.set(r.myyja, r);
 			H[id] = [...parim.values()].sort((a, b) => a.hind - b.hind);
 		}
-	/* Pilt on rehvi (slug) oma, mitte poe pakkumise oma: /api/pilt/<slug> võtab selle ükskõik
-	   millise poe voost. Kui odavaim pood (nt extensa.ee, minurattad.ee) pilti ei anna, aga mõni
-	   teine annab (ka mõnes teises mõõdus), näitab kaart ikka pilti (Tarvo 27.10: „MIKS PILTE POLE“). */
-	for (const H of [hinnad, kasutatud])
-		for (const id of Object.keys(H)) {
-			if (!pildid.has(id.split('@')[0])) continue;
-			H[id] = H[id].map((r) => (r.pilt ? r : { ...r, pilt: true }));
-		}
 	const tulemus = { available: true, hinnad, kasutatud };
 	_sobitatud.set(moot, { listid, tulemus });
 	while (_sobitatud.size > 600) _sobitatud.delete(_sobitatud.keys().next().value);
-	return tulemus;
+	return jagaPilte(tulemus);
+}
+
+/* poe voos pilti pole (nt Extensa) või selles mõõdus pole sama rehvi ühelgi poel pilti,
+   aga sama rehvi pilt on olemas (teiselt poelt või TEISEST MÕÕDUST, pildikataloog) →
+   näita seda (/api/pilt/<slug> on rehvi, mitte poe pilt).
+   Tehakse iga kord väljundis, sest kataloog täieneb taustal pärast sobitamist (Tarvo 27.10). */
+function jagaPilte(tulemus) {
+	const jaga = (H) => {
+		const out = {};
+		for (const [id, read] of Object.entries(H || {}))
+			out[id] = pildid.has(id.split('@')[0]) && read.some((r) => !r.pilt) ? read.map((r) => (r.pilt ? r : { ...r, pilt: true })) : read;
+		return out;
+	};
+	/* ka kasutatud rehvi kaart saab rehvi (mitte selle konkreetse rehvi) pildi, v118 teine sessioon */
+	return { ...tulemus, hinnad: jaga(tulemus.hinnad), kasutatud: jaga(tulemus.kasutatud) };
+}
+
+function lisaPildiAllikas(p, slug, url) {
+	const list = pildid.get(slug) || [];
+	if (list.length >= 3 || list.some((x) => x.pakkuja === p.id)) return;
+	list.push({ pakkuja: p.id, url: String(url) });
+	pildid.set(slug, list);
+	while (pildid.size > MAX_PILTE) pildid.delete(pildid.keys().next().value);
+}
+
+/* Pildikataloog: käib läbi KÕIK mõõdud pakkujatelt, kel voog on mälus (koikMoodud), ja
+   jätab meelde iga rehvi pildi. Nii saab rehv pildi ka mõõdus, kus seda pilti ühelgi poel
+   pole (Giti GitiPremium H1 235/55 R17 Extensas). Taustal, mõõt korraga, sündmustsüklit
+   blokeerimata; uuesti iga 6 h. */
+let _kataloog = null;
+const kataloogiOlek = { mootudeid: 0, rehve: 0, valmis: null, kestusMs: 0 };
+async function pildiKataloog() {
+	if (_kataloog) return _kataloog;
+	_kataloog = (async () => {
+		const algus = Date.now();
+		let moote = 0;
+		for (const p of aktiivsed()) {
+			if (typeof p.koikMoodud !== 'function') continue;
+			for (const [moot, list] of p.koikMoodud()) {
+				const pildiga = list.filter((t) => !t.kasutatud && t.pilt && lubatud(p, t.pilt));
+				if (!pildiga.length) continue;
+				const read = eprelSize(moot).concat(testRead());
+				const readNaast = naastRead();
+				for (const t of pildiga) {
+					const slug = leiaRehv(t, t.naast ? readNaast : read);
+					if (slug) lisaPildiAllikas(p, slug, t.pilt);
+				}
+				moote++;
+				await new Promise((r) => setImmediate(r));
+			}
+		}
+		Object.assign(kataloogiOlek, { mootudeid: moote, rehve: pildid.size, valmis: new Date().toISOString(), kestusMs: Date.now() - algus });
+	})().finally(() => {
+		_kataloog = null;
+	});
+	return _kataloog;
 }
 const _sobitatud = new Map(); // moot -> { listid, tulemus }
 
@@ -258,6 +303,7 @@ export function olekKoond() {
 		})),
 		vahemalu: { ...vmStat, kirjeid: vmSuurus() },
 		pilte: pildid.size,
+		pildiKataloog: kataloogiOlek,
 		supabase: { sees: sbSees(), failsafe: { ...failsafeOlek }, logi: { ...sbLogiOlek }, puhver: { ...pusivusOlek } }
 	};
 }

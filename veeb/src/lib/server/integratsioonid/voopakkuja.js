@@ -131,6 +131,10 @@ export function looVoopakkuja(o) {
 			if (Date.now() - laetud > MAX_VANUS_MS) throw new Error(`${o.id}: andmed üle 48 h vanad ja värskendus ei õnnestu`);
 			return indeks.get(moot) || [];
 		},
+		/* kõik mõõdud mälust (pildikataloog: sama rehvi pilt teisest mõõdust) */
+		koikMoodud() {
+			return indeks ? [...indeks.entries()] : [];
+		},
 		lisaOlek() {
 			return { ...info, viga: viimaneViga ? viimaneViga.teade : null, laadib: !!laadib };
 		}

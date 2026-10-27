@@ -297,6 +297,11 @@ export default {
 		return read.map(koosTapsusega);
 	},
 
+	/* kõik mõõdud mälust (pildikataloog: sama rehvi pilt teisest mõõdust) */
+	koikMoodud() {
+		return indeks ? [...indeks.entries()] : [];
+	},
+
 	lisaOlek() {
 		let tapseid = 0;
 		for (const t of tapne.values()) if (!t.puudub) tapseid++;

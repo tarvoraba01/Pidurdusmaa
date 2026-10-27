@@ -173,6 +173,11 @@ export default {
 		return indeks.get(moot) || [];
 	},
 
+	/* kõik mõõdud mälust (pildikataloog: sama rehvi pilt teisest mõõdust) */
+	koikMoodud() {
+		return indeks ? [...indeks.entries()] : [];
+	},
+
 	lisaOlek() {
 		return { ...info, viga: viimaneViga ? viimaneViga.teade : null, laadib: !!laadib };
 	}

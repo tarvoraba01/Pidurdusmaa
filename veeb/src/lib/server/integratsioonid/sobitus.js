@@ -169,7 +169,20 @@ function leiaRehv0(toode, read) {
 			const meie = mudeliSonad(r[2], r[1]);
 			const bK = meie.filter(kood), bS = meie.filter((x) => !kood(x));
 			if (aK.length && bK.length && aK.join(' ') !== bK.join(' ')) continue;
-			if (kokku(bS, r[1]) === kokku(aS, toode.mark)) return r[0];
+			if (kokku(bS, r[1]) !== kokku(aS, toode.mark)) continue;
+			/* poel koodi pole, meil on: sobib ainult siis, kui sama nimega mudeleid on üks.
+			   „Sailun Ice Blazer“ (kasutatud, Minurattad 27.10) läks WST3 alla, aga samas mõõdus
+			   on ka Ice Blazer Alpine EVO2 ja Spike → kahtlane, ei sobita. */
+			if (!aK.length && bK.length) {
+				const pere = new Set();
+				for (const q of read) {
+					if (normMark(q[1]) !== mk) continue;
+					const qw = mudeliSonad(q[2], q[1]);
+					if (aS.every((x) => qw.includes(x))) pere.add(qw.join(' '));
+				}
+				if (pere.size > 1) continue;
+			}
+			return r[0];
 		}
 	}
 	/* ainult tehasekood („V906“, „TS870P“, „W330A“): sobib, kui täpselt ühel sama margi
