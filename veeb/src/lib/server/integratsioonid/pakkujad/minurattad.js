@@ -68,6 +68,7 @@ export function teisenda(s, meieMoodud) {
 	const kasutatud = /used|kasutatud/i.test(g(s, 'condition')) || /\bkasutatud\b/i.test(pealkiri);
 	const musterTekst = det['mustri sügavus'] || det['mustrisügavus'] || det['muster'] || det['tread depth'] || det['mustri sugavus'] || '';
 	const muster = arv(musterTekst); /* „5–6 mm“ → 5 (väiksem, aus) */
+	const dot = ((det['dot'] || '').match(/\b\d{4}\b/) || [])[0];
 	const url = g(s, 'link');
 	const pilt = g(s, 'image_link');
 	const gtin = g(s, 'gtin');
@@ -80,7 +81,7 @@ export function teisenda(s, meieMoodud) {
 		...(Number.isFinite(kogusRaw) && kogusRaw >= 0 ? { kogus: Math.floor(kogusRaw) } : {}),
 		...(min > 1 ? { min } : {}),
 		...(komplekt > 1 ? { komplekt } : {}),
-		...(kasutatud ? { kasutatud: true, ...(muster > 0 && muster < 15 ? { muster } : {}) } : {}),
+		...(kasutatud ? { kasutatud: true, ...(muster > 0 && muster < 15 ? { muster } : {}), ...(dot ? { dot } : {}) } : {}),
 		ean: /^\d{8,14}$/.test(gtin) ? gtin : undefined,
 		pilt: !kasutatud && /^https:\/\//.test(pilt) ? pilt : undefined,
 		url: /^https:\/\//.test(url) ? url : undefined,

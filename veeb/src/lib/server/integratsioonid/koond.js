@@ -159,7 +159,7 @@ export async function hinnadMoodus(moot) {
 					...(t.umbes ? { umbes: true } : {}),
 					/* kaardil saab näidata pilti /api/pilt/<slug> kaudu */
 					...(t.pilt && lubatud(p, t.pilt) ? { pilt: true } : {}),
-					...(t.kasutatud ? { kasutatud: true, ...(t.muster ? { muster: t.muster } : {}) } : {})
+					...(t.kasutatud ? { kasutatud: true, ...(t.muster ? { muster: t.muster } : {}), ...(/^\d{4}$/.test(String(t.dot || '')) ? { dot: String(t.dot) } : {}) } : {})
 				});
 				if (t.kasutatud) continue; /* kasutatud rehvi foto ei sobi rehvi pildiks */
 				/* iga rehvi kohta kuni 3 pildiallikat eri pakkujatelt: kui esimese pilt on katki

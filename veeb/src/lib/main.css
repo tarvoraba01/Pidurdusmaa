@@ -1379,3 +1379,18 @@ a.rk-osta:hover{border-color:#e6ae00}
 /* rehvimärgid teksti sees (margid.js) */
 .mrk{display:inline-block;vertical-align:-7px;margin:0 1px;color:inherit;flex:none}
 .mrk-td{white-space:nowrap;line-height:1.9}
+
+/* kasutatud rehvi kaart + „Vajan 2/4 tk“ (Tarvo 27.10, demo järgi) */
+.pk-moot{padding-top:12px}
+.pk.pk-kas{position:relative;border-color:#e9c94a;background:#fffdf4}
+.pk-kas-t{position:absolute;top:-9px;left:50%;transform:translateX(-50%);background:var(--yellow);color:var(--yellow-ink);font-size:10px;font-weight:800;letter-spacing:.07em;padding:2px 8px;border-radius:6px;white-space:nowrap}
+.pk-chips{display:flex;flex-wrap:wrap;justify-content:center;gap:4px;margin:2px 0}
+.pk-chips span{font-size:11px;background:#f1f2f5;border-radius:5px;padding:1px 6px;color:#333}
+.pk .pk-tk{font-size:12px;font-weight:500;color:var(--muted)}
+.pk .pk-kokku{font-size:12px;font-weight:600;color:#3b4250}
+.pk-kas .pk-kokku{color:#8a6d00}
+.pk.pk-dim{opacity:.45}
+.pood-vaja{display:inline-flex;align-items:center;gap:8px;margin:var(--sp-2) 0 0 auto;font-size:14px}
+.seg2{display:inline-flex;background:#f1f1f3;border-radius:8px;padding:2px}
+.seg2 button{border:0;background:none;font:inherit;font-weight:700;padding:3px 12px;border-radius:6px;color:#777;cursor:pointer}
+.seg2 button[aria-pressed="true"]{background:var(--ink);color:var(--yellow)}
