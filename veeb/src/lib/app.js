@@ -1531,7 +1531,7 @@ import UNIVERSAALID from './universaalid.json';
               (kasN ? kasLinnuke(kasN) : '') + '</div>' : '') +
             '<div class="pk-rida pk-moot">' + list.map(function (x) {
               var r = x.r;
-              var ladu = r.laos === false ? _t('tellimisel') : (r.kogus > 0 ? _t('laos') + ' ' + (r.kogus >= 8 ? '8+' : r.kogus) + ' ' + _t('tk') : '');
+              var ladu = laduTekst(r);
               var pilt = r.pilt ? '<img src="' + CFG.home + 'api/pilt/' + encodeURIComponent(x.slug) + '/" alt="" width="72" height="86" loading="lazy" decoding="async">' : '<span class="pk-ring" aria-hidden="true"></span>';
               var ylal = '<span class="pk-m">' + esc(pretty(x.m)) + (x.m === S.size ? ' <i>' + _t('sinu') + '</i>' : '') + '</span>' +
                 '<span class="pk-pilt">' + pilt + '</span>' + (x.kat ? '<span class="kat-b kat-' + x.kat + '">' + KAT_KAART[x.kat] + '</span>' : '') + '<span class="pk-n">' + esc(x.nimi) + '</span>' +
@@ -1594,7 +1594,7 @@ import UNIVERSAALID from './universaalid.json';
             .filter(Boolean).sort(function (a, b) { return a.r.hind - b.r.hind; });
           box.innerHTML = _t('<span class="pl">Soodsaimad klassi ') + cur.g + _t(' rehvid</span> ') + (top.length ? '<div class="pk-list">' + top.map(function (t) {
             var nimi = t.m.mark + ' ' + t.m.name;
-            var ladu = t.r.laos === false ? _t('tellimisel') : (t.r.kogus > 0 ? _t('laos') + ' ' + (t.r.kogus >= 8 ? '8+' : t.r.kogus) + ' ' + _t('tk') : '');
+            var ladu = laduTekst(t.r);
             var pilt = t.r.pilt ? '<img src="' + CFG.home + 'api/pilt/' + encodeURIComponent(t.m.slug) + '/" alt="" width="48" height="58" loading="lazy" decoding="async">' : '<span class="pk-ring" aria-hidden="true"></span>';
             return '<div class="pk-r">' + eelNupp(t.m.slug, size, nimi, t.r, '<span class="pk-pilt">' + pilt + '</span>') +
               '<span class="pk-nimi">' + eelNupp(t.m.slug, size, nimi, t.r, '<b>' + esc(nimi) + '</b>') + '<small>' + esc(t.r.myyja) + (ladu ? ' · ' + ladu : '') + '</small>' +
@@ -2303,6 +2303,18 @@ import UNIVERSAALID from './universaalid.json';
   function priceSlot(id) { return _t('<div class="pv" data-price="') + esc(id) + _t('"><span class="none">Laen hindu…</span></div>'); }
   /* „u 62 €“ — pakkuja hind on keskmine e-poe hind, mitte täpne */
   function hindTekst(r) { return (r && r.umbes ? _t('u') + ' ' : '') + eur(r.hind); }
+  /* laoseis + ostukogus (Minurattad 25.10: hind on 1 tk kohta, aga müük alates 2 tk;
+     kasutatud rehvid sageli ainult komplektina). Pakkuja annab min ja/või komplekt. */
+  function ostTk(r, nb) {
+    var tk = (nb ? '\u00a0' : ' ') + _t('tk');
+    return r && r.komplekt > 1 ? _t('komplekt') + ' ' + r.komplekt + tk : r && r.min > 1 ? _t('alates') + ' ' + r.min + tk : '';
+  }
+  function laduTekst(r, nb) {
+    var tk = (nb ? '\u00a0' : ' ') + _t('tk');
+    var l = r.laos === false ? _t('tellimisel') : (r.kogus > 0 ? _t('laos') + ' ' + (r.kogus >= 8 ? '8+' : r.kogus) + tk : '');
+    var o = ostTk(r, nb);
+    return o ? (l ? l + ' · ' + o : o) : l;
+  }
   /* Poodide hinnad: rida klikitavaid kaarte (pilt + hind), odavaim ees,
      telefonis keritav vasakule-paremale. Kaart viib selle poe tootelehele. */
   /* nupp, mis avab eelvaate (pilt + nimi); andmed atribuutides */
@@ -2320,7 +2332,7 @@ import UNIVERSAALID from './universaalid.json';
     if (!rows || !rows.length) return priceHtml(rows, true);
     var x = String(id).split('@'), slug = x[0], m = x[1];
     return '<div class="pk-list">' + rows.slice().sort(function (a, b) { return a.hind - b.hind; }).map(function (r) {
-      var ladu = r.laos === false ? _t('tellimisel') : (r.kogus > 0 ? _t('laos') + ' ' + (r.kogus >= 8 ? '8+' : r.kogus) + ' ' + _t('tk') : '');
+      var ladu = laduTekst(r);
       var pilt = r.pilt ? '<img src="' + CFG.home + 'api/pilt/' + encodeURIComponent(slug) + '/" alt="" width="48" height="58" loading="lazy" decoding="async">' : '<span class="pk-ring" aria-hidden="true"></span>';
       return '<div class="pk-r">' + eelNupp(slug, m, nimi, r, '<span class="pk-pilt">' + pilt + '</span>') +
         '<span class="pk-nimi"><b>' + esc(r.myyja) + '</b><small>' + esc(ladu) + '</small><span class="pk-rv"><b class="pk-hind">' + hindTekst(r) + '</b>' + kasMark(r) + valiLink(r, nimi) + '</span></span></div>';
@@ -2331,7 +2343,7 @@ import UNIVERSAALID from './universaalid.json';
       var slug = id ? String(id).split('@')[0] : '';
       var list = rows.slice().sort(function (a, b) { return a.hind - b.hind; });
       return '<div class="pk-rida">' + list.map(function (r) {
-        var ladu = r.laos === false ? _t('tellimisel') : (r.kogus > 0 ? _t('laos') + ' ' + (r.kogus >= 8 ? '8+' : r.kogus) + '\u00a0' + _t('tk') : '');
+        var ladu = laduTekst(r, true);
         var pilt = r.pilt && slug ? '<img src="' + CFG.home + 'api/pilt/' + encodeURIComponent(slug) + '/" alt="" width="72" height="86" loading="lazy" decoding="async">' : '<span class="pk-ring" aria-hidden="true"></span>';
         var sisu = '<span class="pk-pilt">' + pilt + '</span><b>' + hindTekst(r) + '</b><span class="pk-pood">' + esc(r.myyja) + '</span>' + (ladu ? '<small>' + ladu + '</small>' : '');
         return r.url
@@ -3455,7 +3467,7 @@ import UNIVERSAALID from './universaalid.json';
     $('[data-rehv-poed-list]', box).innerHTML = list.map(function (r) {
       return '<a class="rp-pood" href="' + esc(poeLink(r.url, 'rehvileht', nimi)) + '" target="_blank" rel="nofollow sponsored noopener" data-pood="' + esc(r.myyja) + '" data-rehv="' + esc(nimi) + '">' +
         '<b>' + esc(r.myyja) + '</b><span class="h">' + esc(hindTekst(r)) + '</span>' +
-        '<small>' + (r.kasutatud ? '<span class="kas-b">' + _t('Kasutatud') + (r.muster ? ' · ' + fmt(r.muster, r.muster % 1 ? 1 : 0) + ' mm' : '') + '</span> ' : '') + esc(pretty(r.moot)) + (r.laos === false ? ' · ' + _t('tellimisel') : r.kogus > 0 ? ' · ' + _t('laos') + ' ' + (r.kogus >= 8 ? '8+' : r.kogus) + ' ' + _t('tk') : '') + '</small><span class="v">' + _t('Vali') + ' →</span></a>';
+        '<small>' + (r.kasutatud ? '<span class="kas-b">' + _t('Kasutatud') + (r.muster ? ' · ' + fmt(r.muster, r.muster % 1 ? 1 : 0) + ' mm' : '') + '</span> ' : '') + esc(pretty(r.moot)) + (laduTekst(r) ? ' · ' + laduTekst(r) : '') + '</small><span class="v">' + _t('Vali') + ' →</span></a>';
     }).join('');
     box.hidden = false;
     Track('poed_rehvilehel', nimi + ' · ' + list.length);
@@ -3524,7 +3536,7 @@ import UNIVERSAALID from './universaalid.json';
         listEl.innerHTML = list.slice(0, 30).map(function (r) {
           return '<a class="rp-pood" href="' + esc(poeLink(r.url, 'vordlusleht', nimi)) + '" target="_blank" rel="nofollow sponsored noopener" data-pood="' + esc(r.myyja) + '" data-rehv="' + esc(nimi) + '">' +
             '<b>' + esc(r.myyja) + '</b><span class="h">' + (r.otsi ? '' : esc(hindTekst(r))) + '</span>' +
-            '<small>' + esc(pretty(r.moot)) + (r.otsi ? ' · ' + _t('vaata sama mõõdu rehve') : r.laos === false ? ' · ' + _t('tellimisel') : r.kogus > 0 ? ' · ' + _t('laos') + ' ' + (r.kogus >= 8 ? '8+' : r.kogus) + ' ' + _t('tk') : '') + '</small>' +
+            '<small>' + esc(pretty(r.moot)) + (r.otsi ? ' · ' + _t('vaata sama mõõdu rehve') : laduTekst(r) ? ' · ' + laduTekst(r) : '') + '</small>' +
             '<span class="v">' + (r.otsi ? _t('Vaata') : _t('Osta')) + ' →</span></a>';
         }).join('');
       });

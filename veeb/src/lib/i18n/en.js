@@ -1429,6 +1429,7 @@ export default {
 "tk": "pcs",
 "Vaata poes →": "View in shop →",
 "Hinnad poodides": "Prices in shops",
+"komplekt": "set of",
 "tellimisel": "to order",
 "Sinu auto mõõdud poodides": "Your car’s sizes in shops",
 "(soodsaim ees · ": "(cheapest first · ",

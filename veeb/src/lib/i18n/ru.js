@@ -1907,6 +1907,7 @@ export default {
 "tk": "шт.",
 "Vaata poes →": "Смотреть в магазине →",
 "Hinnad poodides": "Цены в магазинах",
+"komplekt": "комплект",
 "tellimisel": "под заказ",
 "Sinu auto mõõdud poodides": "Размеры вашего авто в магазинах",
 "(soodsaim ees · ": "(сначала дешевле · ",

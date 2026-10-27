@@ -152,6 +152,10 @@ export async function hinnadMoodus(moot) {
 					laos: t.laos === undefined ? undefined : !!t.laos,
 					/* laoseis tükkides (kui pakkuja annab) ja „u X €“ märge */
 					...(Number.isInteger(t.kogus) && t.kogus >= 0 ? { kogus: Math.min(t.kogus, 99) } : {}),
+					/* ostukogus (Minurattad 25.10): hind on alati 1 tk kohta; min = müük alates N tk,
+					   komplekt = müüakse ainult N-kaupa (kasutatud komplektid). Ainult 2..8. */
+					...(Number.isInteger(t.min) && t.min > 1 && t.min <= 8 ? { min: t.min } : {}),
+					...(Number.isInteger(t.komplekt) && t.komplekt > 1 && t.komplekt <= 8 ? { komplekt: t.komplekt } : {}),
 					...(t.umbes ? { umbes: true } : {}),
 					/* kaardil saab näidata pilti /api/pilt/<slug> kaudu */
 					...(t.pilt && lubatud(p, t.pilt) ? { pilt: true } : {}),

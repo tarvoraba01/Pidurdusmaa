@@ -31,7 +31,8 @@ export default {
 	 * Kõik selle mõõdu rehvid pakkujalt.
 	 * @param {string} moot  kujul 20555R16
 	 * @param {{ muutuja: Function, jsonParing: Function }} ctx
-	 * @returns {Promise<Array<{mark:string, mudel:string, moot:string, hind:number, laos?:boolean, url?:string, pilt?:string, ean?:string}>>}
+	 * @returns {Promise<Array<{mark:string, mudel:string, moot:string, hind:number, laos?:boolean, kogus?:number, min?:number, komplekt?:number, kasutatud?:boolean, muster?:number, url?:string, pilt?:string, ean?:string}>>}
+	 *   hind = ALATI 1 tk hind. min = müük alates N tk, komplekt = ainult N-kaupa (2..8).
 	 */
 	async hinnadMoodus(moot, { muutuja, jsonParing }) {
 		const baas = muutuja('PAKKUJA_MALL_URL');
