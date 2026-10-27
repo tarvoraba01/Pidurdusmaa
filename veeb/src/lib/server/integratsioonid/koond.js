@@ -249,6 +249,8 @@ function kataloogVajadusel() {
 			kataloogiOlek.pakkujad[p.id] = { moote, leitud, valmis: new Date().toISOString(), kestusMs: Date.now() - algus };
 		}
 		kataloogiOlek.rehve = pildid.size;
+		/* kõik rehvipildid aeglaselt ette kettale (Inter Cars keeldub korraga paljudest päringutest) */
+		import('./rehvipilt.js').then((m) => m.soojendaPildid()).catch(() => {});
 	})()
 		.catch(() => {})
 		.finally(() => {
@@ -297,6 +299,9 @@ export async function pildiAllikad(slug) {
 	}
 	return [];
 }
+
+/** Kõik rehvid, mille pildiallikas on teada (pildisoojenduse jaoks). */
+export const teadaolevadPildid = () => [...pildid.keys()];
 
 export const pakkujaId = (id) => PAKKUJAD.find((p) => p.id === id) || null;
 

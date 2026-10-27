@@ -2,75 +2,25 @@
  *
  * Miks mitte otse pakkuja URL: pildi aadressis võib olla võti, pakkuja
  * võib keelata otselingid ja nii ei jälgi pakkuja meie külastajaid.
- * Server laeb pildi ainult pakkuja lubatud aadressilt, kontrollib, et see
- * on päriselt pilt (jpeg/png/webp/avif, kuni 3 MB), hoiab mälus ja annab
- * edasi pika vahemäluga. */
+ * Laadimine, vähendamine (480 px webp), mälu- ja kettavahemälu: rehvipilt.js. */
 import { piirang, liigaPalju, PAISED, SLUG_RE } from '$lib/server/integratsioonid/kaitse.js';
-import { pildiAllikad, pakkujaId } from '$lib/server/integratsioonid/koond.js';
-import { paring } from '$lib/server/integratsioonid/http.js';
+import { rehviPilt } from '$lib/server/integratsioonid/rehvipilt.js';
 
 export const prerender = false;
 /* API aadressid töötavad nii kaldkriipsuga kui ilma (lehtedel on alati kaldkriips) */
 export const trailingSlash = 'ignore';
 
-const TYYBID = ['image/jpeg', 'image/png', 'image/webp', 'image/avif'];
-/* pildi tüüp failialguse („maagiliste baitide“) järgi; muu kui pilt → null */
-function nuusi(b) {
-	if (!b || b.length < 12) return null;
-	if (b[0] === 0xff && b[1] === 0xd8 && b[2] === 0xff) return 'image/jpeg';
-	if (b[0] === 0x89 && b[1] === 0x50 && b[2] === 0x4e && b[3] === 0x47) return 'image/png';
-	const a = String.fromCharCode(...b.subarray(0, 12));
-	if (a.startsWith('RIFF') && a.slice(8, 12) === 'WEBP') return 'image/webp';
-	if (a.slice(4, 12) === 'ftypavif') return 'image/avif';
-	return null;
-}
-const MAX_MALUS = 300;
-const malu = new Map(); // slug -> { tyyp, andmed, aeg }
-const PAEV = 86400 * 1000;
-
 /* pilti pole: lühike vahemälu (pärast serveri restarti tekib pildi allikas alles hinnapäringuga) */
 const puudub = () => new Response('Pilti ei ole', { status: 404, headers: { ...PAISED, 'Cache-Control': 'public, max-age=300' } });
-/* ajutine viga (pakkuja aeglane/maas): ära jäta brauserisse meelde */
-/* X-Pilt-Pohjus: lühike põhjus ilma aadressita (Tarvo 27.10 audit: 26 Inter Carsi rehvil 503) */
+/* ajutine viga (pakkuja aeglane/maas): ära jäta brauserisse meelde. X-Pilt-Pohjus: lühike põhjus ilma aadressita */
 const ajutine = (pohjus) => new Response('Pilt ajutiselt kättesaamatu', { status: 503, headers: { ...PAISED, 'Cache-Control': 'no-store', 'X-Pilt-Pohjus': pohjus || '' } });
 
 export async function GET(event) {
 	if (!piirang('pilt', event, 120, 60)) return liigaPalju();
 	const slug = event.params.slug;
 	if (!SLUG_RE.test(slug)) return puudub();
-
-	let k = malu.get(slug);
-	if (!k || Date.now() - k.aeg > 7 * PAEV) {
-		/* proovi pakkujate pilte järjest: esimene, mis annab päris pildi, jääb meelde */
-		const allikad = await pildiAllikad(slug).catch(() => []);
-		let ajutiseltMaas = false, pohjus = '';
-		k = null;
-		for (const allikas of allikad) {
-			const p = pakkujaId(allikas.pakkuja);
-			if (!p) continue;
-			try {
-				/* osa Inter Carsi originaalpilte on suured ja CDN aeglane: 8 MB ja 15 s */
-				const r = await paring(p, allikas.url, { maxBaite: 8_000_000, aegMs: 15000 });
-				/* Inter Carsi CDN annab osale piltidest tüübi application/octet-stream (Tarvo 26.10:
-				   Nexen N'Blue 4Season 2 pildita; 205/55 R16 mõõdus 19 intercars-pilti 34-st). Siis
-				   otsustame failialguse järgi — ainult päris jpeg/png/webp/avif läheb läbi. */
-				let tyyp = r.tyyp.split(';')[0].trim().toLowerCase();
-				if (r.status === 200 && !TYYBID.includes(tyyp)) tyyp = nuusi(r.andmed) || tyyp;
-				if (r.status >= 500 || r.status === 429) { ajutiseltMaas = true; pohjus += `${p.id}:HTTP${r.status} `; continue; }
-				if (r.status !== 200 || !TYYBID.includes(tyyp)) continue;
-				k = { tyyp, andmed: r.andmed, aeg: Date.now() };
-				break;
-			} catch (e) {
-				ajutiseltMaas = true;
-				const m = String(e && (e.name === 'TimeoutError' ? 'aeg' : e.message) || '');
-				pohjus += `${p.id}:${/liiga suur/.test(m) ? 'suur' : m === 'aeg' || /abort|timeout/i.test(m) ? 'aeg' : 'viga'} `;
-			}
-		}
-		if (!k) return ajutiseltMaas ? ajutine(pohjus.trim().slice(0, 120)) : puudub();
-		malu.delete(slug);
-		malu.set(slug, k);
-		while (malu.size > MAX_MALUS) malu.delete(malu.keys().next().value);
-	}
+	const k = await rehviPilt(slug);
+	if (!k.andmed) return k.ajutine ? ajutine(k.pohjus) : puudub();
 	return new Response(k.andmed, {
 		headers: {
 			...PAISED,
