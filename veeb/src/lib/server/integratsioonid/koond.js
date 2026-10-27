@@ -175,6 +175,12 @@ export async function hinnadMoodus(moot) {
 			}
 			o.sobitatud = sob;
 	});
+	/* poe voos pilti pole (nt Extensa), aga sama rehvi pilt on teiselt poelt olemas →
+	   näita seda (/api/pilt/<slug> on rehvi, mitte poe pilt). Kasutatud rehvile mitte. */
+	for (const id of Object.keys(hinnad)) {
+		if (!pildid.has(id.split('@')[0])) continue;
+		hinnad[id] = hinnad[id].map((r) => (r.pilt ? r : { ...r, pilt: true }));
+	}
 	/* odavaim ees; üks rida müüja kohta */
 	for (const H of [hinnad, kasutatud])
 		for (const id of Object.keys(H)) {
