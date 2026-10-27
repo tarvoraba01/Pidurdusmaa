@@ -91,14 +91,9 @@ export function soojenda() {
 				})
 		);
 	}
-	/* kui vood on laetud, ehita pildikataloog; siis iga 6 h uuesti (vood värskenevad ise) */
-	Promise.all(tood).then(() => pildiKataloog()).catch(() => {});
-	if (!_kataloogiTaimer) {
-		_kataloogiTaimer = setInterval(() => pildiKataloog().catch(() => {}), 6 * 3600 * 1000);
-		_kataloogiTaimer.unref?.();
-	}
+	/* iga voog eraldi: kui see on laetud, käi tema mõõdud pildikataloogi jaoks läbi */
+	for (const t of tood) t.then(() => kataloogVajadusel());
 }
-let _kataloogiTaimer = null;
 
 /** Ühe pakkuja ühe mõõdu tooted (vahemälus). */
 async function tooted(p, moot) {
@@ -132,7 +127,8 @@ export async function hinnadMoodus(moot) {
 	/* 2) sobitamine (leiaRehv) on CPU-raske: 30–110 ms mõõdu ja pakkuja kohta (audit 17.10).
 	   Kui ühegi pakkuja nimekiri pole muutunud (sama vahemälu objekt), anname eelmise tulemuse. */
 	const eel = _sobitatud.get(moot);
-	if (eel && eel.listid.length === listid.length && eel.listid.every((l, i) => l === listid[i])) return eel.tulemus;
+	kataloogVajadusel();
+	if (eel && eel.listid.length === listid.length && eel.listid.every((l, i) => l === listid[i])) return jagaPilte(eel.tulemus);
 	const read = eprelSize(moot).concat(testRead());
 	const readNaast = naastRead();
 	const hinnad = {};
@@ -219,31 +215,45 @@ function lisaPildiAllikas(p, slug, url) {
    pole (Giti GitiPremium H1 235/55 R17 Extensas). Taustal, mõõt korraga, sündmustsüklit
    blokeerimata; uuesti iga 6 h. */
 let _kataloog = null;
-const kataloogiOlek = { mootudeid: 0, rehve: 0, valmis: null, kestusMs: 0 };
-async function pildiKataloog() {
+const kataloogiAeg = new Map(); // pakkuja id -> millal tema mõõdud viimati läbi käidud
+const kataloogiOlek = { pakkujad: {}, rehve: 0 };
+/* Käivitab kataloogi neile pakkujatele, kelle voog on mälus ja keda pole 6 h jooksul läbi käidud.
+   Kutsutakse soojenda järel ja iga hinnapäringu lõpus (ei oota, ei kuku). */
+function kataloogVajadusel() {
 	if (_kataloog) return _kataloog;
+	const tana = Date.now();
+	const jarg = aktiivsed().filter((p) => typeof p.koikMoodud === 'function' && tana - (kataloogiAeg.get(p.id) || 0) > 6 * 3600 * 1000);
+	if (!jarg.length) return null;
 	_kataloog = (async () => {
-		const algus = Date.now();
-		let moote = 0;
-		for (const p of aktiivsed()) {
-			if (typeof p.koikMoodud !== 'function') continue;
-			for (const [moot, list] of p.koikMoodud()) {
+		for (const p of jarg) {
+			const moodud = p.koikMoodud();
+			if (!moodud.length) continue; /* voog veel laadimata: järgmine päring proovib uuesti */
+			const algus = Date.now();
+			let moote = 0, leitud = 0;
+			for (const [moot, list] of moodud) {
 				const pildiga = list.filter((t) => !t.kasutatud && t.pilt && lubatud(p, t.pilt));
 				if (!pildiga.length) continue;
 				const read = eprelSize(moot).concat(testRead());
 				const readNaast = naastRead();
 				for (const t of pildiga) {
 					const slug = leiaRehv(t, t.naast ? readNaast : read);
-					if (slug) lisaPildiAllikas(p, slug, t.pilt);
+					if (slug) {
+						lisaPildiAllikas(p, slug, t.pilt);
+						leitud++;
+					}
 				}
 				moote++;
 				await new Promise((r) => setImmediate(r));
 			}
+			kataloogiAeg.set(p.id, Date.now());
+			kataloogiOlek.pakkujad[p.id] = { moote, leitud, valmis: new Date().toISOString(), kestusMs: Date.now() - algus };
 		}
-		Object.assign(kataloogiOlek, { mootudeid: moote, rehve: pildid.size, valmis: new Date().toISOString(), kestusMs: Date.now() - algus });
-	})().finally(() => {
-		_kataloog = null;
-	});
+		kataloogiOlek.rehve = pildid.size;
+	})()
+		.catch(() => {})
+		.finally(() => {
+			_kataloog = null;
+		});
 	return _kataloog;
 }
 const _sobitatud = new Map(); // moot -> { listid, tulemus }

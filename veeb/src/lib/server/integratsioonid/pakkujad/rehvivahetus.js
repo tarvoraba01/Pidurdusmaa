@@ -366,6 +366,11 @@ export default {
 		return lisaTooteLingid(this, ctx, indeks.get(moot) || []);
 	},
 
+	/* kõik mõõdud mälust (pildikataloog: sama rehvi pilt teisest mõõdust) */
+	koikMoodud() {
+		return indeks ? [...indeks.entries()] : [];
+	},
+
 	lisaOlek() {
 		let lingid = 0;
 		for (const e of epood.values()) lingid += e.lingid.size;
