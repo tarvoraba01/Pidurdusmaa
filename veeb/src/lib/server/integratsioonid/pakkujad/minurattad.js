@@ -7,7 +7,7 @@
  *   unit_price = 1 rehvi hind  → meie `hind` (alati 1 tk)
  *   quantity = laoseis tk, minimum_order_quantity = müük alates N tk, pieces_in_lot = komplekti suurus
  *   g:condition used/new; kasutatud rehvil g:product_detail: „Mustri sügavus“ (nt „5 mm“, „5–6 mm“), „DOT“
- *   link võib lõppeda #offer-123 → koond/app lisab UTM enne #-märki
+ *   link võib lõppeda #offer-123 → jätame # ära (kerib lehe alla); ?offer=123 valib pakkumise ise
  * Silte loetakse nii g:-eesliitega kui ilma (Kaspari lisaväljad võivad olla mõlemat moodi).
  */
 import { normMoot } from '../sobitus.js';
@@ -69,7 +69,9 @@ export function teisenda(s, meieMoodud) {
 	const musterTekst = det['mustri sügavus'] || det['mustrisügavus'] || det['muster'] || det['tread depth'] || det['mustri sugavus'] || '';
 	const muster = arv(musterTekst); /* „5–6 mm“ → 5 (väiksem, aus) */
 	const dot = ((det['dot'] || '').match(/\b\d{4}\b/) || [])[0];
-	const url = g(s, 'link');
+	/* #offer-123 kerib poe lehe alla pakkumiste tabelisse; ?offer=123 üksi valib sama pakkumise ja
+	   jätab lehe üles, kus on hind ja ostunupp (Tarvo 27.10) → # ja selle järel ära */
+	const url = g(s, 'link').replace(/#.*$/, '');
 	const pilt = g(s, 'image_link');
 	const gtin = g(s, 'gtin');
 	return {
