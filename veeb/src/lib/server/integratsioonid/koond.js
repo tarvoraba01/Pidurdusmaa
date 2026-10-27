@@ -182,6 +182,14 @@ export async function hinnadMoodus(moot) {
 			for (const r of H[id]) if (!parim.has(r.myyja) || r.hind < parim.get(r.myyja).hind) parim.set(r.myyja, r);
 			H[id] = [...parim.values()].sort((a, b) => a.hind - b.hind);
 		}
+	/* Pilt on rehvi (slug) oma, mitte poe pakkumise oma: /api/pilt/<slug> võtab selle ükskõik
+	   millise poe voost. Kui odavaim pood (nt extensa.ee, minurattad.ee) pilti ei anna, aga mõni
+	   teine annab (ka mõnes teises mõõdus), näitab kaart ikka pilti (Tarvo 27.10: „MIKS PILTE POLE“). */
+	for (const H of [hinnad, kasutatud])
+		for (const id of Object.keys(H)) {
+			if (!pildid.has(id.split('@')[0])) continue;
+			H[id] = H[id].map((r) => (r.pilt ? r : { ...r, pilt: true }));
+		}
 	const tulemus = { available: true, hinnad, kasutatud };
 	_sobitatud.set(moot, { listid, tulemus });
 	while (_sobitatud.size > 600) _sobitatud.delete(_sobitatud.keys().next().value);
