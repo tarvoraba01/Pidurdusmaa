@@ -31,7 +31,8 @@ const PAEV = 86400 * 1000;
 /* pilti pole: lühike vahemälu (pärast serveri restarti tekib pildi allikas alles hinnapäringuga) */
 const puudub = () => new Response('Pilti ei ole', { status: 404, headers: { ...PAISED, 'Cache-Control': 'public, max-age=300' } });
 /* ajutine viga (pakkuja aeglane/maas): ära jäta brauserisse meelde */
-const ajutine = () => new Response('Pilt ajutiselt kättesaamatu', { status: 503, headers: { ...PAISED, 'Cache-Control': 'no-store' } });
+/* X-Pilt-Pohjus: lühike põhjus ilma aadressita (Tarvo 27.10 audit: 26 Inter Carsi rehvil 503) */
+const ajutine = (pohjus) => new Response('Pilt ajutiselt kättesaamatu', { status: 503, headers: { ...PAISED, 'Cache-Control': 'no-store', 'X-Pilt-Pohjus': pohjus || '' } });
 
 export async function GET(event) {
 	if (!piirang('pilt', event, 120, 60)) return liigaPalju();
@@ -42,27 +43,30 @@ export async function GET(event) {
 	if (!k || Date.now() - k.aeg > 7 * PAEV) {
 		/* proovi pakkujate pilte järjest: esimene, mis annab päris pildi, jääb meelde */
 		const allikad = await pildiAllikad(slug).catch(() => []);
-		let ajutiseltMaas = false;
+		let ajutiseltMaas = false, pohjus = '';
 		k = null;
 		for (const allikas of allikad) {
 			const p = pakkujaId(allikas.pakkuja);
 			if (!p) continue;
 			try {
-				const r = await paring(p, allikas.url, { maxBaite: 3_000_000, aegMs: 8000 });
+				/* osa Inter Carsi originaalpilte on suured ja CDN aeglane: 8 MB ja 15 s */
+				const r = await paring(p, allikas.url, { maxBaite: 8_000_000, aegMs: 15000 });
 				/* Inter Carsi CDN annab osale piltidest tüübi application/octet-stream (Tarvo 26.10:
 				   Nexen N'Blue 4Season 2 pildita; 205/55 R16 mõõdus 19 intercars-pilti 34-st). Siis
 				   otsustame failialguse järgi — ainult päris jpeg/png/webp/avif läheb läbi. */
 				let tyyp = r.tyyp.split(';')[0].trim().toLowerCase();
 				if (r.status === 200 && !TYYBID.includes(tyyp)) tyyp = nuusi(r.andmed) || tyyp;
-				if (r.status >= 500 || r.status === 429) { ajutiseltMaas = true; continue; }
+				if (r.status >= 500 || r.status === 429) { ajutiseltMaas = true; pohjus += `${p.id}:HTTP${r.status} `; continue; }
 				if (r.status !== 200 || !TYYBID.includes(tyyp)) continue;
 				k = { tyyp, andmed: r.andmed, aeg: Date.now() };
 				break;
-			} catch {
+			} catch (e) {
 				ajutiseltMaas = true;
+				const m = String(e && (e.name === 'TimeoutError' ? 'aeg' : e.message) || '');
+				pohjus += `${p.id}:${/liiga suur/.test(m) ? 'suur' : m === 'aeg' || /abort|timeout/i.test(m) ? 'aeg' : 'viga'} `;
 			}
 		}
-		if (!k) return ajutiseltMaas ? ajutine() : puudub();
+		if (!k) return ajutiseltMaas ? ajutine(pohjus.trim().slice(0, 120)) : puudub();
 		malu.delete(slug);
 		malu.set(slug, k);
 		while (malu.size > MAX_MALUS) malu.delete(malu.keys().next().value);
