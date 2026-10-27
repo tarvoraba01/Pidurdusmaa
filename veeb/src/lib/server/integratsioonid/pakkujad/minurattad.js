@@ -95,8 +95,10 @@ export default looVoopakkuja({
 	nimi: 'minurattad.ee',
 	aadress: 'https://minurattad.ee/feeds/GoogleMerchantCenter.xml',
 	env: ['PAKKUJA_MINURATTAD_URL'],
-	/* voog + tootepildid (uute rehvide pildid on enamasti rehvid.com-i serveris) */
-	hostid: ['minurattad.ee', 'www.minurattad.ee', 'rehvid.com', 'www.rehvid.com'],
+	/* voog + tootepildid: uute rehvide pildid tulevad mitmest serverist (loetud voost 27.10:
+	   cdn.tavasriepas.lv 28 584, www.tyreorder.com 15 516, shop.minurattad.ee 6951, rehvid.com 1804,
+	   partner.rehvivahetus.ee 1754, pim.erimell.ee 605). Ainult GET pildile, /api/pilt kontrollib tüüpi. */
+	hostid: ['minurattad.ee', 'www.minurattad.ee', 'shop.minurattad.ee', 'rehvid.com', 'www.rehvid.com', 'cdn.tavasriepas.lv', 'www.tyreorder.com', 'partner.rehvivahetus.ee', 'pim.erimell.ee'],
 	poeHostid: ['minurattad.ee', 'www.minurattad.ee'],
 	element: 'item',
 	teisenda
