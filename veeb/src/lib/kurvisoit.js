@@ -10,7 +10,12 @@
  *  - pidurdades kandub koormus esisillale; ABS hoiab esirattad haarde piiril, tagasild
  *    pidurdab ~28 % (EBD);
  *  - juht hoiab rooli nii, et püsida oma sõiduraja keskel (vaatab ~1 s ette), aga ei
- *    oska libisemist eriliselt päästa; ESP-d ei ole.
+ *    oska libisemist eriliselt päästa;
+ *  - ESP (Tarvo 27.10: auto ajas end ilusti sirgu, aga keeras lõpuks väikesel kiirusel ikka
+ *    kraavi — ESP-ga autol see nii ei lähe): uuemal autol (ABS MODERN/LATEST, ABS sees) hoiab
+ *    ESP üksiku ratta pidurdamisega auto pöörlemist juhi rooli järgi ega lase tagaosal
+ *    välja libiseda; haaret juurde ei tee, nii et liiga kiiresti sõites läheb auto ikka
+ *    kurvist välja (otse), aga ringi ei keera. Vanemal autol ja ABS-ita ESP-d ei ole.
  *
  * Tee: sirge, siis paremkurv raadiusega R (90°), siis jälle sirge. Kaks 3,5 m sõidurada:
  * sinu rada paremal, vastassuunarada vasakul (kurvi välisküljel).
@@ -77,6 +82,8 @@ export function kurviSoit(P, o) {
 	const a = Lw * (1 - f0), b = Lw * f0; // raskuskeskmest esi- ja tagasillani
 	const Iz = m * a * b;
 	const abs = o.abs !== false;
+	const esp = abs && o.esp !== false && (veh.absClass === 'MODERN' || veh.absClass === 'LATEST');
+	const RAID = 1.55; // rööbe, m (ESP pidurdab ühte ratast: jõu õlg pool rööpest)
 	const tBuild = P.CAL.brakeBuildup[abs ? veh.absClass : 'NONE'] ?? 0.2;
 	/* lukus ratas libiseb: haare on väiksem (mootori kalibratsioon: ABS-ita ~0,74 vs ABS-iga ~0,94
 	   haardest) ja jõud on alati libisemisele vastu — rool ei mõju */
@@ -120,6 +127,7 @@ export function kurviSoit(P, o) {
 		return [(-F * u) / sp, (-F * w) / sp, 1];
 	}
 	let lukkFKmh = null, lukkRKmh = null;
+	let espYle = false, espMax = 0;
 
 	/* algus: 30 m enne kurvi, otse ja ühtlase kiirusega; takistust näed kurvi sees */
 	const s0 = -Math.min(35, Math.max(18, v0 * 1.4));
@@ -186,7 +194,8 @@ export function kurviSoit(P, o) {
 		const lukkR = pidurdab && !abs && ramp * PAANIKA * aPidur * 0.28 * 0.5 * m > muR * NR;
 		if (lukkR) [FxR, FyR, useR] = lukus(uR, wR, NR, muR);
 		else {
-			const ebd = pidurdab ? Math.min(1.2, Math.atanh(Math.min(0.85, (kR * fxF) / (muR * NR)))) : 0;
+			/* ESP sekkub ülejuhitavusele: tagasilla pidurdus maha, et tagarattad hoiaksid külge */
+			const ebd = pidurdab && !espYle ? Math.min(1.2, Math.atanh(Math.min(0.85, (kR * fxF) / (muR * NR)))) : 0;
 			const sxR = abs ? (sy) => Math.min(ebd, Math.sqrt(Math.max(0, SXR * SXR - sy * sy))) : () => ebd;
 			[FxR, FyR, useR] = sild(uR, wR, NR, muR, CYR, sxR);
 		}
@@ -196,12 +205,36 @@ export function kurviSoit(P, o) {
 		const FxF = FxFw * cd - FyFw * sd, FyF = FxFw * sd + FyFw * cd;
 		const drag = (0.5 * 1.2 * (veh.cdaM2 || 0.7) * v * vx) + (P.CAL.crr || 0.012) * m * g * Math.sign(vx) * Math.min(1, Math.abs(vx));
 		const FxT = mT > 0 && pidurdab && haagisPidur && vx > 0.05 ? -ramp * Math.min(mu(1, v) * g * (P.CAL.trailerTyreEff || 0.85), (P.CAL.trailerBrakeG || 0.5) * g) * mT : 0;
-		const Fx = FxF + FxR - drag + FxT, Fy = FyF + FyR;
+		let Fx = FxF + FxR - drag + FxT, Fy = FyF + FyR;
+		/* ESP: võrdleb auto pöörlemist sellega, mida juht roolib (piiratud haardega), ja kui auto
+		   pöörleb rohkem või libiseb külg ees, pidurdab välimist esiratast → vastupidine pöördemoment */
+		let Mz = 0;
+		espYle = false;
+		if (esp && v > 1.5) {
+			const rSoov0 = (v * delta) / (Lw + KUS * v * v);
+			const rPiir = (0.9 * Math.min(muF, muR) * g) / Math.max(v, 1);
+			const rSoov = Math.max(-rPiir, Math.min(rPiir, rSoov0));
+			const betaV = Math.atan2(vy, Math.max(Math.abs(vx), 0.5));
+			const viga = r - rSoov;
+			const yle = (Math.abs(r) > Math.abs(rSoov) + 0.02 && Math.sign(viga) === Math.sign(r)) || Math.abs(betaV) > 0.05;
+			if (yle) {
+				espYle = true;
+				/* moment tuleb ühe esiratta pidurdamisest: jõud ≤ selle ratta haare (pool esisilda) */
+				const FbMax = 0.5 * muF * NF;
+				Mz = Math.max(-FbMax * RAID / 2, Math.min(FbMax * RAID / 2, -Iz * (6 * viga + 3 * betaV)));
+				const osa = Math.abs(Mz) / (FbMax * RAID / 2);
+				espMax = Math.max(espMax, osa);
+				/* ESP ei tee haaret juurde: pidurdatav ratas kaotab külghaaret (esisild kokku kuni pool),
+				   ja kui juht ise ei pidurda, aeglustab see autot */
+				Fy -= FyF * 0.5 * osa * osa;
+				if (!pidurdab) Fx -= osa * FbMax;
+			}
+		}
 		const axN = Fx / (m + mT);
 		ax = 0.8 * ax + 0.2 * axN;
 		vx += (axN + vy * r) * dt;
 		vy += (Fy / m - vx * r) * dt;
-		r += ((a * FyF - b * FyR) / Iz) * dt;
+		r += ((a * FyF - b * FyR + Mz) / Iz) * dt;
 		x += (vx * Math.cos(psi) - vy * Math.sin(psi)) * dt;
 		y += (vx * Math.sin(psi) + vy * Math.cos(psi)) * dt;
 		psi += r * dt;
@@ -269,6 +302,8 @@ export function kurviSoit(P, o) {
 		abs,
 		lukkFKmh,
 		lukkRKmh,
+		esp,
+		espMax,
 		/* piiril: auto jõuab keskjoonele lähemale kui 40 cm, libiseb külg ees üle 6° või tagarattad on haarde piiril */
 		tulemus: teelt ? (ringi ? 'ringi_teelt' : 'teelt') : ringi ? 'ringi' : vastu ? 'vastu' : maxD > 0.45 || maxBeta > 0.1 || (abs && maxUseR > 0.95) ? 'piiril' : 'ok'
 	};
