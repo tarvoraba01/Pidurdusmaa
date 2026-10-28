@@ -26,6 +26,9 @@ const g = 9.81;
 export const RADA = 3.5; // sõiduraja laius, m
 export const KURV_NURK = Math.PI / 2;
 const POOL_AUTO = 0.9; // auto pool laiust, m
+/* teepeenar: kõva serv asfaldi taga (talvel lumevalli all), kuhu auto võib kalduda ja tagasi tulla.
+   Teelt väljas = auto kesk on peenrast kaugemal ehk pool autot kraavis (Tarvo 28.10) */
+export const PEENAR = 1.5;
 
 /** Tee geomeetria: s (m mööda sinu raja keskjoont) → punkt ja suund */
 export function tee(R) {
@@ -255,7 +258,7 @@ export function kurviSoit(P, o) {
 				/* auto vasak külg ületab keskjoone */
 				vastuKmh = v * 3.6; vastuS = s;
 			}
-			if (teeltKmh === null && (d > RADA * 1.5 || d < -RADA / 2)) {
+			if (teeltKmh === null && (d > RADA * 1.5 + PEENAR || d < -RADA / 2 - PEENAR)) {
 				teeltKmh = v * 3.6; teeltS = s; teeltPool = d > 0 ? 'valja' : 'sisse';
 			}
 		}
@@ -263,9 +266,12 @@ export function kurviSoit(P, o) {
 			rada.push([t, x, y, psi, v * 3.6, useF, useR, pidurdab ? 2 : tNae !== null ? 1 : 0, d, (lukkF ? 1 : 0) + (lukkR ? 2 : 0)]);
 			jargmine += rec;
 		}
-		/* lõpp: seisab, või on teelt üle 2 m väljas */
+		/* lõpp: seisab, või läks teelt välja (auto kesk peenrast väljas, pool autot kraavis, lumevallis
+		   või postides). Peenrale kaldumine ja tagasi tulek ei ole avarii. Simulatsioon lõpeb seal:
+		   päris elus seal on õnnetus ja auto ei sõida teele tagasi (Tarvo 28.10: auto „tuli tagasi“ ja
+		   seisis lõpuks oma rajal, aga kaart näitas avariid seisukohas) */
 		if (pidurdab && v < 0.3) { peatus = true; break; }
-		if (teeltKmh !== null && (d > RADA * 1.5 + 2.5 || d < -RADA / 2 - 2.5)) break;
+		if (teeltKmh !== null) break;
 	}
 	sLopp = s;
 	if (rada) rada.push([t, x, y, psi, Math.hypot(vx, vy) * 3.6, 0, 0, 3, d]);

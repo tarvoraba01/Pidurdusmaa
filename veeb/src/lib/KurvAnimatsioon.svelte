@@ -3,7 +3,7 @@
 	   Kõik joonised meetrites (viewBox = meetrid), kaamera sõidab auto järel ja näitab
 	   lõpus kogu teekonda. Tee välimus sõltub teeoludest (kuiv, märg, lumi, jää). */
 	import { onMount, untrack } from 'svelte';
-	import { RADA } from '$lib/kurvisoit.js';
+	import { RADA, PEENAR } from '$lib/kurvisoit.js';
 
 	let { sim, pind = 'kuiv', auto = 'sedaan', haagis = false, t, LOC = 'et-EE' } = $props();
 
@@ -71,7 +71,7 @@
 			const [s] = T.asend(q[1], q[2]);
 			if (q[7] >= 1 && s > sMax) sMax = s;
 		}
-		for (let s = sNae - 15; s <= sMax + 15; s += 4) for (const d of [-2.5, RADA * 1.5 + 1]) { const p = nihe(T.punkt(s), d); lisa(p[0], p[1]); }
+		for (let s = sNae - 15; s <= sMax + 15; s += 4) for (const d of [-RADA / 2 - PEENAR - 0.5, RADA * 1.5 + PEENAR + 0.5]) { const p = nihe(T.punkt(s), d); lisa(p[0], p[1]); }
 		const pad = 6;
 		x0 -= pad; x1 += pad; y0 -= pad; y1 += pad;
 		/* ülal on nupud ja all mõõtkava pildi peal: jäta neile ruumi, et teekond nende alla ei jääks */
@@ -85,7 +85,7 @@
 		const postid = [], puud = [];
 		const sA = Math.min(-40, sNae - 60), sB = sMax + 260;
 		for (let s = Math.ceil(sA / 25) * 25; s <= sB; s += 25) {
-			postid.push(nihe(T.punkt(s), -RADA / 2 - 0.9), nihe(T.punkt(s), RADA * 1.5 + 0.9));
+			postid.push(nihe(T.punkt(s), -RADA / 2 - PEENAR - 0.2), nihe(T.punkt(s), RADA * 1.5 + PEENAR + 0.2));
 		}
 		for (let i = 0, s = sA; s < sB; i++, s += 5 + rnd(i) * 7) {
 			const dV = RADA * 1.5 + 7 + rnd(i + 99) * 14;
@@ -312,8 +312,8 @@
 			<rect x={cam.x - cam.w} y={cam.y - cam.w} width={cam.w * 2} height={cam.w * 2} fill={V.maa} />
 			{#if talv && cam.w < 160}<rect x={cam.x - cam.w} y={cam.y - cam.w} width={cam.w * 2} height={cam.w * 2} fill="url(#ka-lumi)" />{/if}
 			<!-- teepeenar / lumevall -->
-			<path d={geo.tee} class="ka-t" stroke={V.serv} stroke-width={RADA * 2 + (talv ? 3.2 : 1.8)} />
-			{#if talv}<path d={geo.tee} class="ka-t" stroke="#fff" stroke-opacity=".7" stroke-width={RADA * 2 + 1.2} />{/if}
+			<path d={geo.tee} class="ka-t" stroke={V.serv} stroke-width={RADA * 2 + PEENAR * 2} />
+			{#if talv}<path d={geo.tee} class="ka-t" stroke="#fff" stroke-opacity=".7" stroke-width={RADA * 2 + PEENAR * 2 - 0.6} />{/if}
 			<path d={geo.tee} class="ka-t" stroke={V.tee} stroke-width={RADA * 2} />
 			<!-- teeolud -->
 			{#if pind === 'marg'}
