@@ -290,6 +290,7 @@ export default {
 " · ilma run-flatita": " · without run-flat",
 " · soodsaim hind enne": " · cheapest first",
 " · järjestatud sinu valikute järgi": " · sorted by your choices",
+"Arvestan: ": "Weighing: ",
 " · järjestatud märghaardumise klassi järgi": " · sorted by wet grip class",
 "<br><small class=\"note\">Poodide hindu veel ei ole — hinda järjestuses praegu ei arvestata.</small>": "<br><small class=\"note\">No shop prices yet — price isn't currently taken into account in the ranking.</small>",
 "> Näita ka rajarehve ja muid erirehve (": "> Also show track tyres and other special tyres (",

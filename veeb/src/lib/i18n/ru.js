@@ -307,6 +307,7 @@ export default {
 " · ilma run-flatita": " · без run-flat",
 " · soodsaim hind enne": " · сначала самые дешёвые",
 " · järjestatud sinu valikute järgi": " · отсортировано по вашему выбору",
+"Arvestan: ": "Учитываю: ",
 " · järjestatud märghaardumise klassi järgi": " · отсортировано по классу сцепления на мокрой дороге",
 "<br><small class=\"note\">Poodide hindu veel ei ole — hinda järjestuses praegu ei arvestata.</small>": "<br><small class=\"note\">Цен магазинов пока нет — цена в сортировке сейчас не учитывается.</small>",
 "> Näita ka rajarehve ja muid erirehve (": "> Показать также трековые и другие специальные шины (",

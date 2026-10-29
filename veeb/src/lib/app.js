@@ -2926,7 +2926,7 @@ import UNIVERSAALID from './universaalid.json';
         if (head) head.innerHTML = '<b>' + list.length + '</b> ' + (list.length === 1 ? SEASON[S.season].yks : SEASON[S.season].osa) + _t(' mõõdus <b>') + esc(pretty(S.size)) + '</b>' +
           (S.rft ? (S.rft === 'only' ? _t(' · ainult run-flat') : _t(' · ilma run-flatita')) : '') +
           (S.season === 'naast' ? ' ' + tip(_t('Naastrehvidel EL-i märgist ei ole. Nimekirjas on testitud naastrehvid; pidurdusmaa on arvutatud sinu autoga testides mõõdetud haardest. Kas rehv selles mõõdus müügil on, näed hinnast.')) : '') +
-          (sortBy === 'price' && hOn ? _t(' · soodsaim hind enne') : valis && ws.length ? _t(' · järjestatud sinu valikute järgi') : mode === 'valik' ? ' · ' + HOOAEG_TXT[S.season] : _t(' · järjestatud märghaardumise klassi järgi')) +
+          (sortBy === 'price' && hOn ? _t(' · soodsaim hind enne') : valis && ws.length ? _t(' · järjestatud sinu valikute järgi') + '<br><small class="note">' + _t('Arvestan: ') + ws.slice().sort(function (a, b) { return w[b] - w[a]; }).map(function (k) { return esc(PROP[k].n.toLowerCase()) + ' ' + w[k] + '%'; }).join(', ') + '</small>' : mode === 'valik' ? ' · ' + HOOAEG_TXT[S.season] : _t(' · järjestatud märghaardumise klassi järgi')) +
           (hindPuudu ? _t('<br><small class="note">Poodide hindu veel ei ole — hinda järjestuses praegu ei arvestata.</small>') : '') +
           (eriN ? _t('<label class="eri-t"><input type="checkbox" data-eri') + (S.eri ? ' checked' : '') + _t('> Näita ka rajarehve ja muid erirehve (') + eriN + ') ' + tip(ERI_T) + '</label>' : '');
         if (!list.length) {
