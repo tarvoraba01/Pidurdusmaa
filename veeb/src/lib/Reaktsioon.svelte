@@ -25,7 +25,8 @@
 		[t('Sõber'), t('Kus sa oled?')]
 	];
 	let sonum = $state(null);
-	let sonumTaimer = 0;
+	let sonumTaimer = []; /* mitu sõnumit ühe sõidu jooksul */
+	const puhastaSonumid = () => { sonumTaimer.forEach(clearTimeout); sonumTaimer = []; };
 
 	const KATSEID = katseid;
 	const NAHT = [
@@ -105,7 +106,7 @@
 	});
 	onDestroy(() => {
 		if (typeof window === 'undefined') return;
-		clearTimeout(taimer); clearTimeout(sonumTaimer); cancelAnimationFrame(raf); window.removeEventListener('resize', suurus);
+		clearTimeout(taimer); puhastaSonumid(); cancelAnimationFrame(raf); window.removeEventListener('resize', suurus);
 		document.removeEventListener('visibilitychange', kaivita); if (vaatleja) vaatleja.disconnect();
 		document.removeEventListener('fullscreenchange', fsMuutus); document.removeEventListener('webkitfullscreenchange', fsMuutus);
 		try { document.documentElement.style.overflow = ''; } catch {}
@@ -268,7 +269,7 @@
 		J = jalg(kiirus);
 		M = muster < 8 ? jalg(kiirus, muster) : J;
 		tVajutus = null;
-		const viide = 2000 + Math.random() * 3500, v0 = kiirus / 3.6;
+		const viide = 2000 + Math.random() * 5000, v0 = kiirus / 3.6;
 		zOoteAlgus = z; tOoteAlgus = performance.now();
 		if (reziim === 'pime') {
 			/* jalakäija ja tema varjaja (puu / pargitud auto) ette */
@@ -285,10 +286,23 @@
 			lisaVarjaja(tee, nV, jkPool);
 		} else zOht = 0;
 		olek = 'oota';
-		clearTimeout(sonumTaimer); sonum = null;
-		if (telefon) { /* Tarvo 29.10: sõnum ka tavasimulaatoris ja jalakäija režiimis */
-			const m = SONUMID[Math.floor(Math.random() * SONUMID.length)];
-			sonumTaimer = setTimeout(() => { if (olek === 'oota') sonum = m; }, Math.max(300, viide - 400 - Math.random() * 600));
+		puhastaSonumid(); sonum = null;
+		if (telefon) {
+			/* Tarvo 29.10: sõnum ka tavasimulaatoris ja jalakäija režiimis; rohkem juhuslikkust:
+			   vahel sõnumit pole, vahel tuleb see varem ja oht alles hiljem, vahel kaks sõnumit järjest.
+			   Sõnum kaob ~3,5 s pärast nagu päris teavitus. */
+			const valik = [...SONUMID].sort(() => Math.random() - 0.5);
+			const naita = (m, kell) => {
+				sonumTaimer.push(setTimeout(() => { if (olek === 'oota') sonum = m; }, Math.max(300, kell)));
+				sonumTaimer.push(setTimeout(() => { if (olek === 'oota' && sonum === m) sonum = null; }, Math.max(300, kell) + 3500));
+			};
+			const vara = () => viide * (0.15 + Math.random() * 0.35);
+			const enne = () => viide - 300 - Math.random() * 900;
+			const r = Math.random();
+			if (r < 0.15) { /* sõnumit pole */ }
+			else if (r < 0.4) naita(valik[0], vara());
+			else if (r < 0.75) naita(valik[0], enne());
+			else { const k1 = vara(); naita(valik[0], k1); naita(valik[1], Math.max(k1 + 1200, enne())); }
 		}
 		taimer = setTimeout(() => {
 			t0 = performance.now(); zBase = z; tVajutus = null;
@@ -298,7 +312,7 @@
 		}, viide);
 	}
 	function lopeta(r, res) {
-		clearTimeout(sonumTaimer); sonum = null;
+		puhastaSonumid(); sonum = null;
 		const rec = { r, ...res, vajutamata: tVajutus == null };
 		tulemused = [...tulemused, rec];
 		if (!rec.vajutamata) ajad = [...ajad, Math.round(r * 1000)];
