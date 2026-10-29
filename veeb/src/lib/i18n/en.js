@@ -756,6 +756,8 @@ export default {
 "Kasutatud": "Used",
 "Näita ka kasutatud rehve": "Show used tyres too",
 "Kasutatud ka": "Used too",
+"Kas märkad jalakäijat pimedas?": "Will you spot a pedestrian in the dark?",
+"Talvel on pime vara ja jalakäija tuleb teele ootamatult. Vajuta kohe, kui teda näed.": "In winter it gets dark early and a pedestrian steps onto the road unexpectedly. Press as soon as you see them.",
 "keri": "scroll",
 "Osta": "Buy",
 "Arvuta oma autoga": "Calculate for your car",

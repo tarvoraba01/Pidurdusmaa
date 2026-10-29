@@ -17,7 +17,7 @@
 	const t = useT();
 	const keel = useLang();
 	/* /talv/ kampaanialeht: algus talvel ja telefonisõnum, mis tuleb ekraanile vahetult enne pidurdust */
-	let { algIlm = null, telefon = false, katseid = 3, alaLink = null } = $props(); /* /talv/: üks proov; alaLink = { tekst, url } kaardi alumine link (LKF) */
+	let { algIlm = null, telefon = true, katseid = 3, alaLink = null, algReziim = null, lukus = false } = $props(); /* algReziim + lukus: /talv/ lehel iga mäng ühes olukorras, ilma vahekaartideta */ /* /talv/: üks proov; alaLink = { tekst, url } kaardi alumine link (LKF) */
 	const SONUMID = [
 		[t('Ema'), t('Kas jõuad õhtuks koju?')],
 		[t('Pakiautomaat'), t('Sinu pakk on kätte toimetatud')],
@@ -41,8 +41,8 @@
 
 	let P = null, core = null;
 	let veh = $state(null);
-	let reziim = $state('tuled'); /* tuled | pime */
-	let kiirus = $state(90);
+	let reziim = $state(algReziim || 'tuled'); /* tuled | pime */
+	let kiirus = $state(algReziim === 'pime' ? 50 : 90);
 	let vahe = $state(1);
 	let riie = $state('tume');
 	let ilm = $state(algIlm || 'vihm');
@@ -69,7 +69,7 @@
 			const r = +q.get('r');
 			if (r >= 100 && r <= 3000) sobra = Math.round(r);
 			/* simulaatorilt tulles (?m=pime | ?m=tuled) õige režiim */
-			if (q.get('m') === 'pime' || q.get('m') === 'tuled') { reziim = q.get('m'); kiirus = reziim === 'pime' ? 50 : 90; }
+			if (!lukus && (q.get('m') === 'pime' || q.get('m') === 'tuled')) { reziim = q.get('m'); kiirus = reziim === 'pime' ? 50 : 90; }
 			/* koolitusest: olukord aadressis (?kiirus=70&ilm=vihm&riie=tume&vahe=1&mm=3) */
 			const kq = +q.get('kiirus');
 			if (kq >= 30 && kq <= 150 && kq % 10 === 0) kiirus = kq;
@@ -286,7 +286,7 @@
 		} else zOht = 0;
 		olek = 'oota';
 		clearTimeout(sonumTaimer); sonum = null;
-		if (telefon && reziim === 'tuled') {
+		if (telefon) { /* Tarvo 29.10: sõnum ka tavasimulaatoris ja jalakäija režiimis */
 			const m = SONUMID[Math.floor(Math.random() * SONUMID.length)];
 			sonumTaimer = setTimeout(() => { if (olek === 'oota') sonum = m; }, Math.max(300, viide - 400 - Math.random() * 600));
 		}
@@ -442,10 +442,12 @@
 <svelte:window onkeydown={klahv} />
 
 <div class="rk">
+	{#if !lukus}
 	<div class="rk-rezh" role="tablist" aria-label={t('Olukord')}>
 		<button type="button" role="tab" aria-selected={reziim === 'tuled'} disabled={kaib} onclick={() => vaheta('tuled')}>{t('Eesolev auto pidurdab')}</button>
 		<button type="button" role="tab" aria-selected={reziim === 'pime'} disabled={kaib} onclick={() => vaheta('pime')}>{t('Jalakäija pimedas')}</button>
 	</div>
+	{/if}
 
 	<div class="rk-seaded">
 		<label class="rk-kiirus">

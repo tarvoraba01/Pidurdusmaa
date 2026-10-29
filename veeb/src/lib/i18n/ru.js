@@ -895,6 +895,8 @@ export default {
 "Kasutatud": "Б/у",
 "Näita ka kasutatud rehve": "Показать и б/у шины",
 "Kasutatud ka": "И б/у",
+"Kas märkad jalakäijat pimedas?": "Заметишь ли ты пешехода в темноте?",
+"Talvel on pime vara ja jalakäija tuleb teele ootamatult. Vajuta kohe, kui teda näed.": "Зимой темнеет рано, и пешеход выходит на дорогу неожиданно. Нажми сразу, как только увидишь его.",
 "keri": "листайте",
 "Osta": "Купить",
 "Arvuta oma autoga": "Рассчитать для своей машины",
