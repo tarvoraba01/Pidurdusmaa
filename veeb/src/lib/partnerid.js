@@ -41,6 +41,9 @@ export const PARTNERID = [
 	/* logo puudub veel (intercars24.ee on Cloudflare'i taga) — ruudus on nimi; lisa logo: static/img/partnerid/intercars.svg ja logo: 'intercars.svg' */
 	{ nimi: 'Inter Cars', link: utm('https://www.intercars24.ee/'), logo: 'intercars.png', logoMaxH: 50, /* PNG on 142×50 — suurem oleks udune; SVG puudub */
 		kirjeldus: 'Autovaruosad ja rehvid üle Eesti.', ryhm: 'pood' },
+	/* logo andis Margus Meos 29.10.2026 (logo2333.bmp, siit ainult EXTENSA sõnamärk, valge taust läbipaistvaks) */
+	{ nimi: 'Extensa', link: utm('https://www.extensa.ee/'), logo: 'extensa.png',
+		kirjeldus: 'Autovaruosad, rehvid ja lisatarvikud Tartus.', ryhm: 'pood' },
 	{ nimi: 'Dignicy', link: utm('https://dignicy.ee/'), logo: 'dignicy.svg',
 		kirjeldus: 'Veebilehed, e-poed ja tehisaru lahendused. Meie arenduspartner.', ryhm: 'muu' },
 	/* videote eestikeelne hääl; tasuta, mitte partnerlink (TartuNLP luba 12.10.2026) */
