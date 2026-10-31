@@ -634,6 +634,8 @@ export default {
 "Pidurdusmaa.ee (Rabarvo OÜ) võib saada vahendustasu ostudelt, mis tehakse lehe poelinkide kaudu. Poelingid on otsingumootoritele tähistatud (rel=\"sponsored\"). Poodi minnes võib pood või partnervõrgustik salvestada sinu brauserisse küpsise, et ost lehega seostada; Pidurdusmaa.ee ise sinu ostu sisu ega isikuandmeid ei näe. Vt ka <a href=\"/kasutustingimused/\">kasutustingimused</a> ja <a href=\"/privaatsus/\">privaatsus</a>.": "Pidurdusmaa.ee (Rabarvo OÜ) may earn a commission on purchases made through shop links on the site. Shop links are marked for search engines (rel=\"sponsored\"). When you visit a shop, the shop or a partner network may store a cookie in your browser to link the purchase to the site; Pidurdusmaa.ee itself does not see what you buy or your personal data. See also the <a href=\"/kasutustingimused/\">terms of use</a> and <a href=\"/privaatsus/\">privacy</a>.",
 "Rehvid, veljed ja rehvivahetus üle 30 aasta.": "Tyres, wheels and tyre fitting for over 30 years.",
 "Rehvipood, rehvivahetus ja autoremont Pärnus.": "Tyre shop, tyre fitting and car repair in Pärnu.",
+"Uued ja kasutatud rehvid ja veljed.": "New and used tyres and wheels.",
+"Autovaruosad, rehvid ja lisatarvikud Tartus.": "Car parts, tyres and accessories in Tartu.",
 "Autovaruosad ja rehvid üle Eesti.": "Car parts and tyres across Estonia.",
 "Veebilehed, e-poed ja tehisaru lahendused. Meie arenduspartner.": "Websites, online shops and AI solutions. Our development partner.",
 "Tartu Ülikooli eestikeelne kõnesüntees. Meie videote hääl.": "University of Tartu Estonian speech synthesis. The voice of our videos.",

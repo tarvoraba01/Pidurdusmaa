@@ -44,6 +44,9 @@ export const PARTNERID = [
 	/* logo andis Margus Meos 29.10.2026 (logo2333.bmp, siit ainult EXTENSA sõnamärk, valge taust läbipaistvaks) */
 	{ nimi: 'Extensa', link: utm('https://www.extensa.ee/'), logo: 'extensa.png',
 		kirjeldus: 'Autovaruosad, rehvid ja lisatarvikud Tartus.', ryhm: 'pood' },
+	/* logo andis minurattad.ee 31.10.2026 (tume taust läbipaistvaks, valge kiri tumedaks, alarida ära) */
+	{ nimi: 'Minurattad.ee', link: utm('https://minurattad.ee/'), logo: 'minurattad.png',
+		kirjeldus: 'Uued ja kasutatud rehvid ja veljed.', ryhm: 'pood' },
 	{ nimi: 'Dignicy', link: utm('https://dignicy.ee/'), logo: 'dignicy.svg',
 		kirjeldus: 'Veebilehed, e-poed ja tehisaru lahendused. Meie arenduspartner.', ryhm: 'muu' },
 	/* videote eestikeelne hääl; tasuta, mitte partnerlink (TartuNLP luba 12.10.2026) */
